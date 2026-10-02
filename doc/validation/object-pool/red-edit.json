@@ -1,0 +1,16 @@
+{
+  "total": 6,
+  "passed": 1,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsDestroyedPrefab:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity(0):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity(-1):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNullPrefab:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.InstantiatesPrefabAssetWithoutChangingIt:   Expected: True\r\n  But was:  False\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorStartsEmptyAndPreservesSource"
+  ]
+}

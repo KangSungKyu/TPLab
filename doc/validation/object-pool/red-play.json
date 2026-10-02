@@ -1,0 +1,26 @@
+{
+  "total": 17,
+  "passed": 0,
+  "failed": 17,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.PrefabPoolTests.ActiveSourceIsConfiguredBeforeCloneOnEnable:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.CapacityIncludesRentedInstances:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.DestroyedParentRejectsOperationsButStillAllowsDisposal:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.DisposeDestroysRentedAndInactiveInstancesAndIsIdempotent:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.DisposedPoolRejectsRentAndReturn:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.MutatingReentryFromRentHookIsRejected:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.MutatingReentryFromReturnHookIsRejected:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.OnEnableCannotReenterThePool:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.RentHookDestroyingInstanceIsReportedAndCapacityRecovered:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.RentHookFailureDiscardsInstanceAndAllowsRetry:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnedInstanceIsReusedWithSourceTransform:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnHookDestroyingInstanceIsReportedAndCapacityRecovered:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnHookFailureDiscardsInstanceAndAllowsRetry:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnHookResetsConsumerStateBeforeReuse:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnRejectsAnotherPoolsInstanceWithoutChangingIt:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnRejectsDuplicateWithoutAddingAnotherSlot:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnRejectsNull:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n"
+  ],
+  "passes": []
+}

@@ -11,7 +11,7 @@ GitHub 저장소는 `KangSungKyu/TPLab`이며, 로컬 Unity 프로젝트 폴더�
 - DataTableManager
 - GameSceneManager
 
-코어 시스템은 설계 검토 단계다. 게임별 코드·데이터·UI를 코어에 포함하지 않는다.
+첫 단계인 로컬 [PrefabPool](doc/OBJECT_POOL.md)을 구현했다. 나머지 시스템은 순서대로 계약·테스트·구현을 진행한다. 게임별 코드·데이터·UI를 코어에 포함하지 않는다.
 
 ## 개발 환경
 
@@ -34,3 +34,5 @@ UniTask·Unity CLI Connector는 고정된 UPM Git 의존성으로 복원한다. 
 Unity Editor에서 프로젝트를 연 뒤 `unity-cli --project <프로젝트 절대 경로> status`로 연결을 확인한다.
 `Library`, `Temp`, `Logs`, `UserSettings`와 IDE 생성 파일은 버전 관리에서 제외한다.
 기능 구현 검증은 EditMode·PlayMode·Console·Player 빌드의 실행 범위를 구분해 기록한다.
+
+현재 테스트는 `unity-cli --project <프로젝트 절대 경로> test --mode EditMode`와 `test --mode PlayMode`로 실행한다. 두 실행은 같은 Editor에서 순차적으로 수행한다.

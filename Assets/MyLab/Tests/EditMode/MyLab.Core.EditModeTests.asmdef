@@ -1,0 +1,7 @@
+{
+    "name": "MyLab.Core.EditModeTests",
+    "rootNamespace": "MyLab.Core.Tests",
+    "references": ["MyLab.Core"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

@@ -1,6 +1,6 @@
 # 공용 코어 1차 검토안
 
-작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이며, 아래 구현·이식 방향은 검토 제안이다. 다섯 시스템의 세부 API와 채택 여부는 아직 확정하지 않았다.
+작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool의 첫 로컬 구현 계약은 [OBJECT_POOL.md](OBJECT_POOL.md)로 확정했고, 나머지 시스템의 구현·이식 방향은 검토 제안이다.
 
 ## 초기 확인 기준 (의존성 반영 전)
 
@@ -51,7 +51,7 @@
 5. GameSceneManager에 명시적인 사전 준비 작업을 연결하고 실제 씬 수명을 검증한다. 엔딩·게임 세션·로딩 화면은 소비 프로젝트가 소유한다.
 6. 별도 소비 프로젝트에 가져와 컴파일·최소 사용 예제를 실행한다. Cashier에 적용하는 변경은 별도 요청 범위에서 진행한다.
 
-여러 프로젝트에 배포할 때는 UPM 패키지를 권장 후보로 둔다. package ID·배포 방식·namespace 공개 범위·assembly 경계·버전 호환 정책은 첫 구현 전에 정한다. 현재는 패키지 폴더·asmdef·adapter를 생성하지 않았다. URP·Input System·uGUI·DOTween 등 특정 프로젝트 도구를 코어의 필수 의존성으로 확장하지 않는다.
+첫 로컬 구현은 Assets/MyLab/Core와 .meta를 함께 가져오는 방식, MyLab.Core assembly와 MyLab.Core.Pooling namespace, Unity 6000.3 검증 기준을 사용한다. EditMode·PlayMode assembly를 runtime과 분리한다. 여러 프로젝트 배포의 UPM package ID·버전 호환 정책은 소비 프로젝트 검증 단계에서 결정한다. URP·Input System·uGUI·DOTween 등 특정 프로젝트 도구를 코어의 필수 의존성으로 확장하지 않는다.
 
 ## 세션 역할 보완
 
@@ -84,3 +84,9 @@
 - .gitignore로 Unity·IDE 생성물과 로컬 인증 파일을 제외한다. CsvHelper.dll은 버전 관리에 포함하고 Unity .meta를 보존한다. .gitattributes는 텍스트 줄바꿈과 DLL binary 취급을 지정한다.
 - Git author는 현재 설정된 KangSungKyu를 사용하며, 기존 Git 인증의 GitHub 계정도 KangSungKyu로 확인했다. [TPLab](https://github.com/KangSungKyu/TPLab)의 private 생성과 push/admin 권한을 확인했다. 원격 origin은 https://github.com/KangSungKyu/TPLab.git을 사용한다.
 - 초기 커밋 대상은 60개 파일이다. 생성물 제외·자산과 .meta 짝·GUID 중복을 검사했다. 새 문서·설정의 cached whitespace 검사는 통과했고, 전체 초기 diff에는 Unity 직렬화 원본 32개 파일의 기존 후행 공백 경고가 있다. YAML·meta의 내용을 정리하지 않고 원본을 보존했다.
+
+## 단계 진행
+
+1. 로컬 ObjectPool: PrefabPool 계약·구현과 EditMode/PlayMode 자동 검증 완료. Unity 기본 보관 기능을 활용하며 Cashier 코드·의존성은 복사하지 않았다. 검증 범위와 증거는 [OBJECT_POOL.md](OBJECT_POOL.md)를 따른다.
+2. 다음 작업: Singleton의 중복·씬/영속 수명·종료·반복 Play 계약과 실패 테스트를 먼저 정한다. 모든 manager의 필수 기반으로 확장하지 않는다.
+3. ResourceManager → DataTableManager → GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. 이번 로컬 풀 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.

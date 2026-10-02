@@ -1,0 +1,6 @@
+{
+    "name": "MyLab.Core.PlayModeTests",
+    "rootNamespace": "MyLab.Core.Tests",
+    "references": ["MyLab.Core"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

@@ -1,0 +1,16 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 7,
+  "passes": [
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsDestroyedPrefab",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity(0)",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity(-1)",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNullPrefab",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorStartsEmptyAndPreservesSource",
+    "MyLab.Core.Tests.PrefabPoolValidationTests.InstantiatesPrefabAssetWithoutChangingIt",
+    "AddressableAssets.DocExampleCode.TestStub.RequiredTest"
+  ],
+  "skipped": 0,
+  "total": 7
+}
