@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Linq;
+using MyLab.Core.Lifecycle;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -72,6 +74,8 @@ namespace MyLab.Core.Tests
                 var source = new GameObject("SingletonReloadOwner");
                 SceneManager.MoveGameObjectToScene(source, scene);
                 source.AddComponent<SingletonProbe>();
+                AddSceneRoot(scene, SceneRootMode.SceneOwned, "owned");
+                AddSceneRoot(scene, SceneRootMode.Singleton, "global");
                 string path = "Assets/MyLab/Tests/EditMode/SingletonReload-" + Guid.NewGuid().ToString("N") + ".unity";
                 SessionState.SetString(Key + "Path", path);
                 if (!EditorSceneManager.SaveScene(scene, path))
@@ -93,10 +97,22 @@ namespace MyLab.Core.Tests
             {
                 SingletonProbe.TotalInitializeCount = 0;
                 SingletonProbe.TotalShutdownCount = 0;
+                SceneRootInstallerProbe.Trace.Clear();
             }
             EditorSettings.enterPlayModeOptionsEnabled = true;
             EditorSettings.enterPlayModeOptions = Options[step / 2];
             EditorApplication.isPlaying = true;
+        }
+
+        private static void AddSceneRoot(Scene scene, SceneRootMode mode, string id)
+        {
+            var root = new GameObject("SingletonReloadRoot-" + id);
+            root.SetActive(false);
+            SceneManager.MoveGameObjectToScene(root, scene);
+            var installer = root.AddComponent<SceneRootInstallerProbe>();
+            installer.Id = id;
+            SceneRootSetup.Attach(root, mode, new[] { installer });
+            root.SetActive(true);
         }
 
         private static void BeginOnNextUpdate()
@@ -130,6 +146,16 @@ namespace MyLab.Core.Tests
                     Require(owner != null && owner.IsInitialized, "Owner was not initialized.");
                     Require(owner.InstanceDuringInitialize == null, "Owner was published before initialization completed.");
                     Require(SingletonProbe.TotalInitializeCount == expected, "Unexpected initialization count.");
+                    foreach (string id in new[] { "owned", "global" })
+                    {
+                        var rootObject = GameObject.Find("SingletonReloadRoot-" + id);
+                        var installer = rootObject.GetComponent<SceneRootInstallerProbe>();
+                        var root = id == "owned" ? (ISceneRoot)rootObject.GetComponent<SceneOwnedRoot>()
+                            : rootObject.GetComponent<SingletonSceneRoot>();
+                        Require(root.IsReady && ReferenceEquals(installer.InjectedRoot, root), "Scene root injection was not restored: " + id);
+                        Require(SceneRootInstallerProbe.Trace.Count(entry => entry == "install:" + id) == expected,
+                            "Unexpected root installation count: " + id);
+                    }
                     if (step == 8)
                     {
                         owner.SendMessage("OnApplicationQuit");
@@ -140,7 +166,8 @@ namespace MyLab.Core.Tests
                         UnityEngine.Object.Destroy(lateObject);
                     }
                     string line = step + ": " + options + ", totalInit=" + SingletonProbe.TotalInitializeCount
-                        + ", ownerInit=" + owner.InitializeCount + ", ownerId=" + owner.GetInstanceID();
+                        + ", ownerInit=" + owner.InitializeCount + ", ownerId=" + owner.GetInstanceID()
+                        + ", owned/globalInstall=" + expected + ", injected=true";
                     SessionState.SetString(Key + "Observations", SessionState.GetString(Key + "Observations", "") + line + "\n");
                 }
                 catch (Exception exception)
@@ -161,8 +188,16 @@ namespace MyLab.Core.Tests
                 {
                     error += "Unexpected shutdown count: " + SingletonProbe.TotalShutdownCount + ".";
                 }
+                foreach (string id in new[] { "owned", "global" })
+                {
+                    if (SceneRootInstallerProbe.Trace.Count(entry => entry == "uninstall:" + id) != expected)
+                    {
+                        error += "Unexpected root cleanup count: " + id + ".";
+                    }
+                }
                 SessionState.SetString(Key + "Observations", SessionState.GetString(Key + "Observations", "")
-                    + "exit " + step + ": totalShutdown=" + SingletonProbe.TotalShutdownCount + "\n");
+                    + "exit " + step + ": totalShutdown=" + SingletonProbe.TotalShutdownCount
+                    + ", owned/globalCleanup=" + expected + "\n");
                 if (error != "")
                 {
                     Finish(error);

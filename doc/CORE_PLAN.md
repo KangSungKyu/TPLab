@@ -1,6 +1,6 @@
 # 공용 코어 1차 검토안
 
-작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool은 [제네릭 계약](GENERIC_POOL.md)과 [프리팹 어댑터 계약](OBJECT_POOL.md), Singleton은 [수명 계약](SINGLETON.md)으로 확정했다. 나머지 시스템의 구현·이식 방향은 검토 제안이다.
+작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool은 [제네릭 계약](GENERIC_POOL.md)과 [프리팹 어댑터 계약](OBJECT_POOL.md), Singleton은 [수명 계약](SINGLETON.md), 씬 루트의 소유 방식·참조 주입은 [SceneRoot 계약](SCENE_ROOT.md)으로 확정했다. 나머지 시스템의 구현·이식 방향은 검토 제안이다.
 
 ## 초기 확인 기준 (의존성 반영 전)
 
@@ -89,4 +89,5 @@
 
 1. ObjectPool: 일반 C# 클래스용 ObjectPool<T>와 PrefabPool 어댑터의 구현·자동 검증 완료. Unity 기본 보관 기능을 제거하고 System 컬렉션으로 전환했다. Cashier 코드·의존성은 복사하지 않았다. 검증 범위와 증거는 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
 2. Singleton: MonoSingleton<T>의 중복 컴포넌트 제거, 씬/영속 수명, 초기화·정리 실패 및 반복 Play 자동 검증 완료. 모든 manager의 필수 기반으로 확장하지 않는다. 검증 범위와 증거는 [SINGLETON.md](SINGLETON.md)를 따른다.
-3. 다음 작업: ResourceManager → DataTableManager → GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. 로컬 풀·Singleton 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.
+3. SceneRoot: InitScene 같은 기존 씬 root에 SceneOwned/Singleton host를 선택하고 프로젝트 installer를 연결한다. Editor 메뉴·Inspector와 스크립트 Attach/Configure를 제공한다. 동기 주입과 비동기 서비스 준비는 구분한다. 검증 범위는 [SCENE_ROOT.md](SCENE_ROOT.md)를 따른다.
+4. 다음 작업: ResourceManager → DataTableManager → GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. 로컬 풀·Singleton 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.

@@ -1,0 +1,19 @@
+{
+  "total": 10,
+  "passed": 0,
+  "failed": 10,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneRootTests.CleanupFailureStillAttemptsEveryInstaller: Expected log did not appear: [Exception] Regex: root-uninstall:second",
+    "MyLab.Core.Tests.SceneRootTests.ConfigurationCannotChangeAfterActivation:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneRootTests.PartialFailureCleansFailingAndEarlierInstallersButSkipsLaterOnes: Expected log did not appear: [Exception] Regex: root-install:failing",
+    "MyLab.Core.Tests.SceneRootTests.RuntimeSetupRequiresInactiveObjectWithoutDisablingExistingComponents:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneRootTests.SceneOwnedRootsHaveIndependentInstallations:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.SceneRootTests.SceneUnloadCleansSceneOwnedRootWhilePersistentSingletonSurvives:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.SceneRootTests.ScriptSelectionInstallsInOrderAndCleansInReverseOrder:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.SceneRootTests.SetupRejectsMixedHostsAndInvalidInstallerOwnershipBeforeMutation:   Expected: <System.ArgumentException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneRootTests.SetupRejectsNullChildUnknownModeAndRepeatedInstaller:   Expected: <System.ArgumentNullException>\r\n  But was:  <System.NullReferenceException: Object reference not set to an instance of an object\r\n  at MyLab.Core.Lifecycle.SceneRootSetup.Attach (UnityEngine.GameObject root, MyLab.Core.Lifecycle.SceneRootMode mode, MyLab.Core.Lifecycle.SceneRootInstaller[] installers, System.Boolean persistAcrossScenes) [0x0000b] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\Lifecycle\\SceneRootSetup.cs:15 \r\n  at MyLab.Core.Tests.SceneRootTests+<>c.<SetupRejectsNullChildUnknownModeAndRepeatedInstaller>b__12_0 () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Tests\\PlayMode\\SceneRootTests.cs:169 \r\n  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n",
+    "MyLab.Core.Tests.SceneRootTests.SingletonSelectionRejectsDuplicateWithoutInstallingOrDestroyingItsObject:   Expected: True\r\n  But was:  False\r\n"
+  ],
+  "passes": []
+}

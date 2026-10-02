@@ -1,0 +1,55 @@
+{
+  "RecordedAt": "2026-10-02T14:35:55.4666469+09:00",
+  "Project": "C:\\Users\\PC\\Projects\\MyLab",
+  "Branch": "feature/scene-root-setup",
+  "BaseCommit": "a945a9be10007366d6a1b4c92f61d8f68a207287",
+  "Unity": "6000.3.18f1",
+  "Connector": "0.4.1",
+  "EditorPid": 42616,
+  "Red": {
+    "PlayMode": {
+      "Failed": 10,
+      "Total": 10,
+      "Passed": 0,
+      "Skipped": 0
+    },
+    "EditMode": {
+      "Failed": 3,
+      "Total": 3,
+      "Passed": 0,
+      "Skipped": 0
+    }
+  },
+  "Green": {
+    "PlayMode": {
+      "Failed": 0,
+      "Total": 41,
+      "Passed": 41,
+      "Skipped": 0
+    },
+    "EditMode": {
+      "Failed": 0,
+      "Total": 41,
+      "Passed": 41,
+      "Skipped": 0
+    }
+  },
+  "RepeatedPlay": {
+    "Completed": 10,
+    "SceneOwnedAndSingletonCleanupChecked": true,
+    "Passed": 10,
+    "SceneOwnedAndSingletonInjectionChecked": true,
+    "SettingsRestored": true
+  },
+  "ExpectedExceptionLogs": 8,
+  "UnexpectedFinalConsoleErrors": 0,
+  "EditorCompilation": "Completed",
+  "EditorState": "Ready",
+  "ManualVerificationRequired": false,
+  "PlayerBuild": "Not run",
+  "ConsumerProjectImport": "Not run",
+  "GitHubCI": "No workflows/checks were configured on the baseline; checked again before merge",
+  "TddNotes": "Editor Red used two parameterized menu cases and invalid-selection case. Green menu cases use UnityTest and scoped Undo creation/rollback to clean temporary objects. No product exception suppressed.",
+  "InputEvidence": "test-input-sha256.json; sources accompany this evidence in the same commit",
+  "ExcludedUntracked": "ProjectSettings/SceneTemplateSettings.json"
+}

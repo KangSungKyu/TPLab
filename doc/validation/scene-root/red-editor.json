@@ -1,0 +1,12 @@
+{
+  "total": 3,
+  "passed": 0,
+  "failed": 3,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneRootEditorTests.MenuAttachesSelectedRootAndSupportsUndoRedo(SceneOwned,\"Scene Owned\"):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.SceneRootEditorTests.MenuAttachesSelectedRootAndSupportsUndoRedo(Singleton,\"Singleton\"):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.SceneRootEditorTests.MenuRejectsNoSelectionAndChildSelection:   Expected: True\r\n  But was:  False\r\n"
+  ],
+  "passes": []
+}
