@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="16" result="Passed" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.7222297">
+  <test-suite type="TestSuite" id="1085" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="72" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.722230" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1078" name="MyLab.Core.PlayModeTests.dll" fullname="C:/Users/PC/Projects/MyLab/Library/ScriptAssemblies/MyLab.Core.PlayModeTests.dll" runstate="Runnable" testcasecount="72" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.689352" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1079" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="72" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.686974" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1080" name="Core" fullname="MyLab.Core" runstate="Runnable" testcasecount="72" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.684743" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1081" name="Tests" fullname="MyLab.Core.Tests" runstate="Runnable" testcasecount="72" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.682958" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1050" name="ResourceManagerTests" fullname="MyLab.Core.Tests.ResourceManagerTests" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.680638" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1053" name="AllCancelledWaitersStillLeaveOwnerCache" fullname="MyLab.Core.Tests.ResourceManagerTests.AllCancelledWaitersStillLeaveOwnerCache" methodname="AllCancelledWaitersStillLeaveOwnerCache" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="668031034" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.306230" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="BackgroundThreadCallsDoNotMutateOwner" fullname="MyLab.Core.Tests.ResourceManagerTests.BackgroundThreadCallsDoNotMutateOwner" methodname="BackgroundThreadCallsDoNotMutateOwner" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1468794259" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.020518" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1052" name="CallerCancellationDoesNotCancelSharedLoad" fullname="MyLab.Core.Tests.ResourceManagerTests.CallerCancellationDoesNotCancelSharedLoad" methodname="CallerCancellationDoesNotCancelSharedLoad" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="420358504" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.017265" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1055" name="FailedLoadIsRemovedAndCanRetry" fullname="MyLab.Core.Tests.ResourceManagerTests.FailedLoadIsRemovedAndCanRetry" methodname="FailedLoadIsRemovedAndCanRetry" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1034150383" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.024012" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[System.InvalidOperationException: MyLab expected provider failure
+]]></output>
+              </test-case>
+              <test-case id="1059" name="InitializationDispatchFailureCanRetry" fullname="MyLab.Core.Tests.ResourceManagerTests.InitializationDispatchFailureCanRetry" methodname="InitializationDispatchFailureCanRetry" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1107665350" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.015072" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1058" name="InitializationIsSharedAndOwnerTerminationIsPermanent" fullname="MyLab.Core.Tests.ResourceManagerTests.InitializationIsSharedAndOwnerTerminationIsPermanent" methodname="InitializationIsSharedAndOwnerTerminationIsPermanent" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1703292135" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.017581" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1054" name="InvalidKeysTypesAndPreCancellationDoNotDispatch" fullname="MyLab.Core.Tests.ResourceManagerTests.InvalidKeysTypesAndPreCancellationDoNotDispatch" methodname="InvalidKeysTypesAndPreCancellationDoNotDispatch" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="137722922" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.020299" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="PreparationCallerCancellationKeepsCoverUntilOwnerShutdown" fullname="MyLab.Core.Tests.ResourceManagerTests.PreparationCallerCancellationKeepsCoverUntilOwnerShutdown" methodname="PreparationCallerCancellationKeepsCoverUntilOwnerShutdown" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="261477945" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.027224" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1064" name="PreparationFailureKeepsCoverAndReleasesOwnedResources" fullname="MyLab.Core.Tests.ResourceManagerTests.PreparationFailureKeepsCoverAndReleasesOwnedResources" methodname="PreparationFailureKeepsCoverAndReleasesOwnedResources" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="324987383" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.022468" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[System.InvalidOperationException: MyLab expected provider failure
+]]></output>
+              </test-case>
+              <test-case id="1066" name="RootDestructionCancelsLoadAndReleasesLateCompletion" fullname="MyLab.Core.Tests.ResourceManagerTests.RootDestructionCancelsLoadAndReleasesLateCompletion" methodname="RootDestructionCancelsLoadAndReleasesLateCompletion" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1252033367" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.020069" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1062" name="SceneOwnedRootWaitsForRequiredAssetBeforeRevealing" fullname="MyLab.Core.Tests.ResourceManagerTests.SceneOwnedRootWaitsForRequiredAssetBeforeRevealing" methodname="SceneOwnedRootWaitsForRequiredAssetBeforeRevealing" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="404586642" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.022932" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1057" name="SeparateOwnersKeepIndependentNativeReferences" fullname="MyLab.Core.Tests.ResourceManagerTests.SeparateOwnersKeepIndependentNativeReferences" methodname="SeparateOwnersKeepIndependentNativeReferences" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1038120173" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.019642" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1051" name="SharedLoadCachesOneOwnedHandle" fullname="MyLab.Core.Tests.ResourceManagerTests.SharedLoadCachesOneOwnedHandle" methodname="SharedLoadCachesOneOwnedHandle" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="436841194" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.027105" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1056" name="ShutdownCancelsWaitersAndDrainsLateHandle" fullname="MyLab.Core.Tests.ResourceManagerTests.ShutdownCancelsWaitersAndDrainsLateHandle" methodname="ShutdownCancelsWaitersAndDrainsLateHandle" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="2087425346" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.040319" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1060" name="ShutdownDuringInitializationCannotPublishReadiness" fullname="MyLab.Core.Tests.ResourceManagerTests.ShutdownDuringInitializationCannotPublishReadiness" methodname="ShutdownDuringInitializationCannotPublishReadiness" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="1755266750" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.011401" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1063" name="SingletonRootDisposesPrefabPoolBeforeAssetHandle" fullname="MyLab.Core.Tests.ResourceManagerTests.SingletonRootDisposesPrefabPoolBeforeAssetHandle" methodname="SingletonRootDisposesPrefabPoolBeforeAssetHandle" classname="MyLab.Core.Tests.ResourceManagerTests" runstate="Runnable" seed="418401438" result="Passed" start-time="2026-10-02 07:19:49Z" end-time="2026-10-02 07:19:49Z" duration="0.037658" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/MyLab\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

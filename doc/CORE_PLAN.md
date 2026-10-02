@@ -90,4 +90,5 @@
 1. ObjectPool: 일반 C# 클래스용 ObjectPool<T>와 PrefabPool 어댑터의 구현·자동 검증 완료. Unity 기본 보관 기능을 제거하고 System 컬렉션으로 전환했다. Cashier 코드·의존성은 복사하지 않았다. 검증 범위와 증거는 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
 2. Singleton: MonoSingleton<T>의 중복 컴포넌트 제거, 씬/영속 수명, 초기화·정리 실패 및 반복 Play 자동 검증 완료. 모든 manager의 필수 기반으로 확장하지 않는다. 검증 범위와 증거는 [SINGLETON.md](SINGLETON.md)를 따른다.
 3. SceneRoot: InitScene 같은 기존 씬 root에 SceneOwned/Singleton host를 선택하고 프로젝트 installer를 연결한다. Editor 메뉴·Inspector와 스크립트 Attach/Configure를 제공한다. 동기 주입과 비동기 서비스 준비는 구분한다. 모든 installer 준비 뒤 씬을 진행하고 가림막의 표시·해제 완료를 callback으로 기다리는 [비동기 계약](ASYNC_SCENE_LIFECYCLE.md)을 제공한다. 검증 범위는 [SCENE_ROOT.md](SCENE_ROOT.md)를 따른다.
-4. 다음 작업: ResourceManager → DataTableManager → GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. 로컬 풀·Singleton 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.
+4. ResourceManager: Addressables 공유 로드·정확한 타입 검증·개별 대기 취소·실패 재요청·소유자 종료와 늦은 결과 해제를 구현했다. ResourceManagerInstaller를 양쪽 root host에 연결하며 소비자 installer가 필수 자산 준비와 prefab pool 정리를 기다린다. [계약·범위](RESOURCE_MANAGER.md)와 [현재 검증](validation/resource-manager/README.md)을 따른다.
+5. 다음 작업: DataTableManager → GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. 로컬 풀·Singleton·ResourceManager 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.

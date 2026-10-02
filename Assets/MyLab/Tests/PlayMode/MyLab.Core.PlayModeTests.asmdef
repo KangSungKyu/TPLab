@@ -4,7 +4,9 @@
   "references": [
     "MyLab.Core",
     "MyLab.Core.TestFixtures",
-    "UniTask"
+    "UniTask",
+    "Unity.Addressables",
+    "Unity.ResourceManager"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

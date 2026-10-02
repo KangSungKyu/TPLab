@@ -1,0 +1,14 @@
+{
+  "success": false,
+  "source": "Captured CLI output",
+  "data": {
+    "passed": 0,
+    "skipped": 0,
+    "passes": [],
+    "failures": [
+      "MyLab.Core.Tests.ResourceManagerTests.BackgroundThreadCallsDoNotMutateOwner: Expected: <System.InvalidOperationException>; But was: null"
+    ],
+    "failed": 1,
+    "total": 1
+  }
+}
