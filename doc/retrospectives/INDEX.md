@@ -5,6 +5,7 @@
 | 날짜 | 단위 | 상태 | 기록 |
 |---|---|---|---|
 | 2026-10-02 | 회고 작성·후속 문맥 확인 지침 추가 | 문서 완료 | [01-unit-retrospectives](2026-10-02-01-unit-retrospectives.md) |
+| 2026-10-02 | uint idx·생성/추출·PK/FK 계약 | 초안 | [02-data-table-idx-draft](2026-10-02-02-data-table-idx-draft.md) |
 
 ## 작성 형식
 
