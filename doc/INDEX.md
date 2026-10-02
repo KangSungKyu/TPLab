@@ -4,6 +4,7 @@
 
 1. 모든 작업은 [AGENTS.md](../AGENTS.md)에서 역할·승인·보존·Git·검증 규칙을 확인한다. 코드 작업에는 같은 문서의 C#·Unity 기준, SOLID·TDD 기준을 함께 적용한다.
 2. 아래 표에서 이번 작업과 연결되는 문서만 읽는다. 새 시스템 시작·의존성 변경·Cashier 참조 검토에는 [CORE_PLAN.md](CORE_PLAN.md)를 먼저 확인한다.
+   단위 작업을 시작하거나 재개할 때는 [회고 색인](retrospectives/INDEX.md)에서 관련 최신·선행 기록을 읽고 현재 checkout과 대조한다.
 3. 기능 계약을 읽은 뒤 해당 코드·사용처·검증 입력을 현재 checkout에서 대조한다. 영향 범위가 늘어나면 관련 문서를 추가로 확인한다.
 4. 완료 판단에는 아래 검증 자료를 사용한다. 기록의 날짜·대상 소스·실행 범위를 확인하고, 변경된 동작에 필요한 검증을 실제 실행한다.
 
@@ -18,6 +19,7 @@
 | [AGENTS.md](../AGENTS.md) | 모든 작업에서 필수 | 공용 코어 역할·C#·SOLID·TDD·참조 경계·브랜치 판단·검증 후 병합 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
+| [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·의존성·개발 순서·단계 진행 |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
