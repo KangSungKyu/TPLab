@@ -1,0 +1,74 @@
+[
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/MonoSingleton.cs",
+    "sha256": "62A57A8077E72D181CC536635065EB49D7AAC6A2CF98D9643AF03662312AB5B8"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SingletonRuntime.cs",
+    "sha256": "92A52AB702FE0841418D71720CB9C23A7C21A4439CFFF8CD0DDCADE12A41A789"
+  },
+  {
+    "path": "Assets/MyLab/Core/MyLab.Core.asmdef",
+    "sha256": "F0D372F7A1B3BF1E8E9DBB08F570CFA1B588ACC2A41DD67A30C5E91955C07CCB"
+  },
+  {
+    "path": "Assets/MyLab/Core/Pooling/ObjectPool.cs",
+    "sha256": "1B1530B1DA762EEEB7C5788307A5D5623807CB8097EFA805F3B452CD7782B726"
+  },
+  {
+    "path": "Assets/MyLab/Core/Pooling/PrefabPool.cs",
+    "sha256": "B8B4EA01103727A9E85C88665338FCAA91A1E3B28FB79452D841F2081428F443"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/MyLab.Core.EditModeTests.asmdef",
+    "sha256": "D2DDCCBA93A41B7D901B840FA6541C016D1F1A6079D4D2EE389B27E19BC2ADFD"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/ObjectPoolTests.cs",
+    "sha256": "B4EE177A167EACE7D18CAA1AC4A61BF96E0442BDAB62F37B22AE1EC71880961D"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/PrefabPoolValidationTests.cs",
+    "sha256": "F4B3A30DB62C74DB5FAB0D663413DE650060DBB4525B9B489B28933811718D4F"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/UnityObjectPoolContractTests.cs",
+    "sha256": "781AD30225995D3E6277B1A2146C2FAAE11A7A6190B15E0C41D02FA4774A83DF"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/MyLab.Core.TestFixtures.asmdef",
+    "sha256": "E8CA6975F461B953373A839157375913F40EFA99DF8C4F7F2D82C03A21C14CF9"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/OtherSingletonProbe.cs",
+    "sha256": "0D957E6E1920378A09AA711C304D0DDDC27A5265CD0CDCA92C21E1ABFC81E50C"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/SingletonProbe.cs",
+    "sha256": "ED1DC450E15E4BA29F2A287CFED33BD2D3BE1B6F08A0BB08049FCE8D02B915E5"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/MonoSingletonTests.cs",
+    "sha256": "257278EBFB5F211134331113C6047702DB5C2DD23CD2BD8A28A373A9057F5BF2"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/MyLab.Core.PlayModeTests.asmdef",
+    "sha256": "54AC901E1BB4ADF52C404A2F4F4E81B4D9CD56AC2E74289359B2789F77B7C1FA"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/PoolLifecycleProbe.cs",
+    "sha256": "7427D7A732FCA17FD09B82D25D6EEB412AC200E0BE726C06371E797F692C2781"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/PrefabPoolTests.cs",
+    "sha256": "F448DCA0813364E5F01C561C6F719B2FD4DA8A792A7D3FC2A6980182D477E568"
+  },
+  {
+    "path": "Assets/MyLab/Validation/Editor/MyLab.Core.EditorValidation.asmdef",
+    "sha256": "C2B7B888B2BDC5E8EECE3C6476D11DB44C5DE3418C8C9B4D5CC289D9FF26C052"
+  },
+  {
+    "path": "Assets/MyLab/Validation/Editor/SingletonReloadCheck.cs",
+    "sha256": "5C7D9CA9CC85543579C48D0327BDD227819FAD175C378D3C30589DEFFC4A4179"
+  }
+]

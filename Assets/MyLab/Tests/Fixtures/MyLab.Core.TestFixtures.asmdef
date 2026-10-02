@@ -1,0 +1,6 @@
+{
+    "name": "MyLab.Core.TestFixtures",
+    "rootNamespace": "MyLab.Core.Tests",
+    "references": ["MyLab.Core"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-02",
+  "project": "C:\\Users\\PC\\Projects\\MyLab",
+  "unity": "6000.3.18f1",
+  "connector": "0.4.1",
+  "editorPid": 42616,
+  "branch": "feature/singleton",
+  "baselineCommit": "e43debb628be4ed16c2bfb56e301942d187147c9",
+  "redPlay": {
+    "total": 14,
+    "passed": 2,
+    "failed": 12,
+    "skipped": 0,
+    "source": "C:\\Users\\PC\\.unity-cli\\status\\test-results-34484-1790913687315054800.json"
+  },
+  "greenEdit": {
+    "total": 38,
+    "passed": 38,
+    "failed": 0,
+    "skipped": 0
+  },
+  "greenPlay": {
+    "total": 31,
+    "passed": 31,
+    "failed": 0,
+    "skipped": 0,
+    "source": "C:\\Users\\PC\\.unity-cli\\status\\test-results-23292-1790915773942667200.json",
+    "completed": "2026-10-02T13:36:24.5298212+09:00",
+    "cliConnectionLost": true,
+    "recoveredWithoutRerunning": true
+  },
+  "repeatedPlayChecks": 10,
+  "manualAcceptanceRemaining": false,
+  "editorCompilationCompleted": true,
+  "consoleErrorCount": 0,
+  "sourceHashMismatches": 0,
+  "duplicateMetaGuids": 0,
+  "newMetaOrphans": 0,
+  "playerBuild": "not run",
+  "otherUnityVersions": "not run",
+  "consumerProjectImport": "not run",
+  "preservedUntracked": "ProjectSettings/SceneTemplateSettings.json",
+  "expectedTestExceptionLogCount": 6
+}

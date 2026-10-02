@@ -1,0 +1,28 @@
+{
+    "Success": true,
+    "CompletedPlayChecks": 10,
+    "SettingsRestored": true,
+    "Error": "",
+    "Observations": [
+        "0: None, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 0: totalShutdown=1",
+        "1: None, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 1: totalShutdown=1",
+        "2: DisableDomainReload, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 2: totalShutdown=1",
+        "3: DisableDomainReload, totalInit=2, ownerInit=1, ownerId=-67372",
+        "exit 3: totalShutdown=2",
+        "4: DisableSceneReload, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 4: totalShutdown=1",
+        "5: DisableSceneReload, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 5: totalShutdown=1",
+        "6: DisableDomainReload, DisableSceneReload, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 6: totalShutdown=1",
+        "7: DisableDomainReload, DisableSceneReload, totalInit=2, ownerInit=1, ownerId=-67372",
+        "exit 7: totalShutdown=2",
+        "8: DisableDomainReload, DisableSceneReload, totalInit=1, ownerInit=1, ownerId=-67372",
+        "exit 8: totalShutdown=1",
+        "9: DisableDomainReload, DisableSceneReload, totalInit=2, ownerInit=1, ownerId=-67372",
+        "exit 9: totalShutdown=2"
+    ]
+}

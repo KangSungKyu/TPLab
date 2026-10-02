@@ -1,0 +1,24 @@
+{
+  "total": 14,
+  "passed": 2,
+  "failed": 12,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.MonoSingletonTests.AwakePublishesOnlyAfterInitializationSucceeds:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.DestroyDuringInitializationCannotPublishADeadOwner: Expected log did not appear: [Exception] Regex: InvalidOperationException: Singleton was destroyed during initialization",
+    "MyLab.Core.Tests.MonoSingletonTests.DestroyedOwnerUnregistersAndAllowsExplicitReplacement:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.DifferentClosedTypesHaveIndependentOwners:   Expected: same as <SingletonTestOwner (MyLab.Core.Tests.SingletonProbe)>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.DisableAndEnablePreserveOwnershipWithoutReinitializing:   Expected: same as <SingletonTestOwner (MyLab.Core.Tests.SingletonProbe)>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.DuplicateRemovesOnlyItsComponentAndPreservesSiblingsAndChildren:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.InitializationAndCleanupFailuresAreBothReported: Expected log did not appear: [Exception] Regex: InvalidOperationException: singleton-init",
+    "MyLab.Core.Tests.MonoSingletonTests.InitializationFailureUnpublishesAndCleansPartialStateOnce: Expected log did not appear: [Exception] Regex: InvalidOperationException: singleton-init",
+    "MyLab.Core.Tests.MonoSingletonTests.PersistentChildIsRejectedWithoutChangingTheParentHierarchy: Expected log did not appear: [Exception] Regex: InvalidOperationException: Persistent singletons require a root GameObject",
+    "MyLab.Core.Tests.MonoSingletonTests.PersistentOwnerSurvivesSourceSceneUnload:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.ReentrantCreationCannotPublishASecondOwnerDuringInitialization:   Expected: same as <SingletonTestOwner (MyLab.Core.Tests.SingletonProbe)>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.MonoSingletonTests.ShutdownFailureStillClearsOwnershipAndAllowsReplacement: Expected log did not appear: [Exception] Regex: InvalidOperationException: singleton-shutdown"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.MonoSingletonTests.InstanceQueryDoesNotCreateAnObject",
+    "MyLab.Core.Tests.MonoSingletonTests.SceneLifetimeOwnerIsDestroyedWhenItsSceneUnloads"
+  ]
+}

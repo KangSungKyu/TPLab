@@ -1,6 +1,6 @@
 {
-    "name": "MyLab.Core.PlayModeTests",
+    "name": "MyLab.Core.EditorValidation",
     "rootNamespace": "MyLab.Core.Tests",
     "references": ["MyLab.Core", "MyLab.Core.TestFixtures"],
-    "optionalUnityReferences": ["TestAssemblies"]
+    "includePlatforms": ["Editor"]
 }

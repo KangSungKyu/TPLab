@@ -11,7 +11,7 @@ GitHub 저장소는 `KangSungKyu/TPLab`이며, 로컬 Unity 프로젝트 폴더�
 - DataTableManager
 - GameSceneManager
 
-첫 단계인 일반 C# 클래스용 [ObjectPool<T>](doc/GENERIC_POOL.md)와 Unity [PrefabPool 어댑터](doc/OBJECT_POOL.md)를 구현했다. 나머지 시스템은 순서대로 계약·테스트·구현을 진행한다. 게임별 코드·데이터·UI를 코어에 포함하지 않는다.
+일반 C# 클래스용 [ObjectPool<T>](doc/GENERIC_POOL.md), Unity [PrefabPool 어댑터](doc/OBJECT_POOL.md), 씬/영속 수명의 [MonoSingleton<T>](doc/SINGLETON.md)를 구현했다. 다음 단계는 ResourceManager다. 게임별 코드·데이터·UI를 코어에 포함하지 않는다.
 
 ## 개발 환경
 
