@@ -1,7 +1,9 @@
 {
     "name": "MyLab.Core.EditModeTests",
     "rootNamespace": "MyLab.Core.Tests",
-    "references": ["MyLab.Core", "MyLab.Core.Editor", "MyLab.Core.TestFixtures"],
+    "references": ["MyLab.Core", "MyLab.Core.Editor", "MyLab.Core.TestFixtures", "UniTask"],
     "includePlatforms": ["Editor"],
+    "overrideReferences": true,
+    "precompiledReferences": ["CsvHelper.dll", "nunit.framework.dll"],
     "optionalUnityReferences": ["TestAssemblies"]
 }

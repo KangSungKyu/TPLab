@@ -11,7 +11,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-02, `main 059e6a4`의 ResourceManager 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-02, DataTableManager 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -26,6 +26,8 @@
 | [ASYNC_SCENE_LIFECYCLE.md](ASYNC_SCENE_LIFECYCLE.md) | async 준비·해제·취소·씬 진행·가림막 callback 변경 | 준비/종료 순서·실패 rollback·표시 보호·전환 소유권 |
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [ResourceManager 검증](validation/resource-manager/README.md) | ResourceManager 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·native fixture·컴파일/Console·증거·미검증 경계 |
+| [DATA_TABLE_MANAGER.md](DATA_TABLE_MANAGER.md) | CSV 등록·스키마·키·교차 검증·snapshot 공개·재로드·취소 변경 | DataTableManager 소유권·전체 후보 검증과 root 주입 |
+| [DataTableManager 검증](validation/data-tables/README.md) | 데이터 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·비동기·자산/root 연결·컴파일/Console·미검증 경계 |
 
 ## 검증 자료
 
@@ -39,6 +41,7 @@
 | [SceneRoot 실행 기록](validation/scene-root/execution.json) · [반복 Play](validation/scene-root/reload-check.json) | root 선택·Editor 메뉴·주입/정리 확인 | SCENE_ROOT의 검증 절과 대상 입력 대조 |
 | [비동기 씬 수명 실행 기록](validation/async-scene/execution.json) · [반복 Play](validation/async-scene/reload-check.json) | 준비·해제·가림막 callback·취소 확인 | ASYNC_SCENE_LIFECYCLE의 검증 절 참조; 실제 가림막 시각 UX와 구분 |
 | [ResourceManager 검증 설명](validation/resource-manager/README.md) · [EditMode](validation/resource-manager/full-EditMode.json) · [PlayMode](validation/resource-manager/full-PlayMode.json) · [입력 hash](validation/resource-manager/test-inputs.json) | 자산 수명·root/pool 연결·전체 회귀 확인 | native catalog/provider 실행 범위와 원격 bundle·Player 미검증 경계 확인 |
+| [DataTableManager 검증 설명](validation/data-tables/README.md) · [EditMode](validation/data-tables/full-EditMode.json) · [PlayMode](validation/data-tables/full-PlayMode.json) · [입력 hash](validation/data-tables/test-inputs.json) | CSV·전체 snapshot·비동기·자산/root 연결 회귀 확인 | 관리 데이터 공개와 자원 소유권 경계·소비 프로젝트/Player 미검증 구분 |
 
 ## 의존성과 라이선스 자료
 
@@ -54,7 +57,7 @@
 
 ## 다음 단계와 완료 경계
 
-- DataTableManager와 GameSceneManager는 구현 전 단계다. 별도 확정 계약 문서를 만들기 전에는 [CORE_PLAN의 단계 진행](CORE_PLAN.md#단계-진행)을 기준으로 요구사항·완료 조건부터 정한다.
+- GameSceneManager는 구현 전 단계다. 별도 확정 계약 문서를 만들기 전에는 [CORE_PLAN의 단계 진행](CORE_PLAN.md#단계-진행)을 기준으로 요구사항·완료 조건부터 정한다.
 - 소비 프로젝트 가져오기·최소 예제 실행·Player 검증은 후속 단계다. MyLab 내부 테스트의 통과를 전체 배포 호환성 완료로 확대하지 않는다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.
 

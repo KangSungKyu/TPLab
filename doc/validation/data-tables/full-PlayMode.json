@@ -1,0 +1,10 @@
+{
+  "total": 82,
+  "source": "Unity TestResults.xml",
+  "endTime": "2026-10-02 08:13:21Z",
+  "failures": [],
+  "failed": 0,
+  "skipped": 0,
+  "mode": "PlayMode",
+  "passed": 82
+}

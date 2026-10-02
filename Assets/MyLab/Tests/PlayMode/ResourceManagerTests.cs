@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using MyLab.Core.DataTables;
 using MyLab.Core.ResourceManagement;
 using MyLab.Core.Lifecycle;
 using NUnit.Framework;
@@ -504,6 +505,66 @@ namespace MyLab.Core.Tests
             Assert.That(owned.IsDisposed, Is.True);
             Assert.That(installer.Resources, Is.Null);
             Assert.That(consumer.Injected, Is.Null);
+        }
+
+        [UnityTest]
+        public IEnumerator DataTablesArePublishedBeforeSceneProceedAndDisposedBeforeResource() => CheckDataTableRoot(false).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator InvalidCsvStopsSceneKeepsCoverAndReleasesResource() => CheckDataTableRoot(true).ToCoroutine();
+
+        private async UniTask CheckDataTableRoot(bool invalid)
+        {
+            UnityEngine.Object.Destroy(_asset);
+            _asset = new TextAsset(invalid ? "Id,Name\ninvalid,row" : "Id,Name\n1,ready");
+            _provider.Asset = _asset;
+            _rootObject = new GameObject("DataTableTestRoot");
+            _rootObject.SetActive(false);
+            var resources = _rootObject.AddComponent<ResourceManagerInstaller>();
+            var consumer = _rootObject.AddComponent<DataTableConsumerProbe>();
+            consumer.Source = resources;
+            consumer.Key = _key;
+            var root = SceneRootSetup.Attach(_rootObject, SceneRootMode.SceneOwned, new SceneRootInstaller[] { resources, consumer });
+            _rootObject.SetActive(true);
+            var ownedResources = resources.Resources;
+            var ownedTables = consumer.Tables;
+            bool covered = false;
+            int proceeded = 0;
+            _provider.BeforeRelease = () => Assert.That(ownedTables.IsDisposed, Is.True, "Data owner must close before its asset source.");
+            var flow = new SceneRootFlow(root,
+                token => { covered = true; return UniTask.CompletedTask; },
+                token => { covered = false; return UniTask.CompletedTask; });
+            var preparation = flow.PrepareAndProceedAsync(token =>
+            {
+                Assert.That(root.IsPrepared, Is.True);
+                Assert.That(ownedTables.Snapshot.GetTable<int, (int Id, string Name)>("rows")[1].Name, Is.EqualTo("ready"));
+                ++proceeded;
+                return UniTask.CompletedTask;
+            }).AsTask();
+            await Pending();
+            Assert.That(ownedTables.Snapshot, Is.Null);
+            Assert.That(covered, Is.True);
+            Assert.That(proceeded, Is.Zero);
+            await Complete(preparation);
+            if (invalid)
+            {
+                Assert.Throws<InvalidDataException>(() => preparation.GetAwaiter().GetResult());
+                Assert.That(covered, Is.True);
+                Assert.That(proceeded, Is.Zero);
+                Assert.That(root.IsPrepared, Is.False);
+            }
+            else
+            {
+                preparation.GetAwaiter().GetResult();
+                Assert.That(covered, Is.False);
+                Assert.That(proceeded, Is.EqualTo(1));
+                await flow.ReleaseAndProceedAsync(token => UniTask.CompletedTask);
+            }
+            Assert.That(ownedTables.IsDisposed, Is.True);
+            Assert.That(ownedTables.Snapshot, Is.Null);
+            Assert.That(consumer.Tables, Is.Null);
+            Assert.That(ownedResources.IsDisposed, Is.True);
+            Assert.That(_provider.Releases, Is.EqualTo(1));
         }
 
         private async UniTask Pending()

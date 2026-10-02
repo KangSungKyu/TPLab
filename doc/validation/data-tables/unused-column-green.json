@@ -1,0 +1,10 @@
+{
+  "total": 20,
+  "source": "Unity TestResults.xml",
+  "endTime": "2026-10-02 08:11:49Z",
+  "failures": [],
+  "failed": 0,
+  "skipped": 0,
+  "mode": "EditMode",
+  "passed": 20
+}

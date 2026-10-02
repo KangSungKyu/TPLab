@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.3362708">
+  <test-suite type="TestSuite" id="1096" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="82" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.336271" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1089" name="MyLab.Core.PlayModeTests.dll" fullname="C:/Users/PC/Projects/MyLab/Library/ScriptAssemblies/MyLab.Core.PlayModeTests.dll" runstate="Runnable" testcasecount="82" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.293713" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1090" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="82" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.291297" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1091" name="Core" fullname="MyLab.Core" runstate="Runnable" testcasecount="82" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.289474" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1092" name="Tests" fullname="MyLab.Core.Tests" runstate="Runnable" testcasecount="82" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.287507" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1017" name="DataTableManagerAsyncTests" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.284792" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1020" name="AllWaitersCancelledStillPublishOwnerSnapshot" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.AllWaitersCancelledStillPublishOwnerSnapshot" methodname="AllWaitersCancelledStillPublishOwnerSnapshot" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="1762337507" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.185877" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1025" name="BackgroundApiCallsCannotMutateOwner" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.BackgroundApiCallsCannotMutateOwner" methodname="BackgroundApiCallsCannotMutateOwner" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="1649122725" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.014414" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="CallerCancellationLeavesSharedWork" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.CallerCancellationLeavesSharedWork" methodname="CallerCancellationLeavesSharedWork" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="809938506" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.004351" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1018" name="ConcurrentRequestsPublishOnlyAfterAllSourcesAndValidation" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.ConcurrentRequestsPublishOnlyAfterAllSourcesAndValidation" methodname="ConcurrentRequestsPublishOnlyAfterAllSourcesAndValidation" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="1893509867" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.006639" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="DisposalCancelsWaitersAndRejectsLatePublication" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.DisposalCancelsWaitersAndRejectsLatePublication" methodname="DisposalCancelsWaitersAndRejectsLatePublication" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="1356643554" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.007393" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="PreCancelledRequestDoesNotDispatchOrFreezeRegistration" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.PreCancelledRequestDoesNotDispatchOrFreezeRegistration" methodname="PreCancelledRequestDoesNotDispatchOrFreezeRegistration" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="905655649" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.005790" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="SourceFailureAndCancellationPreserveSnapshotAndAllowRetry" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.SourceFailureAndCancellationPreserveSnapshotAndAllowRetry" methodname="SourceFailureAndCancellationPreserveSnapshotAndAllowRetry" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="1652920642" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.022256" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1024" name="WorkerSourceReturnsToMainThreadBeforeProjectCallbacks" fullname="MyLab.Core.Tests.DataTableManagerAsyncTests.WorkerSourceReturnsToMainThreadBeforeProjectCallbacks" methodname="WorkerSourceReturnsToMainThreadBeforeProjectCallbacks" classname="MyLab.Core.Tests.DataTableManagerAsyncTests" runstate="Runnable" seed="365048596" result="Passed" start-time="2026-10-02 08:07:29Z" end-time="2026-10-02 08:07:29Z" duration="0.004566" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/MyLab\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

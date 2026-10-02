@@ -5,6 +5,11 @@
     "MyLab.Core",
     "UniTask"
   ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "CsvHelper.dll",
+    "nunit.framework.dll"
+  ],
   "optionalUnityReferences": [
     "TestAssemblies"
   ]

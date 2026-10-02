@@ -1,0 +1,12 @@
+{
+  "total": 20,
+  "source": "Unity TestResults.xml",
+  "endTime": "2026-10-02 08:08:47Z",
+  "failures": [
+    "MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(\"Id,Name,Unused\\n1,one,\\\"unterminated\"):   Expected: <System.IO.InvalidDataException>\n  But was:  null\n"
+  ],
+  "failed": 1,
+  "skipped": 0,
+  "mode": "EditMode",
+  "passed": 19
+}

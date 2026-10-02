@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="19" result="Failed(Child)" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.9395587">
+  <test-suite type="TestSuite" id="1000" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="60" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.939559" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1071" name="MyLab.Core.EditModeTests.dll" fullname="C:/Users/PC/Projects/MyLab/Library/ScriptAssemblies/MyLab.Core.EditModeTests.dll" runstate="Runnable" testcasecount="59" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.777445" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1072" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="59" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.724844" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1073" name="Core" fullname="MyLab.Core" runstate="Runnable" testcasecount="59" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.621876" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1074" name="Tests" fullname="MyLab.Core.Tests" runstate="Runnable" testcasecount="59" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.522296" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1001" name="DataTableManagerTests" fullname="MyLab.Core.Tests.DataTableManagerTests" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" testcasecount="19" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.415107" total="19" passed="0" failed="19" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="ParameterizedMethod" id="1015" name="BadCsvKeepsEveryPreviouslyPublishedTable" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.124734" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1004" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one\n1,duplicate&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one\n1,duplicate&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1066251794" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.035969" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1005" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\nwrong,one&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\nwrong,one&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1668395664" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000523" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1006" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="515113916" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000393" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1007" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one,extra&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one,extra&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1539973020" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000341" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1008" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,\&quot;unterminated&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,\&quot;unterminated&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1513758879" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000698" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1009" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Name\none&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Name\none&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1284385854" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000360" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1010" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Name\n1,one,two&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Name\n1,one,two&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1353491934" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000325" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1011" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,,Name\n1,x,one&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,,Name\n1,x,one&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="2068423160" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000335" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1012" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="217179701" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000336" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1013" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1944160185" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000383" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1014" name="BadCsvKeepsEveryPreviouslyPublishedTable(null)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(null)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1318564225" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.000353" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                    <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable (System.String invalidCsv) [0x0002d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:92
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-case id="1017" name="CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" fullname="MyLab.Core.Tests.DataTableManagerTests.CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" methodname="CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="647826815" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:23Z" duration="0.001772" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot () [0x00034] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:131
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1003" name="CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" fullname="MyLab.Core.Tests.DataTableManagerTests.CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" methodname="CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="728903012" result="Failed" label="Error" start-time="2026-10-02 07:54:23Z" end-time="2026-10-02 07:54:24Z" duration="0.055824" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals () [0x00025] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:64
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1018" name="HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" fullname="MyLab.Core.Tests.DataTableManagerTests.HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" methodname="HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1653753293" result="Failed" label="Error" start-time="2026-10-02 07:54:24Z" end-time="2026-10-02 07:54:24Z" duration="0.001538" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows () [0x00006] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:157
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1002" name="LoadsMultipleTablesAndExposesReadOnlyContainers" fullname="MyLab.Core.Tests.DataTableManagerTests.LoadsMultipleTablesAndExposesReadOnlyContainers" methodname="LoadsMultipleTablesAndExposesReadOnlyContainers" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="669888072" result="Failed" label="Error" start-time="2026-10-02 07:54:24Z" end-time="2026-10-02 07:54:24Z" duration="0.001950" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.LoadsMultipleTablesAndExposesReadOnlyContainers () [0x0000c] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:38
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1020" name="NullRowsAndNullKeysAreRejected" fullname="MyLab.Core.Tests.DataTableManagerTests.NullRowsAndNullKeysAreRejected" methodname="NullRowsAndNullKeysAreRejected" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="16316159" result="Failed" label="Error" start-time="2026-10-02 07:54:24Z" end-time="2026-10-02 07:54:24Z" duration="0.001197" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.NullRowsAndNullKeysAreRejected () [0x00011] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:199
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1019" name="RegistrationRejectsBadInputsAndFreezesAtFirstLoad" fullname="MyLab.Core.Tests.DataTableManagerTests.RegistrationRejectsBadInputsAndFreezesAtFirstLoad" methodname="RegistrationRejectsBadInputsAndFreezesAtFirstLoad" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1512613976" result="Failed" start-time="2026-10-02 07:54:24Z" end-time="2026-10-02 07:54:24Z" duration="0.064589" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <System.NotImplementedException: The method or operation is not implemented.
+  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests+<>c__DisplayClass9_0.<RegistrationRejectsBadInputsAndFreezesAtFirstLoad>b__0 () [0x00000] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:177
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                  <stack-trace><![CDATA[at MyLab.Core.Tests.DataTableManagerTests.RegistrationRejectsBadInputsAndFreezesAtFirstLoad () [0x00011] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:177
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1016" name="RequiredValuesAreProjectValidationAndFailureDoesNotPublish" fullname="MyLab.Core.Tests.DataTableManagerTests.RequiredValuesAreProjectValidationAndFailureDoesNotPublish" methodname="RequiredValuesAreProjectValidationAndFailureDoesNotPublish" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="514615097" result="Failed" label="Error" start-time="2026-10-02 07:54:24Z" end-time="2026-10-02 07:54:24Z" duration="0.000949" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.RequiredValuesAreProjectValidationAndFailureDoesNotPublish () [0x00011] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:114
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1021" name="ValidatorCannotPublishAfterDisposingOwner" fullname="MyLab.Core.Tests.DataTableManagerTests.ValidatorCannotPublishAfterDisposingOwner" methodname="ValidatorCannotPublishAfterDisposingOwner" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="499154110" result="Failed" label="Error" start-time="2026-10-02 07:54:24Z" end-time="2026-10-02 07:54:24Z" duration="0.000927" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.NotImplementedException : The method or operation is not implemented.]]></message>
+                  <stack-trace><![CDATA[  at MyLab.Core.Tests.DataTableManagerTests.Register (MyLab.Core.DataTables.DataTableManager manager, System.String name, System.Func`1[TResult] source, System.Action`1[T] validate) [0x0000d] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:31
+  at MyLab.Core.Tests.DataTableManagerTests.ValidatorCannotPublishAfterDisposingOwner () [0x00011] in C:\Users\PC\Projects\MyLab\Assets\MyLab\Tests\EditMode\DataTableManagerTests.cs:215
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/MyLab\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

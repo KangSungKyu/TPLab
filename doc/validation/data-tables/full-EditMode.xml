@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="61" result="Passed" total="61" passed="61" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="1.2587052">
+  <test-suite type="TestSuite" id="1000" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="61" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="1.258705" total="61" passed="61" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1072" name="MyLab.Core.EditModeTests.dll" fullname="C:/Users/PC/Projects/MyLab/Library/ScriptAssemblies/MyLab.Core.EditModeTests.dll" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="1.214366" total="60" passed="60" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1073" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="1.213606" total="60" passed="60" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1074" name="Core" fullname="MyLab.Core" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="1.213152" total="60" passed="60" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1075" name="Tests" fullname="MyLab.Core.Tests" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="1.212610" total="60" passed="60" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="DataTableManagerTests" fullname="MyLab.Core.Tests.DataTableManagerTests" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.197100" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1016" name="BadCsvKeepsEveryPreviouslyPublishedTable" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.127086" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1004" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one\n1,duplicate&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one\n1,duplicate&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="121474644" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.115846" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1005" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\nwrong,one&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\nwrong,one&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1449678389" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001707" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1006" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1915232600" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000503" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1007" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one,extra&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one,extra&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1538837486" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000194" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,\&quot;unterminated&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,\&quot;unterminated&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1576815071" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000637" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Unused\n1,one,\&quot;unterminated&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Unused\n1,one,\&quot;unterminated&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="75762488" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000193" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Name\none&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Name\none&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1759212286" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000273" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Name\n1,one,two&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Name\n1,one,two&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="737501933" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000217" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,,Name\n1,x,one&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,,Name\n1,x,one&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1114121920" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000165" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="482174856" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000173" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="705651044" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000160" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="BadCsvKeepsEveryPreviouslyPublishedTable(null)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(null)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="580620641" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000148" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1018" name="CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" fullname="MyLab.Core.Tests.DataTableManagerTests.CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" methodname="CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="217783213" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001920" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1003" name="CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" fullname="MyLab.Core.Tests.DataTableManagerTests.CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" methodname="CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1444800204" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.002991" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" fullname="MyLab.Core.Tests.DataTableManagerTests.HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" methodname="HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1987333703" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000858" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1002" name="LoadsMultipleTablesAndExposesReadOnlyContainers" fullname="MyLab.Core.Tests.DataTableManagerTests.LoadsMultipleTablesAndExposesReadOnlyContainers" methodname="LoadsMultipleTablesAndExposesReadOnlyContainers" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1129159398" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.051556" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="NullRowsAndNullKeysAreRejected" fullname="MyLab.Core.Tests.DataTableManagerTests.NullRowsAndNullKeysAreRejected" methodname="NullRowsAndNullKeysAreRejected" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1684226291" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000970" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1020" name="RegistrationRejectsBadInputsAndFreezesAtFirstLoad" fullname="MyLab.Core.Tests.DataTableManagerTests.RegistrationRejectsBadInputsAndFreezesAtFirstLoad" methodname="RegistrationRejectsBadInputsAndFreezesAtFirstLoad" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1553112939" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001272" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1017" name="RequiredValuesAreProjectValidationAndFailureDoesNotPublish" fullname="MyLab.Core.Tests.DataTableManagerTests.RequiredValuesAreProjectValidationAndFailureDoesNotPublish" methodname="RequiredValuesAreProjectValidationAndFailureDoesNotPublish" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="118540456" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.002718" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="ValidatorCannotPublishAfterDisposingOwner" fullname="MyLab.Core.Tests.DataTableManagerTests.ValidatorCannotPublishAfterDisposingOwner" methodname="ValidatorCannotPublishAfterDisposingOwner" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1064286108" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000878" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1023" name="ObjectPoolTests" fullname="MyLab.Core.Tests.ObjectPoolTests" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.035911" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1029" name="CapacityIncludesBorrowedObjects" fullname="MyLab.Core.Tests.ObjectPoolTests.CapacityIncludesBorrowedObjects" methodname="CapacityIncludesBorrowedObjects" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1267191254" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.019582" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1034" name="ChangingValueHashDoesNotLoseOwnershipOrAdmitEqualForeignObjects" fullname="MyLab.Core.Tests.ObjectPoolTests.ChangingValueHashDoesNotLoseOwnershipOrAdmitEqualForeignObjects" methodname="ChangingValueHashDoesNotLoseOwnershipOrAdmitEqualForeignObjects" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="477802936" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000360" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="CleanupCallbackSeesClosedEmptyPoolAndCannotRentAgain" fullname="MyLab.Core.Tests.ObjectPoolTests.CleanupCallbackSeesClosedEmptyPoolAndCannotRentAgain" methodname="CleanupCallbackSeesClosedEmptyPoolAndCannotRentAgain" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="432634615" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000892" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1026" name="ConstructorRejectsNonPositiveCapacity" fullname="MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001108" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1024" name="ConstructorRejectsNonPositiveCapacity(0)" fullname="MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity(0)" methodname="ConstructorRejectsNonPositiveCapacity" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="586750898" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000309" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1025" name="ConstructorRejectsNonPositiveCapacity(-1)" fullname="MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity(-1)" methodname="ConstructorRejectsNonPositiveCapacity" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1821717432" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000112" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1027" name="ConstructorRejectsNullFactory" fullname="MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNullFactory" methodname="ConstructorRejectsNullFactory" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="662308030" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000232" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1049" name="DisposeAttemptsAllCleanupEvenWhenEveryDestroyCallbackThrows" fullname="MyLab.Core.Tests.ObjectPoolTests.DisposeAttemptsAllCleanupEvenWhenEveryDestroyCallbackThrows" methodname="DisposeAttemptsAllCleanupEvenWhenEveryDestroyCallbackThrows" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1853627858" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001072" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1048" name="DisposeCleansUpBorrowedAndIdleObjectsOnceAndRejectsReuse" fullname="MyLab.Core.Tests.ObjectPoolTests.DisposeCleansUpBorrowedAndIdleObjectsOnceAndRejectsReuse" methodname="DisposeCleansUpBorrowedAndIdleObjectsOnceAndRejectsReuse" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="340106828" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000590" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1032" name="DuplicateReturnIsRejectedAndCannotCreateTwoLoansOfTheSameInstance" fullname="MyLab.Core.Tests.ObjectPoolTests.DuplicateReturnIsRejectedAndCannotCreateTwoLoansOfTheSameInstance" methodname="DuplicateReturnIsRejectedAndCannotCreateTwoLoansOfTheSameInstance" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="84854466" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000559" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1033" name="EqualValuesStillRepresentDistinctOwnedInstances" fullname="MyLab.Core.Tests.ObjectPoolTests.EqualValuesStillRepresentDistinctOwnedInstances" methodname="EqualValuesStillRepresentDistinctOwnedInstances" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1474046693" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000358" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1035" name="FactoryFailureLeavesCapacityAvailableForRetry" fullname="MyLab.Core.Tests.ObjectPoolTests.FactoryFailureLeavesCapacityAvailableForRetry" methodname="FactoryFailureLeavesCapacityAvailableForRetry" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="2103144974" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000311" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1043" name="HookAndCleanupFailuresAreBothReported" fullname="MyLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.003026" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1041" name="HookAndCleanupFailuresAreBothReported(True)" fullname="MyLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported(True)" methodname="HookAndCleanupFailuresAreBothReported" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="461022783" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.002462" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1042" name="HookAndCleanupFailuresAreBothReported(False)" fullname="MyLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported(False)" methodname="HookAndCleanupFailuresAreBothReported" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="2084639597" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000111" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1040" name="HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry" fullname="MyLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001238" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1038" name="HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(True)" fullname="MyLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(True)" methodname="HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1523290702" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000693" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1039" name="HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(False)" fullname="MyLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(False)" methodname="HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1488190365" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000091" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1046" name="MutationFromCallbacksIsRejected" fullname="MyLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000856" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1044" name="MutationFromCallbacksIsRejected(True)" fullname="MyLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected(True)" methodname="MutationFromCallbacksIsRejected" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="46475256" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000482" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1045" name="MutationFromCallbacksIsRejected(False)" fullname="MyLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected(False)" methodname="MutationFromCallbacksIsRejected" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1078091212" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000050" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1047" name="MutationFromFactoryIsRejected" fullname="MyLab.Core.Tests.ObjectPoolTests.MutationFromFactoryIsRejected" methodname="MutationFromFactoryIsRejected" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1798015300" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000315" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1036" name="NullFactoryResultIsRejectedWithoutConsumingCapacity" fullname="MyLab.Core.Tests.ObjectPoolTests.NullFactoryResultIsRejectedWithoutConsumingCapacity" methodname="NullFactoryResultIsRejectedWithoutConsumingCapacity" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1629443145" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000239" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="RepeatedFactoryReferenceIsRejectedWithoutDestroyingTheOriginalLoan" fullname="MyLab.Core.Tests.ObjectPoolTests.RepeatedFactoryReferenceIsRejectedWithoutDestroyingTheOriginalLoan" methodname="RepeatedFactoryReferenceIsRejectedWithoutDestroyingTheOriginalLoan" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1186574001" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000359" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1051" name="ResourceDisposalIsExplicitThroughDestroyCallback" fullname="MyLab.Core.Tests.ObjectPoolTests.ResourceDisposalIsExplicitThroughDestroyCallback" methodname="ResourceDisposalIsExplicitThroughDestroyCallback" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1009780617" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000173" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1031" name="ReturnRejectsForeignInstanceWithoutDestroyingIt" fullname="MyLab.Core.Tests.ObjectPoolTests.ReturnRejectsForeignInstanceWithoutDestroyingIt" methodname="ReturnRejectsForeignInstanceWithoutDestroyingIt" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1072709636" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000248" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1030" name="ReturnRejectsNull" fullname="MyLab.Core.Tests.ObjectPoolTests.ReturnRejectsNull" methodname="ReturnRejectsNull" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1071018140" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001415" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1028" name="ReturnResetsPlainClassAndNextRentReusesIt" fullname="MyLab.Core.Tests.ObjectPoolTests.ReturnResetsPlainClassAndNextRentReusesIt" methodname="ReturnResetsPlainClassAndNextRentReusesIt" classname="MyLab.Core.Tests.ObjectPoolTests" runstate="Runnable" seed="1429328741" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000335" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1052" name="PrefabPoolValidationTests" fullname="MyLab.Core.Tests.PrefabPoolValidationTests" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.196940" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1057" name="ConstructorRejectsDestroyedPrefab" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsDestroyedPrefab" methodname="ConstructorRejectsDestroyedPrefab" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" seed="1716224058" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.002257" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1055" name="ConstructorRejectsNonPositiveCapacity" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.003542" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1053" name="ConstructorRejectsNonPositiveCapacity(0)" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity(0)" methodname="ConstructorRejectsNonPositiveCapacity" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" seed="771720494" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000467" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1054" name="ConstructorRejectsNonPositiveCapacity(-1)" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNonPositiveCapacity(-1)" methodname="ConstructorRejectsNonPositiveCapacity" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" seed="1956319223" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000095" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1056" name="ConstructorRejectsNullPrefab" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorRejectsNullPrefab" methodname="ConstructorRejectsNullPrefab" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" seed="113239617" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.000307" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1058" name="ConstructorStartsEmptyAndPreservesSource" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.ConstructorStartsEmptyAndPreservesSource" methodname="ConstructorStartsEmptyAndPreservesSource" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" seed="1668037195" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.001593" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1059" name="InstantiatesPrefabAssetWithoutChangingIt" fullname="MyLab.Core.Tests.PrefabPoolValidationTests.InstantiatesPrefabAssetWithoutChangingIt" methodname="InstantiatesPrefabAssetWithoutChangingIt" classname="MyLab.Core.Tests.PrefabPoolValidationTests" runstate="Runnable" seed="125339627" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.170789" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1060" name="SceneRootEditorTests" fullname="MyLab.Core.Tests.SceneRootEditorTests" classname="MyLab.Core.Tests.SceneRootEditorTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="0.773709" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1063" name="MenuRejectsNoSelectionAndChildSelection" fullname="MyLab.Core.Tests.SceneRootEditorTests.MenuRejectsNoSelectionAndChildSelection" methodname="MenuRejectsNoSelectionAndChildSelection" classname="MyLab.Core.Tests.SceneRootEditorTests" runstate="Runnable" seed="1401291623" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:51Z" duration="0.076163" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="SceneOwnedMenuSupportsUndoRedo" fullname="MyLab.Core.Tests.SceneRootEditorTests.SceneOwnedMenuSupportsUndoRedo" methodname="SceneOwnedMenuSupportsUndoRedo" classname="MyLab.Core.Tests.SceneRootEditorTests" runstate="Runnable" seed="1335334011" result="Passed" start-time="2026-10-02 08:12:51Z" end-time="2026-10-02 08:12:52Z" duration="0.406391" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type Light was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+]]></output>
+              </test-case>
+              <test-case id="1062" name="SingletonMenuSupportsUndoRedo" fullname="MyLab.Core.Tests.SceneRootEditorTests.SingletonMenuSupportsUndoRedo" methodname="SingletonMenuSupportsUndoRedo" classname="MyLab.Core.Tests.SceneRootEditorTests" runstate="Runnable" seed="656596451" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.269319" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type Light was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+Component of type MonoBehaviour was added to SceneRootEditorTest using GameObject.AddComponent() and had become dangling during an undo operation.
+Use Undo.AddComponent to correctly add a component which can be handle by the undo system
+
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1064" name="UnityObjectPoolContractTests" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.007563" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1070" name="ClearDestroysOnlyInactiveObjectsAndAllowsFurtherRent" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.ClearDestroysOnlyInactiveObjectsAndAllowsFurtherRent" methodname="ClearDestroysOnlyInactiveObjectsAndAllowsFurtherRent" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="1451631721" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.001229" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="DisabledCollectionCheckAllowsTwoLoansOfOneDuplicateReturn" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.DisabledCollectionCheckAllowsTwoLoansOfOneDuplicateReturn" methodname="DisabledCollectionCheckAllowsTwoLoansOfOneDuplicateReturn" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="220758531" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000677" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1069" name="ForeignReturnIsNotAnOwnershipCheck" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.ForeignReturnIsNotAnOwnershipCheck" methodname="ForeignReturnIsNotAnOwnershipCheck" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="1801456736" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000509" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="FullInactiveStorageIntentionallyDestroysOverflowReturn" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.FullInactiveStorageIntentionallyDestroysOverflowReturn" methodname="FullInactiveStorageIntentionallyDestroysOverflowReturn" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="1837751492" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000596" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="NormalReturnReusesPlainClass" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.NormalReturnReusesPlainClass" methodname="NormalReturnReusesPlainClass" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="873906355" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000445" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1067" name="ThrowingRentCallbackDoesNotRollBackTheCreatedSlot" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.ThrowingRentCallbackDoesNotRollBackTheCreatedSlot" methodname="ThrowingRentCallbackDoesNotRollBackTheCreatedSlot" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="178619624" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000359" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="ThrowingReturnCallbackLeavesInstanceOutsideInactiveStorage" fullname="MyLab.Core.Tests.UnityObjectPoolContractTests.ThrowingReturnCallbackLeavesInstanceOutsideInactiveStorage" methodname="ThrowingReturnCallbackLeavesInstanceOutsideInactiveStorage" classname="MyLab.Core.Tests.UnityObjectPoolContractTests" runstate="Runnable" seed="158681636" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000612" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1078" name="Unity.Addressables.DocExampleCode.Editor.Tests.dll" fullname="C:/Users/PC/Projects/MyLab/Library/ScriptAssemblies/Unity.Addressables.DocExampleCode.Editor.Tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.001032" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1079" name="AddressableAssets" fullname="AddressableAssets" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000815" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1080" name="DocExampleCode" fullname="AddressableAssets.DocExampleCode" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000674" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1076" name="TestStub" fullname="AddressableAssets.DocExampleCode.TestStub" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000540" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1077" name="RequiredTest" fullname="AddressableAssets.DocExampleCode.TestStub.RequiredTest" methodname="RequiredTest" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" seed="1728467475" result="Passed" start-time="2026-10-02 08:12:52Z" end-time="2026-10-02 08:12:52Z" duration="0.000056" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/MyLab\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

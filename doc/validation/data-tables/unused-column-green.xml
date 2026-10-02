@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="20" result="Passed" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.2389514">
+  <test-suite type="TestSuite" id="1000" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="61" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.238951" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1072" name="MyLab.Core.EditModeTests.dll" fullname="C:/Users/PC/Projects/MyLab/Library/ScriptAssemblies/MyLab.Core.EditModeTests.dll" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.197392" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="42616" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1073" name="MyLab" fullname="MyLab" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.196693" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1074" name="Core" fullname="MyLab.Core" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.196265" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1075" name="Tests" fullname="MyLab.Core.Tests" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.195822" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="DataTableManagerTests" fullname="MyLab.Core.Tests.DataTableManagerTests" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.195062" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1016" name="BadCsvKeepsEveryPreviouslyPublishedTable" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.124752" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1004" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one\n1,duplicate&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one\n1,duplicate&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="505348271" result="Passed" start-time="2026-10-02 08:11:48Z" end-time="2026-10-02 08:11:49Z" duration="0.113438" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1005" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\nwrong,one&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\nwrong,one&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1822893390" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.001970" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1006" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1695902710" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000522" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1007" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one,extra&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,one,extra&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="135960748" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000192" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,\&quot;unterminated&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name\n1,\&quot;unterminated&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1962899957" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000661" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Unused\n1,one,\&quot;unterminated&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Unused\n1,one,\&quot;unterminated&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="647465463" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000205" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Name\none&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Name\none&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="91766735" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000177" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Name\n1,one,two&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,Name,Name\n1,one,two&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1599624464" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,,Name\n1,x,one&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id,,Name\n1,x,one&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1907093171" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000156" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;Id&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="230990816" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000179" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="BadCsvKeepsEveryPreviouslyPublishedTable(&quot;&quot;)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(&quot;&quot;)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="426717194" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000159" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="BadCsvKeepsEveryPreviouslyPublishedTable(null)" fullname="MyLab.Core.Tests.DataTableManagerTests.BadCsvKeepsEveryPreviouslyPublishedTable(null)" methodname="BadCsvKeepsEveryPreviouslyPublishedTable" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1671496168" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000142" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1018" name="CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" fullname="MyLab.Core.Tests.DataTableManagerTests.CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" methodname="CrossTableValidationReadsCandidateAndFailureKeepsOldSnapshot" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1431875746" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.001850" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1003" name="CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" fullname="MyLab.Core.Tests.DataTableManagerTests.CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" methodname="CsvReaderHandlesBomQuotesMultilineAndInvariantDecimals" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="504313627" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.002763" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" fullname="MyLab.Core.Tests.DataTableManagerTests.HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" methodname="HeaderOnlyTablesAreAllowedAndValidatorsCanRequireRows" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="604689759" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000758" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1002" name="LoadsMultipleTablesAndExposesReadOnlyContainers" fullname="MyLab.Core.Tests.DataTableManagerTests.LoadsMultipleTablesAndExposesReadOnlyContainers" methodname="LoadsMultipleTablesAndExposesReadOnlyContainers" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="235611687" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.052574" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1021" name="NullRowsAndNullKeysAreRejected" fullname="MyLab.Core.Tests.DataTableManagerTests.NullRowsAndNullKeysAreRejected" methodname="NullRowsAndNullKeysAreRejected" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1043805714" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.001025" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1020" name="RegistrationRejectsBadInputsAndFreezesAtFirstLoad" fullname="MyLab.Core.Tests.DataTableManagerTests.RegistrationRejectsBadInputsAndFreezesAtFirstLoad" methodname="RegistrationRejectsBadInputsAndFreezesAtFirstLoad" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1887786229" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000948" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1017" name="RequiredValuesAreProjectValidationAndFailureDoesNotPublish" fullname="MyLab.Core.Tests.DataTableManagerTests.RequiredValuesAreProjectValidationAndFailureDoesNotPublish" methodname="RequiredValuesAreProjectValidationAndFailureDoesNotPublish" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1080253659" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.002487" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1022" name="ValidatorCannotPublishAfterDisposingOwner" fullname="MyLab.Core.Tests.DataTableManagerTests.ValidatorCannotPublishAfterDisposingOwner" methodname="ValidatorCannotPublishAfterDisposingOwner" classname="MyLab.Core.Tests.DataTableManagerTests" runstate="Runnable" seed="1421003227" result="Passed" start-time="2026-10-02 08:11:49Z" end-time="2026-10-02 08:11:49Z" duration="0.000833" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/MyLab\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
