@@ -2,6 +2,8 @@
 
 2026-10-02. `MyLab.Core.DataTables`의 일반 C# 소유자다. Singleton 상속과 게임별 enum·ID 구간·CSV DTO·검색 규칙을 강제하지 않는다. [검증 기록](validation/data-tables/README.md)에서 현재 실행 범위와 증거를 확인한다.
 
+기본 DTO·표준 테이블·interface 구현 매핑은 [추가 초안](DATA_TABLE_MAPPING_DRAFT.md)에서 검토한다. 해당 제안은 미구현이며 아래 현재 계약과 구분한다.
+
 ## 등록과 공개
 
 1. `Register<TKey, TRow>`로 테이블 이름, 필수 열 이름, CSV 문자열 공급자, 현재 행의 파서, 키 선택자와 선택적 행 검증을 등록한다.
