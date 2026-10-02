@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyLab.Core.Lifecycle;
 
 namespace MyLab.Core.Tests
@@ -14,6 +16,49 @@ namespace MyLab.Core.Tests
         public int UninstallCount;
         public ISceneRoot InjectedRoot;
         public bool WasReadyDuringInstall;
+        [NonSerialized] public UniTaskCompletionSource PrepareGate;
+        [NonSerialized] public UniTaskCompletionSource ReleaseGate;
+        public bool FailPrepare;
+        public bool FailRelease;
+        public bool IgnorePrepareCancellation;
+        public int PrepareCount;
+        public int ReleaseCount;
+
+        public override async UniTask PrepareAsync(ISceneRoot root, CancellationToken cancellationToken)
+        {
+            PrepareCount++;
+            Trace.Add("prepare:" + Id);
+            if (PrepareGate != null)
+            {
+                if (IgnorePrepareCancellation)
+                {
+                    await PrepareGate.Task;
+                }
+                else
+                {
+                    await PrepareGate.Task.AttachExternalCancellation(cancellationToken);
+                }
+            }
+            if (FailPrepare)
+            {
+                throw new InvalidOperationException("root-prepare:" + Id);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        public override async UniTask ReleaseAsync(ISceneRoot root)
+        {
+            ReleaseCount++;
+            Trace.Add("release:" + Id);
+            if (ReleaseGate != null)
+            {
+                await ReleaseGate.Task;
+            }
+            if (FailRelease)
+            {
+                throw new InvalidOperationException("root-release:" + Id);
+            }
+        }
 
         public override void Install(ISceneRoot root)
         {

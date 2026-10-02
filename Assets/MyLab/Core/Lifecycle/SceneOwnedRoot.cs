@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace MyLab.Core.Lifecycle
@@ -16,6 +18,19 @@ namespace MyLab.Core.Lifecycle
         public GameObject RootObject => gameObject;
         /// <inheritdoc />
         public bool IsReady => _installation != null && _installation.IsReady;
+        /// <inheritdoc />
+        public bool IsPrepared => _installation != null && _installation.IsPrepared;
+        /// <inheritdoc />
+        public UniTask PrepareAsync(CancellationToken cancellationToken = default)
+        {
+            if (_installation == null)
+            {
+                throw new InvalidOperationException("Activate and install the root before preparation.");
+            }
+            return _installation.PrepareAsync(cancellationToken);
+        }
+        /// <inheritdoc />
+        public UniTask ShutdownAsync() => _installation?.ShutdownAsync() ?? UniTask.CompletedTask;
 
         /// <summary>
         /// Copies installers in initialization order before activation. Null means an empty list.

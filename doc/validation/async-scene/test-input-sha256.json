@@ -1,0 +1,145 @@
+{
+  "Policy": "UTF-8 without BOM; CRLF normalized to LF; SHA-256",
+  "Inputs": [
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/ISceneRoot.cs",
+      "Sha256": "ff60cb662fce3864ef9df0942cae760efde8115f8d56c1f18ab51f20e36e5c57"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/MonoSingleton.cs",
+      "Sha256": "62a57a8077e72d181cc536635065eb49d7aac6a2cf98d9643af03662312ab5b8"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/RootInstallation.cs",
+      "Sha256": "3643e448231249f796a45c1e055fcaddc19fb5755a6affa025acced5682fbafb"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/SceneOwnedRoot.cs",
+      "Sha256": "6539398a0d2984a15f90bedc9f3e0f8a54bdc8dffcc4f09e150ad7c35c914d82"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/SceneRootFlow.cs",
+      "Sha256": "8e035b95784076acc3831d5bb165bf377140c86b7a94b64468be1ec00f838632"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/SceneRootInstaller.cs",
+      "Sha256": "25fd51cb1db7e9618b61a88d4f284ac42ce41b08847cde9917e9723176500969"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/SceneRootSetup.cs",
+      "Sha256": "5feee35c0e777a89c3873cc68e3b4b45b496d1d5c69266ef84a45c2369431b07"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/SingletonRuntime.cs",
+      "Sha256": "92a52ab702fe0841418d71720cb9c23a7c21a4439cfff8cd0ddcade12a41a789"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Lifecycle/SingletonSceneRoot.cs",
+      "Sha256": "7254d364617038f777b5fb0b3744d80980e5cab45bdb4eb559f37848d72401f6"
+    },
+    {
+      "Path": "Assets/MyLab/Core/MyLab.Core.asmdef",
+      "Sha256": "5c9fd82949fa329edf9061f35fb246dac278bcfd2289557a9427ca33d45f1482"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Pooling/ObjectPool.cs",
+      "Sha256": "1b1530b1da762eeeb7c5788307a5d5623807cb8097efa805f3b452cd7782b726"
+    },
+    {
+      "Path": "Assets/MyLab/Core/Pooling/PrefabPool.cs",
+      "Sha256": "b8b4ea01103727a9e85c88665338fcaa91a1e3b28fb79452d841f2081428f443"
+    },
+    {
+      "Path": "Assets/MyLab/Editor/MyLab.Core.Editor.asmdef",
+      "Sha256": "dc83279341c2827f15cd03732abe71953114aca64705903586e99c0116ede084"
+    },
+    {
+      "Path": "Assets/MyLab/Editor/SceneRootInspector.cs",
+      "Sha256": "d23397501de6a962af5c3c5ec7b364c3208c4ce9a6bc89117c6002803b1e359a"
+    },
+    {
+      "Path": "Assets/MyLab/Editor/SceneRootMenu.cs",
+      "Sha256": "f68625fcd487cba5a41e04d8d066fe1f0bfb015b6e0165bef1f981f58bac3b24"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/EditMode/MyLab.Core.EditModeTests.asmdef",
+      "Sha256": "3504039d807f28499e0d018441927979457c57f741952023fa5981ceb842ef2c"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/EditMode/ObjectPoolTests.cs",
+      "Sha256": "b4ee177a167eace7d18caa1ac4a61bf96e0442bdab62f37b22ae1ec71880961d"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/EditMode/PrefabPoolValidationTests.cs",
+      "Sha256": "f4b3a30db62c74db5fab0d663413de650060dbb4525b9b489b28933811718d4f"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/EditMode/SceneRootEditorTests.cs",
+      "Sha256": "949882bcc0ab3d0c24355fcf497a54f5c8e76760784e6c0035a1f8fae65537bd"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/EditMode/UnityObjectPoolContractTests.cs",
+      "Sha256": "781ad30225995d3e6277b1a2146c2faae11a7a6190b15e0c41d02fa4774a83df"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/Fixtures/MyLab.Core.TestFixtures.asmdef",
+      "Sha256": "0dfdf03139ad3dcaaa03738dcc5e70a4791733cac57da1b48065b58fb648385c"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/Fixtures/OtherSingletonProbe.cs",
+      "Sha256": "0d957e6e1920378a09aa711c304d0dddc27a5265cd0cdca92c21e1abfc81e50c"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/Fixtures/SceneRootInstallerProbe.cs",
+      "Sha256": "804d60965e2085b78dc9958a76379865aa2ce07f14a5d88abacd7fd51978c7fc"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/Fixtures/SingletonProbe.cs",
+      "Sha256": "ed1dc450e15e4ba29f2a287cfed33bd2d3be1b6f08a0bb08049fce8d02b915e5"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/PlayMode/AsyncSceneRootTests.cs",
+      "Sha256": "b2a049bbbe2b0f65c460e06682d53e7b3232b7eef2c59e92a95366e04df2d27f"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/PlayMode/MonoSingletonTests.cs",
+      "Sha256": "257278ebfb5f211134331113c6047702db5c2dd23cd2bd8a28a373a9057f5bf2"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/PlayMode/MyLab.Core.PlayModeTests.asmdef",
+      "Sha256": "c10d40dbac36ced13680832da03b696cb4d40c7026e858586c6fd85392f220e5"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/PlayMode/PoolLifecycleProbe.cs",
+      "Sha256": "7427d7a732fca17fd09b82d25d6eeb412ac200e0be726c06371e797f692c2781"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/PlayMode/PrefabPoolTests.cs",
+      "Sha256": "f448dca0813364e5f01c561c6f719b2fd4da8a792a7d3fc2a6980182d477e568"
+    },
+    {
+      "Path": "Assets/MyLab/Tests/PlayMode/SceneRootTests.cs",
+      "Sha256": "38899d1e56ad920ac5bf4522b74ce977f6862ac861e427238effcce79ee86a35"
+    },
+    {
+      "Path": "Assets/MyLab/Validation/Editor/MyLab.Core.EditorValidation.asmdef",
+      "Sha256": "9fd700012e177ee87c508fea248a8980cb49bb5f760f9359dc06de6109e7471f"
+    },
+    {
+      "Path": "Assets/MyLab/Validation/Editor/SingletonReloadCheck.cs",
+      "Sha256": "4f04c402f3b5e40eae73f5672453382794327977dc0f58fd95a0d6942df8b22c"
+    },
+    {
+      "Path": "Packages/manifest.json",
+      "Sha256": "8183eca3f70a6d0a2225f32dabc92566bf9c28121caee5e2300e50296678fb97"
+    },
+    {
+      "Path": "Packages/packages-lock.json",
+      "Sha256": "ac27bdcbbf88e0389b00ba6b63c3ec45d2c7ae7bd4962d8c58e06d8dc9ee3291"
+    },
+    {
+      "Path": "ProjectSettings/ProjectVersion.txt",
+      "Sha256": "d03fca18d2e511a37f7a81f8709404ebb2a571d3e0e5c854038c91a943ae15da"
+    }
+  ]
+}

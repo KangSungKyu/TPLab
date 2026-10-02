@@ -1,0 +1,25 @@
+{
+  "total": 15,
+  "passed": 13,
+  "failed": 2,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.AsyncSceneRootTests.RevealCancellationRestoresCoverWithoutCancelledToken:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.RevealFailureRestoresCoverBeforeReporting:   Expected: 1\r\n  But was:  0\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.AsyncSceneRootTests.CancellationDuringReleaseFinishesCleanupBeforeStoppingScene",
+    "MyLab.Core.Tests.AsyncSceneRootTests.CancelledFlowCannotProceedOrRevealAfterLatePreparation",
+    "MyLab.Core.Tests.AsyncSceneRootTests.CoverAndAllPreparationAndScenePresentationAreAwaited",
+    "MyLab.Core.Tests.AsyncSceneRootTests.CoverFailureDoesNotStartSystemsOrScene",
+    "MyLab.Core.Tests.AsyncSceneRootTests.DestructionCancelsWaitersAndLateResultsCannotProceed",
+    "MyLab.Core.Tests.AsyncSceneRootTests.OneWaiterCancellationDoesNotCancelSharedPreparation",
+    "MyLab.Core.Tests.AsyncSceneRootTests.PreparationAndRollbackFailuresAreBothPreserved",
+    "MyLab.Core.Tests.AsyncSceneRootTests.PreparationFailureRollsBackAndKeepsCover",
+    "MyLab.Core.Tests.AsyncSceneRootTests.ReleaseFailureStillCleansOtherSystemsAndKeepsCover",
+    "MyLab.Core.Tests.AsyncSceneRootTests.ReleaseWaitsUnderCoverAndCleansInReverseOrder",
+    "MyLab.Core.Tests.AsyncSceneRootTests.SameFlowRejectsOverlappingOperations",
+    "MyLab.Core.Tests.AsyncSceneRootTests.ShutdownCancelsPreparationAndCannotRunItAgain",
+    "MyLab.Core.Tests.AsyncSceneRootTests.SingletonRegistrationDoesNotAllowEarlySceneProgress"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "RecordedAt": "2026-10-02T15:22:34.1802897+09:00",
+  "Project": "C:\\Users\\PC\\Projects\\MyLab",
+  "Branch": "feature/async-scene-lifecycle",
+  "BaseCommit": "7bb629a51205dfeaf034e49ae16503229c3c533b",
+  "Unity": "6000.3.18f1",
+  "Connector": "0.4.1",
+  "EditorPid": 42616,
+  "Red": {
+    "Initial": {
+      "Skipped": 0,
+      "Total": 12,
+      "Failed": 12,
+      "Passed": 0
+    },
+    "RevealRecovery": {
+      "Skipped": 0,
+      "Total": 15,
+      "Failed": 2,
+      "Passed": 13
+    }
+  },
+  "Green": {
+    "NewTargeted": {
+      "Skipped": 0,
+      "Total": 15,
+      "Failed": 0,
+      "Passed": 15
+    },
+    "PlayMode": {
+      "Skipped": 0,
+      "Total": 56,
+      "Failed": 0,
+      "Passed": 56
+    },
+    "EditMode": {
+      "Skipped": 0,
+      "Total": 41,
+      "Failed": 0,
+      "Passed": 41
+    }
+  },
+  "RepeatedPlay": {
+    "GracefulReleaseChecked": true,
+    "Completed": 10,
+    "SettingsRestored": true,
+    "SceneOwnedAndSingletonAsyncPreparationChecked": true,
+    "Passed": 10
+  },
+  "ExpectedExceptionLogs": 8,
+  "UnexpectedFinalConsoleErrors": 0,
+  "EditorCompilation": "Completed",
+  "EditorState": "Ready",
+  "ManualVerificationRequiredForCallbackInfrastructure": false,
+  "ActualOverlayVisualAndInputUX": "Not implemented or tested; project callback integration required",
+  "PlayerBuild": "Not run",
+  "ConsumerProjectImport": "Not run",
+  "PreservedScene": {
+    "Path": "Assets/Scenes/InitScene.unity",
+    "Sha256": "12c5c4095b1806434c0d7758b7f91cdd830bfb5c78f1f7e25e331038f823b045"
+  },
+  "ExcludedUntracked": "ProjectSettings/SceneTemplateSettings.json",
+  "Recovery": {
+    "FullPlayMode": "C:\\Users\\PC\\.unity-cli\\status\\test-results-27220-1790921744980666900.json",
+    "Reason": "CLI reported editor stopped during reconnect; same execution completed with fresh nonzero results in exact MyLab Editor",
+    "Xml": "Temp/AsyncScene/full-play.xml",
+    "Targeted": "C:\\Users\\PC\\.unity-cli\\status\\test-results-32380-1790921562183432500.json (captured before subsequent reuse)"
+  },
+  "TestNotes": "UniTask 2.5.11 AsTask converts OperationCanceledException to a faulted Task. Cancellation assertions check the actual awaited exception, not Task.IsCanceled. Initial Red behavior contracts retained.",
+  "InputEvidence": "test-input-sha256.json; sources and evidence accompany this commit"
+}

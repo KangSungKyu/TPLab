@@ -1,6 +1,11 @@
 {
-    "name": "MyLab.Core.TestFixtures",
-    "rootNamespace": "MyLab.Core.Tests",
-    "references": ["MyLab.Core"],
-    "optionalUnityReferences": ["TestAssemblies"]
+  "name": "MyLab.Core.TestFixtures",
+  "rootNamespace": "MyLab.Core.Tests",
+  "references": [
+    "MyLab.Core",
+    "UniTask"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

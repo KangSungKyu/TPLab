@@ -1,4 +1,7 @@
 {
-    "name": "MyLab.Core",
-    "rootNamespace": "MyLab.Core"
+  "name": "MyLab.Core",
+  "rootNamespace": "MyLab.Core",
+  "references": [
+    "UniTask"
+  ]
 }

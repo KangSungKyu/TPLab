@@ -1,0 +1,21 @@
+{
+  "total": 12,
+  "passed": 0,
+  "failed": 12,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.AsyncSceneRootTests.CancellationDuringReleaseFinishesCleanupBeforeStoppingScene:   Expected: False\r\n  But was:  True\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.CancelledFlowCannotProceedOrRevealAfterLatePreparation:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.CoverAndAllPreparationAndScenePresentationAreAwaited:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.CoverFailureDoesNotStartSystemsOrScene:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.DestructionCancelsWaitersAndLateResultsCannotProceed:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.OneWaiterCancellationDoesNotCancelSharedPreparation:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.PreparationFailureRollsBackAndKeepsCover:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.ReleaseFailureStillCleansOtherSystemsAndKeepsCover:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.ReleaseWaitsUnderCoverAndCleansInReverseOrder:   Expected: False\r\n  But was:  True\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.SameFlowRejectsOverlappingOperations:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.ShutdownCancelsPreparationAndCannotRunItAgain:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.AsyncSceneRootTests.SingletonRegistrationDoesNotAllowEarlySceneProgress:   Expected: not collection containing \"proceed\"\r\n  But was:  < \"proceed\" >\r\n"
+  ],
+  "passes": []
+}

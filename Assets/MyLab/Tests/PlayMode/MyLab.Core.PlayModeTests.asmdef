@@ -1,6 +1,12 @@
 {
-    "name": "MyLab.Core.PlayModeTests",
-    "rootNamespace": "MyLab.Core.Tests",
-    "references": ["MyLab.Core", "MyLab.Core.TestFixtures"],
-    "optionalUnityReferences": ["TestAssemblies"]
+  "name": "MyLab.Core.PlayModeTests",
+  "rootNamespace": "MyLab.Core.Tests",
+  "references": [
+    "MyLab.Core",
+    "MyLab.Core.TestFixtures",
+    "UniTask"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

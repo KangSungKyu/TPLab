@@ -153,6 +153,11 @@ namespace MyLab.Core.Tests
                         var root = id == "owned" ? (ISceneRoot)rootObject.GetComponent<SceneOwnedRoot>()
                             : rootObject.GetComponent<SingletonSceneRoot>();
                         Require(root.IsReady && ReferenceEquals(installer.InjectedRoot, root), "Scene root injection was not restored: " + id);
+                        root.PrepareAsync().GetAwaiter().GetResult();
+                        Require(root.IsPrepared, "Async readiness was not restored: " + id);
+                        Require(SceneRootInstallerProbe.Trace.Count(entry => entry == "prepare:" + id) == expected,
+                            "Unexpected root preparation count: " + id);
+                        root.ShutdownAsync().GetAwaiter().GetResult();
                         Require(SceneRootInstallerProbe.Trace.Count(entry => entry == "install:" + id) == expected,
                             "Unexpected root installation count: " + id);
                     }
@@ -167,7 +172,7 @@ namespace MyLab.Core.Tests
                     }
                     string line = step + ": " + options + ", totalInit=" + SingletonProbe.TotalInitializeCount
                         + ", ownerInit=" + owner.InitializeCount + ", ownerId=" + owner.GetInstanceID()
-                        + ", owned/globalInstall=" + expected + ", injected=true";
+                        + ", owned/globalInstall=" + expected + ", injected=true, prepared=true, released=true";
                     SessionState.SetString(Key + "Observations", SessionState.GetString(Key + "Observations", "") + line + "\n");
                 }
                 catch (Exception exception)
@@ -193,6 +198,10 @@ namespace MyLab.Core.Tests
                     if (SceneRootInstallerProbe.Trace.Count(entry => entry == "uninstall:" + id) != expected)
                     {
                         error += "Unexpected root cleanup count: " + id + ".";
+                    }
+                    if (SceneRootInstallerProbe.Trace.Count(entry => entry == "release:" + id) != expected)
+                    {
+                        error += "Unexpected asynchronous release count: " + id + ".";
                     }
                 }
                 SessionState.SetString(Key + "Observations", SessionState.GetString(Key + "Observations", "")

@@ -40,10 +40,10 @@ rootObject.SetActive(true);
 - host는 설정 배열을 복사하고 전체 입력을 검사한 다음 순서대로 Install을 호출한다. 비활성화·재활성화는 재설치나 해제를 유발하지 않는다.
 - installer는 root 또는 자식에 있어야 하며 null·중복은 거부한다. 초기화 실패 시 실패한 installer와 앞선 installer를 역순으로 Uninstall하고 뒤의 installer는 실행하지 않는다.
 - 파괴 시에도 역순으로 정리한다. 정리 예외가 있어도 나머지를 시도하고 예외를 기록한다. installer별 정리는 설치 시도당 한 번이며, installer를 host보다 먼저 별도로 삭제하지 않는다.
-- `IsReady`는 동기 Install 전체 성공만 의미한다. ResourceManager의 비동기 로드 완료는 후속 API에서 별도로 await해야 한다. async void Install이나 실패를 숨기는 fire-and-forget 부팅은 사용하지 않는다.
+- `IsReady`는 동기 Install 전체 성공만 의미한다. 비동기 준비는 `PrepareAsync`를 await하고 `IsPrepared`로 확인한다. 씬 진행과 가림막 callback은 [비동기 씬 계약](ASYNC_SCENE_LIFECYCLE.md)을 따른다. async void Install은 사용하지 않는다.
 - Singleton 중복은 host 컴포넌트만 제거한다. 중복 객체·다른 컴포넌트는 보존하며 installer를 실행하지 않는다.
 
-실행 예제와 계약 검사는 `SceneRootTests`와 `SceneRootInstallerProbe`에 있다. 다음 ResourceManager 단계에서 실제 manager 생성·서비스 참조 주입을 프로젝트 adapter로 연결한다.
+실행 예제와 계약 검사는 `SceneRootTests`와 `SceneRootInstallerProbe`에 있다. 비동기 준비·해제 hook과 씬 진행 callback도 제공한다. 다음 ResourceManager 단계에서 실제 manager 생성·서비스 참조 주입을 프로젝트 adapter로 연결한다.
 
 ## 검증 (2026-10-02)
 
