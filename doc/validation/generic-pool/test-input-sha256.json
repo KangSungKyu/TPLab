@@ -1,0 +1,62 @@
+[
+  {
+    "path": "Assets/MyLab/Core/MyLab.Core.asmdef",
+    "sha256": "F0D372F7A1B3BF1E8E9DBB08F570CFA1B588ACC2A41DD67A30C5E91955C07CCB"
+  },
+  {
+    "path": "Assets/MyLab/Core/Pooling/ObjectPool.cs",
+    "sha256": "1B1530B1DA762EEEB7C5788307A5D5623807CB8097EFA805F3B452CD7782B726"
+  },
+  {
+    "path": "Assets/MyLab/Core/Pooling/PrefabPool.cs",
+    "sha256": "B8B4EA01103727A9E85C88665338FCAA91A1E3B28FB79452D841F2081428F443"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/MyLab.Core.EditModeTests.asmdef",
+    "sha256": "457C8116557886A9C309386ADDE8C76F0841E9F132072BAA990D2983B7249CCA"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/ObjectPoolTests.cs",
+    "sha256": "B4EE177A167EACE7D18CAA1AC4A61BF96E0442BDAB62F37B22AE1EC71880961D"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/PrefabPoolValidationTests.cs",
+    "sha256": "F4B3A30DB62C74DB5FAB0D663413DE650060DBB4525B9B489B28933811718D4F"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/UnityObjectPoolContractTests.cs",
+    "sha256": "781AD30225995D3E6277B1A2146C2FAAE11A7A6190B15E0C41D02FA4774A83DF"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/MyLab.Core.PlayModeTests.asmdef",
+    "sha256": "0060A76624DB81651B9FF6A03512CE075CA567205E466414B6E605C9D49C4B75"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/PoolLifecycleProbe.cs",
+    "sha256": "7427D7A732FCA17FD09B82D25D6EEB412AC200E0BE726C06371E797F692C2781"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/PrefabPoolTests.cs",
+    "sha256": "F448DCA0813364E5F01C561C6F719B2FD4DA8A792A7D3FC2A6980182D477E568"
+  },
+  {
+    "path": "doc/validation/generic-pool/dotnet-probe/PoolProbe.csproj",
+    "sha256": "D3079D300F44102CE3AC19C4B072F69914AAB5158E86A30F4D29AECDF96CB988"
+  },
+  {
+    "path": "doc/validation/generic-pool/dotnet-probe/Program.cs",
+    "sha256": "CA634C2CE2399D7FC0F94AC15D3B4E6CC7B9AEB63EE7835B20BD133BFB647895"
+  },
+  {
+    "path": "Packages/manifest.json",
+    "sha256": "8183ECA3F70A6D0A2225F32DABC92566BF9C28121CAEE5E2300E50296678FB97"
+  },
+  {
+    "path": "Packages/packages-lock.json",
+    "sha256": "AC27BDCBBF88E0389B00BA6B63C3EC45D2C7AE7BD4962D8C58E06D8DC9EE3291"
+  },
+  {
+    "path": "ProjectSettings/ProjectVersion.txt",
+    "sha256": "D03FCA18D2E511A37F7A81F8709404EBB2A571D3E0E5C854038C91A943AE15DA"
+  }
+]

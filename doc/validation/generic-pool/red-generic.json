@@ -1,0 +1,33 @@
+{
+  "total": 24,
+  "passed": 0,
+  "failed": 24,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.ObjectPoolTests.CapacityIncludesBorrowedObjects:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ChangingValueHashDoesNotLoseOwnershipOrAdmitEqualForeignObjects:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.CleanupCallbackSeesClosedEmptyPoolAndCannotRentAgain:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity(0):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity(-1):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNullFactory:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.DisposeAttemptsAllCleanupEvenWhenEveryDestroyCallbackThrows:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.DisposeCleansUpBorrowedAndIdleObjectsOnceAndRejectsReuse:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.DuplicateReturnIsRejectedAndCannotCreateTwoLoansOfTheSameInstance:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.EqualValuesStillRepresentDistinctOwnedInstances:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.FactoryFailureLeavesCapacityAvailableForRetry:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported(True):   Expected: <System.AggregateException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported(False):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(True):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(False):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected(True):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected(False):   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.MutationFromFactoryIsRejected:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.NullFactoryResultIsRejectedWithoutConsumingCapacity:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.RepeatedFactoryReferenceIsRejectedWithoutDestroyingTheOriginalLoan:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ResourceDisposalIsExplicitThroughDestroyCallback:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ReturnRejectsForeignInstanceWithoutDestroyingIt:   Expected: <System.ArgumentException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ReturnRejectsNull:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.ObjectPoolTests.ReturnResetsPlainClassAndNextRentReusesIt:   Expected: True\r\n  But was:  False\r\n"
+  ],
+  "passes": []
+}

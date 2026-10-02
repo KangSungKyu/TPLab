@@ -1,6 +1,6 @@
 # 로컬 PrefabPool 계약
 
-첫 구현 단계: 로컬 GameObject 프리팹 또는 생성 원본의 동기 풀. namespace는 MyLab.Core.Pooling, runtime assembly는 MyLab.Core다. 현재 지원·검증 기준은 Unity 6000.3이며, Assets/MyLab/Core 폴더와 .meta를 소비 프로젝트에 함께 가져오는 방식을 사용한다. UPM 배포는 별도 소비 프로젝트 검증 단계에서 결정한다.
+로컬 GameObject 프리팹 또는 생성 원본의 동기 풀 어댑터다. 공통 정원·소유권·실패 정리는 [제네릭 ObjectPool<T>](GENERIC_POOL.md)에 위임한다. namespace는 MyLab.Core.Pooling, runtime assembly는 MyLab.Core다. 현재 지원·검증 기준은 Unity 6000.3이며, Assets/MyLab/Core 폴더와 .meta를 소비 프로젝트에 함께 가져오는 방식을 사용한다. UPM 배포는 별도 소비 프로젝트 검증 단계에서 결정한다.
 
 - PrefabPool(prefab, capacity, parent, onRent, onReturn)은 원본과 부모를 빌려 사용한다. 원본은 새 객체를 생성하는 동안, 부모는 풀 수명 동안 살아 있어야 한다. 풀은 생성한 모든 복제본과 비활성 보관 루트를 소유한다.
 - Capacity는 대여 중 객체와 대기 객체를 합친 총 소유 정원이다. TryRent(out instance)는 대기 객체를 우선 재사용하고 정원 소진에만 false/null을 반환한다. 입력·수명·콜백 오류는 예외다.
@@ -10,7 +10,7 @@
 - Dispose는 대여 중·대기 중 객체와 보관 루트를 전부 정리하고 영구 종료한다. 반복 Dispose는 무시한다. 이후 대여·반환은 ObjectDisposedException이다. PlayMode의 Destroy는 프레임 종료 시 완료되며 객체는 먼저 비활성화한다. 종료 시 반환 콜백은 호출하지 않는다. 소비자는 반환하지 못하는 종료 경로의 외부 구독도 직접 정리해야 한다.
 - Unity 메인 스레드 전용이다. 소비자가 복제본을 직접 Destroy하거나 보관 루트를 수정하는 사용은 지원하지 않는다. Addressables·비동기 준비·Singleton·전역 풀 registry·prewarm은 이번 단계에 포함하지 않는다.
 
-Cashier에서 총 소유 정원·수명 소유권·실패 정리의 필요성을 확인했다. 구현은 UnityEngine.Pool.ObjectPool<GameObject>의 보관 기능을 활용하고 필요한 소유권 정책을 추가한다. Cashier 코드와 게임별 상태는 복사하지 않는다. [Unity 기본 풀](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Pool.ObjectPool_1.html)의 maxSize는 반환 객체 보관 한도이므로 이 계약의 총 정원과 구분한다.
+Cashier에서 총 소유 정원·수명 소유권·실패 정리의 필요성을 확인했다. 초기 구현은 Unity 기본 풀의 보관 기능을 활용했으나, 일반 C# 클래스 지원과 정책 일관성을 위해 System 컬렉션 기반 제네릭 풀로 전환했다. 현재 runtime은 UnityEngine.Pool에 의존하지 않는다. Cashier 코드와 게임별 상태는 복사하지 않는다. 전환 근거와 최신 검증은 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
 
 ```csharp
 using MyLab.Core.Pooling;
@@ -38,7 +38,7 @@ pool.Dispose();
 
 검증: EditMode는 생성 입력과 실제 prefab asset 보존, PlayMode는 재사용·정원·반환 검증·콜백 실패·재진입·OnEnable 순서·파괴·부모 수명을 확인한다. 시각 UX나 사용자 직접 조작이 필요한 기능은 없다. 다른 Unity 버전·소비 프로젝트·Player 빌드는 이후 단계의 검증 대상이다.
 
-## 실행 증거 (2026-10-02)
+## 최초 Unity 기본 풀 기반 구현의 실행 증거 (2026-10-02)
 
 - 정확한 MyLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616. 새 Editor를 실행하지 않았다.
 - Red: 최소 API stub에서 EditMode 6건 중 통과 1·실패 5·skip 0, PlayMode 17건 중 통과 0·실패 17·skip 0을 실제 실행했다. [EditMode 결과](validation/object-pool/red-edit.json), [PlayMode 결과](validation/object-pool/red-play.json).

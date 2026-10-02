@@ -1,0 +1,26 @@
+{
+  "total": 17,
+  "passed": 17,
+  "failed": 0,
+  "skipped": 0,
+  "failures": [],
+  "passes": [
+    "MyLab.Core.Tests.PrefabPoolTests.ActiveSourceIsConfiguredBeforeCloneOnEnable",
+    "MyLab.Core.Tests.PrefabPoolTests.CapacityIncludesRentedInstances",
+    "MyLab.Core.Tests.PrefabPoolTests.DestroyedParentRejectsOperationsButStillAllowsDisposal",
+    "MyLab.Core.Tests.PrefabPoolTests.DisposeDestroysRentedAndInactiveInstancesAndIsIdempotent",
+    "MyLab.Core.Tests.PrefabPoolTests.DisposedPoolRejectsRentAndReturn",
+    "MyLab.Core.Tests.PrefabPoolTests.MutatingReentryFromRentHookIsRejected",
+    "MyLab.Core.Tests.PrefabPoolTests.MutatingReentryFromReturnHookIsRejected",
+    "MyLab.Core.Tests.PrefabPoolTests.OnEnableCannotReenterThePool",
+    "MyLab.Core.Tests.PrefabPoolTests.RentHookDestroyingInstanceIsReportedAndCapacityRecovered",
+    "MyLab.Core.Tests.PrefabPoolTests.RentHookFailureDiscardsInstanceAndAllowsRetry",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnedInstanceIsReusedWithSourceTransform",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnHookDestroyingInstanceIsReportedAndCapacityRecovered",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnHookFailureDiscardsInstanceAndAllowsRetry",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnHookResetsConsumerStateBeforeReuse",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnRejectsAnotherPoolsInstanceWithoutChangingIt",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnRejectsDuplicateWithoutAddingAnotherSlot",
+    "MyLab.Core.Tests.PrefabPoolTests.ReturnRejectsNull"
+  ]
+}

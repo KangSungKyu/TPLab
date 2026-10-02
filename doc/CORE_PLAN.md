@@ -1,6 +1,6 @@
 # 공용 코어 1차 검토안
 
-작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool의 첫 로컬 구현 계약은 [OBJECT_POOL.md](OBJECT_POOL.md)로 확정했고, 나머지 시스템의 구현·이식 방향은 검토 제안이다.
+작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool은 [제네릭 계약](GENERIC_POOL.md)과 [프리팹 어댑터 계약](OBJECT_POOL.md)으로 확정했고, 나머지 시스템의 구현·이식 방향은 검토 제안이다.
 
 ## 초기 확인 기준 (의존성 반영 전)
 
@@ -14,7 +14,7 @@
 
 | 시스템 | Cashier 참조 | 공용 코어 방향 제안 | 첫 완료 조건 |
 |---|---|---|---|
-| ObjectPool | SimplePool.cs, SimplePoolManager.cs, RESOURCE_POOL_CONTRACT.md | 생성·대여·반환·폐기의 소유권과 실패 정리 계약을 재사용. UnityEngine.Pool.ObjectPool<T>로 충족되는 부분부터 비교하고 추가 정책만 구현 | 정상 재사용, 소진, 중복·비소유 반환, hook 실패, 대여 중 종료 확인 |
+| ObjectPool | SimplePool.cs, SimplePoolManager.cs, RESOURCE_POOL_CONTRACT.md | 일반 C# 클래스용 ObjectPool<T>가 정원·참조 소유권·실패 정리를 관리하고 PrefabPool은 Unity 객체 수명 어댑터로 유지. Unity 기본 API의 경계 동작을 실행 검증한 뒤 System 컬렉션으로 전환 | 정상 재사용, 소진, 중복·비소유 반환, hook 실패, 대여 중 종료 확인 |
 | Singleton | Singleton.cs | 중복 인스턴스 처리와 정리 hook을 참고. 전역 접근을 제한하고 영속/씬 수명, 초기화 실패, 반복 Play의 static 초기화 계약 보완 | 중복 생성, 소유자 파괴, 재생성, Domain Reload 설정에 따른 반복 실행 확인 |
 | ResourceManager | ResourceManager.cs, RESOURCE_POOL_CONTRACT.md | 진행 중 로드 공유, 요청 타입 검증, 호출자 대기 취소와 소유자 종료 구분, 늦은 결과 해제를 참고. Datas label·catalog 갱신·atlas 자동 구독은 게임 정책으로 분리 | 동시 요청, 개별 취소, 실패 후 재요청, 로드 중 해제, 객체 생성·해제 확인 |
 | DataTableManager | DataTableManager.cs, Util.cs, 각 DataTable | 등록·읽기·검증·공개 책임을 분리. 검증 후 공개 원칙을 참고하고 게임별 테이블·FK 규칙은 소비 프로젝트가 제공 | 중복 키, 필수값·변환 오류, 참조 검증 실패 시 기존 정상 데이터 보존 확인 |
@@ -87,6 +87,6 @@
 
 ## 단계 진행
 
-1. 로컬 ObjectPool: PrefabPool 계약·구현과 EditMode/PlayMode 자동 검증 완료. Unity 기본 보관 기능을 활용하며 Cashier 코드·의존성은 복사하지 않았다. 검증 범위와 증거는 [OBJECT_POOL.md](OBJECT_POOL.md)를 따른다.
+1. ObjectPool: 일반 C# 클래스용 ObjectPool<T>와 PrefabPool 어댑터의 구현·자동 검증 완료. Unity 기본 보관 기능을 제거하고 System 컬렉션으로 전환했다. Cashier 코드·의존성은 복사하지 않았다. 검증 범위와 증거는 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
 2. 다음 작업: Singleton의 중복·씬/영속 수명·종료·반복 Play 계약과 실패 테스트를 먼저 정한다. 모든 manager의 필수 기반으로 확장하지 않는다.
 3. ResourceManager → DataTableManager → GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. 이번 로컬 풀 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.

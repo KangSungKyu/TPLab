@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace MyLab.Core.Pooling
 {
@@ -20,25 +18,22 @@ namespace MyLab.Core.Pooling
         private readonly Vector3 _localScale;
         private readonly Action<GameObject> _onRent;
         private readonly Action<GameObject> _onReturn;
-        private readonly ObjectPool<GameObject> _storage;
-        private readonly HashSet<GameObject> _owned = new HashSet<GameObject>();
-        private readonly HashSet<GameObject> _rented = new HashSet<GameObject>();
-        private bool _isBusy;
+        private readonly ObjectPool<GameObject> _pool;
 
         /// <summary>Maximum number of owned clones, both rented and inactive.</summary>
-        public int Capacity { get; }
+        public int Capacity => _pool.Capacity;
 
         /// <summary>Number of clones currently owned by this pool.</summary>
-        public int CountOwned => _owned.Count;
+        public int CountOwned => _pool.CountOwned;
 
         /// <summary>Number of clones currently borrowed by consumers.</summary>
-        public int CountRented => _rented.Count;
+        public int CountRented => _pool.CountRented;
 
         /// <summary>Number of clones available for reuse.</summary>
-        public int CountInactive => _owned.Count - _rented.Count;
+        public int CountInactive => _pool.CountInactive;
 
         /// <summary>Whether the pool has permanently ended its lifetime.</summary>
-        public bool IsDisposed { get; private set; }
+        public bool IsDisposed => _pool.IsDisposed;
 
         /// <summary>Creates an empty pool. The caller retains ownership of the prefab and parent.</summary>
         /// <param name="prefab">Live prefab or source GameObject; keep it alive while new clones are needed.</param>
@@ -68,15 +63,10 @@ namespace MyLab.Core.Pooling
             _localScale = prefab.transform.localScale;
             _onRent = onRent;
             _onReturn = onReturn;
-            Capacity = capacity;
-
             _storageRoot = new GameObject("PrefabPool");
             _storageRoot.SetActive(false);
             _storageRoot.transform.SetParent(parent, false);
-            // Ownership checks remain enabled in every build through the sets above.
-            // Native CountAll is not used: a failed callback discards a checked-out clone.
-            _storage = new ObjectPool<GameObject>(CreateInstance, collectionCheck: false,
-                defaultCapacity: 0, maxSize: capacity);
+            _pool = new ObjectPool<GameObject>(CreateInstance, capacity, RentInstance, ReturnInstance, DestroyInstance);
         }
 
         /// <summary>Reuses or creates a clone, configures it, then sets it active.</summary>
@@ -88,38 +78,8 @@ namespace MyLab.Core.Pooling
         public bool TryRent(out GameObject instance)
         {
             instance = null;
-            BeginOperation();
-            GameObject candidate = null;
-            try
-            {
-                if (CountInactive == 0 && CountOwned >= Capacity)
-                {
-                    return false;
-                }
-
-                candidate = _storage.Get();
-                EnsureInstanceAlive(candidate);
-                _rented.Add(candidate);
-                candidate.transform.SetParent(_parent, false);
-                ResetTransform(candidate);
-                _onRent?.Invoke(candidate);
-                EnsureInstanceAlive(candidate);
-                EnsureContextAlive();
-                candidate.SetActive(true);
-                EnsureInstanceAlive(candidate);
-                EnsureContextAlive();
-                instance = candidate;
-                return true;
-            }
-            catch
-            {
-                Discard(candidate);
-                throw;
-            }
-            finally
-            {
-                _isBusy = false;
-            }
+            EnsureOpenContext();
+            return _pool.TryRent(out instance);
         }
 
         /// <summary>Deactivates a borrowed clone, resets consumer state, then stores it for reuse.</summary>
@@ -131,44 +91,12 @@ namespace MyLab.Core.Pooling
         /// <remarks>Callback failures discard only this clone and propagate; foreign instances remain unchanged.</remarks>
         public void Return(GameObject instance)
         {
-            BeginOperation();
-            try
+            EnsureOpenContext();
+            if (instance == null)
             {
-                if (instance == null)
-                {
-                    throw new ArgumentNullException(nameof(instance));
-                }
-                if (!_owned.Contains(instance))
-                {
-                    throw new ArgumentException("Instance is not owned by this pool.", nameof(instance));
-                }
-                if (!_rented.Contains(instance))
-                {
-                    throw new InvalidOperationException("Instance has already been returned.");
-                }
-
-                try
-                {
-                    instance.SetActive(false);
-                    EnsureInstanceAlive(instance);
-                    _onReturn?.Invoke(instance);
-                    EnsureInstanceAlive(instance);
-                    EnsureContextAlive();
-                    instance.transform.SetParent(_storageRoot.transform, false);
-                    ResetTransform(instance);
-                    _storage.Release(instance);
-                    _rented.Remove(instance);
-                }
-                catch
-                {
-                    Discard(instance);
-                    throw;
-                }
+                throw new ArgumentNullException(nameof(instance));
             }
-            finally
-            {
-                _isBusy = false;
-            }
+            _pool.Return(instance);
         }
 
         /// <summary>Destroys all owned clones and the storage root, permanently closing this pool.</summary>
@@ -183,22 +111,17 @@ namespace MyLab.Core.Pooling
             {
                 return;
             }
-            if (_isBusy)
+            try
             {
-                throw new InvalidOperationException("Pool mutation is already running.");
+                _pool.Dispose();
             }
-
-            IsDisposed = true;
-            var instances = new GameObject[_owned.Count];
-            _owned.CopyTo(instances);
-            _owned.Clear();
-            _rented.Clear();
-            _storage.Clear();
-            foreach (var instance in instances)
+            finally
             {
-                DestroyInstance(instance);
+                if (_pool.IsDisposed)
+                {
+                    DestroyInstance(_storageRoot);
+                }
             }
-            DestroyInstance(_storageRoot);
         }
 
         private GameObject CreateInstance()
@@ -209,7 +132,6 @@ namespace MyLab.Core.Pooling
             }
 
             var instance = UnityEngine.Object.Instantiate(_prefab, _storageRoot.transform, false);
-            _owned.Add(instance);
             try
             {
                 // The inactive root prevents OnEnable even when the source itself is active.
@@ -218,9 +140,33 @@ namespace MyLab.Core.Pooling
             }
             catch
             {
-                Discard(instance);
+                DestroyInstance(instance);
                 throw;
             }
+        }
+
+        private void RentInstance(GameObject instance)
+        {
+            EnsureInstanceAlive(instance);
+            instance.transform.SetParent(_parent, false);
+            ResetTransform(instance);
+            _onRent?.Invoke(instance);
+            EnsureInstanceAlive(instance);
+            EnsureContextAlive();
+            instance.SetActive(true);
+            EnsureInstanceAlive(instance);
+            EnsureContextAlive();
+        }
+
+        private void ReturnInstance(GameObject instance)
+        {
+            instance.SetActive(false);
+            EnsureInstanceAlive(instance);
+            _onReturn?.Invoke(instance);
+            EnsureInstanceAlive(instance);
+            EnsureContextAlive();
+            instance.transform.SetParent(_storageRoot.transform, false);
+            ResetTransform(instance);
         }
 
         private void ResetTransform(GameObject instance)
@@ -230,18 +176,13 @@ namespace MyLab.Core.Pooling
             instance.transform.localScale = _localScale;
         }
 
-        private void BeginOperation()
+        private void EnsureOpenContext()
         {
             if (IsDisposed)
             {
                 throw new ObjectDisposedException(nameof(PrefabPool));
             }
-            if (_isBusy)
-            {
-                throw new InvalidOperationException("Pool mutation is already running.");
-            }
             EnsureContextAlive();
-            _isBusy = true;
         }
 
         private void EnsureContextAlive()
@@ -258,18 +199,6 @@ namespace MyLab.Core.Pooling
             {
                 throw new InvalidOperationException("A pooled clone has been destroyed.");
             }
-        }
-
-        private void Discard(GameObject instance)
-        {
-            // A destroyed Unity object still has a managed reference that must leave the ownership sets.
-            if (ReferenceEquals(instance, null))
-            {
-                return;
-            }
-            _rented.Remove(instance);
-            _owned.Remove(instance);
-            DestroyInstance(instance);
         }
 
         private static void DestroyInstance(GameObject instance)
