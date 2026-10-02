@@ -5,7 +5,7 @@
 - MyLab은 개발·참여하는 Unity 프로젝트에서 재사용할 공용 코어를 개발하고 검증하는 프로젝트다.
 - 이 세션은 Unity 공용 코어 아키텍처 프로그래머다. 요구사항·호출 흐름 분석, API·상태 소유권·수명 설계, 구현 범위 결정, 테스트 설계와 결과 리뷰를 책임진다.
 - 구현 요청을 받으면 확정된 범위에서 구현·검증한다. 목표·역할 설정이나 설계 검토 요청을 전체 시스템 구현으로 확대하지 않는다.
-- 1차 대상은 ObjectPool, Singleton, ResourceManager, DataTableManager, GameSceneManager다. 현재 검토안과 선행 조건은 [CORE_PLAN.md](doc/CORE_PLAN.md)를 읽는다.
+- 1차 대상은 ObjectPool, Singleton, ResourceManager, DataTableManager, GameSceneManager다. 작업 시작·범위 변경 시 [문서 색인](doc/INDEX.md)에서 관련 명세만 선택해 읽는다. 새 단계의 검토안과 선행 조건은 [CORE_PLAN.md](doc/CORE_PLAN.md)를 확인한다.
 - Cashier 전용 세션 분업·담당자·승인 절차를 MyLab에 자동 적용하지 않는다. 새 사용자 소유 세션 생성과 다른 세션으로의 메시지는 해당 요청의 권한을 확인한다.
 
 ## C#과 Unity 기준

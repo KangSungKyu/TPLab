@@ -1,6 +1,6 @@
 # 비동기 씬 준비·해제와 가림막 콜백
 
-SceneOwnedRoot와 SingletonSceneRoot 모두 같은 비동기 계약을 사용한다. 주입된 서비스의 준비가 끝나야 씬 진행 콜백을 실행하며, UI 연출은 소비 프로젝트가 제공한다. ResourceManager와 GameSceneManager 자체는 이번 단계에 구현하지 않았다.
+SceneOwnedRoot와 SingletonSceneRoot 모두 같은 비동기 계약을 사용한다. 주입된 서비스의 준비가 끝나야 씬 진행 콜백을 실행하며, UI 연출은 소비 프로젝트가 제공한다. [ResourceManager](RESOURCE_MANAGER.md)의 초기화·필수 자산 로드·종료를 installer로 연결할 수 있다. GameSceneManager의 실제 씬 로드·전환 구현은 후속 단계다.
 
 ## 준비와 실행 순서
 

@@ -29,6 +29,7 @@ UniTask·Unity CLI Connector는 고정된 UPM Git 의존성으로 복원한다. 
 ## 작업 기준
 
 [AGENTS.md](AGENTS.md)의 C#·Unity 컨벤션, SOLID·TDD·검증 규칙을 따른다.
+작업별 읽을 명세·검증·라이선스 자료는 [문서 색인](doc/INDEX.md)에서 선택한다.
 시스템 경계, Cashier 참조와 의존성 검증 기록은 [CORE_PLAN.md](doc/CORE_PLAN.md)에 있다.
 
 Unity Editor에서 프로젝트를 연 뒤 `unity-cli --project <프로젝트 절대 경로> status`로 연결을 확인한다.

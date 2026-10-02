@@ -1,6 +1,6 @@
 # 씬 루트 선택과 명시적 주입
 
-InitScene 같은 씬의 root GameObject에 소유 방식을 선택하고, 프로젝트별 installer가 일반 C# 서비스 생성·참조 주입·해제를 수행한다. ResourceManager는 아직 구현하지 않았다. manager마다 Singleton을 상속하거나 자동 검색하는 규칙은 없다.
+InitScene 같은 씬의 root GameObject에 소유 방식을 선택하고, 프로젝트별 installer가 일반 C# 서비스 생성·참조 주입·해제를 수행한다. [ResourceManagerInstaller](RESOURCE_MANAGER.md#sceneroot에서-선택하여-사용)로 자산 소유자를 연결할 수 있다. manager마다 Singleton을 상속하거나 자동 검색하는 규칙은 없다.
 
 | 선택 | 접근 | 기본 수명 |
 |---|---|---|
@@ -43,7 +43,7 @@ rootObject.SetActive(true);
 - `IsReady`는 동기 Install 전체 성공만 의미한다. 비동기 준비는 `PrepareAsync`를 await하고 `IsPrepared`로 확인한다. 씬 진행과 가림막 callback은 [비동기 씬 계약](ASYNC_SCENE_LIFECYCLE.md)을 따른다. async void Install은 사용하지 않는다.
 - Singleton 중복은 host 컴포넌트만 제거한다. 중복 객체·다른 컴포넌트는 보존하며 installer를 실행하지 않는다.
 
-실행 예제와 계약 검사는 `SceneRootTests`와 `SceneRootInstallerProbe`에 있다. 비동기 준비·해제 hook과 씬 진행 callback도 제공한다. 다음 ResourceManager 단계에서 실제 manager 생성·서비스 참조 주입을 프로젝트 adapter로 연결한다.
+실행 예제와 계약 검사는 `SceneRootTests`와 `SceneRootInstallerProbe`에 있다. 비동기 준비·해제 hook과 씬 진행 callback도 제공한다. 실제 자산 소유자 생성·참조 주입과 pool 수명 연결은 [ResourceManager 계약](RESOURCE_MANAGER.md)과 `ResourceManagerTests`를 따른다.
 
 ## 검증 (2026-10-02)
 
