@@ -86,3 +86,5 @@ Phase 6 sample 최소 입력 policy는 실제 Red2/0/2→Green2/2를 확인했�
 P6 최종 결과: sample native Editor smoke Additive/Single 각10관찰, 원래 Editor Windows Mono build 두 모드 성공 및 Player 각10관찰을 확인했다. actual asset 생성 실패는 NewScene 후 파괴된 settings wrapper를 경로로 재로드하여 보완했다. background Editor delayCall 복구 대신 idle update 1회 복구를 사용하고 실제 정상 Play stop의 원래 InitScene 복구를 확인했다. 최초 투명 modal의 텍스트 겹침은 완전 불투명 cover/modal로 수정하고 실제 최종 화면을 재확인했다. 원래 사용자의 raw5와 Player 설정을 보존하고 빌드 소유 cache 변경을 복원했다. final source hash·GUID·Console/ready 확인과 회고는 통합 증거에 연결한다. 인간 화면비·물리 입력·사용성은 미확인이다.
 
 | P6 sample 구현·최종 읽기 리뷰 | `/root/scene_runtime`, gpt-6.1-sol / high | 입력/비동기 root·UI 수명과 native smoke 검토 | 별도 Samples/관련 dedicated tests·fixture/Validation helper; Core·Unity·Git 제외 | 구현 완료·소스 동결, 부모 actual Unity/Player/전체 회귀 검증 완료 |
+
+P6 소스·테스트·영속 증거 commit `76939ba678d217f7e4787122a14139e73e4c3a51`을 Phase 브랜치에 push했다. [정확한 commit CI 조회](validation/scene-integration/ci-policy.json)는 main unprotected/CI 미구성이며 CI 성공으로 기록하지 않는다. 이후 CI·기록만 추가한 tip은 같은 source hash로 verifier를 통과한 뒤 track에 FF 통합한다. main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`와 사용자 변경은 유지한다.
