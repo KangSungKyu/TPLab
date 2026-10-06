@@ -16,6 +16,8 @@
 | 2026-10-06 | 임시 파일 지침·Editor importer 검토 | 지침 완료·설계 초안·미구현 | [08-data-table-importer-draft](2026-10-06-08-data-table-importer-draft.md) |
 | 2026-10-06 | Importer 설정 자산·공용 validator 보완 | 설계 초안 보완·미구현 | [09-importer-settings-validation](2026-10-06-09-importer-settings-validation.md) |
 
+| 2026-10-06 | CSV Editor importer·설정·공용 검증 구현 | MyLab 내부 구현·검증 완료 | [10-data-table-importer](2026-10-06-10-data-table-importer.md) |
+
 ## 작성 형식
 
 작업 규모에 맞게 짧게 작성한다. 해당 없는 항목은 해당 없음으로 표시하며 명세·검증 설명을 반복 복제하지 않는다.

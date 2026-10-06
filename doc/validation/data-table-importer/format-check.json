@@ -1,0 +1,15 @@
+{
+  "tool": "installed dotnet format whitespace (Roslyn)",
+  "scope": [
+    "Assets/MyLab/Core/DataTables/DataTableCsvValidator.cs",
+    "Assets/MyLab/Editor/DataTables/DataTableGeneratedFiles.cs",
+    "Assets/MyLab/Editor/DataTables/DataTableGenerator.cs",
+    "Assets/MyLab/Editor/DataTables/DataTableImportAutomation.cs",
+    "Assets/MyLab/Editor/DataTables/DataTableImporter.cs",
+    "Assets/MyLab/Editor/DataTables/DataTableImportSettings.cs",
+    "Assets/MyLab/Tests/EditMode/DataTableImporterTests.cs",
+    "Assets/MyLab/Validation/Editor/DataTableImportEditorCheck.cs"
+  ],
+  "temporaryConfig": true,
+  "semanticEdits": false
+}

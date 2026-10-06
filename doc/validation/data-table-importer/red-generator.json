@@ -1,0 +1,8 @@
+{
+  "total": 20,
+  "passed": 1,
+  "failed": 19,
+  "skipped": 0,
+  "diagnostic": "Initial generator stubs: NotImplementedException.",
+  "evidenceSource": "Observed unity-cli stderr tool output, summarized after execution; native stderr was not captured by Tee-Object."
+}

@@ -1,0 +1,242 @@
+[
+  {
+    "path": "Assets/MyLab/Core/DataTables/CsvDataTable.cs",
+    "sha256": "CEF6591E94FB2CD62789D8AD6AB2322CE662196751E24C73E018FBB85B3BC586"
+  },
+  {
+    "path": "Assets/MyLab/Core/DataTables/DataRow.cs",
+    "sha256": "AFF5C84ADB7B3515D6730F402114D6932982A18FB2B1620D8D7708B42A09B3F4"
+  },
+  {
+    "path": "Assets/MyLab/Core/DataTables/DataTableCsvValidator.cs",
+    "sha256": "51FCD97BF4BD839E6E2E5F2D76F9BDFCAEBBDAD4E8CA95718CE52D255F877619"
+  },
+  {
+    "path": "Assets/MyLab/Core/DataTables/DataTableManager.cs",
+    "sha256": "035F7CFFCCEFDAA4900E2900A668E248849BF05C3C7DD2EE0DB9FAB99B508513"
+  },
+  {
+    "path": "Assets/MyLab/Core/DataTables/DataTableSnapshot.cs",
+    "sha256": "BABE788C403B46F0A020172B59A3665F55EB8BF692B352C6FC67288C27B391A0"
+  },
+  {
+    "path": "Assets/MyLab/Core/DataTables/IdxCodec.cs",
+    "sha256": "B712C5B5D39B6A1237387C9EAED41CBC2540C462889C1CE64F4DCA01C8D878E7"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/ISceneRoot.cs",
+    "sha256": "FF60CB662FCE3864EF9DF0942CAE760EFDE8115F8D56C1F18AB51F20E36E5C57"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/MonoSingleton.cs",
+    "sha256": "62A57A8077E72D181CC536635065EB49D7AAC6A2CF98D9643AF03662312AB5B8"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/RootInstallation.cs",
+    "sha256": "3643E448231249F796A45C1E055FCADDC19FB5755A6AFFA025ACCED5682FBAFB"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SceneOwnedRoot.cs",
+    "sha256": "6539398A0D2984A15F90BEDC9F3E0F8A54BDC8DFFCC4F09E150AD7C35C914D82"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SceneRootFlow.cs",
+    "sha256": "8E035B95784076ACC3831D5BB165BF377140C86B7A94B64468BE1EC00F838632"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SceneRootInstaller.cs",
+    "sha256": "25FD51CB1DB7E9618B61A88D4F284AC42CE41B08847CDE9917E9723176500969"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SceneRootSetup.cs",
+    "sha256": "5FEEE35C0E777A89C3873CC68E3B4B45B496D1D5C69266EF84A45C2369431B07"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SingletonRuntime.cs",
+    "sha256": "92A52AB702FE0841418D71720CB9C23A7C21A4439CFFF8CD0DDCADE12A41A789"
+  },
+  {
+    "path": "Assets/MyLab/Core/Lifecycle/SingletonSceneRoot.cs",
+    "sha256": "7254D364617038F777B5FB0B3744D80980E5CAB45BDB4EB559F37848D72401F6"
+  },
+  {
+    "path": "Assets/MyLab/Core/MyLab.Core.asmdef",
+    "sha256": "133963A7B620B8C51B94BC3EAC931D95E6E787AF31D2BA63439B1171FA023315"
+  },
+  {
+    "path": "Assets/MyLab/Core/Pooling/ObjectPool.cs",
+    "sha256": "1B1530B1DA762EEEB7C5788307A5D5623807CB8097EFA805F3B452CD7782B726"
+  },
+  {
+    "path": "Assets/MyLab/Core/Pooling/PrefabPool.cs",
+    "sha256": "B8B4EA01103727A9E85C88665338FCAA91A1E3B28FB79452D841F2081428F443"
+  },
+  {
+    "path": "Assets/MyLab/Core/ResourceManagement/ResourceManager.cs",
+    "sha256": "C3BD8784FDED34198AB8D90F383BBAE7F9BB145D5C44CFAEC6F3AE8834CDDC78"
+  },
+  {
+    "path": "Assets/MyLab/Core/ResourceManagement/ResourceManagerInstaller.cs",
+    "sha256": "D435D83C43EABC3CA0EE63CFDD7C60B869EB13D79976713059106AC2BC315B49"
+  },
+  {
+    "path": "Assets/MyLab/Editor/DataTables/DataTableGeneratedFiles.cs",
+    "sha256": "E3A1F2C265B78515A7F30E3BD1271A686A73D4BA0D075823B090BE723F276B4B"
+  },
+  {
+    "path": "Assets/MyLab/Editor/DataTables/DataTableGenerator.cs",
+    "sha256": "DADC744F70A1A018A6308BC7AA209B3A4E06E13FD8BFA3E581F84F2305F0AEF2"
+  },
+  {
+    "path": "Assets/MyLab/Editor/DataTables/DataTableImportAutomation.cs",
+    "sha256": "A356EF7769E68A18AC2922B656EF5F0AEC7167DC082CA34D7836166E13F8F8C1"
+  },
+  {
+    "path": "Assets/MyLab/Editor/DataTables/DataTableImporter.cs",
+    "sha256": "E1C079E882CA16350385B78FBFFC1B99A968DF05B29F0DBE89BB22631424C2EF"
+  },
+  {
+    "path": "Assets/MyLab/Editor/DataTables/DataTableImportSettings.cs",
+    "sha256": "2D64BACDF2D9E1CB6107FF2429AE7969085D7A7858D8DE5B601591683D75551A"
+  },
+  {
+    "path": "Assets/MyLab/Editor/MyLab.Core.Editor.asmdef",
+    "sha256": "2F25252185AEDBA68D2C5D86C912467964DB4EDDAF5DAF514D5203F4ACB7C237"
+  },
+  {
+    "path": "Assets/MyLab/Editor/SceneRootInspector.cs",
+    "sha256": "D23397501DE6A962AF5C3C5EC7B364C3208C4CE9A6BC89117C6002803B1E359A"
+  },
+  {
+    "path": "Assets/MyLab/Editor/SceneRootMenu.cs",
+    "sha256": "F68625FCD487CBA5A41E04D8D066FE1F0BFB015B6E0165BEF1F981F58BAC3B24"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/DataTableBindingTests.cs",
+    "sha256": "CE1078604B1794B0CA3CE213049C40B9698BFE264717C59ED7A3725373050840"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/DataTableImporterTests.cs",
+    "sha256": "7E4BA2CC25D10C980F8EB661381C3DFBF9598DB1260A6FD7807CED3755B670E2"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/DataTableManagerTests.cs",
+    "sha256": "E864F85EBBEF8AA9E19850917C1C362CC3E40F2B3EF4B09D5F24F9D7883D1B76"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/IdxCodecTests.cs",
+    "sha256": "F764E88900B5BA8579FE428E12035311EC32852DDFD3A6BC94B8ACB78F4DB250"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/MyLab.Core.EditModeTests.asmdef",
+    "sha256": "8943D87AAF90710B9B8E6CA76641BC961438BE6EED90207DB14242572AE1CAD0"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/ObjectPoolTests.cs",
+    "sha256": "B4EE177A167EACE7D18CAA1AC4A61BF96E0442BDAB62F37B22AE1EC71880961D"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/PrefabPoolValidationTests.cs",
+    "sha256": "F4B3A30DB62C74DB5FAB0D663413DE650060DBB4525B9B489B28933811718D4F"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/SceneRootEditorTests.cs",
+    "sha256": "949882BCC0AB3D0C24355FCF497A54F5C8E76760784E6C0035A1F8FAE65537BD"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/StandardDataTableTests.cs",
+    "sha256": "7A94CAB66F2BF3AE6B957402450CCD08B70B630D0781A1D0DF9012AC1C072B62"
+  },
+  {
+    "path": "Assets/MyLab/Tests/EditMode/UnityObjectPoolContractTests.cs",
+    "sha256": "781AD30225995D3E6277B1A2146C2FAAE11A7A6190B15E0C41D02FA4774A83DF"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/DataTableConsumerProbe.cs",
+    "sha256": "1B2F0A27013F872E85A15539EDA2DCCBDA9613B5BA9D2B1026D8545FA4291B06"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/DataTableTemplates.cs",
+    "sha256": "658D93D5FB3004B358E1D80347A30AA5A5A567153DD64444947B4B42C80D970A"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/MyLab.Core.TestFixtures.asmdef",
+    "sha256": "B462CA4C5A8E01A4FAE1BE8683652C7C6E4D8CAD2E9A1B70904B448BC9B26C85"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/OtherSingletonProbe.cs",
+    "sha256": "0D957E6E1920378A09AA711C304D0DDDC27A5265CD0CDCA92C21E1ABFC81E50C"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/ResourceConsumerProbe.cs",
+    "sha256": "3801F26EA66D70CB932471F1390813C0700921A3E7D4527A8C89F713D5F953DF"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/SceneRootInstallerProbe.cs",
+    "sha256": "804D60965E2085B78DC9958A76379865AA2CE07F14A5D88ABACD7FD51978C7FC"
+  },
+  {
+    "path": "Assets/MyLab/Tests/Fixtures/SingletonProbe.cs",
+    "sha256": "ED1DC450E15E4BA29F2A287CFED33BD2D3BE1B6F08A0BB08049FCE8D02B915E5"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/AsyncSceneRootTests.cs",
+    "sha256": "B2A049BBBE2B0F65C460E06682D53E7B3232B7EEF2C59E92A95366E04DF2D27F"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/DataTableManagerAsyncTests.cs",
+    "sha256": "DD7FA72B0A7287EF85673F8D979E39E0EB9C5F496650BA4BDA7C188C739232E2"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/MonoSingletonTests.cs",
+    "sha256": "257278EBFB5F211134331113C6047702DB5C2DD23CD2BD8A28A373A9057F5BF2"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/MyLab.Core.PlayModeTests.asmdef",
+    "sha256": "EE718CD8D605D4774C6666ADF9AA0378CB3277591533367637444E33E1179A1E"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/PoolLifecycleProbe.cs",
+    "sha256": "7427D7A732FCA17FD09B82D25D6EEB412AC200E0BE726C06371E797F692C2781"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/PrefabPoolTests.cs",
+    "sha256": "F448DCA0813364E5F01C561C6F719B2FD4DA8A792A7D3FC2A6980182D477E568"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/ResourceManagerTests.cs",
+    "sha256": "F00E31C9ED9EE5C592831B95532D72BC6360559E55FF4C547000061893F7AC76"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/SceneRootTests.cs",
+    "sha256": "38899D1E56AD920AC5BF4522B74CE977F6862AC861E427238EFFCCE79EE86A35"
+  },
+  {
+    "path": "Assets/MyLab/Tests/PlayMode/StandardDataTableAsyncTests.cs",
+    "sha256": "3A9D53C96995912A2EA7D2DEEC18ED9816CC27E52D094C6231CBAE8BE2730192"
+  },
+  {
+    "path": "Assets/MyLab/Validation/Editor/DataTableImportEditorCheck.cs",
+    "sha256": "C8A648604858E550909FBE873CCA48C8ADB4003E54778E80F9362AA51D9E1157"
+  },
+  {
+    "path": "Assets/MyLab/Validation/Editor/MyLab.Core.EditorValidation.asmdef",
+    "sha256": "1518AF1C1C7CCAE4B9726D034E56A8403B6C3B4A1169E3F31F7CD59F6105E93C"
+  },
+  {
+    "path": "Assets/MyLab/Validation/Editor/SingletonReloadCheck.cs",
+    "sha256": "4F04C402F3B5E40EAE73F5672453382794327977DC0F58FD95A0D6942DF8B22C"
+  },
+  {
+    "path": "Packages/manifest.json",
+    "sha256": "8183ECA3F70A6D0A2225F32DABC92566BF9C28121CAEE5E2300E50296678FB97"
+  },
+  {
+    "path": "Packages/packages-lock.json",
+    "sha256": "AC27BDCBBF88E0389B00BA6B63C3EC45D2C7AE7BD4962D8C58E06D8DC9EE3291"
+  },
+  {
+    "path": "ProjectSettings/ProjectVersion.txt",
+    "sha256": "D03FCA18D2E511A37F7A81F8709404EBB2A571D3E0E5C854038C91A943AE15DA"
+  }
+]

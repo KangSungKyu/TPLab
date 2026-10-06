@@ -1,0 +1,8 @@
+{
+  "total": 37,
+  "passed": 33,
+  "failed": 4,
+  "skipped": 0,
+  "diagnostic": "Existing DTO namespace incorrectly used generated namespace restriction.",
+  "evidenceSource": "Observed unity-cli stderr tool output, summarized after execution; native stderr was not captured by Tee-Object."
+}

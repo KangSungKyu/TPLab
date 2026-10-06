@@ -1,0 +1,8 @@
+{
+  "total": 32,
+  "passed": 27,
+  "failed": 5,
+  "skipped": 0,
+  "diagnostic": "Initial typed importer service stub.",
+  "evidenceSource": "Observed unity-cli stderr tool output, summarized after execution; native stderr was not captured by Tee-Object."
+}

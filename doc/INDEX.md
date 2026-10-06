@@ -12,7 +12,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -33,7 +33,7 @@
 | [DATA_TABLE_IDX_DRAFT.md](DATA_TABLE_IDX_DRAFT.md) | uint PK/FK·idx 생성/추출·Parts/Stride·선택적 localType·참조 검증 검토 | 구현 계약: 프로젝트 codec·종류 registry·같은 snapshot의 FK 검증·구간/overflow 정책 |
 | [DATA_TABLE_GENERIC_IMPLEMENTATION.md](DATA_TABLE_GENERIC_IMPLEMENTATION.md) | 표준 uint DTO·제네릭 Get/TryGet 구현 시작·범위 배정·완료 판단 | 구현 순서와 완료 조건: 단계별 TDD·기존 수동 API 보존·검증 경계 |
 | [데이터 테이블 예시 템플릿](templates/data-tables/README.md) | Text/Resource 예시 복사·필드/검증 변경·프로젝트 등록 | 테스트 assembly의 예시 소스와 runtime core 제외 경계 |
-| [DATA_TABLE_IMPORTER_DRAFT.md](DATA_TABLE_IMPORTER_DRAFT.md) | setting.asset 자동화·CSV/JSON 감지·DTO/table 생성·공용 validator/소유권 검토 | 미구현 초안: 설정 3모드·공용 사전검사/실제 타입 전체 검증·생성/기존 타입 모드·JSON 로더 경계 |
+| [DATA_TABLE_IMPORTER_DRAFT.md](DATA_TABLE_IMPORTER_DRAFT.md) | setting.asset 자동화·CSV/JSON 감지·DTO/table 생성·공용 validator/소유권 검토 | 구현 계약: 설정 3모드·공용 사전검사/실제 타입 전체 검증·생성/기존 타입 모드·JSON 행 미지원 경계 |
 | [DataTableManager 검증](validation/data-tables/README.md) | 데이터 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·비동기·자산/root 연결·컴파일/Console·미검증 경계 |
 
 ## 검증 자료
@@ -50,6 +50,7 @@
 | [ResourceManager 검증 설명](validation/resource-manager/README.md) · [EditMode](validation/resource-manager/full-EditMode.json) · [PlayMode](validation/resource-manager/full-PlayMode.json) · [입력 hash](validation/resource-manager/test-inputs.json) | 자산 수명·root/pool 연결·전체 회귀 확인 | native catalog/provider 실행 범위와 원격 bundle·Player 미검증 경계 확인 |
 | [DataTableManager 검증 설명](validation/data-tables/README.md) · [EditMode](validation/data-tables/full-EditMode.json) · [PlayMode](validation/data-tables/full-PlayMode.json) · [입력 hash](validation/data-tables/test-inputs.json) | CSV·전체 snapshot·비동기·자산/root 연결 회귀 확인 | 관리 데이터 공개와 자원 소유권 경계·소비 프로젝트/Player 미검증 구분 |
 | [표준 idx·generic 검증](validation/generic-data-tables/README.md) · [EditMode](validation/generic-data-tables/full-EditMode.json) · [PlayMode](validation/generic-data-tables/full-PlayMode.json) · [입력 hash](validation/generic-data-tables/test-inputs.json) | 표준 DTO·codec·generic 조회·binding·FK·기존 수동 경로 회귀 | 이번 코드 입력과 실제 실행 수, 소비 프로젝트/Player 미검증 경계 확인 |
+| [CSV Editor importer 검증](validation/data-table-importer/README.md) | 생성·소유권·공용/typed 검증·모드/asset/domain reload 회귀 | 실제 Red/Green·native 실행·컴파일/Console·입력 hash와 Player 미검증 경계 확인 |
 | [Text/Resource 템플릿 분리 검증](validation/data-table-templates/README.md) | core에서 구체 스키마 제거·예시 컴파일·회귀 확인 | 현행 Core/예시 namespace와 assembly 경계·입력 hash 확인 |
 
 ## 의존성과 라이선스 자료
@@ -66,7 +67,7 @@
 
 ## 다음 단계와 완료 경계
 
-- 데이터 테이블 Editor importer는 사용자 요청으로 [검토 초안](DATA_TABLE_IMPORTER_DRAFT.md)을 작성했다. 구현 요청·계약 확정 전에는 기존 runtime을 변경하거나 기본 테이블을 재도입하지 않는다.
+- 데이터 테이블 Editor importer의 CSV 1차 구현은 [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)과 [검증 자료](validation/data-table-importer/README.md)를 따른다. JSON 행·자동 등록·rename migration은 후속 범위다.
 - GameSceneManager는 구현 전 단계다. 별도 확정 계약 문서를 만들기 전에는 [CORE_PLAN의 단계 진행](CORE_PLAN.md#단계-진행)을 기준으로 요구사항·완료 조건부터 정한다.
 - 소비 프로젝트 가져오기·최소 예제 실행·Player 검증은 후속 단계다. MyLab 내부 테스트의 통과를 전체 배포 호환성 완료로 확대하지 않는다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.

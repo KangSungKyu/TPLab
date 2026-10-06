@@ -1,0 +1,10 @@
+{
+  "repository": "KangSungKyu/TPLab",
+  "remoteMain": "19b577038ca77d02d252d676cacf0f63e23c74c2",
+  "workflowCount": 0,
+  "checkRuns": [],
+  "statuses": [],
+  "protected": false,
+  "protectionDetailEndpoint": "403: GitHub plan disallows private-repository protection feature; branches/main explicitly reports protected=false.",
+  "interpretation": "No workflow, status or required branch protection configured; no CI pass claimed."
+}

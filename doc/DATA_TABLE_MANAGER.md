@@ -4,6 +4,8 @@
 
 2026-10-06 표준 uint idx 경로를 구현했다. [DTO·테이블 매핑](DATA_TABLE_MAPPING_DRAFT.md), [idx·조회·FK 계약](DATA_TABLE_IDX_DRAFT.md), [이번 검증](validation/generic-data-tables/README.md)을 따른다. 기존 수동 Register/GetTable과 함께 사용할 수 있다.
 
+2026-10-06 Editor importer와 공통으로 사용하는 CSV/표준 idx 검사를 `DataTableCsvValidator.Read / ValidateIdx`로 추출했다. 기존 수동/표준 등록·공개·취소 의미는 유지하며 [importer 계약](DATA_TABLE_IMPORTER_DRAFT.md)과 [회귀 증거](validation/data-table-importer/README.md)를 따른다.
+
 ## 등록과 공개
 
 1. `Register<TKey, TRow>`로 테이블 이름, 필수 열 이름, CSV 문자열 공급자, 현재 행의 파서, 키 선택자와 선택적 행 검증을 등록한다.

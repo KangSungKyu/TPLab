@@ -1,0 +1,20 @@
+{
+    "Success": true,
+    "Checks": 11,
+    "TypedValidations": 6,
+    "FixturesRemoved": true,
+    "Error": "",
+    "Observations": [
+        "Automatic generation, domain reload and full typed validation",
+        "Data-only/header-order update does not rewrite C#",
+        "Duplicate PK is rejected before source mutation",
+        "CSV asset moved",
+        "Moved input resolves by retained GUID",
+        "Deleted input is diagnosed and generated sources retained",
+        "ValidateOnly and reimport preserve generated GUID",
+        "Disabled mode performs no typed validation on CSV changes",
+        "Manual validation still works while automation is Disabled; callbacks remain bounded",
+        "Compilation errors block stale typed validation",
+        "Typed validation resumes after fixing compilation errors"
+    ]
+}

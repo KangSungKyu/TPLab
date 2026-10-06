@@ -1,0 +1,8 @@
+{
+  "total": 27,
+  "passed": 20,
+  "failed": 7,
+  "skipped": 0,
+  "diagnostic": "Initial ownership/writer service stubs.",
+  "evidenceSource": "Observed unity-cli stderr tool output, summarized after execution; native stderr was not captured by Tee-Object."
+}

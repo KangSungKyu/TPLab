@@ -96,6 +96,4 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 
 6. 다음 작업: GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. MyLab 내부 각 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.
 
-2026-10-06 추가 검토: [데이터 테이블 Editor importer](DATA_TABLE_IMPORTER_DRAFT.md)는 지정 폴더 CSV/JSON 감지와 프로젝트 DTO/table 생성·수정의 초안이다. CSV 우선·명시적 스키마·생성 코드 소유권·기존 타입 검증 모드를 제안한다. JSON 행 로더와 자동 등록은 현재 구현에 없으며 기존 다음 단계의 순서를 확정적으로 바꾸지 않는다. 구현 요청과 선행 계약 확정 후 독립 단위로 진행한다.
-
-같은 날짜의 후속 요구로 setting.asset의 Disabled/ValidateOnly/GenerateValidated와 생성/수정 시 필수 공용 validator 적용을 위 초안에 추가했다. 공용 입력/PK 사전검사 후 잠정 소스를 컴파일하고 실제 타입·hook·FK/교차 검증까지 통과해야 완료다. 공용 사전검사 접근과 프로젝트 검증 구성 연결은 미구현 계약으로 남기며 이번에는 runtime/API를 변경하지 않았다.
+2026-10-06 Editor importer 구현: [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)의 CSV + 명시적 JSON 스키마, setting.asset 3모드, 생성/기존 타입 검증, 공용 CSV/idx 사전검사와 컴파일 후 typed 전체 검증을 제공한다. runtime에 구체 테이블·자동 등록을 추가하지 않았다. [이번 검증](validation/data-table-importer/README.md)을 확인한다. JSON 행 로더·rename migration·소비 프로젝트/Player 검증은 후속 범위다. 다음 시스템은 GameSceneManager다.

@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Threading;
 using CsvHelper;
-using CsvHelper.Configuration;
 using Cysharp.Threading.Tasks;
 
 namespace MyLab.Core.DataTables
@@ -100,13 +97,10 @@ namespace MyLab.Core.DataTables
                 }
                 table.Claim();
                 string text = await ReadSourceAsync(readCsvAsync, token);
-                var rows = ReadTable<uint, TRow>(text, Array.Empty<string>(), csv => csv.GetRecord<TRow>(), row => row.Id,
+                var rows = DataTableCsvValidator.Read<uint, TRow>(text, Array.Empty<string>(), csv => csv.GetRecord<TRow>(), row => row.Id,
                     row =>
                     {
-                        if (row.Id == 0 || !_router.TryGetDataType(row.Id, out uint kind) || kind != dataType)
-                        {
-                            throw new InvalidDataException($"PK '{row.Id}' does not match kind '{dataType}'.");
-                        }
+                        DataTableCsvValidator.ValidateIdx(row.Id, dataType, _router);
                         table.Validate(row);
                     }, token, table.Configure, csv => csv.ValidateHeader<TRow>());
                 table.Attach(rows);
@@ -285,7 +279,7 @@ namespace MyLab.Core.DataTables
                 ReadAsync = async token =>
                 {
                     string text = await ReadSourceAsync(readCsvAsync, token);
-                    return ReadTable(text, headers, readRow, keySelector, validateRow, token);
+                    return DataTableCsvValidator.Read(text, headers, readRow, keySelector, validateRow, token);
                 }
             });
         }
@@ -415,82 +409,6 @@ namespace MyLab.Core.DataTables
             }
             token.ThrowIfCancellationRequested();
             return text;
-        }
-
-        private static ReadOnlyDictionary<TKey, TRow> ReadTable<TKey, TRow>(string text, string[] headers, Func<CsvReader, TRow> readRow,
-            Func<TRow, TKey> keySelector, Action<TRow> validateRow, CancellationToken token,
-            Action<CsvContext> configure = null, Action<CsvReader> validateHeader = null)
-        {
-            if (text == null)
-            {
-                throw new InvalidDataException("Source returned null CSV text.");
-            }
-            if (text.Length > 0 && text[0] == '\uFEFF')
-            {
-                text = text.Substring(1);
-            }
-            var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                Delimiter = ",",
-                DetectColumnCountChanges = true
-            };
-            using (var reader = new StringReader(text))
-            using (var csv = new CsvReader(reader, configuration))
-            {
-                try
-                {
-                    token.ThrowIfCancellationRequested();
-                    configure?.Invoke(csv.Context);
-                    if (!csv.Read())
-                    {
-                        throw new InvalidDataException("CSV header is required.");
-                    }
-                    csv.ReadHeader();
-                    var actual = new HashSet<string>(StringComparer.Ordinal);
-                    foreach (var header in csv.HeaderRecord)
-                    {
-                        if (string.IsNullOrWhiteSpace(header) || !actual.Add(header))
-                        {
-                            throw new InvalidDataException("CSV headers must be named and unique.");
-                        }
-                    }
-                    foreach (var header in headers)
-                    {
-                        if (!actual.Contains(header))
-                        {
-                            throw new InvalidDataException($"Required header '{header}' is missing.");
-                        }
-                    }
-                    validateHeader?.Invoke(csv);
-                    var rows = new Dictionary<TKey, TRow>();
-                    while (csv.Read())
-                    {
-                        token.ThrowIfCancellationRequested();
-                        // CsvHelper validates quoted fields lazily; validate even columns the project parser ignores.
-                        for (int column = 0; column < csv.Parser.Count; ++column)
-                        {
-                            csv.GetField(column);
-                        }
-                        var row = readRow(csv);
-                        if (row is null)
-                        {
-                            throw new InvalidDataException("Null rows are not supported.");
-                        }
-                        validateRow?.Invoke(row);
-                        var key = keySelector(row);
-                        if (key is null || !rows.TryAdd(key, row))
-                        {
-                            throw new InvalidDataException($"Null or duplicate key '{key}'.");
-                        }
-                    }
-                    token.ThrowIfCancellationRequested();
-                    return new ReadOnlyDictionary<TKey, TRow>(rows);
-                }
-                catch (Exception error) when (!(error is OperationCanceledException))
-                {
-                    throw new InvalidDataException($"CSV row {csv.Parser.Row}: {error.Message}", error);
-                }
-            }
         }
 
         private void ValidateName(string name)

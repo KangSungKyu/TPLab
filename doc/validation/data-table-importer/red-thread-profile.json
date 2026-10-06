@@ -1,0 +1,8 @@
+{
+  "total": 39,
+  "passed": 37,
+  "failed": 2,
+  "skipped": 0,
+  "diagnostic": "Profile mutation remained Validated; worker call threw UnityException from EditorApplication.isUpdating.",
+  "evidenceSource": "Observed unity-cli stderr tool output, summarized after execution; native stderr was not captured by Tee-Object."
+}
