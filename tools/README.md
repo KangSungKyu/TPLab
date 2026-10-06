@@ -22,6 +22,8 @@ python tools/run_unity_tests.py --project C:\Users\PC\Projects\MyLab --mode Play
 
 run_unity_tests.py는 연속 실행 시 같은 Editor가 ready로 돌아올 때까지 최대 30초 대기한다. 다른 Editor를 시작하거나 검증을 대체하지 않는다.
 
+정확한 실행 전 `no Unity instances running` 접수 오류에만 동일 project/Editor PID를 재확인하고 한 번 재접수한다. 실제 테스트 실패·모호한 결과는 재실행하지 않는다. 결과에는 Editor PID와 각 접수 시도를 남긴다. [구역 검증 도구 기록](../doc/validation/scene-areas/driver-checks.json)은 최초 접수 실패와 오류 분류 self-check Red/Green을 보존한다.
+
 capture_validation_inputs.py는 명시한 기준 commit과 보존 raw hash를 입력받아 현재 코어·의존성·검증 도구 hash를 evidence에 기록한다. 보호 파일이 달라지면 중단한다. 텍스트/Binary 정규화 self-check와 실제 실행은 [로더 증거](../doc/validation/scene-loaders/README.md)를 따른다.
 
 ```powershell

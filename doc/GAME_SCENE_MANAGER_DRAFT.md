@@ -126,12 +126,21 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 
 - `SceneTransitionSettings : ScriptableObject`가 명시적인 전환 정의 목록을 소유한다. `SceneTransitionDefinition`은 직렬화 데이터이며 ID는 이 settings 내에서 유일하다. runtime은 설정 snapshot을 주입받고 전역 asset 검색이나 자동 polling을 하지 않는다.
 - 작업 종류는 최초 진입, primary 교체, derived 추가, derived 제거다. 정의는 ID, 출발 씬 경로, 목적지 SceneTarget 구성, 모드, active 선택, priority 및 필수 condition ID 목록을 저장한다. 출발은 교체의 현재 primary, 추가의 부모, 제거의 requester를 선택한다. 제거는 대상 subtree 전체이며 별도 임의 해제 범위·reparent 설정은 추가하지 않는다. 최초 진입은 공용 root에서 시작한다.
+- 최초 진입 정의의 출발 경로는 비워둔다. 실제 주입된 공용 root가 출발을 결정하며 영속 root의 DDOL scene을 asset 경로로 대체하지 않는다. 직접 최초 요청의 출발 Scene은 default 또는 그 실제 공용 Scene만 허용한다.
 - `SceneTransitionRequest`는 코드의 실제 Scene 인스턴스 요청이다. 정의 ID는 출발/대상을 현재 등록 기록에서 해석해 같은 검사/실행 경로를 사용한다. ID 호출과 직접 요청은 `TryTransitionAsync`로 성공 시 true, 실행 전 조건 거부 시 false를 받는다. 그 외 설정 오류·실행 실패·취소는 예외다.
 - 기존 EnterFirst/ReplacePrimary/AddDerived/RemoveDerived convenience API도 같은 root policy를 검사한다. 반환 형태를 보존하기 위해 실행 전 조건 거부는 구별 가능한 `SceneTransitionRejectedException`으로 전달하며 cover·로드·OnFailure·새 작업 수명은 만들지 않는다. bool 결과를 원하는 프로젝트는 TryTransitionAsync를 사용한다. 승인 후 재검사 거부는 owner 취소 실패 경로로 정리하고 cover를 유지한다.
 - root GameObject의 작은 `SceneTransitionCondition : MonoBehaviour`는 안정적인 ConditionId와 동기 읽기 전용 Evaluate(context)를 제공한다. ISceneRoot는 바꾸지 않는다. 연결된 조건은 직접/ID 요청 모두에서 항상 평가하며, 필수 ID 목록이 비어 있어도 연결된 root policy를 우회하지 않는다. 필수 ID 누락·중복·빈 ID는 설정 오류다.
 - 조건 ID는 root 안에서 유일해야 하고 서로 다른 root는 같은 정책 ID를 가질 수 있다. 정의의 필수 ID는 영향 root 집합 중 최소 하나에서 제공되어야 한다. 빈/중복 필수 ID를 거부하며 비활성 condition 컴포넌트도 연결된 정책에서 제외하지 않는다. 요청 후 해당 구성·ID 변경은 설정 오류로 처리한다.
-- 검사 대상은 최초 진입의 common root, 교체의 이전 primary subtree, 추가의 부모, 제거의 requester/부모/제거 subtree다. 같은 root는 한 번만 검사한다. 영향받는 모든 root가 최초 검사를 통과한 뒤 작업을 시작하며, 실제 해제 직전 전체 대상을 다시 검사한다. 해제가 없는 추가/최초 진입은 성공 공개 직전에 재검사한다. 준비와 화면 준비 신호는 별도로 기다린다.
+- 검사 대상은 최초 진입의 common root, 교체의 이전 primary subtree, 추가의 부모, 제거의 requester/부모/제거 subtree다. 각 검사에서 같은 root는 한 번만 평가한다. 영향받는 모든 root가 최초 검사를 통과한 뒤 작업을 시작하며, 실제 해제 직전 전체 대상을 다시 검사한다. 해제가 없는 추가/최초 진입은 성공 공개 직전에 재검사한다. 준비와 화면 준비 신호는 별도로 기다린다.
+- 최초/추가처럼 해제가 없는 요청은 reveal 전에 한 번, 비동기 reveal 완료 뒤 성공 공개 전에 다시 확인한다. reveal 중 거부되면 cover를 복원하고 후보를 정리한다. 교체/제거는 해제 전 검사를 마친 root를 종료 후 다시 평가하지 않는다.
 - 조건 context는 요청과 실제 출발/대상·영향 씬 정보를 제공한다. 조건 구성/ID는 작업 중 고정하고 프로젝트 business 상태만 재검사한다. 조건 안에서 새 전환·종료·취소·자기 대기를 실행하지 않는다. 거부는 LastFailure나 진행 권한을 성공/실패로 위장하지 않는다.
 - Bootstrap의 선택적 settings/first ID는 최초 진입 정의에만 연결한다. 기존 source/path/mode 설정과 string API는 유지한다. Inspector·build gate의 실제 SceneAsset/등록/조건 검사는 Phase 5에서 확장한다.
+
+### Phase 5 사전 검사 경계
+
+- 기존 Bootstrap Inspector와 deferred compile/pre-Play/BuildPlayerOptions 검사를 재사용한다. 명시적으로 참조된 settings만 검사하며 사용하지 않는 전체 프로젝트 asset을 자동 검색하지 않는다. 정의 목록은 기본 Inspector 수준으로 제공하고 출발/목적지는 실제 SceneAsset을 선택한다. backend 선택은 명시적이며 SceneAsset 등록 상태로 자동 변경하지 않는다.
+- 정의/ID/모드와 SceneTarget 구성, 실제 씬 존재·root/installer 소유권·root 조건 ID 구성을 검사한다. BuildScene 목적지는 실제 Player build 목록에 있어야 하고 Addressable 목적지는 기존 GUID/path/key/catalog 검사를 재사용한다. 기존 scene/reference GUID를 변경하거나 Addressables에 자동 등록하지 않는다.
+- 조건 Evaluate는 Editor/컴파일/빌드 검사에서 실행하지 않는다. 선언된 출발과 파생 추가 정의로 연결된 잠재 하위 root의 설정만 읽는다. 순환하는 정의 탐색은 방문 집합으로 끝내며 정의 graph를 runtime 수명 tree로 오인하지 않는다. 코드가 추가하는 파생 관계와 실제 로드 상태·조건 business 결과는 runtime의 정확한 영향 root 검사로 확정한다.
+- preview는 모두 닫고 active/loaded user 씬·raw build settings를 보존한다. UI 변경·저장된 참조 변경은 기존 검사 queue로 연결한다. 실제 build hook 및 pre-Play 거부를 자동 증거로 확인하며 성공 Player는 Phase 6에서 별도로 검증한다.
 
 각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. Phase의 필수 자동 검사가 통과하면 승인된 track 통합을 진행한다. 이번 전체 작업의 main 통합에는 최종 명시적 사용자 확인도 필요하며, 사용자 부재 시 [track의 대기·절전 정책](SCENE_TRANSITION_TRACK.md)을 따른다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.

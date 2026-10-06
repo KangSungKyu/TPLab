@@ -1,0 +1,41 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 15,
+  "passes": [
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.BootstrapDefinitionGettersExposeSelectedEntryAndPreserveLegacySerialization",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.BuildDefinitionJsonRoundTripAcceptsEmptySerializedAddressableKey",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.ConfigureDefensivelyCopiesCallerList",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.ConfigureRejectsDuplicateDefinitionIds",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.ConfigureRejectsEmptyDefinitionId(\"\")",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.ConfigureRejectsEmptyDefinitionId(\" \")",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.ConfigureRejectsNullDefinition",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.RequestAndContextListsAreDetachedAndReadOnly",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.SnapshotRejectsEmptyOrDuplicateRequiredId(\"\",\"ok\")",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.SnapshotRejectsEmptyOrDuplicateRequiredId(\"permission\",\"permission\")",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.SnapshotRejectsFirstEntrySourcePath",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.SnapshotRejectsMalformedSourcePath",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.SnapshotRejectsSingleDerivedDefinition",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.SnapshotRejectsUnknownKind",
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.ValidSnapshotCopiesDefinitionAndRequiredIds"
+  ],
+  "skipped": 0,
+  "total": 15,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionSettingsTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 19888,
+    "cliReturnCode": 0,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 19888,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

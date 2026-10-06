@@ -62,6 +62,7 @@
 | [명시적 씬 로더 검증](validation/scene-loaders/README.md) | Build/Addressables 명시 선택·개별 결과 소유·등록 사전검사 회귀 | 실제 SceneProvider 및 native 테스트, 입력 hash·실패 iteration·Player 미검증 구분 |
 | [Phase 3A 주 씬 교체 검증](validation/scene-replacement/README.md) | 연속 교체·Additive/Single·이전/후보 실패 소유권 회귀 | 실제 native 전환·공유 완료/취소·잔여 씬 진단 및 UI 미검증 구분 |
 | [Phase 3B 파생 씬 검증](validation/scene-areas/README.md) | 수명 tree·자기/ancestor 제거·active·취소/실패 소유권 회귀 | 실제 공유 제거·자식 우선 정리, 입력 hash와 UI/Player 미검증 구분 |
+| [Phase 4 정의·조건 검증](validation/scene-definitions/README.md) | ID·직접 요청·root 조건·Bootstrap 정의 연결 | 공유 정책 경로와 reveal 전후 재검사, 실제 Red/Green 및 전체 회귀 |
 | [SceneTransition Phase 1 검증](validation/scene-transition-contracts/README.md) | callback 공용화·호환/준비 대기·전체 회귀 확인 | 계약 문서와 실제 runtime 구현 범위, 이번 입력/결과 대조 |
 
 ## 의존성과 라이선스 자료

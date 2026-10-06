@@ -1,0 +1,79 @@
+{
+  "results": {
+    "red-edit.json": [
+      13,
+      1,
+      12,
+      0
+    ],
+    "red-play.json": [
+      25,
+      0,
+      25,
+      0
+    ],
+    "getters-red-edit.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "reveal-red-play.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "green-edit.json": [
+      15,
+      15,
+      0,
+      0
+    ],
+    "green-play.json": [
+      26,
+      26,
+      0,
+      0
+    ],
+    "full-EditMode.json": [
+      228,
+      228,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      199,
+      199,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "AGENTS.md",
+    "doc/INDEX.md",
+    "doc/CORE_PLAN.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/SCENE_TRANSITION_TRACK.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-06-20-scene-definitions.md",
+    "doc/validation/scene-definitions/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Core/SceneManagement/GameSceneManager.cs",
+    "Assets/MyLab/Core/SceneManagement/BootstrapSystem.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionSettings.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionDefinition.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionRequest.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionContext.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionCondition.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionRejectedException.cs",
+    "Assets/MyLab/Tests/EditMode/SceneTransitionSettingsTests.cs",
+    "Assets/MyLab/Tests/PlayMode/SceneTransitionPolicyTests.cs",
+    "Assets/MyLab/Tests/Fixtures/SceneConditionProbe.cs"
+  ],
+  "absentAssetPatterns": [
+    "BootstrapSceneSourceTests_*",
+    "MyLabBootstrapValidationProbe.unity"
+  ]
+}

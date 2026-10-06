@@ -1,0 +1,27 @@
+{
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseDuringAsyncRevealCleansAddedCandidateAndRestoresCover:   Expected: instance of <System.OperationCanceledException>\r\n  But was:  null\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseDuringAsyncRevealCleansAddedCandidateAndRestoresCover",
+    "source": "connector-file",
+    "runId": "2640-1791285438337191900",
+    "cliPid": 2640,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 2640,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

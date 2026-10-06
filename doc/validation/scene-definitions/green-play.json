@@ -1,0 +1,52 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 26,
+  "passes": [
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.AddedAttachedConditionAfterApprovalIsConfigurationError",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.BootstrapUsesSelectedFirstEntryDefinition",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.CallbackRejectedExceptionIsExecutionFailureAndNeverTryFalse",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.ChangedConditionIdAfterApprovalIsConfigurationErrorWithCandidateCleanup",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.ConditionExceptionRemainsVisibleBeforeEffects",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.ConditionsCannotReenterEntryCancelShutdownWaitOrNewCommands",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DefinitionRemoveAndReplaceResolveActualRegisteredInstances",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DirectAndDefinitionRequestsEvaluateTheSameAttachedParentPolicy",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DirectRequiredIdsRejectEmptyAndDuplicateConfiguration",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DisabledAttachedConditionIsStillPolicyWhenRequiredIdsAreEmpty",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DuplicatePolicyIdsWithinOneRootAreConfigurationError",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.EmptyAttachedConditionIdIsConfigurationError",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.FirstCommonFalseRejectsBeforeAnyOperationOrEffects",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.FirstEntryTryFalseDoesNotConsumeHistoricalEntry",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeAdditiveReleaseRetainsPreparedOldSubtree",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeRemovalRetainsEntirePreparedSubtree",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeSingleReleaseDoesNotShutdownOrLoad",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseDuringAddCleansCandidateBeforeSuccessPublication",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseDuringAsyncRevealCleansAddedCandidateAndRestoresCover",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.MissingRequiredPolicyIsConfigurationErrorWithoutOperation",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.MissingSettingsOrUnknownIdThrowsWithoutCover",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.OneFalseDescendantRejectsPrimaryReplacementBeforeAnyRelease",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.PendingRemovalRevealJoinDoesNotReevaluateDestroyedConditions",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.RequiredIdCanBeProvidedByAnyAffectedRootAndDuplicateAcrossRootsIsLegal",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.SettingsSnapshotIsUnaffectedByAssetChangeAfterManagerConstruction",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.UnknownDefinitionIdIsConfigurationErrorWithoutEntryEffects"
+  ],
+  "skipped": 0,
+  "total": 26,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionPolicyTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 15600,
+    "cliReturnCode": 0,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 15600,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

@@ -4,7 +4,7 @@
 
 ## 브랜치와 순서
 
-`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 운영 지침과 주 씬 교체 commit `bd7698ab0d341dd990efb894804d19963a638693`를 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p3b-areas`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
+`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 파생 씬 수명 commit `54107893f9da91e86f44be5766c5501e8de8e0df`까지 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p4-definitions`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
 
 ```text
 main@e9fa4e46 → codex/game-scenes-track
@@ -32,8 +32,8 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 | Phase 1 | SceneTransitionCallbacks 공용화 | 선행 검증 기록 있음 | [검증 기록](validation/scene-transition-contracts/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
 | Phase 2 | manager 최초 진입과 Bootstrap 위임 | 선행 검증 기록 있음 | [검증 기록](validation/game-scene-entry/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
 | Phase 3A | Single/Additive 주 흐름 교체 | 자동 검증 완료 | [검증](validation/scene-replacement/README.md), [회고](retrospectives/2026-10-06-18-scene-replacement.md). Edit 213/213·Play 146/146, bd7698a track FF/push 완료. [정확한 commit CI 조회](validation/scene-replacement/ci-policy.json): 미구성 |
-| Phase 3B | 수명 tree와 구역 추가/제거 | 자동 검증 완료 | [검증](validation/scene-areas/README.md), [회고](retrospectives/2026-10-06-19-scene-areas.md). Edit 213/213·Play 173/173, track 통합 대기 |
-| Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 계획(사용자 실행 승인됨) | 공통 경로·무부작용 거부·권한/영향 root 검증 증거 연결 |
+| Phase 3B | 수명 tree와 구역 추가/제거 | 자동 검증 완료 | [검증](validation/scene-areas/README.md), [회고](retrospectives/2026-10-06-19-scene-areas.md). Edit 213/213·Play 173/173, 5410789 track FF/push 완료. [정확한 CI 조회](validation/scene-areas/ci-policy.json): 미구성 |
+| Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 자동 검증 완료 | [검증](validation/scene-definitions/README.md), [회고](retrospectives/2026-10-06-20-scene-definitions.md). Green Edit15/15·Play26/26, 전체 Edit228/228·Play199/199; track 통합 준비 |
 | Phase 5 | Inspector, compile 후 Editor, Play/build gate | 계획(사용자 실행 승인됨) | 실제 Build scene 목록 및 설정 오류 차단 증거 연결 |
 | Phase 6 | 통합 예제·회귀·소비 프로젝트·Player | 계획(사용자 실행 승인됨) | Bootstrap→주 흐름→구역, 구성·반복 Play·화면/입력 확인 증거 연결 |
 | 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 미도달 | 완성 후보와 자동 gate가 준비된 뒤 대기 상태로 전환. 명시적인 인간 확인만 gate를 해소함 |
@@ -50,10 +50,12 @@ Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 �
 | P0 Editor 구현 | `/root/track_guidelines`, gpt-6-luna / medium | source/SceneAsset Inspector와 등록·catalog 사전 검사 | Editor Bootstrap/asmdef 및 BootstrapSceneSourceTests; runtime·Git·Unity 제외 | Green 13/13·부모 리뷰 완료 |
 | Phase 3A 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | 교체 중 두 씬 소유권·Single graceful 종료·공유 취소의 비동기 위험 | GameSceneManager 및 관련 테스트·fixture; Editor·docs·Git·Unity 제외 | Red 11/0/11·Green 18/18, 최종 읽기 리뷰 완료 |
 | Phase 3B 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | tree 수명·active 선택·권한·공유 제거 및 중복 종료의 비동기 위험 | GameSceneManager/SceneRegistration 및 관련 테스트·fixture; Editor·docs·Git·Unity 제외 | Red 18/0/18·보완 Red 1/0/1·Green 27/27, 최종 리뷰 완료 |
+| Phase 4 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | 모든 요청의 조건 우회 방지·해제 전 재검사·비동기 취소 경계 | Core SceneManagement 및 관련 Tests/meta; Editor·docs·tools·Git·Unity 제외 | Red·getter/reveal 보완 Red 확인, Green15/15·26/26, readonly 최종 리뷰 완료 |
 | Phase 4/5 사전 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 기존 root/validator 재사용과 최소 정의·조건 API 검토 | 관련 코드·명세 읽기 전용; 수정 없음 | 조사 완료; 실행·수정 0건 |
 | 최종 수락 기준 문서 | `/root/track_guidelines`, gpt-6-luna / medium | 자동 gate와 마지막 사용자 확인 묶음의 독립 문서 | `doc/SCENE_TRANSITION_ACCEPTANCE.md`만 수정; Git·Unity 제외 | 초안·부모 리뷰 완료; 실행 경로 P6 확정 대기 |
 | P0 Editor API 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 설치 Addressables의 등록 API·preview gate·Player 모듈 확인 | 설치 패키지·Editor·Tests 읽기 전용 | 조사 완료; 실행 테스트 0건 |
 | Phase 5 경로 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 정의/조건 설정을 기존 Inspector·compile/Play/build 검사에 연결하는 최소 경로 확인 | 관련 코드·확정 계약 읽기 전용; 수정·Unity·Git 제외 | 조사 완료; 수정·실행 0건 |
+| Phase 6 소비 프로젝트 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 최소 dependency·파일 allowlist와 원래 Editor·반복 Play 경로 조사 | Core/의존성/Validation 관련 읽기 전용; 수정·복사·Unity·Git 제외 | 조사 완료; 최소 Core/CsvHelper + UniTask/Addressables, 실행 0건 |
 
 새 배정은 에이전트가 실제 생성·지원된 뒤 이 표에 기록한다. 기록 필드는 역할/실제 모델·추론, 작업과 선택 이유, 허용 경로, 상태를 포함한다. 비밀값이나 전체 실행 로그는 남기지 않는다.
 

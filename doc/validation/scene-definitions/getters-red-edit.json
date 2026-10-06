@@ -1,0 +1,27 @@
+{
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionSettingsTests.BootstrapDefinitionGettersExposeSelectedEntryAndPreserveLegacySerialization:   Expected string length 46 but was 49. Strings differ at index 28.\r\n  Expected: \"Assets/MyLab/Tests/Fixtures/BootstrapHub.unity\"\r\n  But was:  \"Assets/MyLab/Tests/Fixtures/ReplacementMain.unity\"\r\n  ---------------------------------------^\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionSettingsTests.BootstrapDefinitionGettersExposeSelectedEntryAndPreserveLegacySerialization",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 17568,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 17568,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

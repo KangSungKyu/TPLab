@@ -77,3 +77,5 @@ hook 안에서 자기 진입/종료 완료를 await하지 않는다. 새 entry �
 [Phase 2 검증](validation/game-scene-entry/README.md)은 실제 Red/Green, 최종 EditMode 182/182·PlayMode 115/115, 실패·skip 0, native Single/Additive·취소/정리·빌드/Play invalid-mode 차단을 기록한다. [최초 Bootstrap 증거](validation/bootstrap-system/README.md)와 [callback Phase 1 증거](validation/scene-transition-contracts/README.md)는 이전 범위의 기록이다.
 
 Phase 3A는 연속 주 흐름 교체, 3B는 파생 구역 수명이다. 조건/정의는 Phase 4다. 소비 프로젝트·성공 Player 빌드/실행·가림막 시각 UX·Reload 비활성 반복 Play는 이번 단계에서 확인하지 않았다. 내부 테스트 통과를 전체 코어 배포 완료로 확대하지 않는다.
+
+2026-10-06 Phase 4: 선택적인 SceneTransitionSettings/FirstTransitionId를 주입할 수 있다. 선택 ID는 FirstEntry여야 하며 실제 공용 root에서 시작한다. getter/검사/실행은 선택 정의를 사용하고 기존 path/source/mode/key/ref 직렬화는 유지한다. Inspector 연결은 Phase 5다. [검증](validation/scene-definitions/README.md)을 확인한다.

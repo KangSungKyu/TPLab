@@ -59,7 +59,7 @@ def main():
         parser.error("Select an existing Unity project by absolute path")
     project = args.project.resolve()
     editor_pid = wait_for_editor(project)
-    command = ["unity-cli", "test", "--project", str(project), "--mode", args.mode]
+    command = ["unity-cli", "test", "--project", project.as_posix(), "--mode", args.mode]
     if args.filter:
         command += ["--filter", args.filter]
     attempts = []

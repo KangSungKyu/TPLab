@@ -688,8 +688,15 @@ namespace MyLab.Core.Tests
     public sealed class SceneAreaRevealGateCallbacks : SceneTransitionCallbacks
     {
         [NonSerialized] public UniTaskCompletionSource RevealGate;
+        public int CoverCount;
         public int RevealCount;
         public int FailureCount;
+
+        public override UniTask ShowCoverAsync(CancellationToken cancellationToken)
+        {
+            ++CoverCount;
+            return UniTask.CompletedTask;
+        }
 
         public override UniTask HideCoverAsync(CancellationToken cancellationToken)
         {

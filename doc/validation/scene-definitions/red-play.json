@@ -1,0 +1,51 @@
+{
+  "total": 25,
+  "passed": 0,
+  "failed": 25,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.AddedAttachedConditionAfterApprovalIsConfigurationError:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.BootstrapUsesSelectedFirstEntryDefinition: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.CallbackRejectedExceptionIsExecutionFailureAndNeverTryFalse:   Expected: same as <MyLab.Core.SceneManagement.SceneTransitionRejectedException: callback-refusal>\r\n  But was:  <System.NotImplementedException: The method or operation is not implemented.\r\n  at MyLab.Core.Tests.SceneTransitionPolicyTests.<CallbackRejectedExceptionIsExecutionFailureAndNeverTryFalse>b__31_0 () [0x000bf] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Tests\\PlayMode\\SceneTransitionPolicyTests.cs:328 >\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.ChangedConditionIdAfterApprovalIsConfigurationErrorWithCandidateCleanup:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.ConditionExceptionRemainsVisibleBeforeEffects:   Expected: same as <System.ApplicationException: policy-evaluate>\r\n  But was:  <System.NotImplementedException: The method or operation is not implemented.\r\n  at MyLab.Core.Tests.SceneTransitionPolicyTests.<ConditionExceptionRemainsVisibleBeforeEffects>b__26_0 () [0x000b4] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Tests\\PlayMode\\SceneTransitionPolicyTests.cs:256 >\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.ConditionsCannotReenterEntryCancelShutdownWaitOrNewCommands:   Expected: 2\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DefinitionRemoveAndReplaceResolveActualRegisteredInstances: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DirectAndDefinitionRequestsEvaluateTheSameAttachedParentPolicy: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DirectRequiredIdsRejectEmptyAndDuplicateConfiguration:   Expected: instance of <System.ArgumentException>\r\n  But was:  <System.NotImplementedException>\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DisabledAttachedConditionIsStillPolicyWhenRequiredIdsAreEmpty:   Expected: <MyLab.Core.SceneManagement.SceneTransitionRejectedException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.DuplicatePolicyIdsWithinOneRootAreConfigurationError:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.EmptyAttachedConditionIdIsConfigurationError:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.FirstCommonFalseRejectsBeforeAnyOperationOrEffects:   Expected: <MyLab.Core.SceneManagement.SceneTransitionRejectedException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.FirstEntryTryFalseDoesNotConsumeHistoricalEntry: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeAdditiveReleaseRetainsPreparedOldSubtree:   Expected: instance of <System.OperationCanceledException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeRemovalRetainsEntirePreparedSubtree:   Expected: instance of <System.OperationCanceledException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeSingleReleaseDoesNotShutdownOrLoad:   Expected: instance of <System.OperationCanceledException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.LateFalseDuringAddCleansCandidateBeforeSuccessPublication:   Expected: instance of <System.OperationCanceledException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.MissingRequiredPolicyIsConfigurationErrorWithoutOperation:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotImplementedException>\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.MissingSettingsOrUnknownIdThrowsWithoutCover:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotImplementedException>\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.OneFalseDescendantRejectsPrimaryReplacementBeforeAnyRelease:   Expected: <MyLab.Core.SceneManagement.SceneTransitionRejectedException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.PendingRemovalRevealJoinDoesNotReevaluateDestroyedConditions:   Expected: 2\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.RequiredIdCanBeProvidedByAnyAffectedRootAndDuplicateAcrossRootsIsLegal: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.SettingsSnapshotIsUnaffectedByAssetChangeAfterManagerConstruction: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneTransitionPolicyTests.UnknownDefinitionIdIsConfigurationErrorWithoutEntryEffects:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotImplementedException>\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionPolicyTests",
+    "source": "connector-file",
+    "runId": "32908-1791284743981179100",
+    "cliPid": 32908,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 32908,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}
