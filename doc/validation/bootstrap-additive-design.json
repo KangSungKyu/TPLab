@@ -1,0 +1,31 @@
+{
+  "baseline": "0d22ed343ce1e58a235ccb4a61fb7ef3541402fa",
+  "branch": "codex/bootstrap-additive-design",
+  "documentationOnly": true,
+  "markdownFiles": 36,
+  "links": 380,
+  "anchors": 4,
+  "preservedUserBytes": {
+    "Assets/Scenes/InitScene.unity": "12C5C4095B1806434C0D7758B7F91CDD830BFB5C78F1F7E25E331038F823B045",
+    "Assets/Settings/DefaultVolumeProfile.asset": "463776C51AE49D4FEF980E8FD268081B2F505610D79315003FAAE1ACFF8F4115",
+    "Assets/Settings/Mobile_RPAsset.asset": "2D5182D2B8884AC88BC6ED033A0A722C23CFB15A7BC8B7DAA38DB37227BAFD09",
+    "ProjectSettings/SceneTemplateSettings.json": "BB9098B3BFCDE78D93E264B96F7B77B5430E64E8C57A7AAD7F5A5D9C3945E16A"
+  },
+  "unchangedCodeConfigInputs": 60,
+  "changedFiles": [
+    "README.md",
+    "doc/ASYNC_SCENE_LIFECYCLE.md",
+    "doc/CORE_PLAN.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/INDEX.md",
+    "doc/SCENE_ROOT.md",
+    "doc/retrospectives/2026-10-06-11-bootstrap-additive-design.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/validation/bootstrap-additive-design.json"
+  ],
+  "tests": {
+    "executed": 0,
+    "reason": "Documentation only; Unity compile, Console, runtime and Player checks not executed."
+  },
+  "issues": []
+}

@@ -15,8 +15,8 @@
 | 2026-10-06 | Text·Resource 예시 템플릿 분리 | MyLab 내부 분리·검증 완료 | [07-data-table-templates](2026-10-06-07-data-table-templates.md) |
 | 2026-10-06 | 임시 파일 지침·Editor importer 검토 | 지침 완료·설계 초안·미구현 | [08-data-table-importer-draft](2026-10-06-08-data-table-importer-draft.md) |
 | 2026-10-06 | Importer 설정 자산·공용 validator 보완 | 설계 초안 보완·미구현 | [09-importer-settings-validation](2026-10-06-09-importer-settings-validation.md) |
-
 | 2026-10-06 | CSV Editor importer·설정·공용 검증 구현 | MyLab 내부 구현·검증 완료 | [10-data-table-importer](2026-10-06-10-data-table-importer.md) |
+| 2026-10-06 | Bootstrap 먼저·게임 씬 Additive 권장안 | 권장 문서 완료·전환 설계 초안·runtime 미구현 | [11-bootstrap-additive-design](2026-10-06-11-bootstrap-additive-design.md) |
 
 ## 작성 형식
 

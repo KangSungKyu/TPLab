@@ -94,6 +94,6 @@
 5. DataTableManager: 2026-10-06 표준 uint idx DTO·프로젝트 router·Get/TryGet·테이블 binding·FK를 추가했다. 임의 PK 수동 경로는 유지한다. [표준 계약](DATA_TABLE_GENERIC_IMPLEMENTATION.md)과 [현재 검증](validation/generic-data-tables/README.md)을 따른다. 명시적 테이블·CSV 스키마·키·행 검증·교차 검증 등록과 전체 snapshot의 검증 후 공개를 구현했다. 공유 비동기 로드·개별 대기 취소·재로드 실패 시 이전 데이터 보존·소유자 종료를 확인하고 ResourceManager와 SceneRoot 준비/해제 흐름을 연결했다. [계약](DATA_TABLE_MANAGER.md)과 [현재 검증](validation/data-tables/README.md)을 따른다.
 Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/README.md)으로 분리했다. 코어는 최소 공용 기반만 제공하고 스키마는 사용 프로젝트가 소유한다. [현재 분리 검증](validation/data-table-templates/README.md)을 확인한다.
 
-6. 다음 작업: GameSceneManager → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. MyLab 내부 각 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.
+6. 다음 작업: [GameSceneManager 기본 사양·Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md) → 소비 프로젝트 가져오기·Player 검증 순서로 진행한다. Bootstrap을 첫 씬으로 실행하고 공용 준비 후 게임 씬을 Additive로 로드하며 Bootstrap은 앱 수명 동안 유지하는 구조를 권장한다. runtime은 미구현이며 정확한 전환 API·실패/취소 경계를 정한 뒤 구현한다. MyLab 내부 각 단계의 통과를 전체 코어 배포 호환성 통과로 사용하지 않는다.
 
 2026-10-06 Editor importer 구현: [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)의 CSV + 명시적 JSON 스키마, setting.asset 3모드, 생성/기존 타입 검증, 공용 CSV/idx 사전검사와 컴파일 후 typed 전체 검증을 제공한다. runtime에 구체 테이블·자동 등록을 추가하지 않았다. [이번 검증](validation/data-table-importer/README.md)을 확인한다. JSON 행 로더·rename migration·소비 프로젝트/Player 검증은 후속 범위다. 다음 시스템은 GameSceneManager다.
