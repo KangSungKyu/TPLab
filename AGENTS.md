@@ -62,6 +62,16 @@
 - 2026-10-02 사용자는 KangSungKyu/TPLab 비공개 저장소 생성과 Git 관리를 승인했다. 이 저장소의 초기화·브랜치·커밋·푸시·PR 등 일반 관리는 이 승인 범위에서 진행한다. 이력 재작성·강제 푸시·삭제·무관한 저장소 변경은 별도 명시적 요청이 필요하다.
 - 사용자 승인 없는 새 목표, 광범위 포맷팅, 자산 재직렬화, 패키지 추가·제거, 프로젝트 설정 변경은 하지 않는다.
 
+## GameSceneManager 통합 track 운영
+
+- GameSceneManager Phase 통합은 [SCENE_TRANSITION_TRACK.md](doc/SCENE_TRANSITION_TRACK.md)를 기준으로 한다. 현재 `codex/game-scenes-p0-guidelines`는 이 운영 지침 작성 단위다. 이미 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성된 `codex/game-scenes-track`에 이 단위를 통합하고, 그 최신 tip을 기준으로 `p0-loaders` → `p3a-flow` → `p3b-areas` → `p4-definitions` → `p5-editor` → `p6-validation`을 순서대로 진행한다. Phase 0은 Addressables/Build loader 명시 선택과 씬 instance 소유권을 다룬다. Phase 3A/3B/4/5/6 계약은 [GAME_SCENE_MANAGER_DRAFT.md](doc/GAME_SCENE_MANAGER_DRAFT.md)를 참조한다.
+- 부모 에이전트가 공용 계약·작업 배정·결과 리뷰·회고·Git 통합·Unity 조작을 소유한다. 하위 에이전트는 현재 지원 모델을 확인하고 검색은 luna/low, 작고 확정된 구현은 luna/medium, 통합 구현은 6.1-sol/medium을 우선 선택한다. 비동기 수명·소유권 위험은 high로 기록하고 필요하면 추론을 올린다. 역할·선택 근거·허용 경로·상태를 track 표에 남기며, 미확정 설계는 구현 담당에게 넘기지 않는다.
+- 기본 하위 에이전트는 1개, 독립 작업이 필요한 경우 최대 2개다. 같은 파일 또는 공용 계약을 동시에 수정하지 않는다. Unity 테스트 중 소스 변경을 동결하고, 기존 MyLab Editor는 부모만 조작한다. 새 사용자 소유 세션을 만들지 않는다.
+- 각 Phase의 자동 검증·리뷰·회고가 완료되면 해당 Phase를 track에 통합한다. 제안·진행·자동 검증 완료·사용자 확인 대기·완료 상태를 구분하고 증거가 있기 전 완료로 바꾸지 않는다. 최종 시각·사용성 확인은 마지막에 모으되 미검증 영역을 명시한다.
+- 자동 검증 완료와 최종 사용자 확인은 별도 gate다. 사용자의 명시적인 확인이 바로 이어지지 않으면 최종 확인 대기 상태로 둔다. 대기 중에는 `main` 병합과 브랜치 삭제를 하지 않는다. 시간 경과·무응답은 확인이나 승인으로 보지 않는다. `main`은 필요한 자동 검증과 사용자의 명시적 최종 확인이 모두 끝난 뒤에만 병합·푸시한다. main 진행 시 최신 main을 track에 통합하고 영향을 받는 검증을 다시 실행한다.
+- 통합은 원본 commit을 보존하는 fast-forward 또는 일반 merge를 사용한다. track/Phase 브랜치는 최종 main push와 SHA 보존을 확인한 뒤에만 삭제하며, 다른 worktree가 사용 중이면 보류한다.
+- PC 종료 지시는 이번 요청에 한정한다. 구현·자동 검증까지 끝나고 최종 사용자 확인만 대기 중이면 track 결과를 보존하고 Unity를 저장하되 종료하지 않은 채 절전할 수 있다. 작업 또는 테스트가 진행 중이면 절전하지 않는다. 최종 확인·main 통합·정리까지 완료한 경우 Unity 저장 후 정상 종료를 확인하고 PC를 종료한다. Unity 정상 종료가 실패하면 오프라인 전환 후 절전한다.
+
 ## Git 작업 시작 전 확인
 
 1. 파일을 수정하기 전에 현재 checkout 경로, 브랜치, HEAD, upstream과 추적·미추적 변경을 확인한다. upstream이 있으면 로컬에서 확인 가능한 ahead/behind 상태도 확인하며, 원격 최신 상태를 확인하지 않았다면 최신이라고 단정하지 않는다.

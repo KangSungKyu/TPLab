@@ -27,6 +27,7 @@
 | [SCENE_ROOT.md](SCENE_ROOT.md) | InitScene 같은 root의 소유 방식·installer·참조 주입·Editor 설정 | SceneOwned/Singleton 선택, Inspector·script 연결과 동기 주입 |
 | [ASYNC_SCENE_LIFECYCLE.md](ASYNC_SCENE_LIFECYCLE.md) | async 준비·해제·취소·씬 진행·가림막 callback 변경 | 준비/종료 순서·실패 rollback·표시 보호·전환 소유권 |
 | [GAME_SCENE_MANAGER_DRAFT.md](GAME_SCENE_MANAGER_DRAFT.md) | 전환 Phase·Single/Additive·구역 graph·조건·UI·해제/취소 설계 | 공용 수명 선택, 전환 graph와 수명 tree, 책임·실패 경계·단계별 완료 조건 |
+| [SCENE_TRANSITION_TRACK.md](SCENE_TRANSITION_TRACK.md) | GameSceneManager Phase 작업 배정·통합·검증·최종 사용자 gate 관리 | track/Phase 순서, 상태·증거 기록, 에이전트 선택, main 통합 및 종료 gate |
 | [BOOTSTRAP_SYSTEM.md](BOOTSTRAP_SYSTEM.md) | 최초 씬 root·목적지·Single/Additive·공용 수명·취소/종료·Editor/빌드 gate 변경 | GameSceneManager/BootstrapSystem API·상태와 기존 callback 호환, Inspector와 컴파일 후·Play·실제 build list 검증 |
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [ResourceManager 검증](validation/resource-manager/README.md) | ResourceManager 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·native fixture·컴파일/Console·증거·미검증 경계 |
@@ -74,6 +75,7 @@
 
 - 데이터 테이블 Editor importer의 CSV 1차 구현은 [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)과 [검증 자료](validation/data-table-importer/README.md)를 따른다. JSON 행·자동 등록·rename migration은 후속 범위다.
 - [GameSceneManager/BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·모드/공용 수명 선택은 Phase 2까지 구현했다. 연속 교체·구역 graph·조건은 [Phase별 계약](GAME_SCENE_MANAGER_DRAFT.md)을 기준으로 후속 구현한다.
+- GameSceneManager의 다음 구현부터는 [통합 track 운영](SCENE_TRANSITION_TRACK.md)을 적용한다. Phase 자동 검증 완료와 최종 사용자 확인을 분리해 추적한다.
 - 소비 프로젝트 가져오기·최소 예제 실행·Player 검증은 후속 단계다. MyLab 내부 테스트의 통과를 전체 배포 호환성 완료로 확대하지 않는다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.
 
