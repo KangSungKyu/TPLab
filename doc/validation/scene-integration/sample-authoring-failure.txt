@@ -1,0 +1,7 @@
+Original Editor PID23176 Unity6000.3.18f1. BuildSampleAssets failed twice: first invocation returned the exception message; second diagnostic invocation caught and returned the stack. No success claim.
+System.InvalidOperationException: Select transition settings and a FirstEntry definition ID together.
+  BootstrapSystem.GetFirstDefinition settings null or blank id guard
+  BootstrapSystem.Configure BootstrapSystem.cs:76
+  SceneTransitionSampleBuilder.CreateBootstrap SceneTransitionSampleBuilder.cs:317
+  SceneTransitionSampleBuilder.BuildSampleAssets SceneTransitionSampleBuilder.cs:92
+See settings-new-scene-observed.json for the actual owning Editor probe. Saved persistent Additive settings were valid before NewScene Single; the earlier wrapper was Unity-null afterward; path reload returned a valid wrapper. Original setup and raw build bytes were restored in finally.

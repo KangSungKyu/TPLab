@@ -30,3 +30,14 @@ capture_validation_inputs.py는 명시한 기준 commit과 보존 raw hash를 �
 python tools/capture_validation_inputs.py --self-check
 python tools/capture_validation_inputs.py --evidence doc/validation/scene-loaders --base acb636c933f2eea29f46705d233f4e0dba436965 --preserved Temp/GameScenesTrack/preserved-hashes.json
 ```
+
+P6에는 승인된 별도 소비 프로젝트 빌드/Player와 이미 빌드된 sample Player 실행 도구를 제공한다. run_core_consumer.py만 명시적으로 별도 batch Editor를 시작하며 원래 MyLab Editor의 검증을 대체하지 않는다. run_scene_player.py는 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 소비 manifest는 승인된 UniTask·Addressables와 필요한 Unity built-in만 포함한다.
+
+```powershell
+python -B tools/run_core_consumer.py --self-check
+python -B tools/run_scene_player.py --self-check
+python -O -B tools/run_scene_player.py --self-check
+python -B tools/verify_validation.py --evidence doc/validation/scene-integration
+```
+
+실행 인수는 각 도구의 `--help`를 사용한다. 실제 두 모드 Player와 소비 실행·driver 실패·검증 제한은 [P6 증거](../doc/validation/scene-integration/README.md)에 기록한다.

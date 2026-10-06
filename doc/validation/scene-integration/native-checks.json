@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "consumerCurrentAndCopyHashes": 86,
+  "consumerTemplates": 4,
+  "consumerObservables": 11,
+  "nativePlayerChecks": {
+    "Additive": 10,
+    "Single": 10
+  },
+  "reloadEntries": 8,
+  "stableSampleGuids": 8,
+  "originalProtectedRawFiles": 6,
+  "coreAndPackagesUnchangedSinceP5": true,
+  "finalReadonlyReview": "scene_runtime gpt-6.1-sol/high: no blocking defect; no source/Unity/Git mutations",
+  "humanAcceptance": "pending"
+}

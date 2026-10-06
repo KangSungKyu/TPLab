@@ -4,7 +4,7 @@
 
 ## 브랜치와 순서
 
-`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 정의·조건 commit `5eda919b89a59cea3021c37c14d176f6b3719ff0`까지 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p5-editor`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
+`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. Editor 검사 commit `de4bb691aed3124443c4bfe3cfd085e3275002a8`까지 track에 fast-forward 통합·push했고 마지막 `codex/game-scenes-p6-validation` 단위의 자동 검증을 완료했다. P6 커밋의 정확한 SHA·push 및 track 통합 결과는 Git 이력과 최종 보고에서 확인한다. 현재 최종 사용자 확인 대기다. 각 단계를 직전 track tip에 순차 통합한다.
 
 ```text
 main@e9fa4e46 → codex/game-scenes-track
@@ -34,9 +34,9 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 | Phase 3A | Single/Additive 주 흐름 교체 | 자동 검증 완료 | [검증](validation/scene-replacement/README.md), [회고](retrospectives/2026-10-06-18-scene-replacement.md). Edit 213/213·Play 146/146, bd7698a track FF/push 완료. [정확한 commit CI 조회](validation/scene-replacement/ci-policy.json): 미구성 |
 | Phase 3B | 수명 tree와 구역 추가/제거 | 자동 검증 완료 | [검증](validation/scene-areas/README.md), [회고](retrospectives/2026-10-06-19-scene-areas.md). Edit 213/213·Play 173/173, 5410789 track FF/push 완료. [정확한 CI 조회](validation/scene-areas/ci-policy.json): 미구성 |
 | Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 자동 검증 완료 | [검증](validation/scene-definitions/README.md), [회고](retrospectives/2026-10-06-20-scene-definitions.md). Green Edit15/15·Play26/26, 전체 Edit228/228·Play199/199; 5eda919 track FF/push 완료. [정확한 CI 조회](validation/scene-definitions/ci-policy.json): 미구성 |
-| Phase 5 | Inspector, compile 후 Editor, Play/build gate | 자동 검증 완료 | [검증](validation/scene-transition-editor/README.md), [회고](retrospectives/2026-10-06-21-scene-transition-editor.md). Green12/12·전체 Edit240/240·Play199/199, actual build/Play 거부; track 통합 준비 |
-| Phase 6 | 통합 예제·회귀·소비 프로젝트·Player | 계획(사용자 실행 승인됨) | Bootstrap→주 흐름→구역, 구성·반복 Play·화면/입력 확인 증거 연결 |
-| 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 미도달 | 완성 후보와 자동 gate가 준비된 뒤 대기 상태로 전환. 명시적인 인간 확인만 gate를 해소함 |
+| Phase 5 | Inspector, compile 후 Editor, Play/build gate | 자동 검증 완료 | [검증](validation/scene-transition-editor/README.md), [회고](retrospectives/2026-10-06-21-scene-transition-editor.md). Green12/12·전체 Edit240/240·Play199/199, actual build/Play 거부; de4bb69 track FF/push 완료. [정확한 CI 조회](validation/scene-transition-editor/ci-policy.json): 미구성 |
+| Phase 6 | 통합 예제·회귀·소비 프로젝트·Player | 자동 검증 완료 | [검증](validation/scene-integration/README.md), [회고](retrospectives/2026-10-06-22-scene-integration.md). 전체 Edit240/240·Play201/201, 원래 Editor Windows Player 각10관찰, Reload8/8·소비 Player11관찰 |
+| 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 사용자 확인 대기 | [실행 절차](SCENE_TRANSITION_ACCEPTANCE.md). main/브랜치 삭제 보류, Unity 저장·Editor 유지 후 절전 |
 
 Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 건수·결과, Console/compile 상태, 미실행 항목, 리뷰 및 회고 링크를 남긴다. 사용자 확인 항목은 재현 가능한 실행 절차와 기대 결과를 적는다. 마지막 단계에서 시각·사용성 검사를 모아 수행하되 미확인·미검증 항목을 완료로 표시하지 않는다.
 
@@ -52,7 +52,7 @@ Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 �
 | Phase 3B 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | tree 수명·active 선택·권한·공유 제거 및 중복 종료의 비동기 위험 | GameSceneManager/SceneRegistration 및 관련 테스트·fixture; Editor·docs·Git·Unity 제외 | Red 18/0/18·보완 Red 1/0/1·Green 27/27, 최종 리뷰 완료 |
 | Phase 4 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | 모든 요청의 조건 우회 방지·해제 전 재검사·비동기 취소 경계 | Core SceneManagement 및 관련 Tests/meta; Editor·docs·tools·Git·Unity 제외 | Red·getter/reveal 보완 Red 확인, Green15/15·26/26, readonly 최종 리뷰 완료 |
 | Phase 4/5 사전 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 기존 root/validator 재사용과 최소 정의·조건 API 검토 | 관련 코드·명세 읽기 전용; 수정 없음 | 조사 완료; 실행·수정 0건 |
-| 최종 수락 기준 문서 | `/root/track_guidelines`, gpt-6-luna / medium | 자동 gate와 마지막 사용자 확인 묶음의 독립 문서 | `doc/SCENE_TRANSITION_ACCEPTANCE.md`만 수정; Git·Unity 제외 | 초안·부모 리뷰 완료; 실행 경로 P6 확정 대기 |
+| 최종 수락 기준 문서 | `/root/track_guidelines`, gpt-6-luna / medium | 자동 gate와 마지막 사용자 확인 묶음의 독립 문서 | `doc/SCENE_TRANSITION_ACCEPTANCE.md`만 수정; Git·Unity 제외 | 실제 P6 메뉴/버튼/복구 경로 반영·부모 리뷰 완료; 인간 확인 대기 |
 | P0 Editor API 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 설치 Addressables의 등록 API·preview gate·Player 모듈 확인 | 설치 패키지·Editor·Tests 읽기 전용 | 조사 완료; 실행 테스트 0건 |
 | Phase 5 경로 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 정의/조건 설정을 기존 Inspector·compile/Play/build 검사에 연결하는 최소 경로 확인 | 관련 코드·확정 계약 읽기 전용; 수정·Unity·Git 제외 | 조사 완료; 수정·실행 0건 |
 | Phase 6 소비 프로젝트 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 최소 dependency·파일 allowlist와 원래 Editor·반복 Play 경로 조사 | Core/의존성/Validation 관련 읽기 전용; 수정·복사·Unity·Git 제외 | 조사 완료; 최소 Core/CsvHelper + UniTask/Addressables, 실행 0건 |
@@ -75,3 +75,14 @@ Phase 완료 시 부모가 계약과 diff를 리뷰하고, 요구된 자동 검�
 - 최종 사용자 확인, main 통합과 정리까지 모두 끝났으면 Unity 저장 후 정상 종료를 확인하고 PC를 종료한다. Unity 종료가 실패하면 오프라인 전환 후 절전한다.
 
 Phase 5 최종 읽기 리뷰: scene_runtime(6.1-sol/high)이 exact default config·live root·legacy Inspector 보존 수정 후 테스트 callback 누수를 발견했다. 테스트 소유 callback만 해제·원래 callback 유지 보완을 부모가 리뷰하고 전체 회귀를 다시 통과했다.
+
+| Phase 6 reload Red harness | `/root/scene_runtime`, gpt-6.1-sol / high | Domain/Scene Reload 4×2 actual entry/종료와 manager 재사용 결함 관찰 | Validation/Editor/BootstrapReloadCheck 및 새 dedicated callback fixture/meta만; Core·Unity·Git 제외 | observed8/8 성공·원래 설정/보호5 복원. 잘못된 fixture 가정 2회 기록; 제품 결함 Red 아님, Core reset 미추가 |
+| Phase 6 소비 프로젝트 도구 | `/root/track_guidelines`, gpt-6-luna / medium | 확정 allowlist·별도 소비 batch import/build/실행의 독립 도구 | tools/run_core_consumer.py 및 tools/core-consumer/**만; Assets·복사·Unity·Git 제외 | 도구 selfcheck·실제 두 번째 소비 build/Player 성공(2actual runs/11observables), 첫 driver 로그 gate 실패·Player0 별도 보존; 원본/복사86hash+로그 읽기 리뷰 완료 |
+
+Phase 6 통합 sample: scene_runtime(6.1-sol/high)이 별도 Samples Runtime/Editor·own 검증 helper 및 sample PlayMode tests/필요 assembly 참조를 맡는다. 준비·조건·UI/입력 소유권의 영향으로 high를 유지한다. Core·패키지·기존 사용자 자산·Unity·Git 변경은 제외한다. NEW UI의 observable Red를 부모가 확인한 뒤 Green/scene builder/player smoke로 진행한다.
+
+Phase 6 sample 최소 입력 policy는 실제 Red2/0/2→Green2/2를 확인했다. 설치 NUnit API 및 NEW meta 형식 오류는 compile/discovery 실패로 별도 기록한다. 샘플/빌드 helper와 자동 gate를 완료했다. main gate는 사용자의 최종 확인을 기다린다.
+
+P6 최종 결과: sample native Editor smoke Additive/Single 각10관찰, 원래 Editor Windows Mono build 두 모드 성공 및 Player 각10관찰을 확인했다. actual asset 생성 실패는 NewScene 후 파괴된 settings wrapper를 경로로 재로드하여 보완했다. background Editor delayCall 복구 대신 idle update 1회 복구를 사용하고 실제 정상 Play stop의 원래 InitScene 복구를 확인했다. 최초 투명 modal의 텍스트 겹침은 완전 불투명 cover/modal로 수정하고 실제 최종 화면을 재확인했다. 원래 사용자의 raw5와 Player 설정을 보존하고 빌드 소유 cache 변경을 복원했다. final source hash·GUID·Console/ready 확인과 회고는 통합 증거에 연결한다. 인간 화면비·물리 입력·사용성은 미확인이다.
+
+| P6 sample 구현·최종 읽기 리뷰 | `/root/scene_runtime`, gpt-6.1-sol / high | 입력/비동기 root·UI 수명과 native smoke 검토 | 별도 Samples/관련 dedicated tests·fixture/Validation helper; Core·Unity·Git 제외 | 구현 완료·소스 동결, 부모 actual Unity/Player/전체 회귀 검증 완료 |

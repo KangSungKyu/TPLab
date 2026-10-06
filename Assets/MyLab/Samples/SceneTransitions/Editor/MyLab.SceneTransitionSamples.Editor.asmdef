@@ -1,0 +1,6 @@
+{
+    "name": "MyLab.SceneTransitionSamples.Editor",
+    "rootNamespace": "MyLab.Samples.SceneTransitions.Editor",
+    "references": ["MyLab.SceneTransitionSamples", "MyLab.Core", "UniTask", "Unity.InputSystem", "UnityEngine.UI"],
+    "includePlatforms": ["Editor"]
+}

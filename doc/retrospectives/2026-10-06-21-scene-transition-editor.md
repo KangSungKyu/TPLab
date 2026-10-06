@@ -9,3 +9,9 @@
 - 다음: P5 실제 자동 gate와 보호 bytes 확인 후 track 통합. 이후 P6에서 Bootstrap 반복 진입 결함을 먼저 실제 Red로 관찰하고 최소 수명 수정·통합 예제·Player·소비 검증을 진행한다. 최종 인간 확인 전 main 병합·브랜치 삭제·절전은 하지 않는다.
 
 최종 보완/검증: corrected default fixture로 actual resolver Red1/0/1/0를 확인했다. 전역 postprocessor callback은 정확한 테스트 소유 target만 해제하고 기존 callback 유지 여부를 assertion으로 검증했다. 최종 Green12/12/0/0, 전체 Edit240/240/0/0·Play199/199/0/0. actual build는 missing-required-policy로 실패하고 live 진단과 pre-Play 차단을 확인했다. Play에는 원래 build list/첫 씬 오류도 있으므로 단일 원인이라고 주장하지 않는다. compile 완료, 예상 로그 보존 후 Console0·원래 Editor ready·보호 raw5 유지. 테스트 callback 보완의 별도 사전 Red는 미실행이다.
+
+2026-10-06 통합: `de4bb691aed3124443c4bfe3cfd085e3275002a8`를 track에 FF 통합·push했다. exact CI는 미구성이고 CI 성공은 아니다. 입력 verifier를 다시 통과하고 해당 tip에서 P6 브랜치를 생성했다. main/보호5는 유지했다.
+
+임시 정리: 보존 증거와 LF 정규화 내용이 일치하는 P5 일회성 JSON 9개의 명시 경로만 제거했다. 공통 보호 baseline·진행 중 P6 파일은 유지한다.
+
+P6 관찰 후 보완: 반복 Play에서 예상했던 Bootstrap 상태 잔류 결함은 재현되지 않았다. fixture 가정 오류를 제품 Red로 확대하지 않았고 Core reset을 추가하지 않았다. 모든 자동 작업이 끝나고 인간 확인만 남으면 Editor를 유지한 절전이 허용된다는 최신 사용자 정책을 따른다.

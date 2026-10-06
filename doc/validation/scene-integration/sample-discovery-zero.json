@@ -1,0 +1,12 @@
+{
+  "total": 0,
+  "passed": 0,
+  "failed": 0,
+  "skipped": 0,
+  "editorPid": 23176,
+  "filter": "MyLab.Core.Tests.SceneTransitionSampleTests",
+  "status": "NOT Red or Green; nonzero gate failed",
+  "diagnostic": "Physical new test .cs/.meta existed; AssetDatabase.AssetPathToGUID was empty, LoadAssetAtPath<MonoScript> was null and CompilationPipeline sourceFiles excluded the new test.",
+  "fix": "Explicit ForceUpdate|ForceSynchronousImport of test .cs and changed PlayMode asmdef, then compile and verify actual discovery before next run.",
+  "rootCause": "Native Editor log reported malformed GUIDs in new SceneTransitions folder meta and new sample test meta. Ignored files were absent from compilation. Explicit import alone cannot repair malformed owned GUIDs."
+}

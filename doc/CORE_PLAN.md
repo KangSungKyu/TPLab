@@ -94,7 +94,7 @@
 5. DataTableManager: 2026-10-06 표준 uint idx DTO·프로젝트 router·Get/TryGet·테이블 binding·FK를 추가했다. 임의 PK 수동 경로는 유지한다. [표준 계약](DATA_TABLE_GENERIC_IMPLEMENTATION.md)과 [현재 검증](validation/generic-data-tables/README.md)을 따른다. 명시적 테이블·CSV 스키마·키·행 검증·교차 검증 등록과 전체 snapshot의 검증 후 공개를 구현했다. 공유 비동기 로드·개별 대기 취소·재로드 실패 시 이전 데이터 보존·소유자 종료를 확인하고 ResourceManager와 SceneRoot 준비/해제 흐름을 연결했다. [계약](DATA_TABLE_MANAGER.md)과 [현재 검증](validation/data-tables/README.md)을 따른다.
 Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/README.md)으로 분리했다. 코어는 최소 공용 기반만 제공하고 스키마는 사용 프로젝트가 소유한다. [현재 분리 검증](validation/data-table-templates/README.md)을 확인한다.
 
-6. GameSceneManager 후속 작업은 [기본 사양·Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md)과 [Phase 통합 track](SCENE_TRANSITION_TRACK.md)을 따른다. Bootstrap을 첫 씬으로 실행하고 공용 준비 후 게임 씬을 Additive로 로드하며 Bootstrap은 앱 수명 동안 유지하는 구조를 권장한다. [BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·설정·사전 검사는 구현했다. Phase 1 callback 공용화와 Phase 2 GameSceneManager 최초 Single/Additive 진입·Bootstrap 위임을 구현했다. 연속 교체·구역·조건 runtime은 후속 단계이며, 소비 프로젝트 가져오기·Player 검증을 포함한 최종 gate까지 내부 단계의 통과를 전체 코어 배포 호환성으로 확대하지 않는다.
+6. GameSceneManager 후속 작업은 [기본 사양·Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md)과 [Phase 통합 track](SCENE_TRANSITION_TRACK.md)을 따른다. Bootstrap을 첫 씬으로 실행하고 공용 준비 후 게임 씬을 Additive로 로드하며 Bootstrap은 앱 수명 동안 유지하는 구조를 권장한다. [BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·설정·사전 검사는 구현했다. Phase 1 callback 공용화와 Phase 2 GameSceneManager 최초 Single/Additive 진입·Bootstrap 위임을 구현했다. 연속 교체·구역·조건 runtime과 Editor 검사·통합 예제는 구현했으며, 소비 프로젝트 가져오기·Player 검증을 포함한 최종 gate까지 내부 단계의 통과를 전체 코어 배포 호환성으로 확대하지 않는다.
 
 2026-10-06 Editor importer 구현: [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)의 CSV + 명시적 JSON 스키마, setting.asset 3모드, 생성/기존 타입 검증, 공용 CSV/idx 사전검사와 컴파일 후 typed 전체 검증을 제공한다. runtime에 구체 테이블·자동 등록을 추가하지 않았다. [이번 검증](validation/data-table-importer/README.md)을 확인한다. JSON 행 로더·rename migration·소비 프로젝트/Player 검증은 후속 범위다. 다음 시스템은 GameSceneManager다.
 
@@ -113,3 +113,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-06 Phase 4: 설정 정의 snapshot, ID/직접 요청과 편의 API의 공통 root 조건 정책, 해제 전 및 first/add reveal 전후 재검사를 제공한다. [검증](validation/scene-definitions/README.md)을 확인한다. 다음은 Phase 5 Inspector와 정의·조건 사전 검사다.
 
 2026-10-06 Phase 5: 정의 asset Inspector와 actual Player scene list·Addressables·root/installer·condition metadata 사전 검사, live common root 우선·preview 정리와 compile/Play/build 연결을 제공한다. [검증](validation/scene-transition-editor/README.md)을 확인한다. 다음 Phase 6은 실제 반복 Play·통합 예제·Player 및 소비 프로젝트 검증이다.
+
+2026-10-06 Phase 6: 별도 Samples assembly의 Single/Additive Bootstrap→Hub/Main·중첩 구역·root 조건·독립 cover/modal/InputAction을 제공한다. 동일 원래 Editor의 전체 Edit240/240·Play201/201, Windows Player 두 모드 각10관찰, Reload 네 조합×2 및 동일6000.3.18f1 소비 프로젝트 빌드/11관찰을 확인했다. [증거](validation/scene-integration/README.md)와 [최종 사용자 절차](SCENE_TRANSITION_ACCEPTANCE.md)를 따른다. 다른 Unity 버전·플랫폼 호환성과 전체 시각 UX는 미검증이다. main 병합은 인간 확인 대기다.

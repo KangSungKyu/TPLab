@@ -1,0 +1,23 @@
+{
+  "permanentResultsAndInputHashesVerifiedBeforeRemoval": true,
+  "evidence": "doc/validation/scene-integration",
+  "protectedBaselineRetained": [
+    "preserved-hashes.json",
+    "preserved-inputs.json"
+  ],
+  "activeProcessesReferencingTargets": 0,
+  "removedOwnedDirectories": [
+    "CoreConsumer-P6-20261006-01",
+    "CoreConsumer-P6-20261006-02",
+    "Reload6/4ee544a0d65e4eeab2b685569814fae0",
+    "Reload6/67e072bb7ae449e7b863e5dee3af2537",
+    "Reload6/ae7d4b4757b44c95b2c52a49240c5c9d",
+    "Sample6/0ee86b5322ef4dd588b7f492e584f0c6",
+    "Sample6/88c30dc8fa17426a9bcd3f5f4cd37ca9",
+    "ScenePlayers/P6-Additive-01",
+    "ScenePlayers/P6-Single-01",
+    "ScenePlayerRuns/Additive-01",
+    "ScenePlayerRuns/Single-01",
+    "P6ProtectedBytes"
+  ]
+}

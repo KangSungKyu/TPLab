@@ -1,0 +1,16 @@
+{
+    "Success": false,
+    "AttemptedEntries": 1,
+    "CompletedEntries": 0,
+    "ErrorStage": "entry 0",
+    "Error": "entry 0: System.InvalidOperationException: Reload options changed.\r\n  at MyLab.Core.Tests.BootstrapReloadCheck.CheckEntryAsync (System.Int32 step) [0x001bd] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Validation\\Editor\\BootstrapReloadCheck.cs:224 \n",
+    "Observations": [
+        "exit 0: entered Edit Mode, gameLoaded=False"
+    ],
+    "SettingsRestored": true,
+    "StartSceneRestored": true,
+    "SceneSetupRestored": true,
+    "BuildSettingsRestored": true,
+    "BuildSettingsBytesRestored": true,
+    "FixtureRemoved": true
+}

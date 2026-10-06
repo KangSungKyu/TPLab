@@ -27,7 +27,9 @@
 | 2026-10-06 | Phase 3B 파생 씬 수명 tree | MyLab 내부 자동 검증 완료, track 통합 | [19-scene-areas](2026-10-06-19-scene-areas.md) |
 | 2026-10-06 | Phase 4 전환 정의와 root 조건 | MyLab 내부 자동 검증 완료, track 통합 | [20-scene-definitions](2026-10-06-20-scene-definitions.md) |
 
-| 2026-10-06 | Phase 5 전환 정의 Editor 검사 | MyLab 내부 자동 검증 완료, track 통합 준비 | [21-scene-transition-editor](2026-10-06-21-scene-transition-editor.md) |
+| 2026-10-06 | Phase 5 전환 정의 Editor 검사 | MyLab 내부 자동 검증 완료, track 통합 | [21-scene-transition-editor](2026-10-06-21-scene-transition-editor.md) |
+
+| 2026-10-06 | Phase 6 통합 예제·반복 Play·소비 프로젝트·Player | 자동 검증 완료·사용자 확인 대기 | [22-scene-integration](2026-10-06-22-scene-integration.md) |
 
 ## 작성 형식
 

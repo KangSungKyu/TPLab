@@ -1,40 +1,37 @@
-# GameSceneManager 최종 수락 기준
+# GameSceneManager 최종 사용자 확인
 
-이 문서는 Phase 6 후보에 대한 최종 사용자 확인을 한 번의 묶음으로 진행하기 위한 기준이다. Phase별 자동 검증과 코드 리뷰는 이 gate의 대체물이 아니다. 현재 전환용 sample scene, 메뉴, 실행 경로는 아직 확정·구현되지 않았으므로 아래 실행 경로는 **P6에서 실제 산출물을 확인한 뒤 기록할 항목**이다. 실행하지 않은 항목은 통과로 표시하지 않는다.
+P6 자동 검증은 완료했다. 원래 MyLab Editor의 전체 EditMode240/240·PlayMode201/201(실패0·skip0), Windows Player Additive/Single 각10관찰, Reload4×2와 동일 Unity 소비 프로젝트 빌드/11관찰을 확인했다. 정확한 범위·실패 기록·Console·입력 hash는 [P6 검증 기록](validation/scene-integration/README.md)에 있다. 현재 상태는 **사용자 확인 대기**이며, 아래 시각·사용성 확인과 명시적 답변 전 main 병합·브랜치 삭제는 보류한다.
 
-## 자동 증거 선행 조건
+## 실행 준비
 
-최종 사용자 확인을 요청하기 전에 부모가 아래 자동 증거를 현재 track tip에서 확보하고, 정확한 commit과 연결해 기록한다.
+원래 MyLab Editor에서만 확인한다. sample 자산은 `Assets/MyLab/Samples/SceneTransitions/Scenes/`의 `BootstrapAdditive.unity`, `BootstrapSingle.unity`, `Hub.unity`, `Main.unity`, `Area.unity`, `Nested.unity`다. 생성 산출물이 없을 때만 `MyLab > Scene Transitions > Build Sample Assets`를 실행한다. 이 메뉴는 sample 소유 표식과 자산 충돌을 확인하고 기존 Editor 설정을 복구한다. 완료된 산출물을 재생성할 필요는 없다.
 
-| 증거 | 확인 기준 |
-|---|---|
-| Phase 단위 | 해당 Phase 필수 EditMode/PlayMode 검사, compile, 제품 Console, diff 리뷰와 회고 완료. 실행 수·실패·skip 및 미실행 항목 기록 |
-| Player | 지원 대상과 실제 Build 설정을 기록하고 최소 통합 경로 Player build 성공. 빌드 미실행·지원 여부 미확인은 성공으로 취급하지 않음 |
-| 소비자 프로젝트 | 별도 소비 프로젝트에 공용 코어를 가져와 게임별 코드 없는 최소 통합 예제의 import/compile 및 필요한 실행 확인. MyLab 단독 테스트와 구분 |
-| 씬·수명 통합 | Bootstrap→주 흐름→파생 구역 add/remove와 오류 정리의 자동 회귀, 예상/실제 loaded scene 및 root 소유 일치 |
-| 반복 Play | Domain Reload와 Scene Reload를 각각 켜고 끈 네 조합에서 반복 진입·종료, root/installer 중복 및 정리 횟수 확인 |
-| 빌드·Editor gate | 실제 Player build scene 목록, 모드/영속 소유 모순, 잘못된 정의·조건·중복 ID 차단. compile 및 제품 Console 오류 0건 |
+각 mode는 `MyLab > Scene Transitions > Open Additive` 또는 `Open Single`로 열고 Play를 눌러 확인한다. 확인 전에 Game view를 16:9(1280×720 기준)와 4:3으로 바꿔 HUD, 버튼 라벨, cover, modal이 화면 안에 유지되고 의도한 버튼이 눌리는지 확인한다. 키보드 방향키/WASD로 메뉴를 이동하고 Enter로 제출한다. 기본 입력 자산에서 Enter는 UI Submit과 Player Attack 양쪽에 연결되어 있으므로, gameplay counter만 따로 확인할 때는 버튼이 없는 게임 화면을 클릭한다.
 
-Windows/WebGL/Linux 등 지원 여부는 해당 MyLab Editor의 실제 BuildPipeline 결과로 적는다. 설치 폴더 유무만으로 미지원이라 추정하지 않는다. 해당 타깃의 Player 빌드는 별도 증거다.
+## Additive 확인
 
-## 최종 사용자 확인 묶음
+초기 진입에서 비동기 cover가 준비 중 입력을 막고 완료 후 사라지는지 본다. `Hub / Main`을 두 번 눌러 Hub→Main→Hub 왕복을 확인한다. Bootstrap 공용 root는 유지되고 기존 primary가 새 primary로 교체되는지 Hierarchy와 화면 상태를 확인한다. 화면의 `Gameplay input` counter가 준비된 상태에서 증가하고 전환 준비 중에는 증가하지 않는지도 확인한다.
 
-자동 gate가 끝난 뒤 하나의 확인 요청에서 각 시나리오의 실제 실행 절차와 기대 결과를 제시한다. 버튼·메뉴·scene path가 구현되기 전에는 경로를 만들어 내지 말고 P6 산출물을 기준으로 기입한다.
+`Toggle policy`를 눌러 policy를 false로 만든 뒤 `Hub / Main`을 누른다. 상태 메시지가 거부를 알리고 primary·파생 scene·cover·입력 상태가 바뀌지 않는지 확인한다. policy를 다시 true로 전환한다.
 
-| 시나리오 | 직접 확인할 기대 결과 | 현재 상태 |
-|---|---|---|
-| Bootstrap 유지 + Additive 진입/주 흐름 교체 | Bootstrap과 공용 root가 유지되고 게임 root만 준비·교체된다. 전환 완료 전 입력이 차단되고 성공 후 복구된다. | 실행 경로·시각 확인 P6 대기 |
-| 영속 공용 root + Single | 공용 root, manager, callback, cover 및 입력 소유자가 살아남는다. 이전 게임 subtree 정리 후 새 primary가 준비된다. | 실행 경로·시각 확인 P6 대기 |
-| Hub↔Main 왕복 | 정의한 두 방향이 반복 가능하고 primary·active scene·입력 대상이 명세대로 바뀐다. 비활성/중복 씬이 남지 않는다. | 실제 sample 경로 P6에서 기록 |
-| 중첩 파생 구역 | 부모를 유지한 채 자식 구역을 추가한다. 자식의 자기 제거와 부모의 subtree 제거가 자식 우선으로 끝나며, 부모 제거 시 하위 잔여 씬이 없다. | 실제 sample 경로 P6에서 기록 |
-| 조건 거부와 설정 오류 | 거짓 조건은 씬 로드·cover·shutdown·OnFailure 없이 거부된다. 필수 조건/evaluator 누락과 권한 밖 제거는 사용자에게 진단되고 소유 상태가 바뀌지 않는다. | 자동 negative 검증 후 대표 오류 UI/로그를 확인 |
-| 비동기 cover·입력·실패 | 비동기 준비/전환 동안 포인터와 키보드·게임패드 입력이 차단된다. 성공 reveal 완료 뒤 복원되고 실패·취소는 cover를 유지하며 잔여 root/scene 진단과 오류 표현을 보인다. | 실제 UI 표현·접근성은 P6에서 확인 |
-| 반복 Play 조합 | 위 네 reload 조합에서 반복 Play 후 Singleton 중복, installer 중복 설치, 누락 복구, 남은 씬·가림막·입력 잠금이 없다. | 자동 반복 실행 증거와 사용자 최종 화면 확인 모두 필요 |
+`Add Area`와 `Add Nested`를 차례로 누른 뒤 `Nested self exit`를 눌러 Area가 남는지 확인한다. Nested를 다시 추가하고 `Parent removes Area`를 눌러 Area와 그 아래 Nested가 함께 사라지는지 확인한다. 가능한 경우 Area만 추가한 상태에서 `Area self exit`도 확인한다.
 
-각 행은 `절차 / 기대 결과 / 실제 결과 / 통과·실패·미실행 / 증거`로 기록한다. 화면·사용성 확인과 자동 테스트·Player build·소비자 프로젝트 검증을 같은 결과로 합치지 않는다. UI 메뉴나 scene path가 아직 정해지지 않은 시나리오는 사용자에게 실행 가능한 것처럼 안내하지 않는다.
+`System modal`을 열면 아래 게임 명령 버튼은 차단되며, modal 안의 `Dismiss modal`은 키보드·포인터로 사용할 수 있어야 한다. modal을 유지한 채 코드 전환을 확인하려면 아래 명령을 실행한다. 전환 cover가 사라진 뒤에도 modal은 열린 채 gameplay 입력을 막고 UI 입력은 유지해야 한다. `Dismiss modal`로 닫은 뒤 gameplay 입력이 복원되는지 확인한다. 자동 smoke도 이 코드 전환을 검증한다.
 
-## 마지막 gate와 보존
+```powershell
+unity-cli exec 'var c=UnityEngine.Object.FindFirstObjectByType<MyLab.Samples.SceneTransitions.SceneTransitionSampleController>(); var id=c.Manager.GameScene.path==MyLab.Samples.SceneTransitions.SceneTransitionSamplePaths.Main ? "to-hub" : "to-main"; c.Manager.TryTransitionAsync(id).Forget(); return "requested transition under modal";' --project C:/Users/PC/Projects/MyLab --allow-async --usings Cysharp.Threading.Tasks
+```
 
-최종 diff 검토에는 `main...codex/game-scenes-track` 변경을 사용하고, 사용자 소유의 기존 Unity 변경 4개는 track 산출물·승인 변경에 섞지 않는다. 비교 결과와 사용자 변경은 별도로 보존한다.
+`Fail next prepare`를 누르고 `Hub / Main`으로 교체를 요청한다. 오류 modal과 cover가 보이고 gameplay 입력이 꺼지는지 확인한다. `Dismiss modal`을 눌러도 cover가 남아 scene 입력이 계속 차단되어야 한다. 이 실패 상태에서는 추가 명령을 시도하지 않는다. Play를 멈추고 `Open Additive`를 다시 선택해 새 Play session을 시작한다.
 
-최종 확인 요청은 모든 Phase 자동 gate와 P6 증거가 끝난 뒤 한 번에 보낸다. 명시적인 사용자 답변만 이 gate를 해소한다. 무응답·시간 경과는 승인으로 간주하지 않는다. 확인 대기 중에는 main 병합/푸시와 track·Phase 브랜치 삭제를 보류한다. 자동 작업이 끝났고 최종 사용자 확인만 남은 경우 결과를 보존하고 Unity를 저장하되 Editor를 연 채 절전할 수 있다. 구현·검증 중에는 절전하지 않는다. 확인 후 main 통합 및 보존·정리가 모두 끝난 경우에만 Unity 정상 종료와 PC 종료 절차를 따른다.
+## Single 확인 및 복구
+
+Play를 멈춘 뒤 `MyLab > Scene Transitions > Open Single`을 선택하고 다시 Play한다. 초기 entry 후 공용 Singleton root와 Bootstrap callback/cover가 살아 있고 Hub↔Main 교체 때 공용 root가 유지되는지 확인한다. `Add Area`, `Add Nested`, `Nested self exit`, 재추가, `Parent removes Area`를 실행해 파생 씬 트리가 정리되는지 본다. gameplay 입력 counter, 전환 중 입력 차단, 키보드 UI 조작, 두 화면비에서의 HUD/cover/modal을 확인한다.
+
+Play를 멈추고 `MyLab > Scene Transitions > Restore Original Setup`을 실행한다. 자동 복구가 이미 끝났으면 이 명령은 추가 변경 없이 반환한다. 원래 scene setup과 Build Settings가 돌아왔는지 확인하고 작업 전 사용자의 Unity 변경 4개가 보존된 상태인지 확인한다.
+
+## 기록과 통합 대기
+
+한 번의 최종 확인에서 Additive, Single, 조건 거부, 중첩 제거, 실패 cover, 입력, 화면비, 원래 설정 복구를 각각 `절차 / 기대 결과 / 실제 결과 / 통과·실패·미실행`으로 기록한다. 자동 smoke·Player build·Console 결과를 시각 확인으로 대신하지 않는다. UI를 실제 확인하지 못한 항목은 미검증으로 남긴다.
+
+통합 diff는 `main...codex/game-scenes-track` 기준으로 검토하고 사용자의 Unity 변경 4개는 별도로 보존한다. 전체 자동 gate와 위 인간 확인이 완료되고 명시적 사용자 답변이 있기 전에는 main 병합·푸시나 track/Phase 브랜치 삭제를 하지 않는다. 답변을 기다리는 동안에는 결과를 보존하고 Unity를 저장한 뒤 Editor를 열어 절전할 수 있다. 구현·검증 중에는 절전하지 않는다. 확인과 통합·보존 정리가 모두 끝난 뒤에만 Unity 정상 종료 및 PC 종료 절차를 진행한다.

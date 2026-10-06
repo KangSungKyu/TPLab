@@ -1,0 +1,28 @@
+{
+  "total": 2,
+  "passed": 0,
+  "failed": 2,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionSampleTests.RevealDoesNotReleasePlayerWhileIndependentModalRemainsOpen:   Expected: False\r\n  But was:  True\r\n",
+    "MyLab.Core.Tests.SceneTransitionSampleTests.TransitionCoverBlocksPlayerAndPointerButKeepsRealUiMapEnabled:   Expected: False\r\n  But was:  True\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionSampleTests",
+    "source": "connector-file",
+    "runId": "43740-1791291273167736100",
+    "cliPid": 43740,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 43740,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

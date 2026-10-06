@@ -147,7 +147,7 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 
 - 별도 Samples assembly의 프로젝트 예제로 retained Bootstrap/Additive와 영속 common/Single, Hub↔Main, 중첩 구역 추가·자기/ancestor 제거를 실행한다. core runtime에 UI·InputSystem·게임 규칙을 참조시키지 않는다. 설치된 UGUI/InputSystem을 재사용한다.
 - 예제의 screen-space overlay는 화면 전체를 덮고 game/cover/system modal 순서를 명시한다. 전환 차단과 modal 차단을 별도로 소유하고 게임 입력은 manager.CanProceed 및 두 차단 상태를 모두 확인한다. UI 입력은 독립적으로 유지한다. 준비/표현/reveal과 조건 거부·실행 실패는 구별한다. 실제 시각·사용성은 최종 인간 gate다.
-- 기존 Editor에서 네 Domain/Scene Reload 조합을 각각 두 번, 총 8회 진입·graceful 종료한다. harness가 Bootstrap.Configure나 manager reset을 수동 호출하여 이전 상태를 숨기지 않는다. 실제 결함을 먼저 Red로 관찰한 뒤 해당 수명 경계만 보완한다. 원래 scene setup/options/build settings를 복원하고 보호 파일의 bytes를 확인한다.
+- 기존 Editor에서 네 Domain/Scene Reload 조합을 각각 두 번, 총 8회 진입·graceful 종료한다. harness가 Bootstrap.Configure나 manager reset을 수동 호출하여 이전 상태를 숨기지 않는다. 수명 결함이 실제 Red로 관찰될 때만 해당 경계를 보완한다. 추정한 결함이 실측에서 재현되지 않으면 불필요한 reset을 추가하지 않는다. 원래 scene setup/options/build settings를 복원하고 보호 파일의 bytes를 확인한다.
 - 지원되는 Windows Player를 실제 빌드하고 fresh 실행 결과를 보존한다. 별도 소비 프로젝트는 Core와 필요한 DLL/라이선스 및 승인된 UniTask/Addressables만 가져와 import/compile 및 최소 씬/일반 pool/표준 데이터 테이블 예제를 실행한다. 소비 검증에 MyLab Editor·게임별 코드·URP/UI를 필수 의존성으로 추가하지 않는다.
 - 성공한 Windows Mono 경로를 IL2CPP·다른 플랫폼·원격 Addressables bundle·전체 시각 UX 검증으로 확대하지 않는다. 결과와 미실행 영역은 실제 증거로 기록하고 모든 자동 gate 후 사용자 확인 절차를 하나로 제공한다.
 

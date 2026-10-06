@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "commonRootReady": true,
+    "gameSceneLoaded": true,
+    "commonRootPrepared": true,
+    "activeSceneOwned": true,
+    "canProceedAfterEntry": true,
+    "derivedAdded": true,
+    "derivedRemoved": true,
+    "poolReused": true,
+    "csvTypedLookup": true,
+    "emptyResourceManagerShutdown": true,
+    "gracefulShutdown": true,
+    "error": ""
+}

@@ -1,0 +1,60 @@
+{
+  "results": {
+    "sample-red-play.json": [
+      2,
+      0,
+      2,
+      0
+    ],
+    "sample-green-play.json": [
+      2,
+      2,
+      0,
+      0
+    ],
+    "sample-final-green-play.json": [
+      2,
+      2,
+      0,
+      0
+    ],
+    "full-EditMode.json": [
+      240,
+      240,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      201,
+      201,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "README.md",
+    "tools/README.md",
+    "doc/INDEX.md",
+    "doc/CORE_PLAN.md",
+    "doc/BOOTSTRAP_SYSTEM.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/SCENE_TRANSITION_TRACK.md",
+    "doc/SCENE_TRANSITION_ACCEPTANCE.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-06-22-scene-integration.md",
+    "doc/validation/scene-integration/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity",
+    "Assets/MyLab/Samples/SceneTransitions/Scenes/BootstrapAdditive.unity",
+    "Assets/MyLab/Samples/SceneTransitions/Scenes/BootstrapSingle.unity",
+    "Assets/MyLab/Samples/SceneTransitions/Scenes/Hub.unity",
+    "Assets/MyLab/Samples/SceneTransitions/Scenes/Main.unity",
+    "Assets/MyLab/Samples/SceneTransitions/Scenes/Nested.unity",
+    "Assets/MyLab/Samples/SceneTransitions/Settings/Additive.asset",
+    "Assets/MyLab/Samples/SceneTransitions/Settings/Single.asset"
+  ],
+  "absentAssetPatterns": [
+    "MyLab/Tests/Fixtures/BootstrapReloadOwned*.unity"
+  ]
+}

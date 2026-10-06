@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "unityVersion": "6000.3.18f1",
+    "mode": "Single",
+    "output": "C:\\Users\\PC\\Projects\\MyLab\\Temp\\GameScenesTrack\\ScenePlayers\\P6-Single-01",
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "backendRestored": true,
+    "sceneSetupRestored": true,
+    "buildSettingsRestored": true,
+    "buildSettingsBytesRestored": true,
+    "startSceneRestored": true,
+    "error": ""
+}

@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f14e126f6f94c0a9e5922eb7ad6ecdb, type: 3}
+  m_Name: Additive
+  m_EditorClassIdentifier: MyLab.Core::MyLab.Core.SceneManagement.SceneTransitionSettings
+  _definitions:
+  - _id: entry
+    _kind: 0
+    _sourceScenePath: 
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Hub.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy
+  - _id: to-main
+    _kind: 1
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Hub.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Main.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy
+  - _id: to-hub
+    _kind: 1
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Main.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Hub.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy
+  - _id: area-hub
+    _kind: 2
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Hub.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 10
+    _requiredConditionIds:
+    - sample-policy
+  - _id: area-main
+    _kind: 2
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Main.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 10
+    _requiredConditionIds:
+    - sample-policy
+  - _id: nested
+    _kind: 2
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Nested.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 10
+    _requiredConditionIds:
+    - sample-policy
+  - _id: nested-self
+    _kind: 3
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Nested.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Nested.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy
+  - _id: area-self
+    _kind: 3
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy
+  - _id: area-parent-hub
+    _kind: 3
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Hub.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy
+  - _id: area-parent-main
+    _kind: 3
+    _sourceScenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Main.unity
+    _sceneSource: 0
+    _scenePath: Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity
+    _addressableKey: 
+    _mode: 1
+    _activate: 0
+    _priority: 0
+    _requiredConditionIds:
+    - sample-policy

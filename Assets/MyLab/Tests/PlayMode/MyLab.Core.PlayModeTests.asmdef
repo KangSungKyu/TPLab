@@ -6,7 +6,10 @@
     "MyLab.Core.TestFixtures",
     "UniTask",
     "Unity.Addressables",
-    "Unity.ResourceManager"
+    "Unity.ResourceManager",
+    "MyLab.SceneTransitionSamples",
+    "Unity.InputSystem",
+    "UnityEngine.UI"
   ],
   "overrideReferences": true,
   "precompiledReferences": [
