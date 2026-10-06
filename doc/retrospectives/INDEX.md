@@ -20,6 +20,7 @@
 | 2026-10-06 | BootstrapSystem 최초 진입·Editor/Play/build 사전 검증 | MyLab 내부 구현·검증 완료 | [12-bootstrap-system](2026-10-06-12-bootstrap-system.md) |
 | 2026-10-06 | SceneTransition Phase 1 계약·callback 공용화 | MyLab 내부 구현·검증 완료, manager 후속 | [13-scene-transition-contracts](2026-10-06-13-scene-transition-contracts.md) |
 | 2026-10-06 | GameSceneManager Phase 2 최초 진입·Bootstrap 위임 | MyLab 내부 구현·검증 완료, 연속 교체 후속 | [14-game-scene-entry](2026-10-06-14-game-scene-entry.md) |
+| 2026-10-06 | 최종 병합 후 작업 브랜치 정리 지침 | 지침 반영·검증 완료 | [15-post-merge-branch-cleanup](2026-10-06-15-post-merge-branch-cleanup.md) |
 
 ## 작성 형식
 
