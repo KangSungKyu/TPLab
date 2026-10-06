@@ -133,6 +133,37 @@ namespace MyLab.Core.Tests
             WithScenes((folder, boot, game) => Assert.That(BootstrapValidator.ValidateBuildScenes(new[] { boot, game }), Is.Empty));
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SavedSharedAndLegacyCallbackReferencesSurviveReload(bool legacy)
+        {
+            WithScenes((folder, boot, game) =>
+            {
+                SaveScene(boot, scene =>
+                {
+                    var go = new GameObject("BootstrapWithCallbacks");
+                    SceneTransitionCallbacks callbacks = legacy
+                        ? (SceneTransitionCallbacks)go.AddComponent<BootstrapCallbacksProbe>()
+                        : go.AddComponent<SceneTransitionCallbacksProbe>();
+                    go.AddComponent<BootstrapSystem>().Configure(go.AddComponent<SceneOwnedRoot>(), game, false, callbacks);
+                });
+                var preview = EditorSceneManager.OpenPreviewScene(boot);
+                try
+                {
+                    var bootstrap = preview.GetRootGameObjects()[0].GetComponent<BootstrapSystem>();
+                    var callbacks = new SerializedObject(bootstrap).FindProperty("_callbacks").objectReferenceValue;
+                    Type expectedType = legacy ? typeof(BootstrapCallbacksProbe) : typeof(SceneTransitionCallbacksProbe);
+                    Assert.That(callbacks, Is.Not.Null);
+                    Assert.That(callbacks.GetType(), Is.EqualTo(expectedType));
+                    Assert.DoesNotThrow(() => bootstrap.ValidateConfiguration());
+                }
+                finally
+                {
+                    EditorSceneManager.ClosePreviewScene(preview);
+                }
+            });
+        }
+
         [Test]
         public void BootstrapMustBeFirstAndDestinationMustBeIncluded()
         {

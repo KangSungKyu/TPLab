@@ -1,0 +1,24 @@
+{
+  "results": {
+    "red-play.json": [1, 0, 1, 0],
+    "green-play.json": [10, 10, 0, 0],
+    "full-EditMode.json": [178, 178, 0, 0],
+    "full-PlayMode.json": [97, 97, 0, 0]
+  },
+  "documents": [
+    "README.md", "doc/INDEX.md", "doc/CORE_PLAN.md", "doc/BOOTSTRAP_SYSTEM.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md", "doc/SCENE_ROOT.md", "doc/ASYNC_SCENE_LIFECYCLE.md",
+    "doc/retrospectives/INDEX.md", "doc/retrospectives/2026-10-06-13-scene-transition-contracts.md",
+    "doc/validation/scene-transition-contracts/README.md", "tools/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Core/SceneManagement/BootstrapCallbacks.cs",
+    "Assets/MyLab/Core/SceneManagement/BootstrapSystem.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneTransitionCallbacks.cs",
+    "Assets/MyLab/Tests/Fixtures/BootstrapCallbacksProbe.cs",
+    "Assets/MyLab/Tests/Fixtures/SceneTransitionCallbacksProbe.cs",
+    "Assets/MyLab/Tests/EditMode/BootstrapSystemTests.cs",
+    "Assets/MyLab/Tests/PlayMode/BootstrapPlayModeTests.cs"
+  ],
+  "absentAssetPatterns": ["BootstrapTest_*", "MyLabBootstrapValidationProbe.unity"]
+}

@@ -1,0 +1,19 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 10,
+  "passes": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.AutoStartRunsExactlyOnce",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BothRootsMustPrepareBeforeRevealAndShutdownKeepsSharedRoot",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CallerCancellationDoesNotCancelSharedEntry",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ConfigurationFailureKeepsCoverAndUnloadsCandidate",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.GamePreparationFailureNeverRevealsOrShutsDownBorrowedSharedRoot",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.MissingBuildDestinationFailsBeforePreparation",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.OwnerShutdownCancelsGamePreparationAndCleansItsScene",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.RevealFailureRestoresCoverAndUnloadsPreparedGame",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.SharedCallbacksWaitForPreparedPresentationBeforeReveal",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ShutdownDuringNativeLoadWaitsForLateCompletionAndUnloads"
+  ],
+  "skipped": 0,
+  "total": 10
+}

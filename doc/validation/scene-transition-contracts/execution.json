@@ -1,0 +1,11 @@
+{
+  "baseCommit": "0610ff596f11c23ec0dd96741728b349337ec605",
+  "branch": "codex/scene-transition-contracts",
+  "editorPid": 23176,
+  "unityVersion": "6000.3.18f1",
+  "connectorVersion": "0.4.1",
+  "redCommand": "unity-cli --project C:\\Users\\PC\\Projects\\MyLab test --mode PlayMode --filter MyLab.Core.Tests.BootstrapPlayModeTests.SharedCallbacksWaitForPreparedPresentationBeforeReveal",
+  "redSource": "New shared callback/probe and reflective Configure test added; BootstrapSystem and BootstrapCallbacks still at baseCommit. Red failed at the old parameter type before scene loading, not at compilation.",
+  "greenSource": "Bootstrap accepts shared base; legacy adapter forwards old override. Reflective test invocation replaced by direct typed Configure; serialized callback reload regression added.",
+  "scope": "Phase 1 callback commonization and contracts; no GameSceneManager, Single, graph, conditions, UI assets or Player implementation."
+}

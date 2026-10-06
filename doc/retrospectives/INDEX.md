@@ -18,6 +18,7 @@
 | 2026-10-06 | CSV Editor importer·설정·공용 검증 구현 | MyLab 내부 구현·검증 완료 | [10-data-table-importer](2026-10-06-10-data-table-importer.md) |
 | 2026-10-06 | Bootstrap 먼저·게임 씬 Additive 권장안 | 권장 문서 완료·전환 설계 초안·runtime 미구현 | [11-bootstrap-additive-design](2026-10-06-11-bootstrap-additive-design.md) |
 | 2026-10-06 | BootstrapSystem 최초 진입·Editor/Play/build 사전 검증 | MyLab 내부 구현·검증 완료 | [12-bootstrap-system](2026-10-06-12-bootstrap-system.md) |
+| 2026-10-06 | SceneTransition Phase 1 계약·callback 공용화 | MyLab 내부 구현·검증 완료, manager 후속 | [13-scene-transition-contracts](2026-10-06-13-scene-transition-contracts.md) |
 
 ## 작성 형식
 

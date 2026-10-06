@@ -1,60 +1,101 @@
-# GameSceneManager 기본 사양과 Bootstrap 권장안
+# GameSceneManager 계약과 단계별 구현
 
-2026-10-06. 상태: 권장 구조 확정·Bootstrap 최초 진입 구현·일반 전환 설계 초안. 기준 `main/0d22ed3`, 작업 `codex/bootstrap-additive-design`. 사용자는 기본 씬 로드·활성화·해제, 중복 전환 방지, 실패·취소 처리를 기본 사양으로 하고 **Bootstrap을 첫 씬으로 실행한 뒤 게임 씬을 Additive로 로드**하는 방식을 공용 코어의 권장안으로 선택했다.
+2026-10-06. 사용자 검토를 반영한 설계 계약. Phase 1은 callback 공용화이며, **GameSceneManager·Single 지원·씬 graph·전환 설정·조건 판단의 runtime 구현은 후속 Phase**다. 기존 최초 진입은 [BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 Additive 경로를 유지한다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
 
-선행 계약: [SceneRoot 주입](SCENE_ROOT.md), [비동기 준비·해제·가림막](ASYNC_SCENE_LIFECYCLE.md), [자산 수명](RESOURCE_MANAGER.md), [데이터 수명](DATA_TABLE_MANAGER.md). 초기 설계 단위는 문서만 변경했다. 이후 [BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·설정·Editor/build 사전 검사를 구현했다. 실제 프로젝트 Bootstrap 씬·Build Profile과 일반 GameSceneManager 전환은 후속 범위다.
+## 공용 수명과 로드 모드
 
-## 권장 씬 구성과 소유권
+Bootstrap을 첫 씬으로 실행한다. 첫 진입과 이후 전환 모두 프로젝트가 로드 모드를 선택하며, 권장 기본값은 Bootstrap 씬 유지 + Additive다. Singleton 접근과 영속 수명은 독립적인 선택이다.
 
-프로젝트의 실행 시작 씬을 Bootstrap으로 지정한다. Bootstrap이 공용 서비스를 생성·주입·준비하고 이후 게임 씬을 `LoadSceneMode.Additive`로 로드한다. Bootstrap은 게임 씬을 교체하는 동안 계속 로드된 상태를 유지한다. Additive는 기존 씬을 언로드하지 않는 Unity 기능이다. [Unity Additive](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.LoadSceneMode.Additive.html)
-
-| 소유자 | 책임 | 해제 시점 |
+| 공용 수명 설정 | 유지 대상 | 허용 모드 |
 |---|---|---|
-| Bootstrap root | 공용 ResourceManager·DataTableManager·GameSceneManager 생성/주입/준비 | 앱 또는 공용 세션의 명시적 최종 종료 |
-| 게임 씬 root | 씬별 controller·pool·UI와 필요한 자산 준비; Bootstrap 서비스 참조 사용 | 해당 게임 씬 교체·언로드 전 |
-| Bootstrap보다 짧지 않은 연출 소유자 | 가림막 표시/해제, 입력 차단, 실패 통지 callback 제공 | 전환 종료 후 또는 최종 종료 |
+| Bootstrap 씬 유지 | 씬과 공용 root | Additive 로드 후 선택적 해제 |
+| 공용 root 영속화 | DontDestroyOnLoad root와 필요한 객체; Bootstrap 씬은 해제 가능 | Single·Additive |
 
-Bootstrap root는 **SceneOwnedRoot를 우선 권장**한다. Bootstrap 씬을 유지하므로 root의 `Persist Across Scenes`는 기본 false로 두고, 이 경로에서 DontDestroyOnLoad를 추가하지 않는다. 전역 접근이 필요한 프로젝트는 기존 SingletonSceneRoot 선택을 사용할 수 있다. manager마다 Singleton 상속을 강제하지 않는다.
+네이티브 Single은 모든 기존 일반 씬을 해제한다. Bootstrap 또는 다른 일반 씬 유지와 Single을 동시에 지정하면 부작용 전에 거부한다. Additive로 대신 실행하면서 Single인 것처럼 표시하지 않는다. [Unity Single](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.LoadSceneMode.Single.html)
 
-씬 이름·경로·첫 게임 씬·서비스 구성을 프로젝트가 명시한다. 코어에 `Bootstrap`, `MainScene` 문자열이나 게임별 enum·전역 manager 목록을 고정하지 않는다. Bootstrap과 게임 씬에 같은 공용 서비스를 이중 생성하지 않고 게임 씬은 받은 참조의 소유자를 종료하지 않는다. 가림막·EventSystem·카메라·AudioListener 배치는 프로젝트가 정하고, 두 씬이 함께 로드된 동안 중복 동작하지 않게 구성한다.
+공용 root는 ResourceManager·DataTableManager·GameSceneManager를 한 번 생성·준비한다. 게임 전환은 공용 root를 Shutdown하지 않는다. Single에서는 전환 실행자·callback·가림막·필요한 EventSystem과 UI 참조도 살아남아야 한다. 파괴되는 Bootstrap 객체를 영속 manager가 참조하는 구성은 거부한다. 영속 객체의 실제 씬 소속은 원래 Bootstrap 씬과 다를 수 있으므로 저장된 씬 사전 검사와 runtime 영속 소유권 검사를 구분한다. [Unity 영속 객체](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Object.DontDestroyOnLoad.html)
 
-## 최초 진입
+Bootstrap 공용 수명 최종 종료는 외부 소유자가 manager의 게임 정리 완료 뒤 공용 root.ShutdownAsync를 기다린다. manager 설치/준비 중 최초 진입을 기다리고 최초 진입이 공용 root 준비를 기다리는 순환은 금지한다. 두 root에서 SingletonSceneRoot.Instance를 중복 소유하지 않고 게임·구역 root는 SceneOwnedRoot를 권장한다.
 
-`Bootstrap 시작 → 가림막/입력 차단 → 공용 root 준비 → 게임 씬 Additive 로드 → 게임 root 주입·준비/표시 준비 → 게임 진행 허용 → 가림막 해제`
+## 전환 경로와 실행 중 수명
 
-- 최초 가림막은 Bootstrap에 기본 표시한다. 공용 root의 Install 성공이나 Singleton Instance 존재만으로 진행하지 않고 `PrepareAsync` 완료와 `IsPrepared`를 확인한다.
-- 게임 씬 로드 완료 이후 실제 게임 root에 공용 서비스를 명시적으로 연결하고 씬별 `PrepareAsync`와 화면 준비를 기다린다. 모든 준비 성공 전에는 입력·게임 시작을 허용하지 않는다.
-- 게임 씬을 Unity의 active scene으로 명시적으로 설정하고 반환 결과를 확인한다. 이는 새 GameObject의 기본 소속과 lighting을 정하는 기능이며 렌더링/게임 진행 허용과 다르다. 기본 생성 위치가 필요한 installer 실행 전에 active scene을 정하거나 생성 객체를 목적지 씬에 명시적으로 배치한다. [Unity SetActiveScene](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.SceneManager.SetActiveScene.html)
-- 네이티브 scene activation, SetActiveScene, 프로젝트 게임 시작을 구분한다. 로드한 객체의 Awake/Start는 시스템 준비 전에 실행될 수 있으므로 프로젝트 controller는 명시적 시작 신호를 기다린다. 가림막이 임의 게임 로직 실행까지 막지는 않는다.
-- Bootstrap 준비 실패·취소 또는 게임 씬 준비 실패·취소 시 진행을 중단하고 가림막을 유지한다. 자동 재시도·자동 복귀는 기존 사용자 정책대로 제공하지 않는다. 실제 생성한 부분 상태의 정리는 각 소유자가 수행한다.
+설정은 이동 가능한 전환 경로 graph를 표현한다. Hub → Main → Hub처럼 순환을 허용한다. 실행 중 등록은 현재 로드된 씬의 **순환 없는 수명 tree**다. 파생 인스턴스는 부모 하나를 가지며, 공용 세션 root는 유지되는 Bootstrap 씬 또는 영속 공용 객체를 의미한다.
 
-Bootstrap은 한 번만 설치·준비한다. 첫 게임 씬 진입과 이후 게임 씬 전환에서 공용 manager를 다시 초기화하거나 Shutdown하지 않는다.
+```text
+공용 세션
+└─ Main [주 흐름]
+   ├─ Dungeon A [파생, Main에 수명 종속]
+   └─ Dungeon B [파생, Main에 수명 종속]
+```
 
-## 게임 씬 전환의 기본 사양
+씬 경로는 정의를 식별하고 실제 로드된 인스턴스는 Scene handle 등 별도 runtime 식별로 추적한다. 경로/이름만 보고 다른 인스턴스를 해제하지 않는다. 첫 구역 구현은 동일 경로의 동시 중복 로드를 거부하며, 반복 진입은 새 인스턴스로 등록한다. 같은 asset의 여러 동시 인스턴스는 로드 결과 식별·지원 backend 검증 후 별도 확장한다.
 
-GameSceneManager는 Bootstrap이 소유하는 전환 조정자로 설계한다. 한 조정자에서 겹친 전환은 거부하고, Bootstrap 자신을 일반 게임 씬 교체·언로드 대상으로 지정하는 요청도 거부한다. 1차 범위는 유지되는 Bootstrap과 현재 게임 씬 하나의 교체이며 다중 월드 streaming은 후속 범위다.
+등록 정보는 인스턴스·부모·주/파생 역할·준비/종료 상태를 가진다. 주 게임 씬, Unity active scene, 프로젝트 입력/포커스 대상은 구분한다. depth는 자식 우선 해제에 사용하며, 프로젝트 priority는 포커스 비교에 사용할 수 있다. priority로 다른 씬을 암묵적으로 해제하거나 UI sorting order를 결정하지 않는다. 포커스는 명시적 선택을 기본으로 하고 자동 priority 선택은 별도 정책으로 둔다.
 
-- 가림막과 준비/해제 callback은 기존 [비동기 계약](ASYNC_SCENE_LIFECYCLE.md)을 재사용한다. 최상위 전환 소유자 하나가 연출을 제어하며 중첩 flow로 가림막을 중복 호출하지 않는다.
-- 목적지 경로/등록 여부, 이미 로드된 목적지, 중복 Bootstrap과 잘못된 요청을 상태 변경 전에 검사한다. 네이티브 동작이 반환한 Scene을 식별하여 같은 이름의 다른 씬을 잘못 언로드하지 않는다.
-- 전환 단계는 가림막 → 목적지 Additive 로드 → 목적지 주입/준비 → 기존 게임 root의 graceful shutdown/씬 해제 → 새 게임 진행/가림막 해제로 제안한다. active scene 설정 시점과 게임 객체 소속을 함께 관리한다. 이 정확한 전환 API·소유 상태·단계별 실패 정리는 구현 전에 확정한다.
-- 목적지 준비가 성공하기 전 기존 root를 유지할 수 있으나 기존 root.ShutdownAsync가 시작된 후 정상 복귀를 보장하지 않는다. 기존 서비스를 종료한 뒤의 실패를 이전 게임 복구 성공으로 숨기지 않는다. 실패/취소는 준비한 목적지의 정리 여부와 현재 남은 씬을 진단하고 가림막을 유지한다.
-- 게임 씬 root의 ShutdownAsync를 **await한 다음** UnloadSceneAsync를 수행한다. Bootstrap root에 ReleaseAndProceedAsync를 호출해 공용 서비스를 종료하는 방식으로 게임 씬을 교체하지 않는다. Bootstrap의 Shutdown은 최종 종료에서만 한다.
-- Unity 네이티브 로드는 취소 토큰만으로 중단된다고 가정하지 않는다. 시작 후 취소는 늦은 로드 완료까지 소유권을 유지하고 자기 시도가 로드한 목적지를 안전하게 정리해야 한다. cleanup은 이미 취소된 토큰에 의존하지 않는다.
-- `allowSceneActivation=false`를 게임 root.PrepareAsync 대기의 수단으로 사용하지 않는다. 0.9 정지는 로드 완료와 다르고 다른 async scene 작업도 지연시킬 수 있다. 첫 구현은 가림막 아래 activation을 완료한 뒤 주입/준비로 진행 허용을 제어하는 방향이다. [Unity allowSceneActivation](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AsyncOperation-allowSceneActivation.html)
-- 씬 unload가 자산 handle 해제까지 보장하지 않는다. 씬별 owner는 pool·자산 참조를 수명 계약대로 정리하고 Bootstrap의 공유 자산은 Bootstrap 소유 규칙을 따른다. [Unity UnloadSceneAsync](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.SceneManager.UnloadSceneAsync.html)
+## 작업과 소유권
 
-이 권장안은 managed 게임 전환에서 Single 로드를 사용하지 않는다. 프로젝트가 외부에서 Single 로드로 Bootstrap을 없애면 유지되는 공용 수명 전제를 벗어난다. 종료된 root의 재사용이나 자동 재부팅은 코어가 암묵적으로 수행하지 않는다.
+| 작업 | 동작 |
+|---|---|
+| 주 흐름 교체 | 목적지 로드 모드는 Single/Additive 선택, 지정된 이전 흐름과 종속 구역 정리 |
+| 파생 구역 추가 | 부모 유지 + Additive 로드, active scene 유지/목적지 선택을 명시 |
+| 파생 구역 제거 | 해당 root ShutdownAsync 대기 후 해당 인스턴스 언로드 |
 
-## Editor에서 게임 씬 직접 실행
+부모는 파생 씬의 유지 여부와 수명 책임을 가진다. 파생 씬은 용도 완료 시 자기 종료를 요청할 수 있고 부모도 명시적으로 자식을 종료할 수 있다. 실제 조건 검사·해제·언로드·등록 갱신은 공용 GameSceneManager 한 곳에서 수행한다. root가 직접 Unity 언로드로 등록을 우회하지 않는다.
 
-1차 기본 흐름은 프로젝트의 Bootstrap에서 Play하는 방식이다. 게임 씬을 직접 Play했을 때 자동으로 Bootstrap을 추가하는 Editor 도우미·RuntimeInitializeOnLoadMethod·전역 auto-create는 이번 선택에 포함하지 않는다. 후속 필요가 확인되면 명시적 시작 설정과 중복 로드 방지·씬/Editor 설정 복원 계약을 정한다.
+부모 교체/제거는 종속 자식부터 정리한다. 독립적으로 유지할 씬은 부모 종속 관계로 등록하지 않는다. 자신의 subtree 밖을 해제하는 요청은 권한/정의를 검사한다. 같은 인스턴스의 진행 중 제거 요청은 기존 정리를 공유하고, 그 외 겹친 상태 변경은 거부한다. 임의 큐·자동 interruption은 첫 범위에 없다.
 
-## 구현과 완료 조건
+전환 전 실제 로드 목록과 명시적 소유 기록을 대조하고, 유지·해제 대상과 남길 의존 관계를 계산한다. 미등록 일반 씬을 자동 삭제하지 않는다. Single은 미등록 씬도 해제하므로 사전 등록 없이 실행하지 않는다. 성공 공개/reveal 전에 예상 로드 집합·실제 집합·root 준비와 영속 공용 소유자의 생존을 확인한다. 외부 Single/직접 unload로 소유권이 깨지면 진단하고 신규 진행을 중단한다.
 
-권장 구조는 이번 요청으로 선택됐지만 GameSceneManager의 public API·scene backend·정확한 commit/취소 경계는 구현 전 설계 대상이다. 기존 root/flow의 입력과 수명 계약을 바꾸지 않고 최소 외부 경계로 연결한다. 새 DI container·scene setting framework·게임별 Bootstrap 자산을 선행해서 만들지 않는다.
+## 정의와 조건 판단
 
-구현 단위는 전환 계약/실패하는 최소 검사 → Additive 로드/활성/해제와 실제 root 연결 → 같은 MyLab Editor의 실제 씬 회귀 순서다. 최소 검증은 Bootstrap 유지·한 번만 설치, 공용/게임 준비 후 진행, active scene/생성 객체 소속, 연속 교체·중복/잘못된 요청, 로드 전후 취소·늦은 완료 정리, 준비/해제 실패·가림막 유지, 최종 종료와 반복 Play다. 사용자 연출의 실제 시각 UX와 Player/소비 프로젝트 검증은 실행 증거를 따로 구분한다.
+프로젝트 설정 asset은 전환 ID·작업 종류·출발/목적지·로드 모드·부모/해제 범위·active scene 선택·선택적 조건 식별자를 표현한다. first entry도 같은 요청/정의 모델로 연결한다. 코어에 씬 문자열·게임 enum·CSV 규격을 고정하지 않는다. 최초에는 Inspector 목록으로 제공하며 Animator graph editor나 매 프레임 자동 조건 검색은 추가하지 않는다.
 
-초기 설계 단위의 검증: 문서 링크·색인·diff/공백·기존 자산 bytes 보존 검사만 수행했다. runtime/테스트/씬/설정은 변경하지 않아 Unity 테스트 실행 대상이 없고 **실행 0건·미실행**이다. 문서 검사 결과는 [정적 검증](validation/bootstrap-additive-design.json), 결정과 다음 작업은 [회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)에 기록한다.
+조건은 root 객체에 연결된 작은 프로젝트 조건 판단 컴포넌트가 담당한다. ISceneRoot의 수명 API에 게임별 필수 메서드를 추가하지 않는다. 정의 ID 요청과 직접 코드 요청은 같은 검사 경로를 거쳐 조건을 우회하지 않는다. 조건이 없는 정의는 허용하지만, 조건이 필요한 정의에서 담당 컴포넌트가 없으면 설정 오류다.
 
-Bootstrap 최초 진입 구현과 현재 검증은 [BOOTSTRAP_SYSTEM.md](BOOTSTRAP_SYSTEM.md)를 따른다. 위 문서만 변경한 기록을 현재 runtime 검증으로 대신하지 않는다.
+검사는 읽기 전용으로 하고 저장/자원 소비 같은 작업을 숨기지 않는다. 기본 검사는 동기식이며 네트워크 승인 등 비동기 판단은 필요가 확인될 때 확장한다. 파생 구역 추가/제거의 출발 root와 부모 해제로 영향받는 모든 root의 조건을 명시하고, 전부 통과하기 전에 어느 root도 해제하지 않는다. 조건 거부는 정상적인 거부 결과이며 cover·로드·OnFailure를 호출하지 않는다. 검사 예외/잘못된 설정은 오류로 전달한다.
+
+승인 후 상태 변경을 프로젝트가 차단하는 것을 기본 계약으로 한다. 최종 해제 시작 직전 필요한 조건을 다시 확인한다. 목적지를 이미 로드한 뒤 재검사에서 거부되면 작업 취소 경로로 후보를 정리하고 cover를 유지한다. 검사 내부에서 현재 전환이나 같은 root의 종료를 await하지 않는다.
+
+## 준비 신호와 callback
+
+Phase 1의 실제 공용 컴포넌트는 SceneTransitionCallbacks다. ShowCoverAsync → ConfigureSceneAsync → PreparePresentationAsync → HideCoverAsync 및 OnFailure를 제공한다. [Bootstrap 현재 구현](BOOTSTRAP_SYSTEM.md)이 이를 사용한다. 기존 BootstrapCallbacks는 폐기 예정 호환 어댑터로 유지한다.
+
+ConfigureSceneAsync는 native Awake/동기 Install 이후 설치된 소비자에게 빌린 공용 참조를 연결한다. 활성 root를 Configure하거나 공용 서비스를 종료하지 않는다. root.PrepareAsync 완료/IsPrepared 확인 후 PreparePresentationAsync에 scene/root를 전달한다. 이것이 코드에서 시스템 준비 완료를 받는 지점이며 UI 준비·reveal·게임 시작 허용과 구분한다. 전환 API의 성공 완료는 모든 필요한 준비·reveal·최종 상태 검사를 포함한다. 해제될 이전 controller가 전체 결과 처리의 소유자가 되지 않게 한다.
+
+가림막만으로 임의 Awake/Start/Update를 정지시키지 않는다. 게임 controller는 명시적인 진행 허용을 기다린다. 진행 허용은 필요한 준비와 reveal 완료 이후에 적용하고, 이미 허용한 게임을 보호하는 실패 경로에서는 다시 차단한다. 명시적 진행 hook의 구체 API와 실행 순서는 Phase 2/3의 최소 테스트로 확정하며 이번에 새 activation framework를 만들지 않는다.
+
+callback·installer 안에서 자신이 참여한 전환 완료를 await하거나 재진입하지 않는다. manager는 상태 변경 전체에 대한 중복 요청을 부작용 전에 거부한다. OnFailure는 실행 실패·소유자 취소를 한 번 통지하고 예외는 호출자에게 남긴다. 종료 실패 통지와 상태 조회는 Phase 2에서 연결한다.
+
+## 모드별 실행과 실패 경계
+
+Additive 교체: 검사/조건 → cover → 목적지 로드·주입·root/화면 준비 → 해제 직전 조건 재검사 → 이전 subtree 종료·unload → 최종 검사·reveal·게임 허용. 목적지 준비 실패 시 후보만 정리하고 이전 root는 유지할 수 있다. 이전 root ShutdownAsync가 시작된 뒤에는 복귀를 보장하지 않는다. 두 씬이 함께 존재하는 동안 메모리·카메라·AudioListener·EventSystem의 프로젝트 구성을 확인한다.
+
+Single 교체: 유지/소유권 검사·조건 → cover → 해제 직전 재검사 → 해제되는 root들의 자식 우선 graceful shutdown → native Single → 목적지 주입·root/화면 준비 → 최종 검사·reveal·게임 허용. 기존 씬은 destination 준비 이전에 종료된다. 마지막 일반 씬을 먼저 별도 unload하지 않고 native Single에 맡긴다. 공용 영속 root는 종료하지 않는다. [Unity 언로드](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.SceneManager.UnloadSceneAsync.html)
+
+native 로드는 토큰으로 강제 중단하지 않는다. 취소 시 늦은 완료까지 소유하고 self-owned 후보를 정리한다. Single 실패/취소에서 마지막 일반 씬을 unload할 수 없으면 실패한 씬의 root 정리를 시도하고 loaded-but-unprepared 상태를 진단한다. 자동 빈 씬 생성/복귀는 하지 않는다. allowSceneActivation=false를 root 준비 대기의 수단으로 쓰지 않는다. [Unity activation 대기](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AsyncOperation-allowSceneActivation.html)
+
+호출자 토큰은 해당 await만 취소한다. 실제 전환 중단은 manager의 명시적 취소/종료 요청이 담당하며, 취소되거나 파괴되는 이전/부모 객체의 토큰을 실제 정리 작업의 수명으로 사용하지 않는다. 부모 수명은 정리 대상 결정에 쓰고 실행 수명은 공용 manager가 소유한다. root별 내용 준비는 해당 root의 수명 토큰을 존중한다. cleanup은 취소되지 않으며 이미 시작한 shutdown을 끝까지 기다린다.
+
+실패·작업 취소 시 cover 유지, reveal 실패 시 cover 복구 요청, 정리/callback 오류는 원인과 함께 집계한다. 메시지 확인은 cover 해제를 허용하지 않는다. 실패 상태는 단계·원인·실제 남은 인스턴스·root 준비 상태·정리 오류를 제공한다. 정상 성공과 구분하고 Faulted에서는 상태 조회/명시적 종료를 허용하며 자동 재시도/복구는 제공하지 않는다. 취소된 caller의 대기와 owner 실패 통지는 구분한다.
+
+## 화면·입력·수명
+
+GameSceneManager는 전환 cover 시점과 실패 정책을 소유한다. 프로젝트 UI 컴포넌트가 실제 표시·애니메이션·입력을 처리하고, 시스템 메시지는 발신 시스템과 공용 UI 표현자가 담당한다. 일반 UI/알림 → cover/로딩 → 필수 오류 메시지 순서를 프로젝트가 지정한다. 전환과 모달은 각자 입력 차단을 소유하며 한쪽 완료로 다른 차단을 해제하지 않는다. 포인터 차단과 선택/키보드·게임패드 입력도 구분한다.
+
+일반 화면의 기본 권장 구성은 top-level Screen Space - Overlay Canvas + 전체 Stretch Image(anchor 0..1, offset 0)다. UI root는 공용 owner가 명시적으로 관리하고 Single에서는 별도로 영속화한다. game camera viewport/FOV나 reference resolution을 고정할 필요는 없다. cover는 Safe Area 밖까지 Player 렌더 영역을 덮고 문구/버튼만 Safe Area를 따른다. 다중 display는 targetDisplay별 구성이 필요하며 RenderTexture/XR 출력은 별도 어댑터/검증 범위다. 현재 코어는 Canvas 자산이나 기본 UI 구현을 제공하지 않는다. [Canvas](https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/class-Canvas.html), [Safe Area](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Screen-safeArea.html)
+
+## Phase와 완료 조건
+
+| Phase | 범위 | 완료 조건 |
+|---|---|---|
+| 1 | 계약 문서·SceneTransitionCallbacks 공용화·호환 어댑터 | 기존 Bootstrap 순서/오류 보존, 새 타입 주입·준비/reveal 대기·기존 callback 회귀 |
+| 2 | manager 최초 진입과 Bootstrap 위임, 첫 진입 모드/공용 수명 선택 | 유일한 씬 소유자, 두 모드 진입·취소·종료·공용 준비 순환 방지·상태 공개 |
+| 3A | Single/Additive 주 흐름 교체 | 연속 교체·조건 경계·late load·모드별 준비/해제 실패 |
+| 3B | 수명 tree·구역 추가/제거 | 부모 유지·자식 자발 요청·부모 명시 종료·자식 우선 정리·중복 해제 없음 |
+| 4 | 정의 asset·ID/직접 요청·root 조건 컴포넌트 | 공통 실행 경로·거부 무부작용·누락/권한/영향 root 검사 |
+| 5 | Inspector·compile 후 Editor·Play/build gate | 실제 build scene 목록, 모드/수명 모순·root/조건/중복 ID·정의 오류 차단 |
+| 6 | 통합 예제·회귀·소비 프로젝트·Player | Bootstrap→주 흐름→구역 출입, 실제 구성/반복 Play/가림막·입력 검증 |
+
+Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 프로젝트 조건 판단을 실제 연결한다. 조건 관련 검사는 Phase 4에서 실행한다. 임의 graph editor·자동 polling·DI container·자동 Bootstrap 생성은 추가하지 않는다. Editor의 게임 씬 직접 Play 자동 Bootstrap 도우미도 후속 별도 범위다.
+
+각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. 사용자 직접 확인이 없고 필수 자동 검사가 통과하면 승인된 Git 통합을 진행한다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [이번 증거](validation/scene-transition-contracts/README.md)를 따른다.

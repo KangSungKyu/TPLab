@@ -62,6 +62,30 @@ namespace MyLab.Core.Tests
         });
 
         [UnityTest]
+        public IEnumerator SharedCallbacksWaitForPreparedPresentationBeforeReveal() => UniTask.ToCoroutine(async () =>
+        {
+            var presentation = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            presentation.PresentationGate = new UniTaskCompletionSource();
+            _bootstrap.Configure(_root, Hub, false, presentation);
+            _host.SetActive(true);
+            var entry = _bootstrap.BootstrapAsync();
+            await UniTask.WaitUntil(() => presentation.PresentationRoot != null).Timeout(TimeSpan.FromSeconds(10));
+            Assert.That(presentation.ConfigurationWasBeforePreparation, Is.True);
+            Assert.That(presentation.PresentationReceivedPreparedRoot, Is.True);
+            Assert.That(presentation.CoverCount, Is.EqualTo(1));
+            Assert.That(presentation.RevealCount, Is.Zero);
+            Assert.That(_bootstrap.GameScene.IsValid(), Is.False);
+            presentation.PresentationGate.TrySetResult();
+            await entry;
+            Assert.That(presentation.RevealCount, Is.EqualTo(1));
+            Assert.That(_bootstrap.GameScene, Is.EqualTo(presentation.PresentationRoot.RootObject.scene));
+            await _bootstrap.ShutdownAsync();
+            Assert.That(presentation.CoverCount, Is.EqualTo(2));
+            Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            Assert.That(_root.IsPrepared, Is.True);
+        });
+
+        [UnityTest]
         public IEnumerator BothRootsMustPrepareBeforeRevealAndShutdownKeepsSharedRoot() => UniTask.ToCoroutine(async () =>
         {
             _host.SetActive(true);

@@ -9,7 +9,7 @@ InitScene 같은 씬의 root GameObject에 소유 방식을 선택하고, 프로
 
 두 방식 모두 `Persist Across Scenes`를 별도로 선택하면 root와 자식이 씬 전환 후에도 유지된다. Singleton 선택이 자동 영속화를 의미하지 않는다. 하나의 GameObject에는 host 하나만 지정한다.
 
-공용 코어의 [Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md)은 Bootstrap을 첫 씬으로 실행하고 유지한 채 게임 씬을 Additive로 로드하는 방식이다. 이 경로는 Bootstrap의 SceneOwnedRoot·Persist Across Scenes=false를 우선 권장하며, 씬을 유지하므로 root에 별도의 영속화를 추가하지 않는다. Singleton 접근 선택은 유지한다. 공용 root와 게임 씬별 root의 종료 책임은 나누고 게임 씬 언로드 때 Bootstrap 서비스를 종료하지 않는다. GameSceneManager 연결은 아직 미구현이다.
+공용 코어의 [Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md)은 Bootstrap을 첫 씬으로 실행하고 유지한 채 게임 씬을 Additive로 로드하는 방식이다. 이 경로는 Bootstrap의 SceneOwnedRoot·Persist Across Scenes=false를 우선 권장하며, 씬을 유지하므로 root에 별도의 영속화를 추가하지 않는다. Singleton 접근 선택은 유지한다. 공용 root와 게임 씬별 root의 종료 책임은 나누고 게임 씬 언로드 때 Bootstrap 서비스를 종료하지 않는다. SceneTransitionCallbacks 공용화 이후 GameSceneManager 연결은 후속 단계다. 이 선택은 기본 권장 경로이며 Single과 영속 공용 root 선택·구역 수명 tree는 [Phase별 계약](GAME_SCENE_MANAGER_DRAFT.md)을 따른다.
 
 ## Editor에서 선택
 

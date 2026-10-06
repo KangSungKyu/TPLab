@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 namespace MyLab.Core.Tests
 {
+    // Keep the legacy subclass to verify source/serialized-reference compatibility during migration.
+#pragma warning disable CS0618
     public sealed class BootstrapCallbacksProbe : BootstrapCallbacks
     {
         public int CoverCount;
@@ -42,4 +44,5 @@ namespace MyLab.Core.Tests
 
         public override void OnFailure(Exception exception) => ++FailureCount;
     }
+#pragma warning restore CS0618
 }

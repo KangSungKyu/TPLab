@@ -17,7 +17,7 @@ namespace MyLab.Core.SceneManagement
         [SerializeField] private MonoBehaviour _sceneRoot;
         [SerializeField] private string _firstScenePath = "";
         [SerializeField] private bool _autoStart = true;
-        [SerializeField] private BootstrapCallbacks _callbacks;
+        [SerializeField] private SceneTransitionCallbacks _callbacks;
         private UniTaskCompletionSource _entry;
         private UniTaskCompletionSource _shutdown;
         private CancellationTokenSource _lifetime;
@@ -36,7 +36,7 @@ namespace MyLab.Core.SceneManagement
         public bool AutoStart => _autoStart;
 
         /// <summary>Configures entry before execution. Inspector and code use the same validation.</summary>
-        public void Configure(MonoBehaviour sceneRoot, string firstScenePath, bool autoStart = true, BootstrapCallbacks callbacks = null)
+        public void Configure(MonoBehaviour sceneRoot, string firstScenePath, bool autoStart = true, SceneTransitionCallbacks callbacks = null)
         {
             if (_entry != null || _stopping)
             {
@@ -206,7 +206,7 @@ namespace MyLab.Core.SceneManagement
             if (hosts.Length != 1) throw new InvalidOperationException("Game scene requires exactly one lifecycle root.");
             ValidateSceneRoot(hosts[0], _ownedGameScene);
             var root = (ISceneRoot)hosts[0];
-            if (_callbacks != null) await _callbacks.ConfigureGameAsync(_ownedGameScene, root, token);
+            if (_callbacks != null) await _callbacks.ConfigureSceneAsync(_ownedGameScene, root, token);
             token.ThrowIfCancellationRequested();
             await root.PrepareAsync(token);
             if (!root.IsPrepared) throw new InvalidOperationException("Game root no longer owns prepared systems.");

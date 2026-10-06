@@ -4,6 +4,8 @@ SceneOwnedRoot와 SingletonSceneRoot 모두 같은 비동기 계약을 사용한
 
 [Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md)은 공용 root 준비 후 게임 씬을 Additive로 로드하고 Bootstrap을 유지한다. 최초 진입은 Bootstrap의 PrepareAndProceedAsync와 목적지 준비를 연결할 수 있다. 이후 게임 씬 전환의 ReleaseAndProceedAsync/ShutdownAsync는 해제하는 게임 root를 대상으로 한다. Bootstrap flow에 해제 경로를 호출하면 공용 시스템까지 종료되므로 게임 전환에 사용하지 않는다. 이 문서의 기존 callback 계약은 유지하며 GameSceneManager가 연출을 중복 호출하지 않도록 전환 소유자를 하나로 정한다.
 
+현재 최초 진입은 SceneTransitionCallbacks로 연결한다. 기존 BootstrapCallbacks는 호환 어댑터다. 앞으로의 Single/Additive·구역 수명·조건과 호출자 대기/작업 취소 분리는 [GameSceneManager 계약](GAME_SCENE_MANAGER_DRAFT.md)을 따른다. 아래 root/flow API와 현재 동작은 유지한다.
+
 ## 준비와 실행 순서
 
 `가림막 표시 완료 → installer별 PrepareAsync 완료 → proceedAsync 완료 → 가림막 해제 완료`

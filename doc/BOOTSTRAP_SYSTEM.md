@@ -12,13 +12,13 @@
 
 ## 실행·소유권
 
-`설정 검사 → 가림막 표시 → Bootstrap root.PrepareAsync → 목적지 Additive 로드 → active scene 설정 → ConfigureGameAsync → 게임 root.PrepareAsync → PreparePresentationAsync → 가림막 해제 → GameScene 공개`
+`설정 검사 → 가림막 표시 → Bootstrap root.PrepareAsync → 목적지 Additive 로드 → active scene 설정 → ConfigureSceneAsync → 게임 root.PrepareAsync → PreparePresentationAsync → 가림막 해제 → GameScene 공개`
 
 설정 검사는 준비·연출·로드의 부작용 전에 실행한다. root의 타입, top-level 여부, 활성/enabled 상태, Bootstrap과의 동일 씬 소속, 중복 host, persistence 및 목적지의 정규화된 Assets 경로를 검사한다. runtime은 실제 Player 목록 포함 여부와 이미 로드된 목적지도 거부한다. 잘못된 설정으로 인한 실행 전 오류는 호출자에게 직접 반환된다.
 
-Unity의 native activation은 시스템 준비와 다르다. 목적지의 Awake/Install은 SetActiveScene과 ConfigureGameAsync보다 먼저 실행될 수 있다. Install에서 만드는 GameObject는 root의 자식으로 만들거나 목적지 씬에 명시적으로 배치한다. ConfigureGameAsync는 이미 설치된 소비자에게 빌린 공용 참조를 연결하는 지점이며, 활성 root의 Configure를 다시 호출하는 지점이 아니다. PrepareAsync에서 해당 참조와 비동기 콘텐츠의 준비를 기다린다. 게임 controller는 명시적 준비 신호를 기다려야 하며 가림막이 임의 Awake/Start 게임 로직을 막지는 않는다. [Unity SetActiveScene](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.SceneManager.SetActiveScene.html)
+Unity의 native activation은 시스템 준비와 다르다. 목적지의 Awake/Install은 SetActiveScene과 ConfigureSceneAsync보다 먼저 실행될 수 있다. Install에서 만드는 GameObject는 root의 자식으로 만들거나 목적지 씬에 명시적으로 배치한다. ConfigureSceneAsync는 이미 설치된 소비자에게 빌린 공용 참조를 연결하는 지점이며, 활성 root의 Configure를 다시 호출하는 지점이 아니다. PrepareAsync에서 해당 참조와 비동기 콘텐츠의 준비를 기다린다. 게임 controller는 명시적 준비 신호를 기다려야 하며 가림막이 임의 Awake/Start 게임 로직을 막지는 않는다. [Unity SetActiveScene](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SceneManagement.SceneManager.SetActiveScene.html)
 
-BootstrapCallbacks를 상속한 프로젝트 컴포넌트를 Bootstrap 씬에 두면 `ShowCoverAsync`, `ConfigureGameAsync`, `PreparePresentationAsync`, `HideCoverAsync`, `OnFailure`를 Inspector에서 연결할 수 있다. callback은 완료될 때까지 await하며 코어 기본 UI는 없다. 첫 프레임 가림막과 입력 차단은 프로젝트가 초기 표시 상태로 준비한다. 실패·소유자 취소는 reveal을 건너뛰며, reveal 자체가 실패하면 기존 SceneRootFlow가 가림막을 다시 요청한다.
+SceneTransitionCallbacks를 상속한 프로젝트 컴포넌트를 Bootstrap 씬에 두면 `ShowCoverAsync`, `ConfigureSceneAsync`, `PreparePresentationAsync`, `HideCoverAsync`, `OnFailure`를 Inspector에서 연결할 수 있다. callback은 완료될 때까지 await하며 코어 기본 UI는 없다. 첫 프레임 가림막과 입력 차단은 프로젝트가 초기 표시 상태로 준비한다. 실패·소유자 취소는 reveal을 건너뛰며, reveal 자체가 실패하면 기존 SceneRootFlow가 가림막을 다시 요청한다.
 
 ```csharp
 bootstrap.Configure(bootstrapRoot, "Assets/Scenes/HubScene.unity", autoStart: false, callbacks: presentation);
@@ -36,6 +36,12 @@ await bootstrapRoot.ShutdownAsync();   // 외부 소유자가 공용 시스템�
 ```
 
 성공한 게임의 종료는 가림막 callback 완료 뒤 진행하고 Bootstrap root는 유지한다. cleanup은 취소되지 않으며 해제 오류를 모아 호출자에게 반환한다. 종료 가림막 오류가 나도 자원 정리를 시도하며 성공으로 숨기지 않는다. OnDestroy는 최선의 비동기 정리만 요청할 수 있으므로 graceful 종료는 파괴 전에 ShutdownAsync를 명시적으로 await한다. 임의 Single 로드로 Bootstrap을 제거하는 흐름은 권장 수명 계약 밖이다.
+
+## Callback 이전 코드 호환
+
+BootstrapSystem의 `_callbacks` 필드 이름과 기존 script GUID는 유지한다. Configure의 callback 매개변수는 SceneTransitionCallbacks다. 기존 BootstrapCallbacks는 이를 상속하는 Obsolete 어댑터로 남고 ConfigureSceneAsync를 기존 ConfigureGameAsync override에 연결한다. 새 코드는 SceneTransitionCallbacks/ConfigureSceneAsync를 사용한다. 기존 상속 소스와 Inspector 객체 참조는 유지되며 소비 assembly는 다시 컴파일해야 한다. precompiled binary 호환성은 보장하지 않는다.
+
+Phase 1은 이 callback 교체만 runtime에 적용한다. Single/영속 공용 root·구역 수명 graph·조건/전환 정의는 [후속 계약](GAME_SCENE_MANAGER_DRAFT.md)이며 현재 Bootstrap의 Additive 고정과 persistence 거부를 해제하지 않았다. 제품 UI·연출 자산도 추가하지 않았다. 새 callback/기존 어댑터의 현재 검증은 [Phase 1 증거](validation/scene-transition-contracts/README.md)를 따른다.
 
 ## Runtime 이전 검증
 
