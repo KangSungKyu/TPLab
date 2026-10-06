@@ -33,7 +33,7 @@
 | [DATA_TABLE_IDX_DRAFT.md](DATA_TABLE_IDX_DRAFT.md) | uint PK/FK·idx 생성/추출·Parts/Stride·선택적 localType·참조 검증 검토 | 구현 계약: 프로젝트 codec·종류 registry·같은 snapshot의 FK 검증·구간/overflow 정책 |
 | [DATA_TABLE_GENERIC_IMPLEMENTATION.md](DATA_TABLE_GENERIC_IMPLEMENTATION.md) | 표준 uint DTO·제네릭 Get/TryGet 구현 시작·범위 배정·완료 판단 | 구현 순서와 완료 조건: 단계별 TDD·기존 수동 API 보존·검증 경계 |
 | [데이터 테이블 예시 템플릿](templates/data-tables/README.md) | Text/Resource 예시 복사·필드/검증 변경·프로젝트 등록 | 테스트 assembly의 예시 소스와 runtime core 제외 경계 |
-| [DATA_TABLE_IMPORTER_DRAFT.md](DATA_TABLE_IMPORTER_DRAFT.md) | 지정 폴더 CSV/JSON 감지·DTO/table 생성·프로젝트 스키마/소유권 검토 | 미구현 초안: CSV 우선·명시적 스키마·생성/기존 타입 검증 모드·재import/컴파일·JSON 로더 경계 |
+| [DATA_TABLE_IMPORTER_DRAFT.md](DATA_TABLE_IMPORTER_DRAFT.md) | setting.asset 자동화·CSV/JSON 감지·DTO/table 생성·공용 validator/소유권 검토 | 미구현 초안: 설정 3모드·공용 사전검사/실제 타입 전체 검증·생성/기존 타입 모드·JSON 로더 경계 |
 | [DataTableManager 검증](validation/data-tables/README.md) | 데이터 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·비동기·자산/root 연결·컴파일/Console·미검증 경계 |
 
 ## 검증 자료
