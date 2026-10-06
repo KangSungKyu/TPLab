@@ -1,0 +1,22 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 13,
+  "passes": [
+    "MyLab.Core.Tests.IdxCodecTests.InvalidLowerOrUpperPartResetsOutputs(uint.MinValue)",
+    "MyLab.Core.Tests.IdxCodecTests.InvalidLowerOrUpperPartResetsOutputs(999)",
+    "MyLab.Core.Tests.IdxCodecTests.InvalidLowerOrUpperPartResetsOutputs(1000)",
+    "MyLab.Core.Tests.IdxCodecTests.OverflowNeverWrapsAndStrideIsProjectSelected",
+    "MyLab.Core.Tests.IdxCodecTests.ProjectCodecSupportsOptionalThirdPartWithoutChangingKind",
+    "MyLab.Core.Tests.IdxCodecTests.RejectsInvalidParts(uint.MinValue,1)",
+    "MyLab.Core.Tests.IdxCodecTests.RejectsInvalidParts(1,uint.MinValue)",
+    "MyLab.Core.Tests.IdxCodecTests.RejectsInvalidParts(1,1000)",
+    "MyLab.Core.Tests.IdxCodecTests.RejectsInvalidStride(uint.MinValue)",
+    "MyLab.Core.Tests.IdxCodecTests.RejectsInvalidStride(1)",
+    "MyLab.Core.Tests.IdxCodecTests.RoundTripsAndRoutesCompleteIdx(8,248,8248)",
+    "MyLab.Core.Tests.IdxCodecTests.RoundTripsAndRoutesCompleteIdx(1,999,1999)",
+    "MyLab.Core.Tests.IdxCodecTests.RoundTripsAndRoutesCompleteIdx(4294967,295,uint.MaxValue)"
+  ],
+  "skipped": 0,
+  "total": 13
+}

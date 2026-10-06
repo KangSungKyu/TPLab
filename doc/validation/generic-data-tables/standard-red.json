@@ -1,0 +1,26 @@
+{
+  "total": 17,
+  "passed": 0,
+  "failed": 17,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.StandardDataTableTests.ClassMapOptionalConversionAndHooksUseSameCsvPipeline: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n0,zero\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n1000,bad-local\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n2001,wrong-kind\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n1001,one\\n1001,duplicate\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n-1,negative\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n4294967296,overflow\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text\\n1001\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text,extra\\n1001,one,\\\"unterminated\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,text,text\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"idx,Text\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.InvalidStandardCsvPreservesPublishedGeneration(\"text\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.MissingRouterDoesNotDispatchOrFreezeAndRegistrationFailuresAreAtomic: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.RouterImplementationErrorsAreNotReportedAsMisses: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.RoutesExactDtoAndPreservesManualArbitraryKeys: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.StandardDataTableTests.RowMissesAreDistinctFromStateAndConfigurationErrors:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotImplementedException: The method or operation is not implemented.\r\n  at MyLab.Core.Tests.StandardDataTableTests+<>c__DisplayClass2_0.<RowMissesAreDistinctFromStateAndConfigurationErrors>b__0 () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Tests\\EditMode\\StandardDataTableTests.cs:44 \r\n  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n",
+    "MyLab.Core.Tests.StandardDataTableTests.ThreePartProjectRouterKeepsLocalCategoriesInOneTable: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": []
+}

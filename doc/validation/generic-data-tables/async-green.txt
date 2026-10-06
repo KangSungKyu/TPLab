@@ -1,0 +1,13 @@
+PlayMode tests running, waiting for results...
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 3,
+  "passes": [
+    "MyLab.Core.Tests.StandardDataTableAsyncTests.DisposalRejectsLateStandardPublicationAndRetainedSnapshotStaysReadable",
+    "MyLab.Core.Tests.StandardDataTableAsyncTests.ReloadQueriesOldGenerationAndCallerCancellationLeavesSharedWork",
+    "MyLab.Core.Tests.StandardDataTableAsyncTests.WorkerSourceParsesOnMainAndWorkerQueriesAreRejected"
+  ],
+  "skipped": 0,
+  "total": 3
+}

@@ -18,6 +18,10 @@ namespace MyLab.Core.DataTables
         {
             internal string Name;
             internal Func<CancellationToken, UniTask<object>> ReadAsync;
+            internal uint DataType;
+            internal Type RowType;
+            internal Type TableType;
+            internal HashSet<Type> Bindings;
         }
 
         private readonly List<Registration> _registrations = new List<Registration>();
@@ -25,6 +29,202 @@ namespace MyLab.Core.DataTables
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private UniTaskCompletionSource<DataTableSnapshot> _loading;
         private bool _frozen;
+        private IIdxRouter _router;
+
+        /// <summary>Registers the immutable project router before the first valid load. A second router is rejected.</summary>
+        /// <exception cref="ArgumentNullException">Router is null.</exception>
+        /// <exception cref="InvalidOperationException">Already registered, frozen, or called on a worker.</exception>
+        /// <exception cref="ObjectDisposedException">Owner is closed.</exception>
+        public void RegisterIdxRouter(IIdxRouter router)
+        {
+            EnsureConfigurable();
+            if (router == null)
+            {
+                throw new ArgumentNullException(nameof(router));
+            }
+            if (_router != null)
+            {
+                throw new InvalidOperationException("An idx router is already registered.");
+            }
+            _router = router;
+        }
+
+        /// <summary>Registers a standard DTO table with a unique nonzero kind, name, source and fresh-per-attempt factory.</summary>
+        /// <param name="dataType">Project-assigned nonzero kind, unique in this manager.</param>
+        /// <param name="name">Unique ordinal table name, also used for manual dictionary lookup.</param>
+        /// <param name="readCsvAsync">Owner-token CSV source. Owns external I/O and handles; DTO parsing runs on the main thread.</param>
+        /// <param name="createTable">Returns a fresh managed table for every attempt, including retries after failure.</param>
+        /// <exception cref="ArgumentException">Name or kind is invalid/duplicate.</exception>
+        /// <exception cref="ArgumentNullException">Source or factory is null.</exception>
+        /// <exception cref="InvalidOperationException">Configuration is frozen or called on a worker.</exception>
+        /// <exception cref="ObjectDisposedException">Owner is closed.</exception>
+        public void RegisterTable<TRow, TTable>(uint dataType, string name,
+            Func<CancellationToken, UniTask<string>> readCsvAsync, Func<TTable> createTable)
+            where TRow : class, IDataRow where TTable : CsvDataTable<TRow>
+        {
+            EnsureConfigurable();
+            ValidateName(name);
+            if (dataType == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(dataType));
+            }
+            if (readCsvAsync == null)
+            {
+                throw new ArgumentNullException(nameof(readCsvAsync));
+            }
+            if (createTable == null)
+            {
+                throw new ArgumentNullException(nameof(createTable));
+            }
+            foreach (var existing in _registrations)
+            {
+                if (existing.DataType == dataType)
+                {
+                    throw new ArgumentException($"Kind '{dataType}' is already registered.", nameof(dataType));
+                }
+            }
+            var registration = new Registration
+            {
+                Name = name,
+                DataType = dataType,
+                RowType = typeof(TRow),
+                TableType = typeof(TTable),
+                Bindings = new HashSet<Type> { typeof(TTable), typeof(IDataTable<TRow>) }
+            };
+            registration.ReadAsync = async token =>
+            {
+                var table = createTable();
+                if (table == null)
+                {
+                    throw new InvalidDataException("Table factory returned null.");
+                }
+                table.Claim();
+                string text = await ReadSourceAsync(readCsvAsync, token);
+                var rows = ReadTable<uint, TRow>(text, Array.Empty<string>(), csv => csv.GetRecord<TRow>(), row => row.Id,
+                    row =>
+                    {
+                        if (row.Id == 0 || !_router.TryGetDataType(row.Id, out uint kind) || kind != dataType)
+                        {
+                            throw new InvalidDataException($"PK '{row.Id}' does not match kind '{dataType}'.");
+                        }
+                        table.Validate(row);
+                    }, token, table.Configure, csv => csv.ValidateHeader<TRow>());
+                table.Attach(rows);
+                return new DataTableSnapshot.StandardTable(dataType, typeof(TRow), table, rows, registration.Bindings);
+            };
+            _registrations.Add(registration);
+        }
+
+        /// <summary>Gets a borrowed row from the current snapshot using full idx routing and exact DTO type validation.</summary>
+        /// <exception cref="InvalidOperationException">Not ready, no router, DTO mismatch, or worker call.</exception>
+        /// <exception cref="ObjectDisposedException">Owner is closed.</exception>
+        /// <exception cref="ArgumentException">Idx format is invalid.</exception>
+        /// <exception cref="KeyNotFoundException">Kind or row is missing.</exception>
+        public TRow Get<TRow>(uint idx) where TRow : class, IDataRow => GetSnapshot().Get<TRow>(idx);
+
+        /// <summary>Returns false/null for a key/type miss. State errors and router implementation errors propagate.</summary>
+        /// <exception cref="InvalidOperationException">Not ready, no router, or worker call.</exception>
+        /// <exception cref="ObjectDisposedException">Owner is closed.</exception>
+        public bool TryGet<TRow>(uint idx, out TRow row) where TRow : class, IDataRow => GetSnapshot().TryGet(idx, out row);
+
+        private DataTableSnapshot GetSnapshot()
+        {
+            EnsureOpen();
+            return Snapshot ?? throw new InvalidOperationException("Load a complete snapshot before querying rows.");
+        }
+
+        /// <summary>Explicitly exposes an additional interface implemented by the declared table type before loading.</summary>
+        /// <param name="name">Already registered standard table name.</param>
+        /// <exception cref="ArgumentException">Service is not an implemented interface, binding is duplicate, or name is blank.</exception>
+        /// <exception cref="KeyNotFoundException">Name is not registered.</exception>
+        /// <exception cref="InvalidOperationException">Not a standard table, frozen, or worker call.</exception>
+        /// <exception cref="ObjectDisposedException">Owner is closed.</exception>
+        public void BindTable<TService>(string name)
+        {
+            EnsureConfigurable();
+            var registration = GetStandardRegistration(name);
+            var service = typeof(TService);
+            if (!service.IsInterface || !service.IsAssignableFrom(registration.TableType))
+            {
+                throw new ArgumentException("Binding must be an interface implemented by the declared table type.");
+            }
+            if (!registration.Bindings.Add(service))
+            {
+                throw new ArgumentException("This table contract is already bound.");
+            }
+        }
+
+        /// <summary>Registers a single nullable FK checked against the same complete candidate. Source and target must already be registered.</summary>
+        /// <param name="sourceTable">Standard source table name whose exact DTO is TSource.</param>
+        /// <param name="column">Diagnostic CSV column name; fields are not discovered automatically.</param>
+        /// <param name="getForeignKey">Side-effect-free selector of the full target idx. Null represents absence; zero is invalid.</param>
+        /// <param name="targetDataType">Registered standard target kind whose exact DTO is TTarget.</param>
+        /// <param name="required">Rejects null when true.</param>
+        /// <exception cref="ArgumentException">Column/name/kind is invalid.</exception>
+        /// <exception cref="ArgumentNullException">Selector is null.</exception>
+        /// <exception cref="KeyNotFoundException">Source or target is not registered.</exception>
+        /// <exception cref="InvalidOperationException">Exact DTO differs, manual table, frozen, or worker call.</exception>
+        /// <exception cref="ObjectDisposedException">Owner is closed.</exception>
+        /// <remarks>Load failures include source PK, column, FK, expected kind and reason. Complex relations use AddValidator.</remarks>
+        public void RegisterForeignKey<TSource, TTarget>(string sourceTable, string column,
+            Func<TSource, uint?> getForeignKey, uint targetDataType, bool required)
+            where TSource : class, IDataRow where TTarget : class, IDataRow
+        {
+            EnsureConfigurable();
+            if (string.IsNullOrWhiteSpace(column))
+            {
+                throw new ArgumentException("An FK column name is required.", nameof(column));
+            }
+            if (getForeignKey == null)
+            {
+                throw new ArgumentNullException(nameof(getForeignKey));
+            }
+            if (targetDataType == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(targetDataType));
+            }
+            var source = GetStandardRegistration(sourceTable);
+            var target = _registrations.Find(registration => registration.DataType == targetDataType);
+            if (target == null)
+            {
+                throw new KeyNotFoundException($"Unknown target kind '{targetDataType}'.");
+            }
+            if (source.RowType != typeof(TSource) || target.RowType != typeof(TTarget))
+            {
+                throw new InvalidOperationException("FK source and target require exact registered DTO types.");
+            }
+            _validators.Add(candidate =>
+            {
+                foreach (var row in candidate.GetTable<uint, TSource>(sourceTable).Values)
+                {
+                    uint? fk = getForeignKey(row);
+                    string reason = fk.HasValue ? candidate.GetReferenceError<TTarget>(fk.Value, targetDataType) :
+                        required ? "Required reference is null." : null;
+                    if (reason != null)
+                    {
+                        throw new InvalidDataException($"Table '{sourceTable}' PK '{row.Id}', column '{column}', FK '{fk?.ToString() ?? "null"}', expected kind '{targetDataType}': {reason}");
+                    }
+                }
+            });
+        }
+
+        private Registration GetStandardRegistration(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("A table name is required.", nameof(name));
+            }
+            var registration = _registrations.Find(table => table.Name == name);
+            if (registration == null)
+            {
+                throw new KeyNotFoundException($"Unknown table '{name}'.");
+            }
+            if (registration.DataType == 0)
+            {
+                throw new InvalidOperationException("A standard table is required.");
+            }
+            return registration;
+        }
 
         /// <summary>Last successful complete snapshot, or null before first success and after disposal. Reload failure preserves it.</summary>
         public DataTableSnapshot Snapshot { get; private set; }
@@ -49,10 +249,7 @@ namespace MyLab.Core.DataTables
             Func<TRow, TKey> keySelector, Action<TRow> validateRow = null)
         {
             EnsureConfigurable();
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("A table name is required.", nameof(name));
-            }
+            ValidateName(name);
             if (requiredHeaders == null)
             {
                 throw new ArgumentNullException(nameof(requiredHeaders));
@@ -82,29 +279,12 @@ namespace MyLab.Core.DataTables
                     throw new ArgumentException("Required headers must be named and unique.", nameof(requiredHeaders));
                 }
             }
-            foreach (var existing in _registrations)
-            {
-                if (existing.Name == name)
-                {
-                    throw new ArgumentException($"Table '{name}' is already registered.", nameof(name));
-                }
-            }
             _registrations.Add(new Registration
             {
                 Name = name,
                 ReadAsync = async token =>
                 {
-                    string text;
-                    try
-                    {
-                        text = await readCsvAsync(token).AttachExternalCancellation(token);
-                    }
-                    finally
-                    {
-                        // Sources may finish on a worker; all parsing, validation and publication belong to Unity's main thread.
-                        await UniTask.SwitchToMainThread();
-                    }
-                    token.ThrowIfCancellationRequested();
+                    string text = await ReadSourceAsync(readCsvAsync, token);
                     return ReadTable(text, headers, readRow, keySelector, validateRow, token);
                 }
             });
@@ -140,6 +320,10 @@ namespace MyLab.Core.DataTables
                 {
                     throw new InvalidOperationException("Register at least one table before loading.");
                 }
+                if (_router == null && _registrations.Exists(registration => registration.DataType != 0))
+                {
+                    throw new InvalidOperationException("Standard tables require an idx router before loading.");
+                }
                 _frozen = true;
                 operation = new UniTaskCompletionSource<DataTableSnapshot>();
                 _loading = operation;
@@ -171,6 +355,7 @@ namespace MyLab.Core.DataTables
                 operation?.TrySetCanceled(token);
                 _registrations.Clear();
                 _validators.Clear();
+                _router = null;
                 _lifetime.Dispose();
             }
         }
@@ -192,7 +377,7 @@ namespace MyLab.Core.DataTables
                         throw new InvalidDataException($"Table '{registration.Name}' failed to load: {error.Message}", error);
                     }
                 }
-                var candidate = new DataTableSnapshot(tables);
+                var candidate = new DataTableSnapshot(tables, _router);
                 foreach (var validate in _validators)
                 {
                     token.ThrowIfCancellationRequested();
@@ -216,8 +401,25 @@ namespace MyLab.Core.DataTables
             }
         }
 
-        private static object ReadTable<TKey, TRow>(string text, string[] headers, Func<CsvReader, TRow> readRow,
-            Func<TRow, TKey> keySelector, Action<TRow> validateRow, CancellationToken token)
+        private static async UniTask<string> ReadSourceAsync(Func<CancellationToken, UniTask<string>> source, CancellationToken token)
+        {
+            string text;
+            try
+            {
+                text = await source(token).AttachExternalCancellation(token);
+            }
+            finally
+            {
+                // Sources may finish on a worker; both CSV paths and publication require Unity's main thread.
+                await UniTask.SwitchToMainThread();
+            }
+            token.ThrowIfCancellationRequested();
+            return text;
+        }
+
+        private static ReadOnlyDictionary<TKey, TRow> ReadTable<TKey, TRow>(string text, string[] headers, Func<CsvReader, TRow> readRow,
+            Func<TRow, TKey> keySelector, Action<TRow> validateRow, CancellationToken token,
+            Action<CsvContext> configure = null, Action<CsvReader> validateHeader = null)
         {
             if (text == null)
             {
@@ -238,6 +440,7 @@ namespace MyLab.Core.DataTables
                 try
                 {
                     token.ThrowIfCancellationRequested();
+                    configure?.Invoke(csv.Context);
                     if (!csv.Read())
                     {
                         throw new InvalidDataException("CSV header is required.");
@@ -258,6 +461,7 @@ namespace MyLab.Core.DataTables
                             throw new InvalidDataException($"Required header '{header}' is missing.");
                         }
                     }
+                    validateHeader?.Invoke(csv);
                     var rows = new Dictionary<TKey, TRow>();
                     while (csv.Read())
                     {
@@ -286,6 +490,18 @@ namespace MyLab.Core.DataTables
                 {
                     throw new InvalidDataException($"CSV row {csv.Parser.Row}: {error.Message}", error);
                 }
+            }
+        }
+
+        private void ValidateName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("A table name is required.", nameof(name));
+            }
+            if (_registrations.Exists(registration => registration.Name == name))
+            {
+                throw new ArgumentException($"Table '{name}' is already registered.", nameof(name));
             }
         }
 

@@ -1,10 +1,10 @@
-# 제네릭 데이터 조회 구현 준비
+# 제네릭 데이터 조회 구현
 
-2026-10-06. 기준 `main / 9d79dacb3eb3347dee29d7a6241700de1f7d3e8b`, 문서 branch `docs/generic-data-table-ready`. 상태는 구현 준비이며 런타임 미구현이다. 사용자는 우선 generic 형식을 기준으로 구현 준비를 요청했다. 이 문서는 작업 순서·수정 경계·완료 조건을 소유한다. 조회/idx 계약은 [idx 명세](DATA_TABLE_IDX_DRAFT.md), DTO/CSV/테이블 binding 계약은 [매핑 명세](DATA_TABLE_MAPPING_DRAFT.md)가 소유하며 중복 정의하지 않는다.
+2026-10-06. 기준 `main / 9d79dacb3eb3347dee29d7a6241700de1f7d3e8b`, 문서 branch `docs/generic-data-table-ready`. 최초 문서는 구현 준비였다. 이후 사용자의 구현 요청에 따라 main/7cd8955에서 codex/generic-data-tables를 생성해 아래 4단계를 구현했다. 현재 [검증 결과](validation/generic-data-tables/README.md)와 [최종 회고](retrospectives/2026-10-06-06-generic-data-table-validation.md)를 따른다. 이 문서는 작업 순서·수정 경계·완료 조건을 소유한다. 조회/idx 계약은 [idx 명세](DATA_TABLE_IDX_DRAFT.md), DTO/CSV/테이블 binding 계약은 [매핑 명세](DATA_TABLE_MAPPING_DRAFT.md)가 소유하며 중복 정의하지 않는다.
 
 ## 목표와 준비 기준
 
-소비자는 최종 생성된 uint PK를 입력하고 테이블 이름·구간·조합 요소를 전달하지 않는다. 아래는 구현 후의 목표 사용법이며 현재 컴파일되는 예제가 아니다.
+소비자는 최종 생성된 uint PK를 입력하고 테이블 이름·구간·조합 요소를 전달하지 않는다. 아래는 현재 제공하는 사용법이다. 최초 준비와 후속 구현을 구분하며 과거 결과를 현재 검증으로 대신하지 않는다.
 
 ```csharp
 TextRow text = manager.Get<TextRow>(nameIdx);
@@ -21,7 +21,7 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 - manager는 기존 dictionary·snapshot을 재사용한다. 전역 PK 중복 색인·dynamic 반환·비제네릭 행 Get·GetRow alias·typed ID wrapper·전체 테이블 검색을 추가하지 않는다.
 - 동적 테이블/DTO 탐색과 C# dynamic 반환을 구분한다. IL2CPP는 dynamic을 지원하지 않으므로 runtime API에서 제외한다. [Unity 6.3 제한](https://docs.unity3d.com/6000.3/Documentation/Manual/scripting-restrictions.html)
 
-## 확인한 선행 코드와 영향 경계
+## 준비 당시 선행 코드와 현재 영향 경계
 
 | 현재 위치 | 구현 시 연결할 지점 |
 |---|---|
@@ -32,7 +32,7 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 | [소비 fixture](../Assets/MyLab/Tests/Fixtures/DataTableConsumerProbe.cs) · [ResourceManagerTests](../Assets/MyLab/Tests/PlayMode/ResourceManagerTests.cs) | 기존 수동 연결 보존; 표준 DTO/router 준비 후 씬 진행·실패 rollback 경로 검증 |
 | [Core assembly](../Assets/MyLab/Core/MyLab.Core.asmdef) | 기존 경계·참조 재사용; 새 assembly/패키지/DLL을 추가하지 않음 |
 
-현재 Registration은 이름·ReadAsync만, snapshot은 이름별 dictionary만 보관한다. 표준 registry·DTO·codec·Get/TryGet은 아직 없다. LoadAndPublishAsync에서 모든 후보 구성 뒤 AddValidator 실행, 성공 뒤 한 번 공개하는 순서를 유지한다. 기존 테스트 fixture는 임의 int/string key와 수동 GetTable을 사용하므로 자동 전환하지 않는다.
+준비 당시 Registration은 이름·ReadAsync만, snapshot은 이름별 dictionary만 보관했다. 이번 구현으로 표준 registry·DTO·codec·Get/TryGet을 추가했다. LoadAndPublishAsync에서 모든 후보 구성 뒤 AddValidator 실행, 성공 뒤 한 번 공개하는 순서를 유지한다. 기존 테스트 fixture는 임의 int/string key와 수동 GetTable을 사용하므로 자동 전환하지 않는다.
 
 수정 허용 범위는 `Assets/MyLab/Core/DataTables/`, 관련 EditMode/PlayMode 테스트·fixtures와 해당 새 파일의 meta, 관련 명세·검증 자료·회고다. 실제 구현 단위마다 더 좁은 allowlist를 정한다. 공용 namespace는 MyLab.Core.DataTables, 코드·TDD·Git 규칙은 [AGENTS.md](../AGENTS.md)를 따른다.
 
@@ -64,6 +64,6 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 
 준비 당시 MyLab 기존 Editor는 Unity 6000.3.18f1/Connector 0.4.1, PID 23176, CLI ready 상태였다. 이 상태는 테스트 실행 증거가 아니며 구현 시작 시 절대 project 경로와 기존 Editor의 compile/Play/준비 상태를 다시 확인한다. 임의로 다른 프로젝트나 새 Editor로 대체하지 않는다.
 
-이번 준비는 문서만 변경하므로 Unity 테스트 실행 0건, 컴파일·Console·Player 검증은 미실행이다. 현재 문서 검사·보존 증거는 [준비 회고](retrospectives/2026-10-06-02-generic-data-table-ready.md)에 기록한다.
+최초 준비는 문서만 변경하여 Unity 테스트 실행 0건이었다. 준비 당시 문서 검사·보존 증거는 [준비 회고](retrospectives/2026-10-06-02-generic-data-table-ready.md)에 기록한다.
 
-다음 구현 요청을 받으면 관련 계약·현재 diff를 확인하고 단계 1의 실제 Red부터 시작할 수 있다. 준비 완료는 단계 1 자동 실행을 뜻하지 않는다. 구현 완료 시 소비 프로젝트 가져오기·최소 예제·Player/IL2CPP 검증이 남으면 그 경계를 별도 기록하고 공용 코어 전체 완료로 확대하지 않는다. 병합은 해당 변경에 필요한 자동 검사와 사용자 직접 확인 여부를 [프로젝트 병합 정책](../AGENTS.md#검증-후-병합)으로 판단한다.
+후속 구현은 각 단계의 실제 Red/Green과 비동기/root·전체 회귀를 실행했다. 실행 수와 입력 hash는 검증 결과에 남긴다. 다음 기능 단계는 GameSceneManager의 요구사항·계약 확정이다. 소비 프로젝트 가져오기·최소 예제·Player/IL2CPP 검증이 남으면 그 경계를 별도 기록하고 공용 코어 전체 완료로 확대하지 않는다. 병합은 해당 변경에 필요한 자동 검사와 사용자 직접 확인 여부를 [프로젝트 병합 정책](../AGENTS.md#검증-후-병합)으로 판단한다.

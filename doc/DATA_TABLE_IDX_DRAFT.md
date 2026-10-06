@@ -1,10 +1,10 @@
-# uint idx 생성·추출·PK/FK 탐색 초안
+# uint idx 생성·추출·PK/FK 계약
 
-2026-10-02. 기준 MyLab `main / a7804a8`, Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`. 상태는 미구현 초안이다. 기본 제공 테이블의 uint index key, 생성·추출 클래스 등록, PK/FK 탐색 요구는 사용자 지시로 확정이다. 아래 API·인코딩·오류 세부 정책은 제안이다. [DTO·테이블 매핑 초안](DATA_TABLE_MAPPING_DRAFT.md)과 연결하며 [현재 구현 계약](DATA_TABLE_MANAGER.md)을 구현 완료로 바꾸지 않는다.
+2026-10-02. 기준 MyLab `main / a7804a8`, Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`. 최초 상태는 미구현 초안이었다. 2026-10-06 준비한 generic 범위를 구현했으며 [실행 증거](validation/generic-data-tables/README.md)로 확인한다. 기본 제공 테이블의 uint index key, 생성·추출 클래스 등록, PK/FK 탐색 요구는 사용자 지시로 확정이다. 아래 API·인코딩·오류 정책은 이번 구현의 계약이다. [DTO·테이블 매핑 계약](DATA_TABLE_MAPPING_DRAFT.md)과 연결하며 [manager 계약](DATA_TABLE_MANAGER.md)과 함께 적용한다.
 
-2026-10-06 보완: 조합 값 Parts와 구간 설정 Stride를 함께 지원한다. localType은 여러 작업자의 키 충돌 방지·테이블 내부 분류를 위한 선택적 요소이며 테이블 탐색 종류가 아니다. 이번 API 변경도 미구현 제안이다.
+2026-10-06 보완: 조합 값 Parts와 구간 설정 Stride를 함께 지원한다. localType은 여러 작업자의 키 충돌 방지·테이블 내부 분류를 위한 선택적 요소이며 테이블 탐색 종류가 아니다. 프로젝트 세 요소 codec은 테스트 예제로 검증하며 코어 기본 타입으로 추가하지 않는다.
 
-2026-10-06 구현 준비 기준: 소비 조회는 Get<TRow>/TryGet<TRow>로 통일하고 런타임 등록은 IIdxRouter만 요구한다. 아래는 다음 구현을 위한 기준이며 코드 구현 완료가 아니다. 작업 순서·수정 경계·완료 조건은 [제네릭 구현 준비](DATA_TABLE_GENERIC_IMPLEMENTATION.md)를 따른다.
+2026-10-06 구현 준비 기준: 소비 조회는 Get<TRow>/TryGet<TRow>로 통일하고 런타임 등록은 IIdxRouter만 요구한다. 아래 기준을 현재 runtime에 구현했다. 작업 순서·수정 경계·완료 조건은 [제네릭 구현 준비](DATA_TABLE_GENERIC_IMPLEMENTATION.md)를 따른다.
 
 ## 역할과 Cashier 참조
 
@@ -12,7 +12,7 @@ idx는 대상 행의 PK이며 다른 행에 저장하면 그 대상에 대한 FK
 
 Cashier `Utils/Util.cs`의 CreateDataIdx/GetDataTableType/GetDataInnerId는 `idx = (uint)DataTableType * 1000 + innerId`, `type = idx / 1000`, `innerId = idx % 1000`을 사용한다. `Manager/DataTableManager.cs`의 GetDB<T>(uint)는 추출 종류로 등록 테이블을 찾는다. `Commons/Data/ProductData.cs`의 NameIdx·ImageResourceIdx는 대상 PK를 저장하며 `Customer/Data/CustomerCatalog.cs`는 Text·Resource 등의 실제 대상 행 존재를 검증한다.
 
-MyLab은 양방향 규약과 종류별 탐색을 개선 후 채택할 것을 제안한다. 게임 enum·1000 구간은 소비 프로젝트가 선택한다. Cashier의 idx=0일 때 첫 T 구현을 찾는 fallback은 적용하지 않고 범위·overflow·미등록 종류·잘못된 대상·참조 누락을 구분한다. Cashier 파일·코드는 변경하거나 복사하지 않았다.
+MyLab은 양방향 규약과 종류별 탐색을 개선 후 채택했다. 게임 enum·1000 구간은 소비 프로젝트가 선택한다. Cashier의 idx=0일 때 첫 T 구현을 찾는 fallback은 적용하지 않고 범위·overflow·미등록 종류·잘못된 대상·참조 누락을 구분한다. Cashier 파일·코드는 변경하거나 복사하지 않았다.
 
 ## 생성·추출 클래스 등록
 
@@ -33,7 +33,7 @@ dataType은 CLR Type 자체가 아니라 프로젝트가 정한 안정적인 uin
 
 생성·전체 추출은 프로젝트의 TParts를 사용하고 manager의 테이블 탐색은 IIdxRouter를 사용한다. 초기의 두 uint 매개변수 및 비제네릭 IIdxGenerator/IIdxExtractor/IIdxCodec 제안은 위 계약으로 대체한다. 값 묶음의 요소 개수에 맞춰 manager를 제네릭 타입으로 바꾸지 않는다.
 
-구현할 등록 API는 `manager.RegisterIdxRouter(IIdxRouter router)`다. 기존 RegisterIdxCodec<TParts> 제안은 대체하며 호환 alias를 새로 만들지 않는다. 기본 또는 프로젝트 codec을 installer/scene root에서 직접 new로 생성해 전달할 수 있고, runtime에 생성 기능이 필요 없으면 프로젝트의 router 구현만 전달할 수도 있다. codec의 Generate/TryExtract는 데이터 작성·분류·해당 규약의 왕복 검증에 사용한다. manager는 TParts·생성기·전체 추출에 의존하지 않으며 모든 로드 행을 재생성하지 않는다.
+등록 API는 `manager.RegisterIdxRouter(IIdxRouter router)`다. 기존 RegisterIdxCodec<TParts> 제안은 대체하며 호환 alias를 새로 만들지 않는다. 기본 또는 프로젝트 codec을 installer/scene root에서 직접 new로 생성해 전달할 수 있고, runtime에 생성 기능이 필요 없으면 프로젝트의 router 구현만 전달할 수도 있다. codec의 Generate/TryExtract는 데이터 작성·분류·해당 규약의 왕복 검증에 사용한다. manager는 TParts·생성기·전체 추출에 의존하지 않으며 모든 로드 행을 재생성하지 않는다.
 
 한 manager의 표준 테이블은 불변 router 하나를 공유한다. null/중복 등록·첫 유효한 로드 시작 이후 변경은 거부한다. 표준 테이블이 있는데 router가 없으면 I/O 시작 전에 InvalidOperationException으로 거부하고 구성을 동결하지 않는다. 수동 Register만 쓰는 경우에는 router를 강제하지 않는다. router와 테이블은 첫 로드 전 어느 순서로 등록해도 되며 전체 구성 유효성을 로드 전에 확인한다.
 
@@ -43,9 +43,9 @@ dataType은 CLR Type 자체가 아니라 프로젝트가 정한 안정적인 uin
 - router·codec은 I/O·부수 효과가 없는 관리 객체다. 설정은 생성자에서 확정하고 등록 후 외부에서 바꾸지 않는다. manager와 이전 snapshot은 그 불변 router를 참조하며 manager가 임의로 Dispose하지 않는다.
 - Generate는 조합 함수다. 다음 빈 번호 발급·예약·CSV 수정·행 삽입·중복 자동 보정은 수행하지 않는다. 클래스명/assembly 탐색으로 구현을 자동 생성하지 않는다.
 
-## 기본 인코딩 후보
+## 기본 인코딩
 
-Parts는 실제 조합 값이며 숫자 구간 크기가 아니다. 기본 제공 후보 `IdxParts`는 DataType/LocalIdx만 갖는 불변 값 타입이다. 프로젝트는 LocalType 등 필요한 요소를 가진 다른 불변 TParts를 정의한다.
+Parts는 실제 조합 값이며 숫자 구간 크기가 아니다. 기본 제공 `IdxParts`는 DataType/LocalIdx만 갖는 불변 값 타입이다. 프로젝트는 LocalType 등 필요한 요소를 가진 다른 불변 TParts를 정의한다.
 
 ```csharp
 public readonly struct IdxParts
@@ -61,7 +61,7 @@ public readonly struct IdxParts
 }
 ```
 
-`DecimalIdxCodec(uint stride) : IIdxCodec<IdxParts>`를 기본 구현 후보로 둔다. Stride는 생성자에서 검증·확정하고 읽기 전용 uint 프로퍼티로 제공한다. 1보다 커야 하며 Cashier 호환이 필요하면 프로젝트가 1000을 전달한다. Parts는 생성 호출마다 전달하고 Stride는 codec의 불변 설정으로 유지한다.
+`DecimalIdxCodec(uint stride) : IIdxCodec<IdxParts>`를 기본 구현으로 제공한다. Stride는 생성자에서 검증·확정하고 읽기 전용 uint 프로퍼티로 제공한다. 1보다 커야 하며 Cashier 호환이 필요하면 프로젝트가 1000을 전달한다. Parts는 생성 호출마다 전달하고 Stride는 codec의 불변 설정으로 유지한다.
 
 ```text
 Generate(parts) = checked(parts.DataType * Stride + parts.LocalIdx)
@@ -110,7 +110,7 @@ LocalType 배정의 중복 방지와 해당 구분 내 LocalIdx 유일성은 프
 
 ## 종류와 테이블 등록
 
-표준 경로는 uint 키로 고정하므로 새 RegisterTable의 TKey를 제거한다. 이름·interface 매핑은 기존 초안의 계약을 유지한다. 아래는 현재 구현에 없는 제안 API다.
+표준 경로는 uint 키로 고정하므로 새 RegisterTable의 TKey를 제거한다. 이름·interface 매핑은 매핑 계약을 따른다. 아래는 현재 지원하는 API다.
 
 ```csharp
 var codec = new DecimalIdxCodec(1000);
@@ -146,7 +146,7 @@ manager 조회는 기존 메인 스레드·종료 검사를 적용하고 현재 
 
 GetTable<TService>(uint idx)는 TryGetDataType → 종류 registry → 같은 테이블의 명시적 계약 binding으로 조회한다. 테이블 검색이므로 idx 행 존재는 보장하지 않으며 실제 참조는 Get/TryGet으로 해결한다. 이름 기반 API도 같은 테이블·dictionary를 사용한다.
 
-| API | 구현 준비의 실패 계약 |
+| API | 실패 계약 |
 |---|---|
 | GetTable<TService>(idx) | 무효 idx: ArgumentException; 미등록 종류: KeyNotFoundException; 계약 불일치: InvalidOperationException |
 | Get<TRow>(idx) | 무효 idx: ArgumentException; 미등록 종류: KeyNotFoundException; 정확한 DTO 타입 불일치: InvalidOperationException; 대상 PK 누락: KeyNotFoundException |
@@ -158,7 +158,7 @@ GetTable<TService>(uint idx)는 TryGetDataType → 종류 registry → 같은 �
 
 종류 추출만으로 FK가 유효해지지는 않는다. Product.NameIdx에는 존재하는 Text 행이 필요하며 존재하는 Resource 행이 들어가도 오류다. 예상 목적지는 소비 프로젝트가 선언한다.
 
-기존 AddValidator를 사용하는 helper 후보:
+기존 AddValidator 목록에 연결되는 FK helper:
 
 ```csharp
 manager.RegisterForeignKey<ProductRow, TextRow>(
@@ -188,4 +188,4 @@ getForeignKey는 `Func<TSource, uint?>`이며 source/target은 표준 테이블,
 4. FK: 필수/선택·0/null·잘못된 종류·누락 PK·자기/순환 참조·배열 프로젝트 검증을 확인한다. 재로드 후보의 대상 제거가 실패하고 기존 행/테이블/router가 보존되는지도 확인한다.
 5. 공유 로드·취소·Dispose·씬 준비·전체 회귀를 확인한다. 새 DTO/codec의 Player·소비 프로젝트 경로는 후속 단계에서 검증한다.
 
-uint 표준 키·생성/추출 규약·PK/FK 탐색·Parts/Stride·선택적 localType·제네릭 조회 기준 요구는 사용자 지시다. 기본 DecimalIdxCodec·0/null·오류 세부 정책은 구현 준비를 위한 선택이며 [구현 준비 문서](DATA_TABLE_GENERIC_IMPLEMENTATION.md)에 실행 범위와 완료 조건을 연결한다. 최초 기록은 [2026-10-02 회고](retrospectives/2026-10-02-02-data-table-idx-draft.md), Parts/Stride 보완은 [선행 회고](retrospectives/2026-10-06-01-idx-parts-stride.md), 이번 준비는 [현재 회고](retrospectives/2026-10-06-02-generic-data-table-ready.md)에 남긴다. 런타임 구현·자동 migration은 시작하지 않았다.
+uint 표준 키·생성/추출 규약·PK/FK 탐색·Parts/Stride·선택적 localType·제네릭 조회 기준 요구는 사용자 지시다. 기본 DecimalIdxCodec·0/null·오류 세부 정책은 구현 준비를 위한 선택이며 [구현 준비 문서](DATA_TABLE_GENERIC_IMPLEMENTATION.md)에 실행 범위와 완료 조건을 연결한다. 최초 기록은 [2026-10-02 회고](retrospectives/2026-10-02-02-data-table-idx-draft.md), Parts/Stride 보완은 [선행 회고](retrospectives/2026-10-06-01-idx-parts-stride.md), 이번 준비는 [현재 회고](retrospectives/2026-10-06-02-generic-data-table-ready.md)에 남긴다. 런타임 구현은 완료했다. 자동 migration은 제공하지 않는다. [구현 회고](retrospectives/2026-10-06-06-generic-data-table-validation.md)에서 현재 검증과 미실행 경계를 확인한다.

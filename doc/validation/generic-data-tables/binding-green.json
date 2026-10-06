@@ -1,0 +1,27 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 18,
+  "passes": [
+    "MyLab.Core.Tests.DataTableBindingTests.AllBindingsAndRowsShareInstancesAndOldGenerationSurvivesReloadAndDispose",
+    "MyLab.Core.Tests.DataTableBindingTests.BindingValidatesDeclaredInterfacesAndLeavesNoPartialRegistration",
+    "MyLab.Core.Tests.DataTableBindingTests.DefaultResourceTableRejectsBlankKeysButTextAllowsEmpty",
+    "MyLab.Core.Tests.DataTableBindingTests.FactoryCannotReuseFailedCandidateEvenWithAnotherManager",
+    "MyLab.Core.Tests.DataTableBindingTests.FactoryFailurePreservesOldTable(\"null\")",
+    "MyLab.Core.Tests.DataTableBindingTests.FactoryFailurePreservesOldTable(\"exception\")",
+    "MyLab.Core.Tests.DataTableBindingTests.FactoryFailurePreservesOldTable(\"reuse\")",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyConfigurationChecksExactRegisteredTypesBeforeLoad",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeysUseNewCandidateAndFailureKeepsAllPriorBindings",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(null,False,True)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(null,True,False)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(\"0\",False,False)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(\"2001\",True,True)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(\"2000\",True,False)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(\"1001\",True,False)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(\"3001\",True,False)",
+    "MyLab.Core.Tests.DataTableBindingTests.ForeignKeyValidatesNullFullFormatKindAndActualCandidatePk(\"2002\",True,False)",
+    "MyLab.Core.Tests.DataTableBindingTests.SelfAndCyclicReferencesValidateExistenceWithoutTraversal"
+  ],
+  "skipped": 0,
+  "total": 18
+}

@@ -1,0 +1,30 @@
+PlayMode tests running, waiting for results...
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 20,
+  "passes": [
+    "MyLab.Core.Tests.ResourceManagerTests.AllCancelledWaitersStillLeaveOwnerCache",
+    "MyLab.Core.Tests.ResourceManagerTests.BackgroundThreadCallsDoNotMutateOwner",
+    "MyLab.Core.Tests.ResourceManagerTests.CallerCancellationDoesNotCancelSharedLoad",
+    "MyLab.Core.Tests.ResourceManagerTests.DataTablesArePublishedBeforeSceneProceedAndDisposedBeforeResource",
+    "MyLab.Core.Tests.ResourceManagerTests.FailedLoadIsRemovedAndCanRetry",
+    "MyLab.Core.Tests.ResourceManagerTests.InitializationDispatchFailureCanRetry",
+    "MyLab.Core.Tests.ResourceManagerTests.InitializationIsSharedAndOwnerTerminationIsPermanent",
+    "MyLab.Core.Tests.ResourceManagerTests.InvalidCsvStopsSceneKeepsCoverAndReleasesResource",
+    "MyLab.Core.Tests.ResourceManagerTests.InvalidKeysTypesAndPreCancellationDoNotDispatch",
+    "MyLab.Core.Tests.ResourceManagerTests.InvalidStandardIdxKeepsCoverAndReleasesResource",
+    "MyLab.Core.Tests.ResourceManagerTests.PreparationCallerCancellationKeepsCoverUntilOwnerShutdown",
+    "MyLab.Core.Tests.ResourceManagerTests.PreparationFailureKeepsCoverAndReleasesOwnedResources",
+    "MyLab.Core.Tests.ResourceManagerTests.RootDestructionCancelsLoadAndReleasesLateCompletion",
+    "MyLab.Core.Tests.ResourceManagerTests.SceneOwnedRootWaitsForRequiredAssetBeforeRevealing",
+    "MyLab.Core.Tests.ResourceManagerTests.SeparateOwnersKeepIndependentNativeReferences",
+    "MyLab.Core.Tests.ResourceManagerTests.SharedLoadCachesOneOwnedHandle",
+    "MyLab.Core.Tests.ResourceManagerTests.ShutdownCancelsWaitersAndDrainsLateHandle",
+    "MyLab.Core.Tests.ResourceManagerTests.ShutdownDuringInitializationCannotPublishReadiness",
+    "MyLab.Core.Tests.ResourceManagerTests.SingletonRootDisposesPrefabPoolBeforeAssetHandle",
+    "MyLab.Core.Tests.ResourceManagerTests.StandardDataTablesReadyBeforeSingletonSceneProceed"
+  ],
+  "skipped": 0,
+  "total": 20
+}

@@ -513,10 +513,18 @@ namespace MyLab.Core.Tests
         [UnityTest]
         public IEnumerator InvalidCsvStopsSceneKeepsCoverAndReleasesResource() => CheckDataTableRoot(true).ToCoroutine();
 
-        private async UniTask CheckDataTableRoot(bool invalid)
+        [UnityTest]
+        public IEnumerator StandardDataTablesReadyBeforeSingletonSceneProceed() => CheckDataTableRoot(false, true).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator InvalidStandardIdxKeepsCoverAndReleasesResource() => CheckDataTableRoot(true, true).ToCoroutine();
+
+        private async UniTask CheckDataTableRoot(bool invalid, bool standard = false)
         {
             UnityEngine.Object.Destroy(_asset);
-            _asset = new TextAsset(invalid ? "Id,Name\ninvalid,row" : "Id,Name\n1,ready");
+            _asset = new TextAsset(standard ?
+                invalid ? "idx,text\n2001,wrong-kind" : "idx,text\n1001,ready" :
+                invalid ? "Id,Name\ninvalid,row" : "Id,Name\n1,ready");
             _provider.Asset = _asset;
             _rootObject = new GameObject("DataTableTestRoot");
             _rootObject.SetActive(false);
@@ -524,7 +532,9 @@ namespace MyLab.Core.Tests
             var consumer = _rootObject.AddComponent<DataTableConsumerProbe>();
             consumer.Source = resources;
             consumer.Key = _key;
-            var root = SceneRootSetup.Attach(_rootObject, SceneRootMode.SceneOwned, new SceneRootInstaller[] { resources, consumer });
+            consumer.UseStandardIdx = standard;
+            var root = SceneRootSetup.Attach(_rootObject, standard ? SceneRootMode.Singleton : SceneRootMode.SceneOwned,
+                new SceneRootInstaller[] { resources, consumer });
             _rootObject.SetActive(true);
             var ownedResources = resources.Resources;
             var ownedTables = consumer.Tables;
@@ -537,7 +547,10 @@ namespace MyLab.Core.Tests
             var preparation = flow.PrepareAndProceedAsync(token =>
             {
                 Assert.That(root.IsPrepared, Is.True);
-                Assert.That(ownedTables.Snapshot.GetTable<int, (int Id, string Name)>("rows")[1].Name, Is.EqualTo("ready"));
+                if (standard)
+                    Assert.That(ownedTables.Get<TextRow>(1001).Text, Is.EqualTo("ready"));
+                else
+                    Assert.That(ownedTables.Snapshot.GetTable<int, (int Id, string Name)>("rows")[1].Name, Is.EqualTo("ready"));
                 ++proceeded;
                 return UniTask.CompletedTask;
             }).AsTask();

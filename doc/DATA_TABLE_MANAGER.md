@@ -2,7 +2,7 @@
 
 2026-10-02. `MyLab.Core.DataTables`의 일반 C# 소유자다. Singleton 상속과 게임별 enum·ID 구간·CSV DTO·검색 규칙을 강제하지 않는다. [검증 기록](validation/data-tables/README.md)에서 현재 실행 범위와 증거를 확인한다.
 
-기본 DTO·표준 테이블·interface 구현 매핑은 [추가 초안](DATA_TABLE_MAPPING_DRAFT.md)에서 검토한다. 해당 제안은 미구현이며 아래 현재 계약과 구분한다.
+2026-10-06 표준 uint idx 경로를 구현했다. [DTO·테이블 매핑](DATA_TABLE_MAPPING_DRAFT.md), [idx·조회·FK 계약](DATA_TABLE_IDX_DRAFT.md), [이번 검증](validation/generic-data-tables/README.md)을 따른다. 기존 수동 Register/GetTable과 함께 사용할 수 있다.
 
 ## 등록과 공개
 
@@ -27,11 +27,31 @@ var item = snapshot.GetTable<int, (int Id, string Name)>("items")[1];
 
 `resources`와 `csvKey`는 소비 프로젝트에서 주입한다. CSV 공급자가 실제 파일·네트워크·Addressables handle을 소유·정리하며 DataTableManager는 관리 데이터만 보관한다. ResourceManager는 scope 안에서 자산을 캐시하므로 위 예제의 재로드가 원격 content를 다시 다운로드하거나 catalog를 갱신한다는 뜻은 아니다.
 
+## 표준 idx 등록과 조회
+
+```csharp
+tables.RegisterIdxRouter(new DecimalIdxCodec(1000));
+tables.RegisterTable<TextRow, TextDataTable>(1, "texts",
+    token => UniTask.FromResult("idx,text\n1001,ready"), () => new TextDataTable());
+var snapshot = await tables.LoadAsync(cancellationToken);
+TextRow text = tables.Get<TextRow>(1001);
+bool found = snapshot.TryGet(1001, out TextRow sameGeneration);
+var textTable = snapshot.GetTable<IDataTable<TextRow>>(1001);
+```
+
+종류 번호·Stride는 프로젝트 설정이다. RegisterIdxRouter는 불변 IIdxRouter 하나를 받으며 generator/전체 extractor를 runtime에 강제하지 않는다. 표준 등록은 CsvHelper의 DTO 속성·ClassMap으로 필수 header와 행을 매핑하고 factory를 통해 매 시도 새 테이블을 만든다. 같은 DTO의 서로 다른 테이블은 다른 종류 코드를 사용한다. 수동 uint 키를 idx registry에 자동 편입하지 않는다.
+
+Get/TryGet은 전체 idx를 검증하고 종류에 연결된 정확한 DTO 타입을 확인한다. 잘못된 idx·미등록 종류·다른 DTO·없는 PK는 TryGet에서 false/null이다. 미준비·종료·worker 호출·router 결함은 상태/원인 예외를 전파한다. Get은 각각 ArgumentException/KeyNotFoundException/InvalidOperationException/KeyNotFoundException이다. 자동 로드는 하지 않는다.
+
+BindTable<TService>(name)은 등록한 구체 테이블이 구현한 추가 interface를 연결한다. 기본 TTable·IDataTable<TRow> 및 추가 interface는 같은 테이블을, legacy GetTable<uint,TRow>는 같은 Rows를 반환한다. idx 테이블 조회는 행 존재까지 보장하지 않는다.
+
+RegisterForeignKey<TSource,TTarget>는 등록한 source/target의 정확한 DTO와 대상 종류를 확인하고, 전체 후보에서 full PK 존재를 검사한다. 선택 FK는 null, 0은 무효다. 복합 관계·임의 PK FK는 기존 AddValidator를 사용한다. 자세한 실패 문맥과 API는 idx 계약을 따른다.
+
 ## CSV와 데이터 계약
 
 - 설치된 CsvHelper 33.1.0을 사용한다. `ReadHeader`와 소비자의 `GetField` 행 파싱은 [공식 수동 읽기 방식](https://joshclose.github.io/CsvHelper/examples/reading/reading-by-hand/)을 따른다. 구분자는 쉼표, 문화권은 InvariantCulture다. BOM·따옴표 안 쉼표·줄바꿈·이스케이프된 따옴표를 지원한다.
 - 필수 열은 비어 있지 않고 중복되지 않아야 하며 등록 시 복사한다. 실제 CSV header도 열 이름이 비어 있거나 중복되면 거부한다. 필수 열의 누락은 행이 없는 CSV에서도 거부한다. 추가로 이름이 있는 열은 허용한다.
-- 빈 문자열·null CSV, 열 수 불일치·잘못된 인용·타입 변환 오류, null 행·null 키·중복 키는 거부한다. 키 비교는 `EqualityComparer<TKey>.Default`다. 키 0·특정 ID 구간은 공용판의 오류가 아니다.
+- 빈 문자열·null CSV, 열 수 불일치·잘못된 인용·타입 변환 오류, null 행·null 키·중복 키는 거부한다. 키 비교는 `EqualityComparer<TKey>.Default`다. 수동 Register의 키 0·특정 ID 구간은 오류가 아니다. 표준 테이블은 완전한 uint idx의 0·형식·종류 불일치를 거부한다.
 - header만 있는 빈 테이블은 허용한다. 빈 값·최소 행 수·범위·FK 정책은 행 검증과 전체 후보 검증에서 지정한다. CsvHelper의 기본 빈 줄 건너뛰기 정책을 사용한다.
 - 행 파서는 현재 record만 읽으며 reader를 진행·해제·보관하지 않는다. Source/CSV/행/키 오류는 테이블·행 문맥을 가진 InvalidDataException과 원인 예외로 전달한다. 교차 검증에서 던진 예외와 취소는 그대로 전달한다. 실패를 빈 성공 테이블로 대체하지 않는다.
 
@@ -49,7 +69,7 @@ Snapshot과 테이블 dictionary는 읽기 전용 container다. 행 객체 자�
 2. PrepareAsync에서 LoadAsync를 기다린다. 마지막 installer까지 준비된 뒤 [SceneRootFlow](ASYNC_SCENE_LIFECYCLE.md)가 씬 진행 callback을 실행한다.
 3. ReleaseAsync와 Uninstall에서 데이터 소유자를 Dispose하고 참조를 비운다. 역순 정리로 ResourceManager의 ShutdownAsync보다 먼저 데이터를 종료한다.
 
-실행 가능한 연결은 [DataTableConsumerProbe](../Assets/MyLab/Tests/Fixtures/DataTableConsumerProbe.cs)와 [ResourceManagerTests](../Assets/MyLab/Tests/PlayMode/ResourceManagerTests.cs)의 두 데이터 root 테스트다. CSV 검증 실패는 root 준비 실패로 전달되어 가림막을 유지하고 씬 진행을 중단하며 자원을 정리한다. 호출자 취소만으로 root 소유자가 종료되지는 않으므로 전환 소유자가 명시적 ShutdownAsync를 수행하는 기존 정책을 따른다.
+실행 가능한 연결은 [DataTableConsumerProbe](../Assets/MyLab/Tests/Fixtures/DataTableConsumerProbe.cs)와 [ResourceManagerTests](../Assets/MyLab/Tests/PlayMode/ResourceManagerTests.cs)의 기존 수동 및 표준 idx 데이터 root 테스트다. CSV 검증 실패는 root 준비 실패로 전달되어 가림막을 유지하고 씬 진행을 중단하며 자원을 정리한다. 호출자 취소만으로 root 소유자가 종료되지는 않으므로 전환 소유자가 명시적 ShutdownAsync를 수행하는 기존 정책을 따른다.
 
 ## Cashier 참조 판단
 

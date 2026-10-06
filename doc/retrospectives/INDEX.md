@@ -8,6 +8,10 @@
 | 2026-10-02 | uint idx·생성/추출·PK/FK 계약 | 초안 | [02-data-table-idx-draft](2026-10-02-02-data-table-idx-draft.md) |
 | 2026-10-06 | Parts·Stride·선택적 localType 계약 보완 | 초안 | [01-idx-parts-stride](2026-10-06-01-idx-parts-stride.md) |
 | 2026-10-06 | 제네릭 데이터 조회 구현 준비 | 준비 완료·미구현 | [02-generic-data-table-ready](2026-10-06-02-generic-data-table-ready.md) |
+| 2026-10-06 | idx codec 구현 | 집중 검증 완료 | [03-idx-codec](2026-10-06-03-idx-codec.md) |
+| 2026-10-06 | 표준 데이터 등록·generic 조회 | 집중 검증 완료 | [04-standard-data-query](2026-10-06-04-standard-data-query.md) |
+| 2026-10-06 | 테이블 binding·FK | 집중 검증 완료 | [05-data-table-binding-fk](2026-10-06-05-data-table-binding-fk.md) |
+| 2026-10-06 | generic 데이터 테이블 통합 검증 | MyLab 내부 구현·검증 완료 | [06-generic-data-table-validation](2026-10-06-06-generic-data-table-validation.md) |
 
 ## 작성 형식
 

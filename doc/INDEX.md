@@ -12,7 +12,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-02, DataTableManager 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -29,9 +29,9 @@
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [ResourceManager 검증](validation/resource-manager/README.md) | ResourceManager 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·native fixture·컴파일/Console·증거·미검증 경계 |
 | [DATA_TABLE_MANAGER.md](DATA_TABLE_MANAGER.md) | CSV 등록·스키마·키·교차 검증·snapshot 공개·재로드·취소 변경 | DataTableManager 소유권·전체 후보 검증과 root 주입 |
-| [DATA_TABLE_MAPPING_DRAFT.md](DATA_TABLE_MAPPING_DRAFT.md) | 기본 DTO·표준 테이블·CsvHelper 자동 매핑·인터페이스 연결 검토 | 미구현 초안: 기본 규격·명시적 이름/계약 매핑·세대별 소유권·TDD 완료 조건 |
-| [DATA_TABLE_IDX_DRAFT.md](DATA_TABLE_IDX_DRAFT.md) | uint PK/FK·idx 생성/추출·Parts/Stride·선택적 localType·참조 검증 검토 | 미구현 초안: 프로젝트 codec·종류 registry·같은 snapshot의 FK 검증·구간/overflow 정책 |
-| [DATA_TABLE_GENERIC_IMPLEMENTATION.md](DATA_TABLE_GENERIC_IMPLEMENTATION.md) | 표준 uint DTO·제네릭 Get/TryGet 구현 시작·범위 배정·완료 판단 | 구현 준비: 선행 계약·실패 정책·단계별 TDD·기존 수동 API 보존·검증 경계 |
+| [DATA_TABLE_MAPPING_DRAFT.md](DATA_TABLE_MAPPING_DRAFT.md) | 기본 DTO·표준 테이블·CsvHelper 자동 매핑·인터페이스 연결 검토 | 구현 계약: 기본 DTO·테이블·명시적 이름/계약 매핑·세대별 소유권 |
+| [DATA_TABLE_IDX_DRAFT.md](DATA_TABLE_IDX_DRAFT.md) | uint PK/FK·idx 생성/추출·Parts/Stride·선택적 localType·참조 검증 검토 | 구현 계약: 프로젝트 codec·종류 registry·같은 snapshot의 FK 검증·구간/overflow 정책 |
+| [DATA_TABLE_GENERIC_IMPLEMENTATION.md](DATA_TABLE_GENERIC_IMPLEMENTATION.md) | 표준 uint DTO·제네릭 Get/TryGet 구현 시작·범위 배정·완료 판단 | 구현 순서와 완료 조건: 단계별 TDD·기존 수동 API 보존·검증 경계 |
 | [DataTableManager 검증](validation/data-tables/README.md) | 데이터 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·비동기·자산/root 연결·컴파일/Console·미검증 경계 |
 
 ## 검증 자료
@@ -47,6 +47,7 @@
 | [비동기 씬 수명 실행 기록](validation/async-scene/execution.json) · [반복 Play](validation/async-scene/reload-check.json) | 준비·해제·가림막 callback·취소 확인 | ASYNC_SCENE_LIFECYCLE의 검증 절 참조; 실제 가림막 시각 UX와 구분 |
 | [ResourceManager 검증 설명](validation/resource-manager/README.md) · [EditMode](validation/resource-manager/full-EditMode.json) · [PlayMode](validation/resource-manager/full-PlayMode.json) · [입력 hash](validation/resource-manager/test-inputs.json) | 자산 수명·root/pool 연결·전체 회귀 확인 | native catalog/provider 실행 범위와 원격 bundle·Player 미검증 경계 확인 |
 | [DataTableManager 검증 설명](validation/data-tables/README.md) · [EditMode](validation/data-tables/full-EditMode.json) · [PlayMode](validation/data-tables/full-PlayMode.json) · [입력 hash](validation/data-tables/test-inputs.json) | CSV·전체 snapshot·비동기·자산/root 연결 회귀 확인 | 관리 데이터 공개와 자원 소유권 경계·소비 프로젝트/Player 미검증 구분 |
+| [표준 idx·generic 검증](validation/generic-data-tables/README.md) · [EditMode](validation/generic-data-tables/full-EditMode.json) · [PlayMode](validation/generic-data-tables/full-PlayMode.json) · [입력 hash](validation/generic-data-tables/test-inputs.json) | 표준 DTO·codec·generic 조회·binding·FK·기존 수동 경로 회귀 | 이번 코드 입력과 실제 실행 수, 소비 프로젝트/Player 미검증 경계 확인 |
 
 ## 의존성과 라이선스 자료
 

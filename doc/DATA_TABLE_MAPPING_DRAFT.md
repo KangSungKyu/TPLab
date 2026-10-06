@@ -1,8 +1,8 @@
-# DTO·테이블·인터페이스 매핑 초안
+# DTO·테이블·인터페이스 매핑 계약
 
-2026-10-02. 상태: 검토 초안, 미구현. 기준은 MyLab `main / b8c2c91`과 Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`이다. 이 문서의 API와 예제는 제안이며 [현재 DataTableManager 계약](DATA_TABLE_MANAGER.md)을 변경하지 않는다.
+2026-10-02. 최초 상태: 검토 초안. 2026-10-06 generic 범위 구현 완료. 기준은 MyLab `main / b8c2c91`과 Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`이다. 아래 API와 예제는 현재 구현 계약이며 [DataTableManager](DATA_TABLE_MANAGER.md)와 [검증 증거](validation/generic-data-tables/README.md)를 함께 확인한다.
 
-후속 요청으로 기본 제공 테이블의 uint 키는 확정했다. 생성·추출 클래스 등록, 종류와 테이블 연결, PK/FK 탐색의 세부 제안은 [uint idx 초안](DATA_TABLE_IDX_DRAFT.md)이 소유한다. 아래 표준 인터페이스·등록 예제도 이 요구에 맞춰 갱신했다.
+후속 요청으로 기본 제공 테이블의 uint 키는 확정했다. 생성·추출 클래스 등록, 종류와 테이블 연결, PK/FK 탐색의 세부 계약은 [uint idx 계약](DATA_TABLE_IDX_DRAFT.md)이 소유한다. 아래 표준 인터페이스·등록 예제도 이 요구에 맞춰 갱신했다.
 
 2026-10-06 보완으로 codec은 Parts 값 타입과 불변 Stride 설정을 함께 지원한다. 프로젝트의 선택적 localType은 같은 테이블 내부의 구분이며 표준 테이블 등록은 dataType만 사용한다. 세부 계약은 위 idx 초안에서 확인한다.
 
@@ -12,20 +12,20 @@
 
 ## Cashier에서 확인한 구조
 
-| 실제 구조 | MyLab 초안 판단 |
+| 실제 구조 | MyLab 채택 판단 |
 |---|---|
-| `TextData`, `ResourceData`, `ProductData`의 `[Name]`·`[TypeConverter]` 속성 | 개선 후 채택 제안: 기본 DTO와 CsvHelper의 DTO 자동 매핑 경로 제공 |
-| 테이블의 `ReadHeader` → `ValidateHeader<T>` → `GetRecord<T>` → PK/행 검증 | 개선 후 채택 제안: 공용 CSV 파싱·header/중복 키 검사는 manager에 두고 테이블은 매핑·게임 검증을 제공 |
+| `TextData`, `ResourceData`, `ProductData`의 `[Name]`·`[TypeConverter]` 속성 | 개선 후 채택: 기본 DTO와 CsvHelper의 DTO 자동 매핑 경로 제공 |
+| 테이블의 `ReadHeader` → `ValidateHeader<T>` → `GetRecord<T>` → PK/행 검증 | 개선 후 채택: 공용 CSV 파싱·header/중복 키 검사는 manager에 두고 테이블은 매핑·게임 검증을 제공 |
 | `IDataLoad`의 `LoadData`, `GetDataCount`, `Release`와 테이블별 구현 | 책임 분리: 소비자 조회에는 읽기 전용 인터페이스를 제공하고 로드·공개·종료는 manager가 소유 |
-| `Dictionary<DataTableType, IDataLoad>`와 `GetDB<T>` | 개선 후 채택 제안: 명시적 테이블 이름과 계약 타입을 구현 테이블에 연결하며 잘못된 매핑은 등록 시 거부 |
-| `idx / 1000`·게임별 enum·필수 테이블 목록·Singleton | 등록한 codec으로 생성·역추출 지원 제안. 게임 enum·1000 구간·필수 목록·Singleton은 프로젝트 선택 |
+| `Dictionary<DataTableType, IDataLoad>`와 `GetDB<T>` | 개선 후 채택: 명시적 테이블 이름과 계약 타입을 구현 테이블에 연결하며 잘못된 매핑은 등록 시 거부 |
+| `idx / 1000`·게임별 enum·필수 테이블 목록·Singleton | 등록한 router와 별도 codec으로 생성·역추출 지원. 게임 enum·1000 구간·필수 목록·Singleton은 프로젝트 선택 |
 | DTO의 public setter, 일부 테이블의 PendingRows/Commit, ResourceDataTable의 독립 갱신 | setter의 변경 가능성을 명시하고 전체 snapshot 공개·이전 세대 보존 계약 유지 |
 
 읽은 근거는 Cashier `Assets/Scripts/Commons/Commons.cs`, `Commons/Data/{TextData,ResourceData,ProductData,TextDataTable,ProductDataTable,ResourceDataTable}.cs`, `Customer/Data/CustomerDispositionDataTable.cs`, `Manager/DataTableManager.cs`, `Utils/Util.cs`다. Cashier 파일·코드·plugin은 복사하거나 수정하지 않았다.
 
 ## 기본 제공 규격
 
-공용 namespace 후보는 `MyLab.Core.DataTables`다. 기본 CSV 규격은 `idx` 열과 uint 키로 고정한다. ID 구간·0/null 정책은 uint idx 초안의 제안이며 기존 수동 Register는 임의 TKey/TRow를 계속 지원한다. 표준 종류 registry와 idx 조회는 새 표준 경로에 적용하고 수동 등록을 자동 변환하지 않는다.
+공용 namespace는 `MyLab.Core.DataTables`다. 기본 CSV 규격은 `idx` 열과 uint 키로 고정한다. ID 구간·0/null 정책은 uint idx 계약을 따르며 기존 수동 Register는 임의 TKey/TRow를 계속 지원한다. 표준 종류 registry와 idx 조회는 새 표준 경로에 적용하고 수동 등록을 자동 변환하지 않는다.
 
 ```csharp
 public interface IDataRow
@@ -90,7 +90,7 @@ public interface IDataTable<TRow>
 
 ## 계약 타입과 구현 테이블 매핑
 
-이름·계약 매핑 API 후보는 다음과 같다. idx 생성·추출 등록과 idx 기반 조회는 uint idx 초안에 정의한다. 현재 구현에는 존재하지 않는다.
+이름·계약 매핑 API는 다음과 같다. idx 생성·추출 등록과 idx 기반 조회는 uint idx 계약에 정의한다.
 
 ```csharp
 // TTable : CsvDataTable<TRow>
@@ -105,7 +105,7 @@ snapshot.GetTable<TService>(name);
 
 snapshot.GetTable은 등록된 계약만 반환하며 미등록 이름은 KeyNotFoundException, 연결되지 않은 계약은 InvalidOperationException이다. 같은 snapshot의 구체 타입·추가 interface·기본 IDataTable 조회는 같은 테이블 인스턴스를 반환한다. 기존 `GetTable<TKey, TRow>(name)`은 해당 테이블과 동일한 읽기 전용 dictionary를 반환한다.
 
-다음은 소비 프로젝트의 조회 interface 예제다. ITextLookup은 코어 필수 계약으로 추가하지 않는다. 제안한 기반 클래스·추가 API를 사용하는 예시이며 현재 코드에서 컴파일한 예제가 아니다.
+다음은 소비 프로젝트의 조회 interface 예제다. ITextLookup은 코어 필수 계약으로 추가하지 않는다. 추가 프로젝트 interface 예시다. 실행 검증은 동일한 패턴의 DataTableBindingTests가 담당한다.
 
 ```csharp
 public interface ITextLookup
@@ -141,6 +141,6 @@ DTO 매핑의 Player/IL2CPP 경로는 미검증이다. 구현 후 소비 프로�
 
 ## 이번 검증과 변경 경계
 
-이번 요청은 초안 작성이다. 변경 대상은 이 초안과 문서 입구이며 runtime·테스트·CSV·package·scene·settings를 변경하지 않는다. 참조 코드 대조, 초안/현행 계약 구분, 상대 링크·색인·diff·공백·변경 범위·사용자 변경 hash를 확인한다. Unity 테스트는 실행하지 않으며 Red/Green·컴파일·제품 Console·Player 검증으로 기록하지 않는다. 초안을 저장소에 반영해도 API 채택이나 구현 완료를 뜻하지 않는다.
+최초 요청은 초안 작성이었다. 2026-10-06 구현 요청으로 runtime·관련 테스트·문서를 변경했으며 scene·settings·package는 보존했다. 참조 코드 대조, 초안/현행 계약 구분, 상대 링크·색인·diff·공백·변경 범위·사용자 변경 hash를 확인한다. 현재 Red/Green·컴파일·Console·전체 회귀 결과와 Player/소비 프로젝트 미실행 경계는 [검증 설명](validation/generic-data-tables/README.md)을 따른다.
 
-최초 초안 `e2cc242`의 과거 문서 검사 결과는 Markdown 14개, 상대 링크 165개, anchor 2개, 검사 오류 0건이다. 당시 로컬 증거는 `Temp/DataTableMappingDraft/Validate.ps1`과 `validation.json`이다. 후속 uint 요구 반영의 현재 검사·변경 경계는 [단위 회고](retrospectives/2026-10-02-02-data-table-idx-draft.md)에 기록한다. 문서만 변경하여 Unity 테스트 실행 대상은 없으며 테스트 실행 0건을 통과로 세지 않는다.
+최초 초안 `e2cc242`의 과거 문서 검사 결과는 Markdown 14개, 상대 링크 165개, anchor 2개, 검사 오류 0건이다. 당시 로컬 증거는 `Temp/DataTableMappingDraft/Validate.ps1`과 `validation.json`이다. 후속 uint 요구 반영 당시의 검사·변경 경계는 [단위 회고](retrospectives/2026-10-02-02-data-table-idx-draft.md)에 기록한다. 당시 문서 작업의 테스트 0건은 이번 구현의 실행 증거로 사용하지 않는다.
