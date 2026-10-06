@@ -1,6 +1,6 @@
 # GameSceneManager 계약과 단계별 구현
 
-2026-10-06. 사용자 검토를 반영한 설계 계약. Phase 1은 callback 공용화이며, **GameSceneManager·Single 지원·씬 graph·전환 설정·조건 판단의 runtime 구현은 후속 Phase**다. 기존 최초 진입은 [BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 Additive 경로를 유지한다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
+2026-10-06. 사용자 검토를 반영한 설계 계약. Phase 1은 callback 공용화, Phase 2는 [GameSceneManager 최초 진입·Bootstrap 위임](BOOTSTRAP_SYSTEM.md)까지 구현했다. **연속 교체·씬 graph·전환 정의·조건 판단의 runtime 구현은 후속 Phase**다. 최초 진입의 Single/Additive와 공용 영속 수명 선택은 현재 구현이며 기본 권장은 Bootstrap 유지 + Additive다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
 
 ## 공용 수명과 로드 모드
 
@@ -98,4 +98,4 @@ GameSceneManager는 전환 cover 시점과 실패 정책을 소유한다. 프로
 
 Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 프로젝트 조건 판단을 실제 연결한다. 조건 관련 검사는 Phase 4에서 실행한다. 임의 graph editor·자동 polling·DI container·자동 Bootstrap 생성은 추가하지 않는다. Editor의 게임 씬 직접 Play 자동 Bootstrap 도우미도 후속 별도 범위다.
 
-각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. 사용자 직접 확인이 없고 필수 자동 검사가 통과하면 승인된 Git 통합을 진행한다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [이번 증거](validation/scene-transition-contracts/README.md)를 따른다.
+각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. 사용자 직접 확인이 없고 필수 자동 검사가 통과하면 승인된 Git 통합을 진행한다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.

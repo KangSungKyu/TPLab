@@ -19,6 +19,7 @@
 | 2026-10-06 | Bootstrap 먼저·게임 씬 Additive 권장안 | 권장 문서 완료·전환 설계 초안·runtime 미구현 | [11-bootstrap-additive-design](2026-10-06-11-bootstrap-additive-design.md) |
 | 2026-10-06 | BootstrapSystem 최초 진입·Editor/Play/build 사전 검증 | MyLab 내부 구현·검증 완료 | [12-bootstrap-system](2026-10-06-12-bootstrap-system.md) |
 | 2026-10-06 | SceneTransition Phase 1 계약·callback 공용화 | MyLab 내부 구현·검증 완료, manager 후속 | [13-scene-transition-contracts](2026-10-06-13-scene-transition-contracts.md) |
+| 2026-10-06 | GameSceneManager Phase 2 최초 진입·Bootstrap 위임 | MyLab 내부 구현·검증 완료, 연속 교체 후속 | [14-game-scene-entry](2026-10-06-14-game-scene-entry.md) |
 
 ## 작성 형식
 

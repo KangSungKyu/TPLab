@@ -1,0 +1,19 @@
+{
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CommonInstallerReentryIsRejectedAfterAsynchronousCover:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.BootstrapPlayModeTests.CommonInstallerReentryIsRejectedAfterAsynchronousCover",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 21372,
+    "cliReturnCode": 1
+  }
+}

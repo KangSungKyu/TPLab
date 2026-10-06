@@ -23,10 +23,13 @@ namespace MyLab.Core.Tests
         public bool IgnorePrepareCancellation;
         public int PrepareCount;
         public int ReleaseCount;
+        [NonSerialized] public Action Preparing;
+        [NonSerialized] public Action Releasing;
 
         public override async UniTask PrepareAsync(ISceneRoot root, CancellationToken cancellationToken)
         {
             PrepareCount++;
+            Preparing?.Invoke();
             Trace.Add("prepare:" + Id);
             if (PrepareGate != null)
             {
@@ -49,6 +52,7 @@ namespace MyLab.Core.Tests
         public override async UniTask ReleaseAsync(ISceneRoot root)
         {
             ReleaseCount++;
+            Releasing?.Invoke();
             Trace.Add("release:" + Id);
             if (ReleaseGate != null)
             {

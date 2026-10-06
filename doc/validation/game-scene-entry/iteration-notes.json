@@ -1,0 +1,29 @@
+[
+  {
+    "scope": "Bootstrap first Green attempt",
+    "counts": [
+      11,
+      5,
+      6,
+      0
+    ],
+    "cause": "Unity 6.3 Scene handle is not sortable by default comparer. Compare actual Scene sets using HashSet instead.",
+    "resolved": true
+  },
+  {
+    "scope": "First native Single suite",
+    "counts": [
+      5,
+      2,
+      3,
+      0
+    ],
+    "cause": "Do not SetActiveScene again when native Single already selected the scene. OnDestroy must not observe an already requested failed shutdown again.",
+    "resolved": true
+  },
+  {
+    "scope": "CLI disconnects",
+    "cause": "Domain reload sometimes makes CLI report editor stopped while the same PID continues tests. Fresh Connector results identified for each actual run, never replaced by another Editor. Final full suites returned normally.",
+    "resolved": true
+  }
+]

@@ -70,7 +70,7 @@ namespace MyLab.Core.Editor.Bootstrap
                         if (paths.Length == 0 || live[0].gameObject.scene.path != paths[0])
                             errors.Add("Play must start with the first build scene containing Bootstrap.");
                         if (SceneManager.GetSceneByPath(live[0].FirstScenePath).isLoaded)
-                            errors.Add("Unload the first game scene before playing Bootstrap; it is loaded Additively by the system.");
+                            errors.Add("Unload the first game scene before playing Bootstrap; the manager must own its load.");
                         if (EditorSceneManager.playModeStartScene != null &&
                             AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene) != live[0].gameObject.scene.path)
                             errors.Add("Play Mode Start Scene must use the configured Bootstrap scene.");

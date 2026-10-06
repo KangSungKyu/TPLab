@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using MyLab.Core.Editor.Bootstrap;
+using MyLab.Core.Lifecycle;
 using MyLab.Core.SceneManagement;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
@@ -19,6 +20,7 @@ namespace MyLab.Core.Tests
         private static Scene _probe;
         private static Scene _previous;
         private static Result _result;
+        private static string _evidence;
 
         [Serializable]
         private sealed class Result
@@ -26,6 +28,7 @@ namespace MyLab.Core.Tests
             public bool BuildRejected;
             public bool PlayRejected;
             public bool LiveInvalidRootDetected;
+            public bool LiveInvalidModeDetected;
             public bool FixtureRemoved;
             public string Error;
             public string BuildDiagnostic;
@@ -33,11 +36,15 @@ namespace MyLab.Core.Tests
         }
 
         /// <summary>Runs an actual BuildPipeline failure and a pre-Play gate. Does not save user scenes or edit build settings.</summary>
-        public static void Run()
+        public static void Run(string evidencePath = Evidence, bool invalidSingle = false)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer ||
                 File.Exists(Path) || File.Exists(Path + ".meta"))
                 throw new InvalidOperationException("Requires idle Editor and unused probe path.");
+            _evidence = System.IO.Path.GetFullPath(evidencePath);
+            if (!_evidence.StartsWith(System.IO.Path.GetFullPath("doc/validation") + System.IO.Path.DirectorySeparatorChar,
+                StringComparison.OrdinalIgnoreCase) || !Directory.Exists(System.IO.Path.GetDirectoryName(_evidence)))
+                throw new ArgumentException("Select an existing evidence directory under doc/validation.", nameof(evidencePath));
             _result = new Result();
             _previous = SceneManager.GetActiveScene();
             try
@@ -47,10 +54,14 @@ namespace MyLab.Core.Tests
                 _probe = EditorSceneManager.OpenScene(Path, OpenSceneMode.Additive);
                 var go = new GameObject("InvalidBootstrapProbe");
                 SceneManager.MoveGameObjectToScene(go, _probe);
-                go.AddComponent<BootstrapSystem>().Configure(null, "Assets/MyLab/Tests/Fixtures/BootstrapHub.unity", false);
+                var root = invalidSingle ? go.AddComponent<SceneOwnedRoot>() : null;
+                go.AddComponent<BootstrapSystem>().Configure(root, "Assets/MyLab/Tests/Fixtures/BootstrapHub.unity", false,
+                    loadMode: invalidSingle ? LoadSceneMode.Single : LoadSceneMode.Additive);
                 if (!EditorSceneManager.SaveScene(_probe, Path)) throw new Exception("Probe save failed.");
                 _result.LiveInvalidRootDetected = BootstrapEditorValidation.ValidateEditorSetup(true)
                     .Any(error => error.Contains("SceneOwnedRoot"));
+                _result.LiveInvalidModeDetected = BootstrapEditorValidation.ValidateEditorSetup(true)
+                    .Any(error => error.Contains("Single requires"));
                 string output = System.IO.Path.GetFullPath("Temp/MyLabBootstrapInvalidBuild/Probe.exe");
                 if (Directory.Exists(System.IO.Path.GetDirectoryName(output)))
                     throw new Exception("Build output collision.");
@@ -111,7 +122,7 @@ namespace MyLab.Core.Tests
             if (_previous.IsValid() && _previous.isLoaded) SceneManager.SetActiveScene(_previous);
             AssetDatabase.DeleteAsset(Path);
             _result.FixtureRemoved = !File.Exists(Path) && !File.Exists(Path + ".meta");
-            File.WriteAllText(Evidence, JsonUtility.ToJson(_result, true));
+            File.WriteAllText(_evidence, JsonUtility.ToJson(_result, true));
             _probe = default;
         }
     }

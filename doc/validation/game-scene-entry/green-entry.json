@@ -1,0 +1,16 @@
+{
+  "total": 7,
+  "passed": 7,
+  "failed": 0,
+  "skipped": 0,
+  "failures": [],
+  "passes": [
+    "MyLab.Core.Tests.GameSceneEntryTests.CancellationDuringNativeSingleOwnsLateLoadedScene",
+    "MyLab.Core.Tests.GameSceneEntryTests.DirectManagerSharesWaitWithoutCancellingItsOwner",
+    "MyLab.Core.Tests.GameSceneEntryTests.ExplicitShutdownCanFinishFailedSingleCleanupAfterExternalSceneIsAvailable",
+    "MyLab.Core.Tests.GameSceneEntryTests.NativeSingleEntryRetainsOnlyPersistentCommonOwner",
+    "MyLab.Core.Tests.GameSceneEntryTests.PersistentAdditiveEntryRetainsBootstrapAndCommonServices",
+    "MyLab.Core.Tests.GameSceneEntryTests.SingleRejectsUnknownLoadedScenesBeforeCover",
+    "MyLab.Core.Tests.GameSceneEntryTests.SingleShutdownReportsLastSceneWithoutCreatingFallback"
+  ]
+}

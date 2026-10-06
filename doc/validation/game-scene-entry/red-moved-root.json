@@ -1,0 +1,19 @@
+{
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.MovedGameRootIsRejectedAndItsOwnedServicesAreReleased:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.BootstrapPlayModeTests.MovedGameRootIsRejectedAndItsOwnedServicesAreReleased",
+    "source": "connector-file",
+    "runId": "32364-1791273456103682000",
+    "cliPid": 32364,
+    "cliReturnCode": 1
+  }
+}

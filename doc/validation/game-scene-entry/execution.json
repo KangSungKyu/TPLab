@@ -1,0 +1,28 @@
+{
+  "baseCommit": "ab8d3ff3c3ccc78f3636260f2def7f177a978763",
+  "branch": "codex/game-scene-entry",
+  "editorPid": 23176,
+  "unityVersion": "6000.3.18f1",
+  "connectorVersion": "0.4.1",
+  "sourceInputCount": 83,
+  "red": "Actual old implementation: Manager property absent after successful native Additive entry; persistent common configuration rejected. Native Red Play file recovered from this invocation after CLI disconnect.",
+  "native": "Existing BootstrapEditorCheck parameterized with evidence path and invalid Single scenario; actual BuildPipeline and Play gate rejection. No successful Player build.",
+  "pythonRunner": "Actual full Edit and Play invocation plus --self-check; preserves only current CLI process results after disconnect.",
+  "scope": "Phase 2 first entry only; native mode/common lifetime/state/cancel/shutdown. No replacement/areas/conditions/UI assets.",
+  "manualGate": "None for this unit. Player/consumer and product cover/input UX remain Phase 6 validation.",
+  "checks": [
+    "Protected user/build bytes unchanged",
+    "Owned GUIDs retained, new GUIDs unique",
+    "Native invalid-mode assertions passed",
+    "Source hash, exact counts, document links, fixture absence and whitespace checked"
+  ],
+  "additionalRed": [
+    "Asynchronous cover/common-installer dispatch: 1/0/1/0, then guarded root forwarding",
+    "Moved game root: 1/0/1/0, then scope verification and original root service cleanup"
+  ],
+  "connectorRecoveryVerified": {
+    "red": "red-moved-root.json",
+    "green": "green-bootstrap.json",
+    "matching": "Exact CLI process PID/runId/time, same MyLab Editor PID 23176"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "skipped": 0,
+  "failures": [],
+  "passes": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.AutoStartRunsExactlyOnce",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BootstrapPublishesTheOnlySceneManager",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BothRootsMustPrepareBeforeRevealAndShutdownKeepsSharedRoot",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CallerCancellationDoesNotCancelSharedEntry",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CommonInstallerCannotSynchronouslyAwaitItsOwnEntry",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CommonInstallerReentryIsRejectedAfterAsynchronousCover",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ConfigurationFailureKeepsCoverAndUnloadsCandidate",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ExternalActiveSceneChangeBeforeRevealRejectsProgress",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ExternalSceneChangesDuringRevealRestoreCoverAndKeepForeignScene",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.GamePreparationFailureNeverRevealsOrShutsDownBorrowedSharedRoot",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.GameReleaseCannotSynchronouslyWaitForItsManagerShutdown",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.HookReentryAndFailureCallbackExceptionsRemainVisible",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.MissingBuildDestinationFailsBeforePreparation",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.MovedGameRootIsRejectedAndItsOwnedServicesAreReleased",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.OwnerCancellationKeepsFailurePhaseAndCommonServices",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.OwnerShutdownCancelsGamePreparationAndCleansItsScene",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.RevealFailureRestoresCoverAndUnloadsPreparedGame",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.SharedCallbacksWaitForPreparedPresentationBeforeReveal",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ShutdownDuringNativeLoadWaitsForLateCompletionAndUnloads",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ShutdownFailureIsReportedOnceAfterGameCleanup",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.SuccessfulEntryStopsPermissionWhenForeignScenesAppear"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.BootstrapPlayModeTests",
+    "source": "connector-file",
+    "runId": "5508-1791273489816414500",
+    "cliPid": 5508,
+    "cliReturnCode": 1
+  }
+}

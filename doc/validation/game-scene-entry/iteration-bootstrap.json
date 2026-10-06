@@ -1,0 +1,21 @@
+{
+  "total": 11,
+  "passed": 5,
+  "failed": 6,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.AutoStartRunsExactlyOnce: Unhandled log message: '[Exception] ArgumentException: At least one object must implement IComparable.'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BootstrapPublishesTheOnlySceneManager: System.InvalidOperationException : Failed to compare two elements in the array.\r\n  ----> System.ArgumentException : At least one object must implement IComparable.",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BothRootsMustPrepareBeforeRevealAndShutdownKeepsSharedRoot: System.InvalidOperationException : Failed to compare two elements in the array.\r\n  ----> System.ArgumentException : At least one object must implement IComparable.",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CallerCancellationDoesNotCancelSharedEntry: System.InvalidOperationException : Failed to compare two elements in the array.\r\n  ----> System.ArgumentException : At least one object must implement IComparable.",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.RevealFailureRestoresCoverAndUnloadsPreparedGame:   Expected: String containing \"bootstrap-reveal\"\r\n  But was:  \"Failed to compare two elements in the array.\"\r\n",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.SharedCallbacksWaitForPreparedPresentationBeforeReveal: System.TimeoutException : Exceed Timeout:00:00:10"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ConfigurationFailureKeepsCoverAndUnloadsCandidate",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.GamePreparationFailureNeverRevealsOrShutsDownBorrowedSharedRoot",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.MissingBuildDestinationFailsBeforePreparation",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.OwnerShutdownCancelsGamePreparationAndCleansItsScene",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ShutdownDuringNativeLoadWaitsForLateCompletionAndUnloads"
+  ]
+}

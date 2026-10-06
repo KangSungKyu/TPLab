@@ -91,15 +91,70 @@ namespace MyLab.Core.Tests
         }
 
         [Test]
-        public void DuplicateOrPersistentHostsCannotOwnBootstrap()
+        public void PersistentCommonRootCanOwnAdditiveEntry()
+        {
+            WithRoot((bootstrap, root) =>
+            {
+                ((SceneOwnedRoot)root).Configure(Array.Empty<SceneRootInstaller>(), true);
+                Assert.DoesNotThrow(() => bootstrap.ValidateConfiguration());
+            });
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void SingleSelectionRequiresPersistenceAndSurvivingCallbacks(bool persistent)
+        {
+            WithRoot((bootstrap, root) =>
+            {
+                ((SceneOwnedRoot)root).Configure(Array.Empty<SceneRootInstaller>(), persistent);
+                bootstrap.Configure(root, Hub, false, loadMode: LoadSceneMode.Single);
+                if (persistent) Assert.DoesNotThrow(() => bootstrap.ValidateConfiguration());
+                else Assert.Throws<InvalidOperationException>(() => bootstrap.ValidateConfiguration());
+                if (!persistent) return;
+                var external = new GameObject("NonpersistentCallback");
+                try
+                {
+                    bootstrap.Configure(root, Hub, false, external.AddComponent<SceneTransitionCallbacksProbe>(), LoadSceneMode.Single);
+                    Assert.Throws<InvalidOperationException>(() => bootstrap.ValidateConfiguration());
+                }
+                finally
+                {
+                    UnityEngine.Object.DestroyImmediate(external);
+                }
+            });
+        }
+
+        [Test]
+        public void SavedSingleBootstrapPassesOnlyWithPersistentCommonRoot()
+        {
+            WithScenes((folder, boot, game) =>
+            {
+                SaveScene(boot, scene =>
+                {
+                    var go = new GameObject("PersistentBootstrap");
+                    var root = go.AddComponent<SceneOwnedRoot>();
+                    root.Configure(Array.Empty<SceneRootInstaller>(), true);
+                    go.AddComponent<BootstrapSystem>().Configure(root, game, false,
+                        go.AddComponent<SceneTransitionCallbacksProbe>(), LoadSceneMode.Single);
+                });
+                Assert.That(BootstrapValidator.ValidateBuildScenes(new[] { boot, game }), Is.Empty);
+                SaveScene(boot, scene =>
+                {
+                    var go = new GameObject("ContradictoryBootstrap");
+                    go.AddComponent<BootstrapSystem>().Configure(go.AddComponent<SceneOwnedRoot>(), game, false, loadMode: LoadSceneMode.Single);
+                });
+                Assert.That(BootstrapValidator.ValidateBuildScenes(new[] { boot, game }), Is.Not.Empty);
+            });
+        }
+
+        [Test]
+        public void DuplicateHostsCannotOwnBootstrap()
         {
             WithRoot((bootstrap, root) =>
             {
                 var duplicate = root.gameObject.AddComponent<SingletonSceneRoot>();
                 Assert.Throws<InvalidOperationException>(() => bootstrap.ValidateConfiguration());
                 UnityEngine.Object.DestroyImmediate(duplicate);
-                ((SceneOwnedRoot)root).Configure(Array.Empty<SceneRootInstaller>(), true);
-                Assert.Throws<InvalidOperationException>(() => bootstrap.ValidateConfiguration());
             });
         }
 

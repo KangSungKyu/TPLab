@@ -1,0 +1,87 @@
+{
+  "results": {
+    "red-moved-root.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "red-async-cover.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "red-edit.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "red-play.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "green-edit.json": [
+      28,
+      28,
+      0,
+      0
+    ],
+    "green-bootstrap.json": [
+      21,
+      21,
+      0,
+      0
+    ],
+    "green-entry.json": [
+      7,
+      7,
+      0,
+      0
+    ],
+    "full-EditMode.json": [
+      182,
+      182,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      115,
+      115,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "README.md",
+    "doc/INDEX.md",
+    "doc/CORE_PLAN.md",
+    "doc/BOOTSTRAP_SYSTEM.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/SCENE_ROOT.md",
+    "doc/ASYNC_SCENE_LIFECYCLE.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-06-14-game-scene-entry.md",
+    "doc/validation/game-scene-entry/README.md",
+    "tools/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Core/SceneManagement/BootstrapSystem.cs",
+    "Assets/MyLab/Core/SceneManagement/GameSceneManager.cs",
+    "Assets/MyLab/Editor/Bootstrap/BootstrapEditor.cs",
+    "Assets/MyLab/Editor/Bootstrap/BootstrapEditorValidation.cs",
+    "Assets/MyLab/Tests/EditMode/BootstrapSystemTests.cs",
+    "Assets/MyLab/Tests/PlayMode/BootstrapPlayModeTests.cs",
+    "Assets/MyLab/Tests/PlayMode/GameSceneEntryTests.cs",
+    "Assets/MyLab/Tests/Fixtures/SceneRootInstallerProbe.cs",
+    "Assets/MyLab/Tests/Fixtures/SceneTransitionCallbacksProbe.cs",
+    "Assets/MyLab/Validation/Editor/BootstrapEditorCheck.cs"
+  ],
+  "absentAssetPatterns": [
+    "BootstrapTest_*",
+    "MyLabBootstrapValidationProbe.unity"
+  ]
+}

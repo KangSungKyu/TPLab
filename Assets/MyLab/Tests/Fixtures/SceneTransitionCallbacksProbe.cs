@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.Lifecycle;
@@ -10,20 +11,28 @@ namespace MyLab.Core.Tests
     {
         public int CoverCount;
         public int RevealCount;
+        public int FailureCount;
+        public Exception Failure;
+        public Action Configuring;
+        public Action Revealing;
+        public Action Presenting;
+        public bool FailFailureCallback;
         public bool ConfigurationWasBeforePreparation;
         public bool PresentationReceivedPreparedRoot;
         public ISceneRoot PresentationRoot;
         public UniTaskCompletionSource PresentationGate;
+        public UniTaskCompletionSource CoverGate;
 
-        public override UniTask ShowCoverAsync(CancellationToken cancellationToken)
+        public override async UniTask ShowCoverAsync(CancellationToken cancellationToken)
         {
             ++CoverCount;
-            return UniTask.CompletedTask;
+            if (CoverGate != null) await CoverGate.Task.AttachExternalCancellation(cancellationToken);
         }
 
         public override UniTask ConfigureSceneAsync(Scene scene, ISceneRoot root, CancellationToken cancellationToken)
         {
             ConfigurationWasBeforePreparation = root.IsReady && !root.IsPrepared && root.RootObject.scene == scene;
+            Configuring?.Invoke();
             return UniTask.CompletedTask;
         }
 
@@ -31,13 +40,22 @@ namespace MyLab.Core.Tests
         {
             PresentationRoot = root;
             PresentationReceivedPreparedRoot = root.IsPrepared && root.RootObject.scene == scene;
+            Presenting?.Invoke();
             return PresentationGate == null ? UniTask.CompletedTask : PresentationGate.Task.AttachExternalCancellation(cancellationToken);
         }
 
         public override UniTask HideCoverAsync(CancellationToken cancellationToken)
         {
             ++RevealCount;
+            Revealing?.Invoke();
             return UniTask.CompletedTask;
+        }
+
+        public override void OnFailure(Exception exception)
+        {
+            ++FailureCount;
+            Failure = exception;
+            if (FailFailureCallback) throw new InvalidOperationException("failure-callback");
         }
     }
 }

@@ -62,6 +62,268 @@ namespace MyLab.Core.Tests
         });
 
         [UnityTest]
+        public IEnumerator MovedGameRootIsRejectedAndItsOwnedServicesAreReleased() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            callbacks.Presenting = () => SceneManager.MoveGameObjectToScene(callbacks.PresentationRoot.RootObject, _host.scene);
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            try
+            {
+                Exception failure = null;
+                try
+                {
+                    await _bootstrap.BootstrapAsync();
+                }
+                catch (Exception exception)
+                {
+                    failure = exception;
+                }
+                Assert.That(failure, Is.TypeOf<InvalidOperationException>());
+                Assert.That(callbacks.RevealCount, Is.Zero);
+                Assert.That(callbacks.PresentationRoot.IsReady, Is.False);
+                Assert.That(callbacks.PresentationRoot.RootObject.GetComponent<SceneRootInstallerProbe>().ReleaseCount, Is.EqualTo(1));
+                Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+                Assert.That(_root.IsPrepared, Is.True);
+            }
+            finally
+            {
+                if (callbacks.PresentationRoot != null && callbacks.PresentationRoot.RootObject != null)
+                    UnityEngine.Object.Destroy(callbacks.PresentationRoot.RootObject);
+            }
+        });
+
+        [UnityTest]
+        public IEnumerator GameReleaseCannotSynchronouslyWaitForItsManagerShutdown() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            await _bootstrap.BootstrapAsync();
+            var installer = callbacks.PresentationRoot.RootObject.GetComponent<SceneRootInstallerProbe>();
+            installer.Releasing = () => Assert.Throws<InvalidOperationException>(() => _bootstrap.ShutdownAsync());
+            await _bootstrap.ShutdownAsync();
+            Assert.That(installer.ReleaseCount, Is.EqualTo(1));
+            Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            Assert.That(_root.IsPrepared, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator CommonInstallerReentryIsRejectedAfterAsynchronousCover() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            callbacks.CoverGate = new UniTaskCompletionSource();
+            _installer.Preparing = () => Assert.Throws<InvalidOperationException>(() => _bootstrap.BootstrapAsync());
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            var entry = _bootstrap.BootstrapAsync();
+            callbacks.CoverGate.TrySetResult();
+            await entry;
+            Assert.That(_bootstrap.Manager.CanProceed, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator ExternalActiveSceneChangeBeforeRevealRejectsProgress() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            callbacks.Presenting = () => SceneManager.SetActiveScene(_host.scene);
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            Exception failure = null;
+            try
+            {
+                await _bootstrap.BootstrapAsync();
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+            Assert.That(failure, Is.TypeOf<InvalidOperationException>());
+            Assert.That(failure.Message, Does.Contain("active scene changed"));
+            Assert.That(_bootstrap.Manager.FailurePhase, Is.EqualTo(SceneTransitionState.PreparingPresentation));
+            Assert.That(callbacks.RevealCount, Is.Zero);
+            Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            Assert.That(_root.IsPrepared, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator SuccessfulEntryStopsPermissionWhenForeignScenesAppear() => UniTask.ToCoroutine(async () =>
+        {
+            _host.SetActive(true);
+            await _bootstrap.BootstrapAsync();
+            var foreign = SceneManager.CreateScene("PostEntryForeignTest");
+            try
+            {
+                Assert.That(_bootstrap.Manager.CanProceed, Is.False);
+                await _bootstrap.ShutdownAsync();
+                Assert.That(foreign.isLoaded, Is.True);
+            }
+            finally
+            {
+                await SceneManager.UnloadSceneAsync(foreign).ToUniTask();
+            }
+        });
+
+        [UnityTest]
+        public IEnumerator OwnerCancellationKeepsFailurePhaseAndCommonServices() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            callbacks.PresentationGate = new UniTaskCompletionSource();
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            var entry = _bootstrap.BootstrapAsync();
+            await UniTask.WaitUntil(() => callbacks.PresentationRoot != null).Timeout(TimeSpan.FromSeconds(10));
+            Assert.That(_bootstrap.Manager.State, Is.EqualTo(SceneTransitionState.PreparingPresentation));
+            _bootstrap.Manager.CancelTransition();
+            Exception failure = null;
+            try
+            {
+                await entry;
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+            Assert.That(failure, Is.InstanceOf<OperationCanceledException>());
+            Assert.That(_bootstrap.Manager.State, Is.EqualTo(SceneTransitionState.Faulted));
+            Assert.That(_bootstrap.Manager.FailurePhase, Is.EqualTo(SceneTransitionState.PreparingPresentation));
+            Assert.That(_bootstrap.Manager.LastFailure, Is.InstanceOf<OperationCanceledException>());
+            Assert.That(_bootstrap.Manager.LoadedScene.IsValid(), Is.False);
+            Assert.That(callbacks.FailureCount, Is.EqualTo(1));
+            Assert.That(callbacks.RevealCount, Is.Zero);
+            Assert.That(_root.IsPrepared, Is.True);
+            Assert.Throws<InvalidOperationException>(() => _bootstrap.Manager.EnterFirstSceneAsync(Hub));
+            await _bootstrap.ShutdownAsync();
+            Assert.That(callbacks.FailureCount, Is.EqualTo(1));
+        });
+
+        [UnityTest]
+        public IEnumerator CommonInstallerCannotSynchronouslyAwaitItsOwnEntry() => UniTask.ToCoroutine(async () =>
+        {
+            _installer.Preparing = () => _bootstrap.BootstrapAsync().Forget();
+            _host.SetActive(true);
+            Exception failure = null;
+            try
+            {
+                await _bootstrap.BootstrapAsync();
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+            Assert.That(failure, Is.TypeOf<InvalidOperationException>());
+            Assert.That(failure.Message, Does.Contain("own transition"));
+            Assert.That(_bootstrap.Manager.FailurePhase, Is.EqualTo(SceneTransitionState.PreparingCommon));
+            Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            Assert.That(_callbacks.RevealCount, Is.Zero);
+        });
+
+        [UnityTest]
+        public IEnumerator HookReentryAndFailureCallbackExceptionsRemainVisible() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            callbacks.Configuring = () => _bootstrap.ShutdownAsync().Forget();
+            callbacks.FailFailureCallback = true;
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            Exception failure = null;
+            try
+            {
+                await _bootstrap.BootstrapAsync();
+            }
+            catch (Exception exception)
+            {
+                failure = exception;
+            }
+            Assert.That(failure, Is.TypeOf<AggregateException>());
+            Assert.That(((AggregateException)failure).Flatten().InnerExceptions.Count, Is.EqualTo(2));
+            Assert.That(_bootstrap.Manager.FailurePhase, Is.EqualTo(SceneTransitionState.Configuring));
+            Assert.That(callbacks.FailureCount, Is.EqualTo(1));
+            Assert.That(callbacks.RevealCount, Is.Zero);
+            Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            Assert.That(_root.IsPrepared, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator ExternalSceneChangesDuringRevealRestoreCoverAndKeepForeignScene() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            Scene foreign = default;
+            callbacks.Revealing = () => foreign = SceneManager.CreateScene("ForeignSceneTest");
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            try
+            {
+                Exception failure = null;
+                try
+                {
+                    await _bootstrap.BootstrapAsync();
+                }
+                catch (Exception exception)
+                {
+                    failure = exception;
+                }
+                Assert.That(failure, Is.TypeOf<InvalidOperationException>());
+                Assert.That(_bootstrap.Manager.FailurePhase, Is.EqualTo(SceneTransitionState.Revealing));
+                Assert.That(callbacks.CoverCount, Is.EqualTo(2));
+                Assert.That(foreign.isLoaded, Is.True);
+                Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+                Assert.That(_bootstrap.Manager.CanProceed, Is.False);
+            }
+            finally
+            {
+                if (foreign.IsValid() && foreign.isLoaded) await SceneManager.UnloadSceneAsync(foreign).ToUniTask();
+            }
+        });
+
+        [UnityTest]
+        public IEnumerator ShutdownFailureIsReportedOnceAfterGameCleanup() => UniTask.ToCoroutine(async () =>
+        {
+            var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            _bootstrap.Configure(_root, Hub, false, callbacks);
+            _host.SetActive(true);
+            await _bootstrap.BootstrapAsync();
+            var installer = callbacks.PresentationRoot.RootObject.GetComponent<SceneRootInstallerProbe>();
+            installer.FailRelease = true;
+            var first = _bootstrap.ShutdownAsync();
+            var second = _bootstrap.ShutdownAsync();
+            foreach (var task in new[] { first, second })
+            {
+                Exception failure = null;
+                try
+                {
+                    await task;
+                }
+                catch (Exception exception)
+                {
+                    failure = exception;
+                }
+                Assert.That(failure, Is.TypeOf<AggregateException>());
+            }
+            Assert.That(installer == null, Is.True);
+            Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            Assert.That(_bootstrap.Manager.State, Is.EqualTo(SceneTransitionState.Faulted));
+            Assert.That(_bootstrap.Manager.FailurePhase, Is.EqualTo(SceneTransitionState.Stopping));
+            Assert.That(callbacks.FailureCount, Is.EqualTo(1));
+            Assert.That(_root.IsPrepared, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator BootstrapPublishesTheOnlySceneManager() => UniTask.ToCoroutine(async () =>
+        {
+            _host.SetActive(true);
+            await _bootstrap.BootstrapAsync();
+            Assert.That(_bootstrap.Manager, Is.Not.Null);
+            Assert.That(_bootstrap.Manager.GameScene, Is.EqualTo(_bootstrap.GameScene));
+            Assert.That(_bootstrap.Manager.State, Is.EqualTo(SceneTransitionState.Ready));
+            Assert.That(_bootstrap.Manager.CanProceed, Is.True);
+            Assert.Throws<InvalidOperationException>(() => _bootstrap.Manager.EnterFirstSceneAsync(Hub));
+            await _bootstrap.ShutdownAsync();
+            Assert.That(_bootstrap.Manager.State, Is.EqualTo(SceneTransitionState.Stopped));
+            Assert.That(_bootstrap.Manager.CanProceed, Is.False);
+        });
+
+        [UnityTest]
         public IEnumerator SharedCallbacksWaitForPreparedPresentationBeforeReveal() => UniTask.ToCoroutine(async () =>
         {
             var presentation = _host.AddComponent<SceneTransitionCallbacksProbe>();

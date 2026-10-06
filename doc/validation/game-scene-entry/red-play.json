@@ -1,0 +1,10 @@
+{
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BootstrapPublishesTheOnlySceneManager:   Bootstrap must delegate native scene ownership to GameSceneManager.\r\n  Expected: not null\r\n  But was:  null\r\n"
+  ],
+  "passes": []
+}

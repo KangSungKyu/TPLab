@@ -1,0 +1,10 @@
+{
+  "total": 1,
+  "passed": 0,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapSystemTests.PersistentCommonRootCanOwnAdditiveEntry:   Expected: No Exception to be thrown\r\n  But was:  <System.InvalidOperationException: Additive scenes own their roots; disable DontDestroyOnLoad.\r\n  at MyLab.Core.SceneManagement.BootstrapSystem.ValidateSceneRoot (UnityEngine.MonoBehaviour host, UnityEngine.SceneManagement.Scene scene) [0x000b4] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\BootstrapSystem.cs:77 \r\n  at MyLab.Core.SceneManagement.BootstrapSystem.ValidateConfiguration () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\BootstrapSystem.cs:54 \r\n  at MyLab.Core.Tests.BootstrapSystemTests+<>c__DisplayClass6_0.<PersistentCommonRootCanOwnAdditiveEntry>b__1 () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Tests\\EditMode\\BootstrapSystemTests.cs:99 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00000] in <f577cd9686154d6ab10efd7e65e64366>:0 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00041] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n"
+  ],
+  "passes": []
+}

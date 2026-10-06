@@ -1,0 +1,15 @@
+{
+  "total": 5,
+  "passed": 2,
+  "failed": 3,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.GameSceneEntryTests.CancellationDuringNativeSingleOwnsLateLoadedScene: TearDown : Unhandled log message: '[Exception] InvalidOperationException: Unity cannot unload the last normal scene; it remains loaded but unprepared.'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "MyLab.Core.Tests.GameSceneEntryTests.NativeSingleEntryRetainsOnlyPersistentCommonOwner: System.AggregateException : One or more errors occurred. (The loaded game scene could not become active.) (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.))\r\n  ----> System.InvalidOperationException : The loaded game scene could not become active.\r\n  ----> System.AggregateException : Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)\r\n  ----> System.InvalidOperationException : Unity cannot unload the last normal scene; it remains loaded but unprepared.\r\nTearDown : Unhandled log message: '[Exception] InvalidOperationException: Unity cannot unload the last normal scene; it remains loaded but unprepared.'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "MyLab.Core.Tests.GameSceneEntryTests.SingleShutdownReportsLastSceneWithoutCreatingFallback: System.AggregateException : One or more errors occurred. (The loaded game scene could not become active.) (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.))\r\n  ----> System.InvalidOperationException : The loaded game scene could not become active.\r\n  ----> System.AggregateException : Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)\r\n  ----> System.InvalidOperationException : Unity cannot unload the last normal scene; it remains loaded but unprepared.\r\nTearDown : Unhandled log message: '[Exception] InvalidOperationException: Unity cannot unload the last normal scene; it remains loaded but unprepared.'. Use UnityEngine.TestTools.LogAssert.Expect"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.GameSceneEntryTests.PersistentAdditiveEntryRetainsBootstrapAndCommonServices",
+    "MyLab.Core.Tests.GameSceneEntryTests.SingleRejectsUnknownLoadedScenesBeforeCover"
+  ]
+}

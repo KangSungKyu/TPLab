@@ -21,6 +21,7 @@ namespace MyLab.Core.Editor.Bootstrap
                 if (selected == null && !string.IsNullOrEmpty(path.stringValue))
                     EditorGUILayout.HelpBox("Missing scene: " + path.stringValue, MessageType.Error);
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_autoStart"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_loadMode"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_callbacks"));
             }
             if (serializedObject.ApplyModifiedProperties()) BootstrapEditorValidation.Queue();
