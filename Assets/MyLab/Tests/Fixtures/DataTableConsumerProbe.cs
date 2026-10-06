@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.DataTables;
+using MyLab.Examples.DataTables;
 using MyLab.Core.Lifecycle;
 using MyLab.Core.ResourceManagement;
 using UnityEngine;

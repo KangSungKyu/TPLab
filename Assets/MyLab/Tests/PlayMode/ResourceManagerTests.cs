@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.DataTables;
+using MyLab.Examples.DataTables;
 using MyLab.Core.ResourceManagement;
 using MyLab.Core.Lifecycle;
 using NUnit.Framework;

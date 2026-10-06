@@ -5,6 +5,7 @@ using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.DataTables;
+using MyLab.Examples.DataTables;
 using NUnit.Framework;
 
 namespace MyLab.Core.Tests

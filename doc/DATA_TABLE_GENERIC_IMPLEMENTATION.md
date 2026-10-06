@@ -2,6 +2,8 @@
 
 2026-10-06. 기준 `main / 9d79dacb3eb3347dee29d7a6241700de1f7d3e8b`, 문서 branch `docs/generic-data-table-ready`. 최초 문서는 구현 준비였다. 이후 사용자의 구현 요청에 따라 main/7cd8955에서 codex/generic-data-tables를 생성해 아래 4단계를 구현했다. 현재 [검증 결과](validation/generic-data-tables/README.md)와 [최종 회고](retrospectives/2026-10-06-06-generic-data-table-validation.md)를 따른다. 이 문서는 작업 순서·수정 경계·완료 조건을 소유한다. 조회/idx 계약은 [idx 명세](DATA_TABLE_IDX_DRAFT.md), DTO/CSV/테이블 binding 계약은 [매핑 명세](DATA_TABLE_MAPPING_DRAFT.md)가 소유하며 중복 정의하지 않는다.
 
+2026-10-06 후속 변경: Text/Resource 구체 DTO·테이블을 runtime core에서 제거하고 [예시 템플릿](templates/data-tables/README.md)으로 남겼다. 아래 TextRow/ResourceKeyRow는 프로젝트 예시 타입이다. 현재 [분리 검증](validation/data-table-templates/README.md), [후속 회고](retrospectives/2026-10-06-07-data-table-templates.md)를 함께 확인한다.
+
 ## 목표와 준비 기준
 
 소비자는 최종 생성된 uint PK를 입력하고 테이블 이름·구간·조합 요소를 전달하지 않는다. 아래는 현재 제공하는 사용법이다. 최초 준비와 후속 구현을 구분하며 과거 결과를 현재 검증으로 대신하지 않는다.
@@ -44,7 +46,7 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 |---|---|---|
 | 1 | 기본 IdxParts·DecimalIdxCodec·IIdxRouter/IIdxCodec<TParts>, IDataRow/DataRow 계약 | Parts/Stride 경계·전체 형식·왕복·uint.MaxValue/overflow. 테스트 전용 세 요소 codec으로 LocalType 선택성·종류 추출 확인 |
 | 2 | 표준 RegisterTable·CsvHelper DTO 매핑·종류 registry·manager/snapshot Get/TryGet | 최종 PK 조회의 정상/무효/미등록/잘못된 T/누락, 동일 DTO 다른 종류, header-only 메타데이터, 기존 수동 등록 혼합·0 key 보존 |
-| 3 | 기반/기본 테이블 조회·name/interface binding·FK helper를 표준 공개 경로에 연결 | 동일 행·테이블 참조, 추가 interface mapping, factory null/예외/재사용, 필수/선택 FK·잘못된 종류·누락·자기/순환·후보 실패 후 이전 세대 보존 |
+| 3 | 기반/프로젝트 예시 테이블 조회·name/interface binding·FK helper를 표준 공개 경로에 연결 | 동일 행·테이블 참조, 추가 interface mapping, factory null/예외/재사용, 필수/선택 FK·잘못된 종류·누락·자기/순환·후보 실패 후 이전 세대 보존 |
 | 4 | root/native CSV 소비 검증과 전체 회귀·실행 문서 | 준비 완료 후 씬 진행·오류 시 중단/가림막 유지·정리, 기존 비동기/자산/root 회귀, MyLab 컴파일/Console·전체 EditMode/PlayMode |
 
 단계 2의 RegisterTable에는 매핑 명세의 CsvDataTable 기반·fresh factory·단일 행 연결 등 등록에 필요한 최소 부분도 포함한다. 단계 3에서 그 계약을 바꾸는 별도 테이블 생성 경로를 만들지 않는다. FK가 없는 테스트의 후보 공개도 단계 2부터 원자적으로 확인한다. 앞 단계 코드·실행 증거가 존재해야 다음 단위를 시작한다.

@@ -32,6 +32,7 @@
 | [DATA_TABLE_MAPPING_DRAFT.md](DATA_TABLE_MAPPING_DRAFT.md) | 기본 DTO·표준 테이블·CsvHelper 자동 매핑·인터페이스 연결 검토 | 구현 계약: 기본 DTO·테이블·명시적 이름/계약 매핑·세대별 소유권 |
 | [DATA_TABLE_IDX_DRAFT.md](DATA_TABLE_IDX_DRAFT.md) | uint PK/FK·idx 생성/추출·Parts/Stride·선택적 localType·참조 검증 검토 | 구현 계약: 프로젝트 codec·종류 registry·같은 snapshot의 FK 검증·구간/overflow 정책 |
 | [DATA_TABLE_GENERIC_IMPLEMENTATION.md](DATA_TABLE_GENERIC_IMPLEMENTATION.md) | 표준 uint DTO·제네릭 Get/TryGet 구현 시작·범위 배정·완료 판단 | 구현 순서와 완료 조건: 단계별 TDD·기존 수동 API 보존·검증 경계 |
+| [데이터 테이블 예시 템플릿](templates/data-tables/README.md) | Text/Resource 예시 복사·필드/검증 변경·프로젝트 등록 | 테스트 assembly의 예시 소스와 runtime core 제외 경계 |
 | [DataTableManager 검증](validation/data-tables/README.md) | 데이터 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·비동기·자산/root 연결·컴파일/Console·미검증 경계 |
 
 ## 검증 자료
@@ -48,6 +49,7 @@
 | [ResourceManager 검증 설명](validation/resource-manager/README.md) · [EditMode](validation/resource-manager/full-EditMode.json) · [PlayMode](validation/resource-manager/full-PlayMode.json) · [입력 hash](validation/resource-manager/test-inputs.json) | 자산 수명·root/pool 연결·전체 회귀 확인 | native catalog/provider 실행 범위와 원격 bundle·Player 미검증 경계 확인 |
 | [DataTableManager 검증 설명](validation/data-tables/README.md) · [EditMode](validation/data-tables/full-EditMode.json) · [PlayMode](validation/data-tables/full-PlayMode.json) · [입력 hash](validation/data-tables/test-inputs.json) | CSV·전체 snapshot·비동기·자산/root 연결 회귀 확인 | 관리 데이터 공개와 자원 소유권 경계·소비 프로젝트/Player 미검증 구분 |
 | [표준 idx·generic 검증](validation/generic-data-tables/README.md) · [EditMode](validation/generic-data-tables/full-EditMode.json) · [PlayMode](validation/generic-data-tables/full-PlayMode.json) · [입력 hash](validation/generic-data-tables/test-inputs.json) | 표준 DTO·codec·generic 조회·binding·FK·기존 수동 경로 회귀 | 이번 코드 입력과 실제 실행 수, 소비 프로젝트/Player 미검증 경계 확인 |
+| [Text/Resource 템플릿 분리 검증](validation/data-table-templates/README.md) | core에서 구체 스키마 제거·예시 컴파일·회귀 확인 | 현행 Core/예시 namespace와 assembly 경계·입력 hash 확인 |
 
 ## 의존성과 라이선스 자료
 

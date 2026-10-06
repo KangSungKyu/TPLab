@@ -6,6 +6,8 @@
 
 2026-10-06 구현 준비 기준: 소비 조회는 Get<TRow>/TryGet<TRow>로 통일하고 런타임 등록은 IIdxRouter만 요구한다. 아래 기준을 현재 runtime에 구현했다. 작업 순서·수정 경계·완료 조건은 [제네릭 구현 준비](DATA_TABLE_GENERIC_IMPLEMENTATION.md)를 따른다.
 
+Text/Resource 구체 DTO·테이블은 [프로젝트용 예시 템플릿](templates/data-tables/README.md)으로 분리했다. 아래 TextRow/ResourceKeyRow는 예시이며 코어 타입이 아니다. 현재 [분리 검증](validation/data-table-templates/README.md)을 따른다.
+
 ## 역할과 Cashier 참조
 
 idx는 대상 행의 PK이며 다른 행에 저장하면 그 대상에 대한 FK가 된다. FK에는 대상의 완전한 idx를 저장한다. 내부 번호만 저장하면 테이블 종류를 복원할 수 없다.

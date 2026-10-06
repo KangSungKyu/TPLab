@@ -29,6 +29,8 @@ var item = snapshot.GetTable<int, (int Id, string Name)>("items")[1];
 
 ## 표준 idx 등록과 조회
 
+아래 TextRow/TextDataTable은 [예시 템플릿](templates/data-tables/README.md)에서 프로젝트 namespace로 복사한 타입이다. 공용 코어에는 IDataRow/DataRow/IDataTable/CsvDataTable 기반만 제공하며 Text/Resource 구체 필드와 검증은 프로젝트가 소유한다.
+
 ```csharp
 tables.RegisterIdxRouter(new DecimalIdxCodec(1000));
 tables.RegisterTable<TextRow, TextDataTable>(1, "texts",

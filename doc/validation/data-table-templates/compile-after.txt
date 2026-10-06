@@ -1,0 +1,8 @@
+Waiting for compilation...
+2026/10/06 11:04:18 Unsolicited response received on idle HTTP channel starting with "HTTP/1.1 200 OK\r\nServer: Mono-HTTPAPI/1.0\r\nDate: Tue, 06 Oct 2026 02:04:18 GMT\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"; err=<nil>
+Compilation complete.
+{
+  "compile_requested": true,
+  "force": false,
+  "refresh_triggered": true
+}

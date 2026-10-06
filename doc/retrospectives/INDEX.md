@@ -12,6 +12,7 @@
 | 2026-10-06 | 표준 데이터 등록·generic 조회 | 집중 검증 완료 | [04-standard-data-query](2026-10-06-04-standard-data-query.md) |
 | 2026-10-06 | 테이블 binding·FK | 집중 검증 완료 | [05-data-table-binding-fk](2026-10-06-05-data-table-binding-fk.md) |
 | 2026-10-06 | generic 데이터 테이블 통합 검증 | MyLab 내부 구현·검증 완료 | [06-generic-data-table-validation](2026-10-06-06-generic-data-table-validation.md) |
+| 2026-10-06 | Text·Resource 예시 템플릿 분리 | MyLab 내부 분리·검증 완료 | [07-data-table-templates](2026-10-06-07-data-table-templates.md) |
 
 ## 작성 형식
 

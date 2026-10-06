@@ -8,12 +8,23 @@ using CsvHelper.Configuration.Attributes;
 using CsvHelper.TypeConversion;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.DataTables;
+using MyLab.Examples.DataTables;
 using NUnit.Framework;
 
 namespace MyLab.Core.Tests
 {
     public sealed class StandardDataTableTests
     {
+        [TestCase("TextRow")]
+        [TestCase("ResourceKeyRow")]
+        [TestCase("TextDataTable")]
+        [TestCase("ResourceKeyDataTable")]
+        public void CoreExcludesProjectTableTemplates(string typeName)
+        {
+            Assert.That(typeof(DataRow).Assembly.GetType("MyLab.Core.DataTables." + typeName), Is.Null,
+                "Project-specific schemas belong to examples, outside the core assembly.");
+        }
+
         private static void RegisterText(DataTableManager manager, uint kind, string name, Func<string> csv)
             => manager.RegisterTable<TextRow, TextDataTable>(kind, name, _ => UniTask.FromResult(csv()), () => new TextDataTable());
 

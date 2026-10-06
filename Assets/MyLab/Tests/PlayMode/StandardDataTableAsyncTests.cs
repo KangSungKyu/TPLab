@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CsvHelper;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.DataTables;
+using MyLab.Examples.DataTables;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
