@@ -28,6 +28,7 @@
 | [ASYNC_SCENE_LIFECYCLE.md](ASYNC_SCENE_LIFECYCLE.md) | async 준비·해제·취소·씬 진행·가림막 callback 변경 | 준비/종료 순서·실패 rollback·표시 보호·전환 소유권 |
 | [GAME_SCENE_MANAGER_DRAFT.md](GAME_SCENE_MANAGER_DRAFT.md) | 전환 Phase·Single/Additive·구역 graph·조건·UI·해제/취소 설계 | 공용 수명 선택, 전환 graph와 수명 tree, 책임·실패 경계·단계별 완료 조건 |
 | [SCENE_TRANSITION_TRACK.md](SCENE_TRANSITION_TRACK.md) | GameSceneManager Phase 작업 배정·통합·검증·최종 사용자 gate 관리 | track/Phase 순서, 상태·증거 기록, 에이전트 선택, main 통합 및 종료 gate |
+| [SCENE_TRANSITION_ACCEPTANCE.md](SCENE_TRANSITION_ACCEPTANCE.md) | Phase 6 자동 증거·최종 사용자 한 번의 확인 준비 | 실행 경로 확정 전의 수락 기준, 자동·시각 UX·main 통합 gate 구분 |
 | [BOOTSTRAP_SYSTEM.md](BOOTSTRAP_SYSTEM.md) | 최초 씬 root·목적지·Single/Additive·공용 수명·취소/종료·Editor/빌드 gate 변경 | GameSceneManager/BootstrapSystem API·상태와 기존 callback 호환, Inspector와 컴파일 후·Play·실제 build list 검증 |
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [SCENE_LOADING.md](SCENE_LOADING.md) | Build/Addressables 씬 대상·로더 선택·개별 결과 소유권 변경 | 명시적 backend, 실제 Scene instance, native 해제와 manager 정책의 경계 |
@@ -58,6 +59,8 @@
 | [BootstrapSystem 검증](validation/bootstrap-system/README.md) | root/씬 설정·실제 최초 Additive 진입·취소/종료·Editor/build gate 회귀 | 실제 Red/Green·네이티브 차단·전체 회귀·입력 hash와 미검증 경계 확인 |
 | [Text/Resource 템플릿 분리 검증](validation/data-table-templates/README.md) | core에서 구체 스키마 제거·예시 컴파일·회귀 확인 | 현행 Core/예시 namespace와 assembly 경계·입력 hash 확인 |
 | [GameSceneManager Phase 2 검증](validation/game-scene-entry/README.md) | 최초 Single/Additive·공용 수명·취소/정리·모드 사전 검사 회귀 | 실제 native 모드·남은 씬 진단·이번 입력/결과와 미검증 경계 확인 |
+| [명시적 씬 로더 검증](validation/scene-loaders/README.md) | Build/Addressables 명시 선택·개별 결과 소유·등록 사전검사 회귀 | 실제 SceneProvider 및 native 테스트, 입력 hash·실패 iteration·Player 미검증 구분 |
+| [Phase 3A 주 씬 교체 검증](validation/scene-replacement/README.md) | 연속 교체·Additive/Single·이전/후보 실패 소유권 회귀 | 실제 native 전환·공유 완료/취소·잔여 씬 진단 및 UI 미검증 구분 |
 | [SceneTransition Phase 1 검증](validation/scene-transition-contracts/README.md) | callback 공용화·호환/준비 대기·전체 회귀 확인 | 계약 문서와 실제 runtime 구현 범위, 이번 입력/결과 대조 |
 
 ## 의존성과 라이선스 자료

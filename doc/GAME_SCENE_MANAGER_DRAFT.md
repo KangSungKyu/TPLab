@@ -1,6 +1,6 @@
 # GameSceneManager 계약과 단계별 구현
 
-2026-10-06. 사용자 검토를 반영한 설계 계약. Phase 1은 callback 공용화, Phase 2는 [GameSceneManager 최초 진입·Bootstrap 위임](BOOTSTRAP_SYSTEM.md)까지 구현했다. **연속 교체·씬 graph·전환 정의·조건 판단의 runtime 구현은 후속 Phase**다. 최초 진입의 Single/Additive와 공용 영속 수명 선택은 현재 구현이며 기본 권장은 Bootstrap 유지 + Additive다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
+2026-10-06. 사용자 검토를 반영한 설계 계약. Phase 1 callback 공용화, Phase 2 최초 진입·Bootstrap 위임, P0 명시적 로더 및 Phase 3A 주 씬 교체를 구현했다. **파생 구역 수명 tree·전환 정의·조건 판단의 runtime 구현은 후속 Phase**다. 최초 진입과 주 씬 교체의 Single/Additive 및 공용 영속 수명 선택을 제공하며 기본 권장은 Bootstrap 유지 + Additive다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
 
 ## 공용 수명과 로드 모드
 
@@ -100,7 +100,7 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 
 ### Phase 3A 확정 API와 선행 조건
 
-2026-10-06 P0 조사·Native/Addressables focused 실행을 바탕으로 확정한 후속 구현 계약이다. 아래 API의 구현 완료를 뜻하지 않는다.
+2026-10-06 구현 및 [MyLab 내부 자동 검증](validation/scene-replacement/README.md)을 완료한 계약이다. 파생 구역과 조건은 다음 단위다.
 
 - `ReplacePrimaryAsync(SceneTarget, LoadSceneMode, CancellationToken)`와 기존 사용성을 유지하는 Build path overload를 제공한다. 최초 진입이 성공했고 현재 주 씬/공용 root/실제 씬 집합이 준비된 Ready 상태에서만 실행한다.
 - `WaitForEntryAsync`는 최초 진입 이력이다. `WaitForTransitionAsync`는 마지막으로 승인된 상태 변경 작업의 공유 완료를 기다린다. 호출자 token은 기다림만 취소하며 `CancelTransition`과 terminal `ShutdownAsync`는 현재 소유 작업·늦은 native 완료까지 기다린다.
@@ -110,5 +110,14 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 - Single에서는 영속 공용 수명과 전체 해제 집합을 먼저 검사한다. 이전 root graceful Shutdown을 기다린 뒤 native Single을 실행한다. 마지막 일반 씬을 먼저 별도 unload하지 않는다. Single이 이전 씬을 해제한 뒤에도 이전 결과의 backend 해제를 끝까지 관찰한다.
 - 명령별 실제 집합과 최초의 유지 대상 집합을 구분하고, 후보 추가·이전 해제 단계에 맞는 예상 집합을 검사한다. 미등록/유지되어야 하는 일반 씬이 있는 Single은 거부한다. 공용 root는 게임 전환에서 종료하지 않는다.
 - Phase 3B의 부모/자식/priority·registry와 Phase 4 조건 실행은 이 단계에 넣지 않는다. 실패 후보와 이전 씬의 잔여 소유권을 먼저 검증한 뒤 다음 단위로 확장한다.
+
+### Phase 3B 예정 API와 실행 경계
+
+- `UniTask<Scene> AddDerivedAsync(SceneTarget target, Scene parent, bool activate = false, int priority = 0, CancellationToken cancellationToken = default)`는 준비된 등록 부모를 유지하며 Additive로만 로드한다. 성공 결과는 이 명령이 실제로 추가한 Scene 인스턴스다. Build path adapter도 같은 경로를 사용한다. 부모는 현재 primary 또는 준비된 derived 인스턴스여야 한다.
+- `RemoveDerivedAsync(Scene scene, Scene requester, CancellationToken cancellationToken = default)`는 대상 자신의 요청 또는 등록 ancestor의 요청만 허용한다. requester/scene은 실제 Scene 인스턴스이며 경로를 권한으로 사용하지 않는다. caller 코드는 그 인스턴스를 소유한 controller에서 호출하는 계약이다.
+- `RegisteredScenes`의 읽기 전용 snapshot은 SceneRegistration(실제 Scene, 부모 Scene, Primary/Derived 역할, 프로젝트 priority, root 준비/종료 상태)을 제공한다. Primary의 부모 Scene은 default로 공용 세션 경계를 표시한다. 실패한 후보는 OwnedScenes 진단에 남길 수 있지만 성공 등록과 구분한다.
+- Additive 추가의 active 유지/선택은 명시한다. primary GameScene과 active scene은 별개이며 manager가 기록한 예상 active scene을 검증한다. priority는 정보만 제공하고 자동 포커스·UI 정렬·해제를 유발하지 않는다.
+- primary 교체 또는 derived 제거는 대상 subtree를 자식 우선으로 정리한다. 같은 대상의 진행 중 제거는 기존 완료를 공유하고 caller token은 기다림만 취소한다. 다른 상태 변경은 부작용 전에 거부한다. terminal Shutdown은 현재 작업의 늦은 완료와 모든 남은 owner를 기다린다.
+- 후보 준비 실패는 해당 후보만 정리하고 기존 tree를 유지하되 Faulted로 진행을 중단한다. 해제 실패는 실제 잔여 인스턴스·오류를 기록한다. 외부 직접 load/unload/active 변경은 진단하며 자동 삭제·복구하지 않는다.
 
 각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. Phase의 필수 자동 검사가 통과하면 승인된 track 통합을 진행한다. 이번 전체 작업의 main 통합에는 최종 명시적 사용자 확인도 필요하며, 사용자 부재 시 [track의 대기·절전 정책](SCENE_TRANSITION_TRACK.md)을 따른다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.

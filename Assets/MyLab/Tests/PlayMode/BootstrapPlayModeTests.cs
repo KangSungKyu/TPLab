@@ -554,18 +554,19 @@ namespace MyLab.Core.Tests
         {
 #if UNITY_EDITOR
             const string hub = "Assets/MyLab/Tests/Fixtures/BootstrapHub.unity";
+            const string replacement = "Assets/MyLab/Tests/Fixtures/ReplacementMain.unity";
             if (!string.IsNullOrEmpty(SessionState.GetString(Key, "")))
                 throw new InvalidOperationException("Restore the previous Bootstrap test build scene snapshot before running again.");
-            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(hub) == null)
-                throw new InvalidOperationException("BootstrapHub test fixture is missing.");
+            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(hub) == null || AssetDatabase.LoadAssetAtPath<SceneAsset>(replacement) == null)
+                throw new InvalidOperationException("Bootstrap/Replacement test fixture is missing.");
             var original = EditorBuildSettings.scenes;
             SessionState.SetString(Key + ".Bytes", Convert.ToBase64String(System.IO.File.ReadAllBytes("ProjectSettings/EditorBuildSettings.asset")));
             SessionState.SetString(Key, JsonUtility.ToJson(new Snapshot
             {
                 Scenes = original.Select(scene => new Entry { Path = scene.path, Guid = scene.guid.ToString(), Enabled = scene.enabled }).ToArray()
             }));
-            EditorBuildSettings.scenes = original.Where(scene => scene.path != hub)
-                .Concat(new[] { new EditorBuildSettingsScene(hub, true) }).ToArray();
+            EditorBuildSettings.scenes = original.Where(scene => scene.path != hub && scene.path != replacement)
+                .Concat(new[] { new EditorBuildSettingsScene(hub, true), new EditorBuildSettingsScene(replacement, true) }).ToArray();
 #endif
         }
 

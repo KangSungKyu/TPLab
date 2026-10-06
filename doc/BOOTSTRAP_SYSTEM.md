@@ -1,6 +1,6 @@
 # GameSceneManager 최초 진입과 BootstrapSystem
 
-2026-10-06. Phase 2 구현·MyLab 내부 자동 검증 완료. GameSceneManager가 최초 씬 진입·취소·해제를 소유하고 BootstrapSystem은 Inspector 설정과 자동 시작을 담당한다. 연속 교체·파생 구역·조건/정의는 [후속 Phase](GAME_SCENE_MANAGER_DRAFT.md)다. 게임별 씬·서비스·UI를 자동 생성하지 않는다.
+2026-10-06. 최초 진입과 Phase 3A 주 씬 교체의 MyLab 내부 자동 검증 완료. GameSceneManager가 씬 진입·교체·취소·해제를 소유하고 BootstrapSystem은 Inspector 설정과 자동 시작을 담당한다. 파생 구역·조건/정의는 [후속 Phase](GAME_SCENE_MANAGER_DRAFT.md)다. 게임별 씬·서비스·UI를 자동 생성하지 않는다.
 
 ## Inspector 구성
 

@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace MyLab.Core.SceneManagement
 {
-    /// <summary>Observable first-entry phases. Faulted permits inspection and explicit shutdown only.</summary>
+    /// <summary>Observable primary-transition phases. Faulted permits inspection and explicit shutdown only.</summary>
     public enum SceneTransitionState
     {
         Idle, Covering, PreparingCommon, Loading, Configuring, PreparingScene,
@@ -20,7 +20,7 @@ namespace MyLab.Core.SceneManagement
     /// <summary>
     /// Main-thread owner of native scene loading and graceful game-root release.
     /// Borrows the common root and presentation; their external owner shuts them down after this manager.
-    /// First entry is one attempt. Later primary replacement and derived scenes are separate phases.
+    /// First entry has one historical completion; each later primary replacement has its own operation lifetime.
     /// </summary>
     public sealed class GameSceneManager
     {
@@ -30,16 +30,18 @@ namespace MyLab.Core.SceneManagement
         private readonly SceneTransitionCallbacks _callbacks;
         private readonly bool _hasCallbacks;
         private UniTaskCompletionSource _entry;
+        private UniTaskCompletionSource _transition;
         private UniTaskCompletionSource _shutdown;
-        private CancellationTokenSource _lifetime;
+        private CancellationTokenSource _transitionCancellation;
         private Scene[] _initialScenes;
+        private Scene[] _retainedScenes = Array.Empty<Scene>();
         private Scene _previousActiveScene;
-        private ISceneRoot _gameRoot;
         private readonly ISceneLoader _buildLoader;
         private readonly ISceneLoader _addressableLoader;
         private ISceneLoader _loader;
         private SceneTarget _target;
-        private MyLab.Core.ResourceManagement.LoadedScene _ownedScene;
+        private OwnedPrimary _primary;
+        private OwnedPrimary _candidate;
         private LoadSceneMode _mode;
         private bool _stopping;
         private bool _dispatching;
@@ -54,10 +56,12 @@ namespace MyLab.Core.SceneManagement
         /// <summary>Successfully revealed game scene, invalid before success and after shutdown starts.</summary>
         public Scene GameScene { get; private set; }
         /// <summary>Native candidate still owned, including a last Single scene that Unity cannot unload.</summary>
-        public Scene LoadedScene { get; private set; }
+        public Scene LoadedScene => (_candidate ?? _primary)?.Result.Scene ?? default;
+        /// <summary>Read-only snapshot of actual remaining owned scenes, including previous/candidate instances after failure.</summary>
+        public IReadOnlyList<Scene> OwnedScenes => GetOwners().Select(owner => owner.Result.Scene)
+            .Where(scene => scene.IsValid() && scene.isLoaded).ToArray();
         /// <summary>Actual remaining candidate root readiness, including failure diagnostics.</summary>
-        public bool IsGamePrepared => _gameRoot != null && _gameRoot.RootObject != null &&
-            _gameRoot.RootObject.scene == LoadedScene && _gameRoot.RootObject.transform.parent == null && _gameRoot.IsPrepared;
+        public bool IsGamePrepared => IsOwnerPrepared(_candidate ?? _primary);
         /// <summary>Project gameplay may proceed only while the revealed scene and both roots remain prepared.</summary>
         public bool CanProceed => State == SceneTransitionState.Ready && _commonHost != null &&
             _commonHost.gameObject.scene == _commonScene && _commonRoot.IsPrepared && IsGamePrepared &&
@@ -122,11 +126,10 @@ namespace MyLab.Core.SceneManagement
             if (mode == LoadSceneMode.Single && (_initialScenes.Length != 1 || GetRootHosts(_initialScenes[0]).Length != 0))
                 throw new InvalidOperationException("First Single entry requires only Bootstrap, without unregistered scene roots.");
             _previousActiveScene = SceneManager.GetActiveScene();
+            _retainedScenes = mode == LoadSceneMode.Single ? Array.Empty<Scene>() : _initialScenes;
             _target = target;
             _mode = mode;
-            _entry = new UniTaskCompletionSource();
-            _lifetime = new CancellationTokenSource();
-            RunEntryAsync().Forget();
+            StartOperation(true);
             return _entry.Task.AttachExternalCancellation(cancellationToken);
         }
 
@@ -142,15 +145,67 @@ namespace MyLab.Core.SceneManagement
             return _entry.Task.AttachExternalCancellation(cancellationToken);
         }
 
+        /// <summary>
+        /// Replaces a Ready primary through its explicit loader, preserving common systems.
+        /// Additive prepares the candidate before releasing the old primary; Single gracefully releases old roots before native load.
+        /// Caller cancellation affects only this wait. Overlapping commands and Faulted owners are rejected before side effects.
+        /// </summary>
+        public UniTask ReplacePrimaryAsync(SceneTarget target, LoadSceneMode mode = LoadSceneMode.Additive,
+            CancellationToken cancellationToken = default)
+        {
+            EnsureMainThread();
+            RejectHookReentry();
+            if (_stopping) throw new ObjectDisposedException(nameof(GameSceneManager));
+            if (_transition != null && _transition.Task.Status == UniTaskStatus.Pending)
+                throw new InvalidOperationException("A scene transition already has an owner.");
+            cancellationToken.ThrowIfCancellationRequested();
+            if (_entry == null || _entry.Task.Status != UniTaskStatus.Succeeded || !CanProceed)
+                throw new InvalidOperationException("Replace only a prepared, owned primary in Ready state.");
+            target.Validate();
+            if (mode != LoadSceneMode.Single && mode != LoadSceneMode.Additive)
+                throw new ArgumentOutOfRangeException(nameof(mode));
+            ValidateCommonLifetime();
+            var loader = target.Source == SceneSource.BuildScene ? _buildLoader : _addressableLoader;
+            loader.Validate(target);
+            if (SceneManager.GetSceneByPath(target.ScenePath).isLoaded)
+                throw new InvalidOperationException("The destination scene is already loaded.");
+            if (mode == LoadSceneMode.Single && (!BootstrapSystem.IsPersistent(_commonHost) || _retainedScenes.Length != 0))
+                throw new InvalidOperationException("Single requires a persistent common owner and no retained normal scenes.");
+            _initialScenes = GetLoadedScenes();
+            _previousActiveScene = SceneManager.GetActiveScene();
+            _loader = loader;
+            _target = target;
+            _mode = mode;
+            return StartOperation().Task.AttachExternalCancellation(cancellationToken);
+        }
+
+        /// <summary>Replaces the primary with a Build Scene path under the explicit-target replacement contract.</summary>
+        public UniTask ReplacePrimaryAsync(string scenePath, LoadSceneMode mode = LoadSceneMode.Additive,
+            CancellationToken cancellationToken = default)
+        {
+            EnsureMainThread();
+            cancellationToken.ThrowIfCancellationRequested();
+            return ReplacePrimaryAsync(SceneTarget.BuildScene(scenePath), mode, cancellationToken);
+        }
+
+        /// <summary>Waits for the last accepted transition without issuing a command; entry history remains available separately.</summary>
+        public UniTask WaitForTransitionAsync(CancellationToken cancellationToken = default)
+        {
+            EnsureMainThread();
+            RejectHookReentry();
+            if (_transition == null) throw new InvalidOperationException("Start a transition before waiting for it.");
+            return _transition.Task.AttachExternalCancellation(cancellationToken);
+        }
+
         /// <summary>Requests actual owner cancellation. Native loads finish before owned candidate cleanup.</summary>
         public void CancelTransition()
         {
             EnsureMainThread();
-            if (_entry != null && _entry.Task.Status == UniTaskStatus.Pending) _lifetime.Cancel();
+            if (_transition != null && _transition.Task.Status == UniTaskStatus.Pending) _transitionCancellation?.Cancel();
         }
 
         /// <summary>
-        /// Shares uncancelled shutdown, waits for late entry work, releases/unloads the owned game and retains common systems.
+        /// Shares uncancelled shutdown, waits for late transition work, releases every owned scene and retains common systems.
         /// Throws and records a loaded-but-unprepared last Single scene when Unity cannot unload it. No fallback scene is created.
         /// Await before destroying the common owner; never await from a hook participating in this operation.
         /// </summary>
@@ -165,32 +220,54 @@ namespace MyLab.Core.SceneManagement
             return _shutdown.Task;
         }
 
-        private async UniTask RunEntryAsync()
+        private UniTaskCompletionSource StartOperation(bool firstEntry = false)
         {
+            var completion = new UniTaskCompletionSource();
+            var cancellation = new CancellationTokenSource();
+            _transition = completion;
+            _transitionCancellation = cancellation;
+            if (firstEntry) _entry = completion;
+            _failureNotified = false;
+            State = SceneTransitionState.Covering;
+            RunOperationAsync(completion, cancellation).Forget();
+            return completion;
+        }
+
+        private async UniTask RunOperationAsync(UniTaskCompletionSource completion, CancellationTokenSource cancellation)
+        {
+            Exception reported = null;
             try
             {
                 var flow = new SceneRootFlow(new GuardedCommonRoot(this), CoverAsync, RevealAsync);
-                await flow.PrepareAndProceedAsync(LoadAndPrepareAsync, _lifetime.Token);
-                GameScene = LoadedScene;
+                await flow.PrepareAndProceedAsync(LoadAndPrepareAsync, cancellation.Token);
+                _primary = _candidate;
+                _candidate = null;
+                GameScene = _primary.Result.Scene;
                 State = SceneTransitionState.Ready;
-                _entry.TrySetResult();
             }
             catch (Exception failure)
             {
                 FailurePhase = State;
-                Exception reported = failure;
+                reported = failure;
                 try
                 {
-                    await ReleaseGameAsync();
+                    await CleanupCandidateAsync();
                 }
                 catch (Exception cleanupFailure)
                 {
                     reported = new AggregateException(reported, cleanupFailure);
                 }
                 reported = RecordFailure(reported);
-                if (reported is OperationCanceledException cancelled) _entry.TrySetCanceled(cancelled.CancellationToken);
-                else _entry.TrySetException(reported);
             }
+            finally
+            {
+                // Completion resumes callers synchronously; dispose this operation before they can start another one.
+                if (ReferenceEquals(_transitionCancellation, cancellation)) _transitionCancellation = null;
+                cancellation.Dispose();
+            }
+            if (reported == null) completion.TrySetResult();
+            else if (reported is OperationCanceledException cancelled) completion.TrySetCanceled(cancelled.CancellationToken);
+            else completion.TrySetException(reported);
         }
 
         private async UniTask CoverAsync(CancellationToken token)
@@ -215,13 +292,32 @@ namespace MyLab.Core.SceneManagement
             token.ThrowIfCancellationRequested();
             ValidateCommonLifetime();
             ValidateInventory(_initialScenes);
+            if (_primary != null && !IsOwnerPrepared(_primary))
+                throw new InvalidOperationException("The previous primary lost its prepared ownership.");
+            if (SceneManager.GetActiveScene() != _previousActiveScene)
+                throw new InvalidOperationException("The active scene changed before loading.");
+            if (_mode == LoadSceneMode.Single && _primary != null)
+            {
+                State = SceneTransitionState.Stopping;
+                GameScene = default;
+                await ShutdownOwnerRootsAsync(_primary);
+                token.ThrowIfCancellationRequested();
+                ValidateCommonLifetime();
+                ValidateInventory(_initialScenes);
+            }
             State = SceneTransitionState.Loading;
             // The loader cannot abandon native work. Retain its actual result before observing owner cancellation.
-            _ownedScene = await _loader.LoadAsync(_target, _mode);
-            if (_ownedScene == null) throw new InvalidOperationException("The scene loader returned no owned result.");
-            LoadedScene = _ownedScene.Scene;
-            if (_ownedScene.Target.Source != _target.Source || _ownedScene.Target.ScenePath != _target.ScenePath ||
-                _ownedScene.Target.AddressableKey != _target.AddressableKey || LoadedScene.path != _target.ScenePath)
+            var result = await _loader.LoadAsync(_target, _mode);
+            if (result == null) throw new InvalidOperationException("The scene loader returned no owned result.");
+            _candidate = new OwnedPrimary(result);
+            if (_mode == LoadSceneMode.Single && _primary != null)
+            {
+                // Single has unloaded the old scene. Its backend result still owns completion/release observation.
+                await _primary.Result.UnloadAsync();
+                _primary = null;
+            }
+            if (result.Target.Source != _target.Source || result.Target.ScenePath != _target.ScenePath ||
+                result.Target.AddressableKey != _target.AddressableKey || LoadedScene.path != _target.ScenePath)
                 throw new InvalidOperationException("The scene loader returned a different target or scene asset.");
             token.ThrowIfCancellationRequested();
             if (!LoadedScene.IsValid() || !LoadedScene.isLoaded ||
@@ -231,69 +327,130 @@ namespace MyLab.Core.SceneManagement
             var hosts = GetRootHosts(LoadedScene);
             if (hosts.Length != 1) throw new InvalidOperationException("Game scene requires exactly one lifecycle root.");
             BootstrapSystem.ValidateSceneRoot(hosts[0], LoadedScene);
-            _gameRoot = (ISceneRoot)hosts[0];
+            _candidate.Root = (ISceneRoot)hosts[0];
             State = SceneTransitionState.Configuring;
-            await InvokeAsync(() => _callbacks != null ? _callbacks.ConfigureSceneAsync(LoadedScene, _gameRoot, token) : UniTask.CompletedTask);
+            await InvokeAsync(() => _callbacks != null ? _callbacks.ConfigureSceneAsync(LoadedScene, _candidate.Root, token) : UniTask.CompletedTask);
             token.ThrowIfCancellationRequested();
             State = SceneTransitionState.PreparingScene;
-            await InvokeAsync(() => _gameRoot.PrepareAsync(token));
+            await InvokeAsync(() => _candidate.Root.PrepareAsync(token));
             ValidatePreparedOwnership();
             State = SceneTransitionState.PreparingPresentation;
-            await InvokeAsync(() => _callbacks != null ? _callbacks.PreparePresentationAsync(LoadedScene, _gameRoot, token) : UniTask.CompletedTask);
+            await InvokeAsync(() => _callbacks != null ? _callbacks.PreparePresentationAsync(LoadedScene, _candidate.Root, token) : UniTask.CompletedTask);
             token.ThrowIfCancellationRequested();
             ValidatePreparedOwnership();
+            if (_primary != null)
+            {
+                State = SceneTransitionState.Stopping;
+                GameScene = default;
+                await ShutdownOwnerRootsAsync(_primary);
+                ValidatePreparedOwnership();
+                await UnloadOwnerAsync(_primary);
+                _primary = null;
+                token.ThrowIfCancellationRequested();
+                ValidatePreparedOwnership();
+            }
         }
 
-        private async UniTask ReleaseGameAsync()
+        private async UniTask ShutdownOwnerRootsAsync(OwnedPrimary owner)
         {
-            GameScene = default;
+            owner.ShutdownStarted = true;
             var failures = new List<Exception>();
-            if (LoadedScene.IsValid() && LoadedScene.isLoaded)
+            var scene = owner.Result.Scene;
+            var roots = scene.IsValid() && scene.isLoaded ? GetRootHosts(scene).Cast<ISceneRoot>().ToList() : new List<ISceneRoot>();
+            if (owner.Root is MonoBehaviour host && host != null && !roots.Contains(owner.Root)) roots.Add(owner.Root);
+            foreach (var root in roots.Where(root => !ReferenceEquals(root, _commonRoot)))
             {
-                var roots = GetRootHosts(LoadedScene).Cast<ISceneRoot>().ToList();
-                if (_gameRoot != null && _gameRoot.RootObject != null && !roots.Contains(_gameRoot)) roots.Add(_gameRoot);
-                foreach (var root in roots.Where(root => !ReferenceEquals(root, _commonRoot)))
-                {
-                    try
-                    {
-                        await InvokeAsync(root.ShutdownAsync);
-                    }
-                    catch (Exception exception)
-                    {
-                        failures.Add(exception);
-                    }
-                }
                 try
                 {
-                    if (_commonHost != null && _commonHost.gameObject.scene == LoadedScene)
-                        throw new InvalidOperationException("Cannot unload a candidate containing the borrowed common owner.");
-                    if (_previousActiveScene.IsValid() && _previousActiveScene.isLoaded &&
-                        SceneManager.GetActiveScene() == LoadedScene && !SceneManager.SetActiveScene(_previousActiveScene))
-                        throw new InvalidOperationException("Could not restore the previous active scene.");
-                    if (GetLoadedScenes().Length <= 1)
-                        throw new InvalidOperationException("Unity cannot unload the last normal scene; it remains loaded but unprepared.");
-                    await _ownedScene.UnloadAsync();
-                    LoadedScene = default;
-                    _ownedScene = null;
-                    _gameRoot = null;
+                    await InvokeAsync(root.ShutdownAsync);
                 }
                 catch (Exception exception)
                 {
                     failures.Add(exception);
                 }
             }
-            else if (_ownedScene != null)
+            if (failures.Count != 0) throw new AggregateException("Game root shutdown failed.", failures);
+        }
+
+        private async UniTask UnloadOwnerAsync(OwnedPrimary owner)
+        {
+            var scene = owner.Result.Scene;
+            if (scene.IsValid() && scene.isLoaded)
             {
+                if (_commonHost != null && _commonHost.gameObject.scene == scene)
+                    throw new InvalidOperationException("Cannot unload a candidate containing the borrowed common owner.");
+                if (SceneManager.GetActiveScene() == scene && _previousActiveScene != scene &&
+                    _previousActiveScene.IsValid() && _previousActiveScene.isLoaded &&
+                    (_primary == null || !_primary.ShutdownStarted) && !SceneManager.SetActiveScene(_previousActiveScene))
+                    throw new InvalidOperationException("Could not restore the previous active scene.");
+                if (GetLoadedScenes().Length <= 1)
+                    throw new InvalidOperationException("Unity cannot unload the last normal scene; it remains loaded but unprepared.");
+            }
+            await owner.Result.UnloadAsync();
+        }
+
+        private async UniTask CleanupOwnerAsync(OwnedPrimary owner)
+        {
+            var failures = new List<Exception>();
+            try
+            {
+                await ShutdownOwnerRootsAsync(owner);
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+            try
+            {
+                await UnloadOwnerAsync(owner);
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+            if (failures.Count != 0) throw new AggregateException("Game scene cleanup failed.", failures);
+        }
+
+        private async UniTask CleanupCandidateAsync()
+        {
+            if (_candidate == null) return;
+            var candidate = _candidate;
+            try
+            {
+                await CleanupOwnerAsync(candidate);
+            }
+            finally
+            {
+                if (candidate.Result.IsUnloaded) _candidate = null;
+            }
+        }
+
+        private async UniTask ReleaseGameAsync()
+        {
+            GameScene = default;
+            var failures = new List<Exception>();
+            try
+            {
+                await CleanupCandidateAsync();
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+            if (_primary != null)
+            {
+                var primary = _primary;
                 try
                 {
-                    await _ownedScene.UnloadAsync();
-                    _ownedScene = null;
-                    LoadedScene = default;
-                    _gameRoot = null;
+                    await CleanupOwnerAsync(primary);
                 }
                 catch (Exception exception)
                 {
                     failures.Add(exception);
+                }
+                finally
+                {
+                    if (primary.Result.IsUnloaded) _primary = null;
                 }
             }
             if (failures.Count != 0) throw new AggregateException("Game scene cleanup failed.", failures);
@@ -310,15 +467,15 @@ namespace MyLab.Core.SceneManagement
             {
                 failures.Add(exception);
             }
-            if (_entry != null)
+            if (_transition != null)
             {
                 try
                 {
-                    await _entry.Task;
+                    await _transition.Task;
                 }
                 catch (Exception)
                 {
-                    /* Entry failure belongs to entry awaiters. */
+                    /* Transition failures belong to their original awaiters. */
                 }
             }
             bool wasReady = GameScene.IsValid();
@@ -343,7 +500,6 @@ namespace MyLab.Core.SceneManagement
             {
                 failures.Add(exception);
             }
-            _lifetime?.Dispose();
             if (failures.Count == 0)
             {
                 State = SceneTransitionState.Stopped;
@@ -382,11 +538,30 @@ namespace MyLab.Core.SceneManagement
                 throw new InvalidOperationException("Both owning roots and the game scene must remain prepared.");
             if (SceneManager.GetActiveScene() != LoadedScene)
                 throw new InvalidOperationException("The active scene changed outside the scene manager's ownership.");
+            if (_primary != null && !_primary.ShutdownStarted && !IsOwnerPrepared(_primary))
+                throw new InvalidOperationException("The previous primary lost its prepared ownership.");
             ValidateInventory(ExpectedGameScenes());
         }
 
-        private Scene[] ExpectedGameScenes() => _mode == LoadSceneMode.Single
-            ? new[] { LoadedScene } : _initialScenes.Concat(new[] { LoadedScene }).ToArray();
+        private Scene[] ExpectedGameScenes() => _retainedScenes.Concat(GetOwners().Select(owner => owner.Result.Scene)).ToArray();
+
+        private IEnumerable<OwnedPrimary> GetOwners()
+        {
+            if (_primary != null) yield return _primary;
+            if (_candidate != null) yield return _candidate;
+        }
+
+        private static bool IsOwnerPrepared(OwnedPrimary owner) => owner != null && owner.Root is MonoBehaviour host &&
+            host != null && host.gameObject.scene == owner.Result.Scene && host.transform.parent == null &&
+            owner.Result.Scene.IsValid() && owner.Result.Scene.isLoaded && owner.Root.IsPrepared;
+
+        private sealed class OwnedPrimary
+        {
+            internal readonly MyLab.Core.ResourceManagement.LoadedScene Result;
+            internal ISceneRoot Root;
+            internal bool ShutdownStarted;
+            internal OwnedPrimary(MyLab.Core.ResourceManagement.LoadedScene result) => Result = result;
+        }
 
         private static void ValidateInventory(Scene[] expected)
         {

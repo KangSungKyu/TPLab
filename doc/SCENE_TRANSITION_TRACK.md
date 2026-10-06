@@ -4,7 +4,7 @@
 
 ## 브랜치와 순서
 
-`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 운영 지침 commit `acb636c933f2eea29f46705d233f4e0dba436965`를 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p0-loaders`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
+`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 운영 지침과 P0 loaders commit `26f725ddf77c2a27e632f48d1f19b7b678315d13`를 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p3a-flow`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
 
 ```text
 main@e9fa4e46 → codex/game-scenes-track
@@ -28,10 +28,10 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 | 단계 | 범위 | 현재 상태 | 증거 / gate |
 |---|---|---|---|
 | P0 guidelines | 운영 규칙과 추적 표 | 완료 | 문서 diff 검사·[회고](retrospectives/2026-10-06-16-game-scenes-track-guidelines.md), track push 완료 |
-| P0 loaders | Addressables/Build loader 명시 선택, 로드 결과와 씬 instance 소유권 | 자동 검증 완료 | [계약](SCENE_LOADING.md), [검증](validation/scene-loaders/README.md), [회고](retrospectives/2026-10-06-17-scene-loaders.md). 전체 Edit 213/213·Play 128/128, track 통합 단계 |
+| P0 loaders | Addressables/Build loader 명시 선택, 로드 결과와 씬 instance 소유권 | 자동 검증 완료 | [계약](SCENE_LOADING.md), [검증](validation/scene-loaders/README.md), [회고](retrospectives/2026-10-06-17-scene-loaders.md). 전체 Edit 213/213·Play 128/128, 26f725d track FF/push 완료. [정확한 commit CI 조회](validation/scene-loaders/ci-policy.json): 미구성, CI 성공 아님 |
 | Phase 1 | SceneTransitionCallbacks 공용화 | 선행 검증 기록 있음 | [검증 기록](validation/scene-transition-contracts/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
 | Phase 2 | manager 최초 진입과 Bootstrap 위임 | 선행 검증 기록 있음 | [검증 기록](validation/game-scene-entry/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
-| Phase 3A | Single/Additive 주 흐름 교체 | 계획(사용자 실행 승인됨) | [계약](GAME_SCENE_MANAGER_DRAFT.md)의 Phase 표에 따른 자동 검증·실패 경계 증거 연결 |
+| Phase 3A | Single/Additive 주 흐름 교체 | 자동 검증 완료 | [검증](validation/scene-replacement/README.md), [회고](retrospectives/2026-10-06-18-scene-replacement.md). Edit 213/213·Play 146/146, track 통합 단계 |
 | Phase 3B | 수명 tree와 구역 추가/제거 | 계획(사용자 실행 승인됨) | 부모/자식 수명 및 중복 종료 검증 증거 연결 |
 | Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 계획(사용자 실행 승인됨) | 공통 경로·무부작용 거부·권한/영향 root 검증 증거 연결 |
 | Phase 5 | Inspector, compile 후 Editor, Play/build gate | 계획(사용자 실행 승인됨) | 실제 Build scene 목록 및 설정 오류 차단 증거 연결 |
@@ -48,6 +48,9 @@ Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 �
 | P0 loaders 조사 | `/root/scene_runtime`, gpt-6.1-sol / high | loader 경로·씬 instance 소유권 위험의 읽기 전용 조사 | P0 관련 코드·문서 읽기 전용; 수정 금지 | 조사·계약 검토 완료 |
 | P0 loaders 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | 네이티브 비동기 완료·개별 씬 해제와 기존 Bootstrap 호환 | Core ResourceManagement/SceneManagement, 관련 Tests; Editor·Git·Unity 제외 | Green·최종 runtime 읽기 리뷰 완료 |
 | P0 Editor 구현 | `/root/track_guidelines`, gpt-6-luna / medium | source/SceneAsset Inspector와 등록·catalog 사전 검사 | Editor Bootstrap/asmdef 및 BootstrapSceneSourceTests; runtime·Git·Unity 제외 | Green 13/13·부모 리뷰 완료 |
+| Phase 3A 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | 교체 중 두 씬 소유권·Single graceful 종료·공유 취소의 비동기 위험 | GameSceneManager 및 관련 테스트·fixture; Editor·docs·Git·Unity 제외 | Red 11/0/11·Green 18/18, 최종 읽기 리뷰 완료 |
+| Phase 4/5 사전 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 기존 root/validator 재사용과 최소 정의·조건 API 검토 | 관련 코드·명세 읽기 전용; 수정 없음 | 조사 완료; 실행·수정 0건 |
+| 최종 수락 기준 문서 | `/root/track_guidelines`, gpt-6-luna / medium | 자동 gate와 마지막 사용자 확인 묶음의 독립 문서 | `doc/SCENE_TRANSITION_ACCEPTANCE.md`만 수정; Git·Unity 제외 | 초안·부모 리뷰 완료; 실행 경로 P6 확정 대기 |
 | P0 Editor API 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 설치 Addressables의 등록 API·preview gate·Player 모듈 확인 | 설치 패키지·Editor·Tests 읽기 전용 | 조사 완료; 실행 테스트 0건 |
 
 새 배정은 에이전트가 실제 생성·지원된 뒤 이 표에 기록한다. 기록 필드는 역할/실제 모델·추론, 작업과 선택 이유, 허용 경로, 상태를 포함한다. 비밀값이나 전체 실행 로그는 남기지 않는다.

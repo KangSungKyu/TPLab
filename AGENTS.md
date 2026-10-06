@@ -64,7 +64,7 @@
 
 ## GameSceneManager 통합 track 운영
 
-- GameSceneManager Phase 통합은 [SCENE_TRANSITION_TRACK.md](doc/SCENE_TRANSITION_TRACK.md)를 기준으로 한다. 현재 `codex/game-scenes-p0-guidelines`는 이 운영 지침 작성 단위다. 이미 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성된 `codex/game-scenes-track`에 이 단위를 통합하고, 그 최신 tip을 기준으로 `p0-loaders` → `p3a-flow` → `p3b-areas` → `p4-definitions` → `p5-editor` → `p6-validation`을 순서대로 진행한다. Phase 0은 Addressables/Build loader 명시 선택과 씬 instance 소유권을 다룬다. Phase 3A/3B/4/5/6 계약은 [GAME_SCENE_MANAGER_DRAFT.md](doc/GAME_SCENE_MANAGER_DRAFT.md)를 참조한다.
+- GameSceneManager Phase 통합은 [SCENE_TRANSITION_TRACK.md](doc/SCENE_TRANSITION_TRACK.md)를 기준으로 한다. main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성한 `codex/game-scenes-track`의 최신 검증 tip에서 Phase 브랜치를 생성하고 `p0-guidelines` → `p0-loaders` → `p3a-flow` → `p3b-areas` → `p4-definitions` → `p5-editor` → `p6-validation`을 순서대로 통합한다. 현재 단위·commit·실제 증거는 track 문서 한 곳에서 갱신한다. Phase 0은 Addressables/Build loader 명시 선택과 씬 instance 소유권을 다룬다. Phase 3A/3B/4/5/6 계약은 [GAME_SCENE_MANAGER_DRAFT.md](doc/GAME_SCENE_MANAGER_DRAFT.md), 최종 한 번의 사용자 확인 기준은 [SCENE_TRANSITION_ACCEPTANCE.md](doc/SCENE_TRANSITION_ACCEPTANCE.md)를 참조한다.
 - 부모 에이전트가 공용 계약·작업 배정·결과 리뷰·회고·Git 통합·Unity 조작을 소유한다. 하위 에이전트는 현재 지원 모델을 확인하고 검색은 luna/low, 작고 확정된 구현은 luna/medium, 통합 구현은 6.1-sol/medium을 우선 선택한다. 비동기 수명·소유권 위험은 high로 기록하고 필요하면 추론을 올린다. 역할·선택 근거·허용 경로·상태를 track 표에 남기며, 미확정 설계는 구현 담당에게 넘기지 않는다.
 - 기본 하위 에이전트는 1개, 독립 작업이 필요한 경우 최대 2개다. 같은 파일 또는 공용 계약을 동시에 수정하지 않는다. Unity 테스트 중 소스 변경을 동결하고, 기존 MyLab Editor는 부모만 조작한다. 새 사용자 소유 세션을 만들지 않는다.
 - 각 Phase의 자동 검증·리뷰·회고가 완료되면 해당 Phase를 track에 통합한다. 제안·진행·자동 검증 완료·사용자 확인 대기·완료 상태를 구분하고 증거가 있기 전 완료로 바꾸지 않는다. 최종 시각·사용성 확인은 마지막에 모으되 미검증 영역을 명시한다.
