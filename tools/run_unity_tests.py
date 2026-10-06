@@ -33,8 +33,17 @@ def main():
     if not args.project.is_absolute() or not (args.project / "ProjectSettings/ProjectVersion.txt").is_file():
         parser.error("Select an existing Unity project by absolute path")
     project = args.project.resolve()
-    status = subprocess.check_output(["unity-cli", "status", "--project", str(project)], encoding="utf-8")
-    if not status.startswith("Unity: ready") or project.as_posix().lower() not in status.replace("\\", "/").lower():
+    deadline = time.monotonic() + 30
+    while True:
+        probe = subprocess.run(["unity-cli", "status", "--project", project.as_posix()],
+                               capture_output=True, encoding="utf-8")
+        status = probe.stdout + probe.stderr
+        if probe.returncode == 0 and status.startswith("Unity: ready"):
+            break
+        if time.monotonic() >= deadline:
+            raise RuntimeError("The selected Editor did not become ready: " + status)
+        time.sleep(0.5)
+    if project.as_posix().lower() not in status.replace("\\", "/").lower():
         raise RuntimeError("The selected Editor must be ready: " + status)
     command = ["unity-cli", "test", "--project", str(project), "--mode", args.mode]
     if args.filter:

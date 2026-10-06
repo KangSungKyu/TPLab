@@ -4,7 +4,7 @@
 
 ## 브랜치와 순서
 
-현재 `codex/game-scenes-p0-guidelines`는 이 운영 지침 작성 단위다. `codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 이미 생성됐다. 이 지침 단위의 원본 commit을 track에 보존해 통합한 뒤, 각 단계를 직전 track tip에 순차 통합한다.
+`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 운영 지침 commit `acb636c933f2eea29f46705d233f4e0dba436965`를 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p0-loaders`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
 
 ```text
 main@e9fa4e46 → codex/game-scenes-track
@@ -27,8 +27,8 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 
 | 단계 | 범위 | 현재 상태 | 증거 / gate |
 |---|---|---|---|
-| P0 guidelines | 운영 규칙과 추적 표 | 진행 | 본 문서 및 `AGENTS.md`; 문서 diff 검사 후 회고 기록 |
-| P0 loaders | Addressables/Build loader 명시 선택, 로드 결과와 씬 instance 소유권 | 계획(사용자 실행 승인됨) | 구현 전 현재 계약·사용처 확인. 두 loader 경로와 경계/실패 검증 증거를 단계 완료 시 연결 |
+| P0 guidelines | 운영 규칙과 추적 표 | 완료 | 문서 diff 검사·[회고](retrospectives/2026-10-06-16-game-scenes-track-guidelines.md), track push 완료 |
+| P0 loaders | Addressables/Build loader 명시 선택, 로드 결과와 씬 instance 소유권 | 자동 검증 완료 | [계약](SCENE_LOADING.md), [검증](validation/scene-loaders/README.md), [회고](retrospectives/2026-10-06-17-scene-loaders.md). 전체 Edit 213/213·Play 128/128, track 통합 단계 |
 | Phase 1 | SceneTransitionCallbacks 공용화 | 선행 검증 기록 있음 | [검증 기록](validation/scene-transition-contracts/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
 | Phase 2 | manager 최초 진입과 Bootstrap 위임 | 선행 검증 기록 있음 | [검증 기록](validation/game-scene-entry/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
 | Phase 3A | Single/Additive 주 흐름 교체 | 계획(사용자 실행 승인됨) | [계약](GAME_SCENE_MANAGER_DRAFT.md)의 Phase 표에 따른 자동 검증·실패 경계 증거 연결 |
@@ -36,7 +36,7 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 | Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 계획(사용자 실행 승인됨) | 공통 경로·무부작용 거부·권한/영향 root 검증 증거 연결 |
 | Phase 5 | Inspector, compile 후 Editor, Play/build gate | 계획(사용자 실행 승인됨) | 실제 Build scene 목록 및 설정 오류 차단 증거 연결 |
 | Phase 6 | 통합 예제·회귀·소비 프로젝트·Player | 계획(사용자 실행 승인됨) | Bootstrap→주 흐름→구역, 구성·반복 Play·화면/입력 확인 증거 연결 |
-| 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 사용자 확인 대기 | 자동 검증과 분리 기록. 명시적인 인간 확인만 gate를 해소함 |
+| 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 미도달 | 완성 후보와 자동 gate가 준비된 뒤 대기 상태로 전환. 명시적인 인간 확인만 gate를 해소함 |
 
 Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 건수·결과, Console/compile 상태, 미실행 항목, 리뷰 및 회고 링크를 남긴다. 사용자 확인 항목은 재현 가능한 실행 절차와 기대 결과를 적는다. 마지막 단계에서 시각·사용성 검사를 모아 수행하되 미확인·미검증 항목을 완료로 표시하지 않는다.
 
@@ -46,6 +46,9 @@ Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 �
 |---|---|---|---|---|
 | P0 guidelines | `/root/track_guidelines`, gpt-6-luna / medium | 문서 범위가 확정된 track 운영 규칙 작성 | `AGENTS.md`, `doc/SCENE_TRANSITION_TRACK.md`, `doc/INDEX.md`, `doc/CORE_PLAN.md` | 작성·부모 리뷰 완료 |
 | P0 loaders 조사 | `/root/scene_runtime`, gpt-6.1-sol / high | loader 경로·씬 instance 소유권 위험의 읽기 전용 조사 | P0 관련 코드·문서 읽기 전용; 수정 금지 | 조사·계약 검토 완료 |
+| P0 loaders 구현 | `/root/scene_runtime`, gpt-6.1-sol / high | 네이티브 비동기 완료·개별 씬 해제와 기존 Bootstrap 호환 | Core ResourceManagement/SceneManagement, 관련 Tests; Editor·Git·Unity 제외 | Green·최종 runtime 읽기 리뷰 완료 |
+| P0 Editor 구현 | `/root/track_guidelines`, gpt-6-luna / medium | source/SceneAsset Inspector와 등록·catalog 사전 검사 | Editor Bootstrap/asmdef 및 BootstrapSceneSourceTests; runtime·Git·Unity 제외 | Green 13/13·부모 리뷰 완료 |
+| P0 Editor API 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 설치 Addressables의 등록 API·preview gate·Player 모듈 확인 | 설치 패키지·Editor·Tests 읽기 전용 | 조사 완료; 실행 테스트 0건 |
 
 새 배정은 에이전트가 실제 생성·지원된 뒤 이 표에 기록한다. 기록 필드는 역할/실제 모델·추론, 작업과 선택 이유, 허용 경로, 상태를 포함한다. 비밀값이나 전체 실행 로그는 남기지 않는다.
 

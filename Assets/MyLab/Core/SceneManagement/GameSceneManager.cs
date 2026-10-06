@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.Lifecycle;
+using MyLab.Core.ResourceManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +35,11 @@ namespace MyLab.Core.SceneManagement
         private Scene[] _initialScenes;
         private Scene _previousActiveScene;
         private ISceneRoot _gameRoot;
-        private string _path;
+        private readonly ISceneLoader _buildLoader;
+        private readonly ISceneLoader _addressableLoader;
+        private ISceneLoader _loader;
+        private SceneTarget _target;
+        private MyLab.Core.ResourceManagement.LoadedScene _ownedScene;
         private LoadSceneMode _mode;
         private bool _stopping;
         private bool _dispatching;
@@ -65,7 +70,8 @@ namespace MyLab.Core.SceneManagement
         /// Persistent common roots require callback components under the same persistent hierarchy.
         /// Callback UI/service dependencies are borrowed and must share that lifetime too.
         /// </summary>
-        public GameSceneManager(MonoBehaviour commonHost, SceneTransitionCallbacks callbacks = null)
+        public GameSceneManager(MonoBehaviour commonHost, SceneTransitionCallbacks callbacks = null,
+            ISceneLoader buildLoader = null, ISceneLoader addressableLoader = null)
         {
             EnsureMainThread();
             BootstrapSystem.ValidateSceneRoot(commonHost, commonHost != null ? commonHost.gameObject.scene : default, true);
@@ -76,6 +82,8 @@ namespace MyLab.Core.SceneManagement
             _commonScene = commonHost.gameObject.scene;
             _callbacks = callbacks;
             _hasCallbacks = callbacks != null;
+            _buildLoader = buildLoader ?? new NativeSceneLoader();
+            _addressableLoader = addressableLoader ?? new AddressableSceneLoader();
             ValidateCommonLifetime();
         }
 
@@ -88,24 +96,33 @@ namespace MyLab.Core.SceneManagement
             CancellationToken cancellationToken = default)
         {
             EnsureMainThread();
+            cancellationToken.ThrowIfCancellationRequested();
+            return EnterFirstSceneAsync(SceneTarget.BuildScene(scenePath), mode, cancellationToken);
+        }
+
+        /// <summary>Enters one explicit Build/Addressables target with the same first-entry ownership and caller-wait contract.</summary>
+        public UniTask EnterFirstSceneAsync(SceneTarget target, LoadSceneMode mode = LoadSceneMode.Additive,
+            CancellationToken cancellationToken = default)
+        {
+            EnsureMainThread();
             if (_stopping) throw new ObjectDisposedException(nameof(GameSceneManager));
             if (_entry != null) throw new InvalidOperationException("First entry already has an owner; do not reenter it.");
             cancellationToken.ThrowIfCancellationRequested();
-            BootstrapSystem.ValidateScenePath(scenePath);
+            target.Validate();
             ValidateCommonLifetime();
             if (mode != LoadSceneMode.Additive && mode != LoadSceneMode.Single)
                 throw new ArgumentOutOfRangeException(nameof(mode));
             if (mode == LoadSceneMode.Single && !BootstrapSystem.IsPersistent(_commonHost))
                 throw new InvalidOperationException("Single requires a persistent common root; it cannot retain Bootstrap.");
-            if (!Application.CanStreamedLevelBeLoaded(scenePath))
-                throw new InvalidOperationException("The first game scene must be enabled in the Player build scene list.");
-            if (SceneManager.GetSceneByPath(scenePath).isLoaded)
+            _loader = target.Source == SceneSource.BuildScene ? _buildLoader : _addressableLoader;
+            _loader.Validate(target);
+            if (SceneManager.GetSceneByPath(target.ScenePath).isLoaded)
                 throw new InvalidOperationException("The game scene is already loaded; the manager must own its load.");
             _initialScenes = GetLoadedScenes();
             if (mode == LoadSceneMode.Single && (_initialScenes.Length != 1 || GetRootHosts(_initialScenes[0]).Length != 0))
                 throw new InvalidOperationException("First Single entry requires only Bootstrap, without unregistered scene roots.");
             _previousActiveScene = SceneManager.GetActiveScene();
-            _path = scenePath;
+            _target = target;
             _mode = mode;
             _entry = new UniTaskCompletionSource();
             _lifetime = new CancellationTokenSource();
@@ -199,22 +216,13 @@ namespace MyLab.Core.SceneManagement
             ValidateCommonLifetime();
             ValidateInventory(_initialScenes);
             State = SceneTransitionState.Loading;
-            void OnLoaded(Scene scene, LoadSceneMode mode)
-            {
-                if (scene.path == _path && mode == _mode && !LoadedScene.IsValid()) LoadedScene = scene;
-            }
-            SceneManager.sceneLoaded += OnLoaded;
-            try
-            {
-                var operation = SceneManager.LoadSceneAsync(_path, _mode);
-                if (operation == null) throw new InvalidOperationException("Unity did not start the game scene load.");
-                // Native loads cannot be cancelled. Capture the actual Scene handle, then own late cleanup.
-                await operation.ToUniTask();
-            }
-            finally
-            {
-                SceneManager.sceneLoaded -= OnLoaded;
-            }
+            // The loader cannot abandon native work. Retain its actual result before observing owner cancellation.
+            _ownedScene = await _loader.LoadAsync(_target, _mode);
+            if (_ownedScene == null) throw new InvalidOperationException("The scene loader returned no owned result.");
+            LoadedScene = _ownedScene.Scene;
+            if (_ownedScene.Target.Source != _target.Source || _ownedScene.Target.ScenePath != _target.ScenePath ||
+                _ownedScene.Target.AddressableKey != _target.AddressableKey || LoadedScene.path != _target.ScenePath)
+                throw new InvalidOperationException("The scene loader returned a different target or scene asset.");
             token.ThrowIfCancellationRequested();
             if (!LoadedScene.IsValid() || !LoadedScene.isLoaded ||
                 (SceneManager.GetActiveScene() != LoadedScene && !SceneManager.SetActiveScene(LoadedScene)))
@@ -264,9 +272,22 @@ namespace MyLab.Core.SceneManagement
                         throw new InvalidOperationException("Could not restore the previous active scene.");
                     if (GetLoadedScenes().Length <= 1)
                         throw new InvalidOperationException("Unity cannot unload the last normal scene; it remains loaded but unprepared.");
-                    var unload = SceneManager.UnloadSceneAsync(LoadedScene);
-                    if (unload == null) throw new InvalidOperationException("Unity did not start the owned game scene unload.");
-                    await unload.ToUniTask();
+                    await _ownedScene.UnloadAsync();
+                    LoadedScene = default;
+                    _ownedScene = null;
+                    _gameRoot = null;
+                }
+                catch (Exception exception)
+                {
+                    failures.Add(exception);
+                }
+            }
+            else if (_ownedScene != null)
+            {
+                try
+                {
+                    await _ownedScene.UnloadAsync();
+                    _ownedScene = null;
                     LoadedScene = default;
                     _gameRoot = null;
                 }

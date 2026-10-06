@@ -1,0 +1,35 @@
+{
+  "total": 16,
+  "passed": 1,
+  "failed": 15,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneLoaderTests.AddressableTargetRequiresAnExplicitKey(null):   Expected: <System.ArgumentException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.AddressableTargetRequiresAnExplicitKey(\"\"):   Expected: <System.ArgumentException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.AddressableTargetRequiresAnExplicitKey(\" \\t\"):   Expected: <System.ArgumentException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(null):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"\"):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Scenes/Hub.unity\"):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets/../Hub.unity\"):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets//Hub.unity\"):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets\\\\Hub.unity\"):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets/Hub.prefab\"):   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.InvalidSourceAndBuildAddressKeyAreRejected:   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.OwnershipRequiresARealLoadedSceneAndUnloadDelegate:   Expected: <System.ArgumentException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoaderTests.ReferenceTargetUsesItsRuntimeKeyAndRejectsMissingReferences: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneLoaderTests.UnloadFailureIsSharedWithoutRetryOrSuccessPublication: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.SceneLoaderTests.UnloadStartsOnceAndAllCallersWaitForItsCompletion: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesPreserveExplicitBackendAndSceneIdentity"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneLoaderTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 34236,
+    "cliReturnCode": 1
+  }
+}

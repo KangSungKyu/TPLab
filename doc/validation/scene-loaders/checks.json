@@ -1,0 +1,97 @@
+{
+  "results": {
+    "full-EditMode.json": [
+      213,
+      213,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      128,
+      128,
+      0,
+      0
+    ],
+    "green-edit-initial.json": [
+      18,
+      18,
+      0,
+      0
+    ],
+    "green-editor.json": [
+      13,
+      13,
+      0,
+      0
+    ],
+    "green-play-initial.json": [
+      11,
+      11,
+      0,
+      0
+    ],
+    "green-play.json": [
+      13,
+      13,
+      0,
+      0
+    ],
+    "iteration-dependency-release.json": [
+      13,
+      12,
+      1,
+      0
+    ],
+    "iteration-full-PlayMode.json": [
+      128,
+      126,
+      2,
+      0
+    ],
+    "red-edit.json": [
+      16,
+      1,
+      15,
+      0
+    ],
+    "red-editor-initial.json": [
+      8,
+      7,
+      1,
+      0
+    ],
+    "red-editor.json": [
+      8,
+      3,
+      5,
+      0
+    ]
+  },
+  "documents": [
+    "doc/SCENE_LOADING.md",
+    "doc/SCENE_TRANSITION_TRACK.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/CORE_PLAN.md",
+    "doc/BOOTSTRAP_SYSTEM.md",
+    "doc/INDEX.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-06-17-scene-loaders.md",
+    "doc/validation/scene-loaders/README.md",
+    "tools/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Core/ResourceManagement/AddressableSceneLoader.cs",
+    "Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs",
+    "Assets/MyLab/Core/ResourceManagement/LoadedScene.cs",
+    "Assets/MyLab/Core/ResourceManagement/NativeSceneLoader.cs",
+    "Assets/MyLab/Core/ResourceManagement/SceneTarget.cs",
+    "Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs",
+    "Assets/MyLab/Tests/EditMode/SceneLoaderTests.cs",
+    "Assets/MyLab/Tests/EditMode/BootstrapSceneSourceTests.cs",
+    "Assets/MyLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs"
+  ],
+  "absentAssetPatterns": [
+    "BootstrapSceneSourceTests_*",
+    "MyLabBootstrapValidationProbe.unity"
+  ]
+}

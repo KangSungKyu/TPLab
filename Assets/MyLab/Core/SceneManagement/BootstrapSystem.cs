@@ -2,7 +2,9 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.Lifecycle;
+using MyLab.Core.ResourceManagement;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 namespace MyLab.Core.SceneManagement
@@ -17,6 +19,9 @@ namespace MyLab.Core.SceneManagement
         [SerializeField] private bool _autoStart = true;
         [SerializeField] private SceneTransitionCallbacks _callbacks;
         [SerializeField] private LoadSceneMode _loadMode = LoadSceneMode.Additive;
+        [SerializeField] private SceneSource _sceneSource = SceneSource.BuildScene;
+        [SerializeField] private string _addressableKey = "";
+        [SerializeField] private AssetReference _sceneReference;
         private bool _stopping;
         /// <summary>Explicit manager created before common preparation; null before the first entry command.</summary>
         public GameSceneManager Manager { get; private set; }
@@ -29,6 +34,29 @@ namespace MyLab.Core.SceneManagement
         public MonoBehaviour SceneRoot => _sceneRoot;
         /// <summary>Full Assets scene path selected by the project.</summary>
         public string FirstScenePath => _firstScenePath;
+        /// <summary>Explicit first-scene loader source; legacy serialized settings default to Build Scene.</summary>
+        public SceneSource Source => _sceneSource;
+        /// <summary>Unique scene address, mutually exclusive with a configured scene reference.</summary>
+        public string AddressableKey => _addressableKey;
+        /// <summary>Optional explicit scene reference, mutually exclusive with a string scene address.</summary>
+        public AssetReference SceneReference => _sceneReference;
+        /// <summary>Validated first target; an Addressable requires exactly one key/reference and an explicit scene path.</summary>
+        public SceneTarget FirstSceneTarget
+        {
+            get
+            {
+                // Unity can deserialize an empty inline AssetReference even when Configure assigned null.
+                if (_sceneSource == SceneSource.Addressable && _sceneReference != null &&
+                    !string.IsNullOrEmpty(_sceneReference.AssetGUID))
+                {
+                    if (!string.IsNullOrWhiteSpace(_addressableKey))
+                        throw new InvalidOperationException("Select one Addressables key or scene reference, not both.");
+                    return SceneTarget.Addressable(_sceneReference, _firstScenePath);
+                }
+                return new SceneTarget(_sceneSource, _firstScenePath,
+                    _sceneSource == SceneSource.BuildScene ? null : _addressableKey);
+            }
+        }
         /// <summary>Starts preparation from Start when enabled; false permits explicit execution.</summary>
         public bool AutoStart => _autoStart;
 
@@ -45,6 +73,19 @@ namespace MyLab.Core.SceneManagement
             _autoStart = autoStart;
             _callbacks = callbacks;
             _loadMode = loadMode;
+            _sceneSource = SceneSource.BuildScene;
+            _addressableKey = "";
+            _sceneReference = null;
+        }
+
+        /// <summary>Configures an explicit Build/Addressable target before entry, preserving the existing lifecycle and mode contract.</summary>
+        public void Configure(MonoBehaviour sceneRoot, SceneTarget target, bool autoStart = true, SceneTransitionCallbacks callbacks = null,
+            LoadSceneMode loadMode = LoadSceneMode.Additive)
+        {
+            target.Validate();
+            Configure(sceneRoot, target.ScenePath, autoStart, callbacks, loadMode);
+            _sceneSource = target.Source;
+            _addressableKey = target.AddressableKey ?? "";
         }
 
         /// <summary>Rejects invalid root ownership or entry settings before initialization.</summary>
@@ -58,7 +99,7 @@ namespace MyLab.Core.SceneManagement
             if (IsPersistent(_sceneRoot) && (!transform.IsChildOf(_sceneRoot.transform) ||
                 (_callbacks != null && !_callbacks.transform.IsChildOf(_sceneRoot.transform))))
                 throw new InvalidOperationException("Bootstrap and callbacks must survive under the persistent common root.");
-            ValidateScenePath(_firstScenePath);
+            FirstSceneTarget.Validate();
             if (_firstScenePath == gameObject.scene.path)
                 throw new InvalidOperationException("Bootstrap cannot load itself as the game scene.");
             if (_callbacks != null && _callbacks.gameObject.scene != gameObject.scene)
@@ -82,18 +123,7 @@ namespace MyLab.Core.SceneManagement
         }
 
         /// <summary>Checks a normalized Assets scene path; existence and build inclusion are checked separately.</summary>
-        public static void ValidateScenePath(string path)
-        {
-            if (string.IsNullOrWhiteSpace(path) || !path.StartsWith("Assets/", StringComparison.Ordinal) ||
-                !path.EndsWith(".unity", StringComparison.Ordinal) || path.Contains("//") ||
-                path.IndexOfAny(new[] { '\\', ':', '\r', '\n', '\t' }) >= 0)
-                throw new InvalidOperationException("Select a full Assets/.../*.unity scene path.");
-            foreach (var part in path.Split('/'))
-            {
-                if (part == "." || part == "..")
-                    throw new InvalidOperationException("Relative path segments are not allowed.");
-            }
-        }
+        public static void ValidateScenePath(string path) => SceneTarget.ValidateScenePath(path);
 
         /// <summary>Shares one entry attempt; caller cancellation stops only its wait. Failure keeps the cover.</summary>
         public UniTask BootstrapAsync(CancellationToken cancellationToken = default)
@@ -106,7 +136,7 @@ namespace MyLab.Core.SceneManagement
             Manager = new GameSceneManager(_sceneRoot, _callbacks);
             try
             {
-                return Manager.EnterFirstSceneAsync(_firstScenePath, _loadMode, cancellationToken);
+                return Manager.EnterFirstSceneAsync(FirstSceneTarget, _loadMode, cancellationToken);
             }
             catch
             {

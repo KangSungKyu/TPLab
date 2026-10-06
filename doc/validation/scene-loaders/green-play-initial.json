@@ -1,0 +1,29 @@
+{
+  "total": 11,
+  "passed": 11,
+  "failed": 0,
+  "skipped": 0,
+  "failures": [],
+  "passes": [
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.AddressablesExternalSingleReleasesOnlyThePreviousInstance",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.AddressablesExternalUnloadDoesNotReleaseAnInvalidHandleTwice",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.AddressablesRejectsMultipleLocationsBeforeNativeLoad",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.AddressablesResultOwnsARealNativeScene",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.CallerCancellationLeavesNativeOwnerAndResultAlive",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.ExplicitSourceChoosesOnlyItsInjectedLoader",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.NativeResultOwnsTheActualSceneAndSharedUnload",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.OwnerCancellationWaitsForLateNativeResultAndCleansIt",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.RealAddressablesOwnerCancellationOwnsLateCompletion",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.WrongSceneResultIsRetainedThenCleanedWithoutReveal",
+    "MyLab.Core.Tests.SceneLoaderPlayModeTests.WrongTargetResultIsRetainedThenCleanedWithoutReveal"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.SceneLoaderPlayModeTests",
+    "source": "connector-file",
+    "runId": "30076-1791279250978882600",
+    "cliPid": 30076,
+    "cliReturnCode": 1
+  }
+}

@@ -98,4 +98,17 @@ GameSceneManager는 전환 cover 시점과 실패 정책을 소유한다. 프로
 
 Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 프로젝트 조건 판단을 실제 연결한다. 조건 관련 검사는 Phase 4에서 실행한다. 임의 graph editor·자동 polling·DI container·자동 Bootstrap 생성은 추가하지 않는다. Editor의 게임 씬 직접 Play 자동 Bootstrap 도우미도 후속 별도 범위다.
 
-각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. 사용자 직접 확인이 없고 필수 자동 검사가 통과하면 승인된 Git 통합을 진행한다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.
+### Phase 3A 확정 API와 선행 조건
+
+2026-10-06 P0 조사·Native/Addressables focused 실행을 바탕으로 확정한 후속 구현 계약이다. 아래 API의 구현 완료를 뜻하지 않는다.
+
+- `ReplacePrimaryAsync(SceneTarget, LoadSceneMode, CancellationToken)`와 기존 사용성을 유지하는 Build path overload를 제공한다. 최초 진입이 성공했고 현재 주 씬/공용 root/실제 씬 집합이 준비된 Ready 상태에서만 실행한다.
+- `WaitForEntryAsync`는 최초 진입 이력이다. `WaitForTransitionAsync`는 마지막으로 승인된 상태 변경 작업의 공유 완료를 기다린다. 호출자 token은 기다림만 취소하며 `CancelTransition`과 terminal `ShutdownAsync`는 현재 소유 작업·늦은 native 완료까지 기다린다.
+- 첫 진입 이력과 현재 작업의 완료 소스·취소 수명을 분리한다. 상태 변경은 한 번에 하나이고 전환마다 OnFailure를 한 번 통지한다. 부작용 전의 설정/겹친 명령 거부는 실행 실패 통지가 아니다.
+- 이전 primary와 후보는 각 실제 LoadedScene 결과와 root를 보유한다. 후보를 얻은 순간 먼저 소유하고 검증한다. `OwnedScenes`는 실패 시에도 실제 남은 소유 씬을 읽기 전용으로 제공한다. 성공 primary, 전환 후보, Unity active scene을 혼동하지 않는다.
+- Additive에서는 후보 root·화면 준비 뒤에 이전 root Shutdown과 결과 Unload를 기다린다. 그 이전 후보 실패는 후보만 정리하고 이전 root를 유지하되 Faulted/가림막 유지/진행 중단으로 남긴다. 이전 종료가 시작된 뒤의 복귀는 보장하지 않는다.
+- Single에서는 영속 공용 수명과 전체 해제 집합을 먼저 검사한다. 이전 root graceful Shutdown을 기다린 뒤 native Single을 실행한다. 마지막 일반 씬을 먼저 별도 unload하지 않는다. Single이 이전 씬을 해제한 뒤에도 이전 결과의 backend 해제를 끝까지 관찰한다.
+- 명령별 실제 집합과 최초의 유지 대상 집합을 구분하고, 후보 추가·이전 해제 단계에 맞는 예상 집합을 검사한다. 미등록/유지되어야 하는 일반 씬이 있는 Single은 거부한다. 공용 root는 게임 전환에서 종료하지 않는다.
+- Phase 3B의 부모/자식/priority·registry와 Phase 4 조건 실행은 이 단계에 넣지 않는다. 실패 후보와 이전 씬의 잔여 소유권을 먼저 검증한 뒤 다음 단위로 확장한다.
+
+각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. Phase의 필수 자동 검사가 통과하면 승인된 track 통합을 진행한다. 이번 전체 작업의 main 통합에는 최종 명시적 사용자 확인도 필요하며, 사용자 부재 시 [track의 대기·절전 정책](SCENE_TRANSITION_TRACK.md)을 따른다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.

@@ -8,7 +8,7 @@
 2. 공용 root 영속화를 선택하면 Persist Across Scenes=true로 두고 BootstrapSystem과 SceneTransitionCallbacks를 해당 root 또는 그 자식에 둔다. 두 로드 모드를 사용할 수 있다. callback이 사용하는 UI·EventSystem·서비스도 프로젝트가 영속 수명을 보장해야 한다. 일반 씬의 객체 참조를 자동 영속화하지 않는다.
 3. BootstrapSystem의 Scene Root, First Game Scene, Load Mode, Auto Start, Callbacks를 지정한다. Auto Start=true면 Start에서 실행한다. false면 BootstrapAsync를 호출한다. Inspector와 코드가 같은 설정 검사를 사용한다.
 4. 목적지에는 유일한 활성 top-level root를 두고 persistence를 끈다. 공용 root가 SingletonSceneRoot면 게임 root는 SceneOwnedRoot를 사용한다. 같은 SingletonSceneRoot.Instance를 양쪽에서 중복 소유하지 않는다.
-5. 실제 Build Profiles 씬 목록의 첫 순서에 Bootstrap, enabled 목록에 목적지를 포함한다. Editor에서는 Bootstrap을 열고 목적지는 닫는다. 다른 Play Mode Start Scene은 기존 gate에서 거부한다.
+5. 실제 Build Profiles 씬 목록의 첫 순서에 Bootstrap을 둔다. Source=BuildScene이면 enabled 목록에 목적지를 포함한다. Source=Addressable이면 선택한 SceneAsset의 등록과 고유 Address 또는 Scene GUID Reference를 지정한다. 자동 loader 추정·fallback은 하지 않는다. [로더 계약](SCENE_LOADING.md)을 따른다. Editor에서는 Bootstrap을 열고 목적지는 닫는다. 다른 Play Mode Start Scene은 기존 gate에서 거부한다.
 
 공용 수명은 root의 기존 persistence 설정이 소유한다. 별도의 설정값·DI container·전역 GameSceneManager singleton은 추가하지 않았다. 영속 root는 Awake/동기 Install 뒤 DontDestroyOnLoad로 이동하므로 저장된 씬 검사와 runtime 실제 소속 검사를 구분한다. Bootstrap이 영속 root 밖에 있거나 callback이 다른 일반 씬에 있으면 거부한다. 네이티브 Single로 Bootstrap 씬은 해제되지만 영속 실행자는 살아남는다.
 

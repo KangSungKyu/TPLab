@@ -1,6 +1,6 @@
 {
     "name": "MyLab.Core.Editor",
     "rootNamespace": "MyLab.Core.Editor",
-    "references": ["MyLab.Core", "UniTask"],
+    "references": ["MyLab.Core", "UniTask", "Unity.Addressables", "Unity.Addressables.Editor"],
     "includePlatforms": ["Editor"]
 }

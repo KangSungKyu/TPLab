@@ -3,6 +3,7 @@
   "rootNamespace": "MyLab.Core",
   "references": [
     "UniTask",
+    "UniTask.Addressables",
     "Unity.Addressables",
     "Unity.ResourceManager"
   ]

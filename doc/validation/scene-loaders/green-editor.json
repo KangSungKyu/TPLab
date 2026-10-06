@@ -1,0 +1,31 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 13,
+  "passes": [
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableKeyAndSceneReferenceCannotBothBeSet",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableKeyMustResolveToTheSelectedScene",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressablePathMustExistAndContainOneValidLifecycleRoot",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableSceneMustHaveAnExplicitEntry",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableValidationRejectsExplicitNullSettings",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.BootstrapAndAddressableSceneCannotBothOwnSingletonRoot",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.DuplicateAddressEntriesAreRejected",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.MatchingReferenceWithAddressAliasOutsideBuildListPasses",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.NativeBuildSceneStillRequiresBuildListInclusionWhenRegisteredAddressable",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.RegisteredAddressableSceneOutsideBuildListPassesAndPreservesEditorScenes",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.SceneReferenceGuidMustMatchItsSavedScenePath",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.SceneReferenceRejectsSubObjectRuntimeKeys",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.SceneReferenceRequiresGuidInCatalog"
+  ],
+  "skipped": 0,
+  "total": 13,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.BootstrapSceneSourceTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 41828,
+    "cliReturnCode": 0
+  }
+}

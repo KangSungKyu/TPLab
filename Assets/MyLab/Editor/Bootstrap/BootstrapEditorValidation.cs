@@ -6,6 +6,7 @@ using UnityEditor.Callbacks;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor.AddressableAssets.Settings;
 
 namespace MyLab.Core.Editor.Bootstrap
 {
@@ -24,6 +25,7 @@ namespace MyLab.Core.Editor.Bootstrap
             EditorSceneManager.sceneSaved += scene => Queue();
             EditorSceneManager.sceneOpened += (scene, mode) => Queue();
             EditorApplication.hierarchyChanged += Queue;
+            AddressableAssetSettings.OnModificationGlobal += OnAddressablesModified;
             Queue();
         }
 
@@ -105,6 +107,9 @@ namespace MyLab.Core.Editor.Bootstrap
             Report(errors);
             EditorApplication.isPlaying = false;
         }
+
+        private static void OnAddressablesModified(AddressableAssetSettings settings,
+            AddressableAssetSettings.ModificationEvent modificationEvent, object eventData) => Queue();
 
         private static void Report(IReadOnlyList<string> errors)
         {

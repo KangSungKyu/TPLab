@@ -102,4 +102,6 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 
 2026-10-06 Phase 1: SceneTransitionCallbacks/ConfigureSceneAsync로 최초 진입 callback을 공용화하고 기존 BootstrapCallbacks를 호환 어댑터로 유지한다. Single/Additive·수명 tree·주/파생 구역·root 조건·UI·취소/실패 계약과 단계별 완료 기준은 GAME_SCENE_MANAGER_DRAFT.md가 소유한다. [이번 검증](validation/scene-transition-contracts/README.md)을 확인한다.
 
-2026-10-06 Phase 2: GameSceneManager 최초 진입 소유권, 공용 영속 수명/첫 로드 모드, 공유 await/owner 취소, 실패 단계·잔여 씬 상태, 명시적 종료와 기존 Editor gate 연결을 제공한다. [계약](BOOTSTRAP_SYSTEM.md)과 [검증](validation/game-scene-entry/README.md)을 확인한다. 다음은 Phase 3A 주 흐름 교체다.
+2026-10-06 Phase 2: GameSceneManager 최초 진입 소유권, 공용 영속 수명/첫 로드 모드, 공유 await/owner 취소, 실패 단계·잔여 씬 상태, 명시적 종료와 기존 Editor gate 연결을 제공한다. [계약](BOOTSTRAP_SYSTEM.md)과 [검증](validation/game-scene-entry/README.md)을 확인한다.
+
+2026-10-06 P0 loaders: 명시적 BuildScene/Addressable SceneTarget, 독점 LoadedScene과 두 loader를 제공하고 기존 최초 진입·Bootstrap Inspector 및 사전 gate에 연결했다. ResourceManager 자산 cache에는 씬 handle을 공유하지 않는다. [계약](SCENE_LOADING.md)과 [검증](validation/scene-loaders/README.md)을 확인한다. 다음은 Phase 3A 주 흐름 교체다.

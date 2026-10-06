@@ -1,0 +1,27 @@
+{
+  "total": 8,
+  "passed": 3,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableKeyMustResolveToTheSelectedScene:   Expected: not <empty>\r\n  But was:  <empty>\r\n",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableSceneMustHaveAnExplicitEntry:   Expected: not <empty>\r\n  But was:  <empty>\r\n",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableValidationRejectsExplicitNullSettings:   Expected: not <empty>\r\n  But was:  <empty>\r\n",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.RegisteredAddressableSceneOutsideBuildListPassesAndPreservesEditorScenes:   Expected: <empty>\r\n  But was:  < \"First game scene must be included in the build: Assets/BootstrapSceneSourceTests_ac2cb1a6a5bf4d818ef659f31c99f210/Hub.unity\" >\r\n",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.SceneReferenceGuidMustMatchItsSavedScenePath:   Expected: not <empty>\r\n  But was:  <empty>\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressableKeyAndSceneReferenceCannotBothBeSet",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.AddressablePathMustExistAndContainOneValidLifecycleRoot",
+    "MyLab.Core.Tests.BootstrapSceneSourceTests.BootstrapAndAddressableSceneCannotBothOwnSingletonRoot"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.BootstrapSceneSourceTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 41660,
+    "cliReturnCode": 1
+  }
+}

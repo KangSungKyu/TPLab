@@ -1,0 +1,36 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 18,
+  "passes": [
+    "MyLab.Core.Tests.SceneLoaderTests.AddressableTargetRequiresAnExplicitKey(null)",
+    "MyLab.Core.Tests.SceneLoaderTests.AddressableTargetRequiresAnExplicitKey(\"\")",
+    "MyLab.Core.Tests.SceneLoaderTests.AddressableTargetRequiresAnExplicitKey(\" \\t\")",
+    "MyLab.Core.Tests.SceneLoaderTests.BackendCannotPublishUnloadSuccessWhileSceneRemainsLoaded",
+    "MyLab.Core.Tests.SceneLoaderTests.BootstrapTargetConfigurationPreservesLegacyBuildSelection",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesPreserveExplicitBackendAndSceneIdentity",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(null)",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"\")",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Scenes/Hub.unity\")",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets/../Hub.unity\")",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets//Hub.unity\")",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets\\\\Hub.unity\")",
+    "MyLab.Core.Tests.SceneLoaderTests.FactoriesRejectMalformedScenePaths(\"Assets/Hub.prefab\")",
+    "MyLab.Core.Tests.SceneLoaderTests.InvalidSourceAndBuildAddressKeyAreRejected",
+    "MyLab.Core.Tests.SceneLoaderTests.OwnershipRequiresARealLoadedSceneAndUnloadDelegate",
+    "MyLab.Core.Tests.SceneLoaderTests.ReferenceTargetUsesItsRuntimeKeyAndRejectsMissingReferences",
+    "MyLab.Core.Tests.SceneLoaderTests.UnloadFailureIsSharedWithoutRetryOrSuccessPublication",
+    "MyLab.Core.Tests.SceneLoaderTests.UnloadStartsOnceAndAllCallersWaitForItsCompletion"
+  ],
+  "skipped": 0,
+  "total": 18,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneLoaderTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 42992,
+    "cliReturnCode": 0
+  }
+}

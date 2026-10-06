@@ -1,0 +1,10 @@
+{
+    "BuildRejected": true,
+    "PlayRejected": true,
+    "LiveInvalidRootDetected": false,
+    "LiveInvalidModeDetected": true,
+    "FixtureRemoved": true,
+    "Error": "",
+    "BuildDiagnostic": "BuildFailedException: Bootstrap validation failed:\nSingle requires a persistent common root; it cannot retain Bootstrap.\n",
+    "BuildResult": "Unknown"
+}
