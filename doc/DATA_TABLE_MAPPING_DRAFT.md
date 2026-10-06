@@ -8,6 +8,8 @@
 
 2026-10-06 후속 변경: Text/Resource DTO·테이블은 코어에서 제거하고 [예시 템플릿](templates/data-tables/README.md)으로 분리했다. 예시 소스는 테스트 assembly에서만 컴파일하며 프로젝트에서 복사·수정해 사용한다. 현재 [분리 검증](validation/data-table-templates/README.md)을 따른다.
 
+2026-10-06 Editor 후속 검토: [importer 초안](DATA_TABLE_IMPORTER_DRAFT.md)에 폴더 감지·명시적 스키마·프로젝트 DTO/table 생성·기존 타입 검증의 경계를 정리했다. 미구현 제안이며 아래 runtime 매핑/명시적 등록 계약을 바꾸지 않는다.
+
 제네릭 조회 구현 준비 기준은 [구현 순서·완료 조건](DATA_TABLE_GENERIC_IMPLEMENTATION.md)으로 연결한다. 아래 표준 DTO/기반·기본 테이블/명시적 binding은 그 준비 범위이며 runtime에 생성기를 강제하지 않는다.
 
 사용자 요청은 Lab이 기본 DTO 규격과 인터페이스를 제공하고 이를 구현한 테이블 단위를 매핑하는 것이다. 여기서 구현 단위는 CSV 한 종류의 DTO 매핑·행 검증·조회 기능을 가진 테이블 클래스로 해석했다. DTO를 GameObject·게임 서비스로 생성하는 기능은 별도 범위다.
