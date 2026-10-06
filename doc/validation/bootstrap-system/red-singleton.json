@@ -1,0 +1,32 @@
+{
+  "total": 22,
+  "passed": 21,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapSystemTests.BootstrapAndGameCannotBothClaimSingletonSceneRoot:   Expected: not <empty>\r\n  But was:  <empty>\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.BootstrapSystemTests.ArbitraryComponentCannotActAsSceneRoot",
+    "MyLab.Core.Tests.BootstrapSystemTests.BootstrapCannotTargetItsOwnScene",
+    "MyLab.Core.Tests.BootstrapSystemTests.BootstrapMustBeFirstAndDestinationMustBeIncluded",
+    "MyLab.Core.Tests.BootstrapSystemTests.DefaultsRequireExplicitRootAndDestination",
+    "MyLab.Core.Tests.BootstrapSystemTests.DestinationRequiresItsOwnValidSceneRoot",
+    "MyLab.Core.Tests.BootstrapSystemTests.DuplicateOrPersistentHostsCannotOwnBootstrap",
+    "MyLab.Core.Tests.BootstrapSystemTests.InvalidScenePathsAreRejected(\"\")",
+    "MyLab.Core.Tests.BootstrapSystemTests.InvalidScenePathsAreRejected(\"Hub\")",
+    "MyLab.Core.Tests.BootstrapSystemTests.InvalidScenePathsAreRejected(\"Packages/Hub.unity\")",
+    "MyLab.Core.Tests.BootstrapSystemTests.InvalidScenePathsAreRejected(\"Assets/../Hub.unity\")",
+    "MyLab.Core.Tests.BootstrapSystemTests.InvalidScenePathsAreRejected(\"Assets/Game/Hub.prefab\")",
+    "MyLab.Core.Tests.BootstrapSystemTests.InvalidSerializedInstallerStopsBuildPreflight",
+    "MyLab.Core.Tests.BootstrapSystemTests.LegacyMissingBuildScenesAreLeftToUnityWhenBootstrapIsAbsent",
+    "MyLab.Core.Tests.BootstrapSystemTests.MissingRootIsRejected",
+    "MyLab.Core.Tests.BootstrapSystemTests.ProjectsWithoutBootstrapKeepTheirExistingBuildFlow",
+    "MyLab.Core.Tests.BootstrapSystemTests.RootMustRemainTopLevelAndInTheBootstrapScene",
+    "MyLab.Core.Tests.BootstrapSystemTests.SavedInvalidRootStopsBuildPreflight",
+    "MyLab.Core.Tests.BootstrapSystemTests.SavedSceneValidationPreservesActiveSceneAndClosesPreviews",
+    "MyLab.Core.Tests.BootstrapSystemTests.ValidSavedBootstrapAndGameScenesPassBuildPreflight",
+    "MyLab.Core.Tests.BootstrapSystemTests.ValidSceneOwnedOrSingletonRootCanBeSelected(False)",
+    "MyLab.Core.Tests.BootstrapSystemTests.ValidSceneOwnedOrSingletonRootCanBeSelected(True)"
+  ]
+}

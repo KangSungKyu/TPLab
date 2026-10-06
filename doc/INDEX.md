@@ -12,7 +12,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·Bootstrap 최초 진입 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -27,6 +27,7 @@
 | [SCENE_ROOT.md](SCENE_ROOT.md) | InitScene 같은 root의 소유 방식·installer·참조 주입·Editor 설정 | SceneOwned/Singleton 선택, Inspector·script 연결과 동기 주입 |
 | [ASYNC_SCENE_LIFECYCLE.md](ASYNC_SCENE_LIFECYCLE.md) | async 준비·해제·취소·씬 진행·가림막 callback 변경 | 준비/종료 순서·실패 rollback·표시 보호·전환 소유권 |
 | [GAME_SCENE_MANAGER_DRAFT.md](GAME_SCENE_MANAGER_DRAFT.md) | Bootstrap 진입·Additive 전환·active scene·해제/취소 설계 | Bootstrap 먼저·게임 씬 Additive 권장안, 공용/씬별 소유권, 기본 사양과 미구현 경계 |
+| [BOOTSTRAP_SYSTEM.md](BOOTSTRAP_SYSTEM.md) | 최초 씬 root·목적지 설정·준비·Additive 진입·Editor/빌드 gate 변경 | BootstrapSystem/Callbacks API, Inspector와 컴파일 후·Play·실제 build list 검증 |
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [ResourceManager 검증](validation/resource-manager/README.md) | ResourceManager 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·native fixture·컴파일/Console·증거·미검증 경계 |
 | [DATA_TABLE_MANAGER.md](DATA_TABLE_MANAGER.md) | CSV 등록·스키마·키·교차 검증·snapshot 공개·재로드·취소 변경 | DataTableManager 소유권·전체 후보 검증과 root 주입 |
@@ -52,6 +53,7 @@
 | [DataTableManager 검증 설명](validation/data-tables/README.md) · [EditMode](validation/data-tables/full-EditMode.json) · [PlayMode](validation/data-tables/full-PlayMode.json) · [입력 hash](validation/data-tables/test-inputs.json) | CSV·전체 snapshot·비동기·자산/root 연결 회귀 확인 | 관리 데이터 공개와 자원 소유권 경계·소비 프로젝트/Player 미검증 구분 |
 | [표준 idx·generic 검증](validation/generic-data-tables/README.md) · [EditMode](validation/generic-data-tables/full-EditMode.json) · [PlayMode](validation/generic-data-tables/full-PlayMode.json) · [입력 hash](validation/generic-data-tables/test-inputs.json) | 표준 DTO·codec·generic 조회·binding·FK·기존 수동 경로 회귀 | 이번 코드 입력과 실제 실행 수, 소비 프로젝트/Player 미검증 경계 확인 |
 | [CSV Editor importer 검증](validation/data-table-importer/README.md) | 생성·소유권·공용/typed 검증·모드/asset/domain reload 회귀 | 실제 Red/Green·native 실행·컴파일/Console·입력 hash와 Player 미검증 경계 확인 |
+| [BootstrapSystem 검증](validation/bootstrap-system/README.md) | root/씬 설정·실제 최초 Additive 진입·취소/종료·Editor/build gate 회귀 | 실제 Red/Green·네이티브 차단·전체 회귀·입력 hash와 미검증 경계 확인 |
 | [Text/Resource 템플릿 분리 검증](validation/data-table-templates/README.md) | core에서 구체 스키마 제거·예시 컴파일·회귀 확인 | 현행 Core/예시 namespace와 assembly 경계·입력 hash 확인 |
 
 ## 의존성과 라이선스 자료
@@ -69,7 +71,7 @@
 ## 다음 단계와 완료 경계
 
 - 데이터 테이블 Editor importer의 CSV 1차 구현은 [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)과 [검증 자료](validation/data-table-importer/README.md)를 따른다. JSON 행·자동 등록·rename migration은 후속 범위다.
-- GameSceneManager는 runtime 미구현이다. [기본 사양·Bootstrap 권장안](GAME_SCENE_MANAGER_DRAFT.md)을 기준으로 정확한 전환 API·실패/취소 경계를 확정한 뒤 구현한다.
+- [BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입은 구현했다. 일반 GameSceneManager의 연속 게임 씬 교체 API는 [기본 사양](GAME_SCENE_MANAGER_DRAFT.md)을 기준으로 후속 구현한다.
 - 소비 프로젝트 가져오기·최소 예제 실행·Player 검증은 후속 단계다. MyLab 내부 테스트의 통과를 전체 배포 호환성 완료로 확대하지 않는다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.
 

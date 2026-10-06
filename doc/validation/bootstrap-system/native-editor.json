@@ -1,0 +1,9 @@
+{
+    "BuildRejected": true,
+    "PlayRejected": true,
+    "LiveInvalidRootDetected": true,
+    "FixtureRemoved": true,
+    "Error": "",
+    "BuildDiagnostic": "BuildFailedException: Bootstrap validation failed:\nSelect a SceneOwnedRoot or SingletonSceneRoot.\n",
+    "BuildResult": "Unknown"
+}

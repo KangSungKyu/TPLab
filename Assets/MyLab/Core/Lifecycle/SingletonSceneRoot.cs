@@ -14,6 +14,8 @@ namespace MyLab.Core.Lifecycle
 
         /// <inheritdoc />
         public GameObject RootObject => gameObject;
+        /// <summary>Gets whether the host moves into DontDestroyOnLoad on installation.</summary>
+        public bool PersistsAcrossScenes => _persistAcrossScenes;
         /// <inheritdoc />
         public bool IsReady => _installation != null && _installation.IsReady;
         /// <inheritdoc />

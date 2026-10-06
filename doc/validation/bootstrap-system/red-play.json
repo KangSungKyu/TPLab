@@ -1,0 +1,15 @@
+{
+  "total": 6,
+  "passed": 0,
+  "failed": 6,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.BootstrapPlayModeTests.AutoStartRunsExactlyOnce: System.TimeoutException : Exceed Timeout:00:00:10",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.BothRootsMustPrepareBeforeRevealAndShutdownKeepsSharedRoot: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.CallerCancellationDoesNotCancelSharedEntry: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.ConfigurationFailureKeepsCoverAndUnloadsCandidate:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotImplementedException>\r\n",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.MissingBuildDestinationFailsBeforePreparation:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotImplementedException>\r\n",
+    "MyLab.Core.Tests.BootstrapPlayModeTests.OwnerShutdownCancelsGamePreparationAndCleansItsScene: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": []
+}

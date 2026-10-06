@@ -1,0 +1,8 @@
+{
+  "fixture-failed": "Initial test harness could not create an unsaved Additive scene; not semantic Red. Fixed by opening owned empty saved scene assets.",
+  "gate-compatibility-failure": "Missing legacy build scene blocked Play without Bootstrap. Fixed: no Bootstrap uses existing Unity policy.",
+  "fixture-build-list-failure": "Native build list is captured before Play. Fixed with PrebuildSetup/PostBuildCleanup and serialized build settings snapshot.",
+  "fixture-start-order-failure": "Start had already run with AutoStart=false before the test changed settings. Configure before activation.",
+  "late-cancel-failure": "95/96 passed. Late cancellation tried restoring active scene before this owner had changed it. Fixed: restore only after this owner made game active.",
+  "cli-reload-recovery": "CLI reported editor stopped at 14:08; current Editor remained alive. Fresh Connector result test-results-33892-1791263300025498600.json confirmed all six exact Bootstrap tests passed."
+}
