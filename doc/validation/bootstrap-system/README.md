@@ -11,7 +11,7 @@
 | 최종 전체 EditMode | 176 / 176 / 0 / 0 | [full-EditMode.json](full-EditMode.json) |
 | 최종 전체 PlayMode | 96 / 96 / 0 / 0 | [full-PlayMode.json](full-PlayMode.json) |
 
-최종 실행에는 Bootstrap 설정 22건·native 씬 진입 9건이 포함된다. 기존 테스트도 실제 다시 실행했다. [입력 hash](test-inputs.json)는 테스트 대상 C#/assembly·씬 fixture·의존성 파일을 소유한다. 전체 EditMode 실행 뒤 변경하지 않은 기존 SceneRootEditorTests의 AddComponent/Undo 정리에서 warning 6건이 남았고 [원본 로그](editmode-undo-warnings.json)로 보존했다. 제품 오류로 숨기거나 테스트 통과를 경고 없음으로 표시하지 않는다. 최종 C# 컴파일 성공과 [Editor ready](final-status.txt), 기대 로그를 보존한 뒤 [새 Console 오류/경고 0](final-console.json)을 확인했다.
+최종 실행에는 Bootstrap 설정 22건·native 씬 진입 9건이 포함된다. 기존 테스트도 실제 다시 실행했다. [입력 hash](test-inputs.json)는 테스트 대상 C#/assembly·씬 fixture·의존성 파일을 소유한다. 실행 당시 raw hash를 보존하고, Git eol=lf checkout과 CRLF/mixed working copy 사이의 줄바꿈 차이를 허용하도록 텍스트는 LF 정규화 hash로 대조한다. DLL과 사용자 dirty 자산은 raw bytes를 검사한다. 정규화 내용은 검증된 e5ea2be Git blob과 일치한다. 전체 EditMode 실행 뒤 변경하지 않은 기존 SceneRootEditorTests의 AddComponent/Undo 정리에서 warning 6건이 남았고 [원본 로그](editmode-undo-warnings.json)로 보존했다. 제품 오류로 숨기거나 테스트 통과를 경고 없음으로 표시하지 않는다. 최종 C# 컴파일 성공과 [Editor ready](final-status.txt), 기대 로그를 보존한 뒤 [새 Console 오류/경고 0](final-console.json)을 확인했다.
 
 [Native Editor 검사](native-editor.json)는 BootstrapEditorCheck.Run으로 실제 BuildPipeline.BuildPlayer가 잘못된 root를 BuildFailedException으로 차단하고, live 미저장 root를 감지하며, Play 진입을 취소하는지 검증했다. 전용 임시 씬은 제거했고 사용자 씬을 저장하지 않았다. PrepareForBuild에서 중단되어 BuildReport.summary.result는 Unknown이며 [실제 예외 로그](native-expected-console.json)가 원인을 증명한다. 성공적인 Player 빌드 결과로 표시하지 않는다.
 

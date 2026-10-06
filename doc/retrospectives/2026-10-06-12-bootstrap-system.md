@@ -10,3 +10,5 @@
 - 한계: pre-build 실패의 BuildReport는 Unknown; 실제 BuildFailedException으로 차단을 확인했다. 성공 Player·소비 프로젝트·최종 시각 UX·Reload 비활성 반복 Play는 미실행이다.
 - Git: 작업 시작 전 main에서 별도 브랜치 필요를 확인하고 codex/bootstrap-system을 생성했다. 이번 파일만 commit/push하고 필수 자동 검사 통과 후 승인된 조건에 따라 main 통합을 진행한다. 실제 commit/원격 일치는 최종 보고와 Git 이력에서 확인한다.
 - 다음: 일반 GameSceneManager의 게임 씬 교체 API·현재 씬 소유권·부분 실패/취소 경계를 정하고 구현한다. Bootstrap 최초 진입 코드와 이번 native 검증을 선행 산출물로 사용한다. 배포 완료 전 소비 프로젝트·Player 검증을 별도 수행한다.
+
+2026-10-06 통합 후 보완: e5ea2be main 병합·푸시와 원격 일치를 확인했다. checkout 시 eol=lf가 적용되어 실행 당시 CRLF/mixed 소스의 raw hash와 달라졌다. 실행 raw hash를 보존하고 검증 커밋의 Git blob과 일치하는 LF 정규화 hash를 추가했다. Runtime/테스트 내용은 변경하지 않았고 정적 대조만 재실행한다.

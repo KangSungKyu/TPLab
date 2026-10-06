@@ -24,8 +24,13 @@ assert read_json(EVIDENCE / "final-console.json") == []
 assert "Unity: ready" in (EVIDENCE / "final-status.txt").read_text(encoding="utf-8-sig")
 
 for name in ("test-inputs.json", "preserved-user-inputs.json"):
-    for path, expected in read_json(EVIDENCE / name).items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest().lower() == expected.lower(), path
+    record = read_json(EVIDENCE / name)
+    fingerprints = record["sha256"] if name == "test-inputs.json" else record
+    for path, expected in fingerprints.items():
+        data = (ROOT / path).read_bytes()
+        if name == "test-inputs.json" and not path.endswith(".dll"):
+            data = data.replace(b"\r\n", b"\n")
+        assert hashlib.sha256(data).hexdigest().lower() == expected.lower(), path
 
 all_guids = {}
 for meta in (ROOT / "Assets").rglob("*.meta"):
