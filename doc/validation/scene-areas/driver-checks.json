@@ -1,0 +1,16 @@
+{
+  "editorProject": "C:/Users/PC/Projects/MyLab",
+  "editorPid": 23176,
+  "initialFullEditAttempt": {
+    "resultAvailable": false,
+    "transcript": "Error: no Unity instances running",
+    "countedAsPass": false
+  },
+  "driverChange": "Retry only an exact prestart discovery rejection once after rediscovering the same Editor PID. Never retry failed or ambiguous test results.",
+  "selfCheck": {
+    "redExitCode": 1,
+    "redFailure": "AssertionError: is_prestart_discovery_gap",
+    "greenExitCode": 0,
+    "greenOutput": "PASS: CLI/Connector extraction and strict prestart-discovery classification"
+  }
+}

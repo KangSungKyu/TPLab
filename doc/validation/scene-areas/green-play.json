@@ -1,0 +1,53 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 27,
+  "passes": [
+    "MyLab.Core.Tests.GameSceneAreaTests.AddCompletionAwaiterCanStartNextAddWithoutChangingFirstCommandScene",
+    "MyLab.Core.Tests.GameSceneAreaTests.AdditiveChildWaitsForPresentationAndRetainsPreparedParent",
+    "MyLab.Core.Tests.GameSceneAreaTests.AncestorRemovesSubtreeChildFirst",
+    "MyLab.Core.Tests.GameSceneAreaTests.DerivedAncestorRemovesItsChildWhileKeepingOwnBranchPrepared",
+    "MyLab.Core.Tests.GameSceneAreaTests.DerivedCanExitItselfWithoutReleasingParent",
+    "MyLab.Core.Tests.GameSceneAreaTests.ExplicitActivationChangesActiveSceneWithoutReplacingPrimary",
+    "MyLab.Core.Tests.GameSceneAreaTests.ExternalActiveChangeDuringAddPresentationFaultsAndRetainsExistingTree",
+    "MyLab.Core.Tests.GameSceneAreaTests.ExternalActiveChangeDuringRemovalIsReportedAfterCleanup",
+    "MyLab.Core.Tests.GameSceneAreaTests.FailedCandidatePreparationNeverRegistersOrReleasesExistingTree",
+    "MyLab.Core.Tests.GameSceneAreaTests.ForeignInventoryDuringRemovalIsReportedWithoutDeletingForeignScene",
+    "MyLab.Core.Tests.GameSceneAreaTests.InvalidParentDuplicateAssetAndPrimaryRemovalAreRejectedBeforeEffects",
+    "MyLab.Core.Tests.GameSceneAreaTests.NestedRegistrationsCopyParentAndPriorityWithoutAutomaticActivation",
+    "MyLab.Core.Tests.GameSceneAreaTests.OtherCommandsAreRejectedDuringRemovalWithoutEffects",
+    "MyLab.Core.Tests.GameSceneAreaTests.OwnerCancellationDuringRemovalWaitsForEntireBegunSubtreeCleanup",
+    "MyLab.Core.Tests.GameSceneAreaTests.OwnerCancellationWaitsForLateAddedCandidateAndPreservesRegisteredTree",
+    "MyLab.Core.Tests.GameSceneAreaTests.PendingSameRemovalSharesResultAfterAuthorityValidationAndCallerCancellation",
+    "MyLab.Core.Tests.GameSceneAreaTests.PrimaryAdditiveReplacementReleasesSubtreeChildFirst",
+    "MyLab.Core.Tests.GameSceneAreaTests.PrimaryRegistrationHasSessionBoundaryAndPreparedSnapshot",
+    "MyLab.Core.Tests.GameSceneAreaTests.PrimarySingleReplacementReleasesWholeTreeBeforeNativeLoad",
+    "MyLab.Core.Tests.GameSceneAreaTests.RegisteredSiblingCannotRemoveAnotherSubtree",
+    "MyLab.Core.Tests.GameSceneAreaTests.RemovalPreservesActiveSiblingOutsideTargetSubtree",
+    "MyLab.Core.Tests.GameSceneAreaTests.RemovalReleaseFailureCleansActualSubtreeAndBlocksFurtherWork",
+    "MyLab.Core.Tests.GameSceneAreaTests.RemovalUnloadFailureKeepsActualRegistrationAndStickyShutdownError",
+    "MyLab.Core.Tests.GameSceneAreaTests.SameRemovalSharesCompletionAfterUnloadWhileRevealIsPending",
+    "MyLab.Core.Tests.GameSceneAreaTests.ShutdownCleansEntireTreeChildFirst",
+    "MyLab.Core.Tests.GameSceneAreaTests.ShutdownWaitsForLateAddedCandidateAndThenReleasesRegisteredTree",
+    "MyLab.Core.Tests.GameSceneAreaTests.SingleCancellationDuringDescendantReleaseFinishesGracefulTreeWithoutNativeLoad"
+  ],
+  "skipped": 0,
+  "total": 27,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.GameSceneAreaTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 38852,
+    "cliReturnCode": 0,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 38852,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

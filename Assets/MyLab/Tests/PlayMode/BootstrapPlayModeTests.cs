@@ -553,20 +553,25 @@ namespace MyLab.Core.Tests
         public void Setup()
         {
 #if UNITY_EDITOR
-            const string hub = "Assets/MyLab/Tests/Fixtures/BootstrapHub.unity";
-            const string replacement = "Assets/MyLab/Tests/Fixtures/ReplacementMain.unity";
+            var fixtures = new[]
+            {
+                "Assets/MyLab/Tests/Fixtures/BootstrapHub.unity",
+                "Assets/MyLab/Tests/Fixtures/ReplacementMain.unity",
+                "Assets/MyLab/Tests/Fixtures/DerivedArea.unity",
+                "Assets/MyLab/Tests/Fixtures/NestedArea.unity"
+            };
             if (!string.IsNullOrEmpty(SessionState.GetString(Key, "")))
                 throw new InvalidOperationException("Restore the previous Bootstrap test build scene snapshot before running again.");
-            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(hub) == null || AssetDatabase.LoadAssetAtPath<SceneAsset>(replacement) == null)
-                throw new InvalidOperationException("Bootstrap/Replacement test fixture is missing.");
+            if (fixtures.Any(path => AssetDatabase.LoadAssetAtPath<SceneAsset>(path) == null))
+                throw new InvalidOperationException("Scene-management test fixture is missing.");
             var original = EditorBuildSettings.scenes;
             SessionState.SetString(Key + ".Bytes", Convert.ToBase64String(System.IO.File.ReadAllBytes("ProjectSettings/EditorBuildSettings.asset")));
             SessionState.SetString(Key, JsonUtility.ToJson(new Snapshot
             {
                 Scenes = original.Select(scene => new Entry { Path = scene.path, Guid = scene.guid.ToString(), Enabled = scene.enabled }).ToArray()
             }));
-            EditorBuildSettings.scenes = original.Where(scene => scene.path != hub && scene.path != replacement)
-                .Concat(new[] { new EditorBuildSettingsScene(hub, true), new EditorBuildSettingsScene(replacement, true) }).ToArray();
+            EditorBuildSettings.scenes = original.Where(scene => !fixtures.Contains(scene.path))
+                .Concat(fixtures.Select(path => new EditorBuildSettingsScene(path, true))).ToArray();
 #endif
         }
 

@@ -111,7 +111,9 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 - 명령별 실제 집합과 최초의 유지 대상 집합을 구분하고, 후보 추가·이전 해제 단계에 맞는 예상 집합을 검사한다. 미등록/유지되어야 하는 일반 씬이 있는 Single은 거부한다. 공용 root는 게임 전환에서 종료하지 않는다.
 - Phase 3B의 부모/자식/priority·registry와 Phase 4 조건 실행은 이 단계에 넣지 않는다. 실패 후보와 이전 씬의 잔여 소유권을 먼저 검증한 뒤 다음 단위로 확장한다.
 
-### Phase 3B 예정 API와 실행 경계
+### Phase 3B 구현 API와 실행 경계
+
+2026-10-06 구현 및 [MyLab 내부 자동 검증](validation/scene-areas/README.md)을 완료했다. 정의/조건은 다음 단위다.
 
 - `UniTask<Scene> AddDerivedAsync(SceneTarget target, Scene parent, bool activate = false, int priority = 0, CancellationToken cancellationToken = default)`는 준비된 등록 부모를 유지하며 Additive로만 로드한다. 성공 결과는 이 명령이 실제로 추가한 Scene 인스턴스다. Build path adapter도 같은 경로를 사용한다. 부모는 현재 primary 또는 준비된 derived 인스턴스여야 한다.
 - `RemoveDerivedAsync(Scene scene, Scene requester, CancellationToken cancellationToken = default)`는 대상 자신의 요청 또는 등록 ancestor의 요청만 허용한다. requester/scene은 실제 Scene 인스턴스이며 경로를 권한으로 사용하지 않는다. caller 코드는 그 인스턴스를 소유한 controller에서 호출하는 계약이다.
@@ -119,5 +121,17 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 - Additive 추가의 active 유지/선택은 명시한다. primary GameScene과 active scene은 별개이며 manager가 기록한 예상 active scene을 검증한다. priority는 정보만 제공하고 자동 포커스·UI 정렬·해제를 유발하지 않는다.
 - primary 교체 또는 derived 제거는 대상 subtree를 자식 우선으로 정리한다. 같은 대상의 진행 중 제거는 기존 완료를 공유하고 caller token은 기다림만 취소한다. 다른 상태 변경은 부작용 전에 거부한다. terminal Shutdown은 현재 작업의 늦은 완료와 모든 남은 owner를 기다린다.
 - 후보 준비 실패는 해당 후보만 정리하고 기존 tree를 유지하되 Faulted로 진행을 중단한다. 해제 실패는 실제 잔여 인스턴스·오류를 기록한다. 외부 직접 load/unload/active 변경은 진단하며 자동 삭제·복구하지 않는다.
+
+### Phase 4 확정 실행 계약
+
+- `SceneTransitionSettings : ScriptableObject`가 명시적인 전환 정의 목록을 소유한다. `SceneTransitionDefinition`은 직렬화 데이터이며 ID는 이 settings 내에서 유일하다. runtime은 설정 snapshot을 주입받고 전역 asset 검색이나 자동 polling을 하지 않는다.
+- 작업 종류는 최초 진입, primary 교체, derived 추가, derived 제거다. 정의는 ID, 출발 씬 경로, 목적지 SceneTarget 구성, 모드, active 선택, priority 및 필수 condition ID 목록을 저장한다. 출발은 교체의 현재 primary, 추가의 부모, 제거의 requester를 선택한다. 제거는 대상 subtree 전체이며 별도 임의 해제 범위·reparent 설정은 추가하지 않는다. 최초 진입은 공용 root에서 시작한다.
+- `SceneTransitionRequest`는 코드의 실제 Scene 인스턴스 요청이다. 정의 ID는 출발/대상을 현재 등록 기록에서 해석해 같은 검사/실행 경로를 사용한다. ID 호출과 직접 요청은 `TryTransitionAsync`로 성공 시 true, 실행 전 조건 거부 시 false를 받는다. 그 외 설정 오류·실행 실패·취소는 예외다.
+- 기존 EnterFirst/ReplacePrimary/AddDerived/RemoveDerived convenience API도 같은 root policy를 검사한다. 반환 형태를 보존하기 위해 실행 전 조건 거부는 구별 가능한 `SceneTransitionRejectedException`으로 전달하며 cover·로드·OnFailure·새 작업 수명은 만들지 않는다. bool 결과를 원하는 프로젝트는 TryTransitionAsync를 사용한다. 승인 후 재검사 거부는 owner 취소 실패 경로로 정리하고 cover를 유지한다.
+- root GameObject의 작은 `SceneTransitionCondition : MonoBehaviour`는 안정적인 ConditionId와 동기 읽기 전용 Evaluate(context)를 제공한다. ISceneRoot는 바꾸지 않는다. 연결된 조건은 직접/ID 요청 모두에서 항상 평가하며, 필수 ID 목록이 비어 있어도 연결된 root policy를 우회하지 않는다. 필수 ID 누락·중복·빈 ID는 설정 오류다.
+- 조건 ID는 root 안에서 유일해야 하고 서로 다른 root는 같은 정책 ID를 가질 수 있다. 정의의 필수 ID는 영향 root 집합 중 최소 하나에서 제공되어야 한다. 빈/중복 필수 ID를 거부하며 비활성 condition 컴포넌트도 연결된 정책에서 제외하지 않는다. 요청 후 해당 구성·ID 변경은 설정 오류로 처리한다.
+- 검사 대상은 최초 진입의 common root, 교체의 이전 primary subtree, 추가의 부모, 제거의 requester/부모/제거 subtree다. 같은 root는 한 번만 검사한다. 영향받는 모든 root가 최초 검사를 통과한 뒤 작업을 시작하며, 실제 해제 직전 전체 대상을 다시 검사한다. 해제가 없는 추가/최초 진입은 성공 공개 직전에 재검사한다. 준비와 화면 준비 신호는 별도로 기다린다.
+- 조건 context는 요청과 실제 출발/대상·영향 씬 정보를 제공한다. 조건 구성/ID는 작업 중 고정하고 프로젝트 business 상태만 재검사한다. 조건 안에서 새 전환·종료·취소·자기 대기를 실행하지 않는다. 거부는 LastFailure나 진행 권한을 성공/실패로 위장하지 않는다.
+- Bootstrap의 선택적 settings/first ID는 최초 진입 정의에만 연결한다. 기존 source/path/mode 설정과 string API는 유지한다. Inspector·build gate의 실제 SceneAsset/등록/조건 검사는 Phase 5에서 확장한다.
 
 각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. Phase의 필수 자동 검사가 통과하면 승인된 track 통합을 진행한다. 이번 전체 작업의 main 통합에는 최종 명시적 사용자 확인도 필요하며, 사용자 부재 시 [track의 대기·절전 정책](SCENE_TRANSITION_TRACK.md)을 따른다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.

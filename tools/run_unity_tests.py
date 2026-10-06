@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import time
@@ -23,16 +24,11 @@ def result_from_text(text):
     return None
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--project", type=Path, required=True)
-    parser.add_argument("--mode", choices=("EditMode", "PlayMode"), required=True)
-    parser.add_argument("--filter", default="")
-    parser.add_argument("--output", type=Path, required=True)
-    args = parser.parse_args()
-    if not args.project.is_absolute() or not (args.project / "ProjectSettings/ProjectVersion.txt").is_file():
-        parser.error("Select an existing Unity project by absolute path")
-    project = args.project.resolve()
+def is_prestart_discovery_gap(transcript, result):
+    return result is None and transcript.strip() == "Error: no Unity instances running"
+
+
+def wait_for_editor(project, expected_pid=None):
     deadline = time.monotonic() + 30
     while True:
         probe = subprocess.run(["unity-cli", "status", "--project", project.as_posix()],
@@ -43,16 +39,44 @@ def main():
         if time.monotonic() >= deadline:
             raise RuntimeError("The selected Editor did not become ready: " + status)
         time.sleep(0.5)
-    if project.as_posix().lower() not in status.replace("\\", "/").lower():
+    pid = re.search(r"^\s*PID:\s*(\d+)\s*$", status, re.M)
+    if project.as_posix().lower() not in status.replace("\\", "/").lower() or pid is None:
         raise RuntimeError("The selected Editor must be ready: " + status)
+    actual_pid = int(pid.group(1))
+    if expected_pid is not None and actual_pid != expected_pid:
+        raise RuntimeError("The selected Editor changed between discovery and test execution")
+    return actual_pid
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--project", type=Path, required=True)
+    parser.add_argument("--mode", choices=("EditMode", "PlayMode"), required=True)
+    parser.add_argument("--filter", default="")
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    if not args.project.is_absolute() or not (args.project / "ProjectSettings/ProjectVersion.txt").is_file():
+        parser.error("Select an existing Unity project by absolute path")
+    project = args.project.resolve()
+    editor_pid = wait_for_editor(project)
     command = ["unity-cli", "test", "--project", str(project), "--mode", args.mode]
     if args.filter:
         command += ["--filter", args.filter]
-    started = time.time()
-    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8") as process:
-        transcript, _ = process.communicate(timeout=180)
-        return_code, cli_pid = process.returncode, process.pid
-    result = result_from_text(transcript)
+    attempts = []
+    for attempt in range(2):
+        started = time.time()
+        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8") as process:
+            transcript, _ = process.communicate(timeout=180)
+            return_code, cli_pid = process.returncode, process.pid
+        result = result_from_text(transcript)
+        rejected = return_code != 0 and is_prestart_discovery_gap(transcript, result)
+        attempts.append({"cliPid": cli_pid, "cliReturnCode": return_code, "prestartDiscoveryRejected": rejected})
+        if not rejected or attempt != 0:
+            break
+        # No test started. Rediscover only the same Editor once; never rerun a failed or ambiguous test result.
+        wait_for_editor(project, editor_pid)
+    if rejected:
+        raise RuntimeError("No test started after one same-Editor rediscovery: " + transcript)
     source, run_id = "cli", None
     if result is None:
         # The Connector uses this exact CLI process PID in runId. Never substitute another process/run's result.
@@ -71,7 +95,8 @@ def main():
     if result is None or result["total"] <= 0:
         raise RuntimeError("No nonzero result for this invocation: " + transcript)
     result["execution"] = {"project": str(project), "mode": args.mode, "filter": args.filter,
-                           "source": source, "runId": run_id, "cliPid": cli_pid, "cliReturnCode": return_code}
+                           "source": source, "runId": run_id, "cliPid": cli_pid, "cliReturnCode": return_code,
+                           "editorPid": editor_pid, "attempts": attempts}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({key: result[key] for key in ("total", "passed", "failed", "skipped", "execution")}))
@@ -84,6 +109,9 @@ if __name__ == "__main__":
         assert result_from_text("running\n" + json.dumps(counts)) == counts
         assert result_from_text("Error: Details: " + json.dumps({"success": False, "data": counts})) == counts
         assert result_from_text("No result {invalid") is None
-        print("PASS: CLI and Connector result extraction")
+        assert is_prestart_discovery_gap("Error: no Unity instances running\n", None)
+        assert not is_prestart_discovery_gap("Error: no Unity instances running", counts)
+        assert not is_prestart_discovery_gap("Error: test run failed", None)
+        print("PASS: CLI/Connector extraction and strict prestart-discovery classification")
     else:
         raise SystemExit(main())

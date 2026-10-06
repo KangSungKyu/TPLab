@@ -12,7 +12,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 2 최초 진입 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 3B 구역 수명 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -61,6 +61,7 @@
 | [GameSceneManager Phase 2 검증](validation/game-scene-entry/README.md) | 최초 Single/Additive·공용 수명·취소/정리·모드 사전 검사 회귀 | 실제 native 모드·남은 씬 진단·이번 입력/결과와 미검증 경계 확인 |
 | [명시적 씬 로더 검증](validation/scene-loaders/README.md) | Build/Addressables 명시 선택·개별 결과 소유·등록 사전검사 회귀 | 실제 SceneProvider 및 native 테스트, 입력 hash·실패 iteration·Player 미검증 구분 |
 | [Phase 3A 주 씬 교체 검증](validation/scene-replacement/README.md) | 연속 교체·Additive/Single·이전/후보 실패 소유권 회귀 | 실제 native 전환·공유 완료/취소·잔여 씬 진단 및 UI 미검증 구분 |
+| [Phase 3B 파생 씬 검증](validation/scene-areas/README.md) | 수명 tree·자기/ancestor 제거·active·취소/실패 소유권 회귀 | 실제 공유 제거·자식 우선 정리, 입력 hash와 UI/Player 미검증 구분 |
 | [SceneTransition Phase 1 검증](validation/scene-transition-contracts/README.md) | callback 공용화·호환/준비 대기·전체 회귀 확인 | 계약 문서와 실제 runtime 구현 범위, 이번 입력/결과 대조 |
 
 ## 의존성과 라이선스 자료
@@ -78,7 +79,7 @@
 ## 다음 단계와 완료 경계
 
 - 데이터 테이블 Editor importer의 CSV 1차 구현은 [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)과 [검증 자료](validation/data-table-importer/README.md)를 따른다. JSON 행·자동 등록·rename migration은 후속 범위다.
-- [GameSceneManager/BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·모드/공용 수명 선택은 Phase 2까지 구현했다. 연속 교체·구역 graph·조건은 [Phase별 계약](GAME_SCENE_MANAGER_DRAFT.md)을 기준으로 후속 구현한다.
+- [GameSceneManager/BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·주 씬 교체·구역 수명은 Phase 3B까지 구현했다. 정의/조건·Editor·최종 통합은 [Phase별 계약](GAME_SCENE_MANAGER_DRAFT.md)을 기준으로 후속 구현한다.
 - GameSceneManager의 다음 구현부터는 [통합 track 운영](SCENE_TRANSITION_TRACK.md)을 적용한다. Phase 자동 검증 완료와 최종 사용자 확인을 분리해 추적한다.
 - 소비 프로젝트 가져오기·최소 예제 실행·Player 검증은 후속 단계다. MyLab 내부 테스트의 통과를 전체 배포 호환성 완료로 확대하지 않는다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.

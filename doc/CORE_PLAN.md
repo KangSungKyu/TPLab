@@ -107,3 +107,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-06 P0 loaders: 명시적 BuildScene/Addressable SceneTarget, 독점 LoadedScene과 두 loader를 제공하고 기존 최초 진입·Bootstrap Inspector 및 사전 gate에 연결했다. ResourceManager 자산 cache에는 씬 handle을 공유하지 않는다. [계약](SCENE_LOADING.md)과 [검증](validation/scene-loaders/README.md)을 확인한다. 다음은 Phase 3A 주 흐름 교체다.
 
 2026-10-06 Phase 3A: Additive/Single primary 교체, 작업별 취소·공유 완료와 실제 잔여 소유 씬을 제공한다. [검증](validation/scene-replacement/README.md)을 확인한다. 다음은 Phase 3B 파생 구역 수명 tree다.
+
+2026-10-06 Phase 3B: 실제 Scene 부모/자식 등록, 구역 추가/자기·ancestor 제거, active 선택과 자식 우선 정리·공유 제거를 제공한다. [검증](validation/scene-areas/README.md)을 확인한다. 다음은 Phase 4 정의 asset과 root 조건이다.

@@ -1,0 +1,62 @@
+{
+  "results": {
+    "red-play.json": [
+      18,
+      0,
+      18,
+      0
+    ],
+    "initial-green-play.json": [
+      26,
+      26,
+      0,
+      0
+    ],
+    "reveal-red-play.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "green-play.json": [
+      27,
+      27,
+      0,
+      0
+    ],
+    "full-EditMode.json": [
+      213,
+      213,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      173,
+      173,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "AGENTS.md",
+    "doc/INDEX.md",
+    "doc/CORE_PLAN.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/SCENE_TRANSITION_TRACK.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-06-19-scene-areas.md",
+    "doc/validation/scene-areas/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Core/SceneManagement/GameSceneManager.cs",
+    "Assets/MyLab/Core/SceneManagement/SceneRegistration.cs",
+    "Assets/MyLab/Tests/PlayMode/GameSceneAreaTests.cs",
+    "Assets/MyLab/Tests/PlayMode/BootstrapPlayModeTests.cs",
+    "Assets/MyLab/Tests/Fixtures/DerivedArea.unity",
+    "Assets/MyLab/Tests/Fixtures/NestedArea.unity"
+  ],
+  "absentAssetPatterns": [
+    "BootstrapSceneSourceTests_*",
+    "MyLabBootstrapValidationProbe.unity"
+  ]
+}
