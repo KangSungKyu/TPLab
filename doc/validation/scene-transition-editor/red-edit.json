@@ -1,0 +1,37 @@
+{
+  "total": 10,
+  "passed": 5,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionEditorTests.BuildDestinationMustExistInActualPlayerSceneList:   Expected: not <empty>\r\n  But was:  <empty>\r\n",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.DuplicateConditionIdsOnOneRootAreRejectedButNeverEvaluated:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedBootstrapDefinitionReturnsDiagnosticsBeforeEffectiveGetters:   Expected: No Exception to be thrown\r\n  But was:  <System.ArgumentException: Definitions require unique nonempty IDs and nonnull entries.\r\n  at MyLab.Core.SceneManagement.SceneTransitionSettings.ValidateDefinitionIds (System.Collections.Generic.IEnumerable`1[T] definitions) [0x00039] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\SceneTransitionSettings.cs:51 \r\n  at MyLab.Core.SceneManagement.SceneTransitionSettings.CreateSnapshot () [0x0000f] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\SceneTransitionSettings.cs:28 \r\n  at MyLab.Core.SceneManagement.BootstrapSystem.GetFirstDefinition (MyLab.Core.SceneManagement.SceneTransitionSettings settings, System.String id) [0x0002e] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\BootstrapSystem.cs:180 \r\n  at MyLab.Core.SceneManagement.BootstrapSystem.get_FirstSceneTarget () [0x00008] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\BootstrapSystem.cs:51 \r\n  at MyLab.Core.SceneManagement.BootstrapSystem.get_FirstScenePath () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Core\\SceneManagement\\BootstrapSystem.cs:39 \r\n  at MyLab.Core.Editor.Bootstrap.BootstrapValidator.ValidateBootstrap (MyLab.Core.SceneManagement.BootstrapSystem bootstrap, UnityEditor.AddressableAssets.Settings.AddressableAssetSettings settings, System.Boolean settingsWereSupplied) [0x0003c] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Editor\\Bootstrap\\BootstrapValidator.cs:117 \r\n  at MyLab.Core.Editor.Bootstrap.BootstrapValidator.ValidateBootstrap (MyLab.Core.SceneManagement.BootstrapSystem bootstrap, UnityEditor.AddressableAssets.Settings.AddressableAssetSettings settings) [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Editor\\Bootstrap\\BootstrapValidator.cs:30 \r\n  at MyLab.Core.Tests.SceneTransitionEditorTests+<>c__DisplayClass13_0.<MalformedBootstrapDefinitionReturnsDiagnosticsBeforeEffectiveGetters>b__0 () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Tests\\EditMode\\SceneTransitionEditorTests.cs:176 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00000] in <f577cd9686154d6ab10efd7e65e64366>:0 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00041] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.RequiredConditionMustExistOnPotentiallyAffectedRoots:   Expected: True\r\n  But was:  False\r\n",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidationPreservesLoadedActivePreviewAndBuildSettings:   Expected and actual are both <UnityEditor.EditorBuildSettingsScene[1]>\r\n  Values differ at index [0]\r\n  Expected: <UnityEditor.EditorBuildSettingsScene>\r\n  But was:  <UnityEditor.EditorBuildSettingsScene>\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.SceneTransitionEditorTests.AddressableDestinationMustExistAndHaveExplicitMapping",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedSettingsAndDuplicateDefinitionIdsAreRejected",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.NestedDerivedConditionUnionIsVisitedSafelyAndNeverEvaluated",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Additive,False)",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Single,True)"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionEditorTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 22388,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 22388,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

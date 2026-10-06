@@ -1,0 +1,36 @@
+{
+  "total": 10,
+  "passed": 0,
+  "failed": 10,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionEditorTests.AddressableDestinationMustExistAndHaveExplicitMapping: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.BuildDestinationMustExistInActualPlayerSceneList: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.DuplicateConditionIdsOnOneRootAreRejectedButNeverEvaluated: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedBootstrapDefinitionReturnsDiagnosticsBeforeEffectiveGetters: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedSettingsAndDuplicateDefinitionIdsAreRejected: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.NestedDerivedConditionUnionIsVisitedSafelyAndNeverEvaluated: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.RequiredConditionMustExistOnPotentiallyAffectedRoots: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidationPreservesLoadedActivePreviewAndBuildSettings: System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Additive,False): System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved.",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Single,True): System.InvalidOperationException : Cannot create a new scene additively with an untitled scene unsaved."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionEditorTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 40492,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 40492,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

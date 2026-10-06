@@ -12,7 +12,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 3B 구역 수명 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 5 전환 정의 Editor 단계까지. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -63,6 +63,7 @@
 | [Phase 3A 주 씬 교체 검증](validation/scene-replacement/README.md) | 연속 교체·Additive/Single·이전/후보 실패 소유권 회귀 | 실제 native 전환·공유 완료/취소·잔여 씬 진단 및 UI 미검증 구분 |
 | [Phase 3B 파생 씬 검증](validation/scene-areas/README.md) | 수명 tree·자기/ancestor 제거·active·취소/실패 소유권 회귀 | 실제 공유 제거·자식 우선 정리, 입력 hash와 UI/Player 미검증 구분 |
 | [Phase 4 정의·조건 검증](validation/scene-definitions/README.md) | ID·직접 요청·root 조건·Bootstrap 정의 연결 | 공유 정책 경로와 reveal 전후 재검사, 실제 Red/Green 및 전체 회귀 |
+| [Phase 5 정의 Editor 검증](validation/scene-transition-editor/README.md) | settings/실제 SceneAsset·root metadata 사전 검사 | 실제 Edit/Play·build 거부·기존 설정 보존 증거 |
 | [SceneTransition Phase 1 검증](validation/scene-transition-contracts/README.md) | callback 공용화·호환/준비 대기·전체 회귀 확인 | 계약 문서와 실제 runtime 구현 범위, 이번 입력/결과 대조 |
 
 ## 의존성과 라이선스 자료

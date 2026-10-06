@@ -1,0 +1,101 @@
+{
+  "results": {
+    "default-corrected-red-edit.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "fixture-failure-edit.json": [
+      10,
+      0,
+      10,
+      0
+    ],
+    "green-edit.json": [
+      12,
+      12,
+      0,
+      0
+    ],
+    "initial-green-edit.json": [
+      10,
+      10,
+      0,
+      0
+    ],
+    "red-edit.json": [
+      10,
+      5,
+      5,
+      0
+    ],
+    "supplemental-green-failure-edit.json": [
+      12,
+      11,
+      1,
+      0
+    ],
+    "supplemental-red-edit.json": [
+      12,
+      10,
+      2,
+      0
+    ],
+    "initial-full-EditMode.json": [
+      238,
+      238,
+      0,
+      0
+    ],
+    "pre-cleanup-full-EditMode.json": [
+      240,
+      240,
+      0,
+      0
+    ],
+    "pre-cleanup-full-PlayMode.json": [
+      199,
+      199,
+      0,
+      0
+    ],
+    "full-EditMode.json": [
+      240,
+      240,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      199,
+      199,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "AGENTS.md",
+    "doc/INDEX.md",
+    "doc/CORE_PLAN.md",
+    "doc/BOOTSTRAP_SYSTEM.md",
+    "doc/GAME_SCENE_MANAGER_DRAFT.md",
+    "doc/SCENE_TRANSITION_TRACK.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-06-21-scene-transition-editor.md",
+    "doc\\validation\\scene-transition-editor\\README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Editor/Bootstrap/BootstrapEditor.cs",
+    "Assets/MyLab/Editor/Bootstrap/BootstrapEditorValidation.cs",
+    "Assets/MyLab/Editor/Bootstrap/BootstrapValidator.cs",
+    "Assets/MyLab/Editor/Bootstrap/SceneTransitionSettingsEditor.cs",
+    "Assets/MyLab/Validation/Editor/BootstrapEditorCheck.cs",
+    "Assets/MyLab/Tests/EditMode/SceneTransitionEditorTests.cs",
+    "Assets/MyLab/Tests/Fixtures/EditorConditionProbe.cs"
+  ],
+  "absentAssetPatterns": [
+    "SceneTransitionEditorTests_*",
+    "MyLabBootstrapValidationProbe.unity",
+    "MyLabBootstrapValidationProbe.asset"
+  ]
+}

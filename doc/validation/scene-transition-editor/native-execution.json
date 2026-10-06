@@ -1,0 +1,9 @@
+{
+  "editorPid": 23176,
+  "project": "C:/Users/PC/Projects/MyLab",
+  "actualBuildTarget": "StandaloneWindows64",
+  "actualBuildSucceeded": false,
+  "purpose": "Actual BuildPipeline and pre-Play rejection with required condition missing.",
+  "finisher": "delayCall did not complete after pre-Play cancellation; observed isPlayingOrWillChangePlaymode=false then invoked FinishAfterPlayGate once.",
+  "playQualification": "Original build list preserved (SampleScene first), so pre-Play also reported first-scene/list errors; missing condition was diagnosed live, not asserted as the sole Play rejection cause."
+}

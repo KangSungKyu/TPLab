@@ -1,6 +1,6 @@
 # GameSceneManager 최초 진입과 BootstrapSystem
 
-2026-10-06. 최초 진입과 Phase 3A 주 씬 교체의 MyLab 내부 자동 검증 완료. GameSceneManager가 씬 진입·교체·취소·해제를 소유하고 BootstrapSystem은 Inspector 설정과 자동 시작을 담당한다. 파생 구역·조건/정의는 [후속 Phase](GAME_SCENE_MANAGER_DRAFT.md)다. 게임별 씬·서비스·UI를 자동 생성하지 않는다.
+2026-10-06. 최초 진입·주 씬 교체·파생 구역·전환 정의/조건 runtime의 MyLab 내부 자동 검증 기록이 있다. GameSceneManager가 씬 진입·교체·취소·해제를 소유하고 BootstrapSystem은 Inspector 설정과 자동 시작을 담당한다. 전환의 영향 root·조건·수명 계약은 [단계 명세](GAME_SCENE_MANAGER_DRAFT.md)를 따른다. 게임별 씬·서비스·UI를 자동 생성하지 않는다.
 
 ## Inspector 구성
 
@@ -79,3 +79,5 @@ hook 안에서 자기 진입/종료 완료를 await하지 않는다. 새 entry �
 Phase 3A는 연속 주 흐름 교체, 3B는 파생 구역 수명이다. 조건/정의는 Phase 4다. 소비 프로젝트·성공 Player 빌드/실행·가림막 시각 UX·Reload 비활성 반복 Play는 이번 단계에서 확인하지 않았다. 내부 테스트 통과를 전체 코어 배포 완료로 확대하지 않는다.
 
 2026-10-06 Phase 4: 선택적인 SceneTransitionSettings/FirstTransitionId를 주입할 수 있다. 선택 ID는 FirstEntry여야 하며 실제 공용 root에서 시작한다. getter/검사/실행은 선택 정의를 사용하고 기존 path/source/mode/key/ref 직렬화는 유지한다. Inspector 연결은 Phase 5다. [검증](validation/scene-definitions/README.md)을 확인한다.
+
+2026-10-06 Phase 5 구현: Transition Settings와 FirstEntry ID를 선택하고, 정의의 출발/목적지는 실제 SceneAsset으로 지정한다. 기존 path/source/mode/key/reference 값은 명시적인 Inspector 변경 전까지 보존한다. 명시적으로 참조한 정의만 검사하며 실제 Player build 목록·Addressables 등록/고유 key/catalog·root/installer·condition ID 구성을 검사한다. Editor에서는 condition Evaluate를 실행하지 않는다. saved preview를 닫고 live common root의 미저장 condition 구성을 우선한다. 컴파일 후 진단·pre-Play·실제 build hook 연결의 [내부 자동 검증](validation/scene-transition-editor/README.md)을 완료했다.

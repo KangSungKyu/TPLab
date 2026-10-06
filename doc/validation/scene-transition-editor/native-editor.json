@@ -1,0 +1,11 @@
+{
+    "BuildRejected": true,
+    "PlayRejected": true,
+    "LiveInvalidRootDetected": false,
+    "LiveInvalidModeDetected": false,
+    "LiveInvalidDefinitionDetected": true,
+    "FixtureRemoved": true,
+    "Error": "",
+    "BuildDiagnostic": "BuildFailedException: Bootstrap validation failed:\nRequired condition ID is not declared on a potentially affected root: missing-required-policy (entry).\n",
+    "BuildResult": "Unknown"
+}

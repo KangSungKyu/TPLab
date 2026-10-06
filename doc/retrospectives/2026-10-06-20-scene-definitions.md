@@ -6,3 +6,7 @@
 - 검증: 최초 Red Edit 13/1/12/0·Play 25/0/25/0, getter Red 1/0/1/0·reveal Red 1/0/1/0, Green Edit 15/15/0/0·Play 26/26/0/0, 전체 Edit 228/228/0/0·Play 199/199/0/0. [증거](../validation/scene-definitions/README.md). FirstEntry source 경계 1건/일부 assertion의 별도 Red는 미실행이다. compile 완료·예상 로그 10건 보존 후 Console 오류/경고 0·원래 Editor ready, 보호 5개 raw bytes 유지.
 - 문제/도구: reveal Red의 실행 전 discovery 실패는 결과/통과로 세지 않았다. runner project 인자를 절대 forward-slash로 통일했고 이후 실제 Red를 확인했다. path가 원인이라고 단정하지 않는다. 실제 실패의 재시도 정책은 바꾸지 않았다.
 - Git/다음: 이번 소스와 증거를 commit/push 후 track에 원본 commit을 보존해 통합한다. main·브랜치 삭제는 사용자 확인까지 보류한다. Phase 5에서 실제 씬 asset·정의·조건 ID를 Inspector/compile/Play/build 검사에 연결한다. Evaluate는 Editor 검증에서 실행하지 않는다. 성공 Player·소비 프로젝트·실제 UX는 Phase 6이다.
+
+2026-10-06 통합 보완: `5eda919b89a59cea3021c37c14d176f6b3719ff0`를 track에 FF 통합·push했다. [정확한 CI 조회](../validation/scene-definitions/ci-policy.json)는 미구성이다. 원래 main 및 보호 파일은 유지했고 최종 입력 검증을 다시 통과했다.
+
+임시 정리: 일회성 결과 JSON 8개는 Git checkout의 줄바꿈 변환으로 raw hash 비교가 달랐다. 삭제 전에 보존 결과와 LF 정규화 내용을 모두 대조했고 작업 폴더의 명시 목록만 제거했다. 공통 보호 baseline은 유지한다.

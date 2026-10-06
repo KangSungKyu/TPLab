@@ -4,7 +4,7 @@
 
 ## 브랜치와 순서
 
-`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 파생 씬 수명 commit `54107893f9da91e86f44be5766c5501e8de8e0df`까지 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p4-definitions`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
+`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. 정의·조건 commit `5eda919b89a59cea3021c37c14d176f6b3719ff0`까지 track에 fast-forward 통합·push했고 현재 `codex/game-scenes-p5-editor`에서 다음 단위를 진행한다. 각 단계를 직전 track tip에 순차 통합한다.
 
 ```text
 main@e9fa4e46 → codex/game-scenes-track
@@ -33,8 +33,8 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 | Phase 2 | manager 최초 진입과 Bootstrap 위임 | 선행 검증 기록 있음 | [검증 기록](validation/game-scene-entry/README.md); track 통합본의 현재 검증과 최종 사용자 확인은 별도 |
 | Phase 3A | Single/Additive 주 흐름 교체 | 자동 검증 완료 | [검증](validation/scene-replacement/README.md), [회고](retrospectives/2026-10-06-18-scene-replacement.md). Edit 213/213·Play 146/146, bd7698a track FF/push 완료. [정확한 commit CI 조회](validation/scene-replacement/ci-policy.json): 미구성 |
 | Phase 3B | 수명 tree와 구역 추가/제거 | 자동 검증 완료 | [검증](validation/scene-areas/README.md), [회고](retrospectives/2026-10-06-19-scene-areas.md). Edit 213/213·Play 173/173, 5410789 track FF/push 완료. [정확한 CI 조회](validation/scene-areas/ci-policy.json): 미구성 |
-| Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 자동 검증 완료 | [검증](validation/scene-definitions/README.md), [회고](retrospectives/2026-10-06-20-scene-definitions.md). Green Edit15/15·Play26/26, 전체 Edit228/228·Play199/199; track 통합 준비 |
-| Phase 5 | Inspector, compile 후 Editor, Play/build gate | 계획(사용자 실행 승인됨) | 실제 Build scene 목록 및 설정 오류 차단 증거 연결 |
+| Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 자동 검증 완료 | [검증](validation/scene-definitions/README.md), [회고](retrospectives/2026-10-06-20-scene-definitions.md). Green Edit15/15·Play26/26, 전체 Edit228/228·Play199/199; 5eda919 track FF/push 완료. [정확한 CI 조회](validation/scene-definitions/ci-policy.json): 미구성 |
+| Phase 5 | Inspector, compile 후 Editor, Play/build gate | 자동 검증 완료 | [검증](validation/scene-transition-editor/README.md), [회고](retrospectives/2026-10-06-21-scene-transition-editor.md). Green12/12·전체 Edit240/240·Play199/199, actual build/Play 거부; track 통합 준비 |
 | Phase 6 | 통합 예제·회귀·소비 프로젝트·Player | 계획(사용자 실행 승인됨) | Bootstrap→주 흐름→구역, 구성·반복 Play·화면/입력 확인 증거 연결 |
 | 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 미도달 | 완성 후보와 자동 gate가 준비된 뒤 대기 상태로 전환. 명시적인 인간 확인만 gate를 해소함 |
 
@@ -57,6 +57,9 @@ Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 �
 | Phase 5 경로 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 정의/조건 설정을 기존 Inspector·compile/Play/build 검사에 연결하는 최소 경로 확인 | 관련 코드·확정 계약 읽기 전용; 수정·Unity·Git 제외 | 조사 완료; 수정·실행 0건 |
 | Phase 6 소비 프로젝트 조사 | `/root/track_guidelines`, gpt-6-luna / medium | 최소 dependency·파일 allowlist와 원래 Editor·반복 Play 경로 조사 | Core/의존성/Validation 관련 읽기 전용; 수정·복사·Unity·Git 제외 | 조사 완료; 최소 Core/CsvHelper + UniTask/Addressables, 실행 0건 |
 
+| Phase 5 Editor 구현 | `/root/track_guidelines`, gpt-6-luna / medium | 확정 설정·조건 메타데이터를 기존 사전 검사에 연결 | Editor/Bootstrap 및 SceneTransitionEditorTests/EditorConditionProbe/meta; Core·Unity·Git 제외 | 초기·보완/corrected Red, 최종 Green12/12·회귀240/240·199/199·부모 리뷰 완료 |
+| Phase 6 반복 Play/샘플 조사 | `/root/scene_runtime`, gpt-6.1-sol / high | 비동기 manager의 reload 수명과 UI 입력 소유권 검토 | 관련 코드 읽기 전용; 수정·Unity·Git 제외 | 조사 완료; 실행0 |
+
 새 배정은 에이전트가 실제 생성·지원된 뒤 이 표에 기록한다. 기록 필드는 역할/실제 모델·추론, 작업과 선택 이유, 허용 경로, 상태를 포함한다. 비밀값이나 전체 실행 로그는 남기지 않는다.
 
 ## 통합 및 최종 종료 gate
@@ -70,3 +73,5 @@ Phase 완료 시 부모가 계약과 diff를 리뷰하고, 요구된 자동 검�
 - 구현·자동 검증이 모두 끝나고 최종 사용자 확인만 대기 중이면 track 결과를 보존하고 Unity를 저장한 뒤 절전할 수 있다. 이 경우 Unity Editor는 종료하지 않아 다음 Git diff와 Unity 확인이 가능하게 둔다. main 병합·브랜치 삭제는 보류한다.
 - 작업 또는 테스트가 진행 중이면 절전하지 않는다.
 - 최종 사용자 확인, main 통합과 정리까지 모두 끝났으면 Unity 저장 후 정상 종료를 확인하고 PC를 종료한다. Unity 종료가 실패하면 오프라인 전환 후 절전한다.
+
+Phase 5 최종 읽기 리뷰: scene_runtime(6.1-sol/high)이 exact default config·live root·legacy Inspector 보존 수정 후 테스트 callback 누수를 발견했다. 테스트 소유 callback만 해제·원래 callback 유지 보완을 부모가 리뷰하고 전체 회귀를 다시 통과했다.

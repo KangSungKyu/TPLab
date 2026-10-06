@@ -25,7 +25,9 @@
 | 2026-10-06 | 명시적 Build/Addressables 씬 로더 | MyLab 내부 자동 검증 완료, track 통합 | [17-scene-loaders](2026-10-06-17-scene-loaders.md) |
 | 2026-10-06 | Phase 3A 주 씬 교체 | MyLab 내부 자동 검증 완료, track 통합 | [18-scene-replacement](2026-10-06-18-scene-replacement.md) |
 | 2026-10-06 | Phase 3B 파생 씬 수명 tree | MyLab 내부 자동 검증 완료, track 통합 | [19-scene-areas](2026-10-06-19-scene-areas.md) |
-| 2026-10-06 | Phase 4 전환 정의와 root 조건 | MyLab 내부 자동 검증 완료, track 통합 준비 | [20-scene-definitions](2026-10-06-20-scene-definitions.md) |
+| 2026-10-06 | Phase 4 전환 정의와 root 조건 | MyLab 내부 자동 검증 완료, track 통합 | [20-scene-definitions](2026-10-06-20-scene-definitions.md) |
+
+| 2026-10-06 | Phase 5 전환 정의 Editor 검사 | MyLab 내부 자동 검증 완료, track 통합 준비 | [21-scene-transition-editor](2026-10-06-21-scene-transition-editor.md) |
 
 ## 작성 형식
 

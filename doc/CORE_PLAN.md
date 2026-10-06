@@ -111,3 +111,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-06 Phase 3B: 실제 Scene 부모/자식 등록, 구역 추가/자기·ancestor 제거, active 선택과 자식 우선 정리·공유 제거를 제공한다. [검증](validation/scene-areas/README.md)을 확인한다. 다음은 Phase 4 정의 asset과 root 조건이다.
 
 2026-10-06 Phase 4: 설정 정의 snapshot, ID/직접 요청과 편의 API의 공통 root 조건 정책, 해제 전 및 first/add reveal 전후 재검사를 제공한다. [검증](validation/scene-definitions/README.md)을 확인한다. 다음은 Phase 5 Inspector와 정의·조건 사전 검사다.
+
+2026-10-06 Phase 5: 정의 asset Inspector와 actual Player scene list·Addressables·root/installer·condition metadata 사전 검사, live common root 우선·preview 정리와 compile/Play/build 연결을 제공한다. [검증](validation/scene-transition-editor/README.md)을 확인한다. 다음 Phase 6은 실제 반복 Play·통합 예제·Player 및 소비 프로젝트 검증이다.

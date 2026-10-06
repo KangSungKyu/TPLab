@@ -1,0 +1,36 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 10,
+  "passes": [
+    "MyLab.Core.Tests.SceneTransitionEditorTests.AddressableDestinationMustExistAndHaveExplicitMapping",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.BuildDestinationMustExistInActualPlayerSceneList",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.DuplicateConditionIdsOnOneRootAreRejectedButNeverEvaluated",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedBootstrapDefinitionReturnsDiagnosticsBeforeEffectiveGetters",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedSettingsAndDuplicateDefinitionIdsAreRejected",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.NestedDerivedConditionUnionIsVisitedSafelyAndNeverEvaluated",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.RequiredConditionMustExistOnPotentiallyAffectedRoots",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidationPreservesLoadedActivePreviewAndBuildSettings",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Additive,False)",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Single,True)"
+  ],
+  "skipped": 0,
+  "total": 10,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionEditorTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 40492,
+    "cliReturnCode": 0,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 40492,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

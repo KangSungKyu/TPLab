@@ -1,0 +1,39 @@
+{
+  "total": 12,
+  "passed": 10,
+  "failed": 2,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneTransitionEditorTests.AddressableDefinitionUsesInstalledDefaultObjectFromCurrentEditorBuildConfig:   Expected: <empty>\r\n  But was:  < \"Addressables settings are missing; create/configure project settings explicitly.\", \"Addressables settings are missing; create/configure project settings explicitly.\" >\r\n",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.LiveCommonRootConditionsOverrideSavedBootstrapPreviewMetadata:   Expected: False\r\n  But was:  True\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.SceneTransitionEditorTests.AddressableDestinationMustExistAndHaveExplicitMapping",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.BuildDestinationMustExistInActualPlayerSceneList",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.DuplicateConditionIdsOnOneRootAreRejectedButNeverEvaluated",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedBootstrapDefinitionReturnsDiagnosticsBeforeEffectiveGetters",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.MalformedSettingsAndDuplicateDefinitionIdsAreRejected",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.NestedDerivedConditionUnionIsVisitedSafelyAndNeverEvaluated",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.RequiredConditionMustExistOnPotentiallyAffectedRoots",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidationPreservesLoadedActivePreviewAndBuildSettings",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Additive,False)",
+    "MyLab.Core.Tests.SceneTransitionEditorTests.ValidFirstEntryModesPassWithCorrectCommonLifetime(Single,True)"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneTransitionEditorTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 33784,
+    "cliReturnCode": 1,
+    "editorPid": 23176,
+    "attempts": [
+      {
+        "cliPid": 33784,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

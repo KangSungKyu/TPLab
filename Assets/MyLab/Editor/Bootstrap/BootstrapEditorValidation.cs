@@ -71,8 +71,12 @@ namespace MyLab.Core.Editor.Bootstrap
                     {
                         if (paths.Length == 0 || live[0].gameObject.scene.path != paths[0])
                             errors.Add("Play must start with the first build scene containing Bootstrap.");
-                        if (SceneManager.GetSceneByPath(live[0].FirstScenePath).isLoaded)
-                            errors.Add("Unload the first game scene before playing Bootstrap; the manager must own its load.");
+                        try
+                        {
+                            if (SceneManager.GetSceneByPath(live[0].FirstScenePath).isLoaded)
+                                errors.Add("Unload the first game scene before playing Bootstrap; the manager must own its load.");
+                        }
+                        catch (Exception exception) { errors.Add("Bootstrap target is invalid: " + exception.Message); }
                         if (EditorSceneManager.playModeStartScene != null &&
                             AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene) != live[0].gameObject.scene.path)
                             errors.Add("Play Mode Start Scene must use the configured Bootstrap scene.");
@@ -124,7 +128,8 @@ namespace MyLab.Core.Editor.Bootstrap
     {
         private static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom)
         {
-            if (imported.Concat(deleted).Concat(moved).Concat(movedFrom).Any(path => path.EndsWith(".unity", StringComparison.Ordinal)))
+            if (imported.Concat(deleted).Concat(moved).Concat(movedFrom).Any(path =>
+                path.EndsWith(".unity", StringComparison.Ordinal) || path.EndsWith(".asset", StringComparison.Ordinal)))
                 BootstrapEditorValidation.Queue();
         }
     }
