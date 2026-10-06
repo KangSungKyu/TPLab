@@ -4,6 +4,8 @@
 
 2026-10-06 보완: 조합 값 Parts와 구간 설정 Stride를 함께 지원한다. localType은 여러 작업자의 키 충돌 방지·테이블 내부 분류를 위한 선택적 요소이며 테이블 탐색 종류가 아니다. 이번 API 변경도 미구현 제안이다.
 
+2026-10-06 구현 준비 기준: 소비 조회는 Get<TRow>/TryGet<TRow>로 통일하고 런타임 등록은 IIdxRouter만 요구한다. 아래는 다음 구현을 위한 기준이며 코드 구현 완료가 아니다. 작업 순서·수정 경계·완료 조건은 [제네릭 구현 준비](DATA_TABLE_GENERIC_IMPLEMENTATION.md)를 따른다.
+
 ## 역할과 Cashier 참조
 
 idx는 대상 행의 PK이며 다른 행에 저장하면 그 대상에 대한 FK가 된다. FK에는 대상의 완전한 idx를 저장한다. 내부 번호만 저장하면 테이블 종류를 복원할 수 없다.
@@ -31,14 +33,14 @@ dataType은 CLR Type 자체가 아니라 프로젝트가 정한 안정적인 uin
 
 생성·전체 추출은 프로젝트의 TParts를 사용하고 manager의 테이블 탐색은 IIdxRouter를 사용한다. 초기의 두 uint 매개변수 및 비제네릭 IIdxGenerator/IIdxExtractor/IIdxCodec 제안은 위 계약으로 대체한다. 값 묶음의 요소 개수에 맞춰 manager를 제네릭 타입으로 바꾸지 않는다.
 
-등록 API 후보는 `manager.RegisterIdxCodec<TParts>(IIdxCodec<TParts> codec)`이다. 기본 또는 프로젝트 구현을 installer/scene root에서 직접 new로 생성해 전달한다. TParts는 인수에서 추론할 수 있다. 이 입력 계약은 생성·추출·탐색을 같은 규약 객체에 묶되 manager의 일반 조회에는 TParts를 노출하지 않는다. 왕복 검사는 등록 시 해당 TParts를 아는 내부 검증 함수를 보관해 수행하며 별도 공개 adapter·DI container를 만들지 않는다.
+구현할 등록 API는 `manager.RegisterIdxRouter(IIdxRouter router)`다. 기존 RegisterIdxCodec<TParts> 제안은 대체하며 호환 alias를 새로 만들지 않는다. 기본 또는 프로젝트 codec을 installer/scene root에서 직접 new로 생성해 전달할 수 있고, runtime에 생성 기능이 필요 없으면 프로젝트의 router 구현만 전달할 수도 있다. codec의 Generate/TryExtract는 데이터 작성·분류·해당 규약의 왕복 검증에 사용한다. manager는 TParts·생성기·전체 추출에 의존하지 않으며 모든 로드 행을 재생성하지 않는다.
 
-한 manager의 표준 테이블은 규약 하나를 공유한다. null/중복 등록·첫 로드 이후 변경은 거부한다. 표준 테이블이 있는데 codec이 없으면 I/O 시작 전에 구성 오류로 거부하고 구성을 동결하지 않는다. 수동 Register만 쓰는 경우에는 codec을 강제하지 않는다.
+한 manager의 표준 테이블은 불변 router 하나를 공유한다. null/중복 등록·첫 유효한 로드 시작 이후 변경은 거부한다. 표준 테이블이 있는데 router가 없으면 I/O 시작 전에 InvalidOperationException으로 거부하고 구성을 동결하지 않는다. 수동 Register만 쓰는 경우에는 router를 강제하지 않는다. router와 테이블은 첫 로드 전 어느 순서로 등록해도 되며 전체 구성 유효성을 로드 전에 확인한다.
 
 - Generate는 유효한 Parts에 완전한 uint idx를 반환한다. 입력 범위 위반은 ArgumentOutOfRangeException, 표현 범위 초과는 OverflowException이다. 0이나 wrap된 값을 실패 대용으로 반환하지 않는다.
 - TryExtract는 전체 형식이 유효한 idx를 TParts로 복원한다. 무효 값은 false, out 값은 default(TParts)다. TryGetDataType도 전체 idx를 검증하며 무효 값은 false, out 종류는 0이다. 종류 비트/자리수만 읽고 나머지 오류를 무시하지 않는다. 둘의 성공 여부와 추출 종류는 일치해야 한다. 추출 성공은 등록된 종류나 실제 행 존재의 보장이 아니다. 구현 결함의 예외는 false로 숨기지 않는다.
 - 역함수 조건: `Extract(Generate(parts))`의 모든 요소가 원래 parts와 같고 유효 idx의 `Generate(Extract(idx)) == idx`다. 같은 입력은 같은 결과이며 유효한 서로 다른 조합의 idx는 충돌하지 않아야 한다.
-- 규약은 I/O·부수 효과가 없는 관리 객체다. 설정은 생성자에서 확정하고 등록 후 외부에서 바꾸지 않는다. manager와 이전 snapshot은 그 불변 객체를 참조하며 manager가 임의로 Dispose하지 않는다.
+- router·codec은 I/O·부수 효과가 없는 관리 객체다. 설정은 생성자에서 확정하고 등록 후 외부에서 바꾸지 않는다. manager와 이전 snapshot은 그 불변 router를 참조하며 manager가 임의로 Dispose하지 않는다.
 - Generate는 조합 함수다. 다음 빈 번호 발급·예약·CSV 수정·행 삽입·중복 자동 보정은 수행하지 않는다. 클래스명/assembly 탐색으로 구현을 자동 생성하지 않는다.
 
 ## 기본 인코딩 후보
@@ -77,7 +79,7 @@ valid           = DataType > 0, 0 < LocalIdx < Stride
 
 Stride=10000이고 Parts=(2, 37)이면 idx=20037이며 네 자리씩 표시하면 `0002 | 0037`이다. uint에는 앞쪽 0·구분자·자리수 정보가 저장되지 않는다. 정확히 네 자리 DataType을 원하면 프로젝트가 DataType<=9999도 제한한다. Stride는 하위 구간 크기를 제한하며 상위 종류의 표시 폭까지 자동 제한하지 않는다.
 
-0을 표준 PK/FK의 무효값으로 예약하고 선택 FK 부재는 nullable의 null로 나타낼 것을 제안한다. 0을 유효 키로 쓰는 현재 수동 Register는 변경하지 않는다. 비트 조합 등 다른 프로젝트 codec도 같은 역함수·범위 계약을 만족하면 사용할 수 있다.
+초기 구현 기준은 표준 PK/FK의 0을 무효값으로 예약하고 선택 FK 부재는 nullable의 null로 표현하는 것이다. 이는 이번 준비에서 선택한 기본 정책이며 사용자 지시로 확정된 값 범위와 구분한다. 0을 유효 키로 쓰는 현재 수동 Register는 변경하지 않는다. 기본 codec의 LocalIdx는 양수이며 다른 프로젝트 codec의 내부 요소 범위는 프로젝트가 정한다. 비트 조합 등 다른 codec도 전체 idx 유효성·왕복·범위 계약을 만족하면 사용할 수 있다.
 
 stride·종류 코드·추출 규칙을 바꾸면 CSV와 저장된 FK의 의미가 바뀐다. enum 이름 변경과 숫자 재배정은 구분하며 숫자 재배정·규약 변경은 데이터 migration을 포함한 별도 작업이다. 구형 값을 이름이나 새 규약으로 추정·보정하지 않는다.
 
@@ -89,7 +91,7 @@ localType은 같은 테이블 안의 작업자·팀·분류를 구별하는 프�
 
 ```csharp
 var codec = new ProjectIdxCodec(localTypeCount: 100, localIdxStride: 10000);
-manager.RegisterIdxCodec(codec);
+manager.RegisterIdxRouter(codec);
 uint idx = codec.Generate(new ProjectIdxParts(dataType: 2, localType: 7, localIdx: 37));
 ```
 
@@ -112,7 +114,7 @@ LocalType 배정의 중복 방지와 해당 구분 내 LocalIdx 유일성은 프
 
 ```csharp
 var codec = new DecimalIdxCodec(1000);
-manager.RegisterIdxCodec(codec);
+manager.RegisterIdxRouter(codec);
 manager.RegisterTable<TextRow, TextDataTable>(
     (uint)GameDataType.Text, "texts", readCsvAsync, () => new TextDataTable());
 uint idx = codec.Generate(new IdxParts((uint)GameDataType.Text, 248));
@@ -122,7 +124,7 @@ registry는 `종류 코드 → 테이블 이름 → DTO 타입·구현·공개 i
 
 같은 DTO·구체 타입의 여러 CSV는 서로 다른 종류 코드로 등록한다. 하나의 종류에 여러 파일이 속하면 프로젝트 소스가 통합하거나 선택한 문자열을 테이블 하나에 제공한다. 이름만 다르게 같은 종류를 중복 등록하면 idx로 목적지를 결정할 수 없으므로 허용하지 않는다. 종류 번호는 로드·의존 순서를 의미하지 않는다.
 
-표준 PK는 파싱 후 0 아님·전체 추출 성공·TryGetDataType 성공과 등록 종류 일치·생성/추출 왕복 일치·중복 없음으로 검사한다. manager는 TParts의 멤버 이름이나 localType 등 프로젝트 요소를 직접 해석하지 않는다. 라우팅 결과가 생성 입력의 DataType과 일치하는지는 codec 계약이며 해당 구현의 테스트로도 확인한다. 다른 종류의 CSV에 들어간 PK는 자동 이동하지 않는다. header-only 테이블 종류도 등록 메타데이터로 알 수 있으며 첫 행에서 추정하지 않는다.
+표준 PK는 데이터 작성 단계에서 최종 생성된 값으로 그대로 읽는다. 로드 검사는 0 아님·TryGetDataType에 의한 전체 형식 유효성·등록 종류 일치·중복 없음이다. manager는 TParts의 멤버 이름이나 localType 등 프로젝트 요소를 직접 해석하지 않는다. 생성/추출 왕복과 라우팅이 생성 입력의 DataType과 일치하는지는 codec 자체의 테스트에서 확인한다. 다른 종류의 CSV에 들어간 PK는 자동 이동·재생성하지 않는다. header-only 테이블 종류도 등록 메타데이터로 알 수 있으며 첫 행에서 추정하지 않는다.
 
 ## PK/FK 탐색
 
@@ -131,19 +133,26 @@ registry는 `종류 코드 → 테이블 이름 → DTO 타입·구현·공개 i
 ```csharp
 var snapshot = await manager.LoadAsync(cancellationToken);
 var table = snapshot.GetTable<IDataTable<TextRow>>(nameIdx);
-var text = snapshot.GetRow<TextRow>(nameIdx);
-bool found = snapshot.TryGetRow<ResourceKeyRow>(imageIdx, out var resource);
+var text = manager.Get<TextRow>(nameIdx);
+bool found = manager.TryGet(imageIdx, out ResourceKeyRow resource);
+var sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 ```
 
-GetTable<TService>(uint idx)는 TryGetDataType → 종류 registry → 같은 테이블의 명시적 계약 binding으로 조회한다. 테이블 검색이므로 idx 행 존재는 보장하지 않으며 실제 참조는 GetRow/TryGetRow로 해결한다. 이름 기반 API도 같은 테이블·dictionary를 사용한다.
+DataTableManager와 DataTableSnapshot은 `TRow Get<TRow>(uint idx)`와 `bool TryGet<TRow>(uint idx, out TRow row)`를 제공하며 `where TRow : class, IDataRow`를 적용한다. GetRow/TryGetRow 초안 명칭을 대체하며 중복 alias를 만들지 않는다. dynamic 반환·비제네릭 행 Get·암시적 변환·typed ID wrapper는 이번 초기 구현에 포함하지 않는다. 제네릭 타입은 기대 DTO 검증에 쓰며 테이블 선택은 idx의 종류 코드가 담당한다.
 
-| API | 실패 계약 후보 |
+공통 조회 흐름은 전체 idx 형식 검증 → 종류 registry → 등록된 DTO 타입과 typeof(TRow)의 정확한 일치 확인 → 동일 테이블에서 완전한 idx로 PK 조회다. 실패 시 다른 테이블을 스캔하거나 첫 T 구현을 반환하지 않는다. 같은 DTO가 서로 다른 종류로 등록되어 있어도 idx로 정확한 테이블을 선택한다. Base/interface로 조회하는 다형성 변환은 제공하지 않는다.
+
+manager 조회는 기존 메인 스레드·종료 검사를 적용하고 현재 Snapshot을 한 번 확보해 위임한다. 최초 성공 전 Get/TryGet 모두 InvalidOperationException, Dispose 후 모두 ObjectDisposedException이다. router가 없는 수동 전용 snapshot의 idx API 호출도 InvalidOperationException이다. 재로드 중·실패 후에는 이전 정상 snapshot을 조회한다. 자동 LoadAsync·동기 비동기 대기·자산 로드는 수행하지 않는다. snapshot 조회는 manager의 종료 상태를 검사하지 않으며 보관한 이전 데이터·router를 계속 사용한다.
+
+GetTable<TService>(uint idx)는 TryGetDataType → 종류 registry → 같은 테이블의 명시적 계약 binding으로 조회한다. 테이블 검색이므로 idx 행 존재는 보장하지 않으며 실제 참조는 Get/TryGet으로 해결한다. 이름 기반 API도 같은 테이블·dictionary를 사용한다.
+
+| API | 구현 준비의 실패 계약 |
 |---|---|
 | GetTable<TService>(idx) | 무효 idx: ArgumentException; 미등록 종류: KeyNotFoundException; 계약 불일치: InvalidOperationException |
-| GetRow<TRow>(idx) | 위 형식/종류 오류; 정확한 DTO 타입 불일치: InvalidOperationException; 대상 PK 누락: KeyNotFoundException |
-| TryGetRow<TRow>(idx, out row) | 무효 idx·미등록 종류·DTO 타입 불일치·대상 PK 누락: false, row=null. codec 구현 예외는 전파 |
+| Get<TRow>(idx) | 무효 idx: ArgumentException; 미등록 종류: KeyNotFoundException; 정확한 DTO 타입 불일치: InvalidOperationException; 대상 PK 누락: KeyNotFoundException |
+| TryGet<TRow>(idx, out row) | 무효 idx·미등록 종류·DTO 타입 불일치·대상 PK 누락: false, row=null. 상태/구성 오류·router 구현 예외는 전파 |
 
-GetRow/TryGetRow는 등록된 구체 DTO와 정확히 일치하는 TRow를 요구한다. 공통 base·관계없는 DTO로 성공시키지 않는다. 반환값은 snapshot의 관리 행 참조이며 자산 handle·새 게임 객체가 아니다. 이전 snapshot·테이블은 재로드·manager Dispose 후에도 기존 데이터를 유지하고 codec·registry를 새 규약으로 교체하지 않는다.
+반환값은 snapshot의 관리 행 참조이며 복사본·자산 handle·새 게임 객체가 아니다. 같은 snapshot의 Get/TryGet/기존 dictionary 조회는 같은 행 객체를 반환한다. 이전 snapshot·테이블은 재로드·manager Dispose 후에도 기존 데이터를 유지하고 router·registry를 새 규약으로 교체하지 않는다.
 
 ## FK 선언과 검증
 
@@ -174,9 +183,9 @@ getForeignKey는 `Func<TSource, uint?>`이며 source/target은 표준 테이블,
 ## 구현 순서와 완료 조건
 
 1. codec의 경계·역함수 테스트를 Red부터 실행한다. 기본 IdxParts/Stride의 0/1·종류/local 0·local=stride-1/stride·uint.MaxValue를 확인한다. 프로젝트 세 요소 예제의 모든 요소 왕복·경계·동일 LocalIdx의 서로 다른 LocalType·TryGetDataType과 전체 추출 일치·무효 하위 요소·overflow도 확인한다.
-2. uint 테이블 등록: codec 누락/null/중복·종류 중복·설정 동결·종류가 다른 PK·header-only·잘못된 등록의 잔여 상태를 확인한다. 수동 Register 혼합은 기존 동작을 유지한다.
+2. uint 테이블 등록: router 누락/null/중복·종류 중복·설정 동결·종류가 다른 PK·header-only·잘못된 등록의 잔여 상태를 확인한다. 수동 Register 혼합은 기존 동작을 유지한다.
 3. idx 기반 interface/DTO 조회: 실패 계약, 같은 DTO의 다른 종류, 이름/idx 조회의 동일 인스턴스·행을 확인한다.
-4. FK: 필수/선택·0/null·잘못된 종류·누락 PK·자기/순환 참조·배열 프로젝트 검증을 확인한다. 재로드 후보의 대상 제거가 실패하고 기존 행/테이블/codec이 보존되는지도 확인한다.
+4. FK: 필수/선택·0/null·잘못된 종류·누락 PK·자기/순환 참조·배열 프로젝트 검증을 확인한다. 재로드 후보의 대상 제거가 실패하고 기존 행/테이블/router가 보존되는지도 확인한다.
 5. 공유 로드·취소·Dispose·씬 준비·전체 회귀를 확인한다. 새 DTO/codec의 Player·소비 프로젝트 경로는 후속 단계에서 검증한다.
 
-uint 표준 키와 생성/추출 등록·PK/FK 탐색·Parts/Stride 지원·선택적 localType 요구는 사용자 지시다. DecimalIdxCodec 기본 제공 여부, 구간·0/null 정책과 API 세부형은 초안이며 구현·자동 migration을 시작하지 않았다. 최초 기록은 [2026-10-02 회고](retrospectives/2026-10-02-02-data-table-idx-draft.md), 이번 보완의 검사와 다음 행동은 [2026-10-06 회고](retrospectives/2026-10-06-01-idx-parts-stride.md)에 남긴다.
+uint 표준 키·생성/추출 규약·PK/FK 탐색·Parts/Stride·선택적 localType·제네릭 조회 기준 요구는 사용자 지시다. 기본 DecimalIdxCodec·0/null·오류 세부 정책은 구현 준비를 위한 선택이며 [구현 준비 문서](DATA_TABLE_GENERIC_IMPLEMENTATION.md)에 실행 범위와 완료 조건을 연결한다. 최초 기록은 [2026-10-02 회고](retrospectives/2026-10-02-02-data-table-idx-draft.md), Parts/Stride 보완은 [선행 회고](retrospectives/2026-10-06-01-idx-parts-stride.md), 이번 준비는 [현재 회고](retrospectives/2026-10-06-02-generic-data-table-ready.md)에 남긴다. 런타임 구현·자동 migration은 시작하지 않았다.

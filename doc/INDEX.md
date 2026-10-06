@@ -31,6 +31,7 @@
 | [DATA_TABLE_MANAGER.md](DATA_TABLE_MANAGER.md) | CSV 등록·스키마·키·교차 검증·snapshot 공개·재로드·취소 변경 | DataTableManager 소유권·전체 후보 검증과 root 주입 |
 | [DATA_TABLE_MAPPING_DRAFT.md](DATA_TABLE_MAPPING_DRAFT.md) | 기본 DTO·표준 테이블·CsvHelper 자동 매핑·인터페이스 연결 검토 | 미구현 초안: 기본 규격·명시적 이름/계약 매핑·세대별 소유권·TDD 완료 조건 |
 | [DATA_TABLE_IDX_DRAFT.md](DATA_TABLE_IDX_DRAFT.md) | uint PK/FK·idx 생성/추출·Parts/Stride·선택적 localType·참조 검증 검토 | 미구현 초안: 프로젝트 codec·종류 registry·같은 snapshot의 FK 검증·구간/overflow 정책 |
+| [DATA_TABLE_GENERIC_IMPLEMENTATION.md](DATA_TABLE_GENERIC_IMPLEMENTATION.md) | 표준 uint DTO·제네릭 Get/TryGet 구현 시작·범위 배정·완료 판단 | 구현 준비: 선행 계약·실패 정책·단계별 TDD·기존 수동 API 보존·검증 경계 |
 | [DataTableManager 검증](validation/data-tables/README.md) | 데이터 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·비동기·자산/root 연결·컴파일/Console·미검증 경계 |
 
 ## 검증 자료

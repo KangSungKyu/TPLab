@@ -6,6 +6,8 @@
 
 2026-10-06 보완으로 codec은 Parts 값 타입과 불변 Stride 설정을 함께 지원한다. 프로젝트의 선택적 localType은 같은 테이블 내부의 구분이며 표준 테이블 등록은 dataType만 사용한다. 세부 계약은 위 idx 초안에서 확인한다.
 
+제네릭 조회 구현 준비 기준은 [구현 순서·완료 조건](DATA_TABLE_GENERIC_IMPLEMENTATION.md)으로 연결한다. 아래 표준 DTO/기반·기본 테이블/명시적 binding은 그 준비 범위이며 runtime에 생성기를 강제하지 않는다.
+
 사용자 요청은 Lab이 기본 DTO 규격과 인터페이스를 제공하고 이를 구현한 테이블 단위를 매핑하는 것이다. 여기서 구현 단위는 CSV 한 종류의 DTO 매핑·행 검증·조회 기능을 가진 테이블 클래스로 해석했다. DTO를 GameObject·게임 서비스로 생성하는 기능은 별도 범위다.
 
 ## Cashier에서 확인한 구조
@@ -116,7 +118,7 @@ public sealed class ProjectTextTable : CsvDataTable<TextRow>, ITextLookup
     public string GetText(uint id) => Rows[id].Text;
 }
 
-manager.RegisterIdxCodec(new DecimalIdxCodec(1000));
+manager.RegisterIdxRouter(new DecimalIdxCodec(1000));
 manager.RegisterTable<TextRow, ProjectTextTable>(
     (uint)GameDataType.Text, "texts", readTextCsvAsync, () => new ProjectTextTable());
 manager.BindTable<ITextLookup>("texts");

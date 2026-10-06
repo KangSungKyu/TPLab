@@ -7,6 +7,7 @@
 | 2026-10-02 | 회고 작성·후속 문맥 확인 지침 추가 | 문서 완료 | [01-unit-retrospectives](2026-10-02-01-unit-retrospectives.md) |
 | 2026-10-02 | uint idx·생성/추출·PK/FK 계약 | 초안 | [02-data-table-idx-draft](2026-10-02-02-data-table-idx-draft.md) |
 | 2026-10-06 | Parts·Stride·선택적 localType 계약 보완 | 초안 | [01-idx-parts-stride](2026-10-06-01-idx-parts-stride.md) |
+| 2026-10-06 | 제네릭 데이터 조회 구현 준비 | 준비 완료·미구현 | [02-generic-data-table-ready](2026-10-06-02-generic-data-table-ready.md) |
 
 ## 작성 형식
 
