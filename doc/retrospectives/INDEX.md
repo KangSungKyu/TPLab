@@ -43,6 +43,8 @@
 
 | 2026-10-07 | Input 전체 회귀·reload·consumer/Player·최종 리뷰 | 자동 검증 완료·사용자 확인 대기 | [07-input-validation](2026-10-07-07-input-validation.md) |
 
+| 2026-10-07 | 외부 제공용 사람·AI README/API 문서 지침 | 지침 작성 완료 | [08-documentation-guidelines](2026-10-07-08-documentation-guidelines.md) |
+
 ## 작성 형식
 
 작업 규모에 맞게 짧게 작성한다. 해당 없는 항목은 해당 없음으로 표시하며 명세·검증 설명을 반복 복제하지 않는다.
