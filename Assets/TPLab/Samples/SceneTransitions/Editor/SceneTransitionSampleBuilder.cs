@@ -451,6 +451,7 @@ namespace TPLab.Samples.SceneTransitions.Editor
             EditorBuildSettings.scenes = baseline.build.Select(scene => new EditorBuildSettingsScene(scene.path, scene.enabled)).ToArray();
             EditorSceneManager.playModeStartScene = string.IsNullOrEmpty(baseline.startScene) ? null : AssetDatabase.LoadAssetAtPath<SceneAsset>(baseline.startScene);
             EditorSceneManager.RestoreSceneManagerSetup(baseline.scenes);
+            AssetDatabase.ReleaseCachedFileHandles();
             File.WriteAllBytes(BuildFile, raw);
             // Restore missing original GUID bytes after Unity's native list normalization.
         }

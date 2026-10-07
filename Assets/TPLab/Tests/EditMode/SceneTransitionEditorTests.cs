@@ -89,7 +89,12 @@ namespace TPLab.Core.Tests
             finally
             {
                 if (_originalEditorBuildSettingsBytes != null)
+                {
+                    AssetDatabase.ReleaseCachedFileHandles();
                     System.IO.File.WriteAllBytes("ProjectSettings/EditorBuildSettings.asset", _originalEditorBuildSettingsBytes);
+                    Assert.That(System.IO.File.ReadAllBytes("ProjectSettings/EditorBuildSettings.asset"),
+                        Is.EqualTo(_originalEditorBuildSettingsBytes));
+                }
             }
             if (callbackCleanupFailure != null) throw callbackCleanupFailure;
         }
