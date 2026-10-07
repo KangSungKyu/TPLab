@@ -7,7 +7,7 @@
   "protectedFileCount": 6,
   "protectedBytesUnchanged": true,
   "markdownDocumentCount": 113,
-  "localLinkCount": 1158,
+  "localLinkCount": 1159,
   "localLinksExist": true,
   "whitespaceScope": "Own documentation paths only; existing user scene whitespace preserved.",
   "whitespacePassed": true,
@@ -22,7 +22,8 @@
     "doc/retrospectives/2026-10-07-16-distribution-refinement.md",
     "doc/validation/distribution-refinement/README.md",
     "doc/validation/distribution-refinement/preserved-inputs.json",
-    "doc/validation/distribution-refinement/static-checks.json"
+    "doc/validation/distribution-refinement/static-checks.json",
+    "doc/validation/distribution-refinement/design-ci.json"
   ],
   "unityTestsRun": 0,
   "unityCompileRun": 0,
