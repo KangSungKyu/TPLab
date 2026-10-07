@@ -1,0 +1,10 @@
+{
+  "sourceRevision": "9a61dec5035ceee7391236eadd56f99ad3249968",
+  "run": "tarball-full-c",
+  "success": false,
+  "editorBuildErrors": 0,
+  "mainPlayerSuccess": true,
+  "mainPlayerObservations": 13,
+  "samplePlayersExecuted": 0,
+  "failure": "Both successful sample Player paths under consumer Temp no longer existed after batch Editor exit. Preserve build output under consumer Build immediately after each build."
+}

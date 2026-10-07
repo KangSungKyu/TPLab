@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "9a61dec5035ceee7391236eadd56f99ad3249968",
+  "expectedConfigurations": 8,
+  "completedConfigurations": 1,
+  "passedConfigurations": 0,
+  "success": false,
+  "results": [
+    {
+      "mode": "tarball",
+      "scope": "full",
+      "evidence": "core-consumer-20261007T092003Z-28540.json",
+      "success": false,
+      "actualRuns": 4,
+      "errors": [
+        "[WinError 2] \uc9c0\uc815\ub41c \ud30c\uc77c\uc744 \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4"
+      ]
+    }
+  ]
+}

@@ -90,3 +90,5 @@ Input은 `--include-input`, Editor는 `--include-editor`, 전체 예제는 둘�
 ```powershell
 python -m unittest discover -s tools -p test_distribution_consumer.py -v
 ```
+
+Batch consumer는 예제 builder의 `Temp` 출력을 각 성공 build 직후 자체 `Build/Sample-<mode>`에 보존한다. Unity는 다음 build 또는 Editor 종료에서 Temp를 정리할 수 있으므로, 종료한 Editor의 Temp Player를 실행 대상으로 삼지 않는다. 원본 Editor에서 사용하는 기존 sample builder의 output 규격은 유지한다.

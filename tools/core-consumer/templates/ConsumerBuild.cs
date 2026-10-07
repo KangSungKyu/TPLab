@@ -138,7 +138,19 @@ namespace TPLabConsumer
             string folder = "Temp/GameScenesTrack/ScenePlayers/consumer-" + mode;
             string evidence = "doc/validation/scene-integration/consumer-" + mode + ".json";
             SampleBuilder.GetMethod("BuildWindowsMono").Invoke(null, new object[] { single, folder, evidence });
-            return new SampleBuild { mode = mode, playerPath = Path.GetFullPath(folder + "/SceneTransitions.exe"), evidencePath = Path.GetFullPath(evidence) };
+            // Unity clears Temp between builds and at batch Editor exit; preserve each successful build immediately.
+            string retained = Path.GetFullPath("Build/Sample-" + mode);
+            if (Directory.Exists(retained) || File.Exists(retained)) throw new IOException("Sample retention output already exists.");
+            string source = Path.GetFullPath(folder);
+            if (!File.Exists(Path.Combine(source, "SceneTransitions.exe"))) throw new IOException("Successful sample build did not produce its Player.");
+            Directory.CreateDirectory(retained);
+            foreach (string input in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
+            {
+                string target = Path.Combine(retained, input.Substring(source.Length + 1));
+                Directory.CreateDirectory(Path.GetDirectoryName(target));
+                File.Copy(input, target, false);
+            }
+            return new SampleBuild { mode = mode, playerPath = Path.Combine(retained, "SceneTransitions.exe"), evidencePath = Path.GetFullPath(evidence) };
         }
 #endif
 
