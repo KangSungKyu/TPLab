@@ -16,7 +16,7 @@
 
 package ID는 새 배포 명세의 후보 식별자다. 첫 구현에서 중복·명명 검사를 통과한 뒤 고정한다. C# namespace·assembly 이름 `TPLab.Core`, `TPLab.Core.Input`, `TPLab.Core.Editor`는 유지한다. Input·Editor 설치는 선택이며 Core에 입력·uGUI·URP를 강제하지 않는다. 개발용 Connector·IDE·Unity Test Framework를 소비 runtime dependency에 추가하지 않는다.
 
-개발 예제는 `Assets/TPLab/Samples/Core`와 `Assets/TPLab/Samples/Input`으로 분류한다. Core 기능만 필요한 예제는 Core, Input을 함께 사용하는 예제는 Input에 둔다. 실제 의존성으로 분류하며 폴더 이름만 바꿔 Core-only 지원을 주장하지 않는다. 현재 씬 전환 예제는 Core·Input·uGUI 2.0.0을 사용하므로 P2에서 `Assets/TPLab/Samples/Input/SceneTransitions`로 옮기고 `com.tplab.input`의 선택 sample로 제공한다. 현재 소스 경로는 여전히 `Assets/TPLab/Samples/SceneTransitions`이며 이번 문서 작업에서 이동하지 않는다.
+개발 예제는 `Assets/TPLab/Samples/Core`와 `Assets/TPLab/Samples/Input`으로 분류한다. Core 기능만 필요한 예제는 Core, Input을 함께 사용하는 예제는 Input에 둔다. 실제 의존성으로 분류하며 폴더 이름만 바꿔 Core-only 지원을 주장하지 않는다. 현재 씬 전환 예제는 Core·Input·uGUI 2.0.0을 사용하므로 P2에서 `Assets/TPLab/Samples/Input/SceneTransitions`로 옮기고 `com.tplab.input`의 선택 sample로 제공한다. 현재 소스 경로는 여전히 `Assets/TPLab/Samples/Input/SceneTransitions`이며 이번 문서 작업에서 이동하지 않는다.
 
 package sample 폴더·manifest 설정은 Unity 6000.3의 Samples 규격에 맞춰 P1/P2에서 확정한다. Git URL과 tarball 양쪽에서 Package Manager에 예제가 표시되고 소비 프로젝트의 Assets에 import되는지 확인한다. 두 설치 방식의 상대 sample 경로·구성이 같아야 한다. 샘플 import만으로 사용자 Input Handling·Build Settings·Addressables·시작 씬을 자동 변경하지 않는다. 데이터 테이블 템플릿은 Editor package의 선택적 sample 후보다. 기존 테스트/fixture·Validation 스크립트는 기본 소비 패키지에서 제외하고 검증 checkout이 소유한다. package 자체의 테스트 구성이 필요해지면 별도 opt-in 경계를 검토한다.
 
@@ -140,7 +140,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 
 P2의 필수 수정/관찰은 다음과 같다.
 
-1. [SceneTransitionSamplePaths](../Assets/TPLab/Samples/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs)의 고정 `Assets/TPLab/Samples/SceneTransitions` 경로와 [sample builder](../Assets/TPLab/Samples/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs)의 marker/asset 경로가 새 개발 경로 `Assets/TPLab/Samples/Input/SceneTransitions`와 UPM의 sample import 위치를 처리해야 한다. 이동하는 기존 asset/script의 `.meta`·GUID·scene 참조는 보존한다. 수정은 sample 계층에 한정하고 실제 source 위치와 import 위치에서 정상/중단/원본 복원을 검증한다.
+1. [SceneTransitionSamplePaths](../Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs)의 고정 `Assets/TPLab/Samples/Input/SceneTransitions` 경로와 [sample builder](../Assets/TPLab/Samples/Input/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs)의 marker/asset 경로가 새 개발 경로 `Assets/TPLab/Samples/Input/SceneTransitions`와 UPM의 sample import 위치를 처리해야 한다. 이동하는 기존 asset/script의 `.meta`·GUID·scene 참조는 보존한다. 수정은 sample 계층에 한정하고 실제 source 위치와 import 위치에서 정상/중단/원본 복원을 검증한다.
 2. [importer 설정](../Assets/TPLab/Editor/DataTables/DataTableImportSettings.cs)의 `Assets/Editor/TPLab/setting.asset`은 소비 프로젝트 소유로 유지한다. [생성 보호](../Assets/TPLab/Editor/DataTables/DataTableGeneratedFiles.cs)는 package 읽기 전용 영역을 허용하지 않고 프로젝트의 Assets 생성 경로를 검증한다. 설정 없음→자동 작업 없음, validator 실패→이전 생성 소스 보존을 artifact 설치 후 확인한다.
 3. 배포 README와 사람/AI API는 포함 모듈에 맞춰 선별하고 실제 package 안에서 해결되는 상대 링크로 source/API 경로를 변환한다. 다른 package의 참조는 존재가 보장되는 공식 문서/Release 위치로 연결하거나 설치 안내에서 설명한다. 개발 저장소의 `Assets/TPLab` 링크·Temp·개인 경로를 배포본에 그대로 두지 않는다. 기존 근거는 [문서 지침](DOCUMENTATION_GUIDE.md)이다.
 4. 현재 Core PlayMode 테스트 assembly는 sample·Input·uGUI를 함께 참조한다. Core-only artifact 소비 compile/실행과 전체 개발 회귀를 별도로 수행하고, 전체 테스트 폴더를 Core package에 복사해 Input을 우회 강제하지 않는다.
@@ -172,3 +172,14 @@ CI는 현재 미구성이다. [exact commit gate](../tools/check_github_ci.py)�
 부모가 도구 구현·테스트 실행·사본 리뷰·Git 통합을 담당한다. [회고](retrospectives/2026-10-07-17-distribution-packaging.md)에 검증·남은 Phase를 기록한다.
 
 P1 완료: 사본 포함 `ec1f786d248207a8c9245b6d5263f95a1985e093`에서 기본 mode와 두 번 생성한 archive3개의 bytes/manifest 일치를 확인했다. source/사본·문서/GUID/license·원본 보호는 P1 증거를 따른다. P1을 track으로 반영하고 다음 phase는 P2 실제 설치다. source/tag용 사본은 준비됐지만 `v0.0.1` tag·검증된 설치 안내/Release는 아직 제공하지 않는다.
+
+## P2 작업 기록 (2026-10-07)
+
+Track `23e2764993e46d3fcd18e8d46d8029ac1863f1df`에서 `codex/dev-build-v0.0.1-p2-consumer`를 생성했다. 원본 Editor와 사용자 씬/설정을 보존하며 별도 batch consumer에서 설치를 검증한다.
+
+| Agent | Model / effort | 역할·허용 경로 | 상태 |
+|---|---|---|---|
+| `/root/distribution_samples` | gpt-6.1-sol / medium | `Assets/TPLab/Samples` 이동·import 경로와 Core 예제, 관련 경로 테스트; Git/Unity 금지 | 진행 |
+| `/root/distribution_editor_probe` | gpt-6.1-sol / medium | `tools/core-consumer/templates/EditorProbe.cs` 설치 후 importer 검증 harness; Git/Unity 금지 | 진행 |
+
+부모는 패키징/소비 Python 도구·Unity 실행·결과 리뷰·문서·Git을 소유한다.

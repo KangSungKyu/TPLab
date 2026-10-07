@@ -22,8 +22,8 @@ namespace TPLab.Samples.SceneTransitions.Editor
     [InitializeOnLoad]
     public static class SceneTransitionSampleBuilder
     {
-        private const string Root = SceneTransitionSamplePaths.Root;
-        private const string Marker = Root + "/sample-owner.txt";
+        private static string Root => SceneTransitionSamplePaths.Root;
+        private static string Marker => Root + "/sample-owner.txt";
         private const string Ownership = "TPLab SceneTransitions sample v1";
         private const string BuildFile = "ProjectSettings/EditorBuildSettings.asset";
         private const string SessionKey = "TPLab.SceneTransitionSample.Baseline";
@@ -129,9 +129,17 @@ namespace TPLab.Samples.SceneTransitions.Editor
                 File.Copy(BuildFile, Path.Combine(directory, "EditorBuildSettings.asset"));
                 SessionState.SetString(SessionKey, directory);
             }
-            EditorSceneManager.playModeStartScene = null;
-            EditorBuildSettings.scenes = SceneTransitionSamplePaths.BuildScenes(single).Select(path => new EditorBuildSettingsScene(path, true)).ToArray();
-            EditorSceneManager.OpenScene(SceneTransitionSamplePaths.Bootstrap(single), OpenSceneMode.Single);
+            try
+            {
+                EditorSceneManager.playModeStartScene = null;
+                EditorBuildSettings.scenes = SceneTransitionSamplePaths.BuildScenes(single).Select(path => new EditorBuildSettingsScene(path, true)).ToArray();
+                EditorSceneManager.OpenScene(SceneTransitionSamplePaths.Bootstrap(single), OpenSceneMode.Single);
+            }
+            catch
+            {
+                RestoreOriginal();
+                throw;
+            }
         }
 
         /// <summary>Restores the session-owned baseline and exact original Build bytes after Play; leaves the backup for verification.</summary>
@@ -332,7 +340,7 @@ namespace TPLab.Samples.SceneTransitions.Editor
             Rect(message.rectTransform, new Vector2(.25f, .4f), new Vector2(.8f, .72f));
             var close = Button(modalPanel.transform, "Dismiss modal");
             Rect((RectTransform)close.transform, new Vector2(.35f, .25f), new Vector2(.65f, .33f));
-            var source = AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/InputSystem_Actions.inputactions");
+            var source = AssetDatabase.LoadAssetAtPath<InputActionAsset>(Root + "/Settings/SampleInput.inputactions");
             if (source == null) throw new InvalidOperationException("Installed sample input source is required.");
             controller.ConfigureSample(bootstrap, source, cover, modal, module, status, message, buttons, close);
             bootstrap.Configure(root, settings, "entry", false, controller);
@@ -434,8 +442,19 @@ namespace TPLab.Samples.SceneTransitions.Editor
                 if (preview.IsValid()) EditorSceneManager.ClosePreviewScene(preview);
             }
         }
+        private static void ResolveRoot()
+        {
+            // Preserved MonoScript GUID follows canonical relocation and UPM Sample.Import.
+            const string builderGuid = "3da5004585d94731a0f004f6211ad0e6";
+            string path = AssetDatabase.GUIDToAssetPath(builderGuid);
+            if (AssetDatabase.LoadAssetAtPath<MonoScript>(path) == null)
+                throw new InvalidOperationException("The sample builder script could not be resolved. Import the sample first.");
+            SceneTransitionSamplePaths.ConfigureRoot(SceneTransitionSamplePaths.RootFromScript(path));
+        }
+
         private static void RequireIdleAndClean()
         {
+            ResolveRoot();
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || EditorApplication.isUpdating || BuildPipeline.isBuildingPlayer) throw new InvalidOperationException("Requires the idle compiled original Editor.");
             foreach (var scene in EditorSceneManager.GetSceneManagerSetup())
                 if (string.IsNullOrEmpty(scene.path) || scene.isLoaded && SceneManager.GetSceneByPath(scene.path).isDirty) throw new InvalidOperationException("Save existing scene edits before using the sample builder.");

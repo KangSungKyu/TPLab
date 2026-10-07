@@ -7,6 +7,8 @@ import argparse
 import hashlib
 import json
 import os
+import re
+import tarfile
 from pathlib import Path
 import shutil
 import subprocess
@@ -77,16 +79,76 @@ def input_project_settings(project: Path) -> str:
             "  activeInputHandler: 1\n")
 
 
+def refuse_links(path: Path) -> None:
+    for item in (path, *path.parents):
+        if item.is_symlink() or (hasattr(item, "is_junction") and item.is_junction()):
+            raise ValueError("Symlink/junction paths are not accepted.")
+
+
+def installation_plan(project: Path, mode: str, artifacts: Path, revision: str,
+                      include_input: bool, include_editor: bool, import_samples: bool) -> dict:
+    if mode not in ("git", "tarball"):
+        raise ValueError("Artifact installation must use git or tarball.")
+    if not re.fullmatch(r"[0-9a-f]{40}", revision or ""):
+        raise ValueError("Artifact installation requires an exact source revision.")
+    if import_samples and not include_input:
+        raise ValueError("Full samples require the explicitly selected Input module.")
+    artifacts = artifacts.absolute(); refuse_links(artifacts)
+    if not inside(artifacts, project / "tplab") or artifacts.name != "artifacts":
+        raise ValueError("Artifacts must be a generated artifacts directory under project/tplab.")
+    manifest_path = artifacts / "distribution-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if (manifest.get("schemaVersion") != 1 or manifest.get("sourceRevision") != revision or
+            manifest.get("publicationSnapshot") != "Matched" or manifest.get("version") != "0.0.1"):
+        raise ValueError("Artifact source/version/snapshot contract mismatch.")
+    packages = manifest.get("packages", [])
+    if {p.get("id") for p in packages} != {"com.tplab.core", "com.tplab.input", "com.tplab.editor"} or len(packages) != 3:
+        raise ValueError("Distribution must contain exactly the approved three package IDs.")
+    for package in packages:
+        expected_name = package["id"] + "-0.0.1.tgz"
+        if package.get("filename") != expected_name or package.get("version") != "0.0.1":
+            raise ValueError("Artifact filename/version mismatch.")
+        archive = artifacts / expected_name; refuse_links(archive)
+        if sha256(archive) != package["sha256"]:
+            raise ValueError("Artifact hash mismatch: " + expected_name)
+        payload = {}
+        with tarfile.open(archive, "r:gz") as tar:
+            for item in tar.getmembers():
+                if not item.isfile() or not item.name.startswith("package/") or ".." in Path(item.name).parts:
+                    raise ValueError("Invalid archive member.")
+                name = item.name[len("package/"):]
+                if name in payload: raise ValueError("Duplicate archive member.")
+                payload[name] = hashlib.sha256(tar.extractfile(item).read()).hexdigest()
+        canonical = (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
+        if hashlib.sha256(canonical).hexdigest() != package["payloadSha256"]:
+            raise ValueError("Artifact payload hash mismatch.")
+    selected = ["com.tplab.core"]
+    if include_input: selected.append("com.tplab.input")
+    if include_editor: selected.append("com.tplab.editor")
+    dependencies = {}
+    for package_id in selected:
+        dependencies[package_id] = ("https://github.com/KangSungKyu/TPLab.git?path=/upm/" + package_id + "#" + revision
+                                    if mode == "git" else "file:" + (artifacts / (package_id + "-0.0.1.tgz")).as_posix())
+    if include_editor: dependencies["com.unity.nuget.newtonsoft-json"] = "3.2.2"
+    if import_samples:
+        dependencies.update({"com.unity.ugui": "2.0.0", "com.unity.modules.ui": "1.0.0", "com.unity.modules.imgui": "1.0.0"})
+    return {"mode": mode, "sourceRevision": revision, "version": "0.0.1", "artifacts": str(artifacts),
+            "manifestSha256": sha256(manifest_path), "packages": packages, "dependencies": dependencies,
+            "includeEditor": include_editor, "importSamples": import_samples}
+
+
 def resolve_paths(project_arg: str, output_arg: str, evidence_arg: str) -> tuple[Path, Path, Path]:
     project = Path(project_arg)
     if not project.is_absolute():
         raise ValueError("--project must be an absolute path.")
+    refuse_links(project)
     project = project.resolve(strict=True)
     if not (project / "Assets/TPLab/Core/TPLab.Core.asmdef").is_file():
         raise ValueError("--project is not a TPLab checkout with Assets/TPLab/Core.")
     output = Path(output_arg)
     if not output.is_absolute():
         output = project / output
+    refuse_links(output)
     output = output.resolve()
     temp_root = (project / "Temp").resolve()
     if output == temp_root or not inside(output, temp_root):
@@ -96,12 +158,15 @@ def resolve_paths(project_arg: str, output_arg: str, evidence_arg: str) -> tuple
     evidence = Path(evidence_arg)
     if not evidence.is_absolute():
         evidence = project / evidence
+    refuse_links(evidence)
     evidence = evidence.resolve()
+    if evidence.exists() and not evidence.is_dir(): raise ValueError("Evidence must be a directory.")
     evidence_roots = ((project / "doc/validation/scene-integration").resolve(),
                       (project / "doc/validation/input-system").resolve(),
-                      (project / "doc/validation/scene-loading").resolve())
+                      (project / "doc/validation/scene-loading").resolve(),
+                      (project / "doc/validation/distribution-consumer").resolve())
     if not any(inside(evidence, root) for root in evidence_roots):
-        raise ValueError("--evidence must be inside doc/validation/scene-integration, input-system or scene-loading.")
+        raise ValueError("--evidence must be inside doc/validation/scene-integration, input-system, scene-loading or distribution-consumer.")
     return project, output, evidence
 
 
@@ -141,9 +206,9 @@ def source_files(project: Path, include_input: bool = False) -> list[Path]:
 
 
 def copy_allowlist(project: Path, output: Path, tool_root: Path, version: str,
-                   include_input: bool = False) -> list[dict[str, str]]:
+                   include_input: bool = False, installation: dict | None = None) -> list[dict[str, str]]:
     destinations = []
-    for source in source_files(project, include_input):
+    for source in ([] if installation else source_files(project, include_input)):
         relative = source.relative_to(project)
         if relative.as_posix() == "doc/licenses/UniTask-LICENSE.txt":
             destination = output / "Licenses/UniTask-LICENSE.txt"
@@ -163,10 +228,18 @@ def copy_allowlist(project: Path, output: Path, tool_root: Path, version: str,
     (output / "Assets/Editor/TPLabConsumerBuild.cs").write_bytes((templates / "ConsumerBuild.cs").read_bytes())
     (output / "Assets/TPLabConsumer/Runtime/ConsumerSmoke.cs").write_bytes((templates / "ConsumerSmoke.cs").read_bytes())
     manifest = json.loads((templates / "manifest.json.in").read_text(encoding="utf-8"))
+    if installation:
+        manifest["dependencies"].update(installation["dependencies"])
+        (output / "Assets/Editor/ConsumerSetup.cs").write_bytes((templates / "ConsumerSetup.cs").read_bytes())
+        (output / "Assets/csc.rsp").write_text("-define:TPLAB_ARTIFACT_CONSUMER" +
+            (",TPLAB_EDITOR_CONSUMER" if installation["includeEditor"] else "") +
+            (",TPLAB_INPUT_CONSUMER" if include_input else "") + "\n", encoding="utf-8")
+        if installation["includeEditor"]:
+            (output / "Assets/Editor/EditorProbe.cs").write_bytes((templates / "EditorProbe.cs").read_bytes())
     if include_input:
         manifest["dependencies"]["com.unity.inputsystem"] = "1.19.0"
         manifest["dependencies"]["com.unity.modules.uielements"] = "1.0.0"
-        (output / "Assets/csc.rsp").write_text("-define:TPLAB_INPUT_CONSUMER\n", encoding="utf-8")
+        if not installation: (output / "Assets/csc.rsp").write_text("-define:TPLAB_INPUT_CONSUMER\n", encoding="utf-8")
         (output / "ProjectSettings/ProjectSettings.asset").write_text(
             input_project_settings(project), encoding="utf-8")
     (output / "Packages/manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
@@ -245,11 +318,12 @@ def package_versions(project: Path) -> dict:
     if "com.unity.inputsystem" in dependencies:
         names += ("com.unity.inputsystem", "com.unity.modules.uielements")
     versions = {name: dependencies.get(name, {}).get("version") for name in names}
+    if "com.unity.nuget.newtonsoft-json" in dependencies: versions["com.unity.nuget.newtonsoft-json"] = dependencies["com.unity.nuget.newtonsoft-json"]["version"]
     return {name: normalize_package_version(version) for name, version in versions.items()}
 
 
 def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeout: int,
-            include_input: bool = False) -> tuple[dict, Path]:
+            include_input: bool = False, installation: dict | None = None) -> tuple[dict, Path]:
     version = unity_version(project)
     tool_root = Path(__file__).resolve().parent
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + str(os.getpid())
@@ -260,17 +334,17 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
     output.mkdir(parents=True)
     report = {"schemaVersion": 1, "runId": run_id, "sourceProject": str(project), "unityExecutable": str(unity),
               "expectedUnityVersion": version, "outputProject": str(output), "createdUtc": datetime.now(timezone.utc).isoformat(),
-              "includeInput": include_input, "allowlist": [], "harnessTemplates": {}, "manifest": {},
+              "includeInput": include_input, "installation": installation, "setup": {}, "allowlist": [], "harnessTemplates": {}, "manifest": {},
               "editor": {}, "player": {},
               "packageVersions": {}, "observations": {},
               "success": False, "actualRuns": 0, "errors": []}
     try:
-        report["allowlist"] = copy_allowlist(project, output, tool_root, version, include_input)
+        report["allowlist"] = copy_allowlist(project, output, tool_root, version, include_input, installation)
         input_asmdef = output / "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef"
         input_package = "com.unity.inputsystem" in json.loads(
             (output / "Packages/manifest.json").read_text(encoding="utf-8"))["dependencies"]
         input_tree = output / "Assets/TPLab/Input"
-        if (input_asmdef.is_file() != include_input or input_package != include_input or
+        if not installation and (input_asmdef.is_file() != include_input or input_package != include_input or
                 input_tree.exists() != include_input):
             raise RuntimeError("Copied Input module/package do not match the requested consumer scope.")
         template_paths = (tool_root / "core-consumer/templates/ConsumerBuild.cs",
@@ -289,11 +363,24 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
         env[EDITOR_RESULT_ENV] = str(editor_result)
         env[PLAYER_RESULT_ENV] = str(player_result)
         env[PLAYER_PATH_ENV] = str(consumer_player)
+        if installation:
+            env["TPLAB_CONSUMER_SAMPLES"] = "1" if installation["importSamples"] else "0"
+            env["TPLAB_CONSUMER_IMPORTER_STATE"] = str(output / "Results/importer-state.json")
+            setup_result = output / "Results/setup.json"
+            setup_log = output / "Logs/setup.log"
+            env["TPLAB_CONSUMER_SETUP_RESULT"] = str(setup_result)
+            command = [str(unity), "-batchmode", "-nographics", "-projectPath", str(output),
+                       "-executeMethod", "TPLabConsumer.ConsumerSetup.Perform", "-logFile", str(setup_log)]
+            report["setup"] = run_process(command, output, env, setup_log, output / "Logs/setup-stdout.log", timeout)
+            report["actualRuns"] += 1
+            report["setup"]["result"] = read_json(setup_result, report["setup"]["startedUnix"])
+            if not report["setup"]["processLogFresh"] or report["setup"]["returnCode"] != 0 or not report["setup"]["result"].get("success"):
+                raise RuntimeError("Artifact setup/importer preparation failed.")
         editor_command = [str(unity), "-batchmode", "-nographics", "-projectPath", str(output),
-                          "-executeMethod", "TPLabConsumer.ConsumerBuild.Perform", "-logFile", str(editor_log), "-quit"]
+                          "-executeMethod", "TPLabConsumer.ConsumerBuild.Perform", "-logFile", str(editor_log)]
         report["editor"] = run_process(editor_command, output, env, editor_log,
                                        output / "Logs/editor-stdout.log", timeout)
-        report["actualRuns"] = 1
+        report["actualRuns"] += 1
         editor_result_data = read_json(editor_result, report["editor"]["startedUnix"])
         report["editor"]["result"] = editor_result_data
         if not report["editor"]["processLogFresh"] or report["editor"]["returnCode"] != 0 or not editor_result_data.get("success"):
@@ -302,6 +389,7 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
             raise RuntimeError("Consumer Editor version does not match source ProjectVersion.txt.")
         if editor_result_data.get("backend") != "Mono2x" or editor_result_data.get("target") != "StandaloneWindows64":
             raise RuntimeError("Consumer build did not use Windows Standalone Mono.")
+        if installation: report["installedPackages"] = verify_installation(output, installation, editor_result_data)
         if package_versions(output) != package_versions_from_manifest(output):
             raise RuntimeError("Resolved package versions differ from the approved manifest versions.")
         if include_input and package_versions(output).get("com.unity.inputsystem") != "1.19.0":
@@ -316,12 +404,33 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
         player = run_process(player_command, output, player_env, player_process_log,
                              output / "Logs/player-stdout.log", timeout)
         report["player"] = player
-        report["actualRuns"] = 2
+        report["actualRuns"] += 1
         observations = read_json(player_result, player["startedUnix"])
         report["observations"] = observations
         report["player"]["result"] = observations
         if not player["processLogFresh"] or player["returnCode"] != 0 or not observations.get("success") or not all_true(observations, include_input):
             raise RuntimeError("Consumer Player smoke did not pass every observed runtime-path gate.")
+        if installation and installation["importSamples"]:
+            if observations.get("coreSampleVerified") is not True:
+                raise RuntimeError("Core sample did not execute in the actual consumer Player.")
+            report["samplePlayers"] = []
+            for sample in editor_result_data.get("sampleBuilds", []):
+                mode = sample["mode"]
+                build_result = json.loads(Path(sample["evidencePath"]).read_text(encoding="utf-8"))
+                if build_result.get("success") is not True: raise RuntimeError("Imported sample build failed.")
+                sample_result = output / ("Results/sample-" + mode + ".json")
+                sample_log = output / ("Logs/sample-" + mode + ".log")
+                command = [sample["playerPath"], "-batchmode", "-nographics", "-logFile", str(sample_log),
+                           "-tplab-scene-smoke", "-tplab-scene-result", str(sample_result), "-tplab-loading-presentation"]
+                process = run_process(command, output, player_env, sample_log, output / ("Logs/sample-" + mode + "-stdout.log"), timeout)
+                report["actualRuns"] += 1
+                result = read_json(sample_result, process["startedUnix"])
+                report["samplePlayers"].append({"mode": mode, "build": build_result, "process": process, "result": result})
+                from run_scene_player import validate_smoke
+                validate_smoke(result, mode, version, 12, True)
+                if process["returnCode"] != 0 or not process["processLogFresh"]:
+                    raise RuntimeError("Imported sample Player did not pass its 12 runtime checks: " + mode)
+            if len(report["samplePlayers"]) != 2: raise RuntimeError("Both Additive and Single sample Players must execute.")
         report["packageVersions"] = package_versions(output)
         report["success"] = True
     except Exception as exception:
@@ -342,7 +451,49 @@ def package_versions_from_manifest(project: Path) -> dict:
     if "com.unity.inputsystem" in deps:
         versions.update({"com.unity.inputsystem": deps["com.unity.inputsystem"],
                          "com.unity.modules.uielements": deps["com.unity.modules.uielements"]})
+    if "com.unity.nuget.newtonsoft-json" in deps: versions["com.unity.nuget.newtonsoft-json"] = deps["com.unity.nuget.newtonsoft-json"]
     return versions
+
+
+def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
+    lock = json.loads((project / "Packages/packages-lock.json").read_text(encoding="utf-8"))["dependencies"]
+    selected = {p for p in plan["dependencies"] if p.startswith("com.tplab.")}
+    if {p for p in lock if p.startswith("com.tplab.")} != selected:
+        raise RuntimeError("Resolved TPLab scope differs from requested modules.")
+    infos = {p["name"]: p for p in editor_result.get("installedPackages", [])}
+    for name, provider in plan["dependencies"].items():
+        if not name.startswith("com.tplab.") and lock.get(name, {}).get("version") != provider:
+            raise RuntimeError("Sample/Editor dependency version mismatch: " + name)
+    validated = []
+    for name in selected:
+        item = lock[name]; info = infos.get(name, {})
+        if info.get("version") != plan["version"] or item.get("version") != plan["dependencies"][name]:
+            raise RuntimeError("Installed package version/provider mismatch: " + name)
+        expected_source = "git" if plan["mode"] == "git" else "local-tarball"
+        if item.get("source") != expected_source or (plan["mode"] == "git" and item.get("hash") != plan["sourceRevision"]):
+            raise RuntimeError("Installed package source/SHA mismatch: " + name)
+        resolved = Path(info.get("resolvedPath", "")); refuse_links(resolved)
+        if not resolved.is_absolute() or not resolved.is_dir(): raise RuntimeError("Missing installed package directory.")
+        record = next(p for p in plan["packages"] if p["id"] == name)
+        count = 0
+        with tarfile.open(Path(plan["artifacts"]) / record["filename"], "r:gz") as tar:
+            for member in tar.getmembers():
+                target = resolved / member.name[len("package/"):]; refuse_links(target)
+                expected = tar.extractfile(member).read()
+                if not target.is_file(): raise RuntimeError("Missing installed package file: " + member.name)
+                actual = target.read_bytes()
+                if actual != expected and (not member.name.endswith(".dll") and actual.replace(b"\r\n", b"\n") != expected.replace(b"\r\n", b"\n")):
+                    raise RuntimeError("Installed payload differs: " + member.name)
+                count += 1
+        validated.append({**info, "verifiedPayloadFiles": count, "lock": item})
+    if (project / "Assets/TPLab/Core").exists(): raise RuntimeError("Artifact consumer contains a forbidden source Core copy.")
+    if plan["includeEditor"]:
+        probe = editor_result.get("importer", {})
+        if probe.get("requiresGeneratedValidationPhase") is not False or probe.get("generatedValidated") is not True:
+            raise RuntimeError("Generated importer contract has not been validated after compilation.")
+    if plan["importSamples"] and editor_result.get("samplesVerified") is not True:
+        raise RuntimeError("Imported sample build/run observations missing.")
+    return validated
 
 
 def self_check() -> int:
@@ -372,10 +523,15 @@ def main() -> int:
     parser.add_argument("--project", help="Absolute TPLab project path.")
     parser.add_argument("--unity", help="Exact Unity Editor executable path.")
     parser.add_argument("--output", help="New output directory below project Temp.")
-    parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration, input-system or scene-loading.")
+    parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration, input-system, scene-loading or distribution-consumer.")
     parser.add_argument("--timeout-seconds", type=int, default=900)
     parser.add_argument("--include-input", action="store_true",
                         help="Include TPLab.Core.Input and Input System 1.19.0 in the isolated consumer.")
+    parser.add_argument("--installation", choices=("source", "git", "tarball"), default="source")
+    parser.add_argument("--artifacts", type=Path)
+    parser.add_argument("--revision")
+    parser.add_argument("--include-editor", action="store_true")
+    parser.add_argument("--import-samples", action="store_true")
     parser.add_argument("--self-check", action="store_true")
     args = parser.parse_args()
     if args.self_check:
@@ -389,8 +545,15 @@ def main() -> int:
             raise ValueError("--unity must be the exact existing absolute Unity .exe path.")
         if args.timeout_seconds < 60:
             raise ValueError("--timeout-seconds must be at least 60.")
+        installation = None
+        if args.installation != "source":
+            if not args.artifacts: raise ValueError("--artifacts is required for Git and tarball installation.")
+            installation = installation_plan(project, args.installation, args.artifacts, args.revision,
+                                             args.include_input, args.include_editor, args.import_samples)
+        elif args.include_editor or args.import_samples or args.artifacts or args.revision:
+            raise ValueError("Editor/samples/artifact arguments require artifact installation mode.")
         report, evidence_path = execute(project, unity.resolve(), output, evidence, args.timeout_seconds,
-                                        args.include_input)
+                                        args.include_input, installation)
         print(json.dumps({"success": report["success"], "actualRuns": report["actualRuns"],
                           "evidence": str(evidence_path), "output": str(output), "errors": report["errors"]}, indent=2))
         return 0 if report["success"] else 1

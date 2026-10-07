@@ -46,6 +46,13 @@ namespace TPLabConsumer
             Exception failure = null;
             try
             {
+#if TPLAB_ARTIFACT_CONSUMER
+                if (Environment.GetEnvironmentVariable("TPLAB_CONSUMER_SAMPLES") == "1")
+                {
+                    Type.GetType("TPLab.Samples.CorePooling.CorePoolingSample, TPLab.CorePoolingSample", true).GetMethod("Run").Invoke(null, null);
+                    report.coreSampleVerified = true;
+                }
+#endif
                 report.commonRootReady = _root != null && _root.IsReady;
 #if TPLAB_INPUT_CONSUMER
                 report.inputScopeVerified = await VerifyInputScopeAsync();
@@ -234,6 +241,7 @@ namespace TPLabConsumer
         private sealed class SmokeReport
         {
             public bool success;
+            public bool coreSampleVerified;
             public bool commonRootReady;
             public bool gameSceneLoaded;
             public bool commonRootPrepared;

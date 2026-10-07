@@ -1,0 +1,13 @@
+{
+  "pid": 17828,
+  "startedUtc": "2026-10-07T09:01:27.421629+00:00",
+  "startedUnix": 1791363687.421636,
+  "endedUtc": "2026-10-07T09:01:34.869817+00:00",
+  "elapsedSeconds": 7.448,
+  "returnCode": 0,
+  "timedOut": false,
+  "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\path-red\\Logs\\green-editor.log",
+  "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\path-red\\Logs\\green-stdout.log",
+  "processLogFresh": true,
+  "stdoutLogFresh": true
+}

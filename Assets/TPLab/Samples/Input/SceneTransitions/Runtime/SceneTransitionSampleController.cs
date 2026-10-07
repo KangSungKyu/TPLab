@@ -16,6 +16,7 @@ using UnityEngine.UI;
 namespace TPLab.Samples.SceneTransitions
 {
     /// <summary>Project-owned presentation borrowing Bootstrap.Manager; owns only cloned input and independent UI blocking.</summary>
+    [DefaultExecutionOrder(-1000)]
     public sealed partial class SceneTransitionSampleController : SceneTransitionCallbacks
     {
         [SerializeField] private BootstrapSystem _bootstrap;
@@ -114,6 +115,8 @@ namespace TPLab.Samples.SceneTransitions
 
         private void Awake()
         {
+            if (_bootstrap != null)
+                SceneTransitionSamplePaths.ConfigureRoot(SceneTransitionSamplePaths.RootFromBootstrap(gameObject.scene.path));
             if (_inputSource == null) return;
             // Input contract tests wire the view explicitly before activation.
             ConfigureView(_inputSource, _cover, _modal, _module);

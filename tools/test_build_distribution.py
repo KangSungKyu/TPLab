@@ -26,9 +26,9 @@ class DistributionTests(unittest.TestCase):
         cls.template = Path(cls.base.name) / 'template'
         cls.template.mkdir()
         roots = ('Assets/TPLab/Core', 'Assets/TPLab/Input/Runtime', 'Assets/TPLab/Editor',
-                 'Assets/Plugins/CsvHelper', 'doc/api', 'doc/ai/api', 'doc/licenses')
+                 'Assets/TPLab/Samples/Core/CorePooling', 'Assets/TPLab/Samples/Input/SceneTransitions', 'Assets/Plugins/CsvHelper', 'doc/api', 'doc/ai/api', 'doc/licenses')
         exact = {'Assets/TPLab/Core.meta', 'Assets/TPLab/Input/Runtime.meta',
-                 'Assets/TPLab/Editor.meta', 'Assets/Plugins/CsvHelper.meta',
+                 'Assets/TPLab/Editor.meta', 'Assets/Plugins/CsvHelper.meta', 'Assets/TPLab/Samples/Core/CorePooling.meta', 'Assets/TPLab/Samples/Input/SceneTransitions.meta',
                  'LICENSE', 'THIRD_PARTY_NOTICES.md', 'ProjectSettings/ProjectVersion.txt', '.gitattributes'}
         for path in git(ROOT, 'ls-files').splitlines():
             if path in exact or any(path.startswith(prefix + '/') for prefix in roots):
@@ -73,6 +73,18 @@ class DistributionTests(unittest.TestCase):
         self.build()
         shutil.copytree(self.root / 'tplab/first/packages', self.root / 'upm')
         self.commit()
+
+    def test_samples_are_optional_and_split_by_dependency(self):
+        self.build()
+        root = self.root / 'tplab/first/packages'
+        core = json.loads((root / 'com.tplab.core/package.json').read_text())
+        inp = json.loads((root / 'com.tplab.input/package.json').read_text())
+        self.assertEqual('Samples~/CorePooling', core['samples'][0]['path'])
+        self.assertEqual('Samples~/SceneTransitions', inp['samples'][0]['path'])
+        self.assertNotIn('com.unity.inputsystem', core['dependencies'])
+        self.assertNotIn('com.unity.ugui', core['dependencies'])
+        self.assertTrue((root / 'com.tplab.input/Samples~/SceneTransitions/Settings/SampleInput.inputactions').is_file())
+        self.assertFalse((root / 'com.tplab.editor/Samples~').exists())
 
     def test_packages_docs_licenses_payload(self):
         self.build()

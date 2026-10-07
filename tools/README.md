@@ -74,3 +74,19 @@ python -B tools/build_distribution.py --source <절대-clean-build-checkout> --r
 `--prepare`는 사본 검사 전 staging이다. 기본 mode는 커밋된 `upm/`과 새 package의 파일/bytes 일치를 검사한다. 두 mode 모두 새 run만 생성하고, dirty·잘못된 SHA/version·경로 탈출·기존 output·symlink/junction·GUID 오류·깨진 내부 문서 링크·사본 drift를 거부한다. 새 output은 해당 clean checkout의 `/tplab/<run-id>`에 한정하며 Git ignore가 필요하다. 실패 run을 재사용·덮어쓰지 않는다. source 변경·입출력 오류로 부분 생성된 run은 다음 gate에 사용하지 않고 필요한 증거를 보존한 뒤 소유 경로만 정리한다.
 
 표준 unittest는 임시 fixture Git 저장소에서 실행하고 fixture만 정리한다. 실제 개발 checkout·사용자 Editor·사용자 변경을 수정하지 않는다. 같은 source/version/Python·zlib 환경에서 두 run의 `.tgz` bytes 일치를 확인한다. 현재 output은 `publishable: false`, installation/Player/samples/release `NotRun`이며 기존 소스 consumer를 실제 패키지 설치 증거로 대체하지 않는다. [Red/Green·실제 생성](../doc/validation/distribution-packaging/README.md)을 따른다.
+
+## UPM 실제 소비 검증 (P2)
+
+`run_core_consumer.py`의 기본 `--installation source`는 기존 소스 복사 검증이다. `--installation tarball` 또는 `git`은 검토된 `upm/`과 일치하는 packager manifest와 세 archive의 SHA256/payload를 먼저 확인하고, 새 소비 프로젝트 manifest에 실제 UPM provider를 지정한다. Core/Editor 소스는 Assets로 복사하지 않는다. `--revision`은 artifact manifest의 exact SHA, `--artifacts`는 해당 checkout `tplab/<run>/artifacts`다. 출력은 새로운 `Temp` 하위, 증거는 `doc/validation/distribution-consumer`를 사용한다.
+
+```powershell
+python tools/run_core_consumer.py --project <절대-checkout> --unity <Unity.exe> --output Temp/DistributionConsumer/<새-run> --evidence doc/validation/distribution-consumer --installation tarball --artifacts <절대-checkout>/tplab/<package-run>/artifacts --revision <40자리-SHA>
+```
+
+Input은 `--include-input`, Editor는 `--include-editor`, 전체 예제는 둘과 `--import-samples`를 추가한다. Git URL mode도 동일한 archive/manifest를 근거로 package version/provider/해결 SHA와 실제 설치 payload를 대조한다. 로컬 file tarball URL은 이 검증 PC의 실제 파일이며 외부 제공 안내는 다운로드한 archive 경로로 대체한다.
+
+모든 artifact run은 준비 Editor와 사용 Editor를 명시적으로 나누며 각 PID·fresh result·exit를 기록한다. Editor scope는 설정 없음 자동 비활성, 실제 CSV/schema typed validator, 생성 대기, 다음 launch 컴파일/validator, 거부 시 생성 소스 보존과 Packages 출력 거부를 확인한다. 전체 scope는 실제 `Sample.Import`, 명시적 예제 생성·원본 setup 복원, Core pooling 실행과 Additive/Single Windows Mono sample Player 각각 12개 checks를 추가한다. 진행 중 생성/대기는 검증 완료로 표시하지 않는다. 원본 TPLab Editor/전체 개발 회귀·시각/physical input 수락과 독립된 artifact proof다.
+
+```powershell
+python -m unittest discover -s tools -p test_distribution_consumer.py -v
+```

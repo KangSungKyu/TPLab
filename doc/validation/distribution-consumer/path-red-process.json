@@ -1,0 +1,13 @@
+{
+  "pid": 15068,
+  "startedUtc": "2026-10-07T08:57:14.229577+00:00",
+  "startedUnix": 1791363434.2295833,
+  "endedUtc": "2026-10-07T08:58:15.903186+00:00",
+  "elapsedSeconds": 61.674,
+  "returnCode": 2,
+  "timedOut": false,
+  "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\path-red\\Logs\\editor.log",
+  "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\path-red\\Logs\\stdout.log",
+  "processLogFresh": true,
+  "stdoutLogFresh": true
+}

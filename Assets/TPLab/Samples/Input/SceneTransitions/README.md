@@ -22,6 +22,12 @@ Single sample에서는 `CommonSceneRoot`가 persistent다. callback, EventSystem
 
 `SceneTransitionSampleBuilder.BuildWindowsMono(bool single, string outputDirectory, string evidencePath)`는 선택된 sample scenes로 Windows x64 Mono Player를 만든다. 새 output은 `Temp/GameScenesTrack/ScenePlayers` 아래, 새 JSON evidence는 `doc/validation/scene-integration`, `doc/validation/input-system`, 또는 `doc/validation/scene-loading` 아래에 둔다. Builder는 실행 중 scripting backend, Editor scene setup, Build Settings와 원본 Build Settings bytes를 복원한다.
 
-Player smoke에서 `-tplab-loading-presentation`을 지정하면 automatic mode로 opt-in한다. `run_scene_player.py`의 `--loading-presentation --expected-checks 12`는 12개의 관찰과 loading preparation/reveal/progress/proceed/release/two-cover counter를 검사한다. 이 batch smoke는 수동 진행 UI나 실제 키보드·게임패드·pointer 입력을 확인하지 않는다. 사람의 최종 UX 확인은 [acceptance 절차](../../../../doc/SCENE_LOADING_ACCEPTANCE.md)를 따른다.
+Player smoke에서 `-tplab-loading-presentation`을 지정하면 automatic mode로 opt-in한다. `run_scene_player.py`의 `--loading-presentation --expected-checks 12`는 12개의 관찰과 loading preparation/reveal/progress/proceed/release/two-cover counter를 검사한다. 이 batch smoke는 수동 진행 UI나 실제 키보드·게임패드·pointer 입력을 확인하지 않는다. 사람의 최종 UX 확인은 Play에서 Continue 버튼 및 실제 키보드·게임패드·pointer 입력을 확인하는 수락 절차를 따른다.
 
-실행 기록과 현재 검증 범위는 [scene-loading track](../../../../doc/SCENE_LOADING_TRACK.md)에 둔다. 이 예제의 현재 P4 통합 상태를 자동 green이나 사용자 승인으로 확대하지 않는다.
+실행 기록과 현재 검증 범위는 개발 저장소의 scene-loading 검증 기록에 둔다. 이 예제의 현재 P4 통합 상태를 자동 green이나 사용자 승인으로 확대하지 않는다.
+
+## Import and preparation
+
+Requires TPLab Core, TPLab Input, Unity Input System and uGUI. Import **Scene Transitions** from the Input package's Samples tab. Run **TPLab > Scene Transitions > Build Sample Assets** explicitly before opening imported template scenes. The builder resolves its own MonoScript GUID and writes only its sample folder under Assets; it rejects package storage. This regenerates the saved settings' scene paths for the actual imported folder and uses the bundled `Settings/SampleInput.inputactions`. Existing scenes and Build Settings are restored on success or failure. Unsaved or dirty user scenes must be saved first.
+
+Use **Open Additive** or **Open Single**, enter Play, then stop Play; the builder restores the original scene and Build Settings setup. **Restore Original Setup** is also available explicitly. The runtime controller derives its root from its owning saved Bootstrap scene before that root becomes persistent; Player paths do not depend on Editor static state. This sample owns one active session at a time.

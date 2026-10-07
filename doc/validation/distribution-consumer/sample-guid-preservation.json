@@ -1,0 +1,131 @@
+{
+  "baseRevision": "23e2764993e46d3fcd18e8d46d8029ac1863f1df",
+  "count": 25,
+  "metas": [
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions.meta",
+      "sha256": "610dc42a8b940ae08733c04207149fce4615fada678c26fa9465253a9865a63c"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Editor.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Editor.meta",
+      "sha256": "f8700927f31090b11b4d617070358a0c4314c55ca473ca61352d8f5bf847a3ae"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs.meta",
+      "sha256": "d319a7d90b4a62e81d35e3170fb6ee92f88d329b2d69f3514124ef7d493ad1a6"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef.meta",
+      "sha256": "c34508c50d2c322fe1b8a69812c5d97e17293043de4556a86b0c84e1f4b31bf5"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/README.md.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/README.md.meta",
+      "sha256": "f3baac10ff06b93beed179bbcfd8c49c94ab395df7e1e9a0958f58813ae4a66d"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime.meta",
+      "sha256": "5a375cfbaff38b6dec5976afbc8f719fc007b384eaed9d96192760b7bdf3b794"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/InputSystemUiScope.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/InputSystemUiScope.cs.meta",
+      "sha256": "7debb8b099f0e7837cb175b1f27a019a3b16356232d7cce1d1142302373118f0"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/SampleSceneConsumer.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneConsumer.cs.meta",
+      "sha256": "f7e6534c78b550aeb2f22b7cfd2857881c1a4169fa9f35ccef8bdd2fb36d66f1"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/SampleSceneInstaller.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneInstaller.cs.meta",
+      "sha256": "bc4a9bc2f5816771b74ff2bcf4ac61e145df2bceaf90a25b8d1bf4204494a67e"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/SampleTransitionCondition.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleTransitionCondition.cs.meta",
+      "sha256": "a504f3c4f3e968d3015e68a22bb00b7149c0fb656b2057815788cb4fb35bffad"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs.meta",
+      "sha256": "2e4b25d466b739660fd843727e0bc3cd9bd2cf21f857f7431e11f6ae2ac797b2"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/SceneTransitionSampleController.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.cs.meta",
+      "sha256": "b649174f6ef92fa7be47eb9f07f3c15a83007821e0e9649cc8a49032a955930c"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs.meta",
+      "sha256": "9be9762fe3e222c89dcc0e0fb9cd97de3b26c06e58a6016c399d9dbde75f5e74"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef.meta",
+      "sha256": "aa6db670306e8736abde1d199ffa1eb79e9106fcc39f3830e98fa7c2fbfff160"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes.meta",
+      "sha256": "dd0dfe6d814263dd448792177f88224b24dd3bb7af1d3d20f91ca2471acff2e0"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes/Area.unity.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Area.unity.meta",
+      "sha256": "d6e216c2bd4250bac5586fdcfed0a82f64e48e83c13066be692c481b24138f49"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes/BootstrapAdditive.unity.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapAdditive.unity.meta",
+      "sha256": "16f1dd5117adf9302f7d869481d444bbca46d9b24e35a56739f066daf2992b5c"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes/BootstrapSingle.unity.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapSingle.unity.meta",
+      "sha256": "f58dc45331d73242f4391b1e86eb5e0753dbad3e50746152c162d894e4d9edb3"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes/Hub.unity.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Hub.unity.meta",
+      "sha256": "b65e724a428927f7691378880af21689f762c088c75eeca9fc0b506613c7b38d"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes/Main.unity.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Main.unity.meta",
+      "sha256": "45fdca32d1a759d518206f60b21fd40c4a8506b213a8d5b109aefd1c9f1a88af"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Scenes/Nested.unity.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Nested.unity.meta",
+      "sha256": "1da063f15d64f13ede73028cfb15b3453ee85289926d4a9ccd1597aa27fbc1fd"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Settings.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Settings.meta",
+      "sha256": "6cc03c6226745cffb24783e32604e04a5c958bcf48872ac74f0eadef560f1069"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Settings/Additive.asset.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Additive.asset.meta",
+      "sha256": "0643e7b888b2ce3c48912edf2e05e3926834ff7335eb7f8cfe93e7c9b42a5a80"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/Settings/Single.asset.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Single.asset.meta",
+      "sha256": "e01fce409ae057d1dafaeea80cbe76b2d5e22680a29145b428c4e2b0640c4b45"
+    },
+    {
+      "source": "Assets/TPLab/Samples/SceneTransitions/sample-owner.txt.meta",
+      "target": "Assets/TPLab/Samples/Input/SceneTransitions/sample-owner.txt.meta",
+      "sha256": "326192b006369b04a1074742d3df794bbbc13678b310bcdf0633dc4bdcf31996"
+    }
+  ]
+}

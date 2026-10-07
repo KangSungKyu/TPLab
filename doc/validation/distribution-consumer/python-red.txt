@@ -1,0 +1,66 @@
+test_artifact_mode_copies_harness_only (test_distribution_consumer.DistributionConsumerTests.test_artifact_mode_copies_harness_only) ... ERROR
+test_git_uses_exact_sha_and_subfolder (test_distribution_consumer.DistributionConsumerTests.test_git_uses_exact_sha_and_subfolder) ... ERROR
+test_samples_require_input (test_distribution_consumer.DistributionConsumerTests.test_samples_require_input) ... ERROR
+test_source_copy_mode_keeps_its_original_manifest (test_distribution_consumer.DistributionConsumerTests.test_source_copy_mode_keeps_its_original_manifest) ... ok
+test_source_revision_mismatch_refused (test_distribution_consumer.DistributionConsumerTests.test_source_revision_mismatch_refused) ... ERROR
+test_symlink_output_rejected (test_distribution_consumer.DistributionConsumerTests.test_symlink_output_rejected) ... skipped 'OS does not permit directory symlinks'
+test_tarball_installs_artifacts_without_source_copy (test_distribution_consumer.DistributionConsumerTests.test_tarball_installs_artifacts_without_source_copy) ... ERROR
+test_wrong_installation_mode_refused (test_distribution_consumer.DistributionConsumerTests.test_wrong_installation_mode_refused) ... ERROR
+
+======================================================================
+ERROR: test_artifact_mode_copies_harness_only (test_distribution_consumer.DistributionConsumerTests.test_artifact_mode_copies_harness_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_distribution_consumer.py", line 33, in test_artifact_mode_copies_harness_only
+    copied=c.copy_allowlist(ROOT,out,ROOT/'tools',c.unity_version(ROOT),False,plan)
+TypeError: copy_allowlist() takes from 4 to 5 positional arguments but 6 were given
+
+======================================================================
+ERROR: test_git_uses_exact_sha_and_subfolder (test_distribution_consumer.DistributionConsumerTests.test_git_uses_exact_sha_and_subfolder)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_distribution_consumer.py", line 14, in test_git_uses_exact_sha_and_subfolder
+    plan=c.installation_plan(ROOT,'git',ROOT/'tplab/verify-a/artifacts',revision,False,False,False)
+         ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'consumer' has no attribute 'installation_plan'
+
+======================================================================
+ERROR: test_samples_require_input (test_distribution_consumer.DistributionConsumerTests.test_samples_require_input)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_distribution_consumer.py", line 18, in test_samples_require_input
+    with self.assertRaises(ValueError): c.installation_plan(ROOT,'tarball',ROOT/'tplab/verify-a/artifacts','ec1f786d248207a8c9245b6d5263f95a1985e093',False,False,True)
+                                        ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'consumer' has no attribute 'installation_plan'
+
+======================================================================
+ERROR: test_source_revision_mismatch_refused (test_distribution_consumer.DistributionConsumerTests.test_source_revision_mismatch_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_distribution_consumer.py", line 20, in test_source_revision_mismatch_refused
+    with self.assertRaises(ValueError): c.installation_plan(ROOT,'git',ROOT/'tplab/verify-a/artifacts','0'*40,False,False,False)
+                                        ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'consumer' has no attribute 'installation_plan'
+
+======================================================================
+ERROR: test_tarball_installs_artifacts_without_source_copy (test_distribution_consumer.DistributionConsumerTests.test_tarball_installs_artifacts_without_source_copy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_distribution_consumer.py", line 8, in test_tarball_installs_artifacts_without_source_copy
+    plan=c.installation_plan(ROOT,'tarball',ROOT/'tplab/verify-a/artifacts','ec1f786d248207a8c9245b6d5263f95a1985e093',True,True,False)
+         ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'consumer' has no attribute 'installation_plan'
+
+======================================================================
+ERROR: test_wrong_installation_mode_refused (test_distribution_consumer.DistributionConsumerTests.test_wrong_installation_mode_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_distribution_consumer.py", line 22, in test_wrong_installation_mode_refused
+    with self.assertRaises(ValueError): c.installation_plan(ROOT,'local',ROOT/'tplab/verify-a/artifacts','ec1f786d248207a8c9245b6d5263f95a1985e093',False,False,False)
+                                        ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'consumer' has no attribute 'installation_plan'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.155s
+
+FAILED (errors=6, skipped=1)

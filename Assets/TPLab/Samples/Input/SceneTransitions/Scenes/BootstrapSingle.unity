@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TPLab.SceneTransitionSamples::TPLab.Samples.SceneTransitions.SceneTransitionSampleController
   _bootstrap: {fileID: 1080367157}
-  _inputSource: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _inputSource: {fileID: -944628639613478452, guid: fa029f94ef9d44109dcdbc45d723b457, type: 3}
   _cover: {fileID: 928067485}
   _modal: {fileID: 1096334341}
   _module: {fileID: 372137796}
@@ -1948,7 +1948,7 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  _transitionSettings: {fileID: 11400000, guid: e1b4af222124aa7439b7bc1a8785824b, type: 2}
+  _transitionSettings: {fileID: 11400000, guid: 4097a9502f0d11742942c981e45b8903, type: 2}
   _firstTransitionId: entry
 --- !u!114 &1080367158
 MonoBehaviour:
@@ -1959,11 +1959,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1080367154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10be76fbbcdc184983ebe05c91c7b1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 08b330fe537efa6448868587d50b8252, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: TPLab.Core::TPLab.Core.Lifecycle.SceneOwnedRoot
+  m_EditorClassIdentifier: TPLab.Core::TPLab.Core.Lifecycle.SingletonSceneRoot
   _installers: []
-  _persistAcrossScenes: 0
+  _persistAcrossScenes: 1
 --- !u!4 &1080367159
 Transform:
   m_ObjectHideFlags: 0
@@ -2524,7 +2524,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'ADDITIVE
+  m_Text: 'SINGLE
 
     Scene transitions'
 --- !u!222 &1497304105

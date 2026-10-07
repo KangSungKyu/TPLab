@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="11" result="Failed(Child)" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.033527">
+  <test-suite type="TestSuite" id="1000" name="path-red" fullname="path-red" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.033527" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1016" name="TPLab.Distribution.PathTests.dll" fullname="C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/path-red/Library/ScriptAssemblies/TPLab.Distribution.PathTests.dll" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.027235" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="15068" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1017" name="TPLab" fullname="TPLab" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.026924" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1018" name="Core" fullname="TPLab.Core" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.026786" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1019" name="Tests" fullname="TPLab.Core.Tests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.026650" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1001" name="SceneTransitionSamplePathTests" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.026209" total="11" passed="0" failed="11" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="ParameterizedMethod" id="1004" name="BootstrapAndSourceScriptResolveTheirActualOwningRoot" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.017577" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1002" name="BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/TPLab/Samples/Input/SceneTransitions&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/TPLab/Samples/Input/SceneTransitions&quot;)" methodname="BootstrapAndSourceScriptResolveTheirActualOwningRoot" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="903947849" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.011088" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Missing portable sample path contract: RootFromBootstrap
+  Expected: not null
+  But was:  null
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13
+at TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot (System.String root) [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:22
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1003" name="BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/Samples/com.tplab.input/0.0.1/Scene Transitions&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/Samples/com.tplab.input/0.0.1/Scene Transitions&quot;)" methodname="BootstrapAndSourceScriptResolveTheirActualOwningRoot" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1033259997" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000196" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Missing portable sample path contract: RootFromBootstrap
+  Expected: not null
+  But was:  null
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13
+at TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot (System.String root) [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:22
+]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1015" name="BootstrapRejectsOtherSceneNamesAndExtraSuffix" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.002120" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1013" name="BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Foreign/Scenes/Main.unity&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Foreign/Scenes/Main.unity&quot;)" methodname="BootstrapRejectsOtherSceneNamesAndExtraSuffix" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="2015756976" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.001443" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: RootFromBootstrap
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass5_0.<BootstrapRejectsOtherSceneNamesAndExtraSuffix>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:43 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix (System.String path) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:43
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1014" name="BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Samples/Scenes/BootstrapSingle.unity/extra&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Samples/Scenes/BootstrapSingle.unity/extra&quot;)" methodname="BootstrapRejectsOtherSceneNamesAndExtraSuffix" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1030319557" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000197" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: RootFromBootstrap
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass5_0.<BootstrapRejectsOtherSceneNamesAndExtraSuffix>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:43 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix (System.String path) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:43
+]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1012" name="RootRejectsNonAssetsOrAmbiguousPaths" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="7" result="Failed" site="Child" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.003658" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1005" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1282422219" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000302" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1006" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Packages/com.tplab.input/Samples~/SceneTransitions&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Packages/com.tplab.input/Samples~/SceneTransitions&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="927593019" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000170" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1007" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/../foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/../foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="348590930" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000163" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1008" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/./foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/./foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1503640583" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000173" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1009" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets\\Samples\\foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets\\Samples\\foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="964002982" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000163" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1010" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;/Assets/Samples/foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;/Assets/Samples/foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1870869046" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.000154" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1011" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples//foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples//foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="166620922" result="Failed" start-time="2026-10-07 08:58:15Z" end-time="2026-10-07 08:58:15Z" duration="0.001865" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: <System.ArgumentException>
+  But was:  <NUnit.Framework.AssertionException:   Missing portable sample path contract: ValidateRoot
+  Expected: not null
+  But was:  null
+
+  at NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) [0x00039] in <f577cd9686154d6ab10efd7e65e64366>:0 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests.Invoke (System.String method, System.String path) [0x0000e] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:13 
+  at TPLab.Core.Tests.SceneTransitionSamplePathTests+<>c__DisplayClass4_0.<RootRejectsNonAssetsOrAmbiguousPaths>b__0 () [0x00000] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36 
+  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >
+]]></message>
+                    <stack-trace><![CDATA[at TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths (System.String root) [0x0000c] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Assets\Tests\SceneTransitionSamplePathTests.cs:36
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Results\tests.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

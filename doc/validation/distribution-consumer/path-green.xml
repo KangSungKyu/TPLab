@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.0356097">
+  <test-suite type="TestSuite" id="1000" name="path-red" fullname="path-red" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.035610" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1017" name="TPLab.Distribution.PathTests.dll" fullname="C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/path-red/Library/ScriptAssemblies/TPLab.Distribution.PathTests.dll" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.028721" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="17828" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1018" name="TPLab" fullname="TPLab" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.028296" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1019" name="Core" fullname="TPLab.Core" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.028140" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1020" name="Tests" fullname="TPLab.Core.Tests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.028004" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="SceneTransitionSamplePathTests" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.027525" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1004" name="BootstrapAndSourceScriptResolveTheirActualOwningRoot" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.015565" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1002" name="BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/TPLab/Samples/Input/SceneTransitions&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/TPLab/Samples/Input/SceneTransitions&quot;)" methodname="BootstrapAndSourceScriptResolveTheirActualOwningRoot" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1928345148" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.011214" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1003" name="BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/Samples/com.tplab.input/0.0.1/Scene Transitions&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapAndSourceScriptResolveTheirActualOwningRoot(&quot;Assets/Samples/com.tplab.input/0.0.1/Scene Transitions&quot;)" methodname="BootstrapAndSourceScriptResolveTheirActualOwningRoot" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="398339451" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000158" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1016" name="BootstrapRejectsOtherSceneNamesAndExtraSuffix" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.002217" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1014" name="BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Foreign/Scenes/Main.unity&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Foreign/Scenes/Main.unity&quot;)" methodname="BootstrapRejectsOtherSceneNamesAndExtraSuffix" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="154922259" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.001705" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Samples/Scenes/BootstrapSingle.unity/extra&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.BootstrapRejectsOtherSceneNamesAndExtraSuffix(&quot;Assets/Samples/Scenes/BootstrapSingle.unity/extra&quot;)" methodname="BootstrapRejectsOtherSceneNamesAndExtraSuffix" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="2044558864" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000105" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1013" name="NewSessionRootReplacesStaleRootAndInvalidRootLeavesItUntouched" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.NewSessionRootReplacesStaleRootAndInvalidRootLeavesItUntouched" methodname="NewSessionRootReplacesStaleRootAndInvalidRootLeavesItUntouched" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="2030796731" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.001331" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1012" name="RootRejectsNonAssetsOrAmbiguousPaths" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.001198" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1005" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="599250962" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000200" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1006" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Packages/com.tplab.input/Samples~/SceneTransitions&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Packages/com.tplab.input/Samples~/SceneTransitions&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="111579204" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000073" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1007" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/../foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/../foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1628718692" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000061" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/./foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples/./foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="598831375" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000057" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets\\Samples\\foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets\\Samples\\foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="1758060409" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000056" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;/Assets/Samples/foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;/Assets/Samples/foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="861406491" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000051" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples//foreign&quot;)" fullname="TPLab.Core.Tests.SceneTransitionSamplePathTests.RootRejectsNonAssetsOrAmbiguousPaths(&quot;Assets/Samples//foreign&quot;)" methodname="RootRejectsNonAssetsOrAmbiguousPaths" classname="TPLab.Core.Tests.SceneTransitionSamplePathTests" runstate="Runnable" seed="532902944" result="Passed" start-time="2026-10-07 09:01:34Z" end-time="2026-10-07 09:01:34Z" duration="0.000053" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\Temp\DistributionConsumer\path-red\Results\green-tests.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

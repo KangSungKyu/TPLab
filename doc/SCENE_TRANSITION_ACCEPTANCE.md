@@ -4,7 +4,7 @@ P6 자동 검증은 완료했다. 원래 TPLab Editor의 전체 EditMode240/240�
 
 ## 실행 준비
 
-원래 TPLab Editor에서만 확인한다. sample 자산은 `Assets/TPLab/Samples/SceneTransitions/Scenes/`의 `BootstrapAdditive.unity`, `BootstrapSingle.unity`, `Hub.unity`, `Main.unity`, `Area.unity`, `Nested.unity`다. 생성 산출물이 없을 때만 `TPLab > Scene Transitions > Build Sample Assets`를 실행한다. 이 메뉴는 sample 소유 표식과 자산 충돌을 확인하고 기존 Editor 설정을 복구한다. 완료된 산출물을 재생성할 필요는 없다.
+원래 TPLab Editor에서만 확인한다. sample 자산은 `Assets/TPLab/Samples/Input/SceneTransitions/Scenes/`의 `BootstrapAdditive.unity`, `BootstrapSingle.unity`, `Hub.unity`, `Main.unity`, `Area.unity`, `Nested.unity`다. 생성 산출물이 없을 때만 `TPLab > Scene Transitions > Build Sample Assets`를 실행한다. 이 메뉴는 sample 소유 표식과 자산 충돌을 확인하고 기존 Editor 설정을 복구한다. 완료된 산출물을 재생성할 필요는 없다.
 
 각 mode는 `TPLab > Scene Transitions > Open Additive` 또는 `Open Single`로 열고 Play를 눌러 확인한다. 확인 전에 Game view를 16:9(1280×720 기준)와 4:3으로 바꿔 HUD, 버튼 라벨, cover, modal이 화면 안에 유지되고 의도한 버튼이 눌리는지 확인한다. 키보드 방향키/WASD로 메뉴를 이동하고 Enter로 제출한다. 기본 입력 자산에서 Enter는 UI Submit과 Player Attack 양쪽에 연결되어 있으므로, gameplay counter만 따로 확인할 때는 버튼이 없는 게임 화면을 클릭한다.
 

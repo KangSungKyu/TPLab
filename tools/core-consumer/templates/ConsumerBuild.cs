@@ -1,5 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using Cysharp.Threading.Tasks;
+using UnityEditor.PackageManager;
 using TPLab.Core.Lifecycle;
 using TPLab.Core.ResourceManagement;
 using TPLab.Core.SceneManagement;
@@ -17,11 +21,26 @@ namespace TPLabConsumer
         private const string GamePath = ScenesFolder + "/Game.unity";
         private const string DerivedPath = ScenesFolder + "/Derived.unity";
 
-        public static void Perform()
+        public static void Perform() => PerformAsync().Forget();
+
+        private static async UniTaskVoid PerformAsync()
         {
+            var report = new BuildReportFile();
             int exitCode = 1;
             try
             {
+#if TPLAB_EDITOR_CONSUMER
+                report.importer = await EditorProbe.ValidateGeneratedAsync();
+#endif
+#if TPLAB_ARTIFACT_CONSUMER
+                report.installedPackages = PackageInfo.GetAllRegisteredPackages().Where(p => p.name.StartsWith("com.tplab.", StringComparison.Ordinal))
+                    .Select(p => new InstalledPackage { name = p.name, version = p.version, resolvedPath = p.resolvedPath, source = p.source.ToString() }).ToArray();
+                if (Environment.GetEnvironmentVariable("TPLAB_CONSUMER_SAMPLES") == "1")
+                {
+                    VerifySamples();
+                    report.samplesVerified = true;
+                }
+#endif
                 Directory.CreateDirectory(ScenesFolder);
                 CreateRootScene(GamePath);
                 CreateRootScene(DerivedPath);
@@ -43,27 +62,69 @@ namespace TPLabConsumer
                 };
                 PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, ScriptingImplementation.Mono2x);
                 var build = BuildPipeline.BuildPlayer(options);
-                var report = new BuildReportFile
-                {
-                    success = build.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded && build.summary.totalErrors == 0,
-                    unityVersion = Application.unityVersion,
-                    target = build.summary.platform.ToString(),
-                    backend = PlayerSettings.GetScriptingBackend(BuildTargetGroup.Standalone).ToString(),
-                    playerPath = playerPath ?? "",
-                    result = build.summary.result.ToString(),
-                    errors = (int)build.summary.totalErrors,
-                    warnings = (int)build.summary.totalWarnings
-                };
+                report.success = build.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded && build.summary.totalErrors == 0;
+                report.unityVersion = Application.unityVersion;
+                report.target = build.summary.platform.ToString();
+                report.backend = PlayerSettings.GetScriptingBackend(BuildTargetGroup.Standalone).ToString();
+                report.playerPath = playerPath ?? "";
+                report.result = build.summary.result.ToString();
+                report.errors = (int)build.summary.totalErrors;
+                report.warnings = (int)build.summary.totalWarnings;
+#if TPLAB_ARTIFACT_CONSUMER
+                if (report.success && report.samplesVerified) report.sampleBuilds = BuildSamples();
+#endif
                 WriteResult(report);
                 exitCode = report.success ? 0 : 2;
             }
             catch (Exception exception)
             {
-                WriteResult(new BuildReportFile { success = false, unityVersion = Application.unityVersion, error = exception.ToString() });
+                report.success = false;
+                report.unityVersion = Application.unityVersion;
+                report.error = exception.ToString();
+#if TPLAB_EDITOR_CONSUMER
+                if (exception is EditorProbe.ProbeException probe) report.importer = probe.Result;
+#endif
+                WriteResult(report);
                 Debug.LogException(exception);
             }
             EditorApplication.Exit(exitCode);
         }
+
+#if TPLAB_ARTIFACT_CONSUMER
+        private static Type SampleBuilder => Type.GetType("TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder, TPLab.SceneTransitionSamples.Editor", true);
+
+        private static void VerifySamples()
+        {
+            Type.GetType("TPLab.Samples.CorePooling.CorePoolingSample, TPLab.CorePoolingSample", true).GetMethod("Run").Invoke(null, null);
+            string file = "ProjectSettings/EditorBuildSettings.asset";
+            byte[] baseline = File.ReadAllBytes(file);
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            SampleBuilder.GetMethod("BuildSampleAssets").Invoke(null, null);
+            if (!baseline.SequenceEqual(File.ReadAllBytes(file)) || !SameSetup(setup, EditorSceneManager.GetSceneManagerSetup()))
+                throw new InvalidOperationException("Explicit imported sample generation did not restore the baseline.");
+            SampleBuilder.GetMethod("OpenSingle").Invoke(null, null);
+            SampleBuilder.GetMethod("RestoreOriginal").Invoke(null, null);
+            if (!baseline.SequenceEqual(File.ReadAllBytes(file)) || !SameSetup(setup, EditorSceneManager.GetSceneManagerSetup()))
+                throw new InvalidOperationException("Imported sample open/restore changed the original setup.");
+        }
+
+        private static bool SameSetup(SceneSetup[] before, SceneSetup[] after) => before.Length == after.Length && before.Zip(after,
+            (a, b) => a.path == b.path && a.isLoaded == b.isLoaded && a.isActive == b.isActive).All(value => value);
+
+        private static SampleBuild[] BuildSamples()
+        {
+            return new[] { BuildSample(false), BuildSample(true) };
+        }
+
+        private static SampleBuild BuildSample(bool single)
+        {
+            string mode = single ? "single" : "additive";
+            string folder = "Temp/GameScenesTrack/ScenePlayers/consumer-" + mode;
+            string evidence = "doc/validation/scene-integration/consumer-" + mode + ".json";
+            SampleBuilder.GetMethod("BuildWindowsMono").Invoke(null, new object[] { single, folder, evidence });
+            return new SampleBuild { mode = mode, playerPath = Path.GetFullPath(folder + "/SceneTransitions.exe"), evidencePath = Path.GetFullPath(evidence) };
+        }
+#endif
 
         private static void CreateRootScene(string path)
         {
@@ -95,9 +156,27 @@ namespace TPLabConsumer
         }
 
         [Serializable]
+        private sealed class InstalledPackage
+        {
+            public string name, version, resolvedPath, source;
+        }
+
+        [Serializable]
+        private sealed class SampleBuild
+        {
+            public string mode, playerPath, evidencePath;
+        }
+
+        [Serializable]
         private sealed class BuildReportFile
         {
             public bool success;
+#if TPLAB_EDITOR_CONSUMER
+            public EditorProbe.ProbeResult importer;
+#endif
+            public InstalledPackage[] installedPackages;
+            public bool samplesVerified;
+            public SampleBuild[] sampleBuilds;
             public string unityVersion;
             public string target;
             public string backend;
