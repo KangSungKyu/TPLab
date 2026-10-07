@@ -366,6 +366,20 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
         if installation:
             env["TPLAB_CONSUMER_SAMPLES"] = "1" if installation["importSamples"] else "0"
             env["TPLAB_CONSUMER_IMPORTER_STATE"] = str(output / "Results/importer-state.json")
+            if installation["importSamples"]:
+                import_result = output / "Results/sample-import.json"
+                import_log = output / "Logs/sample-import.log"
+                env["TPLAB_CONSUMER_SETUP_RESULT"] = str(import_result)
+                env["TPLAB_CONSUMER_PREPARE_PHASE"] = "samples"
+                import_command = [str(unity), "-batchmode", "-nographics", "-projectPath", str(output),
+                                  "-executeMethod", "TPLabConsumer.ConsumerSetup.Perform", "-logFile", str(import_log)]
+                report["sampleImport"] = run_process(import_command, output, env, import_log, output / "Logs/sample-import-stdout.log", timeout)
+                report["actualRuns"] += 1
+                report["sampleImport"]["result"] = read_json(import_result, report["sampleImport"]["startedUnix"])
+                imported = report["sampleImport"]["result"]
+                if report["sampleImport"]["returnCode"] != 0 or not report["sampleImport"]["processLogFresh"] or imported.get("success") is not True or imported.get("samplesImported") is not True or len(imported.get("imports", [])) != 2:
+                    raise RuntimeError("Actual Sample.Import failed before compiled importer preparation.")
+            env["TPLAB_CONSUMER_PREPARE_PHASE"] = "importer"
             setup_result = output / "Results/setup.json"
             setup_log = output / "Logs/setup.log"
             env["TPLAB_CONSUMER_SETUP_RESULT"] = str(setup_result)
@@ -376,6 +390,10 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
             report["setup"]["result"] = read_json(setup_result, report["setup"]["startedUnix"])
             if not report["setup"]["processLogFresh"] or report["setup"]["returnCode"] != 0 or not report["setup"]["result"].get("success"):
                 raise RuntimeError("Artifact setup/importer preparation failed.")
+            if installation["includeEditor"]:
+                probe = report["setup"]["result"].get("importer", {})
+                if probe.get("requiresGeneratedValidationPhase") is not True or probe.get("generatedAwaitingCompilation") is not True or probe.get("generatedValidated") is not False:
+                    raise RuntimeError("Importer preparation did not record an explicit unvalidated compilation boundary.")
         editor_command = [str(unity), "-batchmode", "-nographics", "-projectPath", str(output),
                           "-executeMethod", "TPLabConsumer.ConsumerBuild.Perform", "-logFile", str(editor_log)]
         report["editor"] = run_process(editor_command, output, env, editor_log,
@@ -460,6 +478,7 @@ def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
     selected = {p for p in plan["dependencies"] if p.startswith("com.tplab.")}
     if {p for p in lock if p.startswith("com.tplab.")} != selected:
         raise RuntimeError("Resolved TPLab scope differs from requested modules.")
+    if "com.tplab.input" not in selected and "com.unity.inputsystem" in lock: raise RuntimeError("Core/Editor-only scope resolved an unintended Input System dependency.")
     infos = {p["name"]: p for p in editor_result.get("installedPackages", [])}
     for name, provider in plan["dependencies"].items():
         if not name.startswith("com.tplab.") and lock.get(name, {}).get("version") != provider:
@@ -491,7 +510,12 @@ def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
     if (project / "Assets/TPLab/Core").exists(): raise RuntimeError("Artifact consumer contains a forbidden source Core copy.")
     if plan["includeEditor"]:
         probe = editor_result.get("importer", {})
-        if probe.get("requiresGeneratedValidationPhase") is not False or probe.get("generatedValidated") is not True:
+        flags = ("defaultSettingsDisabled", "missingSettingsDisabled", "defaultAutomaticDisabled", "automaticNoMutation",
+                 "manualTypedValidated", "manualValidatorObserved", "generatedUnwrittenPending", "generatedAwaitingCompilation",
+                 "generatedValidated", "generatedValidatorObserved", "validatorFailurePreservesOwnedSources", "packagesOutputDenied",
+                 "packageBytesUnchanged", "invalidSchemaDiagnostics", "profileUnregistered", "ownedAssetsCleaned",
+                 "baselineAssetsUnchanged", "buildSettingsUnchanged")
+        if probe.get("requiresGeneratedValidationPhase") is not False or not all(probe.get(flag) is True for flag in flags):
             raise RuntimeError("Generated importer contract has not been validated after compilation.")
     if plan["importSamples"] and editor_result.get("samplesVerified") is not True:
         raise RuntimeError("Imported sample build/run observations missing.")

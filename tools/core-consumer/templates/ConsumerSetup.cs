@@ -19,14 +19,15 @@ namespace TPLabConsumer
             EditorApplication.LockReloadAssemblies();
             try
             {
-                if (Environment.GetEnvironmentVariable("TPLAB_CONSUMER_SAMPLES") == "1")
+                bool samplePhase = Environment.GetEnvironmentVariable("TPLAB_CONSUMER_PREPARE_PHASE") == "samples";
+                if (samplePhase)
                 {
                     report.imports = new[] { Import("com.tplab.core"), Import("com.tplab.input") };
                     report.samplesImported = report.imports.All(item => item.imported);
                     if (!report.samplesImported) throw new InvalidOperationException("Sample.Import did not copy both optional samples.");
                 }
 #if TPLAB_EDITOR_CONSUMER
-                report.importer = await EditorProbe.RunAsync();
+                if (!samplePhase) report.importer = await EditorProbe.RunAsync();
 #endif
                 report.success = true;
             }
