@@ -12,7 +12,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 6 통합 예제·전체 회귀·Windows Player·동일 Unity 소비 프로젝트 검증까지. 최종 사용자 확인과 main 통합은 대기 중이다. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 6 통합 예제·전체 회귀·Windows Player·동일 Unity 소비 프로젝트 검증까지. 2026-10-07 최종 사용자 확인 완료; main 통합과 브랜치 정리는 트랙의 최종 기록을 따른다. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|

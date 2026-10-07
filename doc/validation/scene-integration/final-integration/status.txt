@@ -1,0 +1,5 @@
+Unity: ready
+  Project: C:/Users/PC/Projects/MyLab
+  Version: 6000.3.18f1
+  Connector: 0.4.1
+  PID:     52320

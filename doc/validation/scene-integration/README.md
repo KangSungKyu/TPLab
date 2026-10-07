@@ -45,3 +45,5 @@ GUID import/refresh 과정에서 기존 build list의 missing SampleScene 경로
 [최종 사용자 절차](../../SCENE_TRANSITION_ACCEPTANCE.md)에 Additive/Single·조건·중첩 해제·실패 가림막·modal/입력·16:9/4:3·원래 설정 복구를 한 번에 묶었다. 자동 gate와 인간 확인을 분리한다. track/Phase를 보존하고 main과 브랜치 삭제는 명시적 최종 확인까지 기다린다. 저장한 Unity Editor를 유지한 채 절전한다.
 
 소스 commit `76939ba678d217f7e4787122a14139e73e4c3a51` push 후 [정확한 CI 정책](ci-policy.json)을 조회했다. workflow/check/status/run은 모두0이고 main은 보호되지 않았으며 CI 성공은 아니다. current283 source inputs와 보호5/PlayerSettings raw6이 일치한다. 소스·문서 공백 검사에서 기존 테스트 bytes 보존을 위해 EOF 빈줄만 허용하고, Unity native YAML/meta는 빈 스칼라의 말단 공백도 허용했다. 그 외 scoped diff 검사는 통과했다. [임시 정리](temporary-cleanup.json)의 이번 작업 소유 폴더12개는 실행/참조가 없음을 확인한 후 제거했다. 공통 보호 baseline은 후속 확인용으로 보존한다.
+
+2026-10-07 최종 수락: [사용자 확인](final-integration/acceptance.json)은 Unity 실행 항목까지 포함한다. 원래 Editor 재실행 PID52320에서 정상 저장했고, missing SampleScene GUID가0으로 정규화된 한 줄만 확인하여 검증된 원래 raw bytes로 복원했다. 코어/테스트/의존성/예제 입력283개는 P6 증거와 일치한다. 이번 통합 단위의 새 테스트 실행0건이며, 동일 입력의 저장된 positive 결과를 검증한다. [정확한 source tip CI](final-integration/source-ci-policy.json)는 main 무보호·CI 미구성이며 CI 성공은 아니다.

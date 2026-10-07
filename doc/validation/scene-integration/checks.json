@@ -42,7 +42,8 @@
     "doc/SCENE_TRANSITION_ACCEPTANCE.md",
     "doc/retrospectives/INDEX.md",
     "doc/retrospectives/2026-10-06-22-scene-integration.md",
-    "doc/validation/scene-integration/README.md"
+    "doc/validation/scene-integration/README.md",
+    "doc/retrospectives/2026-10-07-01-scene-track-integration.md"
   ],
   "assets": [
     "Assets/MyLab/Samples/SceneTransitions/Scenes/Area.unity",

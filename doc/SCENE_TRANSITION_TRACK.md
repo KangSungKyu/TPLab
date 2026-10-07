@@ -4,7 +4,7 @@
 
 ## 브랜치와 순서
 
-`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. Editor 검사 commit `de4bb691aed3124443c4bfe3cfd085e3275002a8`까지 track에 fast-forward 통합·push했고 마지막 `codex/game-scenes-p6-validation` 단위의 자동 검증을 완료했다. P6 커밋의 정확한 SHA·push 및 track 통합 결과는 Git 이력과 최종 보고에서 확인한다. 현재 최종 사용자 확인 대기다. 각 단계를 직전 track tip에 순차 통합한다.
+`codex/game-scenes-track`은 main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성됐다. Editor 검사 commit `de4bb691aed3124443c4bfe3cfd085e3275002a8`까지 track에 fast-forward 통합·push했고 마지막 `codex/game-scenes-p6-validation` 단위의 자동 검증을 완료했다. P6 커밋의 정확한 SHA·push 및 track 통합 결과는 Git 이력과 최종 보고에서 확인한다. 2026-10-07 최종 Unity 확인 답변을 받았다. main 통합·브랜치 정리 결과는 아래 최종 기록과 Git 이력에서 확인한다. 각 단계를 직전 track tip에 순차 통합한다.
 
 ```text
 main@e9fa4e46 → codex/game-scenes-track
@@ -36,7 +36,7 @@ Phase 단위 브랜치는 track에서 분기하고 원본 commit을 보존하는
 | Phase 4 | 정의 asset, ID/직접 요청, root 조건 | 자동 검증 완료 | [검증](validation/scene-definitions/README.md), [회고](retrospectives/2026-10-06-20-scene-definitions.md). Green Edit15/15·Play26/26, 전체 Edit228/228·Play199/199; 5eda919 track FF/push 완료. [정확한 CI 조회](validation/scene-definitions/ci-policy.json): 미구성 |
 | Phase 5 | Inspector, compile 후 Editor, Play/build gate | 자동 검증 완료 | [검증](validation/scene-transition-editor/README.md), [회고](retrospectives/2026-10-06-21-scene-transition-editor.md). Green12/12·전체 Edit240/240·Play199/199, actual build/Play 거부; de4bb69 track FF/push 완료. [정확한 CI 조회](validation/scene-transition-editor/ci-policy.json): 미구성 |
 | Phase 6 | 통합 예제·회귀·소비 프로젝트·Player | 자동 검증 완료 | [검증](validation/scene-integration/README.md), [회고](retrospectives/2026-10-06-22-scene-integration.md). 전체 Edit240/240·Play201/201, 원래 Editor Windows Player 각10관찰, Reload8/8·소비 Player11관찰 |
-| 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 사용자 확인 대기 | [실행 절차](SCENE_TRANSITION_ACCEPTANCE.md). main/브랜치 삭제 보류, Unity 저장·Editor 유지 후 절전 |
+| 최종 사용자 gate | 완성된 track의 시각·사용성·실행 확인 | 완료 | 2026-10-07 사용자가 Unity 실행 항목까지 확인 완료. [수락 기록](validation/scene-integration/final-integration/acceptance.json), [실행 절차](SCENE_TRANSITION_ACCEPTANCE.md) |
 
 Phase별 증거에는 기준 commit, 변경 파일, 실제 실행한 검사와 건수·결과, Console/compile 상태, 미실행 항목, 리뷰 및 회고 링크를 남긴다. 사용자 확인 항목은 재현 가능한 실행 절차와 기대 결과를 적는다. 마지막 단계에서 시각·사용성 검사를 모아 수행하되 미확인·미검증 항목을 완료로 표시하지 않는다.
 

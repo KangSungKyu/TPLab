@@ -115,3 +115,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-06 Phase 5: 정의 asset Inspector와 actual Player scene list·Addressables·root/installer·condition metadata 사전 검사, live common root 우선·preview 정리와 compile/Play/build 연결을 제공한다. [검증](validation/scene-transition-editor/README.md)을 확인한다. 다음 Phase 6은 실제 반복 Play·통합 예제·Player 및 소비 프로젝트 검증이다.
 
 2026-10-06 Phase 6: 별도 Samples assembly의 Single/Additive Bootstrap→Hub/Main·중첩 구역·root 조건·독립 cover/modal/InputAction을 제공한다. 동일 원래 Editor의 전체 Edit240/240·Play201/201, Windows Player 두 모드 각10관찰, Reload 네 조합×2 및 동일6000.3.18f1 소비 프로젝트 빌드/11관찰을 확인했다. [증거](validation/scene-integration/README.md)와 [최종 사용자 절차](SCENE_TRANSITION_ACCEPTANCE.md)를 따른다. 다른 Unity 버전·플랫폼 호환성과 전체 시각 UX는 미검증이다. main 병합은 인간 확인 대기다.
+
+2026-10-07 Phase 6 사용자 확인 완료: 사용자가 코드와 최종 Unity 실행 항목을 확인했다. 현재 source 입력283개는 실제 P6 자동 결과의 입력과 일치한다. 같은 변경의 마지막 단위로 기존 track을 재사용하며, [통합 기록](SCENE_TRANSITION_TRACK.md)에 따라 main 반영·승인된 작업 브랜치 정리를 수행한다.

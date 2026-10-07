@@ -1,6 +1,6 @@
 # GameSceneManager 최종 사용자 확인
 
-P6 자동 검증은 완료했다. 원래 MyLab Editor의 전체 EditMode240/240·PlayMode201/201(실패0·skip0), Windows Player Additive/Single 각10관찰, Reload4×2와 동일 Unity 소비 프로젝트 빌드/11관찰을 확인했다. 정확한 범위·실패 기록·Console·입력 hash는 [P6 검증 기록](validation/scene-integration/README.md)에 있다. 현재 상태는 **사용자 확인 대기**이며, 아래 시각·사용성 확인과 명시적 답변 전 main 병합·브랜치 삭제는 보류한다.
+P6 자동 검증은 완료했다. 원래 MyLab Editor의 전체 EditMode240/240·PlayMode201/201(실패0·skip0), Windows Player Additive/Single 각10관찰, Reload4×2와 동일 Unity 소비 프로젝트 빌드/11관찰을 확인했다. 정확한 범위·실패 기록·Console·입력 hash는 [P6 검증 기록](validation/scene-integration/README.md)에 있다. 2026-10-07 사용자가 아래 Unity 실행 항목까지 확인 완료했다고 명시했다. 현재 상태는 **사용자 확인 완료**다. [수락 기록](validation/scene-integration/final-integration/acceptance.json)을 보존하고 기존 승인에 따라 main 통합·작업 브랜치 정리를 진행한다.
 
 ## 실행 준비
 

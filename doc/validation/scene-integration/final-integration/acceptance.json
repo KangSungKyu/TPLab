@@ -1,0 +1,16 @@
+{
+  "clientDate": "2026-10-07",
+  "sourceTip": "6355b36a8edd73ef4c8c87b679f46018e780736a",
+  "humanConfirmation": "Unity 실행 항목도 확인 완료했어",
+  "scope": [
+    "Additive and Single",
+    "condition rejection",
+    "nested scene removal",
+    "cover and input",
+    "aspect ratios"
+  ],
+  "automationRerunThisUnit": 0,
+  "basis": "Current source hashes match the automated P6 evidence; only documentation and exact restoration of observed native missing-scene GUID normalization.",
+  "buildRawRestored": "348ba1eca4b0698957f264f877f76227b78583acd3138fd5fc85be92f158e261",
+  "editorSavedPid": 52320
+}
