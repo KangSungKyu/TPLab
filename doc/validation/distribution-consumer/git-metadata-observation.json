@@ -1,0 +1,8 @@
+{
+  "sourceRevision": "bae99a6cd1bf0bf6d52359282ec859762652d3ba",
+  "run": "git-core-d",
+  "editorBuildSuccess": true,
+  "errors": 0,
+  "runtimeNotRun": true,
+  "failure": "Git fingerprint is40hex rather than tarball32hex. Source lock matches exact SHA and original package manifest unchanged."
+}

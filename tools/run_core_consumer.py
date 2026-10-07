@@ -476,12 +476,13 @@ def package_versions_from_manifest(project: Path) -> dict:
     return versions
 
 
-def installed_manifest_matches(expected: bytes, actual: bytes, cache_name: str) -> bool:
+def installed_manifest_matches(expected: bytes, actual: bytes, cache_name: str, mode: str = "tarball") -> bool:
     try:
         original = json.loads(expected)
         installed = json.loads(actual)
         fingerprint = installed.pop("_fingerprint", None)
-        return (isinstance(fingerprint, str) and re.fullmatch(r"[0-9a-f]{32}", fingerprint) is not None and
+        length = 40 if mode == "git" else 32
+        return (mode in ("git", "tarball") and isinstance(fingerprint, str) and re.fullmatch("[0-9a-f]{" + str(length) + "}", fingerprint) is not None and
                 cache_name == original["name"] + "@" + fingerprint[:12] and installed == original)
     except (ValueError, KeyError, AttributeError, TypeError):
         return False
@@ -517,7 +518,7 @@ def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
                 actual = target.read_bytes()
                 text = target.suffix in (".cs", ".asmdef", ".md", ".meta", ".asset", ".unity", ".txt", ".json", ".inputactions")
                 git_eol_match = plan["mode"] == "git" and text and actual.replace(b"\r\n", b"\n") == expected.replace(b"\r\n", b"\n")
-                upm_metadata_match = member.name == "package/package.json" and installed_manifest_matches(expected, actual, resolved.name)
+                upm_metadata_match = member.name == "package/package.json" and installed_manifest_matches(expected, actual, resolved.name, plan["mode"])
                 if actual != expected and not git_eol_match and not upm_metadata_match:
                     raise RuntimeError("Installed payload differs: " + member.name)
                 count += 1

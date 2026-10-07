@@ -86,6 +86,13 @@ class DistributionConsumerTests(unittest.TestCase):
         self.assertFalse(c.installed_manifest_matches(expected,actual,'com.tplab.core@bbbbbbbbbbbb'))
         self.assertFalse(c.installed_manifest_matches(expected,b'{"name":"com.tplab.core","version":"0.0.1","extra":true}','com.tplab.core@aaaaaaaaaaaa'))
 
+    def test_git_fingerprint_has_its_own_cache_format(self):
+        expected=b'{"name":"com.tplab.core","version":"0.0.1"}'
+        actual=b'{"name":"com.tplab.core","version":"0.0.1","_fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}'
+        self.assertTrue(c.installed_manifest_matches(expected,actual,'com.tplab.core@aaaaaaaaaaaa','git'))
+        self.assertFalse(c.installed_manifest_matches(expected,actual,'com.tplab.core@aaaaaaaaaaaa','tarball'))
+        self.assertFalse(c.installed_manifest_matches(expected,actual.replace(b'0.0.1',b'9.0.0'),'com.tplab.core@aaaaaaaaaaaa','git'))
+
     def test_symlink_output_rejected(self):
         with tempfile.TemporaryDirectory() as t:
             outside=Path(t); linked=ROOT/'Temp/DistributionConsumer-test-link'

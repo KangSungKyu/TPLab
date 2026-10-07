@@ -1,0 +1,151 @@
+{
+  "actualRuns": 2,
+  "allowlist": [],
+  "createdUtc": "2026-10-07T09:34:07.577500+00:00",
+  "editor": {
+    "elapsedSeconds": 19.645,
+    "endedUtc": "2026-10-07T09:35:03.710169+00:00",
+    "pid": 26868,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d\\Logs\\editor.log",
+    "processLogFresh": true,
+    "result": {
+      "backend": "Mono2x",
+      "error": "",
+      "errors": 0,
+      "installedPackages": [
+        {
+          "name": "com.tplab.core",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d\\Library\\PackageCache\\com.tplab.core@e6ca9a6cb5cc",
+          "source": "Git",
+          "version": "0.0.1"
+        }
+      ],
+      "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d\\Build\\ConsumerSmoke.exe",
+      "result": "Succeeded",
+      "sampleBuilds": [],
+      "samplesVerified": false,
+      "success": true,
+      "target": "StandaloneWindows64",
+      "unityVersion": "6000.3.18f1",
+      "warnings": 0
+    },
+    "returnCode": 0,
+    "startedUnix": 1791365684.0647807,
+    "startedUtc": "2026-10-07T09:34:44.064778+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d\\Logs\\editor-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "errors": [
+    "Installed payload differs: package/package.json"
+  ],
+  "expectedUnityVersion": "6000.3.18f1",
+  "harnessTemplates": {
+    "ConsumerBuild.cs": "bdc24c2ce83ccd5a008d43adfb5db1ca3068b93b2478e0f90fb256430f23339d",
+    "ConsumerSetup.cs": "650b77fbda36b47c2914e17ec8385f5d61fc811ef3ea58e131da41ca8b04e667",
+    "ConsumerSmoke.cs": "9ba12e7f1357f8890b9c510184b75d262612b4fc3b4ab28a818537e157011834",
+    "ProjectVersion.txt.in": "49acfbeaed7b14df027494cef9f89f66b4beac575ff9dca2f6d6f340748db4a9",
+    "manifest.json.in": "24e71784757509b9a3ca9b3c98c3a13221a0d2b4a8d50705a1ae46dcde32a1d8",
+    "run_core_consumer.py": "47378af4c8a78f48cc0eebaa2012902a619497650d12ba7403cc858522510fb7",
+    "run_scene_player.py": "6cd642383681861d7730ca6f248a027a6fe1f7366ead717439d28cd9bb797583"
+  },
+  "includeInput": false,
+  "installation": {
+    "artifacts": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\tplab\\p2-candidate-d\\artifacts",
+    "dependencies": {
+      "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#bae99a6cd1bf0bf6d52359282ec859762652d3ba"
+    },
+    "importSamples": false,
+    "includeEditor": false,
+    "manifestSha256": "922ff9592db0f30fb6ebfb77d36c677983ecfc4a71f63f2e32ce74a6f8df6dfd",
+    "mode": "git",
+    "packages": [
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        },
+        "filename": "com.tplab.core-0.0.1.tgz",
+        "id": "com.tplab.core",
+        "payloadSha256": "3b889777ba6ffd3165000a0a0c8c1c786a908dbebb9f06170d8e8262751d8bc1",
+        "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.inputsystem": "1.19.0"
+        },
+        "filename": "com.tplab.input-0.0.1.tgz",
+        "id": "com.tplab.input",
+        "payloadSha256": "1cadb8834cb90f99426b1ada97a7cfd27ed7444a6bdd3552466ad35cdff0e81c",
+        "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.addressables": "2.9.1",
+          "com.unity.nuget.newtonsoft-json": "3.2.2"
+        },
+        "filename": "com.tplab.editor-0.0.1.tgz",
+        "id": "com.tplab.editor",
+        "payloadSha256": "4005332b2be57c7b4ecd1ed71b109fbba7d38c21c89692277da6f7e640329805",
+        "sha256": "afe4abf13832bdf576c0187dc12b30c9a011e390a362ccb01314fd7d0b5bd621",
+        "version": "0.0.1"
+      }
+    ],
+    "sourceRevision": "bae99a6cd1bf0bf6d52359282ec859762652d3ba",
+    "version": "0.0.1"
+  },
+  "manifest": {
+    "requested": {
+      "com.cysharp.unitask": "2.5.11",
+      "com.unity.addressables": "2.9.1",
+      "com.unity.modules.assetbundle": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+    },
+    "sha256": "23feca89030ff4e36ddc657ebf92cc670df4dbbf67f02af854b6a170350d4e69"
+  },
+  "observations": {},
+  "outputProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d",
+  "packageVersions": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.unity.addressables": "2.9.1",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+  },
+  "player": {},
+  "runId": "20261007T093407Z-6576",
+  "schemaVersion": 1,
+  "setup": {
+    "elapsedSeconds": 36.46,
+    "endedUtc": "2026-10-07T09:34:44.064095+00:00",
+    "pid": 34496,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d\\Logs\\setup.log",
+    "processLogFresh": true,
+    "result": {
+      "error": "",
+      "imports": [],
+      "samplesImported": false,
+      "success": true
+    },
+    "returnCode": 0,
+    "startedUnix": 1791365647.6041734,
+    "startedUtc": "2026-10-07T09:34:07.604169+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-core-d\\Logs\\setup-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "sourceProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1",
+  "success": false,
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.18f1\\Unity.exe"
+}

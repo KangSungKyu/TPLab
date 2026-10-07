@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "bae99a6cd1bf0bf6d52359282ec859762652d3ba",
+  "expectedConfigurations": 8,
+  "completedConfigurations": 5,
+  "passedConfigurations": 4,
+  "success": false,
+  "results": [
+    {
+      "mode": "tarball",
+      "scope": "full",
+      "evidence": "core-consumer-20261007T092606Z-6576.json",
+      "success": true,
+      "actualRuns": 6,
+      "errors": []
+    },
+    {
+      "mode": "tarball",
+      "scope": "core",
+      "evidence": "core-consumer-20261007T092946Z-6576.json",
+      "success": true,
+      "actualRuns": 3,
+      "errors": []
+    },
+    {
+      "mode": "tarball",
+      "scope": "input",
+      "evidence": "core-consumer-20261007T093107Z-6576.json",
+      "success": true,
+      "actualRuns": 3,
+      "errors": []
+    },
+    {
+      "mode": "tarball",
+      "scope": "editor",
+      "evidence": "core-consumer-20261007T093240Z-6576.json",
+      "success": true,
+      "actualRuns": 3,
+      "errors": []
+    },
+    {
+      "mode": "git",
+      "scope": "core",
+      "evidence": "core-consumer-20261007T093407Z-6576.json",
+      "success": false,
+      "actualRuns": 2,
+      "errors": [
+        "Installed payload differs: package/package.json"
+      ]
+    }
+  ]
+}
