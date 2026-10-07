@@ -40,6 +40,8 @@
 
 2026-10-07 현재: 사용자가 "input은 확인했고, 문서화도 진행하면 되겠어"라고 최종 수락했다. `codex/public-api-documentation`을 track `502ab4c`에서 생성해 사람/AI README와 7개 모듈별 API 문서를 작성했다. runtime 입력304개와 보호 파일7개가 p4 증거와 일치한다. 문서 작업에는 동작 변경이 없어 새로운 Unity 실행0건이며 기존 실제 결과를 재실행 통과로 표현하지 않는다. [문서 회고](retrospectives/2026-10-07-09-public-api-docs-and-input-acceptance.md)와 [문서 검사](validation/documentation/public-api-checks.json)를 따른다. 아래 문단은 수락 이전 이력이다. 최종 main push·브랜치 tip/삭제 결과는 [통합 기록](validation/input-system/p4/final-integration/README.md)에 보존한다.
 
+최종 입력·문서 통합은 `9648ff5feb48219931cdd8b24f12115b58e9805d`로 main에 fast-forward/push 완료했다. source304/보호7와 정확한 commit의 CI 미구성 정책을 재확인했다. 통합된 Phase4개·문서 지침 branch는 SHA 조건부 원격 삭제 및 local -d와 삭제 후 ref 부재를 확인했다. 그 관찰을 후속 기록 commit으로 보존한 다음 track/문서 branch도 같은 검사를 거쳐 정리한다. 원본 이력은 main ancestor로 남는다. 입력의 기능·수락 gate는 완료다.
+
 2026-10-07 후속 문서 단위: [사람·AI용 README/API 작성 지침](DOCUMENTATION_GUIDE.md)을 별도 `codex/documentation-guidelines`의 `439cd5f`에서 통합·push했다. 지침과 연결 문서만 변경했고 실제 네 문서 전체 생성은 후속 범위다. 입력 source/검증 결과와 사용자 수락 대기는 유지한다.
 
 Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 단계1 `119dde0`, 단계2 `16daccd`, 단계3 `3b0adaa`, 단계4 source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`를 fast-forward로 통합하고 track/Phase4개를 원격에 push했다. 로컬/원격 main은 기준 `ce290878da51c653eaa219aecc45e6bf61ac755a`다. [정확한 source CI 정책](validation/input-system/p4/source-ci-policy.json)은 workflow/check/status/run0, main 무보호·CI 미구성이며 CI 성공은 아니다. [최종 실제 키 설정·팝업·장치 확인](INPUT_SYSTEM_ACCEPTANCE.md)은 한 번에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.

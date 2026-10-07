@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-07",
+  "mainAtObservedCleanup": "9648ff5feb48219931cdd8b24f12115b58e9805d",
+  "sourceRevision": "9305b5dd0f730636f431fd5d19a1c9102fdc3bed",
+  "deletedBranches": [
+    {
+      "branch": "codex/input-system-p1-layers",
+      "tip": "119dde038dd131ef0335aac34465c8dabdeb4ab3",
+      "ancestorOfPushedMain": true,
+      "localAbsentAfterDeletion": true,
+      "remoteAbsentAfterDeletion": true,
+      "localDeletion": "git branch -d",
+      "remoteDeletion": "atomic SHA-conditional lease"
+    },
+    {
+      "branch": "codex/input-system-p2-rebinding",
+      "tip": "16daccd38d0d80fd2bf9532c7f08b5c234426eeb",
+      "ancestorOfPushedMain": true,
+      "localAbsentAfterDeletion": true,
+      "remoteAbsentAfterDeletion": true,
+      "localDeletion": "git branch -d",
+      "remoteDeletion": "atomic SHA-conditional lease"
+    },
+    {
+      "branch": "codex/input-system-p3-integration",
+      "tip": "3b0adaae56bc1b7ca4137b25145eb70a1e5b5a7e",
+      "ancestorOfPushedMain": true,
+      "localAbsentAfterDeletion": true,
+      "remoteAbsentAfterDeletion": true,
+      "localDeletion": "git branch -d",
+      "remoteDeletion": "atomic SHA-conditional lease"
+    },
+    {
+      "branch": "codex/input-system-p4-validation",
+      "tip": "9305b5dd0f730636f431fd5d19a1c9102fdc3bed",
+      "ancestorOfPushedMain": true,
+      "localAbsentAfterDeletion": true,
+      "remoteAbsentAfterDeletion": true,
+      "localDeletion": "git branch -d",
+      "remoteDeletion": "atomic SHA-conditional lease"
+    },
+    {
+      "branch": "codex/documentation-guidelines",
+      "tip": "439cd5f93836a3b5d60a9a73afbebf607a38684b",
+      "ancestorOfPushedMain": true,
+      "localAbsentAfterDeletion": true,
+      "remoteAbsentAfterDeletion": true,
+      "localDeletion": "git branch -d",
+      "remoteDeletion": "atomic SHA-conditional lease"
+    }
+  ],
+  "remainingJournalBranches": [
+    "codex/public-api-documentation",
+    "codex/input-system-track"
+  ],
+  "journalCleanupRule": "After this journal commit is pushed to matching local/origin/server main, verify equal actual tips and ancestry, no other worktree; delete remote by exact-tip lease and local -d. Final tip/absence observations are in final task report.",
+  "unrelatedBranchesDeleted": false,
+  "userDirtyInputsPreserved": true
+}

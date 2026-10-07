@@ -16,4 +16,5 @@
 - 문제/해결: 기존 씬 설계 첫 문단의 후속 단계 표현이 실제 구현보다 오래되어 현재 상태를 갱신했다. 문서 링크 검사에서 실제 Samples/Runtime 및 tools/core-consumer/templates 위치를 확인해 잘못된 링크를 수정했다. 새로운 generator/문서 배포 도구는 추가하지 않았다.
 - 검증: [정적 검사](../validation/documentation/public-api-checks.json), 기존 p4 saved result·source304/보호7·GUID·Console 증거 대조. 새 Red/Green/Unity/Player/제품 Console 실행0건; 동작 변경이 없어 기존 실행 입력 일치로 gate를 판단한다. 기존 실제 Edit258/258·Play217/217 실패0·skip0과 사용자의 입력 수락을 구분한다.
 - Git: 문서 commit/push, input track→main 통합과 해당 phase/guide/docs/track 정리를 기존 승인 범위에서 진행한다. 정확한 main/원격 SHA·각 tip·삭제 후 관찰은 통합 증거에 남긴다. unrelated branch 일괄 정리/사용자 dirty stage 없음.
+- 후속 관찰: 입력·문서 main `9648ff5feb48219931cdd8b24f12115b58e9805d` local/origin/server 일치. source 및 문서 commit 모두 현재 CI 미구성 확인. Phase4개·문서 지침 branch 삭제 후 local/remote ref 부재를 확인했다. 이 관찰 commit도 main에 보존한 뒤 문서/track 마지막 두 ref를 정리하며 최종 tip은 마지막 보고에 남긴다. 사후 기록은 같은 단위의 보완으로 기존 문서 branch를 재사용한다.
 - 다음: loading progress/팁/proceed UI는 초안·미구현. 실제 외부 제공 시 배포 라이선스 결정, 제공 source/tag 기준 설치/예제/링크와 해당 소비 프로젝트 확인이 필요하다. 문서 갱신은 계약 변경과 같은 단위에서 한다.
