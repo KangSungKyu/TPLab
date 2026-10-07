@@ -34,7 +34,7 @@ Domain Reload가 꺼지면 static 상태를 수동 초기화해야 한다. nonge
 재실행은 다른 테스트가 끝난 동일 Editor에서 다음 명령으로 시작한다. 결과 파일의 완료를 확인하기 전 다른 Editor 명령이나 테스트를 실행하지 않는다.
 
 ```powershell
-unity-cli --project C:\Users\PC\Projects\MyLab exec 'TPLab.Core.Tests.SingletonReloadCheck.Run(); return "started";'
+unity-cli --project C:\Users\PC\Projects\TPLab exec 'TPLab.Core.Tests.SingletonReloadCheck.Run(); return "started";'
 ```
 
 결과는 `Temp/Singleton/reload-check.json`이다. `Success=true`, `CompletedPlayChecks=10`, `SettingsRestored=true`와 각 진입·종료 관찰 기록을 확인한다. 이는 NUnit 테스트 건수와 별도로 보고한다. Test Framework 1.6.0의 중첩 Play 검사에서 실행기가 Domain Reload 후 사라져 실제 Editor 이벤트를 이용했다. Unity CLI/Connector·Test Framework 패키지는 수정하지 않았다.

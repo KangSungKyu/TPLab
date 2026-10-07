@@ -1,6 +1,6 @@
 # 재사용 검증 도구
 
-명령의 `C:\Users\PC\Projects\MyLab`은 현재 PC의 실제 checkout 경로 예시다. `--project`에는 각 PC의 절대 경로를 사용하며 코드·assembly·메뉴는 `TPLab`이다. [이름 변경과 검증](../doc/TPLAB_NAMING.md)을 참고한다.
+명령의 `C:\Users\PC\Projects\TPLab`은 현재 PC의 실제 checkout 경로 예시다. `--project`에는 각 PC의 절대 경로를 사용하며 코드·assembly·메뉴는 `TPLab`이다. [이름 변경과 검증](../doc/TPLAB_NAMING.md)을 참고한다.
 
 작업별 입력과 출력은 명시한다. 과거 출력은 현재 테스트/승인을 대신하지 않는다. Python 표준 라이브러리만 사용하며 도구는 파일 삭제·Git 통합을 수행하지 않는다. run_unity_tests.py만 명시한 기존 Unity Editor에 테스트를 요청한다.
 
@@ -17,7 +17,7 @@ run_unity_tests.py는 절대 project 경로의 기존 ready Editor만 사용하�
 
 ```powershell
 python tools/run_unity_tests.py --self-check
-python tools/run_unity_tests.py --project C:\Users\PC\Projects\MyLab --mode PlayMode --filter TPLab.Core.Tests.GameSceneEntryTests --output Temp/MyCheck/play.json
+python tools/run_unity_tests.py --project C:\Users\PC\Projects\TPLab --mode PlayMode --filter TPLab.Core.Tests.GameSceneEntryTests --output Temp/MyCheck/play.json
 ```
 
 최소 실행 검증은 [Phase 2 증거](../doc/validation/game-scene-entry/README.md)의 전체 Edit/Play와 결과 파서 self-check다.
@@ -39,8 +39,8 @@ Sample Player는 현재 TPLab Editor에서 `TPLab.Samples.SceneTransitions.Edito
 
 ```powershell
 python -B tools/run_core_consumer.py --self-check
-python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\MyLab --unity <기존-Editor.exe> --output Temp/<고유-소비자폴더> --evidence doc/validation/input-system/<실행폴더> --include-input
-python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\MyLab --unity <기존-Editor.exe> --output Temp/SceneLoadingConsumer-01 --evidence doc/validation/scene-loading/consumer-01
+python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\TPLab --unity <기존-Editor.exe> --output Temp/<고유-소비자폴더> --evidence doc/validation/input-system/<실행폴더> --include-input
+python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\TPLab --unity <기존-Editor.exe> --output Temp/SceneLoadingConsumer-01 --evidence doc/validation/scene-loading/consumer-01
 python -B tools/run_scene_player.py --self-check
 python -O -B tools/run_scene_player.py --self-check
 python -B tools/verify_validation.py --evidence doc/validation/scene-integration
@@ -49,11 +49,11 @@ python -B tools/verify_validation.py --evidence doc/validation/scene-integration
 Windows Mono sample build와 automatic loading smoke 예시 (모두 고유한 새 output/evidence 이름으로 실행):
 
 ```powershell
-unity-cli --project C:\Users\PC\Projects\MyLab exec 'TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(false, "Temp/GameScenesTrack/ScenePlayers/Loading-Additive-01", "doc/validation/scene-loading/loading-build-additive-01.json"); return null;'
-python -B tools/run_scene_player.py --project C:\Users\PC\Projects\MyLab --player C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\ScenePlayers\Loading-Additive-01\SceneTransitions.exe --output C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\PlayerRuns\Loading-Additive-01 --evidence C:\Users\PC\Projects\MyLab\doc\validation\scene-loading\player-run-additive-01 --mode additive --expected-checks 12 --loading-presentation
+unity-cli --project C:\Users\PC\Projects\TPLab exec 'TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(false, "Temp/GameScenesTrack/ScenePlayers/Loading-Additive-01", "doc/validation/scene-loading/loading-build-additive-01.json"); return null;'
+python -B tools/run_scene_player.py --project C:\Users\PC\Projects\TPLab --player C:\Users\PC\Projects\TPLab\Temp\GameScenesTrack\ScenePlayers\Loading-Additive-01\SceneTransitions.exe --output C:\Users\PC\Projects\TPLab\Temp\GameScenesTrack\PlayerRuns\Loading-Additive-01 --evidence C:\Users\PC\Projects\TPLab\doc\validation\scene-loading\player-run-additive-01 --mode additive --expected-checks 12 --loading-presentation
 
-unity-cli --project C:\Users\PC\Projects\MyLab exec 'TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(true, "Temp/GameScenesTrack/ScenePlayers/Loading-Single-01", "doc/validation/scene-loading/loading-build-single-01.json"); return null;'
-python -B tools/run_scene_player.py --project C:\Users\PC\Projects\MyLab --player C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\ScenePlayers\Loading-Single-01\SceneTransitions.exe --output C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\PlayerRuns\Loading-Single-01 --evidence C:\Users\PC\Projects\MyLab\doc\validation\scene-loading\player-run-single-01 --mode single --expected-checks 12 --loading-presentation
+unity-cli --project C:\Users\PC\Projects\TPLab exec 'TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(true, "Temp/GameScenesTrack/ScenePlayers/Loading-Single-01", "doc/validation/scene-loading/loading-build-single-01.json"); return null;'
+python -B tools/run_scene_player.py --project C:\Users\PC\Projects\TPLab --player C:\Users\PC\Projects\TPLab\Temp\GameScenesTrack\ScenePlayers\Loading-Single-01\SceneTransitions.exe --output C:\Users\PC\Projects\TPLab\Temp\GameScenesTrack\PlayerRuns\Loading-Single-01 --evidence C:\Users\PC\Projects\TPLab\doc\validation\scene-loading\player-run-single-01 --mode single --expected-checks 12 --loading-presentation
 ```
 
 Each run output directory and build JSON filename must be unused. Use distinct fresh names for reruns. `--loading-presentation` opts into **automatic** mode only; run the [manual UI acceptance](../doc/SCENE_LOADING_ACCEPTANCE.md) separately. Build/sample results and current limitations are recorded in the relevant validation evidence and [scene-loading track](../doc/SCENE_LOADING_TRACK.md).

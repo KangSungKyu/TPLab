@@ -1,6 +1,6 @@
 # TPLab
 
-2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](doc/TPLAB_NAMING.md)에서 기존 MyLab 이름의 이동 규칙과 이번 검증을 확인한다.
+2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](doc/TPLAB_NAMING.md)에서 현재 이름·경로 규칙과 검증 기록을 확인한다.
 
 Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab pooling, 선택적인 Singleton/scene root 수명, Addressables 자산, CSV 테이블, 씬 전환과 Input System wrapper를 제공한다. 게임별 데이터·UI·저장 정책은 사용하는 프로젝트가 정의한다. 프로젝트·namespace·assembly 표기는 TPLab으로 통일한다. 소스는 `Assets/TPLab`에 있으며 로컬 checkout 폴더 이름은 설치 환경에 따라 다를 수 있다.
 

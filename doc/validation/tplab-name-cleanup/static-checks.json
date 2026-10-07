@@ -1,0 +1,19 @@
+{
+  "currentFilesChecked": 416,
+  "currentNameMatches": [],
+  "unchangedSourceInputs": 317,
+  "protectedFiles": 5,
+  "protectedException": "Only ProjectSettings.projectName corrected; every other byte preserved.",
+  "documentsChecked": 106,
+  "localLinksChecked": 1099,
+  "removedGeneratedFiles": 12,
+  "unityTestsExecuted": 0,
+  "runtimeCodeChanged": false,
+  "cloudNameConfirmed": true,
+  "editorPid": 28008,
+  "consoleErrorsWarnings": 0,
+  "archiveException": [
+    "doc/validation/ historical evidence",
+    "doc/retrospectives/ historical records"
+  ]
+}

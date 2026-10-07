@@ -1,6 +1,6 @@
 # 사람용 API
 
-2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../TPLAB_NAMING.md)에서 기존 MyLab 이름의 이동 규칙과 이번 검증을 확인한다.
+2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../TPLAB_NAMING.md)에서 현재 이름·경로 규칙과 검증 기록을 확인한다.
 
 SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`. 아래 문서는 현재 구현된 소비 API다. 긴 설계·정책 본문은 모듈 문서의 HumanContract/상세 계약 링크가 소유한다. 문서 블록은 선언 또는 설명용 발췌이며 별도 실행 여부를 각 문서에 표시한다.
 

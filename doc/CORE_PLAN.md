@@ -73,14 +73,14 @@
 - CsvHelper DLL의 SHA-256은 20101C398654A14BFD42BD78D7281F43197D19B7B3CF41C7AAE93F1EABA65A61이며 Cashier DLL과 일치한다. 기존 DLL GUID 0737863bb2f229c40911f9a88cc5b5aa를 보존했다. [라이선스 원문](../Assets/Plugins/CsvHelper/LICENSE.txt)을 함께 배치했다.
 - 두 UPM package의 resolve·lock 반영, Unity .meta 짝, Editor 컴파일 완료를 확인했다. 정확한 TPLab Editor PID 42616, Unity 6000.3.18f1, Connector 0.4.1에서 CLI 상태 ready와 Console 오류 0건을 확인했다.
 - Editor CLI smoke 실행 성공 1건: CSV 따옴표 내부 쉼표·줄바꿈 및 UniTask 완료 결과 확인 3개를 통과했다. CsvHelper 패키지는 33.1.0이며 런타임 assembly version은 33.0.0.0이다. 비동기 PlayerLoop·취소·PlayMode·Player 빌드 및 NUnit 테스트는 미실행이다. TDD Red/Green 증거로 사용하지 않는다.
-- 재실행 코드: Temp/DependencySetup/smoke.cs. PowerShell에서 내용을 -Raw로 읽어 변수에 담고 `unity-cli --project C:\Users\PC\Projects\MyLab exec $smokeSource --allow-async`로 실행한다. --allow-async는 완료된 UniTask 값의 검사에 필요하며 백그라운드 작업을 예약하지 않는다.
+- 재실행 코드: Temp/DependencySetup/smoke.cs. PowerShell에서 내용을 -Raw로 읽어 변수에 담고 `unity-cli --project C:\Users\PC\Projects\TPLab exec $smokeSource --allow-async`로 실행한다. --allow-async는 완료된 UniTask 값의 검사에 필요하며 백그라운드 작업을 예약하지 않는다.
 - 증거: Temp/DependencySetup/dependency-smoke.txt, status-after.txt, console-errors.json. 기본 stdin 전달에서는 CLI가 instance를 찾지 못했고 일반 exec에서는 UniTask 키워드 정책으로 실행 전에 거부되어, project 옵션을 명시한 직접 인수와 --allow-async로 확인했다.
 - 코어 기능 구현·Git 초기화·저장소 생성·commit·push는 수행하지 않았다. Cashier의 초기 dirty 파일 목록은 유지됐다.
 
 ## 저장소 설정 (2026-10-02)
 
 - 사용자 승인: GitHub KangSungKyu/TPLab, private, 저장소 생성·Git 관리 허용.
-- 로컬 프로젝트 경로 C:\Users\PC\Projects\MyLab은 유지한다. 기본 브랜치는 main이며, Unity 원본 Assets·Packages·ProjectSettings와 문서·외부 라이선스를 초기 커밋에 포함한다.
+- 2026-10-07 현재 로컬 프로젝트 경로는 C:\Users\PC\Projects\TPLab이다. 기본 브랜치는 main이며, Unity 원본 Assets·Packages·ProjectSettings와 문서·외부 라이선스를 초기 커밋에 포함한다.
 - .gitignore로 Unity·IDE 생성물과 로컬 인증 파일을 제외한다. CsvHelper.dll은 버전 관리에 포함하고 Unity .meta를 보존한다. .gitattributes는 텍스트 줄바꿈과 DLL binary 취급을 지정한다.
 - Git author는 현재 설정된 KangSungKyu를 사용하며, 기존 Git 인증의 GitHub 계정도 KangSungKyu로 확인했다. [TPLab](https://github.com/KangSungKyu/TPLab)의 private 생성과 push/admin 권한을 확인했다. 원격 origin은 https://github.com/KangSungKyu/TPLab.git을 사용한다.
 - 초기 커밋 대상은 60개 파일이다. 생성물 제외·자산과 .meta 짝·GUID 중복을 검사했다. 새 문서·설정의 cached whitespace 검사는 통과했고, 전체 초기 diff에는 Unity 직렬화 원본 32개 파일의 기존 후행 공백 경고가 있다. YAML·meta의 내용을 정리하지 않고 원본을 보존했다.

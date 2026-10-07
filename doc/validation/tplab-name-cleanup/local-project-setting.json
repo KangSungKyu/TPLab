@@ -1,0 +1,10 @@
+{
+  "field": "projectName",
+  "target": "TPLab",
+  "originalSha256": "0fdc4e0fdbd7ddde10730ed9a04b945f721bab67e4c27b36bb0e605a2fb1cc0c",
+  "currentSha256": "b18db9d5aac18c26e12e1d4556f1c989bb995e2304170746209f971ad021615a",
+  "cloudProjectId": "53eb3a3f-eeea-4548-8909-d737dae4a02c",
+  "cloudRenameConfirmed": true,
+  "note": "User renamed the associated Cloud project; verified its name and unchanged project ID in the live Editor.",
+  "editorPid": 28008
+}

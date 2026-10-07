@@ -1,0 +1,62 @@
+[
+  {
+    "path": "MyLab.Core.csproj",
+    "sha256": "6ea75d96c0316e295c4edaf5818a3de317ffef6bc3c565cd18617106adea4ae6",
+    "replacement": "TPLab.Core.csproj"
+  },
+  {
+    "path": "MyLab.Core.EditModeTests.csproj",
+    "sha256": "35710a98697a95805fdd4d4e4cd1aa0a2bf64e5f3a2ea948219ad5c1a3f6b592",
+    "replacement": "TPLab.Core.EditModeTests.csproj"
+  },
+  {
+    "path": "MyLab.Core.Editor.csproj",
+    "sha256": "0ae01f89da84dcbf046bf2ad959b5a75ad21ce759cf6afb52e59bdf72b9f407e",
+    "replacement": "TPLab.Core.Editor.csproj"
+  },
+  {
+    "path": "MyLab.Core.EditorValidation.csproj",
+    "sha256": "07dc2b29975c9881cf42a93b5df0c1f5e872b56800640b0316ef98b0f7ca21d2",
+    "replacement": "TPLab.Core.EditorValidation.csproj"
+  },
+  {
+    "path": "MyLab.Core.Input.csproj",
+    "sha256": "a3503c6dd124e09fa30caae1e370e78358527dbd4db79ad89744c63796e50606",
+    "replacement": "TPLab.Core.Input.csproj"
+  },
+  {
+    "path": "MyLab.Core.PlayModeTests.csproj",
+    "sha256": "016939e734b850361a8e99346f5b4393ef881f4e8121d20b5d1d585bee390468",
+    "replacement": "TPLab.Core.PlayModeTests.csproj"
+  },
+  {
+    "path": "MyLab.Core.TestFixtures.csproj",
+    "sha256": "5b43a37944256b8f7bdb16bc9b6cf5696b0fde7a58b6640680a91c4c1b00fb33",
+    "replacement": "TPLab.Core.TestFixtures.csproj"
+  },
+  {
+    "path": "MyLab.Input.EditModeTests.csproj",
+    "sha256": "a177700699493f06a854bb613a6cf844facf24b639a59d4a003849b818bf6618",
+    "replacement": "TPLab.Input.EditModeTests.csproj"
+  },
+  {
+    "path": "MyLab.Input.PlayModeTests.csproj",
+    "sha256": "9c7e8894d52c1991399ebc41424579a726d3b30588f526b2f21eb991a6fbd3a5",
+    "replacement": "TPLab.Input.PlayModeTests.csproj"
+  },
+  {
+    "path": "MyLab.SceneTransitionSamples.csproj",
+    "sha256": "07dbaa5f64b234d2400d97a5b9df82eb7d47a3297bdb2106f467e25842376462",
+    "replacement": "TPLab.SceneTransitionSamples.csproj"
+  },
+  {
+    "path": "MyLab.SceneTransitionSamples.Editor.csproj",
+    "sha256": "4d4aefaabec2fec5ca0ce50ab08d08db55ed40d1a9639c1340975532bfa1b663",
+    "replacement": "TPLab.SceneTransitionSamples.Editor.csproj"
+  },
+  {
+    "path": "MyLab.slnx",
+    "sha256": "257a9c8efe0e9d57f66eda4b98b6151ed0d618bd9a3779cf84867aaf97352b0d",
+    "replacement": "TPLab.slnx"
+  }
+]

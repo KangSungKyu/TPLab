@@ -19,7 +19,7 @@ P6 자동 검증은 완료했다. 원래 TPLab Editor의 전체 EditMode240/240�
 `System modal`을 열면 아래 게임 명령 버튼은 차단되며, modal 안의 `Dismiss modal`은 키보드·포인터로 사용할 수 있어야 한다. modal을 유지한 채 코드 전환을 확인하려면 아래 명령을 실행한다. 전환 cover가 사라진 뒤에도 modal은 열린 채 gameplay 입력을 막고 UI 입력은 유지해야 한다. `Dismiss modal`로 닫은 뒤 gameplay 입력이 복원되는지 확인한다. 자동 smoke도 이 코드 전환을 검증한다.
 
 ```powershell
-unity-cli exec 'var c=UnityEngine.Object.FindFirstObjectByType<TPLab.Samples.SceneTransitions.SceneTransitionSampleController>(); var id=c.Manager.GameScene.path==TPLab.Samples.SceneTransitions.SceneTransitionSamplePaths.Main ? "to-hub" : "to-main"; c.Manager.TryTransitionAsync(id).Forget(); return "requested transition under modal";' --project C:/Users/PC/Projects/MyLab --allow-async --usings Cysharp.Threading.Tasks
+unity-cli exec 'var c=UnityEngine.Object.FindFirstObjectByType<TPLab.Samples.SceneTransitions.SceneTransitionSampleController>(); var id=c.Manager.GameScene.path==TPLab.Samples.SceneTransitions.SceneTransitionSamplePaths.Main ? "to-hub" : "to-main"; c.Manager.TryTransitionAsync(id).Forget(); return "requested transition under modal";' --project C:/Users/PC/Projects/TPLab --allow-async --usings Cysharp.Threading.Tasks
 ```
 
 `Fail next prepare`를 누르고 `Hub / Main`으로 교체를 요청한다. 오류 modal과 cover가 보이고 gameplay 입력이 꺼지는지 확인한다. `Dismiss modal`을 눌러도 cover가 남아 scene 입력이 계속 차단되어야 한다. 이 실패 상태에서는 추가 명령을 시도하지 않는다. Play를 멈추고 `Open Additive`를 다시 선택해 새 Play session을 시작한다.

@@ -19,7 +19,7 @@
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
 | [AGENTS.md](../AGENTS.md) | 모든 작업에서 필수 | 공용 코어 역할·C#·SOLID·TDD·참조 경계·브랜치 판단·검증 후 병합 |
-| [TPLAB_NAMING.md](TPLAB_NAMING.md) | MyLab 이름의 기존 코드·씬·문서 이식 | TPLab namespace·assembly·Assets 경로 통일과 로컬 checkout 경로 유지, 현재 검증 |
+| [TPLAB_NAMING.md](TPLAB_NAMING.md) | TPLab 이름·경로·Cloud 설정 확인 | TPLab namespace·assembly·checkout 경로·Cloud 이름과 기록 보존 기준 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |

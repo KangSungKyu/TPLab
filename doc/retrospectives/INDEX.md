@@ -85,3 +85,5 @@
 - 2026-10-07 | 로딩 UI 예제·통합 검증 P4 | 완료 / 사용자 PlayMode 확인·main 반영 | [기록](2026-10-07-12-scene-loading-sample-validation.md)
 
 - 2026-10-07 | TPLab 이름 통일 | 완료 / 자동 검증·main 반영 | [기록](2026-10-07-13-tplab-naming.md)
+
+- 2026-10-07 | TPLab 이름·경로 후속 정리 | 로컬·Cloud 이름 검증 완료 / Git 통합 | [기록](2026-10-07-14-tplab-name-cleanup.md)
