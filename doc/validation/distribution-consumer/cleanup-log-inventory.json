@@ -1,0 +1,1596 @@
+{
+  "outputs": [
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/path-red",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor.log",
+          "sha256": "8e2e55f24768d898fd2ffa4de67fefa6c16c3c2237cbfbcdc5a5658a8169e2ae",
+          "bytes": 247558
+        },
+        {
+          "path": "Logs/green-editor.log",
+          "sha256": "b5f6dbf70e8d0feb7f5af992907fff8617895f49bbaed3e2f8d017d5e5916444",
+          "bytes": 29988
+        },
+        {
+          "path": "Logs/green-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-core-a",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "97ed2df735f3812a0e04b7464d18954f8faa98ea495288c707effa1b180d332f",
+          "bytes": 71
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "97795af542acb59a6e00cd0a1fb8eba9d5397a2d89376dc8f7e3c6a819a59bbf",
+          "bytes": 93730
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-full-b",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "9fa94c6f2b6ebafc784c161370d289155530303a8fd198e46717d80c3a34a29b",
+          "bytes": 799821
+        },
+        {
+          "path": "Logs/sample-import-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/sample-import.log",
+          "sha256": "690215b179398c5a2c51ff65e6e0f9e4234bab7bc189a16294e03795c8ced921",
+          "bytes": 254065
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "cd1cba9b69f58e5b922870b5323e0877168c004b4bb2e8db0917c292997530ff",
+          "bytes": 32027
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "6342ef5dd7135ce21e9d07c89d7987f9bbecad3e51e452ed7a2691a68f81e15d",
+          "bytes": 7614
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "9eb937a6e504e0dcb12f34d30654b3c98dd471f7c28c10d89ac3030e3de5c638",
+          "bytes": 64692
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "60812379fd4f67b966f9c89152a57b38cfec3d83b7c47ccd835148dd575a889a",
+          "bytes": 22633
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "ebd844b521b631b30c090eb082d3d6aa2ac00c6b73eebb023a051be0cfd1422d",
+          "bytes": 19206
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "498e2e945acea17477120a4367786d34bf817a74c847e7f058c83f8482562fc2",
+          "bytes": 25315
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "fe4c1d1ebe8d8908a5c74ae18c4a07d76dc1eb79d52a0906fb90d94278b0700e",
+          "bytes": 18268
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "e8dd5974a01dc38d0e88519c3725920f28e262b00d2d9fdf45092eea5b1335f3",
+          "bytes": 16985
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "9ccf4f9fff5c197b4750fd35a2a85c9c4f7dbd9284fae59ea1edd312e00a106a",
+          "bytes": 16737
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "c7383e58a806ac3899f6ef8f17d52daae562d1bc0ed019d21aa0956972f0b330",
+          "bytes": 41753
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "cc32ee0554419e5d093473cda7407cb0f6e545e65fd9cb579416c623c214629c",
+          "bytes": 39536
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "1a031d4ca982b01cb92e422970e7a46ecc7fca13c68029ed8fd3be00bf7e9da8",
+          "bytes": 40936
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "6ca4640f9b901f873777a19003a9b3b44d3de45fb80e8c1bc695a3631776e8cd",
+          "bytes": 32909
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "9588bb2232950010b94e7662107d016c1bae4e0b1db5a35bdea952b501a1fa98",
+          "bytes": 57860
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "29296dbbc70c00c7c03b199b265e9f0b4a70d37c8b1a60b3849d02b5b52eb177",
+          "bytes": 23506
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "92743ab2543f324931314afdecb1a57c059c0cc275d2946ec505d9693d091780",
+          "bytes": 28407
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "d89ab61961930a807fc4c4422ec0d04245396b1ee1b43773f2558fe008676106",
+          "bytes": 27373
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-full-c",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "e996febb15bc520d48ca6d58fe16ca36761d19971de0a7e4ecdbd8d2a59019fe",
+          "bytes": 801242
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "72a985b439082b4f1267a26252d11829c8e1f8f9f5e5d429b12830df4094b907",
+          "bytes": 1651
+        },
+        {
+          "path": "Logs/sample-additive-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/sample-import-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/sample-import.log",
+          "sha256": "94135fa655a98bcb59c9099294bf22a1c224356f624295165f2763aad43d251f",
+          "bytes": 255359
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "fe206f45058a4f396919bf8ea6c2c203f1f7da519ad6c662edebc74f52564097",
+          "bytes": 32029
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "a11bb4617a7b547fa6b2f57fad9c45f2bbf6f7f6c6272855331c290cecde2135",
+          "bytes": 7600
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "d0548416d81a5e80e7f086e4aee1ac333f45144c80a96db40d091672c69952f6",
+          "bytes": 65959
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "81bb2264562ca34089c0e9f0df318988645a947414c966a252ad4a0788633111",
+          "bytes": 22749
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "369dd9325778bfe598c0316f47cd67e4d344e573afc79ce32aee255570d79f19",
+          "bytes": 22663
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "3fa0ec4eda43d1b4f310700295c83c6177ca92b27b6e33dd85b4685b493ade08",
+          "bytes": 20541
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "140e4292df54ce804fa96b523bd68e757dac5f0d1080f237750fca47ebfe7ac7",
+          "bytes": 21740
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "1b5434f86d5bfc88fc0a6d2057597f5df4a0b9d2ff45d8fc809fcf3c3d93a6b0",
+          "bytes": 19535
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "a0bdfac283ca22631a139d6cee1edc6969d6282d4bf99427e6c62bf906c03e55",
+          "bytes": 16818
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "82ad1c9c9e89ed8f464bc606a0e834f64ee7c3a092ce4fdcb8f4220169e1a2fd",
+          "bytes": 46617
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "56270d3483e2c8d1ead860f88838b8df5dd68e20c6e9af74aaa9d4f1d1f59733",
+          "bytes": 30529
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "96299af8f8471d784f65f49c9318db1ebfd6c92331b26be938123f59d20be86f",
+          "bytes": 58143
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "c720ce7dd74a6762eb6e2760a00608818427189803a47b70a4263e8d8ba75821",
+          "bytes": 44349
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "dac686efb18e29959e43e6d384ae83e8f08fb07f480e00cc53596664063445f3",
+          "bytes": 32225
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "69d99bcfc26b07b22d6a81aff1c0546edda39c455d1b5b08e51ecb31e5e21c68",
+          "bytes": 26074
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "92608318c73d09368e5a4bc04c6dcb309fbc6ffab85bd23bfa3688507d8f26e9",
+          "bytes": 24813
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "aa50d86770af6d013b25d13d1dece6105526b4399747b1dc7ebb88c92bf22652",
+          "bytes": 23771
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-full-d",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "ad4f485072327d2fa5091cdd3ae38a5945b9ab96cc88f05f8661478130660056",
+          "bytes": 801061
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "7c8ec27e242c2d301b8d39854674de28e27f2cd3de8ed7bc2ae5d765581e1d7a",
+          "bytes": 1651
+        },
+        {
+          "path": "Logs/sample-additive-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/sample-additive.log",
+          "sha256": "2c6a14279a5f70d89b523329533a0520b699b38c41e8b3a76183f960fe3dc0b4",
+          "bytes": 2609
+        },
+        {
+          "path": "Logs/sample-import-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/sample-import.log",
+          "sha256": "b190e5fcd7bd49d2da80545983a3491fe98b44ee910935425a0aded20e678d2f",
+          "bytes": 255184
+        },
+        {
+          "path": "Logs/sample-single-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/sample-single.log",
+          "sha256": "189b56e1e3332efa79ebb7aaedd01ed4e50d57e18294f887e0b2b2d85c438f64",
+          "bytes": 4334
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "43f3e538e59e221aef3ba7e97a31b5fde94069f63ac9c14de040196b2ee89f26",
+          "bytes": 32030
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "090aedd2ac5e38fc3bb56bcf7e2c65dc66e2361932f366dd6f0c8626f502a868",
+          "bytes": 7785
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "a037d3d4e8fc7c46822d23645a624aa8ac0f527f8388e3a4b9da99f2090b1bef",
+          "bytes": 40741
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "09c9f26b1f9c4a38fc9feb09d871b40037d28c6b2f530ac5c70e6c6b2ca43ac5",
+          "bytes": 29227
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "8236782cbc266da4e6630b874e41d84b96b23af0d3f8ae4b462dc4aeb6b14167",
+          "bytes": 22903
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "8de4efa0c8fffb02f52448fefb241953a62b3b99c9546632c3692514dfa3d91a",
+          "bytes": 24142
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "4b4a12adc659aae63d3675a084b550c9334a3bf80f76d984782ec57a2d34a388",
+          "bytes": 19260
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "74a76c6a26922b99892510f6a663f2e3d40e8a585d2b769a3121c58c40ec4e03",
+          "bytes": 19473
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "3bb14fcb035d680db5a737eb73831b2615cb711b0df94d13b6426967e9cb1e80",
+          "bytes": 18053
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "c6dbb176f6359bd41f3ce6cd8816b3777598b3fb004efacf3f8f8e11e19560e3",
+          "bytes": 64581
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "3aad307e121f4ac59e9ccd1381381ad925d97e35c98000c0827811921c76b9eb",
+          "bytes": 42008
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "66b6f4436ba6c3d38b7468c688111de4dc79ec244ea282307974961dcd7857b7",
+          "bytes": 26401
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "24765d26d784658cb1cd6866d8363512ed59bcc467c7634a41d4b2feeb7e6521",
+          "bytes": 30443
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "d41323f676f768ce6895574e65cf79fcb431a70a76a92833ae3fc45d25b93dcb",
+          "bytes": 57213
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "790337e54f073a3dbf3dcf8af507e1c44842907e46fbad4b2c0549c4c153aa4a",
+          "bytes": 29680
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "de5221b933333398a98f177caaa7bd07ef65bb71fe2d294799394408ce7f6257",
+          "bytes": 22665
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "e6d2d6fcaf10f8998c5537f62db0bb289e5e4674cc5d8065ae871e30cbad1527",
+          "bytes": 29695
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-core-d",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "0474ceb4d69fdb238fa35a9c329b4146f1d1607d5700657f02e2b16e8df5977c",
+          "bytes": 230832
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "69d89f76ff87461b3d047ca453dadee507539141fd1eba17a3cab6681dccd4b5",
+          "bytes": 1741
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "73663d834d4878298e398d5e6f5ed80818c0da4b6921d5be29c0f51265e45784",
+          "bytes": 144369
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "ea4c1595cb1477f4551a06e31e651bda1c9868b0e8d25c683d316e5735e58de4",
+          "bytes": 7785
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "72f8e4c9ca1cbbd76c82663cd58f10c1fad3d4a50eafffb38d7e9fe4b856907e",
+          "bytes": 64717
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "b7f48834f668f8265f072f09f6de9e7348617218e4349e3e2eee1b320210cfaa",
+          "bytes": 21593
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "0594965464387a0ae652d2d9ade68191f0b336e32aaac3ea09f4fc172e53320d",
+          "bytes": 21766
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "1a4cf95c47e03066f36eb80741156d03dd3a65f2c733f59342b8004c122688dd",
+          "bytes": 26050
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "0005e6a65941b4d8a69e60ef673af2ad96db04d356cdb928358349bf42140b21",
+          "bytes": 20532
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "9219c26eed4eaa3ef7df07d9ccdc913ce7559a76c6e96ef2b6a2ef66931f38e1",
+          "bytes": 19374
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "4d49bb6639c4b741cd9e64aa80bb8ef63cfd423e2be6bd286b0aaea87be28ddf",
+          "bytes": 19241
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "86f615b6f559958ebf867c2ca5ec4d574d61e6e4c944e12aaa7296de30e25e8e",
+          "bytes": 48618
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "2ae9087e65ed8d020fba9e51be8b12d3784871ac12da09afe8b6623e56b164b4",
+          "bytes": 42150
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "8f1cff2905fe50cfcd4efb063a1b2f03bd311f62314012d4252a6f5fac115cc7",
+          "bytes": 30253
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "49e98b5ab5dc15bf2e14302658daa6e227e51d2f939e1f3c3e95c77442d04303",
+          "bytes": 32173
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "e8487862258e2bb23ec6b8182ab647d8ddf210546daabfe7c6fb099873a8a29c",
+          "bytes": 55221
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "e9677a6c70e294b308b02f2970072dca11ca38768a43657f87d8576d24fe6edf",
+          "bytes": 25824
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "f2a9d0177d376a1d0d2820e59c388697e0b6fc23fa24b5dfc7fc1c8e439b4d64",
+          "bytes": 28389
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "0710b5fb46757359b7c8d4e2078d8596c7a2189fd190c370cc4abb88a4139dad",
+          "bytes": 20260
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-input-d",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "7b82fb8d1ff7f381477a21020d1acfc42a7335b5a14f3e730258f29c006fa1e7",
+          "bytes": 271260
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "af5d368828a6edf316d76b43a4aefb56eedbc542d5032901e23797fe3bce9f1b",
+          "bytes": 1654
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "eef3b777078bae39ad949990673db7b46740b332a05219afc83843fb0b21206a",
+          "bytes": 207939
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "6d652e6311371c3de9269fdeef6700fc66cccb7e2cfa964a2b460b5ea89c2b24",
+          "bytes": 5231
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "eef47cd694fa83760a21e20b8d9be3341f3ec8f592a0f51e8519d3c0d28ce3de",
+          "bytes": 44170
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "ef7d9d3eec12f3b73cb32cd523f40231960d00bbab4e4362726f84769babd36d",
+          "bytes": 22634
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "f0f306324bd05323b6166fb6bff3fec1f3442e2b84fb91193f50735710d91baf",
+          "bytes": 22985
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "d5e5a0fdda0fcd9bf66a8695aacebd5a1f37391bebc56045c1f01403e304bb1d",
+          "bytes": 28621
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "82819b75cf04c99a3be3c340357e74ac13b3b287d68581b10ba0cf3aab1f39a9",
+          "bytes": 20703
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "e093fe52ae7d9382a8c582495dc69ff2c8dfaccc11a31f84d53cb35d4603546e",
+          "bytes": 21707
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "993391c7350b46db8f8601c143180a42f24587594a685642c89323e6a0488e43",
+          "bytes": 19331
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "545d01378da3ddac9eddfd7e7f6f95222d1a75bc9fb33587682351fd7755cb61",
+          "bytes": 63336
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "74261af27b1226538fa6eaa6cc8577a2006242aa59046c6c118c23185d1791ac",
+          "bytes": 35921
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "5264cb6310c2a5074c6864675a5e2d18be026ea9fbb7dd927194dc2d6b8a4dc1",
+          "bytes": 55641
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "e294cab62c45f5f3d62e7df60a9aada7f221a100a380803da69c5c730c970226",
+          "bytes": 25952
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "e31af34533d814073ccac902a4a87d4cda46f7fc2c79ad7e8544a88c3ea4dd01",
+          "bytes": 36258
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "4351f2347c0813b366f83df9040702a7dc66e5941ffbcef834e0c201256f9149",
+          "bytes": 30711
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "2142ac68bcb6768fa2949ff3eebb88833e3e7415b15ece37568b61f7b587f2be",
+          "bytes": 28572
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "aac53c766f12ac7c58540ac5184de5ac14a1780eb48e289d0d02b8f3b93846f7",
+          "bytes": 22056
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-editor-d",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "2d4bc85c199823cb72f2197f0b5f43eb132467b3f4d5b00f63dd39e7c5404c4c",
+          "bytes": 237802
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "bd401548c4b236d6f1b0cf294fe3311baa69d64b2f3619456c453093bb3a6f4c",
+          "bytes": 1657
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "9b374d0bf32a66e2abfdcaf6f0cbed566e70adefd548f3ceb955e90804549e31",
+          "bytes": 151440
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "1372aa55f149067310a4dfe877fe510a0efc5bae8993141c77d5c95e88ef5112",
+          "bytes": 8853
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "d89ae2e0e13d3da2f2ff8236e81c92c06a8e8c7c9c550f152b7e73dc450b9a7f",
+          "bytes": 63281
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "6daf50a9a4c4f5be131500c32e30f68b50bbb246ceb348d65a172845c2a2d985",
+          "bytes": 23815
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "c74281d0c44d25becee46407e8ea809eeb29edda5a3c3cb52c20dc5ab7f0aa2d",
+          "bytes": 21783
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "0e7833e797a1de82c1fdbf6de49410f7b0e34c03d892a4f49f33a2218d994836",
+          "bytes": 25449
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "f5300f0fd23fd91afc0e429ee7e4187749b4cf961f01b66b22028af47fec0e9e",
+          "bytes": 19435
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "5f1d62c8bb9f6c854095272bf18e16bf1d9b99b9b0317aebb4b16da4aa2f3f5c",
+          "bytes": 16807
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "4609b4b96004bfa65f5ae9dc75d1ef048128793f9b580a1fe62852fdb2318dcb",
+          "bytes": 19414
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "8004a2b922ec4d2515ada04a5d3ee0e5130faada04259a3c8b5177c6b42f7bb7",
+          "bytes": 44127
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "f13f368be6c8faf548e79a257350dd73f9ed4508ce5c71ab110387fbbe5526de",
+          "bytes": 54820
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "5c0a67e341b891516a2dd3c86ba70f3ca8faf55da107ede0cd4dc6b6c38f993c",
+          "bytes": 45183
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "5963cc74a5bd8a6ce9e1c48493d43dd9ee80e8df0188b4ef52ab66eb0be5afbd",
+          "bytes": 30123
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "a03448257e5386881981e32db69002512f45516444fd55ef4bcd0c08f52b400b",
+          "bytes": 25842
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "56f92d079dcaa70a326e5a1ce7c4d311e24266a2409017d37b40ab185c438bfc",
+          "bytes": 26244
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "20334f02f57c35952d7c67b33506d12221436e87df594b827b833c9b687db30c",
+          "bytes": 34094
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "21e3e2a3576764049a55f0641536a931b527eaaec7290bbe199c814d2ff5cba0",
+          "bytes": 24892
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/git-core-d",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "aa215c6e99baa63318022ceed70d191e2f19562265750ac86f45aa404687ac1d",
+          "bytes": 230667
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "f0f167ace3942bee771148d74e7015d65dee403b03332a2b1698fa0109025c16",
+          "bytes": 143567
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "a3bea7e917461513c66d0922bef3fa14c9a6a14769d0aaad0ce5a546bd259715",
+          "bytes": 6322
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "9eba18986d6774ff245129afc511f0e9066b764247efc3492efe720031b1c7a3",
+          "bytes": 62171
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "167493b0d54acec44d752d91bb1331282b4c845bceb55122f21fdbb91188fb13",
+          "bytes": 21743
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "92ad5052105f86f16497a91ccc89baf7cb024dbb505bfaf78f8a1b7411963afa",
+          "bytes": 23692
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "dd00c906f576bd6a18d4d837e21c4353d27d28aad140178709c9e5131ce87b3e",
+          "bytes": 58541
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "f4c32c804db44d522587b66ab141c469431edc9554fd91a02c90a7dd1befc1b3",
+          "bytes": 20436
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "be92f2b45a019daf95cf9452a8192387fa5e4bcbbc22108176679b7ad31f0301",
+          "bytes": 18265
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "5e03805d360e141dff7e25539722787e4e16ff10c375615b208f52afaf0da80c",
+          "bytes": 20280
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "61da52e2012d545de3ec767e57fc6a56f58d240d08dab36be959b41222b67cc3",
+          "bytes": 41867
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "35962be3b87a3334ce8cae0c5f7d557ace8b283c7eaedea6fe8238a5060e3c00",
+          "bytes": 35404
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "f8b3d0e03f613f07c4ba55d440555cd9c8d86dda93bf0428f6124a2ec39ca203",
+          "bytes": 39488
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "f9dc0efb67d53fc5b9f14f52bb687fa3f7b4613f6dbbd45384bf1ed2b1a02b0a",
+          "bytes": 28268
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "b028326762b295cc0d5a6b9e444032e89db3f7a1a3744445c7d996ec52a971ee",
+          "bytes": 30600
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "2ac843173663c1ea5d0682c86f2a26338a7e5c13abb5f99afbe961de6c6ec064",
+          "bytes": 27417
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "002b09e4cba17652b1e1594fad16bf3cd475bf962d7985fc627df42b44def7a2",
+          "bytes": 26214
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "ab94b10da9248e0984fa235eb903cd1ae6f0487260851cba500b512f90f5acb7",
+          "bytes": 23382
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/git-core-e",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "a15e7cf2b171ae7bba459bcf56698e428059326ce9e81e76c6e960605976427c",
+          "bytes": 230698
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "5c6519555c3a7830a0d58cf077396b6b4f804cb24436918c3b5a9e3945ea24bd",
+          "bytes": 1639
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "5a535a2fb496b9792c3fcdf379f99c14e736d2bd7b1fd82eb5505b1781484a35",
+          "bytes": 143552
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "9640ecb260ca3347eea9148a3e31a5304323f850f2710a447b48a9aa1afd502e",
+          "bytes": 9955
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "5fe03d488005abdc90987b3b4dd2e8b2b9cd4d39e5add90293055737b54dfe55",
+          "bytes": 63285
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "63bb1cf92e7067187abc332313d1fd38750e02091a2cc5b6f963b73370907040",
+          "bytes": 24675
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "576421e0527e6b5b150e3adafea2ee63723735e705407fb81c2950cb236c309d",
+          "bytes": 19255
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "9b01d51142d21563dd3ce1cdb8dfa4735c383b9993290878aa96b3b7858f58d8",
+          "bytes": 23024
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "276cdbb52f2cf588dbafdd0804ec4903508d8f0323a80107ab47388e4251bfa5",
+          "bytes": 24147
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "355d1ef8cee729bb2058ed233065d7d5f91f9a7f99fe054b7b16297726fd0ea4",
+          "bytes": 19371
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "9cdef485caee395a948c85b780b4e0be9e39e51a67fc68404bea0c36027c1e7a",
+          "bytes": 22975
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "11d189182d66155d37ac624e2b5554cc10d44045eed8c06b59cae5666c9e6dc4",
+          "bytes": 42239
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "404a5d4d8bc6a2007ae462b0858d2d840aea3b55f89f391afd3b1181a36f7c59",
+          "bytes": 35711
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "3b0a95d9f8b7f9d7aed46f31b5c8fee3a36c7bcdd65981346813ed8a5ebd200e",
+          "bytes": 61745
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "6533bb24fca6a5a6dfe03ee146eef1c755134bddca3eb131408312c954810f18",
+          "bytes": 26752
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "c2492b4c3a64b0654067097d0b4d9c9444f9186ebb0e09ce3b4d11f06279e7f5",
+          "bytes": 39916
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "3dfe9ed60cfc9ce94d588cefb96321e5e06834330b9870526f0b4c6ef74771f1",
+          "bytes": 21171
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "e6dfab12b9fa7c56e7a6b1565792368d7370bec00313f549a8e37cefe1463765",
+          "bytes": 22476
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "f61f5d36c82dad3b2ecbba844cc00ff5a120eda589a144b7ccc135e4a58e1a36",
+          "bytes": 27573
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/git-input-e",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "66ddb98d362e22a60a738d042505ae2f78a6a6b7cd3b91f1ef8a88d98173cbba",
+          "bytes": 271063
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "c8f5647864936e06ad2a48244eb33fbc081e674ca4397ed2070c504444942a8b",
+          "bytes": 1642
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "05654bbc345de5f765fc860acd5edae7d0ac62ee5a64aa43b2d93b732b81d895",
+          "bytes": 207821
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "8e2af38fa025ad8039ae23df3b5d670b5be4f4c74462366bbdc4c505c34e4b2d",
+          "bytes": 7413
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "188be4a437048996518ad172dfd7bfd323a6c3e7901f7c05153add4706db8ce6",
+          "bytes": 37784
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "86f9e7591041144c367a3c1812f07bffe82ec3f32c416bd2bbe89bf7a4b8c6a1",
+          "bytes": 28271
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "618fae1128a2eaa6bd8af288baeb2e9eb46a6027a8ef10a98cc09261b5479787",
+          "bytes": 22731
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "a6c856c8411474ae1fc3b06ec27bf02610af5b072c2a175b1a1a031d3cc2e68c",
+          "bytes": 20495
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "6f9c6fb3b60765e5f2bef13e7b3c722a12b01e8ffb7283f72cea1f422a72eb55",
+          "bytes": 20648
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "395f5dcd10d937ec59d5fab536f0c80ac0e71dbf44ca45c9a85af8f9d7da4539",
+          "bytes": 20686
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "143037542a7a135c31ed07887711694e5ec078c4a92ad6f1a39011f61d86ee83",
+          "bytes": 19580
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "aa67a3201fa7de4471f4a9f7756f7636978131b132d8726a393333775d731705",
+          "bytes": 61122
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "29c44948d3c147f9b394fb2dae86fadc419f96b0c17af8e635a3a434ec59fa69",
+          "bytes": 34128
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "df981d46f85a1fc9a7c1f0dcb62e105e75e14e963ece3aaa742e877d05be8243",
+          "bytes": 58070
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "d2e75855b253c001e145f206dea0238924fe643c34b1732f051702a8ab76554a",
+          "bytes": 29667
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "06398ef25e6b73f7fb9ce06f97b2651748ab9f8360e5e45ef7f932fd8bee7595",
+          "bytes": 26742
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "e14aaba9ba52aaa522f0a6ceecc85baf32e8e9217f4361165a6662fd8a72b0b3",
+          "bytes": 30381
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "262ec2e0ec6be3b22b96851dc68fef1433dec81802287180c144d04db4ee776f",
+          "bytes": 24303
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "47a413b7350261af74c2fa33a65b256e909bbf7e46d21ccb9b4fbaca4378e188",
+          "bytes": 42249
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/git-editor-e",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "66d4fbfb7514efc9eb9c11da94c738d7681511c6ea50e355e862dca7858af1f5",
+          "bytes": 237612
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "0ddc1d58866c4f27ff2fb492823e8058226030735b2101bf48ae2e1c89c93f03",
+          "bytes": 1645
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "6f17fa398bf85d839e5aab35b63ad18d987dd091f5f1f60ada8c6ff9c7f2521f",
+          "bytes": 151267
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "6bdeb6019997132ce79239accaa2dc94a70e6dda83f075ed4fd7988eeaf97a90",
+          "bytes": 8850
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "89db497fb7ca42f34d626f5813d60bbb3736bec3541e245939b5a988c23dd767",
+          "bytes": 62202
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "e0ec82c01b5355cc0f19c7c8d84b2f3e724d7ef85d34658483de64e90dc715ff",
+          "bytes": 28562
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "820015b8ba1684ca038e137b038a61692aeb345833ceab18248fe4b9aef56327",
+          "bytes": 25198
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "29ef376e878443071e4c64c64c3f52bcdb0a2cc72ccf4b51f0c12dd3860711ca",
+          "bytes": 18005
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "39da8f1b138ba4fe0b75e68994616320dcfe40e4cee299f49b9b04695e4e38f2",
+          "bytes": 23940
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "cba156bc73ae9d354328d5ea7fc9cf6b6055e893aed463cb3f466796df56c3f0",
+          "bytes": 18194
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "fce8bb8af1ddde886d3a985fd7e00784ef187b576dc45030d7b4432b1217b747",
+          "bytes": 16814
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "a6a705545a3a7eaf3d0367a9885403c76aeda1f11c487ead4861e105b67164c1",
+          "bytes": 45205
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "0428c133784332bb0ff2caa941f9082004aa6ccb1cc8a8a5729caa1f87cec84b",
+          "bytes": 42054
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "8d7b79c9a007fabe07232b6adb5c2b09f49822fc4d8312a65d8ae8206513a351",
+          "bytes": 56122
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "1e9c48b8f20ae3ac3b6aaadac08ba70aade3f087e3ac3887aeb1c11f2e76222b",
+          "bytes": 32371
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "130d4671752984259c389b3c4890e1a3820e136ce130fedb7bf7c5779d987c49",
+          "bytes": 20353
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "d155b8b7da42340a668d8c625066444fcc9a9c6fd132861be81b97bb6732d33a",
+          "bytes": 30520
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "2b67ea89d4b76d3354b4450f67663408aeaac9e4b184ca3bca9d858948ccb9f4",
+          "bytes": 28462
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "c659647484b11b3500bae8b115577c06490afe21056904b9bebdd39d0ec269f5",
+          "bytes": 27310
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-core-e",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "f4ba347a4ab62a2e420dabcabacf7029b9daba2fd6e25c04a5b5ac14b2c66348",
+          "bytes": 231213
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "88b40300047dcef2cc226757d509841241267bbbbd9b4d454ebef6e23ff31ecc",
+          "bytes": 1651
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "5e6bebcc9fcf29c8be02da5c9fcc4099c62538e8f0f8e61a4273bc4b0a346c5e",
+          "bytes": 144390
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "9780e41edc50eccd1544352f5e061e9dfd05f2886afc77577c5c73a5e4a136ff",
+          "bytes": 8813
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "cdbc3641a151bfa90aae3bdd7f62e64ba97609d12f04659974ff71f02d656d4a",
+          "bytes": 41937
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "2fbd4761c1a237bb0206ee124dc60db7a2689d4ee043604cb40c04971eecd816",
+          "bytes": 24904
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "6ea6f49b2aabd6a60b10fa91236b2c59a713c7fda98a1ffb2ac590c8e077bb43",
+          "bytes": 28483
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "aeff7361084839747f7ccb3cd9e6951e9a9d977c546e733e66ccfce2806a67d2",
+          "bytes": 23804
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "021f1258024c7e4d584fcbae026fa31725bbc02f1882aeb8c11c088d13aa2ec8",
+          "bytes": 19465
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "c69537b02184d1b0cdeee217fb4a22bcc5572f3bf2d6a5c993ee3ad35a791d46",
+          "bytes": 19374
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "df19cd778d1253e011f84dcc08561fd36e147dddd0ab29ba0b57d7cb92c4440e",
+          "bytes": 18504
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "d07a348ae72bb2c3f1423b6803b40fc400869ce7ff053562e6398efb5c904f03",
+          "bytes": 32292
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "a3e4d90807e410a092ac4cb88dab277d3a05d2e269e3dac3a0215934196f7898",
+          "bytes": 39644
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "783f72d325e1212ed093554a67b0fd1107dffcbaaf75c7642f91328a636ac28c",
+          "bytes": 64534
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "5d168e70159308b3dfb473e8bcf86ba6604b2f23283a6d7d2e7f13e5606072ca",
+          "bytes": 60452
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "66285d31398d14d398c8becab3b1a5865c67af269329510153d855fc403a9a5e",
+          "bytes": 24772
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "7163ea712e4731ef4ed0da36a149d1799a745af5cdd85305386552c7d46a47dd",
+          "bytes": 24812
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "8bb3eb787e53f3838d2b9f26b23fd89eec326413227ee8ea42f7ecd8de8b7384",
+          "bytes": 27075
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "7ce572a301601ac10fd55583d49e5e4549f9e3fb20d83b7249ce270e0e93e5ee",
+          "bytes": 25225
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-input-e",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "2bf2179569a14bbde6982a14639686d514efe305d28699606f2f4a1791729c7a",
+          "bytes": 271770
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "feba6f6b5872bb2adf76b720fd5b10431dae08c98df38c1f7fa77c1e7f4dc839",
+          "bytes": 1654
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "b7756790903927e153fa998a75fc1ba9ecf66ad8679bd6001d953320f9b85ec6",
+          "bytes": 208767
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "f9952b0771b4a1003331dcb7459ffdc84671a08144c5da07907387431ded6705",
+          "bytes": 7614
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "ab688c134992c823d505a20533a7cef644a58a1bb43b32b3b2a94fc7d50a7d87",
+          "bytes": 62133
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "904e20754451c8101635472b8fd740ae56b8dcd8ee221fecabe28255f529165d",
+          "bytes": 21679
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "4ebd21bbc5983f61a87f1aa863f8a9d4830d2675fd988ba713cc113bacd61080",
+          "bytes": 25157
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "9416f58b5bc66a9eda5d29f9d621f4b081a9fe261b8cca5c60f83a8868215f4f",
+          "bytes": 20521
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "e396867cb5b9e6846ff41ed57e8233b8195b647b5f2bac7bb3f0df23a4cebe51",
+          "bytes": 56299
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "0f69e10ef6ef41da4eae2815621dcfe52ae62c8aa59dc39c9d24169393a7faf5",
+          "bytes": 20721
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "1952926fc64423f85c3557341fd8b6bbe7bea2374ecacebb702085d157972c78",
+          "bytes": 20853
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "2925b381c13a8ae639d6e01d242659bff79805f1105efb5267fdf296665a09d0",
+          "bytes": 45207
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "c6f4bf69ace5b62874f6543a581dd0ae4d3ecc07d484a0b707439ae89a20de2d",
+          "bytes": 32757
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "405358dd3f28c34fd9abe125d1c21c6b7730e76be238916eb3cfcd388417dd73",
+          "bytes": 43024
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "9dd52933c3ae1e15f55fb00231169696a528c2e743675b381e04d7c4c1849a8c",
+          "bytes": 27837
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "43b7afddf8eba108ebb0396e197a558b6a99d51c13b75d522a1f407621f02262",
+          "bytes": 29558
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "d2a7484c588c4a962d75cf55a0e41678aedc9b168cba44ddb753483f2eda2978",
+          "bytes": 25854
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "e7405ad5b2803d945dd1588d2c1b138b3f05a2647f6c3fd560f80f3cc18e5b2f",
+          "bytes": 23536
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "3955fd0245aa1e1a12cc1474171d364243920d459272dac78b194d4bb0071723",
+          "bytes": 21268
+        }
+      ]
+    },
+    {
+      "ownedOutput": "C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/Temp/DistributionConsumer/tarball-editor-e",
+      "preserved": "Fresh process/result JSON and relevant failure diagnostics/XML retained in doc/validation/distribution-consumer",
+      "logs": [
+        {
+          "path": "Logs/editor-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/editor.log",
+          "sha256": "c0c70eab89c629425700a4480018e5a8818f308d17268f300e0cb48c9d8cc06d",
+          "bytes": 238179
+        },
+        {
+          "path": "Logs/player-stdout.log",
+          "sha256": "2157d3a496a39e613fc51cdff0756d69b3b70dfb31f4de46aee546b601383944",
+          "bytes": 1771
+        },
+        {
+          "path": "Logs/player.log",
+          "sha256": "956ae3d6fbe5aefa662a5305274702a77321126957c6fab8a10fb7e6f945522a",
+          "bytes": 1657
+        },
+        {
+          "path": "Logs/setup-stdout.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "Logs/setup.log",
+          "sha256": "37886e41baa9f21bf73ace67beee97fee5552a8a9735dac4d694c4f8338dab77",
+          "bytes": 152116
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-0.log",
+          "sha256": "f55e1548781258519be6188aaffd5d97964bf0bc389841b2d1ecc8997553b799",
+          "bytes": 8813
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-1.log",
+          "sha256": "3634cfe12fd204a2ee7968d1acf130c41eb538f5b84c95cf03a41bb9e8c13831",
+          "bytes": 66879
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-10.log",
+          "sha256": "daff6e29ea8d0e92d503e98535281e79c0dd200192fe3190836fab8cdbbb6a18",
+          "bytes": 21748
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-11.log",
+          "sha256": "2ca097f3e26b5c529a3e18c9a4ef139cefe1e498b46373d12b7b2a3150cf7476",
+          "bytes": 24084
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-12.log",
+          "sha256": "1e4f8939da85acf8678e5b3e64f3cd6ac61c698fa8873b70a730346a5e9ba7c3",
+          "bytes": 25761
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-13.log",
+          "sha256": "b2b512ecdc20eb3662a04df10692c87b8d92b51892e1761cf2443fe6e307c233",
+          "bytes": 16940
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-14.log",
+          "sha256": "c4d70acc5cf9b18d9cc3da340bbbeeefd06a3bdb7302554c1f55e770c74a6c64",
+          "bytes": 18053
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-15.log",
+          "sha256": "091bf540af3589027ad4ae6bb7d06da7d9f345f8ec48ac0e76258c7277b1f98d",
+          "bytes": 22829
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-2.log",
+          "sha256": "df6f9a31be4d850eda8961d2af021ebbeef9cef865e5f5706df0907dfbd044c0",
+          "bytes": 39822
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-3.log",
+          "sha256": "1a2fdfc90b992286dc22373c2c286350d4f1f5f497f6a78582e820ccc7b62a40",
+          "bytes": 33749
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-4.log",
+          "sha256": "7ca4a70992567f0e98c685a2c845a14ad9f56ca082cffe83f9de88fd18de3cd5",
+          "bytes": 31514
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-5.log",
+          "sha256": "649afd402af2e3ed6337b559817717ba5dce49e4076a673812d71aaa24b80050",
+          "bytes": 45230
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-6.log",
+          "sha256": "a9a349c7f9fb547e524a27d4868be02a5dae3072b3fdf9f4102c5ab81027c1a8",
+          "bytes": 25114
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-7.log",
+          "sha256": "6a31a435bba28e40c23cf653c43fa773ccb87779ed9313ceafc3547de7b2e576",
+          "bytes": 51383
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-8.log",
+          "sha256": "cd083efd9d9ff7173aeef595feb9320de4a82f056b61a60403f977cc42c9b3a6",
+          "bytes": 27165
+        },
+        {
+          "path": "Logs/shadercompiler-UnityShaderCompiler.exe-9.log",
+          "sha256": "9be63a09da9c877cded2a8c047abed33921b087496a054798e119d416442a69a",
+          "bytes": 24934
+        }
+      ]
+    }
+  ],
+  "retained": [
+    "Temp/DistributionConsumer/git-full-e",
+    "Temp/DistributionConsumer/tarball-full-e",
+    "Temp/DistributionConsumer/canonical-samples-e",
+    "tplab/p2-candidate-e"
+  ],
+  "condition": "All P2 processes have exited; delete exact owned paths only after evidence preserved."
+}

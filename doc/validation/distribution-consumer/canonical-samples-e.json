@@ -1,0 +1,281 @@
+{
+  "sourceRevision": "5f2e08d8bacb2320ca0832120f194c326869ce40",
+  "scope": "canonical-sample-source-fixture",
+  "sampleInstallation": "Source fixture at Assets/TPLab/Samples/Core and Input; independent of Sample.Import matrix",
+  "success": true,
+  "actualRuns": 4,
+  "editor": {
+    "pid": 11064,
+    "startedUtc": "2026-10-07T09:57:29.059277+00:00",
+    "startedUnix": 1791367049.059284,
+    "endedUtc": "2026-10-07T09:59:19.664534+00:00",
+    "elapsedSeconds": 110.605,
+    "returnCode": 0,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\editor.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\editor-stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true,
+    "result": {
+      "success": true,
+      "installedPackages": [
+        {
+          "name": "com.tplab.core",
+          "version": "0.0.1",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Library\\PackageCache\\com.tplab.core@03e967ecfed4",
+          "source": "LocalTarball"
+        },
+        {
+          "name": "com.tplab.input",
+          "version": "0.0.1",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Library\\PackageCache\\com.tplab.input@4f4498255317",
+          "source": "LocalTarball"
+        }
+      ],
+      "samplesVerified": true,
+      "sampleBuilds": [
+        {
+          "mode": "additive",
+          "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Build\\Sample-additive\\SceneTransitions.exe",
+          "evidencePath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\doc\\validation\\scene-integration\\consumer-additive.json"
+        },
+        {
+          "mode": "single",
+          "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Build\\Sample-single\\SceneTransitions.exe",
+          "evidencePath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\doc\\validation\\scene-integration\\consumer-single.json"
+        }
+      ],
+      "unityVersion": "6000.3.18f1",
+      "target": "StandaloneWindows64",
+      "backend": "Mono2x",
+      "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Build\\ConsumerSmoke.exe",
+      "result": "Succeeded",
+      "errors": 0,
+      "warnings": 0,
+      "error": ""
+    }
+  },
+  "installedPackages": [
+    {
+      "name": "com.tplab.core",
+      "version": "0.0.1",
+      "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Library\\PackageCache\\com.tplab.core@03e967ecfed4",
+      "source": "LocalTarball",
+      "verifiedPayloadFiles": 118,
+      "manifestMetadata": "Only UPM _fingerprint may differ; semantic manifest and cache fingerprint verified",
+      "lock": {
+        "version": "file:C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/tplab/p2-candidate-e/artifacts/com.tplab.core-0.0.1.tgz",
+        "depth": 0,
+        "source": "local-tarball",
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        }
+      }
+    },
+    {
+      "name": "com.tplab.input",
+      "version": "0.0.1",
+      "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Library\\PackageCache\\com.tplab.input@4f4498255317",
+      "source": "LocalTarball",
+      "verifiedPayloadFiles": 69,
+      "manifestMetadata": "Only UPM _fingerprint may differ; semantic manifest and cache fingerprint verified",
+      "lock": {
+        "version": "file:C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/tplab/p2-candidate-e/artifacts/com.tplab.input-0.0.1.tgz",
+        "depth": 0,
+        "source": "local-tarball",
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.inputsystem": "1.19.0"
+        }
+      }
+    }
+  ],
+  "player": {
+    "pid": 26064,
+    "startedUtc": "2026-10-07T09:59:20.470103+00:00",
+    "startedUnix": 1791367160.4701068,
+    "endedUtc": "2026-10-07T09:59:47.408108+00:00",
+    "elapsedSeconds": 26.938,
+    "returnCode": 0,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\player.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\player-stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true,
+    "result": {
+      "success": true,
+      "coreSampleVerified": true,
+      "commonRootReady": true,
+      "gameSceneLoaded": true,
+      "commonRootPrepared": true,
+      "activeSceneOwned": true,
+      "canProceedAfterEntry": true,
+      "derivedAdded": true,
+      "derivedRemoved": true,
+      "poolReused": true,
+      "csvTypedLookup": true,
+      "emptyResourceManagerShutdown": true,
+      "gracefulShutdown": true,
+      "inputScopeVerified": true,
+      "error": ""
+    }
+  },
+  "samplePlayers": [
+    {
+      "mode": "additive",
+      "process": {
+        "pid": 36324,
+        "startedUtc": "2026-10-07T09:59:47.413291+00:00",
+        "startedUnix": 1791367187.4133012,
+        "endedUtc": "2026-10-07T10:00:22.720234+00:00",
+        "elapsedSeconds": 35.307,
+        "returnCode": 0,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\sample-additive.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\sample-additive-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "result": {
+        "success": true,
+        "exitCode": 0,
+        "mode": "Additive",
+        "completedChecks": 12,
+        "Entry": true,
+        "RoundTrip": true,
+        "NestedAdd": true,
+        "SelfRemoval": true,
+        "AncestorRemoval": true,
+        "ConditionNoEffects": true,
+        "ModalHeldAfterReveal": true,
+        "ExecutionFailureHeld": true,
+        "GracefulShutdown": true,
+        "OwnedRecoveryCreated": false,
+        "Preparations": 7,
+        "Presentations": 7,
+        "Releases": 8,
+        "Covers": 19,
+        "Reveals": 9,
+        "Failures": 1,
+        "LoadingFlow": true,
+        "LoadingFailureCleanup": true,
+        "LoadingPreparations": 8,
+        "LoadingReveals": 8,
+        "LoadingProgressReports": 1199,
+        "Proceeds": 7,
+        "LoadingReleases": 8,
+        "LoadingTwoCovers": 7,
+        "error": "",
+        "unityVersion": "6000.3.18f1",
+        "observations": [
+          "entry prepared and Player enabled",
+          "loading entry: native progress, automatic continuation, two covers, retained lease and released UI",
+          "Hub to Main actual destination",
+          "Hub to Main to Hub actual primary scenes",
+          "primary/area/nested registrations = 3",
+          "nested self removal preserved area",
+          "ancestor removal drained subtree",
+          "condition false: no cover, failure, release, preparation, presentation or registration change",
+          "modal survived reveal; Player off/UI on",
+          "execution failure: Faulted/cover held/Player off/UI on",
+          "loading failure: operation UI/listeners released once, cover/transition lease retained",
+          "manager owned scenes = 0; common not ready or prepared; graceful Stopped"
+        ]
+      },
+      "build": {
+        "success": true,
+        "unityVersion": "6000.3.18f1",
+        "mode": "Additive",
+        "output": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Temp\\GameScenesTrack\\ScenePlayers\\consumer-additive",
+        "result": "Succeeded",
+        "errors": 0,
+        "warnings": 0,
+        "backendRestored": true,
+        "sceneSetupRestored": true,
+        "buildSettingsRestored": true,
+        "buildSettingsBytesRestored": true,
+        "startSceneRestored": true,
+        "error": ""
+      }
+    },
+    {
+      "mode": "single",
+      "process": {
+        "pid": 32672,
+        "startedUtc": "2026-10-07T10:00:22.720965+00:00",
+        "startedUnix": 1791367222.7209668,
+        "endedUtc": "2026-10-07T10:00:54.864439+00:00",
+        "elapsedSeconds": 32.143,
+        "returnCode": 0,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\sample-single.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Logs\\sample-single-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "result": {
+        "success": true,
+        "exitCode": 0,
+        "mode": "Single",
+        "completedChecks": 12,
+        "Entry": true,
+        "RoundTrip": true,
+        "NestedAdd": true,
+        "SelfRemoval": true,
+        "AncestorRemoval": true,
+        "ConditionNoEffects": true,
+        "ModalHeldAfterReveal": true,
+        "ExecutionFailureHeld": true,
+        "GracefulShutdown": true,
+        "OwnedRecoveryCreated": true,
+        "Preparations": 7,
+        "Presentations": 7,
+        "Releases": 8,
+        "Covers": 18,
+        "Reveals": 9,
+        "Failures": 1,
+        "LoadingFlow": true,
+        "LoadingFailureCleanup": true,
+        "LoadingPreparations": 8,
+        "LoadingReveals": 8,
+        "LoadingProgressReports": 221,
+        "Proceeds": 7,
+        "LoadingReleases": 8,
+        "LoadingTwoCovers": 7,
+        "error": "",
+        "unityVersion": "6000.3.18f1",
+        "observations": [
+          "entry prepared and Player enabled",
+          "loading entry: native progress, automatic continuation, two covers, retained lease and released UI",
+          "Hub to Main actual destination",
+          "Hub to Main to Hub actual primary scenes",
+          "primary/area/nested registrations = 3",
+          "nested self removal preserved area",
+          "ancestor removal drained subtree",
+          "condition false: no cover, failure, release, preparation, presentation or registration change",
+          "modal survived reveal; Player off/UI on",
+          "execution failure: Faulted/cover held/Player off/UI on",
+          "loading failure: operation UI/listeners released once, cover/transition lease retained",
+          "manager owned scenes = 0; common not ready or prepared; graceful Stopped"
+        ]
+      },
+      "build": {
+        "success": true,
+        "unityVersion": "6000.3.18f1",
+        "mode": "Single",
+        "output": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\canonical-samples-e\\Temp\\GameScenesTrack\\ScenePlayers\\consumer-single",
+        "result": "Succeeded",
+        "errors": 0,
+        "warnings": 0,
+        "backendRestored": true,
+        "sceneSetupRestored": true,
+        "buildSettingsRestored": true,
+        "buildSettingsBytesRestored": true,
+        "startSceneRestored": true,
+        "error": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "sourceRevision": "5f2e08d8bacb2320ca0832120f194c326869ce40",
+  "counts": {
+    "consumerConfigurations": 8,
+    "editorProcesses": 18,
+    "consumerPlayers": 8,
+    "samplePlayers": 4,
+    "sampleChecks": 48,
+    "allActualProcesses": 30,
+    "editorScopes": 4,
+    "buildErrors": 0
+  },
+  "originalHead": "af9958ba402be2bc7f31d453afb2b14294a47ac8",
+  "protectedFiles": {
+    "Assets/Scenes/InitScene.unity": {
+      "expected": "c0fec936f9fbbe9ce1f0ef041ca2968ae0004a4ca1e4f4ac22e81925a363b3ee",
+      "actual": "c0fec936f9fbbe9ce1f0ef041ca2968ae0004a4ca1e4f4ac22e81925a363b3ee"
+    },
+    "Assets/Settings/DefaultVolumeProfile.asset": {
+      "expected": "463776c51ae49d4fef980e8fd268081b2f505610d79315003faae1acff8f4115",
+      "actual": "463776c51ae49d4fef980e8fd268081b2f505610d79315003faae1acff8f4115"
+    },
+    "Assets/Settings/Mobile_RPAsset.asset": {
+      "expected": "2d5182d2b8884ac88bc6ed033a0a722c23cfb15a7bc8b7daa38db37227bafd09",
+      "actual": "2d5182d2b8884ac88bc6ed033a0a722c23cfb15a7bc8b7daa38db37227bafd09"
+    },
+    "ProjectSettings/EditorBuildSettings.asset": {
+      "expected": "fc19f8b13f7c8e2262a3498e8fc019323abeb1465535da6891ec4f25b1f18af7",
+      "actual": "fc19f8b13f7c8e2262a3498e8fc019323abeb1465535da6891ec4f25b1f18af7"
+    },
+    "ProjectSettings/SceneTemplateSettings.json": {
+      "expected": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "actual": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a"
+    },
+    "ProjectSettings/ProjectSettings.asset": {
+      "expected": "b18db9d5aac18c26e12e1d4556f1c989bb995e2304170746209f971ad021615a",
+      "actual": "b18db9d5aac18c26e12e1d4556f1c989bb995e2304170746209f971ad021615a"
+    }
+  },
+  "protectedUnchanged": true,
+  "currentHarnessSha256": {
+    "tools\\run_core_consumer.py": "7f836abf02a5d9f4ac2193838a58990dbe3bb09290b3eda7b9310327a83e9fae",
+    "tools\\core-consumer\\templates\\ConsumerBuild.cs": "bdc24c2ce83ccd5a008d43adfb5db1ca3068b93b2478e0f90fb256430f23339d",
+    "tools\\core-consumer\\templates\\ConsumerSetup.cs": "650b77fbda36b47c2914e17ec8385f5d61fc811ef3ea58e131da41ca8b04e667",
+    "tools\\core-consumer\\templates\\EditorProbe.cs": "eaebe8face645d28fc786f3bb8bd7894521e76419f9a8dab7d920fdf09d129a5"
+  },
+  "sampleBuildErrors": 0,
+  "canonicalSampleSourceFixtureSuccess": true,
+  "checkedCurrentLinks": 716,
+  "brokenCurrentLinks": [],
+  "frozenPackageInputsChanged": []
+}

@@ -1,0 +1,297 @@
+{
+  "actualRuns": 3,
+  "allowlist": [],
+  "createdUtc": "2026-10-07T09:45:03.736589+00:00",
+  "editor": {
+    "elapsedSeconds": 21.221,
+    "endedUtc": "2026-10-07T09:46:05.215524+00:00",
+    "pid": 33836,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Logs\\editor.log",
+    "processLogFresh": true,
+    "result": {
+      "backend": "Mono2x",
+      "error": "",
+      "errors": 0,
+      "importer": {
+        "automaticNoMutation": true,
+        "baselineAssetsUnchanged": true,
+        "buildSettingsUnchanged": true,
+        "defaultAutomaticDisabled": true,
+        "defaultSettingsDisabled": true,
+        "diagnostic": "Installed Editor importer preparation and compiled generated validation completed.",
+        "generatedAwaitingCompilation": true,
+        "generatedDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "generatedUnwrittenPending": true,
+        "generatedValidated": true,
+        "generatedValidatorObserved": true,
+        "invalidSchemaDiagnostic": "Failed: Schema version and dataType must be integers.",
+        "invalidSchemaDiagnostics": true,
+        "manualDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "manualTypedValidated": true,
+        "manualValidatorObserved": true,
+        "missingSettingsDisabled": true,
+        "ownedAssetsCleaned": true,
+        "packageBytesUnchanged": true,
+        "packagesDiagnostic": "Failed: Use a normalized Assets path: Packages/TPLabConsumerImporterProbe_c6cba7a7b39f4423b27859140cefbcbf",
+        "packagesOutputDenied": true,
+        "profileUnregistered": true,
+        "rejectedDiagnostic": "Failed: consumer project validator rejection",
+        "requiresGeneratedValidationPhase": false,
+        "validatorFailurePreservesOwnedSources": true
+      },
+      "installedPackages": [
+        {
+          "name": "com.tplab.core",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Library\\PackageCache\\com.tplab.core@47ca04644445",
+          "source": "Git",
+          "version": "0.0.1"
+        },
+        {
+          "name": "com.tplab.editor",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Library\\PackageCache\\com.tplab.editor@4c863a3e3f38",
+          "source": "Git",
+          "version": "0.0.1"
+        }
+      ],
+      "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Build\\ConsumerSmoke.exe",
+      "result": "Succeeded",
+      "sampleBuilds": [],
+      "samplesVerified": false,
+      "success": true,
+      "target": "StandaloneWindows64",
+      "unityVersion": "6000.3.18f1",
+      "warnings": 1
+    },
+    "returnCode": 0,
+    "startedUnix": 1791366343.9942935,
+    "startedUtc": "2026-10-07T09:45:43.994292+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Logs\\editor-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "errors": [],
+  "expectedUnityVersion": "6000.3.18f1",
+  "harnessTemplates": {
+    "ConsumerBuild.cs": "bdc24c2ce83ccd5a008d43adfb5db1ca3068b93b2478e0f90fb256430f23339d",
+    "ConsumerSetup.cs": "650b77fbda36b47c2914e17ec8385f5d61fc811ef3ea58e131da41ca8b04e667",
+    "ConsumerSmoke.cs": "9ba12e7f1357f8890b9c510184b75d262612b4fc3b4ab28a818537e157011834",
+    "EditorProbe.cs": "eaebe8face645d28fc786f3bb8bd7894521e76419f9a8dab7d920fdf09d129a5",
+    "ProjectVersion.txt.in": "49acfbeaed7b14df027494cef9f89f66b4beac575ff9dca2f6d6f340748db4a9",
+    "manifest.json.in": "24e71784757509b9a3ca9b3c98c3a13221a0d2b4a8d50705a1ae46dcde32a1d8",
+    "run_core_consumer.py": "7f836abf02a5d9f4ac2193838a58990dbe3bb09290b3eda7b9310327a83e9fae",
+    "run_scene_player.py": "6cd642383681861d7730ca6f248a027a6fe1f7366ead717439d28cd9bb797583"
+  },
+  "includeInput": false,
+  "installation": {
+    "artifacts": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\tplab\\p2-candidate-e\\artifacts",
+    "dependencies": {
+      "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#5f2e08d8bacb2320ca0832120f194c326869ce40",
+      "com.tplab.editor": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.editor#5f2e08d8bacb2320ca0832120f194c326869ce40",
+      "com.unity.nuget.newtonsoft-json": "3.2.2"
+    },
+    "importSamples": false,
+    "includeEditor": true,
+    "manifestSha256": "920d83c6327e31f129baed027ca33bd2523fea12509f21e887b6526377052bb5",
+    "mode": "git",
+    "packages": [
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        },
+        "filename": "com.tplab.core-0.0.1.tgz",
+        "id": "com.tplab.core",
+        "payloadSha256": "3b889777ba6ffd3165000a0a0c8c1c786a908dbebb9f06170d8e8262751d8bc1",
+        "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.inputsystem": "1.19.0"
+        },
+        "filename": "com.tplab.input-0.0.1.tgz",
+        "id": "com.tplab.input",
+        "payloadSha256": "1cadb8834cb90f99426b1ada97a7cfd27ed7444a6bdd3552466ad35cdff0e81c",
+        "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.addressables": "2.9.1",
+          "com.unity.nuget.newtonsoft-json": "3.2.2"
+        },
+        "filename": "com.tplab.editor-0.0.1.tgz",
+        "id": "com.tplab.editor",
+        "payloadSha256": "4005332b2be57c7b4ecd1ed71b109fbba7d38c21c89692277da6f7e640329805",
+        "sha256": "afe4abf13832bdf576c0187dc12b30c9a011e390a362ccb01314fd7d0b5bd621",
+        "version": "0.0.1"
+      }
+    ],
+    "sourceRevision": "5f2e08d8bacb2320ca0832120f194c326869ce40",
+    "version": "0.0.1"
+  },
+  "installedPackages": [
+    {
+      "lock": {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        },
+        "depth": 0,
+        "hash": "5f2e08d8bacb2320ca0832120f194c326869ce40",
+        "source": "git",
+        "version": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#5f2e08d8bacb2320ca0832120f194c326869ce40"
+      },
+      "manifestMetadata": "Only UPM _fingerprint may differ; semantic manifest and cache fingerprint verified",
+      "name": "com.tplab.core",
+      "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Library\\PackageCache\\com.tplab.core@47ca04644445",
+      "source": "Git",
+      "verifiedPayloadFiles": 118,
+      "version": "0.0.1"
+    },
+    {
+      "lock": {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.addressables": "2.9.1",
+          "com.unity.nuget.newtonsoft-json": "3.2.2"
+        },
+        "depth": 0,
+        "hash": "5f2e08d8bacb2320ca0832120f194c326869ce40",
+        "source": "git",
+        "version": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.editor#5f2e08d8bacb2320ca0832120f194c326869ce40"
+      },
+      "manifestMetadata": "Only UPM _fingerprint may differ; semantic manifest and cache fingerprint verified",
+      "name": "com.tplab.editor",
+      "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Library\\PackageCache\\com.tplab.editor@4c863a3e3f38",
+      "source": "Git",
+      "verifiedPayloadFiles": 40,
+      "version": "0.0.1"
+    }
+  ],
+  "manifest": {
+    "requested": {
+      "com.cysharp.unitask": "2.5.11",
+      "com.unity.addressables": "2.9.1",
+      "com.unity.modules.assetbundle": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+      "com.unity.nuget.newtonsoft-json": "3.2.2"
+    },
+    "sha256": "3d8b24ad1be4b40c34e60a6110906a9def7093d76d5426b228a8291f702e8181"
+  },
+  "observations": {
+    "activeSceneOwned": true,
+    "canProceedAfterEntry": true,
+    "commonRootPrepared": true,
+    "commonRootReady": true,
+    "coreSampleVerified": false,
+    "csvTypedLookup": true,
+    "derivedAdded": true,
+    "derivedRemoved": true,
+    "emptyResourceManagerShutdown": true,
+    "error": "",
+    "gameSceneLoaded": true,
+    "gracefulShutdown": true,
+    "poolReused": true,
+    "success": true
+  },
+  "outputProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e",
+  "packageVersions": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.unity.addressables": "2.9.1",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.2.2"
+  },
+  "player": {
+    "elapsedSeconds": 24.088,
+    "endedUtc": "2026-10-07T09:46:29.378905+00:00",
+    "pid": 30072,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Logs\\player.log",
+    "processLogFresh": true,
+    "result": {
+      "activeSceneOwned": true,
+      "canProceedAfterEntry": true,
+      "commonRootPrepared": true,
+      "commonRootReady": true,
+      "coreSampleVerified": false,
+      "csvTypedLookup": true,
+      "derivedAdded": true,
+      "derivedRemoved": true,
+      "emptyResourceManagerShutdown": true,
+      "error": "",
+      "gameSceneLoaded": true,
+      "gracefulShutdown": true,
+      "poolReused": true,
+      "success": true
+    },
+    "returnCode": 0,
+    "startedUnix": 1791366365.2910075,
+    "startedUtc": "2026-10-07T09:46:05.291005+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Logs\\player-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "runId": "20261007T094503Z-30376",
+  "schemaVersion": 1,
+  "setup": {
+    "elapsedSeconds": 40.219,
+    "endedUtc": "2026-10-07T09:45:43.993991+00:00",
+    "pid": 22308,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Logs\\setup.log",
+    "processLogFresh": true,
+    "result": {
+      "error": "",
+      "importer": {
+        "automaticNoMutation": true,
+        "baselineAssetsUnchanged": true,
+        "buildSettingsUnchanged": true,
+        "defaultAutomaticDisabled": true,
+        "defaultSettingsDisabled": true,
+        "diagnostic": "Owned generated sources retained. Start a second Editor process to compile and validate them.",
+        "generatedAwaitingCompilation": true,
+        "generatedDiagnostic": "AwaitingCompilation: Sources were provisionally generated. Compile, connect typed registrations, then validate again.",
+        "generatedUnwrittenPending": true,
+        "generatedValidated": false,
+        "generatedValidatorObserved": false,
+        "invalidSchemaDiagnostic": "Failed: Schema version and dataType must be integers.",
+        "invalidSchemaDiagnostics": true,
+        "manualDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "manualTypedValidated": true,
+        "manualValidatorObserved": true,
+        "missingSettingsDisabled": true,
+        "ownedAssetsCleaned": false,
+        "packageBytesUnchanged": true,
+        "packagesDiagnostic": "Failed: Use a normalized Assets path: Packages/TPLabConsumerImporterProbe_c6cba7a7b39f4423b27859140cefbcbf",
+        "packagesOutputDenied": true,
+        "profileUnregistered": true,
+        "rejectedDiagnostic": "",
+        "requiresGeneratedValidationPhase": true,
+        "validatorFailurePreservesOwnedSources": false
+      },
+      "imports": [],
+      "samplesImported": false,
+      "success": true
+    },
+    "returnCode": 0,
+    "startedUnix": 1791366303.7754169,
+    "startedUtc": "2026-10-07T09:45:03.775414+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\git-editor-e\\Logs\\setup-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "sourceProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1",
+  "success": true,
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.18f1\\Unity.exe"
+}

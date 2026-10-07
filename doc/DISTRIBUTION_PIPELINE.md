@@ -132,7 +132,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 |---|---|---|---|
 | P0 규격·운영 | 이 문서, 입구/지침/회고 연결 | 현재 소스/assembly/의존성 대조, 상대 링크·범위·공백·보호 검사 | 완료 / main 반영·public 확인 |
 | P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 구현·계약 테스트18/18 완료; 실제3 archive·사본171 files·재현 검증 완료([증거](validation/distribution-packaging/README.md)) |
-| P2 실제 설치 | Git URL·tarball 소비 mode, Core/Input sample 분류·import 경로 수정, Editor importer 수명 | 각 설치 방식의 Core만/Input/Editor/전체+Sample resolve·compile·최소 실행, negative 경로, 원본 보호 | 미구현 |
+| P2 실제 설치 | Git URL·tarball 소비 mode, Core/Input sample 분류·import 경로 수정, Editor importer 수명 | 각 설치 방식의 Core만/Input/Editor/전체+Sample resolve·compile·최소 실행, negative 경로, 원본 보호 | 8/8 Git/tarball 실제 설치·compile·최소 실행 완료([P2 증거](validation/distribution-consumer/README.md)); 개발 경로 fixture·원본 보호 확인 |
 | P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 미실행 |
 | P4 첫 Release | main 통합·`v0.0.1`·public Release와 검증된 첨부물 | 정책/필수 gate 충족, source tag·SHA256·버전 일치·tag URL 설치·다운로드한 실제 첨부물 검증, 브랜치 정리 | 미실행 |
 
@@ -179,7 +179,9 @@ Track `23e2764993e46d3fcd18e8d46d8029ac1863f1df`에서 `codex/dev-build-v0.0.1-p
 
 | Agent | Model / effort | 역할·허용 경로 | 상태 |
 |---|---|---|---|
-| `/root/distribution_samples` | gpt-6.1-sol / medium | `Assets/TPLab/Samples` 이동·import 경로와 Core 예제, 관련 경로 테스트; Git/Unity 금지 | 진행 |
-| `/root/distribution_editor_probe` | gpt-6.1-sol / medium | `tools/core-consumer/templates/EditorProbe.cs` 설치 후 importer 검증 harness; Git/Unity 금지 | 진행 |
+| `/root/distribution_samples` | gpt-6.1-sol / medium | `Assets/TPLab/Samples` 이동·import 경로와 Core 예제, 관련 경로 테스트; Git/Unity 금지 | 완료: 25 GUID 보존·경로/예제 구현, 부모 실제 검증 |
+| `/root/distribution_editor_probe` | gpt-6.1-sol / medium | `tools/core-consumer/templates/EditorProbe.cs` 설치 후 importer 검증 harness; Git/Unity 금지 | 완료: 두 launch probe 구현, 부모 실제 검증 |
 
 부모는 패키징/소비 Python 도구·Unity 실행·결과 리뷰·문서·Git을 소유한다.
+
+P2 완료 후보: `5f2e08d8bacb2320ca0832120f194c326869ce40`. Git URL/실제 tarball8/8, consumer Editor18+Player8+sample Player4(48 checks), 개발 경로 fixture4process/두 모드24 checks, 33 Python methods32pass/1OS skip, Unity path12/12 Green. [P2 증거](validation/distribution-consumer/README.md)와 [회고18](retrospectives/2026-10-07-18-distribution-consumer.md)가 선행 상태를 소유한다. 부모가 source/harness/payload를 리뷰하고 phase를 track으로 통합·푸시하며 main/tag/Release와 phase 삭제는 진행하지 않는다. P3는 이 후보의 코드/산출물 해시와 후속 변경 범위를 확인한 뒤 fixed release candidate 회귀·최종 확인을 수행한다.
