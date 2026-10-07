@@ -99,6 +99,20 @@ namespace TPLabConsumer
             string file = "ProjectSettings/EditorBuildSettings.asset";
             byte[] baseline = File.ReadAllBytes(file);
             var setup = EditorSceneManager.GetSceneManagerSetup();
+            string builderPath = AssetDatabase.GUIDToAssetPath("3da5004585d94731a0f004f6211ad0e6");
+            string root = builderPath.Substring(0, builderPath.Length - "/Editor/SceneTransitionSampleBuilder.cs".Length);
+            string marker = root + "/sample-owner.txt";
+            byte[] originalMarker = File.ReadAllBytes(marker);
+            bool refused = false;
+            try
+            {
+                File.WriteAllText(marker, "foreign owner collision");
+                try { SampleBuilder.GetMethod("BuildSampleAssets").Invoke(null, null); }
+                catch (TargetInvocationException exception) when (exception.InnerException is InvalidOperationException) { refused = true; }
+            }
+            finally { File.WriteAllBytes(marker, originalMarker); }
+            if (!refused || !baseline.SequenceEqual(File.ReadAllBytes(file)) || !SameSetup(setup, EditorSceneManager.GetSceneManagerSetup()))
+                throw new InvalidOperationException("Sample ownership collision was not refused without changing the baseline.");
             SampleBuilder.GetMethod("BuildSampleAssets").Invoke(null, null);
             if (!baseline.SequenceEqual(File.ReadAllBytes(file)) || !SameSetup(setup, EditorSceneManager.GetSceneManagerSetup()))
                 throw new InvalidOperationException("Explicit imported sample generation did not restore the baseline.");

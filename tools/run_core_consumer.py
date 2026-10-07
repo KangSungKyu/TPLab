@@ -351,6 +351,9 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
                           tool_root / "core-consumer/templates/ConsumerSmoke.cs",
                           tool_root / "core-consumer/templates/manifest.json.in",
                           tool_root / "core-consumer/templates/ProjectVersion.txt.in")
+        if installation:
+            template_paths += (tool_root / "core-consumer/templates/ConsumerSetup.cs", tool_root / "run_core_consumer.py", tool_root / "run_scene_player.py")
+            if installation["includeEditor"]: template_paths += (tool_root / "core-consumer/templates/EditorProbe.cs",)
         report["harnessTemplates"] = {path.name: sha256(path) for path in template_paths}
         report["manifest"] = {"requested": package_versions_from_manifest(output),
                               "sha256": sha256(output / "Packages/manifest.json")}
