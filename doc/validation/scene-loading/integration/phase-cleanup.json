@@ -1,0 +1,26 @@
+{
+  "mergedMain": "930ddeccc35d3fe5ecb8e4c81b91a20f70fca356",
+  "branches": [
+    {
+      "branch": "codex/scene-loading-p1-progress",
+      "deletedTip": "8f3bfdefebb283ebca84fd6b78d9ab376923ebe7",
+      "reachableFromMain": true,
+      "remoteDeleted": true,
+      "localDeleted": true
+    },
+    {
+      "branch": "codex/scene-loading-p2-flow",
+      "deletedTip": "07273a4ed4a8e0656e49d7b8fdbe897b32bc5f5e",
+      "reachableFromMain": true,
+      "remoteDeleted": true,
+      "localDeleted": true
+    },
+    {
+      "branch": "codex/scene-loading-p4-sample",
+      "deletedTip": "e4d1f560ee6c73a4af7374bc9fb98eff729a27ea",
+      "reachableFromMain": true,
+      "remoteDeleted": true,
+      "localDeleted": true
+    }
+  ]
+}

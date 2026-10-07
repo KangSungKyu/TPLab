@@ -1,6 +1,6 @@
 # 로딩 UI 예제와 최종 자동 검증
 
-2026-10-07. 상태: 자동 검증 완료 / 최종 사용자 UX 확인 대기.
+2026-10-07. 상태: 자동 검증·사용자 PlayMode 확인·main 반영 완료. 초기 자동 검증 당시의 기록과 후속 갱신을 아래에 구분한다.
 
 - 목표: project callback 소유의 진행률·팁·자동/수동 Continue UI를 기존 전환 예제에 연결하고 전체 코어와 실제 Player를 검증한다.
 - 기준: `codex/scene-loading-p4-sample`, HEAD `07273a4ed4a8e0656e49d7b8fdbe897b32bc5f5e`. P1/P2 트랙을 재사용하며 main은 변경하지 않는다.
@@ -18,3 +18,5 @@
 보완: SourceRevision `18d479bf07fe8479a22187ec7357024e9979d096`는 runtime `91d6f16`과 새 README.meta 공백 정리다. 해당 metadata 변화는 동작/테스트 대상 변화가 아니다. snapshot317/보호7·GUID·문서링크 검사 통과, 사용자 변경4만 보존한다. exact source GitHub 검사에서 CI미구성(workflow/check/status/run0)을 확인했으며 CI통과로 표현하지 않았다. 영속 로그 보존 후 이번 Temp 출력과 Python cache만 제거했다.
 
 2026-10-07 최종 확인 보완: 사용자가 로딩 UI PlayMode 확인 완료를 전달했다. 현재 track e4d1f56과 원격 main32e6cac을 확인하고 기존 track을 재사용한다. 실행 source317/보호7이 저장된 검증 입력과 일치하므로 이번 문서/Git 단위에서 테스트를 재실행하지 않는다(0건; 새 통과 주장 없음). [통합 기록](../validation/scene-loading/integration/README.md)의 exact tips·서버SHA 조건으로 main fast-forward push 및 이번4branch만 정리한다. 사용자 dirty4는 보존한다. 개별 모드/해상도/장치 결과 미기록, 원격 content/IL2CPP 한계와 PC 제어 제외는 유지한다.
+
+2026-10-07 Git 마감: 사용자 확인 문서930ddec을 main fast-forward push하고 원격 일치를 확인했다. phase3개는 [phase-cleanup](../validation/scene-loading/integration/phase-cleanup.json)의 exact tips를 main에 보존한 뒤 SHA 조건부 서버 삭제 및 로컬 -d로 제거했다. 이 마감 문서만 기존track에 반영·main push 후 track을 마지막 정리한다. 테스트 추가 실행0, source317/보호7·관련 문서 링크 검사 통과. 다음 작업의 기준은 최종 main이며 미완료 구현이나 사용자 확인 gate는 없다. 기록되지 않은 개별 장치/해상도·원격content/IL2CPP 호환성 한계는 유지한다.
