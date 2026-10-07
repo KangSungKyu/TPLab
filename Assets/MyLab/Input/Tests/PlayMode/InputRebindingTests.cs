@@ -131,6 +131,55 @@ namespace MyLab.Core.Input.Tests
         });
 
         [UnityTest]
+        public IEnumerator OwnerDisposalWhileAcquiringBlockIsCancellation() => UniTask.ToCoroutine(async () =>
+        {
+            using var game = _input.Layers.AcquireLayer("game");
+            var action = _input.GetAction(_fire.id);
+            await KeyAsync(Key.Space);
+            Assert.That(action.IsPressed(), Is.True);
+            action.canceled += _ => _input.Dispose();
+            bool cancelled = false;
+            try
+            {
+                await _input.Rebinding.RebindAsync(Request());
+            }
+            catch (OperationCanceledException)
+            {
+                cancelled = true;
+            }
+            Assert.That(cancelled, Is.True);
+            Assert.That(_input.IsDisposed, Is.True);
+            Assert.That(_input.Rebinding.IsRebinding, Is.False);
+            Assert.That(_fire.bindings[0].overridePath, Is.Null);
+            await UniTask.NextFrame();
+        });
+
+        [UnityTest]
+        public IEnumerator OwnerShutdownWhileAcquiringBlockIsCancellation() => UniTask.ToCoroutine(async () =>
+        {
+            using var game = _input.Layers.AcquireLayer("game");
+            var action = _input.GetAction(_fire.id);
+            await KeyAsync(Key.Space);
+            Assert.That(action.IsPressed(), Is.True);
+            UniTask shutdown = default;
+            action.canceled += _ => shutdown = _input.ShutdownAsync().Preserve();
+            bool cancelled = false;
+            try
+            {
+                await _input.Rebinding.RebindAsync(Request());
+            }
+            catch (OperationCanceledException)
+            {
+                cancelled = true;
+            }
+            await shutdown;
+            Assert.That(cancelled, Is.True);
+            Assert.That(_input.Rebinding.IsRebinding, Is.False);
+            Assert.That(_fire.bindings[0].overridePath, Is.Null);
+            await UniTask.NextFrame();
+        });
+
+        [UnityTest]
         public IEnumerator ConcurrentMutationAndInvalidRequestsHaveNoSideEffects() => UniTask.ToCoroutine(async () =>
         {
             using var cancellation = new CancellationTokenSource();

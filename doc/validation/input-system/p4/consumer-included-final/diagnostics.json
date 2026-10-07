@@ -1,0 +1,12 @@
+{
+  "compilerWarningLines": 4,
+  "compilerWarnings": [
+    "Assets\\Editor\\MyLabConsumerBuild.cs(44,17): warning CS0618: 'PlayerSettings.SetScriptingBackend(BuildTargetGroup, ScriptingImplementation)' is obsolete: 'Use SetScriptingBackend(NamedBuildTarget buildTarget, ScriptingImplementation backend) instead'",
+    "Assets\\Editor\\MyLabConsumerBuild.cs(51,31): warning CS0618: 'PlayerSettings.GetScriptingBackend(BuildTargetGroup)' is obsolete: 'Use GetScriptingBackend(NamedBuildTarget buildTarget) instead'"
+  ],
+  "licensingErrorsObservedBeforeSuccessfulBuild": true,
+  "buildSuccess": true,
+  "buildReportWarningCount": 0,
+  "editorLogPreserved": false,
+  "reason": "Transient native licensing diagnostics omitted; successful fresh result and summarized compiler warnings preserved."
+}

@@ -28,6 +28,10 @@ def is_prestart_discovery_gap(transcript, result):
     return result is None and transcript.strip() == "Error: no Unity instances running"
 
 
+def has_compilation_error(text):
+    return re.search(r"\berror CS\d{4}\b", text) is not None
+
+
 def wait_for_editor(project, expected_pid=None):
     deadline = time.monotonic() + 30
     while True:
@@ -59,6 +63,12 @@ def main():
         parser.error("Select an existing Unity project by absolute path")
     project = args.project.resolve()
     editor_pid = wait_for_editor(project)
+    console = subprocess.run(["unity-cli", "console", "--project", project.as_posix(),
+                              "--type", "error", "--lines", "500"],
+                             capture_output=True, encoding="utf-8")
+    if console.returncode != 0 or has_compilation_error(console.stdout + console.stderr):
+        raise RuntimeError("Resolve compilation errors before testing; old Connector results are not evidence: "
+                           + console.stdout + console.stderr)
     command = ["unity-cli", "test", "--project", project.as_posix(), "--mode", args.mode]
     if args.filter:
         command += ["--filter", args.filter]
@@ -112,6 +122,8 @@ if __name__ == "__main__":
         assert is_prestart_discovery_gap("Error: no Unity instances running\n", None)
         assert not is_prestart_discovery_gap("Error: no Unity instances running", counts)
         assert not is_prestart_discovery_gap("Error: test run failed", None)
-        print("PASS: CLI/Connector extraction and strict prestart-discovery classification")
+        assert has_compilation_error("Input.cs(1,2): error CS0122: inaccessible")
+        assert not has_compilation_error("Expected test exception: ArgumentException")
+        print("PASS: extraction, prestart-discovery classification, and compiler-error rejection")
     else:
         raise SystemExit(main())

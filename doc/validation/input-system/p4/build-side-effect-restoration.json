@@ -1,0 +1,37 @@
+{
+  "restored": [
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "before": "8070f2778d0bfc1dd110033510bcee218dd884d50fa3df62bf9b9aed6da8f6db",
+      "restored": "8d27dc58204b2125cfe798980c41d557da1d8e7f792a76563fb2d4df1b154238",
+      "source": "verified previously clean HEAD filtered bytes"
+    },
+    {
+      "path": "Assets/Settings/PC_RPAsset.asset",
+      "before": "70b76a59fb5b3ee0bbc0269df512833053efb96fd7abd681fd0b064a6c5cb564",
+      "restored": "08a9c221b335a0dbca1b6967b7de5c42b957c5f0d5e43da9edb36ca8fce5966b",
+      "source": "verified previously clean HEAD filtered bytes"
+    },
+    {
+      "path": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "before": "68c73fb90411fd9abf6c5f5a8394909021d88fea61a2244a7cd904ee54603790",
+      "restored": "47a5975e4fa68b6dbe66c41af7e17c2c76fb675156dfce1b14054d26cb56a135",
+      "source": "verified previously clean HEAD filtered bytes"
+    },
+    {
+      "path": "ProjectSettings/UnityConnectSettings.asset",
+      "before": "98f142992d8a623501c99648e1b7363adca08b67bb50390b566df368d00bc9a0",
+      "restored": "b7dd1e8290598f5ce86919ba1c98b42b766c8c42191a30fa2c4d12195c4ecd00",
+      "source": "verified previously clean HEAD filtered bytes"
+    }
+  ],
+  "protectedSha256": {
+    "Assets/Scenes/InitScene.unity": "12C5C4095B1806434C0D7758B7F91CDD830BFB5C78F1F7E25E331038F823B045",
+    "ProjectSettings/ProjectSettings.asset": "8D27DC58204B2125CFE798980C41D557DA1D8E7F792A76563FB2D4DF1B154238",
+    "Assets/InputSystem_Actions.inputactions": "1C6CBB519D65ECFE19A29231735B7F54741A20AC1A8AD4F46A18E1BFB28A3C39",
+    "ProjectSettings/EditorBuildSettings.asset": "348BA1ECA4B0698957F264F877F76227B78583ACD3138FD5FC85BE92F158E261",
+    "Assets/Settings/Mobile_RPAsset.asset": "2D5182D2B8884AC88BC6ED033A0A722C23CFB15A7BC8B7DAA38DB37227BAFD09",
+    "ProjectSettings/SceneTemplateSettings.json": "BB9098B3BFCDE78D93E264B96F7B77B5430E64E8C57A7AAD7F5A5D9C3945E16A",
+    "Assets/Settings/DefaultVolumeProfile.asset": "463776C51AE49D4FEF980E8FD268081B2F505610D79315003FAAE1ACFF8F4115"
+  }
+}

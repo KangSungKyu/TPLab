@@ -1,0 +1,59 @@
+{
+  "results": {
+    "full-EditMode.json": [
+      258,
+      258,
+      0,
+      0
+    ],
+    "full-PlayMode.json": [
+      217,
+      217,
+      0,
+      0
+    ],
+    "review-red-play.json": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "review-green-play.json": [
+      11,
+      11,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "README.md",
+    "doc/CORE_PLAN.md",
+    "doc/INDEX.md",
+    "doc/INPUT_SYSTEM_DRAFT.md",
+    "doc/INPUT_SYSTEM_TRACK.md",
+    "doc/INPUT_SYSTEM_ACCEPTANCE.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-07-07-input-validation.md",
+    "doc/validation/input-system/p4/README.md",
+    "tools/README.md"
+  ],
+  "assets": [
+    "Assets/MyLab/Input/Runtime/InputLayerController.cs",
+    "Assets/MyLab/Input/Runtime/InputManager.cs",
+    "Assets/MyLab/Input/Runtime/InputManagerInstaller.cs",
+    "Assets/MyLab/Input/Runtime/InputRebindingController.cs",
+    "Assets/MyLab/Input/Runtime/MyLab.Core.Input.asmdef",
+    "Assets/MyLab/Input/Tests/EditMode/InputLayerTests.cs",
+    "Assets/MyLab/Input/Tests/EditMode/InputOverrideTests.cs",
+    "Assets/MyLab/Input/Tests/EditMode/MyLab.Input.EditModeTests.asmdef",
+    "Assets/MyLab/Input/Tests/PlayMode/InputIntegrationTests.cs",
+    "Assets/MyLab/Input/Tests/PlayMode/InputRebindingTests.cs",
+    "Assets/MyLab/Input/Tests/PlayMode/InputRuntimeTests.cs",
+    "Assets/MyLab/Input/Tests/PlayMode/MyLab.Input.PlayModeTests.asmdef",
+    "Assets/MyLab/Samples/SceneTransitions/Runtime/InputSystemUiScope.cs"
+  ],
+  "absentAssetPatterns": [
+    "MyLab/Tests/Fixtures/BootstrapReload-*.unity",
+    "SceneTransitionEditorTests_*"
+  ]
+}

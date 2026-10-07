@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "unityVersion": "6000.3.18f1",
+    "target": "StandaloneWindows64",
+    "backend": "Mono2x",
+    "playerPath": "C:\\Users\\PC\\Projects\\MyLab\\Temp\\InputSystemTrack-20261007\\consumer-included\\Build\\ConsumerSmoke.exe",
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "error": ""
+}

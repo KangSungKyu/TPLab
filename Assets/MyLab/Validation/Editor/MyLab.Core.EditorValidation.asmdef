@@ -1,6 +1,6 @@
 {
     "name": "MyLab.Core.EditorValidation",
     "rootNamespace": "MyLab.Core.Tests",
-    "references": ["MyLab.Core", "MyLab.Core.Editor", "MyLab.Core.TestFixtures", "UniTask"],
+    "references": ["MyLab.Core", "MyLab.Core.Editor", "MyLab.Core.TestFixtures", "MyLab.Core.Input", "Unity.InputSystem", "UniTask"],
     "includePlatforms": ["Editor"]
 }

@@ -11,7 +11,7 @@ verify_validation.py는 evidence의 checks.json이 지정한 결과 건수·문�
 
 check_github_ci.py는 기존 Git credential helper를 사용해 정확한 commit·main 보호·workflow/check/status/run을 읽는다. 비밀값을 출력하거나 저장하지 않는다. 현재 자동 확인은 **보호되지 않은 main + CI 미구성**인 경우만 완료하며 이것을 CI 성공으로 표시하지 않는다. CI/보호 설정이 있으면 report를 보존하고 실패 종료하므로 필수 검사와 정책을 별도로 검토해야 한다. 전체 정책 해석·페이지별 결과 통합은 지원하지 않으며 configured CI에 대한 자동 병합 승인을 제공하지 않는다.
 
-run_unity_tests.py는 절대 project 경로의 기존 ready Editor만 사용하고 결과를 지정한 JSON에 보존한다. Editor를 시작하거나 교체하지 않는다. CLI domain reload 연결 단절 시 이번 CLI 프로세스 PID와 실행 시간에 해당하는 Connector 결과만 읽는다. 다른 실행/프로젝트 결과나 0건은 성공으로 대체하지 않는다. Console·빌드·시각 UX 검증은 별개다.
+run_unity_tests.py는 절대 project 경로의 기존 ready Editor만 사용하고 결과를 지정한 JSON에 보존한다. Editor를 시작하거나 교체하지 않는다. 실행 전 Console의 C# compiler 오류가 있으면 중단해 컴파일 실패 뒤 남은 Connector 결과를 재사용하지 않는다. CLI domain reload 연결 단절 시 이번 CLI 프로세스 PID와 실행 시간에 해당하는 Connector 결과만 읽는다. 다른 실행/프로젝트 결과나 0건은 성공으로 대체하지 않는다. Console·빌드·시각 UX 검증은 별개다.
 
 ```powershell
 python tools/run_unity_tests.py --self-check
@@ -31,10 +31,11 @@ python tools/capture_validation_inputs.py --self-check
 python tools/capture_validation_inputs.py --evidence doc/validation/scene-loaders --base acb636c933f2eea29f46705d233f4e0dba436965 --preserved Temp/GameScenesTrack/preserved-hashes.json
 ```
 
-P6에는 승인된 별도 소비 프로젝트 빌드/Player와 이미 빌드된 sample Player 실행 도구를 제공한다. run_core_consumer.py만 명시적으로 별도 batch Editor를 시작하며 원래 MyLab Editor의 검증을 대체하지 않는다. run_scene_player.py는 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 소비 manifest는 승인된 UniTask·Addressables와 필요한 Unity built-in만 포함한다.
+P6에는 승인된 별도 소비 프로젝트 빌드/Player와 이미 빌드된 sample Player 실행 도구를 제공한다. run_core_consumer.py만 명시적으로 별도 batch Editor를 시작하며 원래 MyLab Editor의 검증을 대체하지 않는다. run_scene_player.py는 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 기본 소비 manifest는 UniTask·Addressables와 필요한 Unity built-in만 포함하며 Input 모듈은 제외한다. `--include-input`은 Runtime allowlist와 Input System 1.19.0을 더해 복사본에서 컴파일·Windows Mono Player의 가상 키보드 rebind, lease 복원, JSON override/reset, graceful shutdown을 확인한다. 이 복사본에는 소스 ProjectSettings 전체 대신 `PlayerSettings.activeInputHandler: 1`만 포함한 최소 설정을 생성한다. 증거 경로는 scene-integration 또는 input-system 아래를 지정한다.
 
 ```powershell
 python -B tools/run_core_consumer.py --self-check
+python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\MyLab --unity <기존-Editor.exe> --output Temp/<고유-소비자폴더> --evidence doc/validation/input-system/<실행폴더> --include-input
 python -B tools/run_scene_player.py --self-check
 python -O -B tools/run_scene_player.py --self-check
 python -B tools/verify_validation.py --evidence doc/validation/scene-integration

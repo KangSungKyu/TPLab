@@ -1,0 +1,68 @@
+Mono path[0] = 'C:/Users/PC/Projects/MyLab/Temp/GameScenesTrack/ScenePlayers/InputP4-Single/SceneTransitions_Data/Managed'
+Mono config path = 'C:/Users/PC/Projects/MyLab/Temp/GameScenesTrack/ScenePlayers/InputP4-Single/MonoBleedingEdge/etc'
+Found 1 interfaces on host : 0) 192.168.0.26
+Player connection [29588]  Target information:
+
+Player connection [29588]  * "[IP] 192.168.0.26 [Port] 55000 [Flags] 2 [Guid] 3163881041 [EditorId] 1929330045 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-3J0UFVG) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] MyLab" 
+
+Player connection [29588] Started UDP target info broadcast (1) on [225.0.0.222:54997].
+
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.3.18f1 (5ebeb53e4c07)
+[Subsystems] Discovering subsystems at path C:/Users/PC/Projects/MyLab/Temp/GameScenesTrack/ScenePlayers/InputP4-Single/SceneTransitions_Data/UnitySubsystems
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in 16.820 seconds
+- Finished resetting the current domain, in  0.002 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Microsoft Media Foundation video decoding to texture disabled: graphics device is Null, only Direct3D 11 and Direct3D 12 (only on desktop) are supported for hardware-accelerated video decoding.
+UnloadTime: 0.479700 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.409900 ms
+Unloading 14 unused Assets / (0 B). Loaded Objects now: 2719.
+Memory consumption went from 46.2 MB to 46.2 MB.
+Total: 0.776900 ms (FindLiveObjects: 0.062100 ms CreateObjectMapping: 0.028500 ms MarkObjects: 0.670600 ms  DeleteObjects: 0.015300 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.772400 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 2719.
+Memory consumption went from 46.2 MB to 46.2 MB.
+Total: 0.738200 ms (FindLiveObjects: 0.065200 ms CreateObjectMapping: 0.028200 ms MarkObjects: 0.636200 ms  DeleteObjects: 0.008200 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.139100 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 2719.
+Memory consumption went from 46.2 MB to 46.2 MB.
+Total: 0.697500 ms (FindLiveObjects: 0.063400 ms CreateObjectMapping: 0.030500 ms MarkObjects: 0.596400 ms  DeleteObjects: 0.006800 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.136900 ms
+Unloading 3 unused Assets / (0 B). Loaded Objects now: 2719.
+Memory consumption went from 46.2 MB to 46.2 MB.
+Total: 0.789800 ms (FindLiveObjects: 0.071000 ms CreateObjectMapping: 0.031300 ms MarkObjects: 0.677300 ms  DeleteObjects: 0.009900 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.147400 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 2719.
+Memory consumption went from 46.2 MB to 46.2 MB.
+Total: 0.758600 ms (FindLiveObjects: 0.076000 ms CreateObjectMapping: 0.030300 ms MarkObjects: 0.645200 ms  DeleteObjects: 0.006900 ms)
+
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+PlayerConnection::Cleanup##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1791344161996,"processId":28300,"allocatedMemory":54658,"memoryLabels":[{"Default":136},{"NewDelete":104},{"Manager":9683},{"Shader":1008},{"GfxDevice":72},{"Audio":752},{"Serialization":144},{"JobScheduler":32768},{"String":524},{"HashMap":3584},{"PoolAlloc":192},{"CloudService":144},{"WebRequest":3563},{"VR":1872},{"Subsystems":96},{"CoreBusinessMetrics":120}]}

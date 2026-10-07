@@ -1,6 +1,6 @@
 # Unity Input System wrapper 계약과 사용
 
-작성일: 2026-10-07. **Input System 전용 지원은 사용자 확정 정책**이다. 단계1~3의 아래 API·기본 동작을 구현하고 집중 자동 검증했다. 전체 회귀·reload·소비 프로젝트/Player·최종 사용자 확인은 [구현 track](INPUT_SYSTEM_TRACK.md)을 따른다.
+작성일: 2026-10-07. **Input System 전용 지원은 사용자 확정 정책**이다. 아래 API·기본 동작을 구현했다. 단계1~4의 집중/전체 회귀·reload·소비 프로젝트/Windows Player 자동 검증을 완료했으며 [구현 track](INPUT_SYSTEM_TRACK.md)과 [최종 사용자 확인](INPUT_SYSTEM_ACCEPTANCE.md)을 따른다.
 
 ## 지원 정책과 현재 근거
 
@@ -121,4 +121,4 @@ if (result.Status == RebindStatus.Applied)
 
 동작 구현은 각 단위의 실패 테스트 실행 → 최소 구현 → 정리 순서로 진행한다. native Input System은 가상 Keyboard/Gamepad를 사용하는 Unity Test Framework 검증을 우선 사용하고 실제 UI/frame 순서는 PlayMode로 확인한다. 테스트 fixture는 생성 장치를 제거하고 전역 Input System 설정/기존 장치를 보존한다. 제품 Console·Player·최종 사람이 확인하는 키 설정/팝업 UX는 자동 테스트와 구분한다.
 
-집중 검증: 단계1~3 입력 Edit18/Play14와 기존 씬 예제 Play2, 실패0·skip0. 이는 전체 회귀·실제 화면/장치 UX 확인을 대체하지 않는다. `SceneTransitionSampleController` Inspector context menu의 Input/Rebind Attack Keyboard·Save/Restore Overrides In Memory·Reset Overrides가 프로젝트 UI/저장 책임을 확인하는 최소 예제다. 저장은 해당 Play session 메모리만 사용한다.
+최종 검증: 입력 Edit18/Play16을 포함한 전체 Edit258/Play217, 실패0·skip0. 네 reload 조합×2, 입력 포함/제외 소비 프로젝트와 Windows Mono sample 두 mode를 확인했다([증거](validation/input-system/p4/README.md)). 실제 화면/물리 장치 UX는 사용자 확인 대기다. `SceneTransitionSampleController` Inspector context menu의 Input/Rebind Attack Keyboard·Save/Restore Overrides In Memory·Reset Overrides가 프로젝트 UI/저장 책임을 확인하는 최소 예제다. 저장은 해당 Play session 메모리만 사용한다.

@@ -41,6 +41,8 @@
 
 | 2026-10-07 | Input root·UI·transition 연결 | 자동 검증 완료·track 통합 | [06-input-integration](2026-10-07-06-input-integration.md) |
 
+| 2026-10-07 | Input 전체 회귀·reload·consumer/Player·최종 리뷰 | 자동 검증 완료·사용자 확인 대기 | [07-input-validation](2026-10-07-07-input-validation.md) |
+
 ## 작성 형식
 
 작업 규모에 맞게 짧게 작성한다. 해당 없는 항목은 해당 없음으로 표시하며 명세·검증 설명을 반복 복제하지 않는다.

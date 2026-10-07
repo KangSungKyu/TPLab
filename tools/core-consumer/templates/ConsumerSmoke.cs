@@ -9,6 +9,11 @@ using MyLab.Core.ResourceManagement;
 using MyLab.Core.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if MYLAB_INPUT_CONSUMER
+using MyLab.Core.Input;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+#endif
 
 namespace MyLabConsumer
 {
@@ -42,6 +47,9 @@ namespace MyLabConsumer
             try
             {
                 report.commonRootReady = _root != null && _root.IsReady;
+#if MYLAB_INPUT_CONSUMER
+                report.inputScopeVerified = await VerifyInputScopeAsync();
+#endif
                 var codec = new DecimalIdxCodec(1000);
                 tables.RegisterIdxRouter(codec);
                 tables.RegisterTable<SmokeRow, SmokeTable>(1, "smoke",
@@ -101,11 +109,113 @@ namespace MyLabConsumer
                     report.commonRootPrepared && report.activeSceneOwned && report.canProceedAfterEntry &&
                     report.derivedAdded && report.derivedRemoved && report.poolReused && report.csvTypedLookup &&
                     report.emptyResourceManagerShutdown && report.gracefulShutdown;
+#if MYLAB_INPUT_CONSUMER
+                report.success &= report.inputScopeVerified;
+#endif
                 report.error = failure == null ? "" : failure.ToString();
                 WriteResult(report);
                 Application.Quit(report.success ? 0 : 1);
             }
         }
+
+#if MYLAB_INPUT_CONSUMER
+        private static async UniTask<bool> VerifyInputScopeAsync()
+        {
+            var source = ScriptableObject.CreateInstance<InputActionAsset>();
+            Keyboard keyboard = null;
+            InputManager input = null;
+            IDisposable gameplay = null;
+            IDisposable modal = null;
+            try
+            {
+                var gameMap = source.AddActionMap("Game");
+                var fire = gameMap.AddAction("Fire", InputActionType.Button, "<Keyboard>/space");
+                keyboard = InputSystem.AddDevice<Keyboard>();
+                input = new InputManager(source);
+                input.Actions.devices = new InputDevice[] { keyboard };
+                input.Layers.RegisterLayer("game", new[] { gameMap.id }, 0, InputLayerMode.Overlay);
+                input.Layers.RegisterLayer("modal", Array.Empty<Guid>(), 100, InputLayerMode.BlockLower);
+                gameplay = input.Layers.AcquireLayer("game");
+                if (!input.GetAction(fire.id).enabled || source.FindAction(fire.id).enabled)
+                {
+                    return false;
+                }
+
+                bool nativeCandidateSelected = false;
+                var pending = input.Rebinding.RebindAsync(new RebindRequest(fire.id, fire.bindings[0].id)
+                {
+                    ControlPath = "<Keyboard>",
+                    TimeoutSeconds = 5,
+                    Validator = candidate =>
+                    {
+                        nativeCandidateSelected = candidate.Control != null && candidate.Control.device == keyboard &&
+                            candidate.Path == "<Keyboard>/k";
+                        return nativeCandidateSelected;
+                    }
+                }).Preserve();
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.K));
+                await UniTask.NextFrame();
+                await UniTask.NextFrame();
+                await UniTask.WaitUntil(() => nativeCandidateSelected || pending.Status != UniTaskStatus.Pending)
+                    .Timeout(TimeSpan.FromSeconds(2), DelayType.Realtime);
+                bool waitsForRelease = nativeCandidateSelected && pending.Status == UniTaskStatus.Pending &&
+                    input.GetAction(fire.id).bindings[0].overridePath == null;
+                modal = input.Layers.AcquireLayer("modal");
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                await UniTask.NextFrame();
+                await UniTask.NextFrame();
+                RebindResult result = await pending;
+                bool applied = result.Status == RebindStatus.Applied && result.Path == "<Keyboard>/k" &&
+                    input.GetAction(fire.id).bindings[0].effectivePath == "<Keyboard>/k" &&
+                    !input.GetAction(fire.id).enabled && input.Layers.Snapshot.ActiveMapIds.Count == 0 &&
+                    input.Layers.Snapshot.ActiveLayerIds.Count == 1 &&
+                    input.Layers.Snapshot.ActiveLayerIds[0] == "modal" &&
+                    fire.bindings[0].overridePath == null;
+                modal.Dispose();
+                modal = null;
+                bool layerRestored = input.GetAction(fire.id).enabled &&
+                    input.Layers.Snapshot.ActiveLayerIds.Count == 1 &&
+                    input.Layers.Snapshot.ActiveLayerIds[0] == "game";
+
+                string overrides = input.Rebinding.ExportOverridesJson();
+                input.Rebinding.ResetBinding(fire.id, fire.bindings[0].id);
+                bool resetBinding = input.GetAction(fire.id).bindings[0].effectivePath == "<Keyboard>/space";
+                input.Rebinding.ImportOverridesJson(overrides);
+                bool imported = input.GetAction(fire.id).bindings[0].effectivePath == "<Keyboard>/k";
+                input.Rebinding.ResetAll();
+                bool resetAll = input.Rebinding.ExportOverridesJson() == "" &&
+                    input.GetAction(fire.id).bindings[0].effectivePath == "<Keyboard>/space" &&
+                    fire.bindings[0].overridePath == null;
+                gameplay.Dispose();
+                gameplay = null;
+                var clone = input.Actions;
+                await input.ShutdownAsync();
+                await UniTask.NextFrame();
+                bool shutdown = clone == null;
+                return waitsForRelease && applied && layerRestored && resetBinding && imported && resetAll && shutdown;
+            }
+            finally
+            {
+                try
+                {
+                    modal?.Dispose();
+                    gameplay?.Dispose();
+                    if (input != null) await input.ShutdownAsync();
+                }
+                finally
+                {
+                    try
+                    {
+                        if (keyboard != null && keyboard.added) InputSystem.RemoveDevice(keyboard);
+                    }
+                    finally
+                    {
+                        if (source != null) Destroy(source);
+                    }
+                }
+            }
+        }
+#endif
 
         private static void WriteResult(SmokeReport report)
         {
@@ -135,6 +245,9 @@ namespace MyLabConsumer
             public bool csvTypedLookup;
             public bool emptyResourceManagerShutdown;
             public bool gracefulShutdown;
+#if MYLAB_INPUT_CONSUMER
+            public bool inputScopeVerified;
+#endif
             public string error;
         }
 

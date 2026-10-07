@@ -16,9 +16,12 @@ from datetime import datetime, timezone
 
 
 CORE_FILES = ("Assets/MyLab/Core",)
+INPUT_FILES = ("Assets/MyLab/Input/Runtime",)
 PARENT_METAS = (
     "Assets/MyLab.meta",
     "Assets/MyLab/Core.meta",
+    "Assets/MyLab/Input.meta",
+    "Assets/MyLab/Input/Runtime.meta",
     "Assets/Plugins.meta",
     "Assets/Plugins/CsvHelper.meta",
 )
@@ -57,6 +60,23 @@ def unity_version(project: Path) -> str:
     raise ValueError("ProjectVersion.txt has no m_EditorVersion.")
 
 
+def input_project_settings(project: Path) -> str:
+    lines = (project / "ProjectSettings/ProjectSettings.asset").read_text(encoding="utf-8").splitlines()
+    try:
+        player_settings = lines.index("PlayerSettings:")
+        serialized_version = next(line.strip().split(":", 1)[1].strip()
+                                  for line in lines[player_settings + 1:]
+                                  if line.startswith("  serializedVersion:"))
+    except (ValueError, StopIteration, IndexError) as error:
+        raise ValueError("Could not read PlayerSettings serializedVersion from the source project.") from error
+    if not serialized_version.isdigit():
+        raise ValueError("PlayerSettings serializedVersion must be an integer.")
+    return ("%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!129 &1\nPlayerSettings:\n"
+            "  m_ObjectHideFlags: 0\n"
+            f"  serializedVersion: {serialized_version}\n"
+            "  activeInputHandler: 1\n")
+
+
 def resolve_paths(project_arg: str, output_arg: str, evidence_arg: str) -> tuple[Path, Path, Path]:
     project = Path(project_arg)
     if not project.is_absolute():
@@ -77,13 +97,14 @@ def resolve_paths(project_arg: str, output_arg: str, evidence_arg: str) -> tuple
     if not evidence.is_absolute():
         evidence = project / evidence
     evidence = evidence.resolve()
-    evidence_root = (project / "doc/validation/scene-integration").resolve()
-    if not inside(evidence, evidence_root):
-        raise ValueError("--evidence must be inside doc/validation/scene-integration.")
+    evidence_roots = ((project / "doc/validation/scene-integration").resolve(),
+                      (project / "doc/validation/input-system").resolve())
+    if not any(inside(evidence, root) for root in evidence_roots):
+        raise ValueError("--evidence must be inside doc/validation/scene-integration or doc/validation/input-system.")
     return project, output, evidence
 
 
-def source_files(project: Path) -> list[Path]:
+def source_files(project: Path, include_input: bool = False) -> list[Path]:
     files = []
     for root in CORE_FILES:
         base = project / root
@@ -96,7 +117,21 @@ def source_files(project: Path) -> list[Path]:
                 if path.suffix not in (".cs", ".asmdef", ".meta"):
                     raise ValueError("Unexpected Core file type requires explicit allowlist review: " + str(path))
                 files.append(path)
-    files.extend(project / item for item in PARENT_METAS + CSV_FILES)
+    if include_input:
+        for root in INPUT_FILES:
+            base = project / root
+            if not base.is_dir():
+                raise FileNotFoundError("Missing allowlisted source folder: " + str(base))
+            for path in sorted(base.rglob("*")):
+                if path.is_symlink():
+                    raise ValueError("Symlinks are not accepted in the Input allowlist: " + str(path))
+                if path.is_file():
+                    if path.suffix not in (".cs", ".asmdef", ".meta"):
+                        raise ValueError("Unexpected Input file type requires explicit allowlist review: " + str(path))
+                    files.append(path)
+    parent_metas = PARENT_METAS if include_input else tuple(
+        item for item in PARENT_METAS if item not in ("Assets/MyLab/Input.meta", "Assets/MyLab/Input/Runtime.meta"))
+    files.extend(project / item for item in parent_metas + CSV_FILES)
     files.extend((project / "doc/licenses/UniTask-LICENSE.txt",))
     missing = [str(path) for path in files if not path.is_file()]
     if missing:
@@ -104,9 +139,10 @@ def source_files(project: Path) -> list[Path]:
     return files
 
 
-def copy_allowlist(project: Path, output: Path, tool_root: Path, version: str) -> list[dict[str, str]]:
+def copy_allowlist(project: Path, output: Path, tool_root: Path, version: str,
+                   include_input: bool = False) -> list[dict[str, str]]:
     destinations = []
-    for source in source_files(project):
+    for source in source_files(project, include_input):
         relative = source.relative_to(project)
         if relative.as_posix() == "doc/licenses/UniTask-LICENSE.txt":
             destination = output / "Licenses/UniTask-LICENSE.txt"
@@ -125,8 +161,14 @@ def copy_allowlist(project: Path, output: Path, tool_root: Path, version: str) -
     (output / "ProjectSettings").mkdir(parents=True, exist_ok=True)
     (output / "Assets/Editor/MyLabConsumerBuild.cs").write_bytes((templates / "ConsumerBuild.cs").read_bytes())
     (output / "Assets/MyLabConsumer/Runtime/ConsumerSmoke.cs").write_bytes((templates / "ConsumerSmoke.cs").read_bytes())
-    manifest_template = (templates / "manifest.json.in").read_text(encoding="utf-8")
-    (output / "Packages/manifest.json").write_text(manifest_template, encoding="utf-8")
+    manifest = json.loads((templates / "manifest.json.in").read_text(encoding="utf-8"))
+    if include_input:
+        manifest["dependencies"]["com.unity.inputsystem"] = "1.19.0"
+        manifest["dependencies"]["com.unity.modules.uielements"] = "1.0.0"
+        (output / "Assets/csc.rsp").write_text("-define:MYLAB_INPUT_CONSUMER\n", encoding="utf-8")
+        (output / "ProjectSettings/ProjectSettings.asset").write_text(
+            input_project_settings(project), encoding="utf-8")
+    (output / "Packages/manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     project_template = (templates / "ProjectVersion.txt.in").read_text(encoding="utf-8")
     (output / "ProjectSettings/ProjectVersion.txt").write_text(
         project_template.replace("@UNITY_VERSION@", version), encoding="utf-8")
@@ -179,11 +221,12 @@ def read_json(path: Path, started_unix: float) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def all_true(observations: dict) -> bool:
+def all_true(observations: dict, include_input: bool = False) -> bool:
     required = ("commonRootReady", "gameSceneLoaded", "commonRootPrepared", "activeSceneOwned",
                 "canProceedAfterEntry", "derivedAdded", "derivedRemoved", "poolReused", "csvTypedLookup",
                 "emptyResourceManagerShutdown", "gracefulShutdown")
-    return all(observations.get(name) is True for name in required)
+    return all(observations.get(name) is True for name in required) and (
+        not include_input or observations.get("inputScopeVerified") is True)
 
 
 def normalize_package_version(version):
@@ -198,11 +241,14 @@ def package_versions(project: Path) -> dict:
     names = ("com.cysharp.unitask", "com.unity.addressables", "com.unity.modules.assetbundle",
              "com.unity.modules.imageconversion", "com.unity.modules.jsonserialize",
              "com.unity.modules.unitywebrequest", "com.unity.modules.unitywebrequestassetbundle")
+    if "com.unity.inputsystem" in dependencies:
+        names += ("com.unity.inputsystem", "com.unity.modules.uielements")
     versions = {name: dependencies.get(name, {}).get("version") for name in names}
     return {name: normalize_package_version(version) for name, version in versions.items()}
 
 
-def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeout: int) -> tuple[dict, Path]:
+def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeout: int,
+            include_input: bool = False) -> tuple[dict, Path]:
     version = unity_version(project)
     tool_root = Path(__file__).resolve().parent
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + str(os.getpid())
@@ -213,11 +259,19 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
     output.mkdir(parents=True)
     report = {"schemaVersion": 1, "runId": run_id, "sourceProject": str(project), "unityExecutable": str(unity),
               "expectedUnityVersion": version, "outputProject": str(output), "createdUtc": datetime.now(timezone.utc).isoformat(),
-              "allowlist": [], "harnessTemplates": {}, "manifest": {}, "editor": {}, "player": {},
+              "includeInput": include_input, "allowlist": [], "harnessTemplates": {}, "manifest": {},
+              "editor": {}, "player": {},
               "packageVersions": {}, "observations": {},
               "success": False, "actualRuns": 0, "errors": []}
     try:
-        report["allowlist"] = copy_allowlist(project, output, tool_root, version)
+        report["allowlist"] = copy_allowlist(project, output, tool_root, version, include_input)
+        input_asmdef = output / "Assets/MyLab/Input/Runtime/MyLab.Core.Input.asmdef"
+        input_package = "com.unity.inputsystem" in json.loads(
+            (output / "Packages/manifest.json").read_text(encoding="utf-8"))["dependencies"]
+        input_tree = output / "Assets/MyLab/Input"
+        if (input_asmdef.is_file() != include_input or input_package != include_input or
+                input_tree.exists() != include_input):
+            raise RuntimeError("Copied Input module/package do not match the requested consumer scope.")
         template_paths = (tool_root / "core-consumer/templates/ConsumerBuild.cs",
                           tool_root / "core-consumer/templates/ConsumerSmoke.cs",
                           tool_root / "core-consumer/templates/manifest.json.in",
@@ -249,6 +303,8 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
             raise RuntimeError("Consumer build did not use Windows Standalone Mono.")
         if package_versions(output) != package_versions_from_manifest(output):
             raise RuntimeError("Resolved package versions differ from the approved manifest versions.")
+        if include_input and package_versions(output).get("com.unity.inputsystem") != "1.19.0":
+            raise RuntimeError("Consumer Input System package did not resolve to 1.19.0.")
         if not consumer_player.is_file():
             raise FileNotFoundError("Windows Mono Player was not produced: " + str(consumer_player))
 
@@ -263,7 +319,7 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
         observations = read_json(player_result, player["startedUnix"])
         report["observations"] = observations
         report["player"]["result"] = observations
-        if not player["processLogFresh"] or player["returnCode"] != 0 or not observations.get("success") or not all_true(observations):
+        if not player["processLogFresh"] or player["returnCode"] != 0 or not observations.get("success") or not all_true(observations, include_input):
             raise RuntimeError("Consumer Player smoke did not pass every observed runtime-path gate.")
         report["packageVersions"] = package_versions(output)
         report["success"] = True
@@ -277,17 +333,25 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
 def package_versions_from_manifest(project: Path) -> dict:
     manifest = json.loads((project / "Packages/manifest.json").read_text(encoding="utf-8"))
     deps = manifest.get("dependencies", {})
-    return {"com.cysharp.unitask": deps.get("com.cysharp.unitask").split("#")[-1],
+    versions = {"com.cysharp.unitask": deps.get("com.cysharp.unitask").split("#")[-1],
             **{name: deps.get(name) for name in (
                 "com.unity.addressables", "com.unity.modules.assetbundle", "com.unity.modules.imageconversion",
                 "com.unity.modules.jsonserialize", "com.unity.modules.unitywebrequest",
                 "com.unity.modules.unitywebrequestassetbundle")}}
+    if "com.unity.inputsystem" in deps:
+        versions.update({"com.unity.inputsystem": deps["com.unity.inputsystem"],
+                         "com.unity.modules.uielements": deps["com.unity.modules.uielements"]})
+    return versions
 
 
 def self_check() -> int:
     assert all_true({key: True for key in ("commonRootReady", "gameSceneLoaded", "commonRootPrepared", "activeSceneOwned",
                "canProceedAfterEntry", "derivedAdded", "derivedRemoved", "poolReused", "csvTypedLookup",
                "emptyResourceManagerShutdown", "gracefulShutdown")})
+    assert all_true({key: True for key in ("commonRootReady", "gameSceneLoaded", "commonRootPrepared", "activeSceneOwned",
+               "canProceedAfterEntry", "derivedAdded", "derivedRemoved", "poolReused", "csvTypedLookup",
+               "emptyResourceManagerShutdown", "gracefulShutdown", "inputScopeVerified")}, True)
+    assert not all_true({"inputScopeVerified": False}, True)
     assert not all_true({"commonRootReady": True})
     project = Path("C:/MyLab")
     temp_root = project / "Temp"
@@ -296,6 +360,8 @@ def self_check() -> int:
     assert not inside(project / "Assets/Consumer", temp_root)
     assert normalize_package_version("https://example.invalid/repo#2.5.11") == "2.5.11"
     assert normalize_package_version("2.9.1") == "2.9.1"
+    settings = input_project_settings(Path(__file__).resolve().parents[1])
+    assert "serializedVersion: 28\n" in settings and "activeInputHandler: 1\n" in settings
     print("self-check: PASS")
     return 0
 
@@ -305,8 +371,10 @@ def main() -> int:
     parser.add_argument("--project", help="Absolute MyLab project path.")
     parser.add_argument("--unity", help="Exact Unity Editor executable path.")
     parser.add_argument("--output", help="New output directory below project Temp.")
-    parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration.")
+    parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration or doc/validation/input-system.")
     parser.add_argument("--timeout-seconds", type=int, default=900)
+    parser.add_argument("--include-input", action="store_true",
+                        help="Include MyLab.Core.Input and Input System 1.19.0 in the isolated consumer.")
     parser.add_argument("--self-check", action="store_true")
     args = parser.parse_args()
     if args.self_check:
@@ -320,7 +388,8 @@ def main() -> int:
             raise ValueError("--unity must be the exact existing absolute Unity .exe path.")
         if args.timeout_seconds < 60:
             raise ValueError("--timeout-seconds must be at least 60.")
-        report, evidence_path = execute(project, unity.resolve(), output, evidence, args.timeout_seconds)
+        report, evidence_path = execute(project, unity.resolve(), output, evidence, args.timeout_seconds,
+                                        args.include_input)
         print(json.dumps({"success": report["success"], "actualRuns": report["actualRuns"],
                           "evidence": str(evidence_path), "output": str(output), "errors": report["errors"]}, indent=2))
         return 0 if report["success"] else 1

@@ -15,7 +15,7 @@ GitHub 저장소는 `KangSungKyu/TPLab`이며, 로컬 Unity 프로젝트 폴더�
 
 ## 개발 환경
 
-추가 입력 기능은 **Unity Input System만 지원**하는 정책으로 [wrapper 설계](doc/INPUT_SYSTEM_DRAFT.md)를 진행한다. Legacy Input Manager 어댑터는 제공하지 않는다. 현재는 설계 초안이며 공용 입력 wrapper는 미구현이다.
+추가 입력 기능은 **Unity Input System만 지원**한다. 별도 `MyLab.Core.Input` assembly의 [입력 wrapper](doc/INPUT_SYSTEM_DRAFT.md)는 runtime clone·GUID 접근, layer/전체 차단 lease, native 리바인딩·override JSON, SceneRoot installer를 제공한다. UI와 저장은 프로젝트가 소유하며 기존 씬 예제에 연결했다. Legacy Input Manager 어댑터는 제공하지 않는다. [구현 track](doc/INPUT_SYSTEM_TRACK.md)과 [최종 사용자 확인](doc/INPUT_SYSTEM_ACCEPTANCE.md)을 따른다.
 
 | 항목 | 버전 |
 |---|---|

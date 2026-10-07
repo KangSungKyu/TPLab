@@ -1,0 +1,1 @@
+{ pid = 23120, compiling = False, updating = False, playing = True, scene = Assets/MyLab/Tests/Fixtures/BootstrapReload-d681c4c80f7e4d71bac05f537b48f6db.unity, dirty = False }

@@ -168,8 +168,11 @@ namespace MyLab.Samples.SceneTransitions.Editor
                 throw new ArgumentException("Use an unused output directory below Temp/GameScenesTrack/ScenePlayers.");
             string evidence = Path.GetFullPath(evidencePath);
             string evidenceRoot = Path.GetFullPath("doc/validation/scene-integration") + Path.DirectorySeparatorChar;
-            if (!evidence.StartsWith(evidenceRoot, StringComparison.OrdinalIgnoreCase) || !evidence.EndsWith(".json", StringComparison.OrdinalIgnoreCase) || File.Exists(evidence) || Directory.Exists(evidence))
-                throw new ArgumentException("Use a fresh JSON evidence path below doc/validation/scene-integration.");
+            string inputEvidenceRoot = Path.GetFullPath("doc/validation/input-system") + Path.DirectorySeparatorChar;
+            if ((!evidence.StartsWith(evidenceRoot, StringComparison.OrdinalIgnoreCase) &&
+                !evidence.StartsWith(inputEvidenceRoot, StringComparison.OrdinalIgnoreCase)) ||
+                !evidence.EndsWith(".json", StringComparison.OrdinalIgnoreCase) || File.Exists(evidence) || Directory.Exists(evidence))
+                throw new ArgumentException("Use a fresh JSON evidence path below the scene-integration or input-system validation directory.");
             var baseline = Capture();
             byte[] raw = File.ReadAllBytes(BuildFile);
             var backend = PlayerSettings.GetScriptingBackend(NamedBuildTarget.Standalone);

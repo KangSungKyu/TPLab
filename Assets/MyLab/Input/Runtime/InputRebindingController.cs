@@ -242,6 +242,11 @@ namespace MyLab.Core.Input
                     result = await ValidateAndCommitAsync(candidate, options, deadline, token);
                 }
             }
+            catch (ObjectDisposedException error) when (linked != null && linked.IsCancellationRequested)
+            {
+                // Disabling maps can synchronously stop the owner before BlockAll returns its lease.
+                failure = new OperationCanceledException("Input scope was cancelled during rebinding.", error, linked.Token);
+            }
             catch (Exception error)
             {
                 failure = error;

@@ -5,11 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Cysharp.Threading.Tasks;
+using MyLab.Core.Input;
 using MyLab.Core.Lifecycle;
 using MyLab.Core.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace MyLab.Core.Tests
@@ -31,6 +33,7 @@ namespace MyLab.Core.Tests
         private static GameSceneManager _previousManager;
         private static BootstrapSystem _previousBootstrap;
         private static int _previousBootstrapInstanceId;
+        private static InputManager _previousInput;
 
         [Serializable]
         private sealed class BuildSceneState
@@ -53,6 +56,7 @@ namespace MyLab.Core.Tests
         private sealed class Result
         {
             public bool Success;
+            public bool InputIncluded;
             public int AttemptedEntries;
             public int CompletedEntries;
             public string ErrorStage;
@@ -74,9 +78,10 @@ namespace MyLab.Core.Tests
 
         /// <summary>
         /// Dispatches four reload combinations twice each. Requires saved clean scenes and an unused evidence path
-        /// under doc/validation/scene-integration. Configures the owned saved fixture once; never resets Bootstrap in Play.
+        /// under doc/validation/scene-integration or input-system. Configures the owned saved fixture once;
+        /// never resets Bootstrap in Play. includeInput also checks fresh input scopes and explicit preparation publication.
         /// </summary>
-        public static void Run(string evidencePath)
+        public static void Run(string evidencePath, bool includeInput = false)
         {
             if (SessionState.GetBool(Key + "Active", false)) throw new InvalidOperationException("A Bootstrap reload check already owns the Editor.");
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || EditorApplication.isUpdating || BuildPipeline.isBuildingPlayer)
@@ -87,9 +92,11 @@ namespace MyLab.Core.Tests
                     throw new InvalidOperationException("Save scene edits before running this check.");
             string evidence = Path.GetFullPath(evidencePath);
             string evidenceRoot = Path.GetFullPath("doc/validation/scene-integration") + Path.DirectorySeparatorChar;
-            if (!evidence.StartsWith(evidenceRoot, StringComparison.OrdinalIgnoreCase) ||
+            string inputEvidenceRoot = Path.GetFullPath("doc/validation/input-system") + Path.DirectorySeparatorChar;
+            if ((!evidence.StartsWith(evidenceRoot, StringComparison.OrdinalIgnoreCase) &&
+                !evidence.StartsWith(inputEvidenceRoot, StringComparison.OrdinalIgnoreCase)) ||
                 !Directory.Exists(Path.GetDirectoryName(evidence)) || File.Exists(evidence))
-                throw new ArgumentException("Choose an unused evidence file in the existing scene-integration directory.", nameof(evidencePath));
+                throw new ArgumentException("Choose an unused evidence file in the existing validation directory.", nameof(evidencePath));
             string id = Guid.NewGuid().ToString("N");
             string workspace = Path.GetFullPath("Temp/GameScenesTrack/Reload6/" + id);
             string fixture = "Assets/MyLab/Tests/Fixtures/BootstrapReload-" + id + ".unity";
@@ -109,6 +116,7 @@ namespace MyLab.Core.Tests
             SessionState.SetString(Key + "Workspace", workspace);
             SessionState.SetString(Key + "Evidence", evidence);
             SessionState.SetString(Key + "Fixture", fixture);
+            SessionState.SetBool(Key + "IncludeInput", includeInput);
             SessionState.SetInt(Key + "Step", 0);
             SessionState.SetInt(Key + "Attempted", 0);
             SessionState.SetInt(Key + "Completed", 0);
@@ -124,7 +132,13 @@ namespace MyLab.Core.Tests
                 var installer = host.AddComponent<SceneRootInstallerProbe>();
                 installer.Id = "reload-common";
                 var root = host.AddComponent<SceneOwnedRoot>();
-                root.Configure(new SceneRootInstaller[] { installer });
+                if (includeInput)
+                {
+                    var inputInstaller = host.AddComponent<InputManagerInstaller>();
+                    inputInstaller.Configure(AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/InputSystem_Actions.inputactions"));
+                    root.Configure(new SceneRootInstaller[] { inputInstaller, installer });
+                }
+                else root.Configure(new SceneRootInstaller[] { installer });
                 var callbacks = host.AddComponent<BootstrapReloadCallbacksProbe>();
                 host.AddComponent<BootstrapSystem>().Configure(root, Hub, false, callbacks);
                 host.SetActive(true);
@@ -159,6 +173,7 @@ namespace MyLab.Core.Tests
                     _previousManager = null;
                     _previousBootstrap = null;
                     _previousBootstrapInstanceId = 0;
+                    _previousInput = null;
                     EditorSceneManager.OpenScene(SessionState.GetString(Key + "Fixture", ""), OpenSceneMode.Single);
                 }
                 EditorSettings.enterPlayModeOptionsEnabled = true;
@@ -205,6 +220,10 @@ namespace MyLab.Core.Tests
             BootstrapSystem bootstrap = null;
             SceneOwnedRoot common = null;
             SceneRootInstallerProbe installer = null;
+            InputManagerInstaller inputInstaller = null;
+            InputManager input = null;
+            InputActionAsset inputClone = null;
+            IDisposable gameplay = null;
             int releaseBefore = 0;
             int uninstallBefore = 0;
             bool entered = false;
@@ -251,6 +270,24 @@ namespace MyLab.Core.Tests
                     ", cover=" + coverBefore + ", configure=" + configureBefore +
                     ", presentation=" + presentationBefore + ", reveal=" + revealBefore);
                 Require(common.IsReady && ReferenceEquals(installer.InjectedRoot, common), "Common installation was not restored.");
+                InputActionMap sourceMap = null;
+                bool sourceEnabled = false;
+                if (SessionState.GetBool(Key + "IncludeInput", false))
+                {
+                    inputInstaller = common.GetComponent<InputManagerInstaller>();
+                    input = inputInstaller.Input;
+                    Require(input != null && !input.IsDisposed && !ReferenceEquals(_previousInput, input), "Input scope was not fresh.");
+                    var source = AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/InputSystem_Actions.inputactions");
+                    sourceMap = source.FindActionMap("Player", true);
+                    sourceEnabled = sourceMap.enabled;
+                    inputClone = input.Actions;
+                    Require(inputClone != source && input.Layers.Snapshot.AllInputBlocked, "Input clone or preparation block was missing.");
+                    input.Layers.RegisterLayer("reload-game", new[] { sourceMap.id }, 0, InputLayerMode.Overlay);
+                    gameplay = input.Layers.AcquireLayer("reload-game");
+                    Require(!inputClone.FindActionMap(sourceMap.id).enabled, "Input escaped its preparation block.");
+                    _previousInput = input;
+                    Observe(step + ": inputFresh=true, preparationBlocked=true, cloned=true");
+                }
                 await bootstrap.BootstrapAsync().Timeout(TimeSpan.FromSeconds(20), DelayType.Realtime);
                 Require(bootstrap.Manager != null && bootstrap.GameScene.path == Hub && bootstrap.Manager.CanProceed && common.IsPrepared,
                     "Bootstrap did not publish a prepared fresh game.");
@@ -258,6 +295,16 @@ namespace MyLab.Core.Tests
                     callbacks.ConfigurationCount == configureBefore + 1 && callbacks.PresentationCount == presentationBefore + 1 &&
                     callbacks.RevealCount == revealBefore + 1,
                     "Entry reused historical completion instead of real preparation/load/reveal.");
+                if (input != null)
+                {
+                    inputInstaller.CompletePreparation();
+                    Require(inputClone.FindActionMap(sourceMap.id).enabled && sourceMap.enabled == sourceEnabled,
+                        "Prepared input did not publish independently of the source asset.");
+                    using (input.Layers.BlockAll())
+                        Require(!inputClone.FindActionMap(sourceMap.id).enabled, "Input block failed after reentry.");
+                    Require(inputClone.FindActionMap(sourceMap.id).enabled, "Input lease was not restored after reentry.");
+                    Observe(step + ": inputPrepared=true, leaseRestored=true, sourceUnchanged=true");
+                }
                 if (step % 2 == 1 && (Options[step / 2] & EnterPlayModeOptions.DisableDomainReload) != 0)
                     Require(_previousManager != null && !ReferenceEquals(_previousManager, bootstrap.Manager), "Second entry reused the previous manager.");
                 _previousManager = bootstrap.Manager;
@@ -278,6 +325,14 @@ namespace MyLab.Core.Tests
                 try
                 {
                     if (common != null) await common.ShutdownAsync().Timeout(TimeSpan.FromSeconds(20), DelayType.Realtime);
+                    if (input != null)
+                    {
+                        gameplay?.Dispose();
+                        await UniTask.NextFrame();
+                        Require(input.IsDisposed && inputInstaller.Input == null && inputClone == null,
+                            "Input shutdown retained its scope or native clone.");
+                        Observe("shutdown " + step + ": inputReleased=true, cloneDestroyed=true, lateLeaseSafe=true");
+                    }
                     if (entered)
                     {
                         Require(bootstrap.Manager.State == SceneTransitionState.Stopped && bootstrap.Manager.OwnedScenes.Count == 0 &&
@@ -342,6 +397,7 @@ namespace MyLab.Core.Tests
             var baseline = JsonUtility.FromJson<Baseline>(File.ReadAllText(Path.Combine(workspace, "baseline.json")));
             var result = new Result
             {
+                InputIncluded = SessionState.GetBool(Key + "IncludeInput", false),
                 AttemptedEntries = SessionState.GetInt(Key + "Attempted", 0),
                 CompletedEntries = SessionState.GetInt(Key + "Completed", 0),
                 ErrorStage = SessionState.GetString(Key + "ErrorStage", ""),
@@ -374,6 +430,7 @@ namespace MyLab.Core.Tests
                 _previousManager = null;
                 _previousBootstrap = null;
                 _previousBootstrapInstanceId = 0;
+                _previousInput = null;
             }
             result.Success = result.Error.Length == 0 && result.AttemptedEntries == 8 && result.CompletedEntries == 8 &&
                 result.SettingsRestored && result.StartSceneRestored && result.SceneSetupRestored && result.BuildSettingsRestored &&

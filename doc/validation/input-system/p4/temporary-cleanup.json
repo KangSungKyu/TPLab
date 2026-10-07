@@ -1,0 +1,15 @@
+{
+  "permanentEvidence": "doc/validation/input-system/p4",
+  "editorRetained": 23120,
+  "activeProcessesChecked": true,
+  "preservedRawHashes": 7,
+  "removed": [
+    "Temp\\InputSystemTrack-20261007",
+    "Temp\\GameScenesTrack\\ScenePlayers\\InputP4-Additive",
+    "Temp\\GameScenesTrack\\ScenePlayers\\InputP4-Single",
+    "Temp\\GameScenesTrack\\InputP4-AdditiveRun",
+    "Temp\\GameScenesTrack\\InputP4-SingleRun",
+    "Temp\\GameScenesTrack\\Reload6\\bcd2043f3fd94622b6928c62897283a8",
+    "Temp\\GameScenesTrack\\Reload6\\d681c4c80f7e4d71bac05f537b48f6db"
+  ]
+}

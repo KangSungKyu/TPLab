@@ -1,0 +1,37 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 11,
+  "passes": [
+    "MyLab.Core.Input.Tests.InputRebindingTests.CancelKeyAndOwnerCancellationAreDistinct",
+    "MyLab.Core.Input.Tests.InputRebindingTests.CompositeRootRejectsWhilePartKeepsStableId",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ConcurrentMutationAndInvalidRequestsHaveNoSideEffects",
+    "MyLab.Core.Input.Tests.InputRebindingTests.OwnerDisposalWhileAcquiringBlockIsCancellation",
+    "MyLab.Core.Input.Tests.InputRebindingTests.OwnerShutdownWhileAcquiringBlockIsCancellation",
+    "MyLab.Core.Input.Tests.InputRebindingTests.RemovedCandidateDeviceCancelsWithoutApplying",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SameMapConflictIsRejectedWithoutMutation",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ShutdownSharesDrainAndRejectsLateCommit",
+    "MyLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ValidatorCanReplaceConflictPolicyAndExceptionsLeaveNoOverride"
+  ],
+  "skipped": 0,
+  "total": 11,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Input.Tests.InputRebindingTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 23196,
+    "cliReturnCode": 0,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 23196,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

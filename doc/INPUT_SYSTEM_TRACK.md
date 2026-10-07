@@ -17,17 +17,18 @@
 | 1 layer·소유권 | codex/input-system-p1-layers | 자동 검증 완료 | Red9/실패9; Edit12/12·Play1/1, skip0. [회고](retrospectives/2026-10-07-04-input-layers.md) |
 | 2 rebind | codex/input-system-p2-rebinding | 자동 검증 완료 | 기준 `119dde0`; Red Edit5/실패5·Play5/실패5; Green Edit18·Play10, 실패0/skip0. [회고](retrospectives/2026-10-07-05-input-rebinding.md) |
 | 3 root·UI | codex/input-system-p3-integration | 자동 검증 완료 | 기준 `16daccd`; Red Play3/실패3; Green 입력 Edit18/Play14 + 예제Play2, 실패0/skip0. [회고](retrospectives/2026-10-07-06-input-integration.md) |
-| 4 최종 검증 | codex/input-system-p4-validation | 대기 | 전체 회귀·반복 Play·입력 포함/제외 consumer/Player·최종 사용자 UX |
+| 4 최종 검증 | codex/input-system-p4-validation | 자동 검증 완료·사용자 확인 대기 | Edit258/258·Play217/217, reload8/8, Windows 두 mode 각10, consumer 제외/포함 통과. [증거](validation/input-system/p4/README.md), [회고](retrospectives/2026-10-07-07-input-validation.md) |
 
 ## 담당
 
 | 담당 | 범위 | 상태 |
 |---|---|---|
-| 부모 | 계약·실패 테스트·Unity·리뷰·통합·회고, InputManager | 단계1 구현 중 |
+| 부모 | 계약·실패 테스트·Unity·리뷰·통합·회고, InputManager | 단계1~4 자동 검증 완료·최종 사용자 확인 대기 |
 | /root/input_layers, gpt-6.1-sol / high (2026-10-07) | 재진입·lease 수명 위험에 따른 선택. InputLayerController.cs만 수정; Unity·Git 제외 | 단계1 구현·부모 검증 완료 |
 | /root/input_layers 재사용, gpt-6.1-sol / high (2026-10-07) | 비동기 native 수명·원자적 override 위험. InputRebindingController.cs만 수정; Unity·Git 제외 | 단계2 구현·부모 검증 완료 |
 | /root/input_layers 재사용, gpt-6.1-sol / high (2026-10-07) | 준비/해제·UI lifecycle 수명 위험. InputManagerInstaller.cs·Samples/InputSystemUiScope.cs만; Unity·Git 제외 | 단계3 구현·부모 검증 완료 |
-| /root/input_validation_plan, gpt-6-luna / low (2026-10-07) | 조사 후 확정된 consumer 포함/제외 경로 도구 보완. tools/run_core_consumer.py·ConsumerSmoke.cs·tools/README.md만; Unity·Git 제외 | 도구 구현·self-check 완료, 실제 Unity는 단계4 대기 |
+| /root/input_validation_plan, gpt-6-luna / low (2026-10-07) | 조사 후 확정된 consumer 포함/제외 경로 도구 보완. tools/run_core_consumer.py·ConsumerSmoke.cs·tools/README.md만; Unity·Git 제외 | 도구 구현·self-check와 부모 실제 consumer 검증 완료 |
+| /root/input_layers 재사용, gpt-6.1-sol / high (2026-10-07) | Input runtime·UI/예제 읽기 전용 최종 리뷰, 소스·Unity·Git 변경 금지 | 리뷰 완료; 초기 owner 종료 취소 예외 결함1건을 부모가 Red/Green으로 보완 |
 
 ## 최초 Editor 상태
 
@@ -37,4 +38,4 @@
 
 ## 통합·수락
 
-Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 최종 실제 키 설정·팝업·게임패드/포인터 확인은 마지막에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.
+Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 단계1 `119dde0`, 단계2 `16daccd`, 단계3 `3b0adaa`를 fast-forward로 통합했다. 단계4 최종 commit은 Git 이력/최종 보고에서 확인한다. [최종 실제 키 설정·팝업·장치 확인](INPUT_SYSTEM_ACCEPTANCE.md)은 한 번에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.
