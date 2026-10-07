@@ -15,4 +15,4 @@
 
 사용자 씬·Volume·Render Pipeline·SceneTemplate 변경은 보존한다. 조사 중 별도 Build Settings 변경도 발견했으며 이 작업의 Git stage와 통합 대상에서 제외한다. 로컬 `projectName`의 단일 변경은 명시한 이름 정리 범위다. 원본 보호 해시와 예상 변경은 [보호 입력](preserved-inputs.json), [설정 변경](local-project-setting.json), [정적 결과](static-checks.json)에 기록한다.
 
-Cloud 이름 변경과 Editor 동기화 확인을 완료했다. 현재 범위에 추가 사용자 수락 항목은 없으며 정적 검사·exact commit 원격 검사를 마친 뒤 기존 승인에 따라 main 통합·브랜치 정리를 진행한다.
+Cloud 이름 변경·Editor 동기화·정적 검증·exact commit 원격 검사를 완료했다. 현재 범위에 추가 사용자 수락 항목이 없어 기존 승인에 따라 `9ab359af57471100e531e7d8fcd74a4a3083fdae`까지 main에 fast-forward push하고 서버 일치를 확인했다. [통합 커밋 검사](integrated-commit-ci.json)는 main 비보호·CI 미구성을 확인하며 CI 성공을 의미하지 않는다. 이 마감 기록만 추가한 뒤 최종 main 일치·보호 파일을 재확인하고 해당 작업 브랜치를 정리한다.
