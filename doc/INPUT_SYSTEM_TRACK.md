@@ -38,4 +38,4 @@
 
 ## 통합·수락
 
-Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 단계1 `119dde0`, 단계2 `16daccd`, 단계3 `3b0adaa`를 fast-forward로 통합했다. 단계4 최종 commit은 Git 이력/최종 보고에서 확인한다. [최종 실제 키 설정·팝업·장치 확인](INPUT_SYSTEM_ACCEPTANCE.md)은 한 번에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.
+Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 단계1 `119dde0`, 단계2 `16daccd`, 단계3 `3b0adaa`, 단계4 source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`를 fast-forward로 통합하고 track/Phase4개를 원격에 push했다. 로컬/원격 main은 기준 `ce290878da51c653eaa219aecc45e6bf61ac755a`다. [정확한 source CI 정책](validation/input-system/p4/source-ci-policy.json)은 workflow/check/status/run0, main 무보호·CI 미구성이며 CI 성공은 아니다. [최종 실제 키 설정·팝업·장치 확인](INPUT_SYSTEM_ACCEPTANCE.md)은 한 번에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.

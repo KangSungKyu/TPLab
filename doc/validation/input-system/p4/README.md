@@ -39,6 +39,8 @@ sample Player는 최초 진입·주 씬 왕복·중첩 추가·자기/ancestor �
 
 도구 self-check: test runner의 파서/컴파일 거부, consumer allowlist·포함/제외 gate, Player 결과의 nonzero exact count·mode/version·오류 gate(일반/최적화 Python), hash 정규화를 실행했다. 실제 GitHub CI 정책은 push한 정확한 source commit을 조회한 별도 자료로 기록한다. CI가 미구성이면 이를 CI 성공으로 표현하지 않는다.
 
+source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`를 track에 fast-forward 통합·push했다. [원격 source 정책](source-ci-policy.json)은 workflow/check/status/run 모두0, main 무보호·CI 미구성이다. main tip은 기준 `ce290878da51c653eaa219aecc45e6bf61ac755a`로 유지했다. 사용자 dirty4만 남고 현재 source 입력304개·보호7개는 verifier를 통과했다. 후속 정책·수락 기록 commit은 source/test 변경이 아니다.
+
 재생성 가능한 consumer/Player 출력과 harness 백업은 필요한 영속 자료를 보존하고 실행 종료·원래 bytes 복구를 확인한 뒤 이번 소유 경로만 정리한다. 인간 확인은 기존 Editor sample에서 수행하며 임시 Player 경로에 의존하지 않는다.
 
 소스·문서·JSON 공백 검사는 통과했다. native Player `.log` 원문에는 Unity가 기록한 trailing space가 있어 공백 검사에서 로그만 제외하고 bytes를 보존했다.

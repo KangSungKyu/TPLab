@@ -7,4 +7,5 @@
 - 보존: 사용자 dirty4와 보호7 raw bytes를 유지했다. 테스트 refresh의 Build Settings missing GUID 정규화와 빌드가 만든 clean 설정4개만 원래 검증된 bytes로 복원했다. 기대한 테스트 오류는 보존하고 정상 재진입 이후 새 Console을 별도로 확인했다. 임시 출력은 durable 결과·manifest/lock·Player log·진단 요약을 보존한 뒤 이번 소유 경로만 정리한다.
 - 한계: WindowsMono/Unity6000.3.18f1 한 환경, 가상 Keyboard·native UI module 검증이다. 물리 장치·포인터/touch·시각 UX·다른 Unity/platform·InputUser/파일 저장·강제 double rollback 실패는 미검증 또는 제외다. 소비 build template의 구형 backend API compiler warning과 license 갱신 진단을 BuildReport warning0으로 숨기지 않았다.
 - Git: 단계4를 원본 commit 보존해 track에 통합·push하고 정확한 source commit의 CI 정책을 확인한다. CI 미구성은 CI 성공이 아니다. main은 사용자 확인 대기이며 branch 삭제·PC 종료/절전은 수행하지 않는다.
+- 2026-10-07 마무리: source `9305b5d` track 통합과 Phase4개/track push 완료. 원격 CI 정책은 workflow/check/status/run0, main 무보호·미구성이다. source304·보호7·문서/GUID/verifier 통과, 이번 임시 디렉터리7개 정리, 원래 Editor PID23120/InitScene/idle·background=false를 확인했다. 이 보완은 정책 기록이며 새 runtime 변경이나 테스트 실행이 아니다.
 - 다음: [최종 수락 절차](../INPUT_SYSTEM_ACCEPTANCE.md)로 키 설정·메모리 저장/reset/restore·modal·Single/Additive·실제 장치 결과를 한 번에 확인한다. 명시적 확인과 필요한 자동 gate가 끝나면 최신 main과 통합 후 승인된 작업 브랜치만 정리한다. 진행률/팁·자동/버튼 진행 UI는 별도 설계 단위다.
