@@ -1,0 +1,20 @@
+{
+  "head": "993a0617b8b5253175d9a225432f0aa642d19d3d",
+  "reachableCommitCount": 63,
+  "uniqueBlobsChecked": 1483,
+  "blobBytesChecked": 13907228,
+  "rules": [
+    "github_token",
+    "openai_token",
+    "google_api_key",
+    "aws_access_key",
+    "private_key",
+    "unity_launch_access_token",
+    "bearer_credential",
+    "assigned_secret"
+  ],
+  "findings": [],
+  "workingFindings": [],
+  "selfChecks": 3,
+  "scope": "Pattern scan of all currently reachable local Git refs, plus edited current documentation. Match values never emitted. Not a guarantee that every secret format is covered."
+}

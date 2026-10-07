@@ -1,0 +1,49 @@
+{
+  "baseRevision": "993a0617b8b5253175d9a225432f0aa642d19d3d",
+  "protectedFiles": 6,
+  "unchangedSourceInputs": 317,
+  "documentsChecked": 110,
+  "localLinksChecked": 1141,
+  "license": "MIT for TPLab original code/docs; third parties retain original licenses",
+  "mitTemplateMatches": true,
+  "csvDllSha256": "20101c398654a14bfd42bd78d7281f43197d19b7b3cf41c7aae93f1eaba65a61",
+  "assemblyReferences": {
+    "Core": [
+      "UniTask",
+      "UniTask.Addressables",
+      "Unity.Addressables",
+      "Unity.ResourceManager"
+    ],
+    "Input": [
+      "TPLab.Core",
+      "UniTask",
+      "Unity.InputSystem"
+    ],
+    "Editor": [
+      "TPLab.Core",
+      "UniTask",
+      "Unity.Addressables",
+      "Unity.Addressables.Editor"
+    ]
+  },
+  "runtimeChanges": false,
+  "unityTestsExecuted": 0,
+  "unityBuildsExecuted": 0,
+  "packageInstallationsExecuted": 0,
+  "pipelineImplementation": "NotImplemented",
+  "versionTagCreated": false,
+  "allowedFiles": [
+    "README.md",
+    "AGENTS.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "doc/INDEX.md",
+    "doc/ai/README.md",
+    "doc/CORE_PLAN.md",
+    "doc/DOCUMENTATION_GUIDE.md",
+    "doc/DISTRIBUTION_PIPELINE.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-07-15-distribution-design.md",
+    "doc/validation/distribution-design/"
+  ]
+}

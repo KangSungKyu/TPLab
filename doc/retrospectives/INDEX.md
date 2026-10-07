@@ -87,3 +87,5 @@
 - 2026-10-07 | TPLab 이름 통일 | 완료 / 자동 검증·main 반영 | [기록](2026-10-07-13-tplab-naming.md)
 
 - 2026-10-07 | TPLab 이름·경로 후속 정리 | 완료 / 로컬·Cloud 검증·main 반영 | [기록](2026-10-07-14-tplab-name-cleanup.md)
+
+- 2026-10-07 | 배포 규격·dev-build track·외부 제공 정책 | 설계 작성 / 검증·공개 전환 | [기록](2026-10-07-15-distribution-design.md)

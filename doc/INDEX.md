@@ -19,6 +19,8 @@
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
 | [AGENTS.md](../AGENTS.md) | 모든 작업에서 필수 | 공용 코어 역할·C#·SOLID·TDD·참조 경계·브랜치 판단·검증 후 병합 |
+| [라이선스](../LICENSE) · [제3자 고지](../THIRD_PARTY_NOTICES.md) | 외부 제공·의존성 추가/동봉 | TPLab 자체 MIT와 제3자 원문·버전·배포 범위 구분 |
+| [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md) | 패키지·dev-build·worktree·Release 설계/구현 시작 | 0.0.1 `.tgz`·Core/Input/Editor 분리, source SHA와 실제 artifact 검증, Phase/gate·현재 미구현 상태 |
 | [TPLAB_NAMING.md](TPLAB_NAMING.md) | TPLab 이름·경로·Cloud 설정 확인 | TPLab namespace·assembly·checkout 경로·Cloud 이름과 기록 보존 기준 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |

@@ -18,6 +18,10 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 
 씬 전환 진행률, 선택적 로딩 callback과 자동·수동 진행 대기, 그리고 프로젝트 소유 bar·팁·버튼을 연결한 sample UI가 구현됐다. 2026-10-07 사용자가 로딩 UI를 PlayMode로 확인했다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
 
+## 배포 준비
+
+첫 `0.0.1`의 [배포 규격·dev-build track](doc/DISTRIBUTION_PIPELINE.md)을 작성했다. Core·선택적 Input/Editor의 UPM `.tgz`와 생성 전용 `tplab/` 폴더를 설계했으며, 실제 자동화·패키지·Release는 아직 제공하지 않는다. 현재 설치는 아래 소스 가져오기를 따른다. 외부 제공을 허용하며 TPLab 자체 구현은 MIT로, 제3자는 원문 조건으로 제공한다.
+
 ## 가져오기
 
 확인된 환경은 Unity **6000.3.18f1**, Windows Mono다. UPM 배포 package는 제공하지 않으므로 필요한 소스 폴더를 `.meta`와 함께 가져오고 사용하는 프로젝트의 assembly·설정을 확인한다. 프로젝트 전체 Assets/ProjectSettings/manifest를 덮어쓰는 방식으로 설치하지 않는다.
@@ -70,4 +74,4 @@ P2의 targeted 36/36과 그 이전 Core 252/252·224/224는 역사적 결과다.
 
 ## 라이선스
 
-TPLab 자체의 외부 배포 라이선스/정책은 **미정**이다. 의존성 라이선스는 TPLab 자체 라이선스를 대신하지 않는다. [UniTask](doc/licenses/UniTask-LICENSE.txt), [CsvHelper](Assets/Plugins/CsvHelper/LICENSE.txt), 개발 도구 [Unity CLI](doc/licenses/UnityCli-LICENSE.txt)를 함께 확인한다. Unity package의 배포 조건은 설치한 해당 package의 LICENSE를 따른다. 이 문서 작성은 외부 제공본 배포 완료를 뜻하지 않는다.
+TPLab 자체 코드·문서는 [MIT License](LICENSE)로 제공하며 외부 프로젝트 사용·수정·재배포를 허용한다. [제3자 고지](THIRD_PARTY_NOTICES.md)의 라이선스/저작권 원문은 별도로 유지한다. TPLab의 MIT는 제3자 구성 요소를 재허가하지 않는다. [UniTask](doc/licenses/UniTask-LICENSE.txt), [CsvHelper](Assets/Plugins/CsvHelper/LICENSE.txt), 개발 도구 [Unity CLI](doc/licenses/UnityCli-LICENSE.txt)를 함께 확인한다. Unity package의 배포 조건은 설치한 해당 package의 LICENSE를 따른다. 이 문서 작성은 외부 제공본 배포 완료를 뜻하지 않는다.

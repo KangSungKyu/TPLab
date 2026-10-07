@@ -87,6 +87,14 @@
 - 통합은 원본 commit을 보존하는 fast-forward 또는 일반 merge를 사용한다. track/Phase 브랜치는 최종 main push와 SHA 보존을 확인한 뒤에만 삭제하며, 다른 worktree가 사용 중이면 보류한다.
 - PC 종료 지시는 이번 요청에 한정한다. 구현·자동 검증까지 끝나고 최종 사용자 확인만 대기 중이면 track 결과를 보존하고 Unity를 저장하되 종료하지 않은 채 절전할 수 있다. 작업 또는 테스트가 진행 중이면 절전하지 않는다. 최종 확인·main 통합·정리까지 완료한 경우 Unity 저장 후 정상 종료를 확인하고 PC를 종료한다. Unity 정상 종료가 실패하면 오프라인 전환 후 절전한다.
 
+## 배포 작업
+
+- 패키징·dev-build·Release의 현재 규격/Phase/gate는 [DISTRIBUTION_PIPELINE.md](doc/DISTRIBUTION_PIPELINE.md)를 따른다. 설계 상태와 실제 구현·artifact 설치·Release 발행을 구분한다.
+- 개발 소스는 `Assets/TPLab`, 생성 공간은 배포 worktree의 `tplab/<run-id>`로 분리한다. 명시한 exact source SHA와 clean checkout을 사용하고 다른 작업의 dirty를 원복하거나 배포물에 섞지 않는다.
+- 실제 `.tgz`를 소비 프로젝트에 설치해 검증한다. 기존 소스 복사 소비 실행과 과거 테스트를 현재 artifact 검증으로 대체하지 않는다. 원본 Editor 검증과 독립 batch consumer의 역할을 지킨다.
+- 2026-10-07 사용자는 저장소 public 전환과 외부 제공을 승인했고 참조 의존성의 최소 조건만 유지하도록 요청했다. TPLab 자체 코드/문서는 [MIT](LICENSE), 제3자는 [고지](THIRD_PARTY_NOTICES.md)의 원문 조건을 따른다. 현재/과거 Git 이력의 인증 정보 노출 여부를 공개 전에 확인하고 Cloud/사용자 설정을 보존한다. 실제 artifact 검증이 끝나지 않은 개발 검증본을 최종 Release로 표시하지 않는다.
+- source SHA·version·package hash·실제 결과·tag/Release 대상을 대조한다. 남은 사용자 확인이 있으면 track/main/Release gate를 기다리며, 자동 검증 완료만으로 최종 배포 완료를 선언하지 않는다.
+
 ## Git 작업 시작 전 확인
 
 1. 파일을 수정하기 전에 현재 checkout 경로, 브랜치, HEAD, upstream과 추적·미추적 변경을 확인한다. upstream이 있으면 로컬에서 확인 가능한 ahead/behind 상태도 확인하며, 원격 최신 상태를 확인하지 않았다면 최신이라고 단정하지 않는다.

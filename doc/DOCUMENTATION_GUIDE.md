@@ -75,4 +75,4 @@ AI 문서는 소비 프로젝트의 권한을 부여하지 않는다. 이 저장
 - 외부 제공 전에는 제공할 source/tag 기준으로 설치·최소 예제·문서 링크를 다시 확인하고 사람/AI 문서, 필요한 소스·의존성·라이선스 자료를 함께 제공한다. 제공본 안에서 해결되는 상대 경로를 사용한다. 로컬 절대 경로, `Temp` 자료, 내부 track/회고, 개인 세션이나 인증 정보에 필수 사용법을 의존시키지 않는다.
 - 문서 누락·미검증·지원 제한은 제공본에 표시한다. 배포 도구·자동 API generator·JSON catalog는 실제 반복 필요가 확인될 때 검토한다. 이번 지침 작성 때문에 package·runtime·배포 시스템을 추가하지 않는다.
 
-2026-10-07 후속 단위에서 [사람 README](../README.md), [사람 API](api/README.md), [AI README](ai/README.md), [AI API](ai/api/README.md)를 작성했다. 7개 모듈의 현재 source 계약과 확인된 범위를 기록한다. 실제 외부 제공본 정리·라이선스 확정·수신 프로젝트 검증은 별도 작업이며 문서화만으로 외부 배포 완료를 주장하지 않는다.
+2026-10-07 후속 단위에서 [사람 README](../README.md), [사람 API](api/README.md), [AI README](ai/README.md), [AI API](ai/api/README.md)를 작성했다. 7개 모듈의 현재 source 계약과 확인된 범위를 기록한다. 후속 배포 설계에서는 [MIT](../LICENSE)와 [제3자 고지](../THIRD_PARTY_NOTICES.md), public 전환·외부 제공 정책을 반영했다. 실제 외부 제공본 정리·수신 프로젝트 artifact 검증은 [배포 Phase](DISTRIBUTION_PIPELINE.md)의 후속 작업이며 문서화만으로 외부 배포 완료를 주장하지 않는다.
