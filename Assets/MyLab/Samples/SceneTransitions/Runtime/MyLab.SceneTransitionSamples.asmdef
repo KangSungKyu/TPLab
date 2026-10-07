@@ -1,5 +1,5 @@
 {
     "name": "MyLab.SceneTransitionSamples",
     "rootNamespace": "MyLab.Samples.SceneTransitions",
-    "references": ["MyLab.Core", "UniTask", "Unity.InputSystem", "UnityEngine.UI"]
+    "references": ["MyLab.Core", "MyLab.Core.Input", "UniTask", "Unity.InputSystem", "UnityEngine.UI"]
 }

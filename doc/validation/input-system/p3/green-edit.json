@@ -1,0 +1,44 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 18,
+  "passes": [
+    "MyLab.Core.Input.Tests.InputLayerTests.CloneKeepsSourceDisabledAndResolvesReferenceById",
+    "MyLab.Core.Input.Tests.InputLayerTests.EmptyBlockingLayerSuppressesLowerMap",
+    "MyLab.Core.Input.Tests.InputLayerTests.ForeignAssetReferenceAndMissingActionAreRejected",
+    "MyLab.Core.Input.Tests.InputLayerTests.InvalidAndOverlappingRegistrationHasNoActivationSideEffects",
+    "MyLab.Core.Input.Tests.InputLayerTests.NestedLayersAndOutOfOrderDisposalRecalculateRemainingOwnership",
+    "MyLab.Core.Input.Tests.InputLayerTests.ObserverFailureStopsAllMapsAndInvalidatesExistingLeases",
+    "MyLab.Core.Input.Tests.InputLayerTests.ObserverRefreshConvergesAndNativeChangesAreReconciled",
+    "MyLab.Core.Input.Tests.InputLayerTests.OverlaysShareInputAndWholeScopeBlocksRemainIndependent",
+    "MyLab.Core.Input.Tests.InputLayerTests.PreparationBlockDoesNotFreezeRegistrationAndSnapshotsAreDetached",
+    "MyLab.Core.Input.Tests.InputLayerTests.SamePriorityUsesLatestRemainingLeaseAndDuplicateDisposalIsSafe",
+    "MyLab.Core.Input.Tests.InputLayerTests.ShutdownBlocksNewWorkAndLateLeasesAreHarmless",
+    "MyLab.Core.Input.Tests.InputLayerTests.WorkerThreadCannotMutateScopeOrConsumeALease",
+    "MyLab.Core.Input.Tests.InputOverrideTests.EmptyNativeJsonRoundTripsAndIndependentBlockRemainsHeld",
+    "MyLab.Core.Input.Tests.InputOverrideTests.ImportExportResetPreserveSourceAndCurrentLayers",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"{}\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"[]\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"not json\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.UnknownAndDuplicateBindingIdsCannotPartiallyApply"
+  ],
+  "skipped": 0,
+  "total": 18,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Input.Tests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 26940,
+    "cliReturnCode": 0,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 26940,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

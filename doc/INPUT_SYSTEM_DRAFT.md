@@ -1,6 +1,6 @@
-# Unity Input System wrapper 설계 초안
+# Unity Input System wrapper 계약과 사용
 
-작성일: 2026-10-07. **Input System 전용 지원은 사용자 확정 정책**이다. 아래 타입·API·기본 동작·Phase는 검토 제안이며 미구현이다. 설계 문서의 병합은 runtime 구현이나 계약 승인 완료를 의미하지 않는다.
+작성일: 2026-10-07. **Input System 전용 지원은 사용자 확정 정책**이다. 단계1~3의 아래 API·기본 동작을 구현하고 집중 자동 검증했다. 전체 회귀·reload·소비 프로젝트/Player·최종 사용자 확인은 [구현 track](INPUT_SYSTEM_TRACK.md)을 따른다.
 
 ## 지원 정책과 현재 근거
 
@@ -32,6 +32,7 @@ layer/rebind 요청과 결과는 필요한 작은 값 타입으로 정의하고 
 4. 등록 Map은 해당 controller가 단독으로 활성화를 관리한다. 같은 clone을 두 controller나 PlayerInput과 공동 소유하지 않는다. 자동 활성화하는 project-wide Actions/PlayerInput을 관리 Map에 중복 연결하지 않는다. PlayerInput 지원 어댑터는 1차 범위 밖이다.
 5. SceneOwnedRoot/SingletonSceneRoot 모두 기존 installer로 지원하고 singleton은 필수가 아니다. 공용 root scope를 빌리는 게임 씬은 종료 시 자기 layer lease·구독만 해제한다. manager 자체를 종료하지 않는다.
 6. 시작 시 준비 차단 lease를 잡고 설정·저장 override 검증/복원·소비자 주입 후 준비를 완료한다. gameplay layer는 최종 진행을 허용하는 프로젝트 지점에서 획득한다. 준비 완료만으로 gameplay를 자동 활성화하지 않는다.
+   `InputManagerInstaller`의 Inspector Source 또는 `Configure(source)`로 원본을 지정한다. `Input`을 빌린 소비 installer가 layer/JSON/구독을 구성한다. `root.PrepareAsync()` 완료 후 `CompletePreparation()`을 명시적으로 호출해 installer의 차단만 해제한다. 다른 installer의 비동기 준비 중에는 이 API가 거부된다.
 7. 종료는 신규 요청 거부 → layer 전체 차단 → 진행 중 rebind 취소·완료 대기 → 구독/operation 정리 → UI 참조 분리 → clone Disable/Destroy 순서다. Uninstall/OnDestroy에도 즉시 idempotent 정리를 지원하고 늦은 후보를 commit하지 않는다. 원본 clone 구분과 반복 Play/Domain Reload도 검증한다.
 
 ## layer 계산과 해제 계약
@@ -68,10 +69,13 @@ layer/rebind 요청과 결과는 필요한 작은 값 타입으로 정의하고 
 3. `OnApplyBinding`을 이용해 자동 적용을 대체하고 후보 path만 캡처한다. 프로젝트 validator는 commit 전에 Allow/Reject를 반환한다. delegate 예외는 실패로 전달하며 후보를 적용하지 않는다. UI 표시와 게임 동작은 callback 내부에서 실행하지 않는다.
 4. 기본 충돌 정책 제안은 같은 Map·교차하는 binding group에서 동일 effectivePath를 가진 다른 binding을 거부하는 것이다. group이 비어 있으면 전체와 교차하는 것으로 본다. 다른 Map에 같은 키를 쓰는 것은 허용한다. 정확히 같은 path 비교는 wildcard·modifier/composite·장치 alias의 의미상 충돌 검출을 보장하지 않는다. 프로젝트가 validator로 범위/허용 정책을 명시적으로 바꿀 수 있으며 자동 교환은 하지 않는다.
 5. 선택한 버튼 control은 해제를 기다린 뒤 생존·취소·binding ID를 다시 확인하고 단일 override를 commit한다. 후보 선택 이후의 해제 대기도 요청 timeout·취소 범위다. 선택 장치 제거는 취소하며 기본 설정을 유지한다. 버튼 외 연속 입력의 neutral 대기 정책은 프로젝트 요청에 명시한다.
+   native 기본 event suppression은 버튼 state 관찰을 막으므로 비활성화한다. 관리 Map은 BlockAll로 차단한다. OnPotentialMatch에서 후보 장치를 저장하고 제거 때 즉시 native 취소하여 제거된 장치 ID를 나중에 조회하지 않는다.
 6. 완료/거부/취소/실패 모든 경로에서 operation Dispose와 rebind 소유 BlockAll 해제를 보장한다. 이때 현재 layer를 재계산하므로 rebind 도중 열린 다른 팝업이나 씬 전환 차단은 유지한다. operation callback 내 예외는 완료 소스에 전달하고 정리 누락을 막는다.
 7. 결과는 Applied/Rejected/Cancelled/TimedOut을 구분한다. 취소 키·timeout은 해당 결과이고 caller/owner CancellationToken 취소는 OperationCanceledException이다. 설정/ID/정책 예외는 예외로 전달한다. commit 직전까지 기존 override를 보존하며 commit 후의 늦은 취소는 이미 완료된 적용을 되돌리지 않는다.
 
 `ExportOverridesJson`/`ImportOverridesJson`/`ResetBinding`/`ResetAll`은 Unity override API를 사용한다. Export는 현재 확정값만 읽는다. Import/Reset은 rebind 진행 중 거부하고 mutation 동안 전체 차단 lease를 사용한다. JSON 검증은 임시 clone에서 먼저 수행하고, 적용 실패 시 기존 override snapshot으로 복원한다. 복원까지 실패하면 입력 차단을 유지하는 fault 상태로 전환하고 양쪽 예외를 보고한다. 초기 버전은 존재하지 않는 Action/binding GUID를 조용히 무시하지 않고 오류로 보고한다.
+
+null JSON은 거부하고 native Export의 빈 문자열은 기본값 복원으로 roundtrip한다. 필수 native string 필드·Action 경로·서로 다른 known binding GUID를 검증한다. JsonUtility가 추가로 알 수 없는 object 필드를 무시하는 동작은 유지한다. Export는 후보 선택 중 기존 확정값을 읽을 수 있지만 native commit/rollback 중 재진입은 거부한다. `TimeoutSeconds=0`은 deadline을 사용하지 않는다.
 
 파일 I/O·PlayerPrefs·프로필 선택·자동 저장은 프로젝트가 맡는다. 저장 envelope의 프로젝트 schema 버전과 GUID migration 역시 프로젝트 책임이다. 입력 asset 재생성으로 GUID가 바뀐 설정을 자동 추측해 매핑하지 않는다. UI의 키 이름은 native `GetBindingDisplayString`을 사용하고 아이콘·로컬라이징은 프로젝트에 둔다.
 
@@ -82,11 +86,11 @@ layer/rebind 요청과 결과는 필요한 작은 값 타입으로 정의하고 
 - 기본 UI 입력과 gameplay 입력은 자동으로 상호 배제되지 않는다. `InputSystemUIInputModule`과 CanvasGroup/포커스를 연결하는 프로젝트 소유 어댑터를 예제로 제공한다. 코어는 EventSystem/uGUI/UI Toolkit에 의존하지 않는다.
 - 어댑터는 원본 asset의 ActionReference를 그대로 연결하지 않고 manager clone의 Action을 사용한다. UI module 재활성화가 Map을 자동 Enable하는 문제를 포함해 adapter가 module lifecycle을 조정하고 controller 상태를 다시 적용한다. module이 임의로 다른/default asset을 만들지 않게 한다.
 - UI Map 비활성/전체 차단 중에는 module도 비활성화하고 포인터 click/submit 상태·포커스를 정리한다. 복원은 module 설정/활성화 뒤 layer 상태를 다시 반영한다. 새 팝업을 연 submit/click이 같은 프레임에 닫기 동작으로 전달되는지 PlayMode에서 확인한다. Map 차단만으로 이미 처리 중인 UI 이벤트나 IMGUI/직접 장치 읽기까지 취소한다고 주장하지 않는다.
-- 기존 `SceneTransitionSampleController`에는 clone·transition/modal 독립 차단의 작은 예시가 있다. wrapper가 준비된 후 해당 예시를 연결하여 중복 bool 기반 처리를 줄이되 이번 설계 작업에서 수정하지 않는다.
+- `SceneTransitionSampleController`를 InputManager와 gameplay/UI/modal/transition lease에 연결했다. UI Map은 프로젝트 정책상 blockers보다 위에 둔다. `InputSystemUiScope`는 clone의 UI 참조를 빌리고 전체 차단 시 module·focus를 정리한다. 복원은 다음 프레임 이후 click/submit control release를 확인한다. UI focus 재선택과 caller-created InputActionReference 파괴는 프로젝트 책임이며 어댑터는 manager를 종료하지 않는다.
 
 ## 사용 흐름 제안
 
-아래는 검토용 의사 코드이며 현재 컴파일 가능한 API가 아니다. 생성·등록은 공용 installer가, lease와 구독은 해당 소비자가 소유한다.
+아래는 구현된 API의 사용 흐름이다. map ID·request·파일 저장은 프로젝트에서 제공한다. 생성·등록은 공용 installer가, lease와 구독은 해당 소비자가 소유한다.
 
 ```csharp
 // input은 공용 root에서 주입받은 InputManager다.
@@ -117,4 +121,4 @@ if (result.Status == RebindStatus.Applied)
 
 동작 구현은 각 단위의 실패 테스트 실행 → 최소 구현 → 정리 순서로 진행한다. native Input System은 가상 Keyboard/Gamepad를 사용하는 Unity Test Framework 검증을 우선 사용하고 실제 UI/frame 순서는 PlayMode로 확인한다. 테스트 fixture는 생성 장치를 제거하고 전역 Input System 설정/기존 장치를 보존한다. 제품 Console·Player·최종 사람이 확인하는 키 설정/팝업 UX는 자동 테스트와 구분한다.
 
-현재 완료는 전용 정책 기록과 설계 초안 작성뿐이다. wrapper 소스·assembly·installer·UI adapter·Editor gate·새 테스트·소비 프로젝트/Player 검증은 미구현/미실행이다. 구현 요청 전 타입/API/기본 충돌 정책은 검토 제안으로 유지한다.
+집중 검증: 단계1~3 입력 Edit18/Play14와 기존 씬 예제 Play2, 실패0·skip0. 이는 전체 회귀·실제 화면/장치 UX 확인을 대체하지 않는다. `SceneTransitionSampleController` Inspector context menu의 Input/Rebind Attack Keyboard·Save/Restore Overrides In Memory·Reset Overrides가 프로젝트 UI/저장 책임을 확인하는 최소 예제다. 저장은 해당 Play session 메모리만 사용한다.

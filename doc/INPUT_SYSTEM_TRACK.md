@@ -16,7 +16,7 @@
 | 0 운영 | codex/input-system-track | 준비 완료 | 운영 commit `80d657a`, 보호 hash와 동일 Editor 확인 |
 | 1 layer·소유권 | codex/input-system-p1-layers | 자동 검증 완료 | Red9/실패9; Edit12/12·Play1/1, skip0. [회고](retrospectives/2026-10-07-04-input-layers.md) |
 | 2 rebind | codex/input-system-p2-rebinding | 자동 검증 완료 | 기준 `119dde0`; Red Edit5/실패5·Play5/실패5; Green Edit18·Play10, 실패0/skip0. [회고](retrospectives/2026-10-07-05-input-rebinding.md) |
-| 3 root·UI | codex/input-system-p3-integration | 대기 | 준비/전환/팝업·native UI adapter·예제·회귀 |
+| 3 root·UI | codex/input-system-p3-integration | 자동 검증 완료 | 기준 `16daccd`; Red Play3/실패3; Green 입력 Edit18/Play14 + 예제Play2, 실패0/skip0. [회고](retrospectives/2026-10-07-06-input-integration.md) |
 | 4 최종 검증 | codex/input-system-p4-validation | 대기 | 전체 회귀·반복 Play·입력 포함/제외 consumer/Player·최종 사용자 UX |
 
 ## 담당
@@ -26,6 +26,7 @@
 | 부모 | 계약·실패 테스트·Unity·리뷰·통합·회고, InputManager | 단계1 구현 중 |
 | /root/input_layers, gpt-6.1-sol / high (2026-10-07) | 재진입·lease 수명 위험에 따른 선택. InputLayerController.cs만 수정; Unity·Git 제외 | 단계1 구현·부모 검증 완료 |
 | /root/input_layers 재사용, gpt-6.1-sol / high (2026-10-07) | 비동기 native 수명·원자적 override 위험. InputRebindingController.cs만 수정; Unity·Git 제외 | 단계2 구현·부모 검증 완료 |
+| /root/input_layers 재사용, gpt-6.1-sol / high (2026-10-07) | 준비/해제·UI lifecycle 수명 위험. InputManagerInstaller.cs·Samples/InputSystemUiScope.cs만; Unity·Git 제외 | 단계3 구현·부모 검증 완료 |
 | /root/input_validation_plan, gpt-6-luna / low (2026-10-07) | 조사 후 확정된 consumer 포함/제외 경로 도구 보완. tools/run_core_consumer.py·ConsumerSmoke.cs·tools/README.md만; Unity·Git 제외 | 도구 구현·self-check 완료, 실제 Unity는 단계4 대기 |
 
 ## 최초 Editor 상태

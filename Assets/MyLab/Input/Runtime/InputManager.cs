@@ -26,6 +26,9 @@ namespace MyLab.Core.Input
         /// <summary>Owns native rebinding and binding override transactions for this scope.</summary>
         public InputRebindingController Rebinding { get; }
 
+        /// <summary>Whether graceful or immediate shutdown has begun; no new work is accepted afterward.</summary>
+        public bool IsDisposed => _disposed;
+
         /// <summary>Creates a disabled scope from a borrowed source asset without modifying the source.</summary>
         public InputManager(InputActionAsset source)
         {

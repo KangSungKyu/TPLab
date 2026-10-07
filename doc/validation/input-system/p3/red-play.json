@@ -1,0 +1,29 @@
+{
+  "total": 3,
+  "passed": 0,
+  "failed": 3,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Input.Tests.InputIntegrationTests.SceneOwnedScopeWaitsForRootAndPublishesExplicitly: Unhandled log message: '[Exception] NotImplementedException: The method or operation is not implemented.'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "MyLab.Core.Input.Tests.InputIntegrationTests.SingletonScopeUsesSameExplicitPublicationContract: Unhandled log message: '[Exception] NotImplementedException: The method or operation is not implemented.'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "MyLab.Core.Input.Tests.InputIntegrationTests.WholeScopeBlockDisablesUiModuleAndReactivationCannotBypassIt: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Input.Tests.InputIntegrationTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 7736,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 7736,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

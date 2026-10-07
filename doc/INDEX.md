@@ -25,7 +25,7 @@
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |
 | [SCENE_ROOT.md](SCENE_ROOT.md) | InitScene 같은 root의 소유 방식·installer·참조 주입·Editor 설정 | SceneOwned/Singleton 선택, Inspector·script 연결과 동기 주입 |
-| [INPUT_SYSTEM_DRAFT.md](INPUT_SYSTEM_DRAFT.md) | 공용 입력·Input System 전용 정책·키 변경·layer·씬/UI 연결 설계 | 설계 초안: asset 소유권, lease 기반 차단/복원, 리바인딩·저장 경계와 단계별 검증; 미구현 |
+| [INPUT_SYSTEM_DRAFT.md](INPUT_SYSTEM_DRAFT.md) | 공용 입력·Input System 전용 정책·키 변경·layer·씬/UI 연결 | 구현 계약: clone 소유권, layer lease, native 리바인딩/JSON, root/UI 경계; 최종 gate는 track |
 | [INPUT_SYSTEM_TRACK.md](INPUT_SYSTEM_TRACK.md) | 입력 wrapper 구현 배정·단계별 통합·현재 검증/장애 확인 | 구현 단계·소유권·보호 파일·실제 실행 gate·최종 사용자 확인 |
 | [ASYNC_SCENE_LIFECYCLE.md](ASYNC_SCENE_LIFECYCLE.md) | async 준비·해제·취소·씬 진행·가림막 callback 변경 | 준비/종료 순서·실패 rollback·표시 보호·전환 소유권 |
 | [GAME_SCENE_MANAGER_DRAFT.md](GAME_SCENE_MANAGER_DRAFT.md) | 전환 Phase·Single/Additive·구역 graph·조건·UI·해제/취소 설계 | 공용 수명 선택, 전환 graph와 수명 tree, 책임·실패 경계·단계별 완료 조건 |

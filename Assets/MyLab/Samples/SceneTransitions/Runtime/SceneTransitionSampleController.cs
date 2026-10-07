@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyLab.Core.Lifecycle;
+using MyLab.Core.Input;
 using MyLab.Core.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,7 +27,13 @@ namespace MyLab.Samples.SceneTransitions
         [SerializeField] private Text _modalMessage;
         [SerializeField] private Button[] _buttons = Array.Empty<Button>();
         [SerializeField] private Button _closeModal;
-        private InputActionAsset _ownedInput;
+        private InputManager _input;
+        private InputSystemUiScope _uiScope;
+        private IDisposable _gameplayLease;
+        private IDisposable _uiLease;
+        private IDisposable _modalLease;
+        private IDisposable _transitionLease;
+        private string _savedOverrides;
         private InputActionMap _player;
         private InputActionMap _ui;
         private bool _gameplayReady;
@@ -51,6 +58,8 @@ namespace MyLab.Samples.SceneTransitions
         } = true;
         public bool PlayerInputEnabled => _player != null && _player.enabled;
         public bool UiInputEnabled => _ui != null && _ui.enabled;
+        /// <summary>Borrowed sample scope for a project settings view; this controller owns its lifetime.</summary>
+        public InputManager Input => _input;
         public GameSceneManager Manager => _bootstrap != null ? _bootstrap.Manager : null;
         public int CoverCount
         {
@@ -150,7 +159,7 @@ namespace MyLab.Samples.SceneTransitions
 
         private void Update()
         {
-            if (_bootstrap == null || _ownedInput == null) return;
+            if (_bootstrap == null || _input == null) return;
             RefreshGameplayPermission(Manager != null && Manager.CanProceed);
             bool ready = Manager != null && Manager.CanProceed && !TransitionBlocked && !ModalBlocked;
             for (int i = 0; i < _buttons.Length; i++)
@@ -179,15 +188,19 @@ namespace MyLab.Samples.SceneTransitions
         /// <summary>Clones project actions, binds the real UI module and borrows explicit views once.</summary>
         public void ConfigureView(InputActionAsset source, CanvasGroup cover, CanvasGroup modal, InputSystemUIInputModule module)
         {
-            if (_ownedInput != null) throw new InvalidOperationException("Configure the sample view once.");
+            if (_input != null) throw new InvalidOperationException("Configure the sample view once.");
             if (source == null || cover == null || modal == null || module == null) throw new ArgumentException("Explicit sample input and views are required.");
             _cover = cover;
             _modal = modal;
-            _ownedInput = Instantiate(source);
-            _ownedInput.Disable();
-            _player = _ownedInput.FindActionMap("Player", true);
-            _ui = _ownedInput.FindActionMap("UI", true);
-            module.actionsAsset = _ownedInput;
+            module.enabled = false;
+            _input = new InputManager(source);
+            _player = _input.Actions.FindActionMap("Player", true);
+            _ui = _input.Actions.FindActionMap("UI", true);
+            _input.Layers.RegisterLayer("gameplay", new[] { _player.id }, 0, InputLayerMode.Overlay);
+            _input.Layers.RegisterLayer("ui", new[] { _ui.id }, 2000, InputLayerMode.Overlay);
+            _input.Layers.RegisterLayer("modal", Array.Empty<Guid>(), 100, InputLayerMode.BlockLower);
+            _input.Layers.RegisterLayer("transition", Array.Empty<Guid>(), 1000, InputLayerMode.BlockLower);
+            module.actionsAsset = _input.Actions;
             module.point = Reference("Point");
             module.leftClick = Reference("Click");
             module.rightClick = Reference("RightClick");
@@ -196,7 +209,9 @@ namespace MyLab.Samples.SceneTransitions
             module.move = Reference("Navigate");
             module.submit = Reference("Submit");
             module.cancel = Reference("Cancel");
-            _ui.Enable();
+            _uiScope = module.gameObject.AddComponent<InputSystemUiScope>();
+            _uiScope.Bind(_input, module, _ui.id);
+            _uiLease = _input.Layers.AcquireLayer("ui");
             SetVisible(_cover, false);
             SetVisible(_modal, false);
         }
@@ -205,14 +220,33 @@ namespace MyLab.Samples.SceneTransitions
         public void RefreshGameplayPermission(bool canProceed)
         {
             _gameplayReady = canProceed;
-            if (_player == null) return;
-            if (_gameplayReady && !TransitionBlocked && !ModalBlocked) _player.Enable();
-            else _player.Disable();
+            if (_input == null || _input.IsDisposed)
+            {
+                return;
+            }
+            if (_gameplayReady)
+            {
+                _gameplayLease ??= _input.Layers.AcquireLayer("gameplay");
+            }
+            else
+            {
+                _gameplayLease?.Dispose();
+                _gameplayLease = null;
+            }
         }
         /// <summary>Owns only modal blocking and focus; closing never releases transition-owned blocking.</summary>
         public void SetModalOpen(bool open)
         {
             ModalBlocked = open;
+            if (open)
+            {
+                _modalLease ??= _input.Layers.AcquireLayer("modal");
+            }
+            else
+            {
+                _modalLease?.Dispose();
+                _modalLease = null;
+            }
             SetVisible(_modal, open);
             RefreshGameplayPermission(_gameplayReady);
             if (_closeModal != null && UnityEngine.EventSystems.EventSystem.current != null)
@@ -244,6 +278,7 @@ namespace MyLab.Samples.SceneTransitions
         {
             CoverCount++;
             TransitionBlocked = true;
+            _transitionLease ??= _input.Layers.AcquireLayer("transition");
             SetVisible(_cover, true);
             RefreshGameplayPermission(_gameplayReady);
             return UniTask.CompletedTask;
@@ -263,6 +298,8 @@ namespace MyLab.Samples.SceneTransitions
             RevealCount++;
             TransitionBlocked = false;
             SetVisible(_cover, false);
+            _transitionLease?.Dispose();
+            _transitionLease = null;
             RefreshGameplayPermission(_gameplayReady);
         }
         public override void OnFailure(Exception exception)
@@ -443,6 +480,58 @@ namespace MyLab.Samples.SceneTransitions
             _ownedReferences.Add(reference);
             return reference;
         }
+
+        [ContextMenu("Input/Rebind Attack Keyboard")]
+        private void RebindAttackKeyboard() => RebindAttackKeyboardAsync().Forget(exception => Status(exception.Message));
+
+        private async UniTask RebindAttackKeyboardAsync()
+        {
+            var attack = _player.FindAction("Attack", true);
+            int bindingIndex = -1;
+            for (int i = 0; i < attack.bindings.Count; i++)
+            {
+                if (attack.bindings[i].path.StartsWith("<Keyboard>/", StringComparison.Ordinal))
+                {
+                    bindingIndex = i;
+                    break;
+                }
+            }
+            if (bindingIndex < 0)
+            {
+                throw new InvalidOperationException("The sample needs a keyboard Attack binding.");
+            }
+            Status("Press and release a keyboard key. Escape cancels; timeout is 15 seconds.");
+            var result = await _input.Rebinding.RebindAsync(new RebindRequest(attack.id, attack.bindings[bindingIndex].id)
+            {
+                ControlPath = "<Keyboard>", BindingGroup = "Keyboard&Mouse", TimeoutSeconds = 15
+            }, this.GetCancellationTokenOnDestroy());
+            Status(result.Status + ": " + attack.GetBindingDisplayString(bindingIndex));
+        }
+
+        [ContextMenu("Input/Save Overrides In Memory")]
+        private void SaveInputOverrides()
+        {
+            _savedOverrides = _input.Rebinding.ExportOverridesJson();
+            Status("Input overrides saved in sample memory.");
+        }
+
+        [ContextMenu("Input/Restore Overrides From Memory")]
+        private void RestoreInputOverrides()
+        {
+            if (_savedOverrides == null)
+            {
+                throw new InvalidOperationException("Save overrides in this Play session first.");
+            }
+            _input.Rebinding.ImportOverridesJson(_savedOverrides);
+            Status("Saved input overrides restored.");
+        }
+
+        [ContextMenu("Input/Reset Overrides")]
+        private void ResetInputOverrides()
+        {
+            _input.Rebinding.ResetAll();
+            Status("Input overrides reset to the source defaults.");
+        }
         private static void SetVisible(CanvasGroup group, bool visible)
         {
             group.alpha = visible ? 1 : 0;
@@ -451,9 +540,22 @@ namespace MyLab.Samples.SceneTransitions
         }
         private void OnDestroy()
         {
-            if (_ownedInput != null) _ownedInput.Disable();
-            foreach (var reference in _ownedReferences) if (reference != null) Destroy(reference);
-            if (_ownedInput != null) Destroy(_ownedInput);
+            if (_uiScope != null)
+            {
+                _uiScope.Unbind();
+            }
+            if (_player != null)
+            {
+                _player.FindAction("Attack", true).performed -= OnGameplayInput;
+            }
+            _input?.Dispose();
+            foreach (var reference in _ownedReferences)
+            {
+                if (reference != null)
+                {
+                    Destroy(reference);
+                }
+            }
         }
     }
 
