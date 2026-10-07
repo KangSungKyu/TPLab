@@ -1,6 +1,6 @@
 # 씬 전환 진행률·로딩 화면·진행 대기 계약
 
-2026-10-07. 사용자 요청을 반영한 계약 및 구현 현황이다. progress snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기와 프로젝트 소유 sample UI가 구현됐다. 별도 Unity 로딩 씬은 만들지 않는다. 현재 P4 결과는 [검증 기록](validation/scene-loading/p4/README.md)에 둔다. 최종 visual UX와 물리 장치 확인은 사용자 확인 대기다.
+2026-10-07. 사용자 요청을 반영한 계약 및 구현 현황이다. progress snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기와 프로젝트 소유 sample UI가 구현됐다. 별도 Unity 로딩 씬은 만들지 않는다. 현재 P4 결과는 [검증 기록](validation/scene-loading/p4/README.md)에 둔다. 2026-10-07 사용자의 로딩 UI PlayMode 확인으로 최종 사용자 gate를 완료했다. 개별 모드·해상도·장치별 결과는 제공되지 않았다.
 
 선행 계약은 [GameSceneManager](GAME_SCENE_MANAGER_DRAFT.md), [씬 로더](SCENE_LOADING.md), [씬 준비·해제](ASYNC_SCENE_LIFECYCLE.md), [입력 wrapper 초안](INPUT_SYSTEM_DRAFT.md)이다. 기존 가림막만 사용하는 전환도 유지하고 로딩 화면은 명시적으로 선택한다.
 
@@ -93,6 +93,6 @@ flowchart TD
 |---|---|---|
 | 1 진행률 | stage snapshot·선택적 loader progress, 기존 호출 호환 | 구현. P1 결과는 [track](SCENE_LOADING_TRACK.md) 참조 |
 | 2 표시 흐름·3 진행 대기 | 선택적 callback, 두 번의 cover, 자동/수동 wait, 실패 복구와 모드별 정책 | 구현. final targeted Play36/36; core Edit252/252·Play224/224는 최종 경계 추가 전; [evidence](validation/scene-loading/p2/) |
-| 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·Player | 구현 및 자동 검증 완료: Edit271/271·Play253/253, Windows Mono Additive/Single build와 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. 최종 UX/물리 장치 사용자 확인 대기 |
+| 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·Player | 구현 및 자동 검증 완료: Edit271/271·Play253/253, Windows Mono Additive/Single build와 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. 사용자 PlayMode 확인 완료; 개별 장치/해상도 coverage 미기록 |
 
 현재 P4 전체 회귀는 Edit271/271·Play253/253(실패0·skip0), Additive/Single Windows Mono build·Player는 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공했다([P4 evidence](validation/scene-loading/p4/README.md)). P2 targeted 36/36 및 이전 Core 252/224 수치는 과거 단계 결과다. 자동 검증 완료는 최종 visual UX 사용자 확인을 대신하지 않으며 물리 장치·원격 Addressables content/download·IL2CPP는 미검증이다.

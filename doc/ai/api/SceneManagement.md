@@ -7,7 +7,7 @@
 | SourcePath | [소스](../../../Assets/MyLab/Core/SceneManagement), [asmdef](../../../Assets/MyLab/Core/MyLab.Core.asmdef) |
 | HumanContract | [사람용 API](../../api/SceneManagement.md), [manager](../../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../../BOOTSTRAP_SYSTEM.md), [로더](../../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
-| Evidence | 현재 P4 전체 Edit271/271·Play253/253(실패0/skip0), Additive/Single Windows Mono build 및 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. [P4 증거](../../validation/scene-loading/p4/README.md). 최종 visual UX는 사용자 확인 대기. |
+| Evidence | 현재 P4 전체 Edit271/271·Play253/253(실패0/skip0), Additive/Single Windows Mono build 및 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. [P4 증거](../../validation/scene-loading/p4/README.md). UserAcceptance: user PlayMode confirmation 2026-10-07; per-mode/device/resolution results unspecified. |
 
 ## Symbol / Signature / Constraints
 
@@ -209,7 +209,7 @@ common installer에서 entry/self-prepare await, hook에서 같은 manager comma
 
 opt-in load에서 manager는 `UsesLoadingPresentation`을 한 번 평가한다. 흐름: 기존 `ShowCoverAsync` → `PrepareLoadingPresentationAsync` → `RevealLoadingPresentationAsync`(가림막만 숨기고 transition input lease 유지) → load/configure/prepare → `AwaitingProceed` → `WaitForProceedAsync` → live policy 재검사 → `ShowCoverAsync` 재호출 → 이전 root 마무리 → 가림막 아래 `ReleaseLoadingPresentationAsync` 1회 → 기존 최종 `HideCoverAsync`(게임 공개 및 transition lease 해제). 기본값은 `UsesLoadingPresentation=false`, 완료된 `WaitForProceedAsync`다.
 
-`Single` 교체는 native load 전 기존 root를 종료하므로 종료된 root의 condition을 재평가하지 않는다. `Additive`는 수동 대기 중 이전 root를 유지하고 중복 명령을 거부하며, 두 번째 가림막 이후 해제 전에 이전 root condition을 재검사한다. UI 공개 뒤 실패/취소 시 가림막 복구, candidate 정리, presentation release를 한 번씩 시도하고 오류를 aggregate한다. rollback은 보장하지 않는다. callback/UI hierarchy는 영향받는 씬보다 오래 살아야 하며 `Single`은 persistent common root 아래에 둔다. 프로젝트 sample UI 통합은 구현됐으며 최종 시각 UX는 사용자 확인 대기다.
+`Single` 교체는 native load 전 기존 root를 종료하므로 종료된 root의 condition을 재평가하지 않는다. `Additive`는 수동 대기 중 이전 root를 유지하고 중복 명령을 거부하며, 두 번째 가림막 이후 해제 전에 이전 root condition을 재검사한다. UI 공개 뒤 실패/취소 시 가림막 복구, candidate 정리, presentation release를 한 번씩 시도하고 오류를 aggregate한다. rollback은 보장하지 않는다. callback/UI hierarchy는 영향받는 씬보다 오래 살아야 하며 `Single`은 persistent common root 아래에 둔다. 프로젝트 sample UI 통합은 구현됐으며 2026-10-07 사용자가 로딩 UI PlayMode 확인을 전달했다.
 
 확인 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono. 전체 p4 및 sample smoke가 다른 Unity/IL2CPP/플랫폼·원격 bundle download·임의 presentation/물리 입력 UX를 증명하지 않는다. core runtime UI/Input dependency 없음. 기존 Bootstrap path/source overload 및 Deprecated adapter 호환을 유지한다.
 

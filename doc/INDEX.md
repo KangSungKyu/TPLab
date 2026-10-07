@@ -38,7 +38,7 @@
 | [BOOTSTRAP_SYSTEM.md](BOOTSTRAP_SYSTEM.md) | 최초 씬 root·목적지·Single/Additive·공용 수명·취소/종료·Editor/빌드 gate 변경 | GameSceneManager/BootstrapSystem API·상태와 기존 callback 호환, Inspector와 컴파일 후·Play·실제 build list 검증 |
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [SCENE_LOADING.md](SCENE_LOADING.md) | Build/Addressables 씬 대상·로더 선택·개별 결과 소유권 변경 | 명시적 backend, 실제 Scene instance, native 해제와 manager 정책의 경계 |
-| [SCENE_LOADING_PRESENTATION_DRAFT.md](SCENE_LOADING_PRESENTATION_DRAFT.md) | 로딩 진행률·게임 팁·자동/버튼 진행 대기·중간 가림막 전환 설계 | 구현 완료: 프로젝트 UI callback, native/준비 진행률 구분, 자동/수동 진행, 입력 차단·실패 정리; 최종 사용자 확인 대기 |
+| [SCENE_LOADING_PRESENTATION_DRAFT.md](SCENE_LOADING_PRESENTATION_DRAFT.md) | 로딩 진행률·게임 팁·자동/버튼 진행 대기·중간 가림막 전환 설계 | 구현 완료: 프로젝트 UI callback, native/준비 진행률 구분, 자동/수동 진행, 입력 차단·실패 정리; 최종 사용자 PlayMode 확인 완료 |
 | [ResourceManager 검증](validation/resource-manager/README.md) | ResourceManager 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·native fixture·컴파일/Console·증거·미검증 경계 |
 | [DATA_TABLE_MANAGER.md](DATA_TABLE_MANAGER.md) | CSV 등록·스키마·키·교차 검증·snapshot 공개·재로드·취소 변경 | DataTableManager 소유권·전체 후보 검증과 root 주입 |
 | [DATA_TABLE_MAPPING_DRAFT.md](DATA_TABLE_MAPPING_DRAFT.md) | 기본 DTO·표준 테이블·CsvHelper 자동 매핑·인터페이스 연결 검토 | 구현 계약: 기본 DTO·테이블·명시적 이름/계약 매핑·세대별 소유권 |
@@ -91,7 +91,7 @@
 - [GameSceneManager/BootstrapSystem](api/SceneManagement.md)의 최초 진입·교체·구역·정의/조건·Editor는 구현했다. [최종 track](SCENE_TRANSITION_TRACK.md)은 완료 기록이며 새 작업의 승인/검증을 대신하지 않는다.
 - [Input wrapper](api/Input.md)는 구현·자동 검증과 2026-10-07 사용자 수락을 완료했다. 현재 통합 상태는 [입력 track](INPUT_SYSTEM_TRACK.md)을 따른다.
 - Windows Mono 소비 프로젝트 가져오기·최소 예제·Player는 실제 실행했다. 다른 버전·플랫폼·IL2CPP와 외부 배포 준비 전체를 통과로 확대하지 않는다.
-- 로딩 progress·팁·자동/버튼 진행 대기 callback과 프로젝트 UI 예제는 [현재 계약](SCENE_LOADING_PRESENTATION_DRAFT.md)에 구현돼 있다. [최종 사용자 확인](SCENE_LOADING_ACCEPTANCE.md)은 대기 중이다.
+- 로딩 progress·팁·자동/버튼 진행 대기 callback과 프로젝트 UI 예제는 [현재 계약](SCENE_LOADING_PRESENTATION_DRAFT.md)에 구현돼 있다. [최종 사용자 확인](SCENE_LOADING_ACCEPTANCE.md)은 2026-10-07 PlayMode 확인으로 완료됐다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.
 
 ## 입구와 유지 규칙

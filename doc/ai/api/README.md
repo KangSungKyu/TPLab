@@ -14,4 +14,4 @@ SourceRevision: `18d479bf07fe8479a22187ec7357024e9979d096`. [AI README](../READM
 
 항목 이름: Module/Namespace/Assembly, SourceRevision/SourcePath/HumanContract, ImplementationStatus/ValidationStatus/Evidence, Symbol/Signature/Constraints, Inputs/Outputs/Errors, Ownership/Lifecycle/Threading, Concurrency/Cancellation/FailureCleanup, Configuration/ExtensionPoints, RequiredSequence/ForbiddenUsage, Example/Compatibility/Limitations.
 
-상태는 서로 대체하지 않는다. Implemented는 소스가 존재함, Verified/Partial/NotRun은 증거 범위다. 로딩 progress는 Resources optional backend 경계, 표시/진행 대기 callback은 SceneManagement 계약에 포함한다. 프로젝트 UI는 Core 소유가 아니며 [최종 사용자 확인](../../SCENE_LOADING_ACCEPTANCE.md)은 대기 중이다. 세부 XML 계약과 변경이 생기면 해당 모듈의 양쪽 문서를 동시에 갱신한다.
+상태는 서로 대체하지 않는다. Implemented는 소스가 존재함, Verified/Partial/NotRun은 증거 범위다. 로딩 progress는 Resources optional backend 경계, 표시/진행 대기 callback은 SceneManagement 계약에 포함한다. 프로젝트 UI는 Core 소유가 아니며 [최종 사용자 확인](../../SCENE_LOADING_ACCEPTANCE.md)은 2026-10-07 사용자 PlayMode 확인으로 완료됐다. 세부 XML 계약과 변경이 생기면 해당 모듈의 양쪽 문서를 동시에 갱신한다.

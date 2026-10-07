@@ -1,0 +1,9 @@
+{
+  "phaseTips": {
+    "codex/scene-loading-p1-progress": "8f3bfdefebb283ebca84fd6b78d9ab376923ebe7",
+    "codex/scene-loading-p2-flow": "07273a4ed4a8e0656e49d7b8fdbe897b32bc5f5e",
+    "codex/scene-loading-p4-sample": "e4d1f560ee6c73a4af7374bc9fb98eff729a27ea"
+  },
+  "trackBeforeAcceptanceCommit": "e4d1f560ee6c73a4af7374bc9fb98eff729a27ea",
+  "remoteMainBeforeIntegration": "32e6cac1e80c95ec38033f95310f7ac2459e095f"
+}

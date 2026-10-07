@@ -35,3 +35,7 @@ Additive와 Single 각각에서 자동 진행과 수동 진행을 확인한다. 
 ## 결과 기록
 
 자동 Player smoke의 12개 structural observation은 실제 장치 입력·시각 UX의 PASS가 아니다. Synthetic/native input tests도 실제 gamepad/pointer 상호작용 증거가 아니다. Additive/Single 및 Automatic/Manual 각 조합, stage progress/tips, release 후 fresh input, modal overlap, 해상도별 fullscreen을 실제 확인한 항목별로 기록한다. 실패·미실행은 각각 그대로 남기고, 확인이 끝날 때까지 acceptance 완료로 처리하지 않는다.
+
+## 2026-10-07 사용자 확인
+
+사용자가 로딩 UI를 PlayMode로 확인했다고 전달해 최종 사용자 gate를 완료했다. 개별 모드·해상도·물리 장치별 결과는 제공되지 않았으므로 이 문서의 각 항목을 일괄 PASS로 표시하지 않는다. 기존 자동/Player 증거의 범위와 미검증 호환성 한계는 유지한다. [최종 통합 기록](validation/scene-loading/integration/README.md)을 따른다.

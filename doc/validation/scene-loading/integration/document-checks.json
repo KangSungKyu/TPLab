@@ -1,0 +1,25 @@
+{
+  "documents": [
+    "README.md",
+    "doc/CORE_PLAN.md",
+    "doc/INDEX.md",
+    "doc/SCENE_LOADING.md",
+    "doc/SCENE_LOADING_ACCEPTANCE.md",
+    "doc/SCENE_LOADING_PRESENTATION_DRAFT.md",
+    "doc/SCENE_LOADING_TRACK.md",
+    "doc/ai/README.md",
+    "doc/ai/api/README.md",
+    "doc/ai/api/SceneManagement.md",
+    "doc/api/README.md",
+    "doc/api/SceneManagement.md",
+    "doc/retrospectives/2026-10-07-12-scene-loading-sample-validation.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/validation/scene-loading/integration/README.md",
+    "doc/validation/scene-loading/p4/README.md"
+  ],
+  "linksVerified": true,
+  "runtimeChanges": false,
+  "newUnityTestsExecuted": 0,
+  "currentConsoleErrorsAndWarnings": 0,
+  "userAcceptance": "PlayMode confirmation 2026-10-07; device/mode/resolution details unspecified"
+}

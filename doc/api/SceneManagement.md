@@ -11,7 +11,7 @@
 | 계약 원문 | [씬 관리](../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../BOOTSTRAP_SYSTEM.md), [로더](../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | AI 참조 | [SceneManagement](../ai/api/SceneManagement.md) |
 
-현재 소스에는 파생 tree·정의·조건 runtime, progress snapshot, opt-in 표시/진행 대기와 프로젝트 소유 sample UI가 구현되어 있다. P4 Edit271/271·Play253/253, Windows Mono Additive/Single build·Player(각 12/12), Input 포함 consumer Editor build 1회와 Player run 1회는 [P4 증거](../validation/scene-loading/p4/README.md)에 기록한다. 최종 시각 UX는 사용자 확인 대기다.
+현재 소스에는 파생 tree·정의·조건 runtime, progress snapshot, opt-in 표시/진행 대기와 프로젝트 소유 sample UI가 구현되어 있다. P4 Edit271/271·Play253/253, Windows Mono Additive/Single build·Player(각 12/12), Input 포함 consumer Editor build 1회와 Player run 1회는 [P4 증거](../validation/scene-loading/p4/README.md)에 기록한다. 2026-10-07 사용자의 로딩 UI PlayMode 확인으로 사용자 gate를 완료했다.
 
 ## 구성·소유권·준비
 
@@ -282,9 +282,9 @@ if (!completed)
 
 ## 검증·호환성·한계
 
-[역사적 입력 P4](../validation/input-system/p4/README.md)는 이전 source의 Edit258/258·Play217/217과 reload/consumer 범위를 기록한다. 현재 SceneManagement P4 결과는 Edit271/271·Play253/253(실패0·skip0), Windows Mono Additive/Single build와 Player 각 12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공이다([현재 증거](../validation/scene-loading/p4/README.md)). P2 targeted 36/36과 이전 252/224 수치는 역사적 결과다. 화면의 최종 시각 UX와 물리 장치 사용성은 사용자 확인 전이다. 문서 예제 발췌는 계속 NotRun이다.
+[역사적 입력 P4](../validation/input-system/p4/README.md)는 이전 source의 Edit258/258·Play217/217과 reload/consumer 범위를 기록한다. 현재 SceneManagement P4 결과는 Edit271/271·Play253/253(실패0·skip0), Windows Mono Additive/Single build와 Player 각 12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공이다([현재 증거](../validation/scene-loading/p4/README.md)). P2 targeted 36/36과 이전 252/224 수치는 역사적 결과다. 사용자의 로딩 UI PlayMode 확인은 완료됐으며 개별 모드·해상도·물리 장치 결과는 기록되지 않았다. 문서 예제 발췌는 계속 NotRun이다.
 
-확인 환경은 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono다. 다른 Unity·IL2CPP·플랫폼, 원격 Addressables download, 실제 P4 로딩 UI/물리 입력 UX는 미검증이다. `BootstrapCallbacks`는 Deprecated 호환 타입이며 새 코드는 `SceneTransitionCallbacks.ConfigureSceneAsync`를 사용한다. SceneRootFlow/Lifecycle의 기존 준비·종료 계약은 유지한다. UI·bar·tips·button input 구현은 소비 프로젝트가 소유한다.
+확인 환경은 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono다. 다른 Unity·IL2CPP·플랫폼, 원격 Addressables download와 개별 물리 장치·해상도 coverage는 미검증이다. `BootstrapCallbacks`는 Deprecated 호환 타입이며 새 코드는 `SceneTransitionCallbacks.ConfigureSceneAsync`를 사용한다. SceneRootFlow/Lifecycle의 기존 준비·종료 계약은 유지한다. UI·bar·tips·button input 구현은 소비 프로젝트가 소유한다.
 
 ## Progress와 선택적 로딩 표시/대기
 
