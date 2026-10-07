@@ -1,0 +1,37 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 11,
+  "passes": [
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.AutomaticContinuationDoesNotWaitForHeldSubmitOrPointerRelease",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.CancelledWaitReleasesListenersWithoutReleasingTransition",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedContinueButtonFailsPendingWait",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedUiOwnerCancelsPendingWait",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.EarlyAndDuplicateClicksDoNotCompleteLaterOperation",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldGamepadSubmitRequiresReleaseThenFreshSubmit",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.LoadingRevealKeepsTransitionAndIndependentModalLeases",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.ProgressShowsStageRatioAndUnknownWorkWithoutChangingActivePolicy",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming"
+  ],
+  "skipped": 0,
+  "total": 11,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 25184,
+    "cliReturnCode": 0,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 25184,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

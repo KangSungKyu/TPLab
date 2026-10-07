@@ -1,0 +1,1 @@
+compiling=False;updating=False;playing=False;scene=Assets/Scenes/InitScene.unity

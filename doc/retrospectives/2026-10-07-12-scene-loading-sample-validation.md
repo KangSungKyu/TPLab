@@ -14,3 +14,5 @@
 - 한계: 실제 장치·해상도·화면 순서 UX, 원격 Addressables content, IL2CPP/다른 Unity·플랫폼 미실행. native Player는 자동 흐름 구조 확인이며 수동 화면 확인을 대체하지 않는다. Unity 재로드 요청 CLI 응답 timeout 자체는 reload 성공 증거로 삼지 않고 이후 fresh12 결과와 원본Editor readiness를 사용했다.
 - Git: P4를 track에 fast-forward 통합하고 phase/track을 push한다. main 병합·branch 삭제는 최종 사용자 확인까지 보류한다. 사용자 소유 새 세션이나 PC 종료/절전은 이번 요청에 포함하지 않는다.
 - 다음: 사용자가 최종 화면 확인 항목을 확인하면 최신 main 동기화·영향 검증 후 승인된 main 병합과 작업 branch 정리를 진행한다.
+
+보완: SourceRevision `18d479bf07fe8479a22187ec7357024e9979d096`는 runtime `91d6f16`과 새 README.meta 공백 정리다. 해당 metadata 변화는 동작/테스트 대상 변화가 아니다. snapshot317/보호7·GUID·문서링크 검사 통과, 사용자 변경4만 보존한다. exact source GitHub 검사에서 CI미구성(workflow/check/status/run0)을 확인했으며 CI통과로 표현하지 않았다. 영속 로그 보존 후 이번 Temp 출력과 Python cache만 제거했다.

@@ -31,8 +31,8 @@ public interface ISceneProgressLoader : ISceneLoader
 }
 ```
 
-`SceneLoadProgressObserver.Report`는 Unity main thread에서 동기로 실행되고 첫 callback 예외를 보관한다. UI observer 실패만으로 native load나 성공한 씬 결과의 소유권을 버리지 않는다. GameSceneManager는 `LoadedScene`을 먼저 소유한 다음 observer 예외를 확인하고 candidate cleanup을 실행한다. P2에서 표시 수명과 자동/수동 진행 대기를 이 경계 위에 구현했다. targeted 결과와 남은 sample/Player gate는 [SCENE_LOADING_TRACK.md](SCENE_LOADING_TRACK.md)에 기록한다.
+`SceneLoadProgressObserver.Report`는 Unity main thread에서 동기로 실행되고 첫 callback 예외를 보관한다. UI observer 실패만으로 native load나 성공한 씬 결과의 소유권을 버리지 않는다. GameSceneManager는 `LoadedScene`을 먼저 소유한 다음 observer 예외를 확인하고 candidate cleanup을 실행한다. P2에서 표시/자동·수동 진행 대기를 구현했고 P4 sample UI 통합까지 완료했다. 현재 P4 전체 회귀, 두 모드 Windows Mono Player, Input 포함 consumer Player 결과는 [P4 기록](validation/scene-loading/p4/README.md)에 둔다. 최종 UX는 사용자 확인 대기다.
 
 Build 대상은 실제 Player build scene list 포함 여부, Addressable은 설치된 Addressables 설정의 단일 씬 매핑을 검사한다. 양쪽 모두 실제 SceneAsset/root/공용 수명 모순을 확인하며 주소 씬에 Build Scene 포함을 강제하지 않는다.
 
-P0는 target 잘못된 입력, 명시적 로더 선택, 결과 해제 공유/실패, caller/owner 취소, late completion, 실제 Native/Addressables 씬 load/unload와 기존 Bootstrap 회귀를 검증한다. 실제 콘텐츠 빌드·Player/원격 다운로드·최종 Inspector/UX 확인은 P6 증거 및 사용자 확인과 별개다. 설치된 Addressables 2.9.1의 [씬 로드](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/manual/LoadingScenes.html)와 [해제 API](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/api/UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync.html)를 따른다.
+실제 P4는 Windows Mono의 두 모드 Player 및 scene-loading sample을 확인했다. 실제 consumer Addressables catalog/content·원격 다운로드, IL2CPP·다른 플랫폼과 최종 시각/입력 UX는 미검증이며 사용자 확인 대기다. 설치된 Addressables 2.9.1의 [씬 로드](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/manual/LoadingScenes.html)와 [해제 API](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/api/UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync.html)를 따른다.

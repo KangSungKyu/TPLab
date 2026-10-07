@@ -2,9 +2,9 @@
 
 **Module / Namespace / Assembly:** Resources / `MyLab.Core.ResourceManagement` / `MyLab.Core`
 
-**SourceRevision / SourcePath / HumanContract:** `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`; [`ResourceManager.cs`](../../../Assets/MyLab/Core/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../../Assets/MyLab/Core/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../../Assets/MyLab/Core/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../../Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../../Assets/MyLab/Core/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../../Assets/MyLab/Core/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../../Assets/MyLab/Core/ResourceManagement/LoadedScene.cs); [`Resources.md`](../../api/Resources.md).
+**SourceRevision / SourcePath / HumanContract:** `18d479bf07fe8479a22187ec7357024e9979d096`; [`ResourceManager.cs`](../../../Assets/MyLab/Core/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../../Assets/MyLab/Core/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../../Assets/MyLab/Core/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../../Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../../Assets/MyLab/Core/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../../Assets/MyLab/Core/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../../Assets/MyLab/Core/ResourceManagement/LoadedScene.cs); [`Resources.md`](../../api/Resources.md).
 
-**ImplementationStatus / ValidationStatus / Evidence:** Implemented / Partial. 현행 source revision의 Unity `6000.3.18f1` Windows Mono 전체 회귀는 [EditMode 258/258](../../validation/input-system/p4/full-EditMode.json), [PlayMode 217/217](../../validation/input-system/p4/full-PlayMode.json); 실행 범위는 [P4 기록](../../validation/input-system/p4/README.md). Windows Mono 소비 Editor build와 Player도 성공했으나 ResourceManager smoke는 빈 manager 종료만 확인: [최종 소비 결과](../../validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json). 실제 소비 프로젝트 Addressables catalog/content 및 원격 다운로드는 검증하지 않음. IL2CPP·다른 플랫폼 미실행.
+**ImplementationStatus / ValidationStatus / Evidence:** Implemented / Partial. 현재 P4의 Unity `6000.3.18f1` Windows Mono 전체 회귀는 Edit271/271, Play253/253(실패0·skip0); Additive/Single build·Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공: [P4 기록](../../validation/scene-loading/p4/README.md). ResourceManager smoke는 빈 manager 종료만 확인. 실제 consumer Addressables catalog/content와 원격 다운로드, IL2CPP·다른 플랫폼은 검증하지 않음.
 
 **Symbol / Signature / Constraints:**
 
@@ -68,12 +68,38 @@ public bool IsUnloaded { get; }
 
 **Concurrency / Cancellation / FailureCleanup:** ResourceManager는 초기화와 key/type별 native load를 공유. caller 취소는 대기 전용, owner 종료는 영구적이며 대기자 취소. `ShutdownAsync`는 취소 불가이며 모든 native operation/handle release까지 대기. Background/thread-safe API 아님. Scene loader native 작업은 취소 불가; manager/caller는 늦게 도착한 `LoadedScene` 결과의 소유권을 보관하고 정리해야 함. `LoadedScene.UnloadAsync` 동시/후속 호출은 동일 operation과 실패를 공유하며 retry 안 함. loader는 `LoadedScene`에 소유권을 넘기기 전 부분 backend 자원을 정리.
 
-**Configuration / ExtensionPoints:** 소비 프로젝트가 Addressables runtime data/catalog와 고유 에셋 address를 설정. catalog update/download는 요청하지 않음. Native 씬은 enabled Player build scene에 등록. Addressables 씬은 정확히 하나의 scene location으로 해석되는 address/reference와 정규화된 `Assets/.../*.unity` path 필요. `SceneTarget.ValidateScenePath`는 `//`, `\\`, `:`, CR/LF/TAB, `.`/`..` 구간 거부; 모든 제어 문자를 검사하지는 않음. `ResourceManagerInstaller`는 consumer installer보다 먼저 root 순서에 배치하고 `Resources`를 명시 주입. 정상 종료에서 consumer pool을 먼저 정리하고 manager를 마지막 drain. Custom `ISceneLoader`는 side effect 전에 target 검증, 정확한 씬 인스턴스만 언로드하는 uncancelled delegate를 가진 `LoadedScene` 반환, 자기 backend 자원만 release. 진행률/로딩 화면 UI API 없음.
+**Configuration / ExtensionPoints:** 소비 프로젝트가 Addressables runtime data/catalog와 고유 에셋 address를 설정. catalog update/download는 요청하지 않음. Native 씬은 enabled Player build scene에 등록. Addressables 씬은 정확히 하나의 scene location으로 해석되는 address/reference와 정규화된 `Assets/.../*.unity` path 필요. `SceneTarget.ValidateScenePath`는 `//`, `\\`, `:`, CR/LF/TAB, `.`/`..` 구간 거부; 모든 제어 문자를 검사하지는 않음. `ResourceManagerInstaller`는 consumer installer보다 먼저 root 순서에 배치하고 `Resources`를 명시 주입. 정상 종료에서 consumer pool을 먼저 정리하고 manager를 마지막 drain. Custom `ISceneLoader`는 side effect 전에 target 검증, 정확한 씬 인스턴스만 언로드하는 uncancelled delegate를 가진 `LoadedScene` 반환, 자기 backend 자원만 release. Optional `ISceneProgressLoader` exposes scene-load stage progress; `ResourceManager` has no scene-loading presentation UI API.
 
-**RequiredSequence / ForbiddenUsage:** 에셋: Addressables 구성 → manager 설치/주입 → `LoadAssetAsync<T>` await → borrower 중지·clone 정리 → `ShutdownAsync` await. 최초 에셋 로드 전에 `InitializeAsync`는 선택. 씬: 명시 `SceneTarget` 생성 → 검증 → 로드 → 반환 `LoadedScene` 보관 → 해당 owner로 `UnloadAsync` await. 에셋 캐시와 씬 handle 혼용, borrowed asset destroy/release, 같은 key에 복수 타입 요청, background thread에서 manager 사용, 실제 owner scene 대신 path unload, private handle 별도 release, cancellation이 native 작업까지 중단한다고 가정, 진행 UI API를 있다고 주장 금지.
+**RequiredSequence / ForbiddenUsage:** 에셋: Addressables 구성 → manager 설치/주입 → `LoadAssetAsync<T>` await → borrower 중지·clone 정리 → `ShutdownAsync` await. 최초 에셋 로드 전에 `InitializeAsync`는 선택. 씬: 명시 `SceneTarget` 생성 → 검증 → 로드 → 반환 `LoadedScene` 보관 → 해당 owner로 `UnloadAsync` await. 에셋 캐시와 씬 handle 혼용, borrowed asset destroy/release, 같은 key에 복수 타입 요청, background thread에서 manager 사용, 실제 owner scene 대신 path unload, private handle 별도 release, cancellation이 native 작업까지 중단한다고 가정. `ResourceManager` asset cache에 scene/loading UI API를 넣지 않는다. Scene progress는 optional `ISceneProgressLoader`, loading presentation은 SceneManagement callbacks의 책임이다.
 
 **Example / Compatibility / Limitations:** 사람용 계약 예제는 설명 발췌이며 NotRun. 이 source revision에서 확인한 migration 변경 없음. 검증은 현재 명시한 Unity/Windows Mono 범위로 제한. test provider와 빈 manager shutdown은 실제 Addressables content/원격 다운로드 검증이 아님.
 
 ## 진행률 확장 (2026-10-07 P1)
 
-두 기본 loader는 ISceneProgressLoader를 구현하며 기존 LoadAsync(target, mode)는 유지한다. 추가 overload는 SceneLoadProgressObserver를 받는다. SceneLoadProgress.Stage는 ResolvingTarget/LoadingScene이고 Ratio는 finite0..1이며 전체 준비/다운로드 bytes 비율이 아니다. observer의 callback 예외는 Failure에 첫1개 보존하고 native 완료를 중단하지 않는다. 반환 LoadedScene을 먼저 소유한 뒤 Failure를 확인하여 결과를 정리한다. null/Dispose는 통지만 억제하며 native 취소가 아니다. 통지는 동기 메인 스레드다. Native AsyncOperation.progress/Addressables PercentComplete를 읽는다. Green Edit13/13, core Play210/210, failed0/skip0. 원격 다운로드·다른 플랫폼은 미검증이다.
+두 기본 loader는 선택적 `ISceneProgressLoader`를 구현하며 기존 `ISceneLoader.LoadAsync(target, mode)`를 보존한다. 아래 public API는 발췌(NotRun)다.
+
+```csharp
+public interface ISceneProgressLoader : ISceneLoader
+{
+    UniTask<LoadedScene> LoadAsync(SceneTarget target, LoadSceneMode mode,
+        SceneLoadProgressObserver observer);
+}
+
+public enum SceneLoadStage { ResolvingTarget, LoadingScene }
+public readonly struct SceneLoadProgress
+{
+    public SceneLoadStage Stage { get; }
+    public float Ratio { get; }
+    public SceneLoadProgress(SceneLoadStage stage, float ratio);
+}
+
+public sealed class SceneLoadProgressObserver : IDisposable
+{
+    public SceneLoadProgressObserver(Action<SceneLoadProgress> onProgress);
+    public Exception Failure { get; private set; }
+    public void Report(SceneLoadProgress progress);
+    public void Dispose();
+}
+```
+
+`Ratio`는 finite 0..1 stage 값이며 전체 준비/download bytes 비율이 아니다. Observer callback 예외는 최초 하나를 `Failure`에 담고 native 작업을 중단하지 않는다. Owner는 성공 `LoadedScene`을 먼저 소유한 뒤 failure를 확인하고 결과를 정리한다. null/Dispose는 통지만 끄며 native 취소가 아니다. callback은 동기 main-thread다. Native `AsyncOperation.progress`와 Addressables `PercentComplete`를 보고한다. 원격 다운로드와 다른 플랫폼은 미검증이다.

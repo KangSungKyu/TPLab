@@ -1,6 +1,6 @@
 # 씬 전환 진행률·로딩 화면·진행 대기 계약
 
-2026-10-07. 사용자 요청을 반영한 계약 및 구현 현황이다. 진행 snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기는 P1/P2에서 구현됐다. 로딩 화면의 bar·게임 팁·버튼 등 실제 UI는 프로젝트가 callback으로 소유한다. 별도 Unity 로딩 씬은 만들지 않는다. P2 targeted 결과는 [track](SCENE_LOADING_TRACK.md); sample UI·Player·최종 UX는 P4에서 확인한다. SceneManagement 문서의 최종 SourceRevision은 검증 tip 확정 뒤 기록한다.
+2026-10-07. 사용자 요청을 반영한 계약 및 구현 현황이다. progress snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기와 프로젝트 소유 sample UI가 구현됐다. 별도 Unity 로딩 씬은 만들지 않는다. 현재 P4 결과는 [검증 기록](validation/scene-loading/p4/README.md)에 둔다. 최종 visual UX와 물리 장치 확인은 사용자 확인 대기다.
 
 선행 계약은 [GameSceneManager](GAME_SCENE_MANAGER_DRAFT.md), [씬 로더](SCENE_LOADING.md), [씬 준비·해제](ASYNC_SCENE_LIFECYCLE.md), [입력 wrapper 초안](INPUT_SYSTEM_DRAFT.md)이다. 기존 가림막만 사용하는 전환도 유지하고 로딩 화면은 명시적으로 선택한다.
 
@@ -93,6 +93,6 @@ flowchart TD
 |---|---|---|
 | 1 진행률 | stage snapshot·선택적 loader progress, 기존 호출 호환 | 구현. P1 결과는 [track](SCENE_LOADING_TRACK.md) 참조 |
 | 2 표시 흐름·3 진행 대기 | 선택적 callback, 두 번의 cover, 자동/수동 wait, 실패 복구와 모드별 정책 | 구현. final targeted Play36/36; core Edit252/252·Play224/224는 최종 경계 추가 전; [evidence](validation/scene-loading/p2/) |
-| 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·최종 UX | 진행 중. 전체 Input/sample 회귀, 반복 Play, 두 모드 Player, 실제 입력 장치 및 최종 사용자 확인 대기 |
+| 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·Player | 구현 및 자동 검증 완료: Edit271/271·Play253/253, Windows Mono Additive/Single build와 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. 최종 UX/물리 장치 사용자 확인 대기 |
 
-P1 progress와 P2 표시/대기 흐름은 구현됐다. targeted `GameSceneReplacementTests` 최종 PlayMode Green 36/36, 실패0·skip0: [final result](validation/scene-loading/p2/green-final-flow.json). 초기 targeted Red 21/28 (7 failures)은 [여기](validation/scene-loading/p2/red-flow.json)에 보존한다. Core Edit252/252·Play224/224 통과 결과는 마지막 edge 추가 전 실행이며 최종 source 전체 회귀가 아니다. P4 sample UI Red는 0/8 ([result](validation/scene-loading/p4/red-ui.json)); 전체 Input/sample 회귀·Player·실제 표시 UX는 아직 완료되지 않았다.
+현재 P4 전체 회귀는 Edit271/271·Play253/253(실패0·skip0), Additive/Single Windows Mono build·Player는 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공했다([P4 evidence](validation/scene-loading/p4/README.md)). P2 targeted 36/36 및 이전 Core 252/224 수치는 과거 단계 결과다. 자동 검증 완료는 최종 visual UX 사용자 확인을 대신하지 않으며 물리 장치·원격 Addressables content/download·IL2CPP는 미검증이다.

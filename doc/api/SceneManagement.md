@@ -6,12 +6,12 @@
 |---|---|
 | Namespace / Assembly | `MyLab.Core.SceneManagement` / `MyLab.Core` |
 | 의존성 | Unity, UniTask 2.5.11, Addressables 2.9.1. [asmdef](../../Assets/MyLab/Core/MyLab.Core.asmdef) 참조. Core runtime에는 UI/Input 의존성이 없다. |
-| SourceRevision | P4 historical baseline `9305b5dd0f730636f431fd5d19a1c9102fdc3bed` (현재 P2 source 아님); P2 최종 tip은 부모가 [track](../SCENE_LOADING_TRACK.md)에 확정 예정 |
+| SourceRevision | `18d479bf07fe8479a22187ec7357024e9979d096` |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
 | 계약 원문 | [씬 관리](../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../BOOTSTRAP_SYSTEM.md), [로더](../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | AI 참조 | [SceneManagement](../ai/api/SceneManagement.md) |
 
-기존 명세의 과거 단계 표현과 달리 현재 소스에는 파생 tree·정의·조건 runtime, progress snapshot 및 opt-in 로딩 표시/진행 대기 흐름이 구현되어 있다. 실제 bar·tips·button UI는 프로젝트 callback 소유다. P2 targeted/core test 증거는 [track](../SCENE_LOADING_TRACK.md)에 있으며 P4 sample/UI/Player 검증은 진행 중이다.
+현재 소스에는 파생 tree·정의·조건 runtime, progress snapshot, opt-in 표시/진행 대기와 프로젝트 소유 sample UI가 구현되어 있다. P4 Edit271/271·Play253/253, Windows Mono Additive/Single build·Player(각 12/12), Input 포함 consumer Editor build 1회와 Player run 1회는 [P4 증거](../validation/scene-loading/p4/README.md)에 기록한다. 최종 시각 UX는 사용자 확인 대기다.
 
 ## 구성·소유권·준비
 
@@ -282,13 +282,13 @@ if (!completed)
 
 ## 검증·호환성·한계
 
-[이전 source의 P4](../validation/input-system/p4/README.md)는 `9305b5d...` 전체 Edit258/258·Play217/217(실패0·skip0), reload8/8, Additive/Single sample Windows Mono build/Player와 별도 Core consumer를 기록한다. 이는 현재 P2 source 결과나 SceneManagement 전용 test count가 아니다. 현재 최종 P2 targeted `GameSceneReplacementTests` Play 36/36, 실패0·skip0: [final evidence](../validation/scene-loading/p2/green-final-flow.json). Core Edit252/252·Play224/224는 마지막 경계 테스트 추가 전 실행됐다. P4 sample UI의 첫 Red는 0/8이며 [결과](../validation/scene-loading/p4/red-ui.json), 프로젝트 UI 구현·전체 Input/sample 회귀·Player·최종 표시 UX는 아직 미완료다. 예제 발췌도 미실행이다.
+[역사적 입력 P4](../validation/input-system/p4/README.md)는 이전 source의 Edit258/258·Play217/217과 reload/consumer 범위를 기록한다. 현재 SceneManagement P4 결과는 Edit271/271·Play253/253(실패0·skip0), Windows Mono Additive/Single build와 Player 각 12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공이다([현재 증거](../validation/scene-loading/p4/README.md)). P2 targeted 36/36과 이전 252/224 수치는 역사적 결과다. 화면의 최종 시각 UX와 물리 장치 사용성은 사용자 확인 전이다. 문서 예제 발췌는 계속 NotRun이다.
 
 확인 환경은 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono다. 다른 Unity·IL2CPP·플랫폼, 원격 Addressables download, 실제 P4 로딩 UI/물리 입력 UX는 미검증이다. `BootstrapCallbacks`는 Deprecated 호환 타입이며 새 코드는 `SceneTransitionCallbacks.ConfigureSceneAsync`를 사용한다. SceneRootFlow/Lifecycle의 기존 준비·종료 계약은 유지한다. UI·bar·tips·button input 구현은 소비 프로젝트가 소유한다.
 
 ## Progress와 선택적 로딩 표시/대기
 
-P1/P2 working source의 API와 순서는 아래와 같다. 최종 source revision은 검증 tip 확정 후 반영한다. 예제는 계약 발췌(NotRun)이며 이 문서에서는 compile/run하지 않았다.
+검증 tip의 API와 순서는 아래와 같다. 예제는 계약 발췌(NotRun)이며 이 문서에서는 compile/run하지 않았다.
 
 ```csharp
 public readonly struct SceneLoadingContext

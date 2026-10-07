@@ -6,7 +6,7 @@
 
 현재 MyLab Editor에서 `MyLab > Scene Transitions > Open Additive` 또는 `Open Single`을 선택한 뒤 Play한다. sample assets가 아직 없을 때만 `Build Sample Assets`를 사용한다. Play를 멈추면 builder가 열기 전 scene setup과 Editor Build Settings를 복원한다. 복원이 필요하면 `Restore Original Setup`을 실행한다.
 
-Hierarchy에서 `CommonSceneRoot`를 선택하고 `SceneTransitionSampleController` Inspector를 연다. 다음 sample 설정은 모두 기본 false/빈 배열이다.
+Hierarchy에서 `CommonSceneRoot`를 선택하고 `SceneTransitionSampleController` Inspector를 연다. 두 opt-in 설정의 기본값은 false이며 Tips는 아래 sample 문구를 제공한다.
 
 - **Use Loading Presentation**: 켜면 최초 진입과 sample load/replace/add에 loading UI callback을 사용한다.
 - **Manual Proceed**: `Use Loading Presentation`을 켠 경우에만 의미가 있다. 끄면 준비 완료 후 자동 진행하고, 켜면 Continue 입력을 기다린다.
@@ -14,7 +14,7 @@ Hierarchy에서 `CommonSceneRoot`를 선택하고 `SceneTransitionSampleControll
 
 Inspector 대신 transition이 시작되기 전에 callback에서 `ConfigureLoadingPresentation(true, manualProceed: true)`를 호출할 수 있다. 자동 진행은 `ConfigureLoadingPresentation(true, manualProceed: false)` 또는 기본 두 번째 인수 `false`다. 실행 중 정책 변경은 거부된다.
 
-sample은 `SceneLoadingContext.OperationId`와 일치하는 진행 snapshot만 반영한다. bar는 **현재 stage 비율**을 표시하며, 비율이 없는 준비 단계에는 `working...` 문구를 보여준다. 이는 전체 전환 퍼센트나 예상 남은 시간이 아니다. Tips는 sample이 소유하고 순환 표시한다.
+sample은 `SceneLoadingContext.OperationId`와 일치하는 진행 snapshot만 반영한다. bar는 **현재 stage 비율**을 표시하며, 비율이 없는 준비 단계에는 `working...` 문구를 보여준다. 이는 전체 전환 퍼센트나 예상 남은 시간이 아니다. 준비가 끝나면 Ready 문구와 완료 bar를 표시하고, 수동 mode는 입력 release 경계 이후 Continue를 활성화한다. Tips는 sample이 소유하고 순환 표시한다.
 
 Single sample에서는 `CommonSceneRoot`가 persistent다. callback, EventSystem/Input module과 런타임 생성 `LoadingPresentation` UI도 그 root 하위에 남아 있어야 한다. manager는 로딩 presentation 전/후에 새로운 scene을 추가하지 않는다. 전환 lease는 첫 가림막부터 두 번째 가림막과 cleanup을 지나 최종 reveal까지 유지된다.
 

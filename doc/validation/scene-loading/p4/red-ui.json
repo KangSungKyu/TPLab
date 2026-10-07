@@ -1,0 +1,34 @@
+{
+  "total": 8,
+  "passed": 0,
+  "failed": 8,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.CancelledWaitReleasesListenersWithoutReleasingTransition:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedContinueButtonFailsPendingWait:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedUiOwnerCancelsPendingWait:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.EarlyAndDuplicateClicksDoNotCompleteLaterOperation:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldGamepadSubmitRequiresReleaseThenFreshSubmit:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.LoadingRevealKeepsTransitionAndIndependentModalLeases:   Opt-in preparation must create project-owned loading UI.\r\n  Expected: not null\r\n  But was:  null\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 1476,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 1476,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

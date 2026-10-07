@@ -1,0 +1,37 @@
+{
+  "total": 11,
+  "passed": 0,
+  "failed": 11,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.AutomaticContinuationDoesNotWaitForHeldSubmitOrPointerRelease: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.CancelledWaitReleasesListenersWithoutReleasingTransition: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedContinueButtonFailsPendingWait: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedUiOwnerCancelsPendingWait: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.EarlyAndDuplicateClicksDoNotCompleteLaterOperation: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldGamepadSubmitRequiresReleaseThenFreshSubmit: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.LoadingRevealKeepsTransitionAndIndependentModalLeases: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.ProgressShowsStageRatioAndUnknownWorkWithoutChangingActivePolicy: System.InvalidOperationException : Select a full Assets/.../*.unity scene path.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming: System.InvalidOperationException : Select a full Assets/.../*.unity scene path."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests",
+    "source": "connector-file",
+    "runId": "29012-1791350753494791000",
+    "cliPid": 29012,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 29012,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

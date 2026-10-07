@@ -14,7 +14,7 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 | [Input](doc/api/Input.md) | Input System runtime clone·layer·리바인딩·override JSON |
 | [Editor](doc/api/Editor.md) | CSV/schema importer·설정 asset·씬/root 사전 검사 |
 
-씬 전환 진행률과 선택적 로딩 UI/자동·버튼 진행 대기 callback은 구현됐다. 실제 bar·팁·버튼 UI는 프로젝트가 소유하며 sample 연결과 최종 UX 확인은 [scene-loading track](doc/SCENE_LOADING_TRACK.md)에서 진행 중이다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
+씬 전환 진행률, 선택적 로딩 callback과 자동·수동 진행 대기, 그리고 프로젝트 소유 bar·팁·버튼을 연결한 sample UI가 구현됐다. 최종 시각 UX 확인은 사용자 확인 대기다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
 
 ## 가져오기
 
@@ -60,9 +60,9 @@ using (var pool = new ObjectPool<List<int>>(
 
 ## 검증과 호환성
 
-source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`에서 전체 EditMode **258/258**, PlayMode **217/217**, 실패0·skip0을 실행했다. Domain/Scene Reload 네 조합×두 진입, Single/Additive Windows Mono Player, Input 포함/제외 소비 프로젝트를 확인했다. [입력 검증 자료](doc/validation/input-system/p4/README.md)는 정확한 source hash·결과·Console·제한을 기록한다. 2026-10-07 사용자가 입력을 확인했다. 문서화는 runtime source를 변경하지 않았다.
+입력 모듈의 과거 P4 검증은 source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed` 기준이다. 현재 로딩 표시 P4에서는 EditMode **271/271**, PlayMode **253/253**(실패0·skip0), Additive/Single Windows Mono build와 Player(각 12/12), Input 포함 consumer Editor build 1회와 Player run 1회가 성공했다. 자세한 실행/범위는 [P4 증거](doc/validation/scene-loading/p4/README.md)와 [입력 증거](doc/validation/input-system/p4/README.md)를 확인한다.
 
-로딩 progress와 presentation callback P2의 최종 targeted `GameSceneReplacementTests` PlayMode는 36/36 (실패0·skip0)이다. 앞선 Core EditMode 252/252·PlayMode 224/224도 통과했으나 마지막 경계 테스트 추가 전 실행이며 최종 코드 전체 회귀를 뜻하지 않는다. P4 sample UI Red는 0/8 통과(실패8/8)여서 프로젝트 UI 구현은 아직 완료되지 않았다. 전체 Input/sample 회귀, Player 또는 최종 loading UI UX는 [track](doc/SCENE_LOADING_TRACK.md)에서 후속 확인한다.
+P2의 targeted 36/36과 그 이전 Core 252/252·224/224는 역사적 결과다. 현재 P4 전체 회귀와 두 모드 build/Player 및 Input 포함 consumer smoke는 성공했다. 실제 화면 배치·해상도·입력 장치 UX의 최종 확인은 사용자 확인 대기이며 main 통합은 보류 상태다.
 
 다른 Unity 버전·플랫폼·IL2CPP, 물리 게임패드/touch의 개별 UX, 모든 abrupt 종료 조합은 미검증이다. CI는 현재 미구성이며 자동 CI 통과로 표현하지 않는다. 변경 시 [문서 갱신 지침](doc/DOCUMENTATION_GUIDE.md)에 따라 XML 주석과 사람/AI 문서를 같은 작업에서 갱신한다. 업그레이드 전에는 소비 프로젝트에서 가져오기·compile·예제 실행을 다시 확인한다. 기존 Text/Resource schema는 core에서 제거되어 프로젝트 템플릿으로만 제공한다.
 

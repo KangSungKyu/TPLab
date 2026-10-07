@@ -15,7 +15,7 @@ Additive와 Single 각각에서 자동 진행과 수동 진행을 확인한다. 
 | 설정 | 확인할 동작 |
 |---|---|
 | Automatic: Use Loading Presentation on, Manual Proceed off | 최초 Hub 진입 때 loading UI가 cover 아래 준비된 뒤 공개된다. 준비 후 자동으로 final cover/reveal까지 진행한다. 이후 `Hub / Main` 조작으로 Hub→Main→Hub 교체를 확인한다. |
-| Manual: Use Loading Presentation on, Manual Proceed on | 준비 중 Continue는 비활성이다. `AwaitingProceed`가 되면 loading 화면이 유지되고 fresh Continue 입력만 한 번 진행시킨다. Hub↔Main 왕복에서도 이전 operation의 click이 다음 operation을 완료하지 않아야 한다. |
+| Manual: Use Loading Presentation on, Manual Proceed on | 준비 중 Continue는 비활성이다. `AwaitingProceed`가 되면 Ready 문구와 완료 bar가 표시되고 loading 화면이 유지된다. 입력 release 경계를 지난 fresh Continue 입력만 한 번 진행시킨다. Hub↔Main 왕복에서도 이전 operation의 click이 다음 operation을 완료하지 않아야 한다. |
 | Opt-out: Use Loading Presentation off | 기존 cover-only 흐름이 남아 있고 loading UI/proceed 대기가 나타나지 않는다. |
 
 화면에서 stage별 퍼센트 막대와 stage label, 진행률을 모르는 단계의 `working...` 안내, tips 배열 문구를 확인한다. 막대는 **현재 stage**의 값이므로 전체 전환율로 해석하지 않는다. 1280×720 reference 외에 실제 배포 대상 해상도와 다른 화면 비율에서도 전체 화면 가림, 글자·막대·Continue 배치를 확인한다.
@@ -26,7 +26,7 @@ Additive와 Single 각각에서 자동 진행과 수동 진행을 확인한다. 
 
 - Keyboard: UI Submit을 누르고 계속 누른 상태에서 대기 화면이 된 뒤 release하고 fresh Submit을 누른다.
 - Gamepad: 실제 연결된 controller의 Submit을 같은 방식으로 확인한다. 장치가 없으면 미실행으로 기록한다.
-- Pointer: loading 화면이 나타난 뒤 버튼을 누르고 release해도 진행되지 않고, 새 Continue click으로만 진행되는지 확인한다. 빠른 press/release와 중복 click도 확인한다.
+- Pointer: preparation 중 버튼 입력을 누른 채 대기 경계를 통과하고 release해도 진행되지 않고, 이후 새 Continue click으로만 진행되는지 확인한다. 빠른 press/release와 중복 click도 확인한다.
 
 `System modal` 샘플 동작으로 modal이 gameplay 차단을 독립적으로 유지하고 final reveal 뒤에도 해당 차단이 해제되지 않는지 확인한다. 현재 sample HUD는 전환 중 modal을 여는 trigger를 제공하지 않는다. 따라서 modal과 loading panel을 동시에 띄워 순서와 fullscreen raycast를 확인할 수 있는 project-owned trigger가 실제 구성돼 있지 않으면 그 동시 표시 항목은 미검증으로 기록한다. 구성이 있다면 Canvas 표시 순서는 modal이 loading UI보다 위, 두 번째 cover가 loading UI를 가리고, modal은 cover 위여야 한다.
 

@@ -5,11 +5,11 @@
 - `ResourceManager`는 프로젝트 또는 씬 범위의 Addressables **에셋 캐시**입니다. 반환된 에셋은 manager가 종료될 때까지 빌려 쓰는 객체입니다.
 - `ISceneLoader`는 실제 로드된 씬 인스턴스 하나와 해당 인스턴스를 언로드할 백엔드 핸들을 독점하는 `LoadedScene`을 반환합니다. 씬 로드는 에셋 캐시를 사용하지 않습니다.
 
-Addressables 설정, catalog/runtime data, 에셋 주소는 소비 프로젝트가 제공합니다. Native 씬은 Player build scene 목록에 활성화되어 있어야 합니다. 모듈에는 로딩 진행률이나 로딩 화면 UI API가 없습니다.
+Addressables 설정, catalog/runtime data, 에셋 주소는 소비 프로젝트가 제공합니다. Native 씬은 Player build scene 목록에 활성화되어 있어야 합니다. `ISceneProgressLoader`는 선택적인 씬 backend 단계 진행률을 제공하며, 실제 로딩 화면 UI는 SceneManagement callback을 사용하는 프로젝트가 소유합니다. `ResourceManager`의 에셋 캐시에는 씬 로드/UI API가 없습니다.
 
-**SourceRevision:** `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`
+**SourceRevision:** `18d479bf07fe8479a22187ec7357024e9979d096`
 **ImplementationStatus:** Implemented
-**ValidationStatus:** Partial — Unity `6000.3.18f1` / Windows Mono에서 전체 회귀와 소비 Player를 확인했습니다. 소비 프로젝트의 실제 Addressables catalog/content 및 원격 다운로드는 검증하지 않았습니다. IL2CPP와 다른 플랫폼도 미실행입니다.
+**ValidationStatus:** Partial — 현재 P4 전체 회귀와 Windows Mono 소비 Player smoke를 확인했습니다. 실제 소비 프로젝트 Addressables catalog/content 및 원격 다운로드는 검증하지 않았습니다. IL2CPP와 다른 플랫폼도 미실행입니다. [P4 증거](../validation/scene-loading/p4/README.md).
 
 확인한 프로젝트 의존성은 UniTask `2.5.11`, Addressables `2.9.1`이며 어셈블리 참조는 `UniTask`, `UniTask.Addressables`, `Unity.Addressables`, `Unity.ResourceManager`입니다. 이는 조사한 프로젝트 버전이며 일반적인 호환성 보장을 뜻하지 않습니다.
 
@@ -127,12 +127,37 @@ Addressables 씬은 소비 프로젝트 catalog에 설정한 뒤 `SceneTarget.Ad
 
 ## 검증 근거와 한계
 
-- 현행 source revision 전체 회귀: [EditMode 258/258](../validation/input-system/p4/full-EditMode.json), [PlayMode 217/217](../validation/input-system/p4/full-PlayMode.json). ResourceManager native test-provider 검증도 포함합니다. 실행 환경과 범위는 [P4 검증 기록](../validation/input-system/p4/README.md)을 참조하세요.
-- 현행 Input 포함 소비 프로젝트에서 Windows Mono Editor build와 Player가 성공했습니다. Player smoke의 ResourceManager 검사는 빈 manager 종료입니다. [최종 소비 결과](../validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json).
+- 현재 전체 회귀: EditMode 271/271, PlayMode 253/253, 실패0·skip0. Input 포함 consumer Editor build 1회와 Player run 1회가 성공했으며, ResourceManager smoke의 확인 범위는 빈 manager 종료다. [P4 증거](../validation/scene-loading/p4/README.md).
 - 이 근거는 Unity `6000.3.18f1` / Windows Mono만 입증합니다. 실제 소비 프로젝트 Addressables catalog/content 또는 원격 다운로드는 검증하지 않았고, IL2CPP·다른 플랫폼도 미실행입니다.
 
 구현: [`ResourceManager.cs`](../../Assets/MyLab/Core/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../Assets/MyLab/Core/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../Assets/MyLab/Core/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../Assets/MyLab/Core/ResourceManagement/LoadedScene.cs).
 
 ## 진행률 확장 (2026-10-07 P1)
 
-두 기본 loader는 ISceneProgressLoader를 구현하며 기존 LoadAsync(target, mode)는 유지한다. 추가 overload는 SceneLoadProgressObserver를 받는다. SceneLoadProgress.Stage는 ResolvingTarget/LoadingScene이고 Ratio는 finite0..1이며 전체 준비/다운로드 bytes 비율이 아니다. observer의 callback 예외는 Failure에 첫1개 보존하고 native 완료를 중단하지 않는다. 반환 LoadedScene을 먼저 소유한 뒤 Failure를 확인하여 결과를 정리한다. null/Dispose는 통지만 억제하며 native 취소가 아니다. 통지는 동기 메인 스레드다. Native AsyncOperation.progress/Addressables PercentComplete를 읽는다. Green Edit13/13, core Play210/210, failed0/skip0. 원격 다운로드·다른 플랫폼은 미검증이다.
+두 기본 loader는 선택적 `ISceneProgressLoader`를 구현하며 기존 `ISceneLoader.LoadAsync(target, mode)`는 유지한다. 다음은 public API의 설명 발췌(NotRun)다.
+
+```csharp
+public interface ISceneProgressLoader : ISceneLoader
+{
+    UniTask<LoadedScene> LoadAsync(SceneTarget target, LoadSceneMode mode,
+        SceneLoadProgressObserver observer);
+}
+
+public enum SceneLoadStage { ResolvingTarget, LoadingScene }
+public readonly struct SceneLoadProgress
+{
+    public SceneLoadStage Stage { get; }
+    public float Ratio { get; }
+    public SceneLoadProgress(SceneLoadStage stage, float ratio);
+}
+
+public sealed class SceneLoadProgressObserver : IDisposable
+{
+    public SceneLoadProgressObserver(Action<SceneLoadProgress> onProgress);
+    public Exception Failure { get; private set; }
+    public void Report(SceneLoadProgress progress);
+    public void Dispose();
+}
+```
+
+`Ratio`는 finite 0..1의 backend stage 비율이며 전체 준비·download bytes 비율이 아니다. observer callback 예외는 `Failure`에 최초 1개 보존하며 native 작업을 중단하지 않는다. 성공한 `LoadedScene`을 먼저 소유한 뒤 `Failure`를 확인하고 결과를 정리한다. null/dispose는 통지만 억제하며 native 취소가 아니다. 통지는 동기 메인 스레드다. Native `AsyncOperation.progress`와 Addressables `PercentComplete`를 읽는다. 원격 다운로드·다른 플랫폼은 미검증이다.

@@ -3,11 +3,11 @@
 | Field | Value |
 |---|---|
 | Module / Namespace / Assembly | `SceneManagement` / `MyLab.Core.SceneManagement` / `MyLab.Core` |
-| SourceRevision | P4 historical baseline `9305b5dd0f730636f431fd5d19a1c9102fdc3bed` (현재 P2 source 아님); 최종 P2 tip은 부모가 [track](../../SCENE_LOADING_TRACK.md)에 지정 예정 |
+| SourceRevision | `18d479bf07fe8479a22187ec7357024e9979d096` |
 | SourcePath | [소스](../../../Assets/MyLab/Core/SceneManagement), [asmdef](../../../Assets/MyLab/Core/MyLab.Core.asmdef) |
 | HumanContract | [사람용 API](../../api/SceneManagement.md), [manager](../../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../../BOOTSTRAP_SYSTEM.md), [로더](../../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
-| Evidence | 최종 P2 targeted [Green](../../validation/scene-loading/p2/green-final-flow.json) 36/36, 실패0/skip0. 이전 Core Edit252/252·Play224/224는 마지막 edge 추가 전. P4 sample UI [Red](../../validation/scene-loading/p4/red-ui.json) 0/8; UI 구현·전체 Input/sample 회귀·Player 대기 중. |
+| Evidence | 현재 P4 전체 Edit271/271·Play253/253(실패0/skip0), Additive/Single Windows Mono build 및 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. [P4 증거](../../validation/scene-loading/p4/README.md). 최종 visual UX는 사용자 확인 대기. |
 
 ## Symbol / Signature / Constraints
 
@@ -209,10 +209,10 @@ common installer에서 entry/self-prepare await, hook에서 같은 manager comma
 
 opt-in load에서 manager는 `UsesLoadingPresentation`을 한 번 평가한다. 흐름: 기존 `ShowCoverAsync` → `PrepareLoadingPresentationAsync` → `RevealLoadingPresentationAsync`(가림막만 숨기고 transition input lease 유지) → load/configure/prepare → `AwaitingProceed` → `WaitForProceedAsync` → live policy 재검사 → `ShowCoverAsync` 재호출 → 이전 root 마무리 → 가림막 아래 `ReleaseLoadingPresentationAsync` 1회 → 기존 최종 `HideCoverAsync`(게임 공개 및 transition lease 해제). 기본값은 `UsesLoadingPresentation=false`, 완료된 `WaitForProceedAsync`다.
 
-`Single` 교체는 native load 전 기존 root를 종료하므로 종료된 root의 condition을 재평가하지 않는다. `Additive`는 수동 대기 중 이전 root를 유지하고 중복 명령을 거부하며, 두 번째 가림막 이후 해제 전에 이전 root condition을 재검사한다. UI 공개 뒤 실패/취소 시 가림막 복구, candidate 정리, presentation release를 한 번씩 시도하고 오류를 aggregate한다. rollback은 보장하지 않는다. callback/UI hierarchy는 영향받는 씬보다 오래 살아야 하며 `Single`은 persistent common root 아래에 둔다. project UI/sample 통합은 [track](../../SCENE_LOADING_TRACK.md)에서 진행 중이다.
+`Single` 교체는 native load 전 기존 root를 종료하므로 종료된 root의 condition을 재평가하지 않는다. `Additive`는 수동 대기 중 이전 root를 유지하고 중복 명령을 거부하며, 두 번째 가림막 이후 해제 전에 이전 root condition을 재검사한다. UI 공개 뒤 실패/취소 시 가림막 복구, candidate 정리, presentation release를 한 번씩 시도하고 오류를 aggregate한다. rollback은 보장하지 않는다. callback/UI hierarchy는 영향받는 씬보다 오래 살아야 하며 `Single`은 persistent common root 아래에 둔다. 프로젝트 sample UI 통합은 구현됐으며 최종 시각 UX는 사용자 확인 대기다.
 
 확인 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono. 전체 p4 및 sample smoke가 다른 Unity/IL2CPP/플랫폼·원격 bundle download·임의 presentation/물리 입력 UX를 증명하지 않는다. core runtime UI/Input dependency 없음. 기존 Bootstrap path/source overload 및 Deprecated adapter 호환을 유지한다.
 
 ## ValidationStatus
 
-최종 P2 targeted `GameSceneReplacementTests` Play 36/36, 실패0/skip0 ([결과](../../validation/scene-loading/p2/green-final-flow.json)). Core Edit252/252·Play224/224는 마지막 edge test 추가 전에 통과했다. P4 sample UI 최초 Red는 0/8 ([결과](../../validation/scene-loading/p4/red-ui.json)); 전체 Input/sample 회귀, Player와 최종 presentation UX는 아직 완료되지 않았다. targeted 결과를 그 gate의 통과로 확대하지 않는다.
+현재 P4 전체 Edit271/271·Play253/253, 실패0/skip0이며 Windows Mono Additive/Single builds와 Players는 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회가 성공했다([증거](../../validation/scene-loading/p4/README.md)). 이 smoke는 최종 사용자 화면 확인, 물리 장치 UX, 원격 Addressables content/download, IL2CPP 또는 다른 플랫폼을 검증하지 않는다. 과거 P2 targeted 결과는 현재 전체 회귀 대신 사용하지 않는다.

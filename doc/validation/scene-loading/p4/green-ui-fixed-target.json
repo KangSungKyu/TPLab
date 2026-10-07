@@ -1,0 +1,37 @@
+{
+  "total": 11,
+  "passed": 0,
+  "failed": 11,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.AutomaticContinuationDoesNotWaitForHeldSubmitOrPointerRelease: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.CancelledWaitReleasesListenersWithoutReleasingTransition: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedContinueButtonFailsPendingWait: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedUiOwnerCancelsPendingWait: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.EarlyAndDuplicateClicksDoNotCompleteLaterOperation: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldGamepadSubmitRequiresReleaseThenFreshSubmit: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.LoadingRevealKeepsTransitionAndIndependentModalLeases: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.ProgressShowsStageRatioAndUnknownWorkWithoutChangingActivePolicy: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available.",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming: System.InvalidOperationException : The project-owned loading UI or input scope is no longer available."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 26224,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 26224,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

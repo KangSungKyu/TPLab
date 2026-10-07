@@ -1,0 +1,38 @@
+{
+  "total": 12,
+  "passed": 12,
+  "failed": 0,
+  "skipped": 0,
+  "failures": [],
+  "passes": [
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.AutomaticContinuationDoesNotWaitForHeldSubmitOrPointerRelease",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.CancelledWaitReleasesListenersWithoutReleasingTransition",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedContinueButtonFailsPendingWait",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedUiOwnerCancelsPendingWait",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.EarlyAndDuplicateClicksDoNotCompleteLaterOperation",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldGamepadSubmitRequiresReleaseThenFreshSubmit",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.LoadingRevealKeepsTransitionAndIndependentModalLeases",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.PreparedManualUiShowsReadyAndFullStageBarWhileStillWaiting",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.ProgressShowsStageRatioAndUnknownWorkWithoutChangingActivePolicy",
+    "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Samples.SceneTransitions.Tests.LoadingSampleTests",
+    "source": "connector-file",
+    "runId": "31580-1791351881359213100",
+    "cliPid": 31580,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 31580,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}
