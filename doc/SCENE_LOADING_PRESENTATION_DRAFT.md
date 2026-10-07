@@ -1,17 +1,17 @@
-# 씬 전환의 진행률·로딩 화면·진행 대기 설계
+# 씬 전환 진행률·로딩 화면·진행 대기 계약
 
-2026-10-07. 사용자 요청을 반영한 **설계 초안, 미구현**이다. 로딩 화면은 진행률·게임 팁·자동 진행/버튼 대기를 표현하는 프로젝트 UI다. 사용자가 별도 Unity 씬을 뜻한 것은 아니라고 정정했으므로 실제 로딩 씬 추가·해제는 이번 범위에 포함하지 않는다.
+2026-10-07. 사용자 요청을 반영한 계약 및 구현 현황이다. 진행 snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기는 P1/P2에서 구현됐다. 로딩 화면의 bar·게임 팁·버튼 등 실제 UI는 프로젝트가 callback으로 소유한다. 별도 Unity 로딩 씬은 만들지 않는다. P2 targeted 결과는 [track](SCENE_LOADING_TRACK.md); sample UI·Player·최종 UX는 P4에서 확인한다. SceneManagement 문서의 최종 SourceRevision은 검증 tip 확정 뒤 기록한다.
 
 선행 계약은 [GameSceneManager](GAME_SCENE_MANAGER_DRAFT.md), [씬 로더](SCENE_LOADING.md), [씬 준비·해제](ASYNC_SCENE_LIFECYCLE.md), [입력 wrapper 초안](INPUT_SYSTEM_DRAFT.md)이다. 기존 가림막만 사용하는 전환도 유지하고 로딩 화면은 명시적으로 선택한다.
 
 ## 기존 구현과 바뀌는 책임
 
-- 현재 구현은 ShowCoverAsync → 공용 root 준비 → 로드/주입/게임 root·화면 준비/이전 씬 정리 → HideCoverAsync 순서다. 진행률 전달과 사용자 진행 대기는 없다.
+- 기존 opt-out 흐름은 ShowCoverAsync → 공용 root 준비 → 로드/주입/게임 root·화면 준비/이전 씬 정리 → HideCoverAsync를 유지한다. callback의 `UsesLoadingPresentation(context)`가 기본 false여서 기존 구현은 바뀌지 않는다.
 - 기존 HideCoverAsync는 최종 게임 화면 공개와 전환 소유 입력 차단 해제를 의미한다. 로딩 화면을 보여주려고 중간에 호출하면 gameplay 입력을 풀 수 있으므로 그대로 재사용하지 않는다.
 - 가림막은 화면 사이의 전환과 실패 보호를, 로딩 화면은 진행 상황·팁·완료 후 대기를 맡는다. 두 표현의 시점과 성공/실패 결정은 GameSceneManager가 소유하고 실제 UI/애니메이션은 프로젝트 callback이 맡는다.
 - 신규 흐름은 GameSceneManager 내부의 명시적 단계로 연결한다. 기존 generic SceneRootFlow 전체를 새 UI 정책으로 바꾸거나 별도 scene manager를 만들지 않는다. 기존 로더·root 준비·조건·취소/해제 소유권을 재사용한다.
 
-## 제안 흐름
+## 실행 흐름
 
 ```mermaid
 flowchart TD
@@ -34,11 +34,11 @@ flowchart TD
 - 단계 F는 AwaitingProceed이며 manager.CanProceed는 false다. UI 버튼만 진행 신호를 줄 수 있고 전환 성공·새 전환 요청으로 취급하지 않는다. 로딩 화면 공개 중에는 gameplay layer를 계속 차단하고 로딩 UI용 layer만 허용한다.
 - 첫 진입/주 씬 교체를 기본 예제로 한다. 파생 씬 추가는 프로젝트가 전체 로딩 화면 사용 여부를 선택할 수 있다. 파생 씬 제거는 기존 가림막·해제 흐름을 유지하며 가짜 씬 로딩 진행률을 만들지 않는다.
 
-## callback 확장 제안
+## callback 계약
 
-기존 SceneTransitionCallbacks를 확장하고 새 메서드는 기본 no-op/완료 task로 둔다. UI 전용 interface나 두 번째 callback 계층을 추가하지 않는다. 전환별 옵션은 callback의 `UsesLoadingPresentation(context)`에서 선택하고 실행 시작 시 고정한다. 모든 이름과 세부 서명은 구현 전 검토 대상이다.
+기존 `SceneTransitionCallbacks`에 추가한 메서드는 기본 no-op/완료 task다. UI 전용 interface나 두 번째 callback 계층은 없다. 전환별 옵션은 callback의 `UsesLoadingPresentation(context)`에서 선택하고 실행 시작 시 고정한다. 공개 타입과 서명은 [SceneManagement API](api/SceneManagement.md)에 기록한다.
 
-| callback 제안 | 역할과 완료 의미 |
+| callback | 역할과 완료 의미 |
 |---|---|
 | 기존 ShowCoverAsync | 가림막 ON·gameplay 차단. 두 번 호출해도 같은 전환 lease를 중복 획득하지 않음 |
 | PrepareLoadingPresentationAsync(context, token) | 가림막 아래에서 로딩 UI 생성/참조 연결·레이아웃·필수 팁 데이터 준비 |
@@ -49,21 +49,21 @@ flowchart TD
 | 기존 HideCoverAsync | 최종 게임 화면 reveal 성공 후 전환 소유 입력 차단 해제 |
 | 기존 OnFailure | 실패 표시. 확인 버튼은 전환 성공/가림막 해제를 허용하지 않음 |
 
-context에는 전환 OperationId, 종류·목적지·모드의 immutable 정보만 제공한다. 프로젝트 UI는 native scene handle을 해제하거나 manager가 소유한 root를 종료하지 않는다. callback은 전환 owner보다 오래 살아야 하며 자동 service 검색/생성을 숨기지 않는다.
+`SceneLoadingContext`에는 전환 OperationId, 종류·목적지·모드의 immutable 정보만 제공한다. 프로젝트 UI는 native scene handle을 해제하거나 manager가 소유한 root를 종료하지 않는다. callback은 전환 owner보다 오래 살아야 하며 자동 service 검색/생성을 숨기지 않는다.
 
-옵션을 사용하지 않는 기존 callback·BootstrapCallbacks는 현재 호출 순서와 API를 유지한다. **신규 가림막 OFF callback을 기존 HideCoverAsync의 호환 어댑터로 연결하지 않는다.** 별도 기본 로딩 Canvas나 팁 테이블 스키마는 코어에 넣지 않는다.
+`UsesLoadingPresentation` 기본값은 false, `WaitForProceedAsync` 기본 구현은 완료된 task이므로 기존 callback/BootstrapCallbacks는 opt-in하지 않으면 기존 호출 순서를 유지한다. 새 `RevealLoadingPresentationAsync`는 가림막만 숨기며 기존 최종 `HideCoverAsync`의 어댑터가 아니다. 별도 기본 Canvas나 팁 테이블 schema는 코어에 넣지 않는다.
 
 ## 진행률의 의미와 로더 경계
 
-`SceneTransitionProgress`는 OperationId, Stage, 선택적인 StageRatio(0..1), 준비 완료 여부를 가진 immutable snapshot으로 제안한다. 예시 Stage는 PreparingCommon, PreparingLoadingPresentation, ResolvingTarget, LoadingScene, PreparingScene, PreparingPresentation, AwaitingProceed, Finalizing, Completed, Failed다. 기존 SceneTransitionState와 별도 enum을 만들지는 구현 시 실제 구분 필요를 확인하며 기존 직렬화/정수값 호환을 보존한다.
+`SceneTransitionProgress`는 OperationId, 기존 `SceneTransitionState`의 Stage, 선택적인 StageRatio(0..1), IsPrepared를 가진 immutable snapshot이다. 새 단계는 enum의 기존 값 0..11 뒤에 추가해 직렬화 정수값을 보존했다: PreparingLoadingPresentation, RevealingLoadingPresentation, ResolvingTarget, AwaitingProceed, Finalizing. Ready/Faulted는 `Progress`/`State` property로만 보이며 terminal callback을 보내지 않는다.
 
 - native 씬 로드: `AsyncOperation.progress`를 보고하고 native 완료 성공을 별도로 확인한다. activation 대기 시 0.9에 정지하는 값을 root 준비 완료로 해석하거나 무조건 0.9로 나누지 않는다. 기존 `allowSceneActivation=true` 동작을 유지하고 버튼 대기에 activation을 보류하지 않는다. [Unity progress](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AsyncOperation-progress.html)
-- Addressables: 주소 해석과 씬 로드를 별도 단계로 보고한다. `PercentComplete`는 내부 작업 진행률이고 바이트 다운로드 비율이 아니다. 다운로드 비율을 제공할 필요가 생기면 `GetDownloadStatus`의 bytes를 별도 지표로 사용한다. 초기 구현에 다운로드/카탈로그 관리 시스템을 추가하지 않는다. [Addressables 진행률](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle-1.html)
+- Addressables: 주소 해석과 씬 로드를 별도 단계로 보고한다. resolving `ToUniTask(progress:)` callback은 bytes 비율을 전달하므로 이를 그대로 쓰지 않고 address operation `PercentComplete`를 읽는다. 이는 내부 작업 진행률이지 바이트 다운로드 비율이 아니다. 별도 bytes/download UI나 catalog 관리 기능은 구현하지 않는다. [Addressables 진행률](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle-1.html)
 - root·화면 준비: 현재 PrepareAsync에는 작업량 계약이 없다. 계산할 수 없는 단계는 StageRatio=null로 보고하고 spinner/문구를 표시한다. native 씬 로드 100%만으로 전체 준비 완료를 보고하지 않는다.
 - AwaitingProceed는 준비 완료 상태다. 프로젝트는 이때 준비 bar를 100%로 표시할 수 있지만 전환 성공/게임 허용과 구분한다. button 대기 시간은 로딩 진행률에 포함하지 않는다.
 - 전체 단일 퍼센트는 프로젝트가 단계별 가중치/표시 정책을 정할 때만 계산한다. 코어가 임의로 0..99%를 증가시키거나 남은 시간을 추정하지 않는다. UI bar smoothing·최소 노출 시간·게임 팁 교체는 프로젝트 연출이며 성공 gate를 대신하지 않는다.
 
-기존 `ISceneLoader.LoadAsync(target, mode)`를 보존하면서 선택적 `ISceneProgressLoader` 경계에 progress를 받는 overload를 추가하는 안을 제안한다. 기존 외부 loader/fake는 그대로 동작하고 진행률 미지원 시 LoadingScene 단계의 ratio=null을 통지한다. 두 native loader는 설치된 UniTask의 `ToUniTask(progress: ...)` 기능을 먼저 재사용한다. observer는 메인 스레드 동기로 호출하고 `System.Progress<T>`의 지연 dispatch로 해제된 UI에 늦게 통지하지 않는다.
+기존 `ISceneLoader.LoadAsync(target, mode)`를 보존하고 `ISceneProgressLoader.LoadAsync(target, mode, observer)`를 선택적으로 구현했다. 기존 외부 loader/fake도 계속 동작하며 progress 미지원 단계는 ratio=null이다. Native/Addressables loader는 UniTask `ToUniTask(progress:)`를 사용한다. observer는 메인 스레드 동기로 통지하고 예외를 보관한다. manager는 successful result를 먼저 소유한 뒤 observer 오류를 처리하여 후보/handle을 정리한다.
 
 관찰자/UI 갱신 예외가 native 로드를 중도 포기하게 만들면 안 된다. manager가 observer 예외를 보관하고 native 결과의 소유권까지 확보한 후 실패·후보 정리로 전환한다. 이미 종료된 OperationId의 통지는 버리고 handle을 화면 쪽으로 넘기지 않는다. ResourceManager 자산 cache에 씬 로드 handle을 공유하지 않는다.
 
@@ -79,21 +79,20 @@ context에는 전환 OperationId, 종류·목적지·모드의 immutable 정보�
 ## 실패·정리와 모드별 보장
 
 1. preflight 거부는 기존처럼 무부작용이다. 로딩 UI/가림막 표시 전에 설정과 소유권·조건을 검사한다.
-2. 로딩 화면 공개 후 어느 단계든 실패·owner 취소되면 취소되지 않은 token으로 가림막 ON을 먼저 시도한다. 기존 SceneRootFlow는 최종 reveal 중 실패만 cover를 복구하므로 새 경로는 로딩 화면 공개 여부도 추적해야 한다.
-3. native 늦은 완료를 확보한 뒤 후보 root/씬을 정리하고, operation의 로딩 UI 구독·생성 객체를 정리한다. 원래 실패와 cover/해제 실패를 함께 보고한다. 오류 UI와 가림막·gameplay 차단은 공용 owner에 남긴다.
-4. Additive에서는 대기 중 이전 root를 유지하고 실제 종료는 진행 신호·조건 확인·두 번째 cover 뒤에 수행한다. 현재 LoadAndPrepareAsync의 준비와 이전 subtree release 부분을 분리해야 하며, 기존 가림막-only 경로의 순서는 유지한다.
+2. 로딩 화면이 공개된 뒤 실패·owner 취소되면 manager는 `CancellationToken.None`으로 가림막 ON을 먼저 시도한다. 중간 reveal이 일부 성공 후 던진 경우도 공개된 것으로 간주한다.
+3. native 늦은 완료와 성공 result를 확보한 뒤 candidate root/scene을 정리하고 operation loading UI 구독/객체를 한 번 정리한다. 원래 실패와 cover/후보/UI release 실패를 aggregate한다. 오류 UI와 cover/gameplay 차단은 공용 owner에 남긴다.
+4. Additive opt-in 경로에서는 대기 중 이전 root를 유지하고, 진행 신호와 condition 재검사 후 두 번째 cover 아래에서 이전 subtree를 해제한다. 이 release를 후보 로드/준비에서 분리했으며 기존 cover-only 경로의 순서는 유지한다.
 5. Single은 기존 root 종료가 native 로드보다 먼저 시작되어 rollback을 보장할 수 없다. 마지막 일반 씬 unload 제한·외부 씬 조작 거부·정확한 잔여 씬 진단을 유지한다.
 6. UI 객체 파괴/ReleaseLoadingPresentationAsync 실패/최종 reveal 실패를 성공으로 숨기지 않는다. 최종 성공과 manager.CanProceed는 UI 해제와 reveal까지 끝난 뒤에만 공개한다. 가림막 복구 자체의 실패까지 화면 보호를 보장한다고 주장하지 않는다.
 
-입력 wrapper 구현 전에는 기존 프로젝트 소유 차단을 유지할 수 있다. wrapper 연결 시 전환 gameplay 차단 lease는 두 번의 가림막 ON/OFF 전체를 관통하고, 로딩 UI lease는 로딩 화면 공개·대기 동안만 유지한다. 최종 완료는 전환 lease만 해제하고 다른 popup/system modal의 차단은 보존한다.
+프로젝트 입력 wrapper를 사용하는 callback은 전환 gameplay 차단 lease를 두 번의 가림막 ON/OFF 전체에 걸쳐 유지하고, 로딩 UI lease는 로딩 화면 공개·대기 동안만 유지할 수 있다. 최종 완료는 전환 lease만 해제하고 다른 popup/system modal의 차단을 보존한다. 이 입력/UI lease 조합은 core가 자동으로 구성하지 않는다.
 
-## 후속 구현 단계 제안
+## 단계와 확인 범위
 
-| 단계 | 범위 | 최소 검증 |
+| 단계 | 범위 | 상태 / 증거 |
 |---|---|---|
-| 1 진행률 | stage snapshot·선택적 loader progress, 기존 호출 호환 | native/Addressables 보고·미지원 ratio=null, 로드100%와 root 준비 구분, 늦은 통지·observer 예외의 handle 정리 |
-| 2 표시 흐름 | 선택적 로딩 UI callback·두 번의 cover·실패 복구 | 기존 순서 보존, UI 준비 전 cover 유지, 로딩 표시 중 gameplay 차단, 중간·최종 reveal/해제 실패 |
-| 3 진행 대기 | auto/manual await, 조건 재검사·모드별 정리 시점 | 조기/중복/늦은 버튼, 대기 중 취소/파괴/중복 전환, Additive 이전 root 유지, Single 영속 UI·잔여 씬 |
-| 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·최종 UX | 전체 회귀, 원본 사용자 설정 보존, 반복 Play, 두 모드 Player, 실제 keyboard/gamepad/pointer와 최종 사용자 확인 |
+| 1 진행률 | stage snapshot·선택적 loader progress, 기존 호출 호환 | 구현. P1 결과는 [track](SCENE_LOADING_TRACK.md) 참조 |
+| 2 표시 흐름·3 진행 대기 | 선택적 callback, 두 번의 cover, 자동/수동 wait, 실패 복구와 모드별 정책 | 구현. final targeted Play36/36; core Edit252/252·Play224/224는 최종 경계 추가 전; [evidence](validation/scene-loading/p2/) |
+| 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·최종 UX | 진행 중. 전체 Input/sample 회귀, 반복 Play, 두 모드 Player, 실제 입력 장치 및 최종 사용자 확인 대기 |
 
-현재는 설계 문서 변경뿐이다. 진행률 API·callback·state·UI·입력 wrapper 연결은 미구현이며 Unity 테스트·컴파일·제품 Console·Player는 이번 단위에서 미실행이다. 새 runtime 구현은 사용자 구현 요청과 확정된 단계 범위를 기준으로 TDD부터 시작한다.
+P1 progress와 P2 표시/대기 흐름은 구현됐다. targeted `GameSceneReplacementTests` 최종 PlayMode Green 36/36, 실패0·skip0: [final result](validation/scene-loading/p2/green-final-flow.json). 초기 targeted Red 21/28 (7 failures)은 [여기](validation/scene-loading/p2/red-flow.json)에 보존한다. Core Edit252/252·Play224/224 통과 결과는 마지막 edge 추가 전 실행이며 최종 source 전체 회귀가 아니다. P4 sample UI Red는 0/8 ([result](validation/scene-loading/p4/red-ui.json)); 전체 Input/sample 회귀·Player·실제 표시 UX는 아직 완료되지 않았다.

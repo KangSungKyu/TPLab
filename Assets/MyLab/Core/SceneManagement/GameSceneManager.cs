@@ -465,9 +465,17 @@ namespace MyLab.Core.SceneManagement
             Exception reported = null;
             try
             {
+                if (operation.Kind != OperationKind.Remove && _callbacks != null)
+                {
+                    bool previous = _dispatching;
+                    _dispatching = true;
+                    try { operation.UsesLoadingPresentation = _callbacks.UsesLoadingPresentation(operation.Context); }
+                    finally { _dispatching = previous; }
+                }
                 var flow = new SceneRootFlow(new GuardedCommonRoot(this), CoverAsync, RevealAsync);
                 await flow.PrepareAndProceedAsync(token => operation.Kind == OperationKind.Remove
-                    ? RemoveSubtreeAsync(operation, token) : LoadAndPrepareAsync(operation, token), cancellation.Token);
+                    ? RemoveSubtreeAsync(operation, token) : operation.UsesLoadingPresentation
+                    ? LoadWithPresentationAsync(operation, token) : LoadAndPrepareAsync(operation, token), cancellation.Token);
                 if (operation.Kind == OperationKind.Add)
                 {
                     operation.AddedScene = _candidate.Result.Scene;
@@ -486,6 +494,15 @@ namespace MyLab.Core.SceneManagement
             {
                 FailurePhase = State;
                 reported = failure;
+                if (operation.LoadingUiExposed)
+                {
+                    try
+                    {
+                        await InvokeAsync(() => RequireCallbacks().ShowCoverAsync(CancellationToken.None));
+                        operation.LoadingUiExposed = false;
+                    }
+                    catch (Exception coverFailure) { reported = new AggregateException(reported, coverFailure); }
+                }
                 try
                 {
                     await CleanupCandidateAsync();
@@ -494,6 +511,8 @@ namespace MyLab.Core.SceneManagement
                 {
                     reported = new AggregateException(reported, cleanupFailure);
                 }
+                try { await ReleaseLoadingUiAsync(operation); }
+                catch (Exception uiFailure) { reported = new AggregateException(reported, uiFailure); }
                 reported = RecordFailure(reported);
             }
             finally
@@ -510,9 +529,15 @@ namespace MyLab.Core.SceneManagement
         private async UniTask CoverAsync(CancellationToken token)
         {
             bool restoring = State == SceneTransitionState.Revealing;
-            if (!restoring) PublishPhase(SceneTransitionState.Covering);
+            if (!restoring) PublishPhase(SceneTransitionState.Covering, notify: false);
             await InvokeAsync(() => _callbacks != null ? _callbacks.ShowCoverAsync(token) : UniTask.CompletedTask);
-            if (!restoring) PublishPhase(SceneTransitionState.PreparingCommon);
+            if (_operation != null) _operation.LoadingUiExposed = false;
+            if (!restoring)
+            {
+                // Progress/UI errors must not prevent the first protective cover from being attempted.
+                PublishPhase(SceneTransitionState.Covering);
+                PublishPhase(SceneTransitionState.PreparingCommon);
+            }
         }
 
         private async UniTask RevealAsync(CancellationToken token)
@@ -539,8 +564,10 @@ namespace MyLab.Core.SceneManagement
                 throw new InvalidOperationException("The active scene changed before loading.");
             if (_mode == LoadSceneMode.Single && _primary != null)
             {
-                RecheckPolicy(operation, default);
                 PublishPhase(SceneTransitionState.Stopping);
+                token.ThrowIfCancellationRequested();
+                RecheckPolicy(operation, default);
+                ValidateCommonLifetime();
                 GameScene = default;
                 await ShutdownSubtreeRootsAsync(_primary);
                 token.ThrowIfCancellationRequested();
@@ -556,9 +583,18 @@ namespace MyLab.Core.SceneManagement
                 PublishPhase(progress.Stage == SceneLoadStage.ResolvingTarget
                     ? SceneTransitionState.ResolvingTarget : SceneTransitionState.Loading, progress.Ratio);
             });
-            var result = _loader is ISceneProgressLoader progressLoader
-                ? await progressLoader.LoadAsync(_target, _mode, observer)
-                : await _loader.LoadAsync(_target, _mode);
+            ResourceManagement.LoadedScene result;
+            try
+            {
+                result = _loader is ISceneProgressLoader progressLoader
+                    ? await progressLoader.LoadAsync(_target, _mode, observer)
+                    : await _loader.LoadAsync(_target, _mode);
+            }
+            catch (Exception backendFailure)
+            {
+                if (observer.Failure != null) throw new AggregateException(backendFailure, observer.Failure);
+                throw;
+            }
             if (result == null) throw new InvalidOperationException("The scene loader returned no owned result.");
             _candidate = new OwnedPrimary(result, operation.Kind == OperationKind.Add ? operation.Parent : null,
                 operation.Kind == OperationKind.Add ? SceneRegistrationRole.Derived : SceneRegistrationRole.Primary, operation.Priority);
@@ -594,10 +630,60 @@ namespace MyLab.Core.SceneManagement
             token.ThrowIfCancellationRequested();
             ValidatePreparedOwnership();
             operation.DestinationPrepared = true;
+            if (!operation.UsesLoadingPresentation)
+                await FinalizePreviousAsync(operation, token);
+        }
+
+        private SceneTransitionCallbacks RequireCallbacks() => _callbacks != null ? _callbacks :
+            throw new InvalidOperationException("Loading presentation owner was destroyed.");
+
+        private async UniTask LoadWithPresentationAsync(Operation operation, CancellationToken token)
+        {
+            ValidateCommonLifetime();
+            PublishPhase(SceneTransitionState.PreparingLoadingPresentation);
+            operation.LoadingUiStarted = true;
+            await InvokeAsync(() => RequireCallbacks().PrepareLoadingPresentationAsync(operation.Context, token));
+            token.ThrowIfCancellationRequested();
+            ValidateCommonLifetime();
+            PublishPhase(SceneTransitionState.RevealingLoadingPresentation);
+            // A hook can expose the UI before throwing; recovery must cover that partial reveal too.
+            operation.LoadingUiExposed = true;
+            await InvokeAsync(() => RequireCallbacks().RevealLoadingPresentationAsync(operation.Context, token));
+            token.ThrowIfCancellationRequested();
+            await LoadAndPrepareAsync(operation, token);
+            PublishPhase(SceneTransitionState.AwaitingProceed);
+            await InvokeAsync(() => RequireCallbacks().WaitForProceedAsync(operation.Context, token))
+                .AttachExternalCancellation(token);
+            token.ThrowIfCancellationRequested();
+            ValidatePreparedOwnership();
+            RecheckLivePolicy(operation);
+            PublishPhase(SceneTransitionState.Finalizing);
+            await InvokeAsync(() => RequireCallbacks().ShowCoverAsync(token));
+            operation.LoadingUiExposed = false;
+            token.ThrowIfCancellationRequested();
+            ValidatePreparedOwnership();
+            await FinalizePreviousAsync(operation, token);
+            await ReleaseLoadingUiAsync(operation);
+            token.ThrowIfCancellationRequested();
+            ValidatePreparedOwnership();
+        }
+
+        private void RecheckLivePolicy(Operation operation)
+        {
+            // Single replacement has already retired the old affected roots; never evaluate their dead policy.
+            if (operation.Kind == OperationKind.Entry || operation.Kind == OperationKind.Add ||
+                (_mode == LoadSceneMode.Additive && _primary != null))
+                RecheckPolicy(operation, LoadedScene);
+        }
+
+        private async UniTask FinalizePreviousAsync(Operation operation, CancellationToken token)
+        {
             if (_primary != null && operation.Kind != OperationKind.Add)
             {
-                RecheckPolicy(operation, LoadedScene);
                 PublishPhase(SceneTransitionState.Stopping);
+                token.ThrowIfCancellationRequested();
+                ValidatePreparedOwnership();
+                RecheckPolicy(operation, LoadedScene);
                 GameScene = default;
                 await ReleaseSubtreeAsync(_primary, false, ValidatePreparedOwnership);
                 token.ThrowIfCancellationRequested();
@@ -605,6 +691,13 @@ namespace MyLab.Core.SceneManagement
             }
             if (operation.Kind == OperationKind.Entry || operation.Kind == OperationKind.Add)
                 RecheckPolicy(operation, LoadedScene);
+        }
+
+        private async UniTask ReleaseLoadingUiAsync(Operation operation)
+        {
+            if (!operation.LoadingUiStarted || operation.LoadingUiReleaseStarted) return;
+            operation.LoadingUiReleaseStarted = true;
+            await InvokeAsync(() => RequireCallbacks().ReleaseLoadingPresentationAsync(operation.Context));
         }
 
         private async UniTask RemoveSubtreeAsync(Operation operation, CancellationToken token)
@@ -967,6 +1060,10 @@ namespace MyLab.Core.SceneManagement
             internal readonly OperationKind Kind;
             internal readonly SceneLoadingContext Context;
             internal bool DestinationPrepared;
+            internal bool UsesLoadingPresentation;
+            internal bool LoadingUiStarted;
+            internal bool LoadingUiExposed;
+            internal bool LoadingUiReleaseStarted;
             internal readonly OwnedPrimary Parent;
             internal readonly bool Activate;
             internal readonly int Priority;

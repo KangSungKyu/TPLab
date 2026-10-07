@@ -3,11 +3,11 @@
 | Field | Value |
 |---|---|
 | Module / Namespace / Assembly | `SceneManagement` / `MyLab.Core.SceneManagement` / `MyLab.Core` |
-| SourceRevision | `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`; 별도 배포 버전 미지정 |
+| SourceRevision | P4 historical baseline `9305b5dd0f730636f431fd5d19a1c9102fdc3bed` (현재 P2 source 아님); 최종 P2 tip은 부모가 [track](../../SCENE_LOADING_TRACK.md)에 지정 예정 |
 | SourcePath | [소스](../../../Assets/MyLab/Core/SceneManagement), [asmdef](../../../Assets/MyLab/Core/MyLab.Core.asmdef) |
 | HumanContract | [사람용 API](../../api/SceneManagement.md), [manager](../../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../../BOOTSTRAP_SYSTEM.md), [로더](../../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
-| Evidence | [p4](../../validation/input-system/p4/README.md): 전체 Edit258/Play217 실패0·skip0, reload8/8, Additive/Single Windows Mono sample 및 Core consumer build/Player. 모듈 전용 건수가 아님. 문서 작업 새 실행0. |
+| Evidence | 최종 P2 targeted [Green](../../validation/scene-loading/p2/green-final-flow.json) 36/36, 실패0/skip0. 이전 Core Edit252/252·Play224/224는 마지막 edge 추가 전. P4 sample UI [Red](../../validation/scene-loading/p4/red-ui.json) 0/8; UI 구현·전체 Input/sample 회귀·Player 대기 중. |
 
 ## Symbol / Signature / Constraints
 
@@ -17,7 +17,9 @@ public 선언 참조이며 body는 생략한다. ResourceManagement의 SceneTarg
 public enum SceneTransitionState
 {
     Idle, Covering, PreparingCommon, Loading, Configuring, PreparingScene,
-    PreparingPresentation, Revealing, Ready, Stopping, Stopped, Faulted
+    PreparingPresentation, Revealing, Ready, Stopping, Stopped, Faulted,
+    PreparingLoadingPresentation, RevealingLoadingPresentation, ResolvingTarget,
+    AwaitingProceed, Finalizing
 }
 public sealed class GameSceneManager
 public GameSceneManager(MonoBehaviour commonHost, SceneTransitionCallbacks callbacks = null,
@@ -82,6 +84,12 @@ public virtual UniTask ShowCoverAsync(CancellationToken cancellationToken);
 public virtual UniTask ConfigureSceneAsync(Scene scene, ISceneRoot root, CancellationToken cancellationToken);
 public virtual UniTask PreparePresentationAsync(Scene scene, ISceneRoot root, CancellationToken cancellationToken);
 public virtual UniTask HideCoverAsync(CancellationToken cancellationToken);
+public virtual bool UsesLoadingPresentation(SceneLoadingContext context); // default false
+public virtual UniTask PrepareLoadingPresentationAsync(SceneLoadingContext context, CancellationToken cancellationToken);
+public virtual UniTask RevealLoadingPresentationAsync(SceneLoadingContext context, CancellationToken cancellationToken);
+public virtual void ReportLoadingProgress(SceneTransitionProgress progress);
+public virtual UniTask WaitForProceedAsync(SceneLoadingContext context, CancellationToken cancellationToken); // default completed
+public virtual UniTask ReleaseLoadingPresentationAsync(SceneLoadingContext context);
 public virtual void OnFailure(Exception exception);
 // Deprecated/Obsolete 호환 타입
 public abstract class BootstrapCallbacks : SceneTransitionCallbacks
@@ -192,10 +200,19 @@ common installer에서 entry/self-prepare await, hook에서 같은 manager comma
 
 [사람용 발췌](../../api/SceneManagement.md#사용-발췌)는 actual signatures에 맞춘 normal/add/remove/caller cancel/owner shutdown 순서이며 이번 compile/run0. placeholders는 프로젝트 제공. cleanup 동시 오류 aggregate reporting은 프로젝트 책임임을 예제에 명시한다.
 
-현재 최초/교체/derived/definitions/conditions는 Implemented다. [loading presentation](../../SCENE_LOADING_PRESENTATION_DRAFT.md)은 **Proposed·미구현**: progress snapshot/event, 팁, WaitForProceed, AwaitingProceed 및 중간 cover-off 흐름을 사용 가능한 API로 생성하지 않는다. 기존 ShowCover/HideCover는 구현된 final protection callbacks다.
+`SceneLoadingContext`/`SceneTransitionProgress`:
+
+- `SceneLoadingContext`: `OperationId`, `Kind`, `Target`, `Mode`; 변경 불가한 작업 식별자이며 씬 소유권은 없다.
+- `SceneTransitionProgress`: `OperationId`, `Stage: SceneTransitionState`, `StageRatio: float?`, `IsPrepared`. 기존 enum 값 0..11은 유지하고 새 값을 뒤에 추가했다: `PreparingLoadingPresentation`, `RevealingLoadingPresentation`, `ResolvingTarget`, `AwaitingProceed`, `Finalizing`.
+- `GameSceneManager.Progress`는 nullable이다. `ReportLoadingProgress`는 main thread 동기 callback이므로 manager를 재진입하지 않는다. `Ready`/`Faulted` terminal은 property로만 관찰하며 callback report는 없다. 단계 비율은 전체 진행률이 아니고 미지원 loader는 null을 보고한다. Addressables 해석은 UniTask progress의 bytes ratio 대신 operation `PercentComplete`를 사용한다.
+- `ISceneProgressLoader`는 선택 구현이며 기존 `ISceneLoader`도 유효하다. observer 예외를 보관한 뒤 successful load result를 먼저 보유하고 candidate를 정리한 다음 실패를 보고한다. caller token은 caller의 await만 취소하고 실제 작업은 manager owner token이 제어한다.
+
+opt-in load에서 manager는 `UsesLoadingPresentation`을 한 번 평가한다. 흐름: 기존 `ShowCoverAsync` → `PrepareLoadingPresentationAsync` → `RevealLoadingPresentationAsync`(가림막만 숨기고 transition input lease 유지) → load/configure/prepare → `AwaitingProceed` → `WaitForProceedAsync` → live policy 재검사 → `ShowCoverAsync` 재호출 → 이전 root 마무리 → 가림막 아래 `ReleaseLoadingPresentationAsync` 1회 → 기존 최종 `HideCoverAsync`(게임 공개 및 transition lease 해제). 기본값은 `UsesLoadingPresentation=false`, 완료된 `WaitForProceedAsync`다.
+
+`Single` 교체는 native load 전 기존 root를 종료하므로 종료된 root의 condition을 재평가하지 않는다. `Additive`는 수동 대기 중 이전 root를 유지하고 중복 명령을 거부하며, 두 번째 가림막 이후 해제 전에 이전 root condition을 재검사한다. UI 공개 뒤 실패/취소 시 가림막 복구, candidate 정리, presentation release를 한 번씩 시도하고 오류를 aggregate한다. rollback은 보장하지 않는다. callback/UI hierarchy는 영향받는 씬보다 오래 살아야 하며 `Single`은 persistent common root 아래에 둔다. project UI/sample 통합은 [track](../../SCENE_LOADING_TRACK.md)에서 진행 중이다.
 
 확인 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono. 전체 p4 및 sample smoke가 다른 Unity/IL2CPP/플랫폼·원격 bundle download·임의 presentation/물리 입력 UX를 증명하지 않는다. core runtime UI/Input dependency 없음. 기존 Bootstrap path/source overload 및 Deprecated adapter 호환을 유지한다.
 
-## 진행률 선행 계약 (2026-10-07 P1)
+## ValidationStatus
 
-GameSceneManager.Progress(nullable)는 immutable SceneTransitionProgress(OperationId, Stage, StageRatio(nullable), IsPrepared)다. ReportLoadingProgress(snapshot)는 동기 메인 스레드 callback이며 manager 재진입을 허용하지 않는다. 미지원 loader ratio=null, native1과 root/presentation준비를 구분한다. Ready/Faulted terminal은 property에서 관찰하며 callback을 다시 호출하지 않는다. 표시용 SceneLoadingContext(OperationId/Kind/Target/Mode)는 기존 조건 평가용 SceneTransitionContext와 별도다. 로딩UI callback 선언은 선행 계약이며 opt-in 표시/대기 흐름은 다음phase에서 연결한다.
+최종 P2 targeted `GameSceneReplacementTests` Play 36/36, 실패0/skip0 ([결과](../../validation/scene-loading/p2/green-final-flow.json)). Core Edit252/252·Play224/224는 마지막 edge test 추가 전에 통과했다. P4 sample UI 최초 Red는 0/8 ([결과](../../validation/scene-loading/p4/red-ui.json)); 전체 Input/sample 회귀, Player와 최종 presentation UX는 아직 완료되지 않았다. targeted 결과를 그 gate의 통과로 확대하지 않는다.

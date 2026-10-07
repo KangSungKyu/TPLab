@@ -14,7 +14,7 @@ namespace MyLab.Core.SceneManagement
     /// </summary>
     public abstract class SceneTransitionCallbacks : MonoBehaviour
     {
-        /// <summary>Completes after the cover is displayed and gameplay input is blocked.</summary>
+        /// <summary>Completes after the cover is displayed and gameplay input is blocked. Loading presentation calls this twice; retain one transition lease.</summary>
         public virtual UniTask ShowCoverAsync(CancellationToken cancellationToken) => UniTask.CompletedTask;
 
         /// <summary>
@@ -47,7 +47,11 @@ namespace MyLab.Core.SceneManagement
         /// <summary>Receives synchronous main-thread snapshots; never starts or waits for its own transition.</summary>
         public virtual void ReportLoadingProgress(SceneTransitionProgress progress) { }
 
-        /// <summary>Automatic continuation by default; a project can await an operation-specific button after preparation.</summary>
+        /// <summary>
+        /// Automatic continuation by default. Manual UI must await fresh operation-specific input after preparation,
+        /// bind its own destruction to failure/cancellation, and remove listeners in cleanup. Caller cancellation
+        /// affects only caller observation; the supplied token belongs to the transition owner.
+        /// </summary>
         public virtual UniTask WaitForProceedAsync(SceneLoadingContext context, CancellationToken cancellationToken) => UniTask.CompletedTask;
 
         /// <summary>Releases only this operation's UI/listeners under cover, without abandoning begun cleanup on cancellation.</summary>

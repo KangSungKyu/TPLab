@@ -1,0 +1,54 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 28,
+  "passes": [
+    "MyLab.Core.Tests.GameSceneReplacementTests.AdditivePresentationFinishesBeforeOldRootShutdown",
+    "MyLab.Core.Tests.GameSceneReplacementTests.CallerCancellationStopsOnlyItsReplacementWait",
+    "MyLab.Core.Tests.GameSceneReplacementTests.CandidateFailurePreservesPreparedOldRootAndKeepsCover",
+    "MyLab.Core.Tests.GameSceneReplacementTests.CompletedOperationAwaiterCanImmediatelyStartAndCancelTheNextOperation",
+    "MyLab.Core.Tests.GameSceneReplacementTests.FailedOldUnloadRemainsObservableAfterCandidateCleanupAndExplicitShutdown",
+    "MyLab.Core.Tests.GameSceneReplacementTests.ForeignSceneDuringCandidatePresentationIsRetainedAndFaultsBeforeOldShutdown",
+    "MyLab.Core.Tests.GameSceneReplacementTests.LoadingAutoFlowUsesTwoCoversAndReleasesUnderCover",
+    "MyLab.Core.Tests.GameSceneReplacementTests.LoadingRevealFailureRecoversCoverBeforeUiCleanup",
+    "MyLab.Core.Tests.GameSceneReplacementTests.LoadingUiReleaseFailureIsOnceAndNeverRevealsGameplay",
+    "MyLab.Core.Tests.GameSceneReplacementTests.ManualWaitCancellationRestoresCoverAndCleansOnlyCandidate",
+    "MyLab.Core.Tests.GameSceneReplacementTests.ManualWaitKeepsOldAdditiveRootAndRejectsAnotherCommand",
+    "MyLab.Core.Tests.GameSceneReplacementTests.ManualWaitRechecksOldRootConditionBeforeShutdown",
+    "MyLab.Core.Tests.GameSceneReplacementTests.MovedCandidateIsReleasedWithoutShuttingDownPreparedOldRoot",
+    "MyLab.Core.Tests.GameSceneReplacementTests.NativeProgressFailureStillRetainsAndUnloadsLateResult",
+    "MyLab.Core.Tests.GameSceneReplacementTests.OldReleaseFailureCleansCandidateAndRetainsActualOldOwner",
+    "MyLab.Core.Tests.GameSceneReplacementTests.OverlappingReplacementIsRejectedBeforeEffects",
+    "MyLab.Core.Tests.GameSceneReplacementTests.OwnerCancellationWaitsForLateCandidateThenPreservesOldRoot",
+    "MyLab.Core.Tests.GameSceneReplacementTests.ProgressHookFailureCleansCandidateBeforeReportingFailure",
+    "MyLab.Core.Tests.GameSceneReplacementTests.RevealFailureRestoresCoverAndCleansReplacement",
+    "MyLab.Core.Tests.GameSceneReplacementTests.ShutdownSharesWaitForLateCandidateAndCleansEveryOwnedScene",
+    "MyLab.Core.Tests.GameSceneReplacementTests.SingleCandidateFailureKeepsTheLastActualSceneOwnedAndUnprepared",
+    "MyLab.Core.Tests.GameSceneReplacementTests.SingleLoadingWaitUsesPersistentCallbacksAfterOldRootRelease",
+    "MyLab.Core.Tests.GameSceneReplacementTests.SingleOldShutdownFailurePreventsNativeLoad",
+    "MyLab.Core.Tests.GameSceneReplacementTests.SingleRejectsRetainedNormalSceneBeforeCover",
+    "MyLab.Core.Tests.GameSceneReplacementTests.SingleRejectsUnregisteredSceneBeforeCover",
+    "MyLab.Core.Tests.GameSceneReplacementTests.SingleWaitsForOldGracefulShutdownBeforeNativeLoad",
+    "MyLab.Core.Tests.GameSceneReplacementTests.TwoReplacementsKeepCommonAndSeparateEntryFromTransitionHistory",
+    "MyLab.Core.Tests.GameSceneReplacementTests.UnsupportedProgressKeepsPreparationAndNativeCompletionSeparate"
+  ],
+  "skipped": 0,
+  "total": 28,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Tests.GameSceneReplacementTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 5528,
+    "cliReturnCode": 0,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 5528,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

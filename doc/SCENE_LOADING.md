@@ -21,7 +21,17 @@
 
 ## 사전 검사와 검증
 
-진행률 전달은 현재 로더 계약에 없다. [로딩 화면 초안](SCENE_LOADING_PRESENTATION_DRAFT.md)에서 기존 ISceneLoader를 보존하는 선택적 progress 경계·StageRatio의 의미·UI observer 실패 후 native 결과 소유권 확보를 제안한다. 진행률 확장과 신규 UI 흐름은 아직 구현하지 않았다.
+진행률은 선택적 `ISceneProgressLoader`로 전달한다. 기존 `ISceneLoader.LoadAsync(target, mode)`는 유지되며 progress 미지원 loader도 계속 쓸 수 있고 그 단계 ratio는 null이다. Addressables location resolution에서 `ToUniTask(progress:)`가 내는 download-byte ratio 대신 operation `PercentComplete`를 보고한다. observer 예외는 로더 결과를 manager에 먼저 전달한 뒤 후보/handle을 정리하고 실패로 보고한다. 실제 계약·UI 수명은 [presentation 흐름](SCENE_LOADING_PRESENTATION_DRAFT.md)을 따른다.
+
+```csharp
+public interface ISceneProgressLoader : ISceneLoader
+{
+    UniTask<LoadedScene> LoadAsync(SceneTarget target, LoadSceneMode mode,
+        SceneLoadProgressObserver observer);
+}
+```
+
+`SceneLoadProgressObserver.Report`는 Unity main thread에서 동기로 실행되고 첫 callback 예외를 보관한다. UI observer 실패만으로 native load나 성공한 씬 결과의 소유권을 버리지 않는다. GameSceneManager는 `LoadedScene`을 먼저 소유한 다음 observer 예외를 확인하고 candidate cleanup을 실행한다. P2에서 표시 수명과 자동/수동 진행 대기를 이 경계 위에 구현했다. targeted 결과와 남은 sample/Player gate는 [SCENE_LOADING_TRACK.md](SCENE_LOADING_TRACK.md)에 기록한다.
 
 Build 대상은 실제 Player build scene list 포함 여부, Addressable은 설치된 Addressables 설정의 단일 씬 매핑을 검사한다. 양쪽 모두 실제 SceneAsset/root/공용 수명 모순을 확인하며 주소 씬에 Build Scene 포함을 강제하지 않는다.
 

@@ -49,6 +49,7 @@ namespace MyLab.Core.Tests
             _releaseGate?.TrySetResult();
             _loader?.Gate?.TrySetResult();
             _callbacks?.PresentationGate?.TrySetResult();
+            _callbacks?.ProceedGate?.TrySetResult();
             if (SceneManager.sceneCount == 1 && IsFixture(SceneManager.GetSceneAt(0)))
                 SceneManager.CreateScene("SceneReplacementTestRecovery");
             if (_manager != null)
@@ -526,7 +527,294 @@ namespace MyLab.Core.Tests
             Assert.That(_manager.OwnedScenes, Is.EquivalentTo(new[] { old }));
         });
 
-        private async UniTask CreateEnteredManagerAsync(bool persistent = false, LoadSceneMode firstMode = LoadSceneMode.Additive, bool progress = false)
+        [UnityTest]
+        public IEnumerator LoadingAutoFlowUsesTwoCoversAndReleasesUnderCover() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            int covers = _callbacks.CoverCount, reveals = _callbacks.RevealCount;
+            _callbacks.LoadingPreparing = () => Assert.That(_callbacks.Covered, Is.True);
+            _callbacks.Presenting = () => Assert.That(_callbacks.Covered, Is.False);
+            _callbacks.Proceeding = () =>
+            {
+                Assert.That(_manager.State, Is.EqualTo(SceneTransitionState.AwaitingProceed));
+                Assert.That(_manager.Progress.Value.IsPrepared, Is.True);
+                Assert.That(_manager.CanProceed, Is.False);
+            };
+            _callbacks.LoadingReleasing = () => Assert.That(_callbacks.Covered, Is.True);
+            await _manager.ReplacePrimaryAsync(Main);
+            Assert.That(_callbacks.CoverCount, Is.EqualTo(covers + 2));
+            Assert.That(_callbacks.RevealCount, Is.EqualTo(reveals + 1));
+            Assert.That(_callbacks.LoadingPrepareCount, Is.EqualTo(1));
+            Assert.That(_callbacks.LoadingRevealCount, Is.EqualTo(1));
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(_manager.CanProceed, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator ManualWaitKeepsOldAdditiveRootAndRejectsAnotherCommand() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            var old = _manager.GameScene;
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            var transition = _manager.ReplacePrimaryAsync(Main).AsTask();
+            await WaitForProceedAsync();
+            Assert.That(Root(old).IsPrepared, Is.True);
+            Assert.That(Root(old).GetComponent<SceneRootInstallerProbe>().ReleaseCount, Is.Zero);
+            Assert.That(transition.IsCompleted, Is.False);
+            Assert.That(_callbacks.Covered, Is.False);
+            Assert.That(_manager.CanProceed, Is.False);
+            Assert.Throws<InvalidOperationException>(() => _manager.ReplacePrimaryAsync(Hub));
+            _callbacks.ProceedGate.TrySetResult();
+            Assert.That(_callbacks.ProceedGate.TrySetResult(), Is.False);
+            await transition;
+            Assert.That(old.isLoaded, Is.False);
+            Assert.That(_manager.CanProceed, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator ManualWaitCancellationRestoresCoverAndCleansOnlyCandidate() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            var old = _manager.GameScene;
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            var transition = _manager.ReplacePrimaryAsync(Main).AsTask();
+            await WaitForProceedAsync();
+            _manager.CancelTransition();
+            Exception failure = null;
+            try { await transition; } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.InstanceOf<OperationCanceledException>());
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(Root(old).IsPrepared, Is.True);
+            Assert.That(SceneManager.GetSceneByPath(Main).isLoaded, Is.False);
+            Assert.That(_manager.CanProceed, Is.False);
+        });
+
+        [UnityTest]
+        public IEnumerator ManualWaitRechecksOldRootConditionBeforeShutdown() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            var old = _manager.GameScene;
+            var condition = Root(old).gameObject.AddComponent<SceneConditionProbe>();
+            condition.Id = "loading-gate";
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            var transition = _manager.ReplacePrimaryAsync(Main).AsTask();
+            await WaitForProceedAsync();
+            condition.Allowed = false;
+            _callbacks.ProceedGate.TrySetResult();
+            Exception failure = null;
+            try { await transition; } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(Root(old).IsPrepared, Is.True);
+            Assert.That(Root(old).GetComponent<SceneRootInstallerProbe>().ReleaseCount, Is.Zero);
+        });
+
+        [UnityTest]
+        public IEnumerator SingleLoadingWaitUsesPersistentCallbacksAfterOldRootRelease() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync(true, LoadSceneMode.Single);
+            var old = _manager.GameScene;
+            int released = Root(old).GetComponent<SceneRootInstallerProbe>().ReleaseCount;
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            var transition = _manager.ReplacePrimaryAsync(Main, LoadSceneMode.Single).AsTask();
+            await WaitForProceedAsync();
+            Assert.That(old.isLoaded, Is.False);
+            Assert.That(_callbacks != null && _common.IsPrepared, Is.True);
+            Assert.That(_manager.CanProceed, Is.False);
+            _callbacks.ProceedGate.TrySetResult();
+            await transition;
+            Assert.That(_manager.CanProceed, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator LoadingUiReleaseFailureIsOnceAndNeverRevealsGameplay() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            int reveals = _callbacks.RevealCount;
+            _callbacks.LoadingReleasing = () => throw new InvalidOperationException("loading-release");
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(failure.ToString(), Does.Contain("loading-release"));
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(_callbacks.RevealCount, Is.EqualTo(reveals));
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_manager.CanProceed, Is.False);
+        });
+
+        [UnityTest]
+        public IEnumerator LoadingRevealFailureRecoversCoverBeforeUiCleanup() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            var old = _manager.GameScene;
+            _callbacks.LoadingEnabled = true;
+            _callbacks.LoadingRevealing = () => throw new InvalidOperationException("loading-reveal");
+            _callbacks.LoadingReleasing = () => Assert.That(_callbacks.Covered, Is.True);
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(failure.ToString(), Does.Contain("loading-reveal"));
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(Root(old).IsPrepared, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator SecondCoverAwaitRechecksConditionBeforeOldRelease() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            var old = _manager.GameScene;
+            var condition = Root(old).gameObject.AddComponent<SceneConditionProbe>();
+            condition.Id = "second-cover-condition";
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            var transition = _manager.ReplacePrimaryAsync(Main).AsTask();
+            await WaitForProceedAsync();
+            _callbacks.CoverGate = new UniTaskCompletionSource();
+            _callbacks.ProceedGate.TrySetResult();
+            await UniTask.Yield();
+            condition.Allowed = false;
+            _callbacks.CoverGate.TrySetResult();
+            Exception failure = null;
+            try { await transition; } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.InstanceOf<OperationCanceledException>());
+            Assert.That(Root(old).IsPrepared, Is.True);
+            Assert.That(_callbacks.Covered, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator LoadingPreparationAndReleaseFailuresAreBothReported() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            _callbacks.LoadingPreparing = () => throw new InvalidOperationException("loading-prepare");
+            _callbacks.LoadingReleasing = () => throw new InvalidOperationException("loading-cleanup");
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.TypeOf<AggregateException>());
+            Assert.That(failure.ToString(), Does.Contain("loading-prepare").And.Contain("loading-cleanup"));
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(_callbacks.LoadingRevealCount, Is.Zero);
+        });
+
+        [UnityTest]
+        public IEnumerator FinalRevealFailureRestoresCoverWithoutRepeatingUiRelease() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            int covers = _callbacks.CoverCount;
+            _callbacks.Revealing = () => throw new InvalidOperationException("final-loading-reveal");
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(_callbacks.CoverCount, Is.EqualTo(covers + 3));
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(_manager.CanProceed, Is.False);
+        });
+
+        [UnityTest]
+        public IEnumerator CallerWaitCancellationDoesNotAuthorizeOrCancelProceed() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            using var caller = new CancellationTokenSource();
+            var waitingCaller = _manager.ReplacePrimaryAsync(Main, cancellationToken: caller.Token).AsTask();
+            await WaitForProceedAsync();
+            caller.Cancel();
+            Exception failure = null;
+            try { await waitingCaller; } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.InstanceOf<OperationCanceledException>());
+            Assert.That(_manager.WaitForTransitionAsync().Status, Is.EqualTo(UniTaskStatus.Pending));
+            Assert.That(_manager.CanProceed, Is.False);
+            _callbacks.ProceedGate.TrySetResult();
+            await _manager.WaitForTransitionAsync();
+            Assert.That(_manager.CanProceed, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator LoadingFirstEntryPreparesCommonBeforeUiAndEndsReady() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync(loading: true);
+            Assert.That(_callbacks.LoadingPrepareCount, Is.EqualTo(1));
+            Assert.That(_callbacks.CoverCount, Is.EqualTo(2));
+            Assert.That(_callbacks.RevealCount, Is.EqualTo(1));
+            Assert.That(_callbacks.LoadingContext.Kind, Is.EqualTo(SceneTransitionKind.FirstEntry));
+            Assert.That(_manager.CanProceed && _common.IsPrepared, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator DerivedAddCanUseLoadingButRemovalUsesOnlyCover() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            var area = await _manager.AddDerivedAsync("Assets/MyLab/Tests/Fixtures/DerivedArea.unity", _manager.GameScene);
+            Assert.That(_callbacks.LoadingPrepareCount, Is.EqualTo(1));
+            Assert.That(_callbacks.LoadingContext.Kind, Is.EqualTo(SceneTransitionKind.AddDerived));
+            int covers = _callbacks.CoverCount;
+            await _manager.RemoveDerivedAsync(area, _manager.GameScene);
+            Assert.That(_callbacks.LoadingPrepareCount, Is.EqualTo(1));
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(_callbacks.CoverCount, Is.EqualTo(covers + 1));
+            Assert.That(_manager.CanProceed, Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator SingleWaitCancellationRetainsLastSceneUnpreparedUntilExplicitRecovery() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync(true, LoadSceneMode.Single);
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProceedGate = new UniTaskCompletionSource();
+            var transition = _manager.ReplacePrimaryAsync(Main, LoadSceneMode.Single).AsTask();
+            await WaitForProceedAsync();
+            _manager.CancelTransition();
+            Exception failure = null;
+            try { await transition; } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.TypeOf<AggregateException>());
+            Assert.That(failure.ToString(), Does.Contain("last normal scene"));
+            var residual = SceneManager.GetSceneByPath(Main);
+            Assert.That(residual.isLoaded, Is.True);
+            Assert.That(Root(residual).IsPrepared, Is.False);
+            Assert.That(_manager.OwnedScenes, Does.Contain(residual));
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_callbacks.LoadingReleaseCount, Is.EqualTo(1));
+            Assert.That(_manager.CanProceed, Is.False);
+            _foreign = SceneManager.CreateScene("ExplicitSingleLoadingRecovery");
+            await _manager.ShutdownAsync();
+            Assert.That(residual.isLoaded, Is.False);
+        });
+
+        [UnityTest]
+        public IEnumerator CoverProgressUiFailureCannotPreventProtectiveCover() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.LoadingEnabled = true;
+            _callbacks.ProgressReported = progress =>
+            {
+                if (progress.Stage == SceneTransitionState.Covering)
+                    throw new InvalidOperationException("cover-progress-ui");
+            };
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(_callbacks.Covered, Is.True);
+            Assert.That(_callbacks.LoadingPrepareCount, Is.Zero);
+            Assert.That(_manager.CanProceed, Is.False);
+        });
+
+        private UniTask WaitForProceedAsync() => UniTask.WaitUntil(() => _callbacks.ProceedCount > 0)
+            .Timeout(TimeSpan.FromSeconds(3));
+
+        private async UniTask CreateEnteredManagerAsync(bool persistent = false, LoadSceneMode firstMode = LoadSceneMode.Additive, bool progress = false, bool loading = false)
         {
             _host = new GameObject("ReplacementCommon");
             _host.SetActive(false);
@@ -535,6 +823,7 @@ namespace MyLab.Core.Tests
             _common = _host.AddComponent<SceneOwnedRoot>();
             _common.Configure(new SceneRootInstaller[] { _commonInstaller }, persistent);
             _callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
+            _callbacks.LoadingEnabled = loading;
             _host.SetActive(true);
             _loader = new TrackingLoader();
             _manager = new GameSceneManager(_common, _callbacks, progress ? new NativeSceneLoader() : (ISceneLoader)_loader);
