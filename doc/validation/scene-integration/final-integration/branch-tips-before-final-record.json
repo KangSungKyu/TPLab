@@ -1,0 +1,16 @@
+{
+  "snapshotBeforeFinalRecordCommit": true,
+  "mainIntegratedTip": "7fae48093253b7710d9447b91322c22de2a1e1e1",
+  "ownedBranches": {
+    "codex/game-scenes-p0-guidelines": "acb636c933f2eea29f46705d233f4e0dba436965",
+    "codex/game-scenes-p0-loaders": "26f725ddf77c2a27e632f48d1f19b7b678315d13",
+    "codex/game-scenes-p3a-flow": "bd7698ab0d341dd990efb894804d19963a638693",
+    "codex/game-scenes-p3b-areas": "54107893f9da91e86f44be5766c5501e8de8e0df",
+    "codex/game-scenes-p4-definitions": "5eda919b89a59cea3021c37c14d176f6b3719ff0",
+    "codex/game-scenes-p5-editor": "de4bb691aed3124443c4bfe3cfd085e3275002a8",
+    "codex/game-scenes-p6-validation": "6355b36a8edd73ef4c8c87b679f46018e780736a",
+    "codex/game-scenes-track": "7fae48093253b7710d9447b91322c22de2a1e1e1"
+  },
+  "trackFinalTip": "The final documentation commit is preserved in main and reported at cleanup time.",
+  "otherBranches": "excluded"
+}

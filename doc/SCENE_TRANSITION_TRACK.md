@@ -88,3 +88,6 @@ P6 최종 결과: sample native Editor smoke Additive/Single 각10관찰, 원래
 | P6 sample 구현·최종 읽기 리뷰 | `/root/scene_runtime`, gpt-6.1-sol / high | 입력/비동기 root·UI 수명과 native smoke 검토 | 별도 Samples/관련 dedicated tests·fixture/Validation helper; Core·Unity·Git 제외 | 구현 완료·소스 동결, 부모 actual Unity/Player/전체 회귀 검증 완료 |
 
 P6 소스·테스트·영속 증거 commit `76939ba678d217f7e4787122a14139e73e4c3a51`을 Phase 브랜치에 push했다. [정확한 commit CI 조회](validation/scene-integration/ci-policy.json)는 main unprotected/CI 미구성이며 CI 성공으로 기록하지 않는다. 이후 CI·기록만 추가한 tip은 같은 source hash로 verifier를 통과한 뒤 track에 FF 통합한다. main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`와 사용자 변경은 유지한다.
+
+
+2026-10-07 최종 통합: 사용자 Unity 확인 후 7fae48093253b7710d9447b91322c22de2a1e1e1로 main FF/push를 실제 완료하고 local main=origin/main을 확인했다. 원래 코드/예제/테스트 입력283개와 보호 bytes는 동일하다. 제품 Console0, 현재 Editor PID52320 ready/저장 확인. 현재 단위는 최종 문서 기록과 승인된 track/Phase8개의 exact-tip 정리·정상 종료다. 기타 작업 브랜치는 보존한다. 최종 기록 commit SHA와 실제 삭제 결과는 Git 이력·최종 보고를 따른다.
