@@ -1,0 +1,300 @@
+{
+  "actualRuns": 3,
+  "allowlist": [],
+  "createdUtc": "2026-10-07T09:14:44.806009+00:00",
+  "editor": {
+    "elapsedSeconds": 52.653,
+    "endedUtc": "2026-10-07T09:16:52.059636+00:00",
+    "pid": 38072,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Logs\\editor.log",
+    "processLogFresh": true,
+    "result": {
+      "backend": "Mono2x",
+      "error": "",
+      "errors": 0,
+      "importer": {
+        "automaticNoMutation": true,
+        "baselineAssetsUnchanged": true,
+        "buildSettingsUnchanged": true,
+        "defaultAutomaticDisabled": true,
+        "defaultSettingsDisabled": true,
+        "diagnostic": "Installed Editor importer preparation and compiled generated validation completed.",
+        "generatedAwaitingCompilation": true,
+        "generatedDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "generatedUnwrittenPending": true,
+        "generatedValidated": true,
+        "generatedValidatorObserved": true,
+        "invalidSchemaDiagnostic": "Failed: Schema version and dataType must be integers.",
+        "invalidSchemaDiagnostics": true,
+        "manualDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "manualTypedValidated": true,
+        "manualValidatorObserved": true,
+        "missingSettingsDisabled": true,
+        "ownedAssetsCleaned": true,
+        "packageBytesUnchanged": true,
+        "packagesDiagnostic": "Failed: Use a normalized Assets path: Packages/TPLabConsumerImporterProbe_ac100f4b03174065835713a954171fae",
+        "packagesOutputDenied": true,
+        "profileUnregistered": true,
+        "rejectedDiagnostic": "Failed: consumer project validator rejection",
+        "requiresGeneratedValidationPhase": false,
+        "validatorFailurePreservesOwnedSources": true
+      },
+      "installedPackages": [
+        {
+          "name": "com.tplab.core",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Library\\PackageCache\\com.tplab.core@03e967ecfed4",
+          "source": "LocalTarball",
+          "version": "0.0.1"
+        },
+        {
+          "name": "com.tplab.input",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Library\\PackageCache\\com.tplab.input@4f4498255317",
+          "source": "LocalTarball",
+          "version": "0.0.1"
+        },
+        {
+          "name": "com.tplab.editor",
+          "resolvedPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Library\\PackageCache\\com.tplab.editor@1c7b6c658bf2",
+          "source": "LocalTarball",
+          "version": "0.0.1"
+        }
+      ],
+      "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Build\\ConsumerSmoke.exe",
+      "result": "Succeeded",
+      "sampleBuilds": [
+        {
+          "evidencePath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\doc\\validation\\scene-integration\\consumer-additive.json",
+          "mode": "additive",
+          "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Temp\\GameScenesTrack\\ScenePlayers\\consumer-additive\\SceneTransitions.exe"
+        },
+        {
+          "evidencePath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\doc\\validation\\scene-integration\\consumer-single.json",
+          "mode": "single",
+          "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Temp\\GameScenesTrack\\ScenePlayers\\consumer-single\\SceneTransitions.exe"
+        }
+      ],
+      "samplesVerified": true,
+      "success": true,
+      "target": "StandaloneWindows64",
+      "unityVersion": "6000.3.18f1",
+      "warnings": 1
+    },
+    "returnCode": 0,
+    "startedUnix": 1791364559.4065094,
+    "startedUtc": "2026-10-07T09:15:59.406508+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Logs\\editor-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "errors": [
+    "Installed payload differs: package/package.json"
+  ],
+  "expectedUnityVersion": "6000.3.18f1",
+  "harnessTemplates": {
+    "ConsumerBuild.cs": "cef073f7f74bf837daa9a3ef9cd7a92309dd8762b8122c3bef60fa32ffec6bd5",
+    "ConsumerSetup.cs": "650b77fbda36b47c2914e17ec8385f5d61fc811ef3ea58e131da41ca8b04e667",
+    "ConsumerSmoke.cs": "9ba12e7f1357f8890b9c510184b75d262612b4fc3b4ab28a818537e157011834",
+    "EditorProbe.cs": "eaebe8face645d28fc786f3bb8bd7894521e76419f9a8dab7d920fdf09d129a5",
+    "ProjectVersion.txt.in": "49acfbeaed7b14df027494cef9f89f66b4beac575ff9dca2f6d6f340748db4a9",
+    "manifest.json.in": "24e71784757509b9a3ca9b3c98c3a13221a0d2b4a8d50705a1ae46dcde32a1d8",
+    "run_core_consumer.py": "2d80fef84cdad98c5602662455685028aa070b3d5766b852279efda95aac2f8c",
+    "run_scene_player.py": "6cd642383681861d7730ca6f248a027a6fe1f7366ead717439d28cd9bb797583"
+  },
+  "includeInput": true,
+  "installation": {
+    "artifacts": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\tplab\\p2-candidate-b\\artifacts",
+    "dependencies": {
+      "com.tplab.core": "file:C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/tplab/p2-candidate-b/artifacts/com.tplab.core-0.0.1.tgz",
+      "com.tplab.editor": "file:C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/tplab/p2-candidate-b/artifacts/com.tplab.editor-0.0.1.tgz",
+      "com.tplab.input": "file:C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/tplab/p2-candidate-b/artifacts/com.tplab.input-0.0.1.tgz",
+      "com.unity.modules.imgui": "1.0.0",
+      "com.unity.modules.ui": "1.0.0",
+      "com.unity.nuget.newtonsoft-json": "3.2.2",
+      "com.unity.ugui": "2.0.0"
+    },
+    "importSamples": true,
+    "includeEditor": true,
+    "manifestSha256": "9bdcedcceb3c4ec7fc6e101b74e412caa5de49f0be0e636612b01b2bf1a2d391",
+    "mode": "tarball",
+    "packages": [
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        },
+        "filename": "com.tplab.core-0.0.1.tgz",
+        "id": "com.tplab.core",
+        "payloadSha256": "3b889777ba6ffd3165000a0a0c8c1c786a908dbebb9f06170d8e8262751d8bc1",
+        "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.inputsystem": "1.19.0"
+        },
+        "filename": "com.tplab.input-0.0.1.tgz",
+        "id": "com.tplab.input",
+        "payloadSha256": "1cadb8834cb90f99426b1ada97a7cfd27ed7444a6bdd3552466ad35cdff0e81c",
+        "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.addressables": "2.9.1",
+          "com.unity.nuget.newtonsoft-json": "3.2.2"
+        },
+        "filename": "com.tplab.editor-0.0.1.tgz",
+        "id": "com.tplab.editor",
+        "payloadSha256": "4005332b2be57c7b4ecd1ed71b109fbba7d38c21c89692277da6f7e640329805",
+        "sha256": "afe4abf13832bdf576c0187dc12b30c9a011e390a362ccb01314fd7d0b5bd621",
+        "version": "0.0.1"
+      }
+    ],
+    "sourceRevision": "8734da346dda1b6f5a0829def4540af567eecdee",
+    "version": "0.0.1"
+  },
+  "manifest": {
+    "requested": {
+      "com.cysharp.unitask": "2.5.11",
+      "com.unity.addressables": "2.9.1",
+      "com.unity.inputsystem": "1.19.0",
+      "com.unity.modules.assetbundle": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.uielements": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+      "com.unity.nuget.newtonsoft-json": "3.2.2"
+    },
+    "sha256": "0c3af6b712af8e86f937575c6c44e52eaf0196b46c77e57df3eece97b3b6f93e"
+  },
+  "observations": {},
+  "outputProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b",
+  "packageVersions": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.unity.addressables": "2.9.1",
+    "com.unity.inputsystem": "1.19.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.2.2"
+  },
+  "player": {},
+  "runId": "20261007T091444Z-22920",
+  "sampleImport": {
+    "elapsedSeconds": 66.426,
+    "endedUtc": "2026-10-07T09:15:51.358787+00:00",
+    "pid": 36792,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Logs\\sample-import.log",
+    "processLogFresh": true,
+    "result": {
+      "error": "",
+      "importer": {
+        "automaticNoMutation": false,
+        "baselineAssetsUnchanged": false,
+        "buildSettingsUnchanged": false,
+        "defaultAutomaticDisabled": false,
+        "defaultSettingsDisabled": false,
+        "diagnostic": "",
+        "generatedAwaitingCompilation": false,
+        "generatedDiagnostic": "",
+        "generatedUnwrittenPending": false,
+        "generatedValidated": false,
+        "generatedValidatorObserved": false,
+        "invalidSchemaDiagnostic": "",
+        "invalidSchemaDiagnostics": false,
+        "manualDiagnostic": "",
+        "manualTypedValidated": false,
+        "manualValidatorObserved": false,
+        "missingSettingsDisabled": false,
+        "ownedAssetsCleaned": false,
+        "packageBytesUnchanged": false,
+        "packagesDiagnostic": "",
+        "packagesOutputDenied": false,
+        "profileUnregistered": false,
+        "rejectedDiagnostic": "",
+        "requiresGeneratedValidationPhase": false,
+        "validatorFailurePreservesOwnedSources": false
+      },
+      "imports": [
+        {
+          "imported": true,
+          "name": "Core Pooling",
+          "package": "com.tplab.core",
+          "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Assets\\Samples\\TPLab Core\\0.0.1\\Core Pooling"
+        },
+        {
+          "imported": true,
+          "name": "Scene Transitions",
+          "package": "com.tplab.input",
+          "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Assets\\Samples\\TPLab Input\\0.0.1\\Scene Transitions"
+        }
+      ],
+      "samplesImported": true,
+      "success": true
+    },
+    "returnCode": 0,
+    "startedUnix": 1791364484.9326704,
+    "startedUtc": "2026-10-07T09:14:44.932665+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Logs\\sample-import-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "schemaVersion": 1,
+  "setup": {
+    "elapsedSeconds": 8.047,
+    "endedUtc": "2026-10-07T09:15:59.406115+00:00",
+    "pid": 26712,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Logs\\setup.log",
+    "processLogFresh": true,
+    "result": {
+      "error": "",
+      "importer": {
+        "automaticNoMutation": true,
+        "baselineAssetsUnchanged": true,
+        "buildSettingsUnchanged": true,
+        "defaultAutomaticDisabled": true,
+        "defaultSettingsDisabled": true,
+        "diagnostic": "Owned generated sources retained. Start a second Editor process to compile and validate them.",
+        "generatedAwaitingCompilation": true,
+        "generatedDiagnostic": "AwaitingCompilation: Sources were provisionally generated. Compile, connect typed registrations, then validate again.",
+        "generatedUnwrittenPending": true,
+        "generatedValidated": false,
+        "generatedValidatorObserved": false,
+        "invalidSchemaDiagnostic": "Failed: Schema version and dataType must be integers.",
+        "invalidSchemaDiagnostics": true,
+        "manualDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "manualTypedValidated": true,
+        "manualValidatorObserved": true,
+        "missingSettingsDisabled": true,
+        "ownedAssetsCleaned": false,
+        "packageBytesUnchanged": true,
+        "packagesDiagnostic": "Failed: Use a normalized Assets path: Packages/TPLabConsumerImporterProbe_ac100f4b03174065835713a954171fae",
+        "packagesOutputDenied": true,
+        "profileUnregistered": true,
+        "rejectedDiagnostic": "",
+        "requiresGeneratedValidationPhase": true,
+        "validatorFailurePreservesOwnedSources": false
+      },
+      "imports": [],
+      "samplesImported": false,
+      "success": true
+    },
+    "returnCode": 0,
+    "startedUnix": 1791364551.3591201,
+    "startedUtc": "2026-10-07T09:15:51.359118+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-full-b\\Logs\\setup-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "sourceProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1",
+  "success": false,
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.18f1\\Unity.exe"
+}

@@ -476,6 +476,17 @@ def package_versions_from_manifest(project: Path) -> dict:
     return versions
 
 
+def installed_manifest_matches(expected: bytes, actual: bytes, cache_name: str) -> bool:
+    try:
+        original = json.loads(expected)
+        installed = json.loads(actual)
+        fingerprint = installed.pop("_fingerprint", None)
+        return (isinstance(fingerprint, str) and re.fullmatch(r"[0-9a-f]{32}", fingerprint) is not None and
+                cache_name == original["name"] + "@" + fingerprint[:12] and installed == original)
+    except (ValueError, KeyError, AttributeError, TypeError):
+        return False
+
+
 def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
     lock = json.loads((project / "Packages/packages-lock.json").read_text(encoding="utf-8"))["dependencies"]
     selected = {p for p in plan["dependencies"] if p.startswith("com.tplab.")}
@@ -506,10 +517,11 @@ def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
                 actual = target.read_bytes()
                 text = target.suffix in (".cs", ".asmdef", ".md", ".meta", ".asset", ".unity", ".txt", ".json", ".inputactions")
                 git_eol_match = plan["mode"] == "git" and text and actual.replace(b"\r\n", b"\n") == expected.replace(b"\r\n", b"\n")
-                if actual != expected and not git_eol_match:
+                upm_metadata_match = member.name == "package/package.json" and installed_manifest_matches(expected, actual, resolved.name)
+                if actual != expected and not git_eol_match and not upm_metadata_match:
                     raise RuntimeError("Installed payload differs: " + member.name)
                 count += 1
-        validated.append({**info, "verifiedPayloadFiles": count, "lock": item})
+        validated.append({**info, "verifiedPayloadFiles": count, "manifestMetadata": "Only UPM _fingerprint may differ; semantic manifest and cache fingerprint verified", "lock": item})
     if (project / "Assets/TPLab/Core").exists(): raise RuntimeError("Artifact consumer contains a forbidden source Core copy.")
     if plan["includeEditor"]:
         probe = editor_result.get("importer", {})

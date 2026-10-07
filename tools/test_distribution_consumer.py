@@ -78,6 +78,14 @@ class DistributionConsumerTests(unittest.TestCase):
             report={'installedPackages':[{'name':'com.tplab.core','version':'0.0.1','resolvedPath':str(resolved)}]}
             with self.assertRaises(RuntimeError):c.verify_installation(output,plan,report)
 
+    def test_unity_fingerprint_is_only_allowed_manifest_change(self):
+        expected=b'{"name":"com.tplab.core","version":"0.0.1"}'
+        actual=b'{"name":"com.tplab.core","version":"0.0.1","_fingerprint":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}'
+        self.assertTrue(c.installed_manifest_matches(expected,actual,'com.tplab.core@aaaaaaaaaaaa'))
+        self.assertFalse(c.installed_manifest_matches(expected,actual.replace(b'0.0.1',b'9.0.0'),'com.tplab.core@aaaaaaaaaaaa'))
+        self.assertFalse(c.installed_manifest_matches(expected,actual,'com.tplab.core@bbbbbbbbbbbb'))
+        self.assertFalse(c.installed_manifest_matches(expected,b'{"name":"com.tplab.core","version":"0.0.1","extra":true}','com.tplab.core@aaaaaaaaaaaa'))
+
     def test_symlink_output_rejected(self):
         with tempfile.TemporaryDirectory() as t:
             outside=Path(t); linked=ROOT/'Temp/DistributionConsumer-test-link'

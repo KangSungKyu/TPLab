@@ -1,0 +1,15 @@
+{
+  "sourceRevision": "8734da346dda1b6f5a0829def4540af567eecdee",
+  "run": "tarball-full-b",
+  "success": false,
+  "failure": "Installed payload differs: package/package.json",
+  "observedUnityChange": "UPM adds one _fingerprint field and names Library/PackageCache folder using its first12 hex digits. All original manifest values unchanged.",
+  "editorBuildSuccess": true,
+  "errors": 0,
+  "importerFlagsPassed": 18,
+  "sampleBuilds": [
+    "Additive",
+    "Single"
+  ],
+  "playerRuns": 0
+}
