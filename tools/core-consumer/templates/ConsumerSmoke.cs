@@ -2,24 +2,24 @@ using System;
 using System.IO;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyLab.Core.DataTables;
-using MyLab.Core.Lifecycle;
-using MyLab.Core.Pooling;
-using MyLab.Core.ResourceManagement;
-using MyLab.Core.SceneManagement;
+using TPLab.Core.DataTables;
+using TPLab.Core.Lifecycle;
+using TPLab.Core.Pooling;
+using TPLab.Core.ResourceManagement;
+using TPLab.Core.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if MYLAB_INPUT_CONSUMER
-using MyLab.Core.Input;
+#if TPLAB_INPUT_CONSUMER
+using TPLab.Core.Input;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 #endif
 
-namespace MyLabConsumer
+namespace TPLabConsumer
 {
     public sealed class ConsumerSmoke : MonoBehaviour
     {
-        private const string DerivedScenePath = "Assets/MyLabConsumer/Scenes/Derived.unity";
+        private const string DerivedScenePath = "Assets/TPLabConsumer/Scenes/Derived.unity";
         private BootstrapSystem _bootstrap;
         private SceneOwnedRoot _root;
 
@@ -47,7 +47,7 @@ namespace MyLabConsumer
             try
             {
                 report.commonRootReady = _root != null && _root.IsReady;
-#if MYLAB_INPUT_CONSUMER
+#if TPLAB_INPUT_CONSUMER
                 report.inputScopeVerified = await VerifyInputScopeAsync();
 #endif
                 var codec = new DecimalIdxCodec(1000);
@@ -109,7 +109,7 @@ namespace MyLabConsumer
                     report.commonRootPrepared && report.activeSceneOwned && report.canProceedAfterEntry &&
                     report.derivedAdded && report.derivedRemoved && report.poolReused && report.csvTypedLookup &&
                     report.emptyResourceManagerShutdown && report.gracefulShutdown;
-#if MYLAB_INPUT_CONSUMER
+#if TPLAB_INPUT_CONSUMER
                 report.success &= report.inputScopeVerified;
 #endif
                 report.error = failure == null ? "" : failure.ToString();
@@ -118,7 +118,7 @@ namespace MyLabConsumer
             }
         }
 
-#if MYLAB_INPUT_CONSUMER
+#if TPLAB_INPUT_CONSUMER
         private static async UniTask<bool> VerifyInputScopeAsync()
         {
             var source = ScriptableObject.CreateInstance<InputActionAsset>();
@@ -219,10 +219,10 @@ namespace MyLabConsumer
 
         private static void WriteResult(SmokeReport report)
         {
-            string path = Environment.GetEnvironmentVariable("MYLAB_CONSUMER_PLAYER_RESULT");
+            string path = Environment.GetEnvironmentVariable("TPLAB_CONSUMER_PLAYER_RESULT");
             if (string.IsNullOrWhiteSpace(path))
             {
-                Debug.LogError("MYLAB_CONSUMER_PLAYER_RESULT is required.");
+                Debug.LogError("TPLAB_CONSUMER_PLAYER_RESULT is required.");
                 Application.Quit(2);
                 return;
             }
@@ -245,7 +245,7 @@ namespace MyLabConsumer
             public bool csvTypedLookup;
             public bool emptyResourceManagerShutdown;
             public bool gracefulShutdown;
-#if MYLAB_INPUT_CONSUMER
+#if TPLAB_INPUT_CONSUMER
             public bool inputScopeVerified;
 #endif
             public string error;

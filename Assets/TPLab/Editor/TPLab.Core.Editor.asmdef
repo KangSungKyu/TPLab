@@ -1,0 +1,6 @@
+{
+    "name": "TPLab.Core.Editor",
+    "rootNamespace": "TPLab.Core.Editor",
+    "references": ["TPLab.Core", "UniTask", "Unity.Addressables", "Unity.Addressables.Editor"],
+    "includePlatforms": ["Editor"]
+}

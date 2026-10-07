@@ -1,0 +1,5 @@
+{
+    "name": "TPLab.SceneTransitionSamples",
+    "rootNamespace": "TPLab.Samples.SceneTransitions",
+    "references": ["TPLab.Core", "TPLab.Core.Input", "UniTask", "Unity.InputSystem", "UnityEngine.UI"]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "TPLab.Core.EditModeTests",
+    "rootNamespace": "TPLab.Core.Tests",
+    "references": ["TPLab.Core", "TPLab.Core.Editor", "TPLab.Core.TestFixtures", "UniTask", "Unity.Addressables", "Unity.Addressables.Editor"],
+    "includePlatforms": ["Editor"],
+    "overrideReferences": true,
+    "precompiledReferences": ["CsvHelper.dll", "nunit.framework.dll"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

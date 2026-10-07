@@ -26,7 +26,7 @@ def main():
         assert target.is_relative_to(root) and digest(target.read_bytes(), False).lower() == expected.lower(), path
     files = subprocess.check_output([
         "git", "ls-files", "-z", "--cached", "--others", "--exclude-standard", "--",
-        "Assets/MyLab", "Assets/Plugins", "Packages", "ProjectSettings/ProjectVersion.txt", "tools"
+        "Assets/TPLab", "Assets/Plugins", "Packages", "ProjectSettings/ProjectVersion.txt", "tools"
     ], cwd=root).decode("utf-8").split("\0")
     hashes = {}
     for path in sorted(set(files)):

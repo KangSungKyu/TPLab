@@ -1,0 +1,6 @@
+{
+    "name": "TPLab.Core.EditorValidation",
+    "rootNamespace": "TPLab.Core.Tests",
+    "references": ["TPLab.Core", "TPLab.Core.Editor", "TPLab.Core.TestFixtures", "TPLab.Core.Input", "Unity.InputSystem", "UniTask"],
+    "includePlatforms": ["Editor"]
+}

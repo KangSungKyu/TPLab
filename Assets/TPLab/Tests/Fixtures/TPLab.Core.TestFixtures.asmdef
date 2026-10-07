@@ -1,0 +1,16 @@
+{
+  "name": "TPLab.Core.TestFixtures",
+  "rootNamespace": "TPLab.Core.Tests",
+  "references": [
+    "TPLab.Core",
+    "UniTask"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "CsvHelper.dll",
+    "nunit.framework.dll"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

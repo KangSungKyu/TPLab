@@ -1,0 +1,23 @@
+{
+  "name": "TPLab.Core.PlayModeTests",
+  "rootNamespace": "TPLab.Core.Tests",
+  "references": [
+    "TPLab.Core",
+    "TPLab.Core.TestFixtures",
+    "UniTask",
+    "Unity.Addressables",
+    "Unity.ResourceManager",
+    "TPLab.SceneTransitionSamples",
+    "Unity.InputSystem",
+    "UnityEngine.UI",
+    "TPLab.Core.Input"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "CsvHelper.dll",
+    "nunit.framework.dll"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

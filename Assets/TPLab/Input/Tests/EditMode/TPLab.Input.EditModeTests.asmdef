@@ -1,0 +1,7 @@
+{
+    "name": "TPLab.Input.EditModeTests",
+    "rootNamespace": "TPLab.Core.Input.Tests",
+    "references": ["TPLab.Core.Input", "TPLab.Core", "UniTask", "Unity.InputSystem"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

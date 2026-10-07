@@ -1,0 +1,5 @@
+{
+    "name": "TPLab.Core.Input",
+    "rootNamespace": "TPLab.Core.Input",
+    "references": ["TPLab.Core", "UniTask", "Unity.InputSystem"]
+}

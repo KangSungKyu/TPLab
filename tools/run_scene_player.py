@@ -67,9 +67,9 @@ def main():
               "process": {}, "result": {}, "error": ""}
     try:
         command = [str(player), "-batchmode", "-nographics", "-logFile", str(log),
-                   "-mylab-scene-smoke", "-mylab-scene-result", str(output / "result.json")]
+                   "-tplab-scene-smoke", "-tplab-scene-result", str(output / "result.json")]
         if args.loading_presentation:
-            command.append("-mylab-loading-presentation")
+            command.append("-tplab-loading-presentation")
         process = run_process(command,
                               player.parent, os.environ.copy(), log, output / "stdout.log", args.timeout_seconds)
         report["process"] = process

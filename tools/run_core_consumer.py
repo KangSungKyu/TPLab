@@ -15,13 +15,13 @@ import time
 from datetime import datetime, timezone
 
 
-CORE_FILES = ("Assets/MyLab/Core",)
-INPUT_FILES = ("Assets/MyLab/Input/Runtime",)
+CORE_FILES = ("Assets/TPLab/Core",)
+INPUT_FILES = ("Assets/TPLab/Input/Runtime",)
 PARENT_METAS = (
-    "Assets/MyLab.meta",
-    "Assets/MyLab/Core.meta",
-    "Assets/MyLab/Input.meta",
-    "Assets/MyLab/Input/Runtime.meta",
+    "Assets/TPLab.meta",
+    "Assets/TPLab/Core.meta",
+    "Assets/TPLab/Input.meta",
+    "Assets/TPLab/Input/Runtime.meta",
     "Assets/Plugins.meta",
     "Assets/Plugins/CsvHelper.meta",
 )
@@ -31,9 +31,9 @@ CSV_FILES = (
     "Assets/Plugins/CsvHelper/LICENSE.txt",
     "Assets/Plugins/CsvHelper/LICENSE.txt.meta",
 )
-PLAYER_RESULT_ENV = "MYLAB_CONSUMER_PLAYER_RESULT"
-EDITOR_RESULT_ENV = "MYLAB_CONSUMER_EDITOR_RESULT"
-PLAYER_PATH_ENV = "MYLAB_CONSUMER_PLAYER_PATH"
+PLAYER_RESULT_ENV = "TPLAB_CONSUMER_PLAYER_RESULT"
+EDITOR_RESULT_ENV = "TPLAB_CONSUMER_EDITOR_RESULT"
+PLAYER_PATH_ENV = "TPLAB_CONSUMER_PLAYER_PATH"
 
 
 def inside(path: Path, parent: Path) -> bool:
@@ -82,8 +82,8 @@ def resolve_paths(project_arg: str, output_arg: str, evidence_arg: str) -> tuple
     if not project.is_absolute():
         raise ValueError("--project must be an absolute path.")
     project = project.resolve(strict=True)
-    if not (project / "Assets/MyLab/Core/MyLab.Core.asmdef").is_file():
-        raise ValueError("--project is not a MyLab checkout with Assets/MyLab/Core.")
+    if not (project / "Assets/TPLab/Core/TPLab.Core.asmdef").is_file():
+        raise ValueError("--project is not a TPLab checkout with Assets/TPLab/Core.")
     output = Path(output_arg)
     if not output.is_absolute():
         output = project / output
@@ -131,7 +131,7 @@ def source_files(project: Path, include_input: bool = False) -> list[Path]:
                         raise ValueError("Unexpected Input file type requires explicit allowlist review: " + str(path))
                     files.append(path)
     parent_metas = PARENT_METAS if include_input else tuple(
-        item for item in PARENT_METAS if item not in ("Assets/MyLab/Input.meta", "Assets/MyLab/Input/Runtime.meta"))
+        item for item in PARENT_METAS if item not in ("Assets/TPLab/Input.meta", "Assets/TPLab/Input/Runtime.meta"))
     files.extend(project / item for item in parent_metas + CSV_FILES)
     files.extend((project / "doc/licenses/UniTask-LICENSE.txt",))
     missing = [str(path) for path in files if not path.is_file()]
@@ -156,17 +156,17 @@ def copy_allowlist(project: Path, output: Path, tool_root: Path, version: str,
 
     templates = tool_root / "core-consumer/templates"
     (output / "Assets/Editor").mkdir(parents=True, exist_ok=True)
-    (output / "Assets/MyLabConsumer/Runtime").mkdir(parents=True, exist_ok=True)
-    (output / "Assets/MyLabConsumer/Scenes").mkdir(parents=True, exist_ok=True)
+    (output / "Assets/TPLabConsumer/Runtime").mkdir(parents=True, exist_ok=True)
+    (output / "Assets/TPLabConsumer/Scenes").mkdir(parents=True, exist_ok=True)
     (output / "Packages").mkdir(parents=True, exist_ok=True)
     (output / "ProjectSettings").mkdir(parents=True, exist_ok=True)
-    (output / "Assets/Editor/MyLabConsumerBuild.cs").write_bytes((templates / "ConsumerBuild.cs").read_bytes())
-    (output / "Assets/MyLabConsumer/Runtime/ConsumerSmoke.cs").write_bytes((templates / "ConsumerSmoke.cs").read_bytes())
+    (output / "Assets/Editor/TPLabConsumerBuild.cs").write_bytes((templates / "ConsumerBuild.cs").read_bytes())
+    (output / "Assets/TPLabConsumer/Runtime/ConsumerSmoke.cs").write_bytes((templates / "ConsumerSmoke.cs").read_bytes())
     manifest = json.loads((templates / "manifest.json.in").read_text(encoding="utf-8"))
     if include_input:
         manifest["dependencies"]["com.unity.inputsystem"] = "1.19.0"
         manifest["dependencies"]["com.unity.modules.uielements"] = "1.0.0"
-        (output / "Assets/csc.rsp").write_text("-define:MYLAB_INPUT_CONSUMER\n", encoding="utf-8")
+        (output / "Assets/csc.rsp").write_text("-define:TPLAB_INPUT_CONSUMER\n", encoding="utf-8")
         (output / "ProjectSettings/ProjectSettings.asset").write_text(
             input_project_settings(project), encoding="utf-8")
     (output / "Packages/manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
@@ -266,10 +266,10 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
               "success": False, "actualRuns": 0, "errors": []}
     try:
         report["allowlist"] = copy_allowlist(project, output, tool_root, version, include_input)
-        input_asmdef = output / "Assets/MyLab/Input/Runtime/MyLab.Core.Input.asmdef"
+        input_asmdef = output / "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef"
         input_package = "com.unity.inputsystem" in json.loads(
             (output / "Packages/manifest.json").read_text(encoding="utf-8"))["dependencies"]
-        input_tree = output / "Assets/MyLab/Input"
+        input_tree = output / "Assets/TPLab/Input"
         if (input_asmdef.is_file() != include_input or input_package != include_input or
                 input_tree.exists() != include_input):
             raise RuntimeError("Copied Input module/package do not match the requested consumer scope.")
@@ -290,7 +290,7 @@ def execute(project: Path, unity: Path, output: Path, evidence_dir: Path, timeou
         env[PLAYER_RESULT_ENV] = str(player_result)
         env[PLAYER_PATH_ENV] = str(consumer_player)
         editor_command = [str(unity), "-batchmode", "-nographics", "-projectPath", str(output),
-                          "-executeMethod", "MyLabConsumer.ConsumerBuild.Perform", "-logFile", str(editor_log), "-quit"]
+                          "-executeMethod", "TPLabConsumer.ConsumerBuild.Perform", "-logFile", str(editor_log), "-quit"]
         report["editor"] = run_process(editor_command, output, env, editor_log,
                                        output / "Logs/editor-stdout.log", timeout)
         report["actualRuns"] = 1
@@ -354,7 +354,7 @@ def self_check() -> int:
                "emptyResourceManagerShutdown", "gracefulShutdown", "inputScopeVerified")}, True)
     assert not all_true({"inputScopeVerified": False}, True)
     assert not all_true({"commonRootReady": True})
-    project = Path("C:/MyLab")
+    project = Path("C:/TPLab")
     temp_root = project / "Temp"
     output = temp_root / "consumer-new"
     assert inside(output, temp_root)
@@ -369,13 +369,13 @@ def self_check() -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--project", help="Absolute MyLab project path.")
+    parser.add_argument("--project", help="Absolute TPLab project path.")
     parser.add_argument("--unity", help="Exact Unity Editor executable path.")
     parser.add_argument("--output", help="New output directory below project Temp.")
     parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration, input-system or scene-loading.")
     parser.add_argument("--timeout-seconds", type=int, default=900)
     parser.add_argument("--include-input", action="store_true",
-                        help="Include MyLab.Core.Input and Input System 1.19.0 in the isolated consumer.")
+                        help="Include TPLab.Core.Input and Input System 1.19.0 in the isolated consumer.")
     parser.add_argument("--self-check", action="store_true")
     args = parser.parse_args()
     if args.self_check:

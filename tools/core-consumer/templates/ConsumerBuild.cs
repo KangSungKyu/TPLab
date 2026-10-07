@@ -1,18 +1,18 @@
 using System;
 using System.IO;
-using MyLab.Core.Lifecycle;
-using MyLab.Core.ResourceManagement;
-using MyLab.Core.SceneManagement;
+using TPLab.Core.Lifecycle;
+using TPLab.Core.ResourceManagement;
+using TPLab.Core.SceneManagement;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MyLabConsumer
+namespace TPLabConsumer
 {
     public static class ConsumerBuild
     {
-        private const string ScenesFolder = "Assets/MyLabConsumer/Scenes";
+        private const string ScenesFolder = "Assets/TPLabConsumer/Scenes";
         private const string BootstrapPath = ScenesFolder + "/Bootstrap.unity";
         private const string GamePath = ScenesFolder + "/Game.unity";
         private const string DerivedPath = ScenesFolder + "/Derived.unity";
@@ -33,7 +33,7 @@ namespace MyLabConsumer
                     new EditorBuildSettingsScene(DerivedPath, true)
                 };
 
-                string playerPath = Environment.GetEnvironmentVariable("MYLAB_CONSUMER_PLAYER_PATH");
+                string playerPath = Environment.GetEnvironmentVariable("TPLAB_CONSUMER_PLAYER_PATH");
                 var options = new BuildPlayerOptions
                 {
                     scenes = new[] { BootstrapPath, GamePath, DerivedPath },
@@ -88,8 +88,8 @@ namespace MyLabConsumer
 
         private static void WriteResult(BuildReportFile report)
         {
-            string path = Environment.GetEnvironmentVariable("MYLAB_CONSUMER_EDITOR_RESULT");
-            if (string.IsNullOrWhiteSpace(path)) throw new InvalidOperationException("MYLAB_CONSUMER_EDITOR_RESULT is required.");
+            string path = Environment.GetEnvironmentVariable("TPLAB_CONSUMER_EDITOR_RESULT");
+            if (string.IsNullOrWhiteSpace(path)) throw new InvalidOperationException("TPLAB_CONSUMER_EDITOR_RESULT is required.");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllText(path, JsonUtility.ToJson(report, true));
         }
