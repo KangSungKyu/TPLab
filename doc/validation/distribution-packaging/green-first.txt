@@ -1,0 +1,144 @@
+test_abbreviated_revision_refused (__main__.DistributionTests.test_abbreviated_revision_refused) ... ok
+test_bad_local_link_refused (__main__.DistributionTests.test_bad_local_link_refused) ... FAIL
+test_changed_guid_refused (__main__.DistributionTests.test_changed_guid_refused) ... FAIL
+test_dirty_refused_before_output (__main__.DistributionTests.test_dirty_refused_before_output) ... ok
+test_document_escape_refused (__main__.DistributionTests.test_document_escape_refused) ... ok
+test_existing_output_refused (__main__.DistributionTests.test_existing_output_refused) ... ok
+test_git_symlink_refused (__main__.DistributionTests.test_git_symlink_refused) ... ok
+test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) ... ok
+test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) ... ok
+test_missing_license_refused (__main__.DistributionTests.test_missing_license_refused) ... ok
+test_missing_snapshot_refused (__main__.DistributionTests.test_missing_snapshot_refused) ... FAIL
+test_output_escape_refused (__main__.DistributionTests.test_output_escape_refused) ... ok
+test_packages_docs_licenses_payload (__main__.DistributionTests.test_packages_docs_licenses_payload) ... ERROR
+test_same_input_reproducible_despite_run (__main__.DistributionTests.test_same_input_reproducible_despite_run) ... ERROR
+test_snapshot_drift_refused (__main__.DistributionTests.test_snapshot_drift_refused) ... ERROR
+test_snapshot_matches_after_commit_without_hash_recursion (__main__.DistributionTests.test_snapshot_matches_after_commit_without_hash_recursion) ... ERROR
+test_untracked_refused (__main__.DistributionTests.test_untracked_refused) ... ok
+test_wrong_revision_refused (__main__.DistributionTests.test_wrong_revision_refused) ... ok
+
+======================================================================
+ERROR: test_packages_docs_licenses_payload (__main__.DistributionTests.test_packages_docs_licenses_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 78, in test_packages_docs_licenses_payload
+    self.build()
+    ~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 65, in build
+    return builder.build(**args)
+           ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 208, in build
+    files, mapping, dependencies = package_tree(package_id, config, inputs, version)
+                                   ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 163, in package_tree
+    notices = convert_links(inputs['THIRD_PARTY_NOTICES.md'].decode('utf-8-sig'), 'THIRD_PARTY_NOTICES.md', 'Third Party Notices.md', mapping, version)
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 110, in convert_links
+    raise ValueError('Internal absolute document reference refused: ' + source_path)
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+======================================================================
+ERROR: test_same_input_reproducible_despite_run (__main__.DistributionTests.test_same_input_reproducible_despite_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 107, in test_same_input_reproducible_despite_run
+    self.build('one'); self.build('two')
+    ~~~~~~~~~~^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 65, in build
+    return builder.build(**args)
+           ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 208, in build
+    files, mapping, dependencies = package_tree(package_id, config, inputs, version)
+                                   ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 163, in package_tree
+    notices = convert_links(inputs['THIRD_PARTY_NOTICES.md'].decode('utf-8-sig'), 'THIRD_PARTY_NOTICES.md', 'Third Party Notices.md', mapping, version)
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 110, in convert_links
+    raise ValueError('Internal absolute document reference refused: ' + source_path)
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+======================================================================
+ERROR: test_snapshot_drift_refused (__main__.DistributionTests.test_snapshot_drift_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 118, in test_snapshot_drift_refused
+    self.stage_snapshot()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 73, in stage_snapshot
+    self.build()
+    ~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 65, in build
+    return builder.build(**args)
+           ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 208, in build
+    files, mapping, dependencies = package_tree(package_id, config, inputs, version)
+                                   ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 163, in package_tree
+    notices = convert_links(inputs['THIRD_PARTY_NOTICES.md'].decode('utf-8-sig'), 'THIRD_PARTY_NOTICES.md', 'Third Party Notices.md', mapping, version)
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 110, in convert_links
+    raise ValueError('Internal absolute document reference refused: ' + source_path)
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+======================================================================
+ERROR: test_snapshot_matches_after_commit_without_hash_recursion (__main__.DistributionTests.test_snapshot_matches_after_commit_without_hash_recursion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 112, in test_snapshot_matches_after_commit_without_hash_recursion
+    self.stage_snapshot(); self.build('verified', prepare=False)
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 73, in stage_snapshot
+    self.build()
+    ~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 65, in build
+    return builder.build(**args)
+           ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 208, in build
+    files, mapping, dependencies = package_tree(package_id, config, inputs, version)
+                                   ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 163, in package_tree
+    notices = convert_links(inputs['THIRD_PARTY_NOTICES.md'].decode('utf-8-sig'), 'THIRD_PARTY_NOTICES.md', 'Third Party Notices.md', mapping, version)
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\build_distribution.py", line 110, in convert_links
+    raise ValueError('Internal absolute document reference refused: ' + source_path)
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+======================================================================
+FAIL: test_bad_local_link_refused (__main__.DistributionTests.test_bad_local_link_refused)
+----------------------------------------------------------------------
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 180, in test_bad_local_link_refused
+    with self.assertRaisesRegex(ValueError, 'link'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: "link" does not match "Internal absolute document reference refused: THIRD_PARTY_NOTICES.md"
+
+======================================================================
+FAIL: test_changed_guid_refused (__main__.DistributionTests.test_changed_guid_refused)
+----------------------------------------------------------------------
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 186, in test_changed_guid_refused
+    with self.assertRaisesRegex(ValueError, 'GUID'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: "GUID" does not match "Internal absolute document reference refused: THIRD_PARTY_NOTICES.md"
+
+======================================================================
+FAIL: test_missing_snapshot_refused (__main__.DistributionTests.test_missing_snapshot_refused)
+----------------------------------------------------------------------
+ValueError: Internal absolute document reference refused: THIRD_PARTY_NOTICES.md
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 125, in test_missing_snapshot_refused
+    with self.assertRaisesRegex(ValueError, 'snapshot'): self.build(prepare=False)
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "snapshot" does not match "Internal absolute document reference refused: THIRD_PARTY_NOTICES.md"
+
+----------------------------------------------------------------------
+Ran 18 tests in 9.469s
+
+FAILED (failures=3, errors=4)

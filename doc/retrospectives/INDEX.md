@@ -91,3 +91,5 @@
 - 2026-10-07 | 배포 규격·dev-build track·외부 제공 정책 | 완료 / 설계·MIT·public 확인 | [기록](2026-10-07-15-distribution-design.md)
 
 - 2026-10-07 | Git URL·예제 분류와 다음 버전 계획 | 문서 검증 완료 / 구현 후속 | [기록](2026-10-07-16-distribution-refinement.md)
+
+- 2026-10-07 | P1 패키징·사람/AI 문서 포함 | 구현·계약 검증 완료 / 실제 생성 확인 진행 | [기록](2026-10-07-17-distribution-packaging.md)

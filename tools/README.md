@@ -59,3 +59,18 @@ python -B tools/run_scene_player.py --project C:\Users\PC\Projects\TPLab --playe
 Each run output directory and build JSON filename must be unused. Use distinct fresh names for reruns. `--loading-presentation` opts into **automatic** mode only; run the [manual UI acceptance](../doc/SCENE_LOADING_ACCEPTANCE.md) separately. Build/sample results and current limitations are recorded in the relevant validation evidence and [scene-loading track](../doc/SCENE_LOADING_TRACK.md).
 
 실행 인수는 각 도구의 `--help`를 사용한다. 실제 두 모드 Player와 소비 실행·driver 실패·검증 제한은 [P6 증거](../doc/validation/scene-integration/README.md)에 기록한다.
+
+## UPM 배포 생성 (P1)
+
+[build_distribution.py](build_distribution.py)는 [배포 계약](../doc/DISTRIBUTION_PIPELINE.md)의 clean exact SHA에서 Core/Input/Editor의 package tree와 `.tgz`, 설치 안내·hash/manifest를 생성한다. Runtime/Editor와 기존 `.meta`·DLL·라이선스는 Git blob bytes를 사용하고, 모듈별 사람/AI API의 소스 링크는 package 내부로 변환한다. 포함하지 않은 상세 명세·과거 evidence는 공식 `v<version>` 저장소 원문으로 연결하며 tag 발행 전에는 해당 URL을 검증된 링크로 주장하지 않는다. Git 작업·Unity 실행·설치·배포·파일 삭제는 수행하지 않는다.
+
+```powershell
+python -B tools/test_build_distribution.py
+python -B tools/build_distribution.py --source <절대-clean-build-checkout> --revision <정확한-40자리-HEAD> --version 0.0.1 --run-id stage-01 --output <해당-checkout>/tplab/stage-01 --prepare
+# prepare/packages를 검토해 upm/에 명시적으로 반영·커밋한 뒤 새 SHA로 실행
+python -B tools/build_distribution.py --source <절대-clean-build-checkout> --revision <사본-포함-40자리-HEAD> --version 0.0.1 --run-id verify-01 --output <해당-checkout>/tplab/verify-01
+```
+
+`--prepare`는 사본 검사 전 staging이다. 기본 mode는 커밋된 `upm/`과 새 package의 파일/bytes 일치를 검사한다. 두 mode 모두 새 run만 생성하고, dirty·잘못된 SHA/version·경로 탈출·기존 output·symlink/junction·GUID 오류·깨진 내부 문서 링크·사본 drift를 거부한다. 새 output은 해당 clean checkout의 `/tplab/<run-id>`에 한정하며 Git ignore가 필요하다. 실패 run을 재사용·덮어쓰지 않는다. source 변경·입출력 오류로 부분 생성된 run은 다음 gate에 사용하지 않고 필요한 증거를 보존한 뒤 소유 경로만 정리한다.
+
+표준 unittest는 임시 fixture Git 저장소에서 실행하고 fixture만 정리한다. 실제 개발 checkout·사용자 Editor·사용자 변경을 수정하지 않는다. 같은 source/version/Python·zlib 환경에서 두 run의 `.tgz` bytes 일치를 확인한다. 현재 output은 `publishable: false`, installation/Player/samples/release `NotRun`이며 기존 소스 consumer를 실제 패키지 설치 증거로 대체하지 않는다. [Red/Green·실제 생성](../doc/validation/distribution-packaging/README.md)을 따른다.

@@ -1,0 +1,266 @@
+test_abbreviated_revision_refused (__main__.DistributionTests.test_abbreviated_revision_refused) ... FAIL
+test_bad_local_link_refused (__main__.DistributionTests.test_bad_local_link_refused) ... FAIL
+test_changed_guid_refused (__main__.DistributionTests.test_changed_guid_refused) ... FAIL
+test_dirty_refused_before_output (__main__.DistributionTests.test_dirty_refused_before_output) ... FAIL
+test_document_escape_refused (__main__.DistributionTests.test_document_escape_refused) ... FAIL
+test_existing_output_refused (__main__.DistributionTests.test_existing_output_refused) ... FAIL
+test_git_symlink_refused (__main__.DistributionTests.test_git_symlink_refused) ... FAIL
+test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) ... 
+  test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='../escape') ... FAIL
+  test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='.') ... FAIL
+  test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='bad/run') ... FAIL
+  test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='') ... FAIL
+test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) ... 
+  test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='../bad') ... FAIL
+  test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='00.0.1') ... FAIL
+  test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='v0.0.1') ... FAIL
+  test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='0.0') ... FAIL
+  test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='0.0.1/escape') ... FAIL
+test_missing_license_refused (__main__.DistributionTests.test_missing_license_refused) ... FAIL
+test_missing_snapshot_refused (__main__.DistributionTests.test_missing_snapshot_refused) ... FAIL
+test_output_escape_refused (__main__.DistributionTests.test_output_escape_refused) ... FAIL
+test_packages_docs_licenses_payload (__main__.DistributionTests.test_packages_docs_licenses_payload) ... ERROR
+test_same_input_reproducible_despite_run (__main__.DistributionTests.test_same_input_reproducible_despite_run) ... ok
+test_snapshot_drift_refused (__main__.DistributionTests.test_snapshot_drift_refused) ... ERROR
+test_snapshot_matches_after_commit_without_hash_recursion (__main__.DistributionTests.test_snapshot_matches_after_commit_without_hash_recursion) ... ERROR
+test_untracked_refused (__main__.DistributionTests.test_untracked_refused) ... FAIL
+test_wrong_revision_refused (__main__.DistributionTests.test_wrong_revision_refused) ... FAIL
+
+======================================================================
+ERROR: test_packages_docs_licenses_payload (__main__.DistributionTests.test_packages_docs_licenses_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 80, in test_packages_docs_licenses_payload
+    manifest = json.loads((folder / 'artifacts/distribution-manifest.json').read_text())
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\pathlib\__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\pathlib\__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\PC\\AppData\\Local\\Temp\\tplab-package-case-_0jbnvg9\\source\\tplab\\first\\artifacts\\distribution-manifest.json'
+
+======================================================================
+ERROR: test_snapshot_drift_refused (__main__.DistributionTests.test_snapshot_drift_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 118, in test_snapshot_drift_refused
+    self.stage_snapshot()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 74, in stage_snapshot
+    shutil.copytree(self.root / 'tplab/first/packages', self.root / 'upm')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\shutil.py", line 652, in copytree
+    with os.scandir(src) as itr:
+         ~~~~~~~~~~^^^^^
+FileNotFoundError: [WinError 3] ������ ��θ� ã�� �� �����ϴ�: 'C:\\Users\\PC\\AppData\\Local\\Temp\\tplab-package-case-kfz9vnny\\source\\tplab\\first\\packages'
+
+======================================================================
+ERROR: test_snapshot_matches_after_commit_without_hash_recursion (__main__.DistributionTests.test_snapshot_matches_after_commit_without_hash_recursion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 112, in test_snapshot_matches_after_commit_without_hash_recursion
+    self.stage_snapshot(); self.build('verified', prepare=False)
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 74, in stage_snapshot
+    shutil.copytree(self.root / 'tplab/first/packages', self.root / 'upm')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\shutil.py", line 652, in copytree
+    with os.scandir(src) as itr:
+         ~~~~~~~~~~^^^^^
+FileNotFoundError: [WinError 3] ������ ��θ� ã�� �� �����ϴ�: 'C:\\Users\\PC\\AppData\\Local\\Temp\\tplab-package-case-0c1nq5aa\\source\\tplab\\first\\packages'
+
+======================================================================
+FAIL: test_abbreviated_revision_refused (__main__.DistributionTests.test_abbreviated_revision_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 140, in test_abbreviated_revision_refused
+    with self.assertRaisesRegex(ValueError, 'revision'): self.build(revision=self.revision[:7])
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_bad_local_link_refused (__main__.DistributionTests.test_bad_local_link_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 180, in test_bad_local_link_refused
+    with self.assertRaisesRegex(ValueError, 'link'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_changed_guid_refused (__main__.DistributionTests.test_changed_guid_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 186, in test_changed_guid_refused
+    with self.assertRaisesRegex(ValueError, 'GUID'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_dirty_refused_before_output (__main__.DistributionTests.test_dirty_refused_before_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 129, in test_dirty_refused_before_output
+    with self.assertRaisesRegex(ValueError, 'clean'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_document_escape_refused (__main__.DistributionTests.test_document_escape_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 175, in test_document_escape_refused
+    with self.assertRaisesRegex(ValueError, 'escape'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_existing_output_refused (__main__.DistributionTests.test_existing_output_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 157, in test_existing_output_refused
+    with self.assertRaisesRegex(ValueError, 'exists'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_git_symlink_refused (__main__.DistributionTests.test_git_symlink_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 166, in test_git_symlink_refused
+    with self.assertRaises(ValueError): self.build()
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='../escape')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 148, in test_invalid_run_refused
+    with self.subTest(run=run), self.assertRaisesRegex(ValueError, 'run'): self.build(run_id=run)
+                                ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 148, in test_invalid_run_refused
+    with self.subTest(run=run), self.assertRaisesRegex(ValueError, 'run'): self.build(run_id=run)
+                                ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='bad/run')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 148, in test_invalid_run_refused
+    with self.subTest(run=run), self.assertRaisesRegex(ValueError, 'run'): self.build(run_id=run)
+                                ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) (run='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 148, in test_invalid_run_refused
+    with self.subTest(run=run), self.assertRaisesRegex(ValueError, 'run'): self.build(run_id=run)
+                                ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='../bad')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 144, in test_invalid_version_refused
+    with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version'): self.build(version=version)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='00.0.1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 144, in test_invalid_version_refused
+    with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version'): self.build(version=version)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='v0.0.1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 144, in test_invalid_version_refused
+    with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version'): self.build(version=version)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='0.0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 144, in test_invalid_version_refused
+    with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version'): self.build(version=version)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) (version='0.0.1/escape')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 144, in test_invalid_version_refused
+    with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'version'): self.build(version=version)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_license_refused (__main__.DistributionTests.test_missing_license_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 170, in test_missing_license_refused
+    with self.assertRaisesRegex(ValueError, 'LICENSE'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_snapshot_refused (__main__.DistributionTests.test_missing_snapshot_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 125, in test_missing_snapshot_refused
+    with self.assertRaisesRegex(ValueError, 'snapshot'): self.build(prepare=False)
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_output_escape_refused (__main__.DistributionTests.test_output_escape_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 151, in test_output_escape_refused
+    with self.assertRaisesRegex(ValueError, 'output'): self.build(output=Path(self.temp.name) / 'escape')
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_untracked_refused (__main__.DistributionTests.test_untracked_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 134, in test_untracked_refused
+    with self.assertRaisesRegex(ValueError, 'clean'): self.build()
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_wrong_revision_refused (__main__.DistributionTests.test_wrong_revision_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tplab\worktrees\p1\tools\test_build_distribution.py", line 137, in test_wrong_revision_refused
+    with self.assertRaisesRegex(ValueError, 'revision'): self.build(revision='0' * 40)
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 18 tests in 10.972s
+
+FAILED (failures=21, errors=3)

@@ -32,3 +32,6 @@
 !/.env.example
 /crash.dmp
 /sysinfo.txt
+
+# Distribution run outputs (upm/ publication copies remain tracked)
+/tplab/

@@ -122,7 +122,7 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 
 2026-10-07 로딩 표시 흐름: 사용자 요청은 별도 Unity 씬이 아닌 UI 표시 단계였다. P1 progress snapshot, P2 opt-in 표시·자동/수동 대기·두 번째 cover·실패 정리, P4 project-owned sample UI를 구현했다. [계약과 검증 상태](SCENE_LOADING_PRESENTATION_DRAFT.md), [통합 track](SCENE_LOADING_TRACK.md)를 따른다. P4 Edit271/271·Play253/253(실패0·skip0), Additive/Single Windows Mono build와 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공([증거](validation/scene-loading/p4/README.md)). 2026-10-07 사용자가 로딩 UI PlayMode 확인을 전달해 최종 사용자 gate를 완료했다. [최종 통합](validation/scene-loading/integration/README.md)에 따라 main 반영·branch 정리를 진행한다. 개별 장치/해상도, remote Addressables content/download와 IL2CPP coverage는 미검증이다.
 
-7. 첫 배포 준비는 [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md)의 P0 규격 → P1 패키징 → P2 artifact 소비 설치 → P3 후보 검증 → P4 Release를 따른다. 현재는 설계 문서만 작성했으며 실제 패키지/배포 자동화·설치 검증·`v0.0.1` 발행은 미실행이다. 기존 소스 소비 검증을 `.tgz` 설치 결과로 확대하지 않는다.
+7. 첫 배포 준비는 [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md)의 P0 규격 → P1 패키징 → P2 artifact 소비 설치 → P3 후보 검증 → P4 Release를 따른다. P1은 패키징 도구·문서 포함·계약 테스트18/18을 배포 track에서 완료했다([증거](validation/distribution-packaging/README.md)). 실제 UPM 설치·후보 Player 검증·`v0.0.1` 발행은 후속 Phase다. 기존 소스 소비 검증을 `.tgz` 설치 결과로 확대하지 않는다.
 
 ## 다음 버전 계획 (2026-10-07)
 

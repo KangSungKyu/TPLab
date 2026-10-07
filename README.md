@@ -20,7 +20,7 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 
 ## 배포 준비
 
-첫 `0.0.1`의 [배포 규격·dev-build track](doc/DISTRIBUTION_PIPELINE.md)을 작성했다. Core·선택적 Input/Editor의 Git URL·UPM `.tgz` 설치, 버전 관리할 `upm/` 사본과 생성 전용 `tplab/` 폴더, Core/Input 예제 분류를 설계했으며, 실제 자동화·패키지·Release는 아직 제공하지 않는다. 현재 설치는 아래 소스 가져오기를 따른다. 저장소는 [public](https://github.com/KangSungKyu/TPLab)이며 외부 제공을 허용한다. TPLab 자체 구현은 MIT로, 제3자는 원문 조건으로 제공한다. 다음 버전에는 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)을 진행할 계획이며 아직 구현하지 않았다.
+첫 `0.0.1`의 [배포 규격·dev-build track](doc/DISTRIBUTION_PIPELINE.md)을 작성했다. Core·선택적 Input/Editor의 Git URL·UPM `.tgz` 설치, 버전 관리할 `upm/` 사본과 생성 전용 `tplab/` 폴더, Core/Input 예제 분류를 설계했으며, P1 패키징 도구와 사람/AI API 포함 검증을 배포 track에서 구현했다. 실제 UPM 설치·Player 검증과 정식 Release는 아직 완료하지 않았다. 현재 설치는 아래 소스 가져오기를 따른다. 저장소는 [public](https://github.com/KangSungKyu/TPLab)이며 외부 제공을 허용한다. TPLab 자체 구현은 MIT로, 제3자는 원문 조건으로 제공한다. 다음 버전에는 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)을 진행할 계획이며 아직 구현하지 않았다.
 
 ## 가져오기
 

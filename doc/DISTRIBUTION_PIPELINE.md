@@ -1,6 +1,6 @@
 # TPLab 배포 규격과 dev-build track
 
-2026-10-07. Status: **Proposed / 설계 작성 완료**, PipelineImplementation: **NotImplemented**, PackageValidation: **NotRun**. 첫 목표 버전은 `0.0.1`, 태그는 `v0.0.1`이다. 현재 설치는 [소스 가져오기](../README.md)이며 이 명세의 package·명령·Release는 아직 제공하지 않는다.
+2026-10-07. Status: **P1 / 패키징 구현·소비 검증 대기**, PipelineImplementation: **P1Implemented**, PackageValidation: **NotRun**. 첫 목표 버전은 `0.0.1`, 태그는 `v0.0.1`이다. 현재 소비 설치는 [소스 가져오기](../README.md)이며 검증된 Release는 아직 제공하지 않는다. P1의 개발 검증용 생성 도구와 문서는 아래에 제공한다.
 
 최초 설계 기준 main은 `993a0617b8b5253175d9a225432f0aa642d19d3d`, Git URL·예제 분류·차기 범위 보완 기준은 `36e8ffbb0833293474da43396481895e5d8108d0`다. 기존 코어 기능·이름 변경 검증은 선행 기록이며 실제 배포물 설치 통과를 대신하지 않는다. 이번 범위는 규격·운영·구현 단계 작성이다. 배포 자동화 구현, 개발 소스 이동, 패키지 생성, Unity 테스트, 태그·Release 발행은 후속 단위다.
 
@@ -26,7 +26,7 @@ package sample 폴더·manifest 설정은 Unity 6000.3의 Samples 규격에 맞�
 
 개발 원본은 계속 `Assets/TPLab`에 둔다. **`upm/`은 Git URL로 제공할 package 사본을 버전 관리하는 공간**이다. 원본·문서·라이선스에서 생성한 사본을 검토한 뒤 명시적으로 커밋하며 직접 수정하지 않는다. Unity 개발 프로젝트의 Assets/Packages 밖에 있어 개발 assembly를 중복 import하지 않는다. release 후보에는 원본과 `upm/`의 파일 매핑·내용·GUID·버전 일치 검사를 수행한다.
 
-저장소 루트 하위 **`tplab/`은 빌드 요청 시 생성하는 공간**이다. 활성 개발 checkout과 구별되는 배포 worktree에서 생성하고, P1 구현 때 root 한정 `/tplab/` ignore 규칙을 추가한다. `upm/`은 ignore하지 않는다. 현재는 두 폴더 생성·ignore 변경 모두 미실행이다.
+저장소 루트 하위 **`tplab/`은 빌드 요청 시 생성하는 공간**이다. 활성 개발 checkout과 구별되는 배포 worktree에서 생성하고, P1 구현 때 root 한정 `/tplab/` ignore 규칙을 추가한다. `upm/`은 ignore하지 않는다. P1은 `/tplab/` ignore와 생성 도구를 구현했다. `upm/` 사본은 준비 output을 검토한 뒤 별도 커밋하며 생성기가 Git을 변경하지 않는다. 실제 생성·사본 일치 결과는 [P1 증거](validation/distribution-packaging/README.md)를 따른다.
 
 ```text
 <배포-worktree>/
@@ -112,13 +112,15 @@ https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.editor#v0.0.1
 
 후속 P1은 Python 표준 라이브러리를 우선 사용한다. git checkout/인증은 기존 Git, package 소비 build는 기존 Unity batch 경로를 사용한다. 자동화 도구가 저장소 생성·인증 설정·네트워크 정보 출력·승인되지 않은 publish를 함께 수행하지 않는다. 한 명령의 실패 exit가 후속 build/merge/publish를 막아야 한다.
 
-후보 CLI는 아래와 같다. **`tools/build_distribution.py`는 아직 없으며 다음 단계의 실행 계약안이다.** version/run ID/path/source를 검증하고 파일 읽기·패키지 생성·hash/manifest 생성만 담당한다. Git 브랜치·merge·publish는 해당 Git 단계가 담당한다.
+후보 CLI는 아래와 같다. **[tools/build_distribution.py](../tools/build_distribution.py)는 P1에서 구현했다.** version/run ID/path/source를 검증하고 파일 읽기·패키지 생성·hash/manifest 생성만 담당한다. Git 브랜치·merge·publish는 해당 Git 단계가 담당한다.
 
 ```text
 python tools/build_distribution.py --source <절대-clean-checkout>
     --revision <40자리-HEAD> --version 0.0.1 --run-id <고유-ID>
-    --output <해당-checkout>/tplab/<고유-ID>
+    --output <해당-checkout>/tplab/<고유-ID> [--prepare]
 ```
+
+`--prepare`는 최초 사본 또는 갱신할 사본을 새 output에 준비한다. 기본 mode는 커밋된 `upm/`과 새로 생성한 package의 파일 집합·bytes 일치를 요구한다. prepare output의 packages를 검토해 `upm/`에 명시적으로 반영·커밋한 뒤, 새 exact SHA와 새 run ID로 기본 mode를 실행한다. 사본을 바꾸면 다시 생성·검증한다. 어느 mode도 설치 gate를 완료시키지 않으며 현재 `publishable: false`를 유지한다. 문서/API·DLL·meta는 Git에 저장된 bytes를 기준으로 읽는다. Python/zlib 버전은 manifest에 기록하고 해시 재현 근거에서 확인한다.
 
 `distribution-manifest.json`은 schemaVersion, sourceRevision, version, package별 ID/버전/filename/SHA256, source-to-package mapping hash, 의존성 계약, 필수 검증/정책 상태를 기록한다. 실행 PC/시각/원래 Editor PID·검증 consumer PID·실제 test count·exit와 로그 경로는 별도 검증 evidence에 둔다. MIT/제3자 고지·필수 설치/build 검증을 충족하지 못한 개발 검증본은 `publishable: false`로 표시한다. 라이선스 결정만으로 artifact 설치 검증을 완료로 표시하지 않는다. 새 파일과 증거의 상세 schema는 P1에서 실제 명령 구현과 함께 확정한다.
 
@@ -129,7 +131,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 | Phase | 범위 | 완료 조건 | 현재 |
 |---|---|---|---|
 | P0 규격·운영 | 이 문서, 입구/지침/회고 연결 | 현재 소스/assembly/의존성 대조, 상대 링크·범위·공백·보호 검사 | 완료 / main 반영·public 확인 |
-| P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 미구현 |
+| P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 구현·계약 테스트18/18 완료; 실제 생성/사본 결과는 P1 증거 |
 | P2 실제 설치 | Git URL·tarball 소비 mode, Core/Input sample 분류·import 경로 수정, Editor importer 수명 | 각 설치 방식의 Core만/Input/Editor/전체+Sample resolve·compile·최소 실행, negative 경로, 원본 보호 | 미구현 |
 | P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 미실행 |
 | P4 첫 Release | main 통합·`v0.0.1`·public Release와 검증된 첨부물 | 정책/필수 gate 충족, source tag·SHA256·버전 일치·tag URL 설치·다운로드한 실제 첨부물 검증, 브랜치 정리 | 미실행 |
@@ -158,3 +160,13 @@ CI는 현재 미구성이다. [exact commit gate](../tools/check_github_ci.py)�
 ## 다음 버전 범위
 
 사용자는 다음 버전에 현재 Core 내부 기능의 외부 의존성 분리 검토와 `GameUISystem`을 요청했다. 첫 `0.0.1`에는 현재 Core 의존성 계약을 유지한다. 분리 판단과 UI 설계의 선행 조건은 [후속 계획](CORE_PLAN.md#다음-버전-계획-2026-10-07)이 소유하며 차기 버전 번호·package/API 변경은 아직 정하지 않았다.
+
+## P1 작업 기록 (2026-10-07)
+
+기준 main `af9958ba402be2bc7f31d453afb2b14294a47ac8`에서 track `codex/dev-build-v0.0.1`과 phase `codex/dev-build-v0.0.1-p1-packaging`을 생성했다. 관리형 worktree 도구가 이전 MyLab 경로에서 Git을 찾지 못해 Git worktree로 직접 격리했다. 개발 checkout의 사용자 씬·설정 변경은 배포 입력에 포함하지 않는다. P1은 도구·패키지 사본·문서만 작업하며 Runtime/Editor·sample 이동과 UPM 실제 설치는 수행하지 않는다. P1은 검증 뒤 track으로 통합하며 main/tag/Release gate는 P2/P3 이후다.
+
+| Agent | Model / effort | 역할·허용 경로 | 상태 |
+|---|---|---|---|
+| `/root/distribution_docs_review` | gpt-6-luna / low | P1 checkout의 기존 API와 builder/test 읽기 전용 리뷰; Git·Unity·파일 변경 금지 | 완료: 링크 projection·코드 경계 검토, 실제 설치 증거와 구분 |
+
+부모가 도구 구현·테스트 실행·사본 리뷰·Git 통합을 담당한다. [회고](retrospectives/2026-10-07-17-distribution-packaging.md)에 검증·남은 Phase를 기록한다.
