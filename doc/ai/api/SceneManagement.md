@@ -195,3 +195,7 @@ common installer에서 entry/self-prepare await, hook에서 같은 manager comma
 현재 최초/교체/derived/definitions/conditions는 Implemented다. [loading presentation](../../SCENE_LOADING_PRESENTATION_DRAFT.md)은 **Proposed·미구현**: progress snapshot/event, 팁, WaitForProceed, AwaitingProceed 및 중간 cover-off 흐름을 사용 가능한 API로 생성하지 않는다. 기존 ShowCover/HideCover는 구현된 final protection callbacks다.
 
 확인 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono. 전체 p4 및 sample smoke가 다른 Unity/IL2CPP/플랫폼·원격 bundle download·임의 presentation/물리 입력 UX를 증명하지 않는다. core runtime UI/Input dependency 없음. 기존 Bootstrap path/source overload 및 Deprecated adapter 호환을 유지한다.
+
+## 진행률 선행 계약 (2026-10-07 P1)
+
+GameSceneManager.Progress(nullable)는 immutable SceneTransitionProgress(OperationId, Stage, StageRatio(nullable), IsPrepared)다. ReportLoadingProgress(snapshot)는 동기 메인 스레드 callback이며 manager 재진입을 허용하지 않는다. 미지원 loader ratio=null, native1과 root/presentation준비를 구분한다. Ready/Faulted terminal은 property에서 관찰하며 callback을 다시 호출하지 않는다. 표시용 SceneLoadingContext(OperationId/Kind/Target/Mode)는 기존 조건 평가용 SceneTransitionContext와 별도다. 로딩UI callback 선언은 선행 계약이며 opt-in 표시/대기 흐름은 다음phase에서 연결한다.

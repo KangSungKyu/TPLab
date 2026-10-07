@@ -143,6 +143,113 @@ namespace MyLab.Core.Tests
         });
 
         [UnityTest]
+        public IEnumerator NativeProgressReportsLoadingWithoutPreparingTheRoot() => CheckProgressAsync(false).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator AddressablesProgressReportsResolutionThenLoadingWithoutPreparingTheRoot() => CheckProgressAsync(true).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator NativeObserverFailureStillReturnsAnOwnedResult() => CheckProgressFailureAsync(false).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator AddressablesObserverFailureStillReturnsAnOwnedResult() => CheckProgressFailureAsync(true).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator NativeObserverDisposalDuringLoadKeepsTheResultOwned() => CheckProgressDisposalAsync(false).ToCoroutine();
+
+        [UnityTest]
+        public IEnumerator AddressablesObserverDisposalDuringLoadKeepsTheResultOwned() => CheckProgressDisposalAsync(true).ToCoroutine();
+
+        private async UniTask CheckProgressAsync(bool addressable)
+        {
+            var reports = new List<SceneLoadProgress>();
+            using (var observer = new SceneLoadProgressObserver(progress => reports.Add(progress)))
+            {
+                _loaded = await ProgressLoader(addressable).LoadAsync(ProgressTarget(addressable), LoadSceneMode.Additive, observer);
+                Assert.That(_loaded.Scene.isLoaded, Is.True);
+                Assert.That(observer.Failure, Is.Null);
+                Assert.That(reports, Is.Not.Empty);
+                Assert.That(reports.All(progress => progress.Ratio >= 0f && progress.Ratio <= 1f && !float.IsNaN(progress.Ratio)), Is.True);
+                var loading = reports.Where(progress => progress.Stage == SceneLoadStage.LoadingScene).ToArray();
+                Assert.That(loading, Is.Not.Empty);
+                Assert.That(loading.First().Ratio, Is.Zero);
+                Assert.That(loading.Last().Ratio, Is.EqualTo(1f));
+                if (addressable)
+                {
+                    var resolving = reports.TakeWhile(progress => progress.Stage == SceneLoadStage.ResolvingTarget).ToArray();
+                    Assert.That(resolving, Is.Not.Empty);
+                    Assert.That(resolving.First().Ratio, Is.Zero);
+                    Assert.That(resolving.Last().Ratio, Is.EqualTo(1f));
+                    Assert.That(reports.Skip(resolving.Length).All(progress => progress.Stage == SceneLoadStage.LoadingScene), Is.True);
+                }
+                else
+                {
+                    Assert.That(reports.All(progress => progress.Stage == SceneLoadStage.LoadingScene), Is.True);
+                }
+                var roots = _loaded.Scene.GetRootGameObjects().SelectMany(go => go.GetComponentsInChildren<MonoBehaviour>(true)).OfType<ISceneRoot>().ToArray();
+                Assert.That(roots, Has.Length.EqualTo(1));
+                Assert.That(roots[0].IsReady, Is.True);
+                Assert.That(roots[0].IsPrepared, Is.False);
+                await ReleaseRootsAsync(_loaded.Scene);
+                await _loaded.UnloadAsync();
+                Assert.That(_loaded.IsUnloaded, Is.True);
+            }
+        }
+
+        private async UniTask CheckProgressFailureAsync(bool addressable)
+        {
+            var expected = new InvalidOperationException("expected scene progress callback failure");
+            int calls = 0;
+            using (var observer = new SceneLoadProgressObserver(_ =>
+            {
+                ++calls;
+                throw expected;
+            }))
+            {
+                _loaded = await ProgressLoader(addressable).LoadAsync(ProgressTarget(addressable), LoadSceneMode.Additive, observer);
+                Assert.That(_loaded.Scene.isLoaded, Is.True);
+                Assert.That(observer.Failure, Is.SameAs(expected));
+                Assert.That(calls, Is.EqualTo(1));
+                await ReleaseRootsAsync(_loaded.Scene);
+                await _loaded.UnloadAsync();
+                await _loaded.UnloadAsync();
+                Assert.That(_loaded.IsUnloaded, Is.True);
+                Assert.That(SceneManager.GetSceneByPath(Hub).isLoaded, Is.False);
+            }
+        }
+
+        private async UniTask CheckProgressDisposalAsync(bool addressable)
+        {
+            int calls = 0;
+            SceneLoadProgressObserver observer = null;
+            observer = new SceneLoadProgressObserver(_ =>
+            {
+                ++calls;
+                observer.Dispose();
+            });
+            using (observer)
+            {
+                _loaded = await ProgressLoader(addressable).LoadAsync(ProgressTarget(addressable), LoadSceneMode.Additive, observer);
+                Assert.That(calls, Is.EqualTo(1));
+                Assert.That(observer.Failure, Is.Null);
+                Assert.That(_loaded.Scene.isLoaded, Is.True);
+                await ReleaseRootsAsync(_loaded.Scene);
+                await _loaded.UnloadAsync();
+                Assert.That(_loaded.IsUnloaded, Is.True);
+            }
+        }
+
+        private static ISceneProgressLoader ProgressLoader(bool addressable)
+        {
+            return addressable ? (ISceneProgressLoader)new AddressableSceneLoader() : new NativeSceneLoader();
+        }
+
+        private SceneTarget ProgressTarget(bool addressable)
+        {
+            return addressable ? SceneTarget.Addressable(_key, Hub) : SceneTarget.BuildScene(Hub);
+        }
+
+        [UnityTest]
         public IEnumerator AddressablesResultOwnsARealNativeScene() => UniTask.ToCoroutine(async () =>
         {
             _loaded = await new AddressableSceneLoader().LoadAsync(SceneTarget.Addressable(_key, Hub), LoadSceneMode.Additive);

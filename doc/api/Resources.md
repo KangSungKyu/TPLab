@@ -132,3 +132,7 @@ Addressables 씬은 소비 프로젝트 catalog에 설정한 뒤 `SceneTarget.Ad
 - 이 근거는 Unity `6000.3.18f1` / Windows Mono만 입증합니다. 실제 소비 프로젝트 Addressables catalog/content 또는 원격 다운로드는 검증하지 않았고, IL2CPP·다른 플랫폼도 미실행입니다.
 
 구현: [`ResourceManager.cs`](../../Assets/MyLab/Core/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../Assets/MyLab/Core/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../Assets/MyLab/Core/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../Assets/MyLab/Core/ResourceManagement/LoadedScene.cs).
+
+## 진행률 확장 (2026-10-07 P1)
+
+두 기본 loader는 ISceneProgressLoader를 구현하며 기존 LoadAsync(target, mode)는 유지한다. 추가 overload는 SceneLoadProgressObserver를 받는다. SceneLoadProgress.Stage는 ResolvingTarget/LoadingScene이고 Ratio는 finite0..1이며 전체 준비/다운로드 bytes 비율이 아니다. observer의 callback 예외는 Failure에 첫1개 보존하고 native 완료를 중단하지 않는다. 반환 LoadedScene을 먼저 소유한 뒤 Failure를 확인하여 결과를 정리한다. null/Dispose는 통지만 억제하며 native 취소가 아니다. 통지는 동기 메인 스레드다. Native AsyncOperation.progress/Addressables PercentComplete를 읽는다. Green Edit13/13, core Play210/210, failed0/skip0. 원격 다운로드·다른 플랫폼은 미검증이다.

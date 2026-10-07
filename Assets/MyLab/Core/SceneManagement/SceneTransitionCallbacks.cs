@@ -35,6 +35,24 @@ namespace MyLab.Core.SceneManagement
         /// </summary>
         public virtual UniTask HideCoverAsync(CancellationToken cancellationToken) => UniTask.CompletedTask;
 
+        /// <summary>Opt-in policy sampled once at execution start; removal always uses the existing cover flow.</summary>
+        public virtual bool UsesLoadingPresentation(SceneLoadingContext context) => false;
+
+        /// <summary>Prepares project-owned loading UI while covered; token is the transition owner's lifetime.</summary>
+        public virtual UniTask PrepareLoadingPresentationAsync(SceneLoadingContext context, CancellationToken cancellationToken) => UniTask.CompletedTask;
+
+        /// <summary>Shows prepared loading UI and hides only the cover; retain gameplay blocking.</summary>
+        public virtual UniTask RevealLoadingPresentationAsync(SceneLoadingContext context, CancellationToken cancellationToken) => UniTask.CompletedTask;
+
+        /// <summary>Receives synchronous main-thread snapshots; never starts or waits for its own transition.</summary>
+        public virtual void ReportLoadingProgress(SceneTransitionProgress progress) { }
+
+        /// <summary>Automatic continuation by default; a project can await an operation-specific button after preparation.</summary>
+        public virtual UniTask WaitForProceedAsync(SceneLoadingContext context, CancellationToken cancellationToken) => UniTask.CompletedTask;
+
+        /// <summary>Releases only this operation's UI/listeners under cover, without abandoning begun cleanup on cancellation.</summary>
+        public virtual UniTask ReleaseLoadingPresentationAsync(SceneLoadingContext context) => UniTask.CompletedTask;
+
         /// <summary>
         /// Reports execution failure or owner cancellation without converting it into success.
         /// Acknowledging a message does not authorize reveal. Do not await or restart the current transition here.

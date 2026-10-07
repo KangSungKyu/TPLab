@@ -285,3 +285,7 @@ if (!completed)
 [최종 p4](../validation/input-system/p4/README.md)는 source `9305b5d...` 전체 Edit258/258·Play217/217(실패0·skip0), reload8/8, 실제 Additive/Single sample Windows Mono build와 Player 및 별도 Core 소비 프로젝트를 기록한다. sample은 최초/교체/중첩 추가/자기·ancestor 해제/조건 거부/실패 cover/graceful 종료를 관찰했다. 전체 숫자는 SceneManagement 전용 건수가 아니다. 문서 작성 중 새 실행0이며 예제 발췌도 미실행이다.
 
 확인 환경은 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1/Windows Mono다. 다른 Unity·IL2CPP·플랫폼, 원격 Addressables download, 임의 UI/물리 입력 UX는 미검증이다. `BootstrapCallbacks`는 Deprecated 호환 타입이며 새 코드는 `SceneTransitionCallbacks.ConfigureSceneAsync`를 사용한다. SceneRootFlow/Lifecycle의 기존 준비·종료 계약은 유지한다. loading-progress/tips/proceed 초안은 현재 API에 추가하지 않는다.
+
+## 진행률 선행 계약 (2026-10-07 P1)
+
+GameSceneManager.Progress(nullable)는 immutable SceneTransitionProgress(OperationId, Stage, StageRatio(nullable), IsPrepared)다. ReportLoadingProgress(snapshot)는 동기 메인 스레드 callback이며 manager 재진입을 허용하지 않는다. 미지원 loader ratio=null, native1과 root/presentation준비를 구분한다. Ready/Faulted terminal은 property에서 관찰하며 callback을 다시 호출하지 않는다. 표시용 SceneLoadingContext(OperationId/Kind/Target/Mode)는 기존 조건 평가용 SceneTransitionContext와 별도다. 로딩UI callback 선언은 선행 계약이며 opt-in 표시/대기 흐름은 다음phase에서 연결한다.

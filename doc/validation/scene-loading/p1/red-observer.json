@@ -1,0 +1,40 @@
+{
+  "total": 13,
+  "passed": 2,
+  "failed": 11,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverDisposeFromCallbackSuppressesSubsequentNotifications:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverRejectsWorkerReportsWithoutCallingTheCallback:   Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverReportsSynchronouslyOnTheCallingMainThread:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverRequiresACallback:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverRetainsFirstCallbackFailureAndSuppressesLaterReports:   Expected: 1\r\n  But was:  0\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(-0.01f):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(1.01f):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(float.NaN):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(float.PositiveInfinity):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(float.NegativeInfinity):   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsUnknownStage:   Expected: <System.ArgumentOutOfRangeException>\r\n  But was:  null\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotPreservesStageAndBoundaryRatio(ResolvingTarget,0.0f)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotPreservesStageAndBoundaryRatio(LoadingScene,1.0f)"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneLoadProgressTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 32976,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 32976,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

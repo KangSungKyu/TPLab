@@ -9,6 +9,7 @@ namespace MyLab.Core.Tests
 {
     public sealed class SceneTransitionCallbacksProbe : SceneTransitionCallbacks
     {
+        public Action<SceneTransitionProgress> ProgressReported;
         public int CoverCount;
         public int RevealCount;
         public int FailureCount;
@@ -50,6 +51,8 @@ namespace MyLab.Core.Tests
             Revealing?.Invoke();
             return UniTask.CompletedTask;
         }
+
+        public override void ReportLoadingProgress(SceneTransitionProgress progress) => ProgressReported?.Invoke(progress);
 
         public override void OnFailure(Exception exception)
         {

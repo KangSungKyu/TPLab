@@ -14,7 +14,8 @@ namespace MyLab.Core.SceneManagement
     public enum SceneTransitionState
     {
         Idle, Covering, PreparingCommon, Loading, Configuring, PreparingScene,
-        PreparingPresentation, Revealing, Ready, Stopping, Stopped, Faulted
+        PreparingPresentation, Revealing, Ready, Stopping, Stopped, Faulted,
+        PreparingLoadingPresentation, RevealingLoadingPresentation, ResolvingTarget, AwaitingProceed, Finalizing
     }
 
     /// <summary>
@@ -58,6 +59,8 @@ namespace MyLab.Core.SceneManagement
         public SceneTransitionState FailurePhase { get; private set; }
         /// <summary>Execution/cleanup/callback failure, or null before failure. Caller wait cancellation is excluded.</summary>
         public Exception LastFailure { get; private set; }
+        /// <summary>Latest operation stage snapshot, or null before any accepted command.</summary>
+        public SceneTransitionProgress? Progress { get; private set; }
         /// <summary>Successfully revealed primary scene, distinct from an explicitly activated derived scene; invalid before entry and after primary shutdown starts.</summary>
         public Scene GameScene { get; private set; }
         /// <summary>Native candidate still owned, including a last Single scene that Unity cannot unload.</summary>
@@ -477,7 +480,7 @@ namespace MyLab.Core.SceneManagement
                     _candidate = null;
                     GameScene = _primary.Result.Scene;
                 }
-                State = SceneTransitionState.Ready;
+                PublishPhase(SceneTransitionState.Ready, notify: false);
             }
             catch (Exception failure)
             {
@@ -507,16 +510,16 @@ namespace MyLab.Core.SceneManagement
         private async UniTask CoverAsync(CancellationToken token)
         {
             bool restoring = State == SceneTransitionState.Revealing;
-            if (!restoring) State = SceneTransitionState.Covering;
+            if (!restoring) PublishPhase(SceneTransitionState.Covering);
             await InvokeAsync(() => _callbacks != null ? _callbacks.ShowCoverAsync(token) : UniTask.CompletedTask);
-            if (!restoring) State = SceneTransitionState.PreparingCommon;
+            if (!restoring) PublishPhase(SceneTransitionState.PreparingCommon);
         }
 
         private async UniTask RevealAsync(CancellationToken token)
         {
             var operation = _operation;
             ValidatePreparedOwnership();
-            State = SceneTransitionState.Revealing;
+            PublishPhase(SceneTransitionState.Revealing);
             await InvokeAsync(() => _callbacks != null ? _callbacks.HideCoverAsync(token) : UniTask.CompletedTask);
             token.ThrowIfCancellationRequested();
             ValidatePreparedOwnership();
@@ -537,7 +540,7 @@ namespace MyLab.Core.SceneManagement
             if (_mode == LoadSceneMode.Single && _primary != null)
             {
                 RecheckPolicy(operation, default);
-                State = SceneTransitionState.Stopping;
+                PublishPhase(SceneTransitionState.Stopping);
                 GameScene = default;
                 await ShutdownSubtreeRootsAsync(_primary);
                 token.ThrowIfCancellationRequested();
@@ -545,9 +548,17 @@ namespace MyLab.Core.SceneManagement
                 ValidateInventory(_initialScenes);
                 ValidateActiveScene();
             }
-            State = SceneTransitionState.Loading;
+            PublishPhase(SceneTransitionState.Loading);
             // The loader cannot abandon native work. Retain its actual result before observing owner cancellation.
-            var result = await _loader.LoadAsync(_target, _mode);
+            using var observer = new SceneLoadProgressObserver(progress =>
+            {
+                if (!ReferenceEquals(_operation, operation) || operation.Cancellation.IsCancellationRequested) return;
+                PublishPhase(progress.Stage == SceneLoadStage.ResolvingTarget
+                    ? SceneTransitionState.ResolvingTarget : SceneTransitionState.Loading, progress.Ratio);
+            });
+            var result = _loader is ISceneProgressLoader progressLoader
+                ? await progressLoader.LoadAsync(_target, _mode, observer)
+                : await _loader.LoadAsync(_target, _mode);
             if (result == null) throw new InvalidOperationException("The scene loader returned no owned result.");
             _candidate = new OwnedPrimary(result, operation.Kind == OperationKind.Add ? operation.Parent : null,
                 operation.Kind == OperationKind.Add ? SceneRegistrationRole.Derived : SceneRegistrationRole.Primary, operation.Priority);
@@ -556,6 +567,7 @@ namespace MyLab.Core.SceneManagement
                 // Single has unloaded the old scene. Its backend result still owns completion/release observation.
                 await DrainSingleResultsAsync(_primary);
             }
+            if (observer.Failure != null) throw observer.Failure;
             if (result.Target.Source != _target.Source || result.Target.ScenePath != _target.ScenePath ||
                 result.Target.AddressableKey != _target.AddressableKey || LoadedScene.path != _target.ScenePath)
                 throw new InvalidOperationException("The scene loader returned a different target or scene asset.");
@@ -571,20 +583,21 @@ namespace MyLab.Core.SceneManagement
             if (hosts.Length != 1) throw new InvalidOperationException("Game scene requires exactly one lifecycle root.");
             BootstrapSystem.ValidateSceneRoot(hosts[0], LoadedScene);
             _candidate.Root = (ISceneRoot)hosts[0];
-            State = SceneTransitionState.Configuring;
+            PublishPhase(SceneTransitionState.Configuring);
             await InvokeAsync(() => _callbacks != null ? _callbacks.ConfigureSceneAsync(LoadedScene, _candidate.Root, token) : UniTask.CompletedTask);
             token.ThrowIfCancellationRequested();
-            State = SceneTransitionState.PreparingScene;
+            PublishPhase(SceneTransitionState.PreparingScene);
             await InvokeAsync(() => _candidate.Root.PrepareAsync(token));
             ValidatePreparedOwnership();
-            State = SceneTransitionState.PreparingPresentation;
+            PublishPhase(SceneTransitionState.PreparingPresentation);
             await InvokeAsync(() => _callbacks != null ? _callbacks.PreparePresentationAsync(LoadedScene, _candidate.Root, token) : UniTask.CompletedTask);
             token.ThrowIfCancellationRequested();
             ValidatePreparedOwnership();
+            operation.DestinationPrepared = true;
             if (_primary != null && operation.Kind != OperationKind.Add)
             {
                 RecheckPolicy(operation, LoadedScene);
-                State = SceneTransitionState.Stopping;
+                PublishPhase(SceneTransitionState.Stopping);
                 GameScene = default;
                 await ReleaseSubtreeAsync(_primary, false, ValidatePreparedOwnership);
                 token.ThrowIfCancellationRequested();
@@ -611,7 +624,7 @@ namespace MyLab.Core.SceneManagement
                     throw new InvalidOperationException("Cannot activate the surviving registered parent.");
                 _expectedActiveScene = survivingParent.Result.Scene;
             }
-            State = SceneTransitionState.Stopping;
+            PublishPhase(SceneTransitionState.Stopping);
             // Cancellation cannot abandon a begun subtree release. Report it only after all cleanup completes.
             await ReleaseSubtreeAsync(target, true, ValidatePreparedOwnership);
             token.ThrowIfCancellationRequested();
@@ -952,6 +965,8 @@ namespace MyLab.Core.SceneManagement
             internal readonly UniTaskCompletionSource Completion = new UniTaskCompletionSource();
             internal readonly CancellationTokenSource Cancellation = new CancellationTokenSource();
             internal readonly OperationKind Kind;
+            internal readonly SceneLoadingContext Context;
+            internal bool DestinationPrepared;
             internal readonly OwnedPrimary Parent;
             internal readonly bool Activate;
             internal readonly int Priority;
@@ -962,6 +977,7 @@ namespace MyLab.Core.SceneManagement
             internal Operation(OperationKind kind, OwnedPrimary parent, bool activate, int priority, OwnedPrimary removalTarget, PolicySnapshot policy)
             {
                 Kind = kind;
+                Context = new SceneLoadingContext(policy.Request);
                 Parent = parent;
                 Activate = activate;
                 Priority = priority;
@@ -1006,9 +1022,24 @@ namespace MyLab.Core.SceneManagement
 
         private static bool InventoryMatches(Scene[] expected) => new HashSet<Scene>(GetLoadedScenes()).SetEquals(expected);
 
+        private void PublishPhase(SceneTransitionState phase, float? ratio = null, bool notify = true)
+        {
+            State = phase;
+            var operation = _operation;
+            if (operation == null) return;
+            var snapshot = new SceneTransitionProgress(operation.Context, phase, ratio,
+                phase != SceneTransitionState.Faulted && operation.DestinationPrepared);
+            Progress = snapshot;
+            if (!notify || _callbacks == null) return;
+            bool previous = _dispatching;
+            _dispatching = true;
+            try { _callbacks.ReportLoadingProgress(snapshot); }
+            finally { _dispatching = previous; }
+        }
+
         private Exception RecordFailure(Exception failure)
         {
-            State = SceneTransitionState.Faulted;
+            PublishPhase(SceneTransitionState.Faulted, notify: false);
             LastFailure = failure;
             if (!_failureNotified)
             {

@@ -1,0 +1,39 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 13,
+  "passes": [
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverDisposeFromCallbackSuppressesSubsequentNotifications",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverRejectsWorkerReportsWithoutCallingTheCallback",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverReportsSynchronouslyOnTheCallingMainThread",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverRequiresACallback",
+    "MyLab.Core.Tests.SceneLoadProgressTests.ObserverRetainsFirstCallbackFailureAndSuppressesLaterReports",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotPreservesStageAndBoundaryRatio(ResolvingTarget,0.0f)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotPreservesStageAndBoundaryRatio(LoadingScene,1.0f)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(-0.01f)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(1.01f)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(float.NaN)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(float.PositiveInfinity)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsInvalidRatio(float.NegativeInfinity)",
+    "MyLab.Core.Tests.SceneLoadProgressTests.SnapshotRejectsUnknownStage"
+  ],
+  "skipped": 0,
+  "total": 13,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Tests.SceneLoadProgressTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 24840,
+    "cliReturnCode": 0,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 24840,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

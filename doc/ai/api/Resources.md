@@ -73,3 +73,7 @@ public bool IsUnloaded { get; }
 **RequiredSequence / ForbiddenUsage:** 에셋: Addressables 구성 → manager 설치/주입 → `LoadAssetAsync<T>` await → borrower 중지·clone 정리 → `ShutdownAsync` await. 최초 에셋 로드 전에 `InitializeAsync`는 선택. 씬: 명시 `SceneTarget` 생성 → 검증 → 로드 → 반환 `LoadedScene` 보관 → 해당 owner로 `UnloadAsync` await. 에셋 캐시와 씬 handle 혼용, borrowed asset destroy/release, 같은 key에 복수 타입 요청, background thread에서 manager 사용, 실제 owner scene 대신 path unload, private handle 별도 release, cancellation이 native 작업까지 중단한다고 가정, 진행 UI API를 있다고 주장 금지.
 
 **Example / Compatibility / Limitations:** 사람용 계약 예제는 설명 발췌이며 NotRun. 이 source revision에서 확인한 migration 변경 없음. 검증은 현재 명시한 Unity/Windows Mono 범위로 제한. test provider와 빈 manager shutdown은 실제 Addressables content/원격 다운로드 검증이 아님.
+
+## 진행률 확장 (2026-10-07 P1)
+
+두 기본 loader는 ISceneProgressLoader를 구현하며 기존 LoadAsync(target, mode)는 유지한다. 추가 overload는 SceneLoadProgressObserver를 받는다. SceneLoadProgress.Stage는 ResolvingTarget/LoadingScene이고 Ratio는 finite0..1이며 전체 준비/다운로드 bytes 비율이 아니다. observer의 callback 예외는 Failure에 첫1개 보존하고 native 완료를 중단하지 않는다. 반환 LoadedScene을 먼저 소유한 뒤 Failure를 확인하여 결과를 정리한다. null/Dispose는 통지만 억제하며 native 취소가 아니다. 통지는 동기 메인 스레드다. Native AsyncOperation.progress/Addressables PercentComplete를 읽는다. Green Edit13/13, core Play210/210, failed0/skip0. 원격 다운로드·다른 플랫폼은 미검증이다.

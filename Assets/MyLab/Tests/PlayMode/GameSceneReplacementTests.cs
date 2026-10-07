@@ -458,7 +458,75 @@ namespace MyLab.Core.Tests
             Assert.That(_common.IsPrepared, Is.True);
         });
 
-        private async UniTask CreateEnteredManagerAsync(bool persistent = false, LoadSceneMode firstMode = LoadSceneMode.Additive)
+        [UnityTest]
+        public IEnumerator UnsupportedProgressKeepsPreparationAndNativeCompletionSeparate() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            _callbacks.PresentationGate = new UniTaskCompletionSource();
+            bool sawUnknownLoad = false;
+            _callbacks.ProgressReported = snapshot =>
+            {
+                if (snapshot.Stage == SceneTransitionState.Loading)
+                {
+                    sawUnknownLoad = true;
+                    Assert.That(snapshot.StageRatio, Is.Null);
+                    Assert.That(snapshot.IsPrepared, Is.False);
+                }
+            };
+            var replacement = _manager.ReplacePrimaryAsync(Main).AsTask();
+            await WaitForMainPresentationAsync();
+            Assert.That(sawUnknownLoad, Is.True);
+            Assert.That(_manager.Progress.HasValue, Is.True);
+            Assert.That(_manager.Progress.Value.Stage, Is.EqualTo(SceneTransitionState.PreparingPresentation));
+            Assert.That(_manager.Progress.Value.IsPrepared, Is.False);
+            Assert.That(_manager.CanProceed, Is.False);
+            var id = _manager.Progress.Value.OperationId;
+            _callbacks.PresentationGate.TrySetResult();
+            await replacement;
+            Assert.That(_manager.Progress.Value.Stage, Is.EqualTo(SceneTransitionState.Ready));
+            Assert.That(_manager.Progress.Value.IsPrepared, Is.True);
+            Assert.That(_manager.Progress.Value.OperationId, Is.EqualTo(id));
+        });
+
+        [UnityTest]
+        public IEnumerator ProgressHookFailureCleansCandidateBeforeReportingFailure() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync();
+            var old = _manager.GameScene;
+            _callbacks.ProgressReported = snapshot =>
+            {
+                if (snapshot.Stage == SceneTransitionState.PreparingScene)
+                    throw new InvalidOperationException("progress-ui");
+            };
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(failure.ToString(), Does.Contain("progress-ui"));
+            Assert.That(SceneManager.GetSceneByPath(Main).isLoaded, Is.False);
+            Assert.That(Root(old).IsPrepared, Is.True);
+            Assert.That(_manager.CanProceed, Is.False);
+        });
+
+        [UnityTest]
+        public IEnumerator NativeProgressFailureStillRetainsAndUnloadsLateResult() => UniTask.ToCoroutine(async () =>
+        {
+            await CreateEnteredManagerAsync(progress: true);
+            var old = _manager.GameScene;
+            _callbacks.ProgressReported = snapshot =>
+            {
+                if (snapshot.Stage == SceneTransitionState.Loading && snapshot.StageRatio.HasValue)
+                    throw new InvalidOperationException("native-progress-ui");
+            };
+            Exception failure = null;
+            try { await _manager.ReplacePrimaryAsync(Main); } catch (Exception exception) { failure = exception; }
+            Assert.That(failure, Is.Not.Null);
+            Assert.That(failure.ToString(), Does.Contain("native-progress-ui"));
+            Assert.That(SceneManager.GetSceneByPath(Main).isLoaded, Is.False);
+            Assert.That(Root(old).IsPrepared, Is.True);
+            Assert.That(_manager.OwnedScenes, Is.EquivalentTo(new[] { old }));
+        });
+
+        private async UniTask CreateEnteredManagerAsync(bool persistent = false, LoadSceneMode firstMode = LoadSceneMode.Additive, bool progress = false)
         {
             _host = new GameObject("ReplacementCommon");
             _host.SetActive(false);
@@ -469,7 +537,7 @@ namespace MyLab.Core.Tests
             _callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
             _host.SetActive(true);
             _loader = new TrackingLoader();
-            _manager = new GameSceneManager(_common, _callbacks, _loader);
+            _manager = new GameSceneManager(_common, _callbacks, progress ? new NativeSceneLoader() : (ISceneLoader)_loader);
             await _manager.EnterFirstSceneAsync(Hub, firstMode);
         }
 
