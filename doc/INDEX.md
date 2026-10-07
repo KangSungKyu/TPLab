@@ -2,6 +2,8 @@
 
 ## 읽는 순서
 
+사용·외부 통합 입구: [사람용 API](api/README.md), [AI README](ai/README.md), [AI API](ai/api/README.md). 작업 규칙은 아래 개발 읽기 순서를 따른다.
+
 1. 모든 작업은 [AGENTS.md](../AGENTS.md)에서 역할·승인·보존·Git·검증 규칙을 확인한다. 코드 작업에는 같은 문서의 C#·Unity 기준, SOLID·TDD 기준을 함께 적용한다.
 2. 아래 표에서 이번 작업과 연결되는 문서만 읽는다. 새 시스템 시작·의존성 변경·Cashier 참조 검토에는 [CORE_PLAN.md](CORE_PLAN.md)를 먼저 확인한다.
    단위 작업을 시작하거나 재개할 때는 [회고 색인](retrospectives/INDEX.md)에서 관련 최신·선행 기록을 읽고 현재 checkout과 대조한다.
@@ -12,7 +14,7 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-06, DataTableManager 표준 idx·generic 조회와 CSV Editor importer·GameSceneManager Phase 6 통합 예제·전체 회귀·Windows Player·동일 Unity 소비 프로젝트 검증까지. 2026-10-07 최종 사용자 확인 완료; main 통합과 브랜치 정리는 트랙의 최종 기록을 따른다. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-07, DataTableManager·CSV Editor importer·GameSceneManager와 Input wrapper 구현·전체 회귀·Windows Mono Player·동일 Unity 소비 프로젝트 검증까지. 입력 최종 사용자 수락 및 사람/AI API 문서 작성을 완료했다. main 통합과 브랜치 정리는 입력 track의 최종 기록을 따른다. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
@@ -86,9 +88,10 @@
 ## 다음 단계와 완료 경계
 
 - 데이터 테이블 Editor importer의 CSV 1차 구현은 [현재 계약](DATA_TABLE_IMPORTER_DRAFT.md)과 [검증 자료](validation/data-table-importer/README.md)를 따른다. JSON 행·자동 등록·rename migration은 후속 범위다.
-- [GameSceneManager/BootstrapSystem](BOOTSTRAP_SYSTEM.md)의 최초 진입·주 씬 교체·구역 수명은 Phase 3B까지 구현했다. 정의/조건·Editor·최종 통합은 [Phase별 계약](GAME_SCENE_MANAGER_DRAFT.md)을 기준으로 후속 구현한다.
-- GameSceneManager의 다음 구현부터는 [통합 track 운영](SCENE_TRANSITION_TRACK.md)을 적용한다. Phase 자동 검증 완료와 최종 사용자 확인을 분리해 추적한다.
-- 소비 프로젝트 가져오기·최소 예제 실행·Player 검증은 후속 단계다. MyLab 내부 테스트의 통과를 전체 배포 호환성 완료로 확대하지 않는다.
+- [GameSceneManager/BootstrapSystem](api/SceneManagement.md)의 최초 진입·교체·구역·정의/조건·Editor는 구현했다. [최종 track](SCENE_TRANSITION_TRACK.md)은 완료 기록이며 새 작업의 승인/검증을 대신하지 않는다.
+- [Input wrapper](api/Input.md)는 구현·자동 검증과 2026-10-07 사용자 수락을 완료했다. 현재 통합 상태는 [입력 track](INPUT_SYSTEM_TRACK.md)을 따른다.
+- Windows Mono 소비 프로젝트 가져오기·최소 예제·Player는 실제 실행했다. 다른 버전·플랫폼·IL2CPP와 외부 배포 준비 전체를 통과로 확대하지 않는다.
+- 로딩 progress·팁·자동/버튼 진행 대기는 [설계 초안](SCENE_LOADING_PRESENTATION_DRAFT.md)이며 미구현이다.
 - Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.
 
 ## 입구와 유지 규칙

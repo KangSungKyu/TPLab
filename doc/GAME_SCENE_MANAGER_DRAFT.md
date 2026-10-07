@@ -1,6 +1,6 @@
 # GameSceneManager 계약과 단계별 구현
 
-2026-10-06. 사용자 검토를 반영한 설계 계약. Phase 1 callback 공용화, Phase 2 최초 진입·Bootstrap 위임, P0 명시적 로더 및 Phase 3A 주 씬 교체를 구현했다. **파생 구역 수명 tree·전환 정의·조건 판단의 runtime 구현은 후속 Phase**다. 최초 진입과 주 씬 교체의 Single/Additive 및 공용 영속 수명 선택을 제공하며 기본 권장은 Bootstrap 유지 + Additive다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
+2026-10-07 현재 계약. 최초 진입·Bootstrap 위임·명시적 로더·주 씬 교체·파생 구역 수명 tree·전환 정의·root 조건·Editor 사전 검사를 구현했다. Single/Additive 및 공용 영속 수명 선택을 제공하며 기본 권장은 Bootstrap 유지 + Additive다. [사람용 현재 API](api/SceneManagement.md)와 [최종 회귀](validation/input-system/p4/README.md)를 함께 확인한다. 진행률·팁·자동/버튼 진행 대기는 [별도 미구현 초안](SCENE_LOADING_PRESENTATION_DRAFT.md)이다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
 
 ## 공용 수명과 로드 모드
 

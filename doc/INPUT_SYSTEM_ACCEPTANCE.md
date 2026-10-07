@@ -1,6 +1,6 @@
 # Input wrapper 최종 사용자 확인
 
-2026-10-07. 입력 wrapper의 자동 검증과 실제 화면·물리 장치 확인을 구분한다. 현재는 **사용자 확인 대기**다. [구현 계약](INPUT_SYSTEM_DRAFT.md), [track](INPUT_SYSTEM_TRACK.md), [자동 검증](validation/input-system/p4/README.md)을 기준으로 아래 항목을 한 번에 확인한다. 새 로딩 진행률 UI는 이번 범위가 아니다.
+2026-10-07. 입력 wrapper의 자동 검증과 실제 화면·물리 장치 확인을 구분한다. 사용자가 "input은 확인했고, 문서화도 진행하면 되겠어"라고 확인하여 **최종 사용자 수락 완료**로 기록했다. 아래는 수락 때 사용한 절차이며 개별 물리 게임패드/touch 실행을 추가로 주장하지 않는다. [구현 계약](INPUT_SYSTEM_DRAFT.md), [track](INPUT_SYSTEM_TRACK.md), [자동 검증](validation/input-system/p4/README.md)을 기준으로 한다. 새 로딩 진행률 UI는 이번 범위가 아니다.
 
 ## 실행 준비
 
@@ -24,4 +24,4 @@ Play 종료 후 `MyLab > Scene Transitions > Restore Original Setup`을 실행�
 
 ## 수락과 통합
 
-키 변경·취소/timeout·메모리 저장/reset/restore·팝업·Additive/Single·실제 장치 항목을 통과/실패/미실행으로 알려준다. 필요한 사용자 확인이 끝나기 전에는 main 병합과 track/Phase 삭제를 보류한다. 새로운 PC 종료·절전 지시는 이번 입력 작업에 없다.
+입력 수락과 문서화 요청은 확인되었다. 자동 결과의 source hash·보호 파일·문서·원격 gate를 확인한 뒤 기존 승인에 따라 main 통합과 해당 작업 브랜치 정리를 진행한다. 개별 물리 장치별 통과 목록은 제공되지 않았으므로 그 범위는 미확인으로 유지한다. 새로운 PC 종료·절전 지시는 이번 입력 작업에 없다.

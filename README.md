@@ -1,43 +1,69 @@
 # TPLab
 
-개발·참여하는 Unity 프로젝트에서 재사용할 공용 코어 시스템을 개발하고 검증한다.
-GitHub 저장소는 `KangSungKyu/TPLab`이며, 로컬 Unity 프로젝트 폴더는 `MyLab`이다.
+Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab pooling, 선택적인 Singleton/scene root 수명, Addressables 자산, CSV 테이블, 씬 전환과 Input System wrapper를 제공한다. 게임별 데이터·UI·저장 정책은 사용하는 프로젝트가 정의한다. 저장소 이름은 TPLab, Unity 프로젝트 폴더 이름은 MyLab이다.
 
-## 1차 목표
+[사람용 API](doc/api/README.md) · [AI용 README](doc/ai/README.md) · [AI용 API](doc/ai/api/README.md) · [예제](Assets/MyLab/Samples/SceneTransitions) · [기능 명세](doc/INDEX.md)
 
-- ObjectPool
-- Singleton
-- ResourceManager
-- DataTableManager
-- GameSceneManager
-
-일반 C# 클래스용 [ObjectPool<T>](doc/GENERIC_POOL.md), Unity [PrefabPool 어댑터](doc/OBJECT_POOL.md), 씬/영속 수명의 [MonoSingleton<T>](doc/SINGLETON.md)를 구현했다. 씬 루트의 소유 방식과 주입을 선택하는 [SceneRoot](doc/SCENE_ROOT.md)도 제공한다. 모든 시스템 준비 후 씬 진행과 가림막 callback을 기다리는 [비동기 씬 수명](doc/ASYNC_SCENE_LIFECYCLE.md)을 지원한다. [ResourceManager](doc/RESOURCE_MANAGER.md)는 Addressables 공유 로드와 소유자 종료를 관리하며 두 root 방식에 주입할 수 있다. [DataTableManager](doc/DATA_TABLE_MANAGER.md)는 프로젝트 CSV 스키마·교차 검증을 등록하고 전체 snapshot을 검증 후 공개한다. 표준 uint idx의 Get<T>/TryGet, 프로젝트 router·테이블 interface binding·FK 검증을 지원하며 임의 PK 수동 테이블도 함께 등록할 수 있다. [표준 사용법과 검증](doc/DATA_TABLE_GENERIC_IMPLEMENTATION.md)을 확인한다. [CSV Editor importer](doc/DATA_TABLE_IMPORTER_DRAFT.md)는 JSON 스키마와 setting.asset에 따라 DTO/table 생성과 공용·프로젝트 검증을 수행한다. 자동화는 기본 Disabled이며 Tools/MyLab/Data Tables에서 설정을 시작한다. [BootstrapSystem](doc/BOOTSTRAP_SYSTEM.md)은 root·목적지 설정, GameSceneManager에 위임하는 최초 Single/Additive 진입과 공용 root 영속 수명 선택, 공용 SceneTransitionCallbacks·기존 callback 호환과 Editor/Play/build 사전 검증을 제공한다. GameSceneManager의 Single/Additive 교체, 파생 씬 수명 tree, 정의 asset·root 조건·Editor 사전 검사를 구현했다. `MyLab > Scene Transitions > Open Additive / Open Single`에서 실행하는 프로젝트 소유 예제도 제공한다. [최종 사용자 확인](doc/SCENE_TRANSITION_ACCEPTANCE.md)은 2026-10-07 완료했고, main 통합·브랜치 정리는 [트랙 기록](doc/SCENE_TRANSITION_TRACK.md)을 따른다. 게임별 코드·데이터·UI를 코어에 포함하지 않는다.
-
-## 개발 환경
-
-추가 입력 기능은 **Unity Input System만 지원**한다. 별도 `MyLab.Core.Input` assembly의 [입력 wrapper](doc/INPUT_SYSTEM_DRAFT.md)는 runtime clone·GUID 접근, layer/전체 차단 lease, native 리바인딩·override JSON, SceneRoot installer를 제공한다. UI와 저장은 프로젝트가 소유하며 기존 씬 예제에 연결했다. Legacy Input Manager 어댑터는 제공하지 않는다. [구현 track](doc/INPUT_SYSTEM_TRACK.md)과 [최종 사용자 확인](doc/INPUT_SYSTEM_ACCEPTANCE.md)을 따른다.
-
-| 항목 | 버전 |
+| 모듈 | 제공 기능 |
 |---|---|
-| Unity | 6000.3.18f1 |
-| Input System | 1.19.0, 입력 모듈의 명시적 의존성 |
-| Addressables | 2.9.1 |
-| UniTask | 2.5.11 |
-| CsvHelper | 33.1.0, netstandard2.1 DLL |
-| Unity CLI / Connector | 0.4.1 |
-| Unity Test Framework | 1.6.0 |
+| [Pooling](doc/api/Pooling.md) | 일반 C# reference type ObjectPool와 Unity PrefabPool adapter |
+| [Lifecycle](doc/api/Lifecycle.md) | MonoSingleton, SceneOwned/Singleton root, installer와 비동기 준비·종료 |
+| [Resources](doc/api/Resources.md) | Addressables 공유 자산 cache와 owner 해제 |
+| [DataTables](doc/api/DataTables.md) | CSV·uint idx typed 조회·binding·FK·전체 snapshot 검증, 임의 PK 경로 |
+| [SceneManagement](doc/api/SceneManagement.md) | Bootstrap·Single/Additive·주 씬 교체·중첩 구역·root 조건·cover callback |
+| [Input](doc/api/Input.md) | Input System runtime clone·layer·리바인딩·override JSON |
+| [Editor](doc/api/Editor.md) | CSV/schema importer·설정 asset·씬/root 사전 검사 |
 
-UniTask·Unity CLI Connector는 고정된 UPM Git 의존성으로 복원한다. CsvHelper DLL과 라이선스는 `Assets/Plugins/CsvHelper/`에 포함한다. CLI 실행 파일은 개발 환경에 별도 설치한다.
+로딩 진행률·게임 팁·자동/버튼 진행 대기 UI는 [설계 초안](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)이며 **미구현**이다. 기존 cover callback은 프로젝트가 제공하는 가림막 표시/해제를 기다린다.
 
-## 작업 기준
+## 가져오기
 
-[AGENTS.md](AGENTS.md)의 C#·Unity 컨벤션, SOLID·TDD·검증 규칙을 따른다.
-작업별 읽을 명세·검증·라이선스 자료는 [문서 색인](doc/INDEX.md)에서 선택한다.
-사람·AI용 README와 API 문서의 작성·갱신·외부 제공 기준은 [문서 작성 지침](doc/DOCUMENTATION_GUIDE.md)을 따른다.
-시스템 경계, Cashier 참조와 의존성 검증 기록은 [CORE_PLAN.md](doc/CORE_PLAN.md)에 있다.
+확인된 환경은 Unity **6000.3.18f1**, Windows Mono다. UPM 배포 package는 제공하지 않으므로 필요한 소스 폴더를 `.meta`와 함께 가져오고 사용하는 프로젝트의 assembly·설정을 확인한다. 프로젝트 전체 Assets/ProjectSettings/manifest를 덮어쓰는 방식으로 설치하지 않는다.
 
-Unity Editor에서 프로젝트를 연 뒤 `unity-cli --project <프로젝트 절대 경로> status`로 연결을 확인한다.
-`Library`, `Temp`, `Logs`, `UserSettings`와 IDE 생성 파일은 버전 관리에서 제외한다.
-기능 구현 검증은 EditMode·PlayMode·Console·Player 빌드의 실행 범위를 구분해 기록한다.
+| 선택 | 가져올 소스 | 의존성 |
+|---|---|---|
+| Core | `Assets/MyLab/Core`, `Assets/Plugins/CsvHelper` | UniTask **2.5.11**, Addressables **2.9.1**, 포함 CsvHelper **33.1.0** DLL |
+| Input 추가 | `Assets/MyLab/Input/Runtime` | Core + Input System **1.19.0** |
+| Editor 추가 | `Assets/MyLab/Editor` | Core + Addressables Editor, Unity Newtonsoft.Json **3.2.2** |
+| 전환 Samples 추가 | `Assets/MyLab/Samples/SceneTransitions` | Core + Input + uGUI **2.0.0**; 예제 씬/Build Settings·Addressables 구성 필요 |
 
-현재 테스트는 `unity-cli --project <프로젝트 절대 경로> test --mode EditMode`와 `test --mode PlayMode`로 실행한다. 두 실행은 같은 Editor에서 순차적으로 수행한다.
+Core asmdef는 자산/씬 기능과 같은 assembly이므로 폴더 전체를 가져오면 Addressables·UniTask·CsvHelper가 필요하다. Input은 별도 assembly로 선택할 수 있다. `Tests`, `Validation`, fixture는 runtime 설치 대상이 아니다. importer는 프로젝트가 작성할 DTO/validator/profile을 필요로 한다.
+
+1. UPM에서 Addressables를 설치하고 UniTask Git URL `https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11`을 추가한다. 고정 버전은 [manifest](Packages/manifest.json)와 [lock](Packages/packages-lock.json)을 참고한다.
+2. 선택한 소스와 CsvHelper DLL/`.meta`/라이선스 자료를 가져온다. 사용하는 프로젝트의 asmdef에서 `MyLab.Core`, 선택 시 `MyLab.Core.Input`을 참조한다.
+3. Input을 선택하면 Input System을 설치하고 Active Input Handling을 Input System에 맞춘다. action asset은 프로젝트가 소유하며 wrapper가 복제한다. legacy native input은 TPLab 지원 정책 밖이다.
+4. 씬의 최상위 root에 SceneOwnedRoot 또는 SingletonSceneRoot을 선택하고 필요한 installer를 연결한다. 준비 완료 후 시스템을 공개하고, owner가 종료를 담당한다. [Lifecycle](doc/api/Lifecycle.md)을 따른다.
+5. 씬 전환에는 명시적인 BuildScene/Addressable target과 실제 등록을 설정한다. Bootstrap 첫 씬 → 게임 씬 Additive를 권장하지만, 영속 공용 root 조건을 만족하면 Single도 선택할 수 있다. [SceneManagement](doc/api/SceneManagement.md)를 따른다.
+
+Unity CLI/Connector **0.4.1**과 Test Framework **1.6.0**은 이 저장소의 개발·검증 도구다. 소비 runtime 설치에는 필요하지 않다. 가져오기 도구의 allowlist와 실행 방법은 [tools](tools/README.md)에 있다.
+
+## 첫 사용
+
+다음은 순수 C# pooling의 설명용 발췌(NotRun)다. 필요한 using과 반환/owner 해제를 보여주며, 이 문서 블록 자체의 별도 compile/실행은 하지 않았다. 대여 중 capacity가 모두 사용되면 TryRent가 false다. onReturn이 목록을 초기화하므로 다음 대여에서 이전 데이터가 남지 않는다.
+
+```csharp
+using System.Collections.Generic;
+using MyLab.Core.Pooling;
+
+using (var pool = new ObjectPool<List<int>>(
+    () => new List<int>(), 8, onReturn: list => list.Clear()))
+{
+    if (pool.TryRent(out var list))
+    {
+        try { list.Add(42); }
+        finally { pool.Return(list); }
+    }
+}
+```
+
+실행 확인된 통합 예제는 [sample controller](Assets/MyLab/Samples/SceneTransitions/Runtime/SceneTransitionSampleController.cs)와 [consumer smoke](tools/core-consumer/templates/ConsumerSmoke.cs)다. sample은 `MyLab > Scene Transitions > Open Additive / Open Single`에서 실행하고 `Restore Original Setup`으로 복원한다. 이미 생성된 예제의 사용과 sample builder의 생성은 구분한다. 다른 프로젝트에서 예제 씬을 사용할 때는 해당 프로젝트의 build list·Addressables와 root/installer를 설정해야 한다. 데이터 schema 예시는 [템플릿](doc/templates/data-tables/README.md)을 프로젝트 namespace로 옮겨 변경한다.
+
+## 검증과 호환성
+
+source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`에서 전체 EditMode **258/258**, PlayMode **217/217**, 실패0·skip0을 실행했다. Domain/Scene Reload 네 조합×두 진입, Single/Additive Windows Mono Player, Input 포함/제외 소비 프로젝트를 확인했다. [입력 검증 자료](doc/validation/input-system/p4/README.md)는 정확한 source hash·결과·Console·제한을 기록한다. 2026-10-07 사용자가 입력을 확인했다. 문서화는 runtime source를 변경하지 않았다.
+
+다른 Unity 버전·플랫폼·IL2CPP, 물리 게임패드/touch의 개별 UX, 모든 abrupt 종료 조합은 미검증이다. CI는 현재 미구성이며 자동 CI 통과로 표현하지 않는다. 변경 시 [문서 갱신 지침](doc/DOCUMENTATION_GUIDE.md)에 따라 XML 주석과 사람/AI 문서를 같은 작업에서 갱신한다. 업그레이드 전에는 소비 프로젝트에서 가져오기·compile·예제 실행을 다시 확인한다. 기존 Text/Resource schema는 core에서 제거되어 프로젝트 템플릿으로만 제공한다.
+
+## 라이선스
+
+TPLab 자체의 외부 배포 라이선스/정책은 **미정**이다. 의존성 라이선스는 TPLab 자체 라이선스를 대신하지 않는다. [UniTask](doc/licenses/UniTask-LICENSE.txt), [CsvHelper](Assets/Plugins/CsvHelper/LICENSE.txt), 개발 도구 [Unity CLI](doc/licenses/UnityCli-LICENSE.txt)를 함께 확인한다. Unity package의 배포 조건은 설치한 해당 package의 LICENSE를 따른다. 이 문서 작성은 외부 제공본 배포 완료를 뜻하지 않는다.

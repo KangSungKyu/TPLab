@@ -1,0 +1,17 @@
+# AI API 색인
+
+SourceRevision: `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`. [AI README](../README.md)의 설치·읽기 순서를 따른다. signature 블록은 public 선언 발췌이며 private/internal 구현 API는 소비자 사용 대상이 아니다.
+
+| Module | AI contract | Human contract |
+|---|---|---|
+| Pooling | [Pooling](Pooling.md) | [Human](../../api/Pooling.md) |
+| Lifecycle | [Lifecycle](Lifecycle.md) | [Human](../../api/Lifecycle.md) |
+| Resources | [Resources](Resources.md) | [Human](../../api/Resources.md) |
+| DataTables | [DataTables](DataTables.md) | [Human](../../api/DataTables.md) |
+| SceneManagement | [SceneManagement](SceneManagement.md) | [Human](../../api/SceneManagement.md) |
+| Input | [Input](Input.md) | [Human](../../api/Input.md) |
+| Editor | [Editor](Editor.md) | [Human](../../api/Editor.md) |
+
+항목 이름: Module/Namespace/Assembly, SourceRevision/SourcePath/HumanContract, ImplementationStatus/ValidationStatus/Evidence, Symbol/Signature/Constraints, Inputs/Outputs/Errors, Ownership/Lifecycle/Threading, Concurrency/Cancellation/FailureCleanup, Configuration/ExtensionPoints, RequiredSequence/ForbiddenUsage, Example/Compatibility/Limitations.
+
+상태는 서로 대체하지 않는다. Implemented는 소스가 존재함, Verified/Partial/NotRun은 증거 범위다. 새 로딩 presentation API는 미구현이므로 이 색인에 추가하지 않는다. 세부 XML 계약과 변경이 생기면 해당 모듈의 양쪽 문서를 동시에 갱신한다.

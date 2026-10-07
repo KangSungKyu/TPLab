@@ -4,6 +4,7 @@
 
 | 날짜 | 단위 | 상태 | 기록 |
 |---|---|---|---|
+| 2026-10-07 | 사람/AI README·7모듈 API·입력 최종 수락 | 문서 작성·수락 완료, 통합 기록 참조 | [09-public-api-docs-and-input-acceptance](2026-10-07-09-public-api-docs-and-input-acceptance.md) |
 | 2026-10-02 | 회고 작성·후속 문맥 확인 지침 추가 | 문서 완료 | [01-unit-retrospectives](2026-10-02-01-unit-retrospectives.md) |
 | 2026-10-02 | uint idx·생성/추출·PK/FK 계약 | 초안 | [02-data-table-idx-draft](2026-10-02-02-data-table-idx-draft.md) |
 | 2026-10-06 | Parts·Stride·선택적 localType 계약 보완 | 초안 | [01-idx-parts-stride](2026-10-06-01-idx-parts-stride.md) |

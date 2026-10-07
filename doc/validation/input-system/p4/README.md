@@ -1,6 +1,6 @@
 # Input wrapper 최종 자동 검증
 
-2026-10-07. 기준 `3b0adaa`, 작업 `codex/input-system-p4-validation`. 원래 MyLab Editor PID23120, Unity6000.3.18f1/InputSystem1.19.0/Connector0.4.1에서 실행했다. 자동 gate와 [실제 사용자 확인](../../../INPUT_SYSTEM_ACCEPTANCE.md)을 구분한다. main 통합은 사용자 확인 대기다.
+2026-10-07. 기준 `3b0adaa`, 작업 `codex/input-system-p4-validation`. 원래 MyLab Editor PID23120, Unity6000.3.18f1/InputSystem1.19.0/Connector0.4.1에서 실행했다. 자동 gate와 [실제 사용자 확인](../../../INPUT_SYSTEM_ACCEPTANCE.md)을 구분한다. 입력 최종 사용자 수락은 완료됐다. 이후 문서 작업에서 runtime 입력304개와 보호7개를 대조했으며 새로운 Unity 실행은0건이다. [최종 통합](final-integration/README.md)을 따른다.
 
 ## 최종 실행
 
