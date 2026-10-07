@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Cysharp.Threading.Tasks;
-using UnityEditor.PackageManager;
+using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 using TPLab.Core.Lifecycle;
 using TPLab.Core.ResourceManagement;
 using TPLab.Core.SceneManagement;

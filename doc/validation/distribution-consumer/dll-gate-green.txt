@@ -1,0 +1,17 @@
+test_artifact_mode_copies_harness_only (test_distribution_consumer.DistributionConsumerTests.test_artifact_mode_copies_harness_only) ... ok
+test_changed_installed_dll_is_rejected (test_distribution_consumer.DistributionConsumerTests.test_changed_installed_dll_is_rejected) ... ok
+test_existing_output_refused (test_distribution_consumer.DistributionConsumerTests.test_existing_output_refused) ... ok
+test_git_uses_exact_sha_and_subfolder (test_distribution_consumer.DistributionConsumerTests.test_git_uses_exact_sha_and_subfolder) ... ok
+test_samples_require_input (test_distribution_consumer.DistributionConsumerTests.test_samples_require_input) ... ok
+test_source_copy_mode_keeps_its_original_manifest (test_distribution_consumer.DistributionConsumerTests.test_source_copy_mode_keeps_its_original_manifest) ... ok
+test_source_revision_mismatch_refused (test_distribution_consumer.DistributionConsumerTests.test_source_revision_mismatch_refused) ... ok
+test_symlink_output_rejected (test_distribution_consumer.DistributionConsumerTests.test_symlink_output_rejected) ... skipped 'OS does not permit directory symlinks'
+test_tampered_archive_refused_before_unity (test_distribution_consumer.DistributionConsumerTests.test_tampered_archive_refused_before_unity) ... ok
+test_tarball_installs_artifacts_without_source_copy (test_distribution_consumer.DistributionConsumerTests.test_tarball_installs_artifacts_without_source_copy) ... ok
+test_unreviewed_snapshot_refused (test_distribution_consumer.DistributionConsumerTests.test_unreviewed_snapshot_refused) ... ok
+test_wrong_installation_mode_refused (test_distribution_consumer.DistributionConsumerTests.test_wrong_installation_mode_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.370s
+
+OK (skipped=1)

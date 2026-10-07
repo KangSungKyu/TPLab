@@ -9,7 +9,7 @@ using Cysharp.Threading.Tasks;
 using TPLab.Core.DataTables;
 using TPLab.Core.Editor.DataTables;
 using UnityEditor;
-using UnityEditor.PackageManager;
+using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 using UnityEngine;
 
 namespace TPLabConsumer

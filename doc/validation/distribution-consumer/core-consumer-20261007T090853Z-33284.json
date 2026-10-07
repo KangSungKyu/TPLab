@@ -1,0 +1,109 @@
+{
+  "actualRuns": 1,
+  "allowlist": [],
+  "createdUtc": "2026-10-07T09:08:53.624843+00:00",
+  "editor": {},
+  "errors": [
+    "Expected fresh result JSON was not written: C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-core-a\\Results\\setup.json"
+  ],
+  "expectedUnityVersion": "6000.3.18f1",
+  "harnessTemplates": {
+    "ConsumerBuild.cs": "55cb9f6c5436be1c3bee88b83519f819b82c1519d9ad91671e3ea63ae94f2691",
+    "ConsumerSmoke.cs": "9ba12e7f1357f8890b9c510184b75d262612b4fc3b4ab28a818537e157011834",
+    "ProjectVersion.txt.in": "49acfbeaed7b14df027494cef9f89f66b4beac575ff9dca2f6d6f340748db4a9",
+    "manifest.json.in": "24e71784757509b9a3ca9b3c98c3a13221a0d2b4a8d50705a1ae46dcde32a1d8"
+  },
+  "includeInput": false,
+  "installation": {
+    "artifacts": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\tplab\\p2-candidate-a\\artifacts",
+    "dependencies": {
+      "com.tplab.core": "file:C:/Users/PC/Projects/TPLab/tplab/worktrees/p1/tplab/p2-candidate-a/artifacts/com.tplab.core-0.0.1.tgz"
+    },
+    "importSamples": false,
+    "includeEditor": false,
+    "manifestSha256": "5220b32d0ffa86029db95c6e42158642924272b020f7f153cb0d3071770805b7",
+    "mode": "tarball",
+    "packages": [
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        },
+        "filename": "com.tplab.core-0.0.1.tgz",
+        "id": "com.tplab.core",
+        "payloadSha256": "3b889777ba6ffd3165000a0a0c8c1c786a908dbebb9f06170d8e8262751d8bc1",
+        "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.inputsystem": "1.19.0"
+        },
+        "filename": "com.tplab.input-0.0.1.tgz",
+        "id": "com.tplab.input",
+        "payloadSha256": "1cadb8834cb90f99426b1ada97a7cfd27ed7444a6bdd3552466ad35cdff0e81c",
+        "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.addressables": "2.9.1",
+          "com.unity.nuget.newtonsoft-json": "3.2.2"
+        },
+        "filename": "com.tplab.editor-0.0.1.tgz",
+        "id": "com.tplab.editor",
+        "payloadSha256": "4005332b2be57c7b4ecd1ed71b109fbba7d38c21c89692277da6f7e640329805",
+        "sha256": "afe4abf13832bdf576c0187dc12b30c9a011e390a362ccb01314fd7d0b5bd621",
+        "version": "0.0.1"
+      }
+    ],
+    "sourceRevision": "9a50a133e160f7917f4638b27170a86520cdf1f7",
+    "version": "0.0.1"
+  },
+  "manifest": {
+    "requested": {
+      "com.cysharp.unitask": "2.5.11",
+      "com.unity.addressables": "2.9.1",
+      "com.unity.modules.assetbundle": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+    },
+    "sha256": "905e1f155dc65598cd36b61bcf6cca92505af24ffe279fd24761871ddb359c01"
+  },
+  "observations": {},
+  "outputProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-core-a",
+  "packageVersions": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.unity.addressables": "2.9.1",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+  },
+  "player": {},
+  "runId": "20261007T090853Z-33284",
+  "schemaVersion": 1,
+  "setup": {
+    "elapsedSeconds": 31.759,
+    "endedUtc": "2026-10-07T09:09:25.416570+00:00",
+    "pid": 36924,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-core-a\\Logs\\setup.log",
+    "processLogFresh": true,
+    "returnCode": 1,
+    "startedUnix": 1791364133.6578152,
+    "startedUtc": "2026-10-07T09:08:53.657809+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionConsumer\\tarball-core-a\\Logs\\setup-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "sourceProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1",
+  "success": false,
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.18f1\\Unity.exe"
+}

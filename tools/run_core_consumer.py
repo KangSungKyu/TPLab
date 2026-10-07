@@ -482,7 +482,9 @@ def verify_installation(project: Path, plan: dict, editor_result: dict) -> list:
                 expected = tar.extractfile(member).read()
                 if not target.is_file(): raise RuntimeError("Missing installed package file: " + member.name)
                 actual = target.read_bytes()
-                if actual != expected and (not member.name.endswith(".dll") and actual.replace(b"\r\n", b"\n") != expected.replace(b"\r\n", b"\n")):
+                text = target.suffix in (".cs", ".asmdef", ".md", ".meta", ".asset", ".unity", ".txt", ".json", ".inputactions")
+                git_eol_match = plan["mode"] == "git" and text and actual.replace(b"\r\n", b"\n") == expected.replace(b"\r\n", b"\n")
+                if actual != expected and not git_eol_match:
                     raise RuntimeError("Installed payload differs: " + member.name)
                 count += 1
         validated.append({**info, "verifiedPayloadFiles": count, "lock": item})

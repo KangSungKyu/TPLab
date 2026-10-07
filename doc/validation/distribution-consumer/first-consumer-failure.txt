@@ -1,0 +1,4 @@
+SourceRevision: 9a50a133e160f7917f4638b27170a86520cdf1f7
+Run: tarball-core-a. Setup exit1; no setup JSON; actualRuns1.
+Assets/Editor/TPLabConsumerBuild.cs(36,44): error CS0104: PackageInfo ambiguous between UnityEditor.PackageManager.PackageInfo and UnityEditor.PackageInfo.
+Fix: explicit using alias in ConsumerBuild and EditorProbe. First failed run remains preserved.

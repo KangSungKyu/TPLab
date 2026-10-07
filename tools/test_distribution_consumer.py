@@ -65,6 +65,19 @@ class DistributionConsumerTests(unittest.TestCase):
         try:
             with self.assertRaises(FileExistsError):c.resolve_paths(str(ROOT),str(existing),str(ROOT/'doc/validation/distribution-consumer'))
         finally:existing.rmdir()
+    def test_changed_installed_dll_is_rejected(self):
+        with tempfile.TemporaryDirectory() as t:
+            output=Path(t);resolved=output/'Library/core';resolved.mkdir(parents=True)
+            archive=self.artifacts/'com.tplab.core-0.0.1.tgz'
+            binary=b'original-binary';member=tarfile.TarInfo('package/Runtime/CsvHelper.dll');member.size=len(binary)
+            with tarfile.open(archive,'w:gz') as tar:tar.addfile(member,io.BytesIO(binary))
+            (resolved/'Runtime').mkdir();(resolved/'Runtime/CsvHelper.dll').write_bytes(b'tampered-binary')
+            provider='file:'+archive.as_posix()
+            (output/'Packages').mkdir();(output/'Packages/packages-lock.json').write_text(json.dumps({'dependencies':{'com.tplab.core':{'version':provider,'source':'local-tarball'}}}))
+            plan={'mode':'tarball','version':'0.0.1','dependencies':{'com.tplab.core':provider},'packages':[{'id':'com.tplab.core','filename':archive.name}],'artifacts':str(self.artifacts),'includeEditor':False,'importSamples':False}
+            report={'installedPackages':[{'name':'com.tplab.core','version':'0.0.1','resolvedPath':str(resolved)}]}
+            with self.assertRaises(RuntimeError):c.verify_installation(output,plan,report)
+
     def test_symlink_output_rejected(self):
         with tempfile.TemporaryDirectory() as t:
             outside=Path(t); linked=ROOT/'Temp/DistributionConsumer-test-link'
