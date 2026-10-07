@@ -3,7 +3,7 @@
   "protectedFiles": 6,
   "unchangedSourceInputs": 317,
   "documentsChecked": 110,
-  "localLinksChecked": 1141,
+  "localLinksChecked": 1145,
   "license": "MIT for TPLab original code/docs; third parties retain original licenses",
   "mitTemplateMatches": true,
   "csvDllSha256": "20101c398654a14bfd42bd78d7281f43197d19b7b3cf41c7aae93f1eaba65a61",
@@ -45,5 +45,6 @@
     "doc/retrospectives/INDEX.md",
     "doc/retrospectives/2026-10-07-15-distribution-design.md",
     "doc/validation/distribution-design/"
-  ]
+  ],
+  "repositoryVisibility": "public"
 }

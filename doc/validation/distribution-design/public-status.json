@@ -1,0 +1,14 @@
+{
+  "repository": "KangSungKyu/TPLab",
+  "repositoryId": 1400944838,
+  "beforeVisibility": "private",
+  "afterVisibility": "public",
+  "anonymousReadVerified": true,
+  "anonymousLicenseReadVerified": true,
+  "licenseSpdx": "MIT",
+  "mainAtTransition": "58fc7a15ae772b08afb8d6e450a2a3d0065480c7",
+  "htmlUrl": "https://github.com/KangSungKyu/TPLab",
+  "userAuthorization": "2026-10-07: make repo public; allow external provision; preserve minimum third-party license requirements.",
+  "versionTagCreated": false,
+  "releaseCreated": false
+}

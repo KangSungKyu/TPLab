@@ -6,7 +6,7 @@
 
 ## 배포 단위
 
-첫 배포 형식은 **UPM `.tgz` 세 개 + 선택적 예제 + 설치 안내**를 권장안으로 정한다. 사용자는 저장소의 **public 전환·외부 제공 허용·의존성 최소 조건 유지**를 승인했다. TPLab 자체 코드/문서는 [MIT](../LICENSE)를 적용하고 [제3자 고지](../THIRD_PARTY_NOTICES.md)를 보존한다. 공개 전환은 현재 파일과 Git 이력의 인증 정보 패턴 확인·라이선스 문서 main 반영 뒤 수행한다. 의존성 라이선스와 TPLab 라이선스를 혼동하지 않는다.
+첫 배포 형식은 **UPM `.tgz` 세 개 + 선택적 예제 + 설치 안내**를 권장안으로 정한다. 사용자는 저장소의 **public 전환·외부 제공 허용·의존성 최소 조건 유지**를 승인했다. TPLab 자체 코드/문서는 [MIT](../LICENSE)를 적용하고 [제3자 고지](../THIRD_PARTY_NOTICES.md)를 보존한다. 현재 파일과 Git 이력의 알려진 인증 정보 패턴 검사·라이선스 문서 main 반영 후 public 전환을 완료했고 비인증 조회를 확인했다. [검증 기록](validation/distribution-design/README.md)을 따른다. 의존성 라이선스와 TPLab 라이선스를 혼동하지 않는다.
 
 | 후보 package ID | 개발 원본 | 패키지 안의 대상 | 소비 의존성 |
 |---|---|---|---|
@@ -109,7 +109,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 
 | Phase | 범위 | 완료 조건 | 현재 |
 |---|---|---|---|
-| P0 규격·운영 | 이 문서, 입구/지침/회고 연결 | 현재 소스/assembly/의존성 대조, 상대 링크·범위·공백·보호 검사 | 설계·정적 검증 완료 / Git 반영 |
+| P0 규격·운영 | 이 문서, 입구/지침/회고 연결 | 현재 소스/assembly/의존성 대조, 상대 링크·범위·공백·보호 검사 | 완료 / main 반영·public 확인 |
 | P1 패키징 | clean SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 내용/버전/`.meta`/DLL 검사 | 미구현 |
 | P2 실제 설치 | artifact 소비 mode, sample import 경로 수정, Editor importer 수명 | Core만/Input/Editor/전체+Sample 소비 설치·compile·최소 실행, negative 경로, 원본 보호 | 미구현 |
 | P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 미실행 |

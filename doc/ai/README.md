@@ -29,3 +29,5 @@ ForbiddenUsage: Core에 게임 schema/UI/저장 정책 추가; runtime UnityEdit
 Limitations: 소스 복사 방식이며 UPM 배포본/자동 API generator는 없다. TPLab original code/docs: MIT; third-party code retains its own license/notices. See [License](../../LICENSE) and [Third-party notices](../../THIRD_PARTY_NOTICES.md). 실제 제공 전 source/tag 기준 설치·예제·상대 링크를 확인해야 한다.
 
 DistributionPlan: [0.0.1 package/dev-build contract](../DISTRIBUTION_PIPELINE.md). Status: Proposed; package builder, artifact installation validation, tag and Release are NotImplemented/NotRun. Current installation remains source copy. Generated `tplab/` is a build-worktree output, not the development source or a supported Git UPM path. Internal operational permissions do not transfer to consumer projects.
+
+RepositoryVisibility: Public, verified by unauthenticated GitHub read on 2026-10-07. LicensePolicy: TPLab original code/docs MIT; third-party original notices/licenses retained. Public source access does not mean the 0.0.1 UPM artifacts or pipeline are available.
