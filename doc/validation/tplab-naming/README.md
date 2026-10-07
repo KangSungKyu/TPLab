@@ -25,3 +25,7 @@
 `.meta` raw bytes와 GUID는 그대로 유지한다. 사용자 InitScene 오브젝트와 값은 보존하고 식별 문자열만 `MyLab.Core`에서 `TPLab.Core`로 바꾼다. 이 사용자 씬은 작업 커밋에 포함하지 않는다. 다른 기존 dirty3과 보호된 InputAction/Build Settings는 원본 bytes로 확인한다. ProjectSettings의 이름 네 필드만 이번 변경이다.
 
 물리 checkout 경로는 `C:\Users\PC\Projects\MyLab`이며 같은 기존 Editor를 사용한다. 필요한 자동 검증과 코드/문서 diff 리뷰를 완료했으며 새 화면·동작 변경이 없어 추가 시각 확인 항목은 없다. 기존 승인에 따라 최신 원격·최종 커밋 검사 뒤 main fast-forward 통합과 작업 브랜치 정리를 진행한다. 다른 Unity·플랫폼·IL2CPP·실제 외부 PC와 배포 패키지 설치 검증은 미실행이다.
+
+## Git 마감
+
+최종 문서·증거 `9ae5c15355132b80384541e9371b53e109439805`의 exact GitHub 검사는 [integration-ci](integration-ci.json)에 보존한다. main 비보호·CI 미구성이다. 이 commit은 main에 fast-forward push됐고 서버 일치를 확인했다. 추가 소스 변경 없이 이 마감 문서만 통합한 뒤 승인된 작업 브랜치 정리를 수행한다. 상세 완료 기록은 [회고](../../retrospectives/2026-10-07-13-tplab-naming.md)와 Git 이력을 따른다.
