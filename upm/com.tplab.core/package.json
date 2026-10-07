@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.unity.addressables": "2.9.1"
+  },
+  "description": "Shared Unity core: Pooling, Lifecycle, Resources, DataTables, SceneManagement",
+  "displayName": "TPLab Core",
+  "license": "MIT",
+  "name": "com.tplab.core",
+  "unity": "6000.3",
+  "unityRelease": "18f1",
+  "version": "0.0.1"
+}

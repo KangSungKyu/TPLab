@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.tplab.core": "0.0.1",
+    "com.unity.addressables": "2.9.1",
+    "com.unity.nuget.newtonsoft-json": "3.2.2"
+  },
+  "description": "Shared Unity core: Editor",
+  "displayName": "TPLab Editor",
+  "license": "MIT",
+  "name": "com.tplab.editor",
+  "unity": "6000.3",
+  "unityRelease": "18f1",
+  "version": "0.0.1"
+}

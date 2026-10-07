@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.tplab.core": "0.0.1",
+    "com.unity.inputsystem": "1.19.0"
+  },
+  "description": "Shared Unity core: Input",
+  "displayName": "TPLab Input",
+  "license": "MIT",
+  "name": "com.tplab.input",
+  "unity": "6000.3",
+  "unityRelease": "18f1",
+  "version": "0.0.1"
+}
