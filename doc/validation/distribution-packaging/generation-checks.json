@@ -1,0 +1,67 @@
+{
+  "sourceRevision": "ec1f786d248207a8c9245b6d5263f95a1985e093",
+  "prepareRevision": "90ba7d152ea27d902d6eedaa97fe73db71f2de20",
+  "sourceInputCount": 147,
+  "publicationFileCount": 171,
+  "archiveCount": 3,
+  "sourceAssetBytesPreserved": true,
+  "publicationSnapshot": "Matched",
+  "prepareAndTwoRunsArchiveBytesIdentical": true,
+  "basicModeManifestsIdentical": true,
+  "publishable": false,
+  "packages": [
+    {
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.11",
+        "com.unity.addressables": "2.9.1"
+      },
+      "filename": "com.tplab.core-0.0.1.tgz",
+      "id": "com.tplab.core",
+      "payloadSha256": "d35bdd77f61d12ab0f525dcf517ef2c4c3e54151d68930110c01eba242bf5c38",
+      "sha256": "88df065baf8c5e0523eb0ea46a59c639971f7435c0a538b479c3f0f88dec5bb7",
+      "version": "0.0.1"
+    },
+    {
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.11",
+        "com.tplab.core": "0.0.1",
+        "com.unity.inputsystem": "1.19.0"
+      },
+      "filename": "com.tplab.input-0.0.1.tgz",
+      "id": "com.tplab.input",
+      "payloadSha256": "d3631a0a81ced44113303cc95c3c43be2df1d4287d97171a265cd465a50fe9e0",
+      "sha256": "da676aa3e35da7f32cd0205b2021b2184f2db897d850fea76b771de99d42370c",
+      "version": "0.0.1"
+    },
+    {
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.11",
+        "com.tplab.core": "0.0.1",
+        "com.unity.addressables": "2.9.1",
+        "com.unity.nuget.newtonsoft-json": "3.2.2"
+      },
+      "filename": "com.tplab.editor-0.0.1.tgz",
+      "id": "com.tplab.editor",
+      "payloadSha256": "fa778a7f595a26fa7fc8fc381016fe9fb997577310855c162f1355cacd668ed7",
+      "sha256": "b2a07d4b805b8cac5009c8b69de7e996fc5bb7076a8ff6f86e93a37348a95f55",
+      "version": "0.0.1"
+    }
+  ],
+  "unityTestsRun": 0,
+  "unityCompileRun": 0,
+  "packageInstallRun": 0,
+  "playerRun": 0,
+  "contractTests": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0
+  },
+  "candidateOutput": "tplab/verify-a/artifacts",
+  "duplicateOutputsCleanup": [
+    "tplab/prepare-p1",
+    "tplab/verify-b"
+  ],
+  "parentRuntimeInputsPreserved": 317,
+  "parentProtectedBytesPreserved": 6
+}

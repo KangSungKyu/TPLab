@@ -1,0 +1,23 @@
+test_abbreviated_revision_refused (__main__.DistributionTests.test_abbreviated_revision_refused) ... ok
+test_bad_local_link_refused (__main__.DistributionTests.test_bad_local_link_refused) ... ok
+test_changed_guid_refused (__main__.DistributionTests.test_changed_guid_refused) ... ok
+test_dirty_refused_before_output (__main__.DistributionTests.test_dirty_refused_before_output) ... ok
+test_document_escape_refused (__main__.DistributionTests.test_document_escape_refused) ... ok
+test_existing_output_refused (__main__.DistributionTests.test_existing_output_refused) ... ok
+test_git_symlink_refused (__main__.DistributionTests.test_git_symlink_refused) ... ok
+test_invalid_run_refused (__main__.DistributionTests.test_invalid_run_refused) ... ok
+test_invalid_version_refused (__main__.DistributionTests.test_invalid_version_refused) ... ok
+test_missing_license_refused (__main__.DistributionTests.test_missing_license_refused) ... ok
+test_missing_snapshot_refused (__main__.DistributionTests.test_missing_snapshot_refused) ... ok
+test_output_escape_refused (__main__.DistributionTests.test_output_escape_refused) ... ok
+test_packages_docs_licenses_payload (__main__.DistributionTests.test_packages_docs_licenses_payload) ... ok
+test_same_input_reproducible_despite_run (__main__.DistributionTests.test_same_input_reproducible_despite_run) ... ok
+test_snapshot_drift_refused (__main__.DistributionTests.test_snapshot_drift_refused) ... ok
+test_snapshot_matches_after_commit_without_hash_recursion (__main__.DistributionTests.test_snapshot_matches_after_commit_without_hash_recursion) ... ok
+test_untracked_refused (__main__.DistributionTests.test_untracked_refused) ... ok
+test_wrong_revision_refused (__main__.DistributionTests.test_wrong_revision_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 12.327s
+
+OK

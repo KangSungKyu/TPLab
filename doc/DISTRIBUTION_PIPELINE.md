@@ -131,7 +131,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 | Phase | 범위 | 완료 조건 | 현재 |
 |---|---|---|---|
 | P0 규격·운영 | 이 문서, 입구/지침/회고 연결 | 현재 소스/assembly/의존성 대조, 상대 링크·범위·공백·보호 검사 | 완료 / main 반영·public 확인 |
-| P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 구현·계약 테스트18/18 완료; 실제 생성/사본 결과는 P1 증거 |
+| P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 구현·계약 테스트18/18 완료; 실제3 archive·사본171 files·재현 검증 완료([증거](validation/distribution-packaging/README.md)) |
 | P2 실제 설치 | Git URL·tarball 소비 mode, Core/Input sample 분류·import 경로 수정, Editor importer 수명 | 각 설치 방식의 Core만/Input/Editor/전체+Sample resolve·compile·최소 실행, negative 경로, 원본 보호 | 미구현 |
 | P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 미실행 |
 | P4 첫 Release | main 통합·`v0.0.1`·public Release와 검증된 첨부물 | 정책/필수 gate 충족, source tag·SHA256·버전 일치·tag URL 설치·다운로드한 실제 첨부물 검증, 브랜치 정리 | 미실행 |
@@ -170,3 +170,5 @@ CI는 현재 미구성이다. [exact commit gate](../tools/check_github_ci.py)�
 | `/root/distribution_docs_review` | gpt-6-luna / low | P1 checkout의 기존 API와 builder/test 읽기 전용 리뷰; Git·Unity·파일 변경 금지 | 완료: 링크 projection·코드 경계 검토, 실제 설치 증거와 구분 |
 
 부모가 도구 구현·테스트 실행·사본 리뷰·Git 통합을 담당한다. [회고](retrospectives/2026-10-07-17-distribution-packaging.md)에 검증·남은 Phase를 기록한다.
+
+P1 완료: 사본 포함 `ec1f786d248207a8c9245b6d5263f95a1985e093`에서 기본 mode와 두 번 생성한 archive3개의 bytes/manifest 일치를 확인했다. source/사본·문서/GUID/license·원본 보호는 P1 증거를 따른다. P1을 track으로 반영하고 다음 phase는 P2 실제 설치다. source/tag용 사본은 준비됐지만 `v0.0.1` tag·검증된 설치 안내/Release는 아직 제공하지 않는다.
