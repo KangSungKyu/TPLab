@@ -1,0 +1,6 @@
+{
+  "editor.processLog": "doc/validation/scene-loading/tplab-naming-consumer-core/editor-processLog.txt",
+  "editor.stdoutLog": "doc/validation/scene-loading/tplab-naming-consumer-core/editor-stdoutLog.txt",
+  "player.processLog": "doc/validation/scene-loading/tplab-naming-consumer-core/player-processLog.txt",
+  "player.stdoutLog": "doc/validation/scene-loading/tplab-naming-consumer-core/player-stdoutLog.txt"
+}

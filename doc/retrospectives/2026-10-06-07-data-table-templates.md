@@ -9,7 +9,7 @@
 ## 결정과 변경
 
 - DataRow.cs에서 TextRow/ResourceKeyRow/TextDataTable/ResourceKeyDataTable을 제거하고 기존 meta/GUID를 보존했다. 공용 IDataRow/DataRow·CsvDataTable·manager/snapshot·codec은 유지했다.
-- [예시 소스](../../Assets/MyLab/Tests/Fixtures/DataTableTemplates.cs)는 별도 namespace MyLab.Examples.DataTables와 기존 TestFixtures assembly에 둔다. 새 package/assembly·복제된 예시 코드를 만들지 않고 실제 예시를 기존 테스트에서 컴파일·사용한다. [프로젝트 복사·수정 방법](../templates/data-tables/README.md)을 추가했다.
+- [예시 소스](../../Assets/TPLab/Tests/Fixtures/DataTableTemplates.cs)는 별도 namespace MyLab.Examples.DataTables와 기존 TestFixtures assembly에 둔다. 새 package/assembly·복제된 예시 코드를 만들지 않고 실제 예시를 기존 테스트에서 컴파일·사용한다. [프로젝트 복사·수정 방법](../templates/data-tables/README.md)을 추가했다.
 - 테스트 5파일의 예시 참조를 변경하고 core에 구체 4타입이 없음을 확인하는 검사 4건을 추가했다. 예시 검증 정책은 유지하며 runtime 기본 정책으로 강제하지 않는다.
 - CLI의 일시적 instance discovery 오류 후 기존 assembly 18건만 실행된 결과를 제외했다. refresh 완료 후 새로운 4검사가 포함된 실제 Red 22건을 확보했다. 실행 수/검사 이름과 최신 코드 입력을 같이 확인해야 한다.
 - Git: 승인된 작업 branch 생성. 이번 allowlist만 commit/push하고 해당 커밋의 원격 검사·입력 hash를 확인한 뒤 main fast-forward 통합을 진행한다. 최종 commit과 실제 통합은 Git 이력·최종 보고에서 확인한다. 기존 사용자 scene/settings는 제외하며 이력 재작성·삭제는 하지 않는다.

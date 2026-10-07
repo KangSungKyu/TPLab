@@ -1,6 +1,6 @@
 # ResourceManager 계약
 
-2026-10-02. `MyLab.Core.ResourceManagement.ResourceManager`는 상속이 필요 없는 일반 C# 소유자다. Addressables 2.9.1·UniTask 2.5.11을 사용하며 게임별 key, CSV schema, UI를 참조하지 않는다.
+2026-10-02. `TPLab.Core.ResourceManagement.ResourceManager`는 상속이 필요 없는 일반 C# 소유자다. Addressables 2.9.1·UniTask 2.5.11을 사용하며 게임별 key, CSV schema, UI를 참조하지 않는다.
 
 ## API와 소유권
 
@@ -68,12 +68,12 @@ Unity `OnDestroy`에서는 await할 수 없으므로 `Uninstall`의 동기 fallb
 
 ## Cashier 참조 판단과 범위
 
-읽기 전용으로 확인한 Cashier ResourceManager·ResourcePoolTests의 공유 요청, 개별 대기 취소, 타입 충돌, 실패 후 재요청, 늦은 결과 해제 원칙을 개선 후 채택했다. MyLab에 별도 구현했으며 Cashier 코드·plugin·프로젝트 설정을 복사하거나 수정하지 않았다.
+읽기 전용으로 확인한 Cashier ResourceManager·ResourcePoolTests의 공유 요청, 개별 대기 취소, 타입 충돌, 실패 후 재요청, 늦은 결과 해제 원칙을 개선 후 채택했다. TPLab에 별도 구현했으며 Cashier 코드·plugin·프로젝트 설정을 복사하거나 수정하지 않았다.
 
 - 개선: Singleton 의존 제거, UniTask 공유 완료 소스, 영구 종료·drain 계약, SceneRoot installer 연결, null 성공값 대신 오류 전달.
 - 이번 범위: Addressables 초기화와 공유 asset cache, 기존 PrefabPool을 통한 clone 생성·정리, 양쪽 root host의 준비·해제 연결.
 - 보류: Datas label 다운로드, 명시적 catalog 갱신, atlas 전역 구독, 소비자별 lease·key별 Release, Addressables InstantiateInstance API, 별도 resource backend. 실제 사용 요구가 생기면 확장한다.
-- 소비 프로젝트는 Addressables 설정·runtime catalog·asset address를 제공해야 한다. 이번 테스트는 임시 native catalog와 provider를 사용하며 MyLab의 Addressables 프로젝트 설정을 새로 만들지 않았다.
+- 소비 프로젝트는 Addressables 설정·runtime catalog·asset address를 제공해야 한다. 이번 테스트는 임시 native catalog와 provider를 사용하며 TPLab의 Addressables 프로젝트 설정을 새로 만들지 않았다.
 
 ## 검증
 

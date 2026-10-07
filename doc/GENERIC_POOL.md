@@ -1,6 +1,6 @@
 # 제네릭 ObjectPool 계약과 Unity 기본 풀 검토
 
-`MyLab.Core.Pooling.ObjectPool<T>`는 `where T : class`인 일반 C# 클래스와 Unity 참조 타입에 사용할 수 있다. 구현 파일은 System API만 사용한다. 동일 assembly의 `PrefabPool`은 GameObject 생성·활성화·Transform·파괴를 맡는 어댑터다. 프리팹 호출자는 기존 API를 유지하고 일반 클래스는 ObjectPool<T>를 직접 사용한다.
+`TPLab.Core.Pooling.ObjectPool<T>`는 `where T : class`인 일반 C# 클래스와 Unity 참조 타입에 사용할 수 있다. 구현 파일은 System API만 사용한다. 동일 assembly의 `PrefabPool`은 GameObject 생성·활성화·Transform·파괴를 맡는 어댑터다. 프리팹 호출자는 기존 API를 유지하고 일반 클래스는 ObjectPool<T>를 직접 사용한다.
 
 ## 사용 계약
 
@@ -16,7 +16,7 @@
 
 ```csharp
 using System.Collections.Generic;
-using MyLab.Core.Pooling;
+using TPLab.Core.Pooling;
 
 using (var pool = new ObjectPool<List<int>>(
     createInstance: () => new List<int>(),
@@ -55,7 +55,7 @@ Unity `ObjectPool<T>`도 일반 C# 클래스를 지원한다. 기본 풀의 정�
 
 ## 검증 증거 (2026-10-02)
 
-- MyLab Editor Unity 6000.3.18f1, Connector 0.4.1, PID 42616을 사용했다. 기존 미추적 ProjectSettings/SceneTemplateSettings.json은 보존했고 패키지·프로젝트 설정·기존 씬·Cashier는 수정하지 않았다.
+- TPLab Editor Unity 6000.3.18f1, Connector 0.4.1, PID 42616을 사용했다. 기존 미추적 ProjectSettings/SceneTemplateSettings.json은 보존했고 패키지·프로젝트 설정·기존 씬·Cashier는 수정하지 않았다.
 - Unity 기본 API 재현: [7/7 통과](validation/generic-pool/unity-contract.json). 관찰 자체를 검증하는 테스트이며 문제가 수정됐다는 의미가 아니다.
 - TDD Red: API stub에서 새 일반 클래스 테스트 [24건 모두 실패](validation/generic-pool/red-generic.json), skip 0.
 - Green 전체 EditMode: [38/38 통과](validation/generic-pool/green-edit.json) = 제네릭 24 + Unity API 재현 7 + 기존 프리팹 6 + Addressables 기존 테스트 1. 실패·skip 0.

@@ -1,10 +1,10 @@
 # Editor
 
 Module: Editor
-Namespace: MyLab.Core.Editor.DataTables; MyLab.Core.Editor.Bootstrap
-Assembly: MyLab.Core.Editor (includePlatforms: Editor)
-SourceRevision: 9305b5dd0f730636f431fd5d19a1c9102fdc3bed
-SourcePath: [Editor](../../../Assets/MyLab/Editor)
+Namespace: TPLab.Core.Editor.DataTables; TPLab.Core.Editor.Bootstrap
+Assembly: TPLab.Core.Editor (includePlatforms: Editor)
+SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+SourcePath: [Editor](../../../Assets/TPLab/Editor)
 HumanContract: [Editor](../../api/Editor.md), [importer](../../DATA_TABLE_IMPORTER_DRAFT.md), [Bootstrap](../../BOOTSTRAP_SYSTEM.md)
 ImplementationStatus: Implemented
 ValidationStatus: Partial
@@ -14,7 +14,7 @@ Symbol / Signature / Constraints:
 
 ```csharp
 // DataTableImportSettings : ScriptableObject
-const string ActivePath = "Assets/Editor/MyLab/setting.asset";
+const string ActivePath = "Assets/Editor/TPLab/setting.asset";
 DataTableAutomationMode AutomationMode { get; set; }
 string InputFolder { get; set; } // Assets/Game/Data
 string SchemaFolder { get; set; } // Assets/Game/DataSchemas

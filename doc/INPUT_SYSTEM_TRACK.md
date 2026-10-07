@@ -6,7 +6,7 @@
 
 - main 기준 `ce290878da51c653eaa219aecc45e6bf61ac755a`, track `codex/input-system-track`. Phase 브랜치는 track의 검증 tip에서 생성하고 원본 commit을 유지해 통합한다.
 - 기존 사용자 변경: InitScene.unity, DefaultVolumeProfile.asset, Mobile_RPAsset.asset, SceneTemplateSettings.json. 본 작업의 stage/수정에서 제외하고 raw hash를 보존한다. 기본 입력 asset도 변경하지 않는다.
-- 입력 모듈은 `Assets/MyLab/Input/Runtime`의 별도 assembly다. 기존 `Assets/MyLab/Core`만 가져가는 소비 프로젝트에 입력 의존성을 강제하지 않는다. 테스트는 Input/Tests의 독립 assembly로 둔다.
+- 입력 모듈은 `Assets/TPLab/Input/Runtime`의 별도 assembly다. 기존 `Assets/TPLab/Core`만 가져가는 소비 프로젝트에 입력 의존성을 강제하지 않는다. 테스트는 Input/Tests의 독립 assembly로 둔다.
 - Unity 조작·테스트·Git·최종 리뷰는 부모 에이전트가 맡는다. 테스트 중 소스 변경은 동결한다. 독립적 위임이 필요할 때만 담당·지원 모델·허용 경로를 아래에 기록한다.
 
 ## 단계 상태
@@ -32,7 +32,7 @@
 
 ## 최초 Editor 상태
 
-기존 MyLab Editor는 Unity6000.3.18f1/Connector0.4.1 PID23120이다. discovery는 ready지만 실제 PID Responding=false이고 health 및 C# exec 요청은 timeout이다. MCP 연결 instance는0이다. 다른 프로젝트/새 Editor로 검증을 대체하지 않는다. 사용자가 기존 Editor를 복구하도록 요청했고 계약·실패 테스트 준비를 진행한다. 실행0건은 Red 또는 통과가 아니다.
+기존 TPLab Editor는 Unity6000.3.18f1/Connector0.4.1 PID23120이다. discovery는 ready지만 실제 PID Responding=false이고 health 및 C# exec 요청은 timeout이다. MCP 연결 instance는0이다. 다른 프로젝트/새 Editor로 검증을 대체하지 않는다. 사용자가 기존 Editor를 복구하도록 요청했고 계약·실패 테스트 준비를 진행한다. 실행0건은 Red 또는 통과가 아니다.
 
 사용자 재확인 후 같은 PID23120의 Responding=true와 C# exec/compile idle을 확인했다. 실제 EditMode Red 9개 실행·9개 실패·skip0을 기록했다([증거](validation/input-system/p1/red-edit.json)). 실패 이유는 미구현 계약이며 컴파일 오류는0이다.
 

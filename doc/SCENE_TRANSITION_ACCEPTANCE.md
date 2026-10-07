@@ -1,12 +1,12 @@
 # GameSceneManager 최종 사용자 확인
 
-P6 자동 검증은 완료했다. 원래 MyLab Editor의 전체 EditMode240/240·PlayMode201/201(실패0·skip0), Windows Player Additive/Single 각10관찰, Reload4×2와 동일 Unity 소비 프로젝트 빌드/11관찰을 확인했다. 정확한 범위·실패 기록·Console·입력 hash는 [P6 검증 기록](validation/scene-integration/README.md)에 있다. 2026-10-07 사용자가 아래 Unity 실행 항목까지 확인 완료했다고 명시했다. 현재 상태는 **사용자 확인 완료**다. [수락 기록](validation/scene-integration/final-integration/acceptance.json)을 보존하고 기존 승인에 따라 main 통합·작업 브랜치 정리를 진행한다.
+P6 자동 검증은 완료했다. 원래 TPLab Editor의 전체 EditMode240/240·PlayMode201/201(실패0·skip0), Windows Player Additive/Single 각10관찰, Reload4×2와 동일 Unity 소비 프로젝트 빌드/11관찰을 확인했다. 정확한 범위·실패 기록·Console·입력 hash는 [P6 검증 기록](validation/scene-integration/README.md)에 있다. 2026-10-07 사용자가 아래 Unity 실행 항목까지 확인 완료했다고 명시했다. 현재 상태는 **사용자 확인 완료**다. [수락 기록](validation/scene-integration/final-integration/acceptance.json)을 보존하고 기존 승인에 따라 main 통합·작업 브랜치 정리를 진행한다.
 
 ## 실행 준비
 
-원래 MyLab Editor에서만 확인한다. sample 자산은 `Assets/MyLab/Samples/SceneTransitions/Scenes/`의 `BootstrapAdditive.unity`, `BootstrapSingle.unity`, `Hub.unity`, `Main.unity`, `Area.unity`, `Nested.unity`다. 생성 산출물이 없을 때만 `MyLab > Scene Transitions > Build Sample Assets`를 실행한다. 이 메뉴는 sample 소유 표식과 자산 충돌을 확인하고 기존 Editor 설정을 복구한다. 완료된 산출물을 재생성할 필요는 없다.
+원래 TPLab Editor에서만 확인한다. sample 자산은 `Assets/TPLab/Samples/SceneTransitions/Scenes/`의 `BootstrapAdditive.unity`, `BootstrapSingle.unity`, `Hub.unity`, `Main.unity`, `Area.unity`, `Nested.unity`다. 생성 산출물이 없을 때만 `TPLab > Scene Transitions > Build Sample Assets`를 실행한다. 이 메뉴는 sample 소유 표식과 자산 충돌을 확인하고 기존 Editor 설정을 복구한다. 완료된 산출물을 재생성할 필요는 없다.
 
-각 mode는 `MyLab > Scene Transitions > Open Additive` 또는 `Open Single`로 열고 Play를 눌러 확인한다. 확인 전에 Game view를 16:9(1280×720 기준)와 4:3으로 바꿔 HUD, 버튼 라벨, cover, modal이 화면 안에 유지되고 의도한 버튼이 눌리는지 확인한다. 키보드 방향키/WASD로 메뉴를 이동하고 Enter로 제출한다. 기본 입력 자산에서 Enter는 UI Submit과 Player Attack 양쪽에 연결되어 있으므로, gameplay counter만 따로 확인할 때는 버튼이 없는 게임 화면을 클릭한다.
+각 mode는 `TPLab > Scene Transitions > Open Additive` 또는 `Open Single`로 열고 Play를 눌러 확인한다. 확인 전에 Game view를 16:9(1280×720 기준)와 4:3으로 바꿔 HUD, 버튼 라벨, cover, modal이 화면 안에 유지되고 의도한 버튼이 눌리는지 확인한다. 키보드 방향키/WASD로 메뉴를 이동하고 Enter로 제출한다. 기본 입력 자산에서 Enter는 UI Submit과 Player Attack 양쪽에 연결되어 있으므로, gameplay counter만 따로 확인할 때는 버튼이 없는 게임 화면을 클릭한다.
 
 ## Additive 확인
 
@@ -19,16 +19,16 @@ P6 자동 검증은 완료했다. 원래 MyLab Editor의 전체 EditMode240/240�
 `System modal`을 열면 아래 게임 명령 버튼은 차단되며, modal 안의 `Dismiss modal`은 키보드·포인터로 사용할 수 있어야 한다. modal을 유지한 채 코드 전환을 확인하려면 아래 명령을 실행한다. 전환 cover가 사라진 뒤에도 modal은 열린 채 gameplay 입력을 막고 UI 입력은 유지해야 한다. `Dismiss modal`로 닫은 뒤 gameplay 입력이 복원되는지 확인한다. 자동 smoke도 이 코드 전환을 검증한다.
 
 ```powershell
-unity-cli exec 'var c=UnityEngine.Object.FindFirstObjectByType<MyLab.Samples.SceneTransitions.SceneTransitionSampleController>(); var id=c.Manager.GameScene.path==MyLab.Samples.SceneTransitions.SceneTransitionSamplePaths.Main ? "to-hub" : "to-main"; c.Manager.TryTransitionAsync(id).Forget(); return "requested transition under modal";' --project C:/Users/PC/Projects/MyLab --allow-async --usings Cysharp.Threading.Tasks
+unity-cli exec 'var c=UnityEngine.Object.FindFirstObjectByType<TPLab.Samples.SceneTransitions.SceneTransitionSampleController>(); var id=c.Manager.GameScene.path==TPLab.Samples.SceneTransitions.SceneTransitionSamplePaths.Main ? "to-hub" : "to-main"; c.Manager.TryTransitionAsync(id).Forget(); return "requested transition under modal";' --project C:/Users/PC/Projects/MyLab --allow-async --usings Cysharp.Threading.Tasks
 ```
 
 `Fail next prepare`를 누르고 `Hub / Main`으로 교체를 요청한다. 오류 modal과 cover가 보이고 gameplay 입력이 꺼지는지 확인한다. `Dismiss modal`을 눌러도 cover가 남아 scene 입력이 계속 차단되어야 한다. 이 실패 상태에서는 추가 명령을 시도하지 않는다. Play를 멈추고 `Open Additive`를 다시 선택해 새 Play session을 시작한다.
 
 ## Single 확인 및 복구
 
-Play를 멈춘 뒤 `MyLab > Scene Transitions > Open Single`을 선택하고 다시 Play한다. 초기 entry 후 공용 Singleton root와 Bootstrap callback/cover가 살아 있고 Hub↔Main 교체 때 공용 root가 유지되는지 확인한다. `Add Area`, `Add Nested`, `Nested self exit`, 재추가, `Parent removes Area`를 실행해 파생 씬 트리가 정리되는지 본다. gameplay 입력 counter, 전환 중 입력 차단, 키보드 UI 조작, 두 화면비에서의 HUD/cover/modal을 확인한다.
+Play를 멈춘 뒤 `TPLab > Scene Transitions > Open Single`을 선택하고 다시 Play한다. 초기 entry 후 공용 Singleton root와 Bootstrap callback/cover가 살아 있고 Hub↔Main 교체 때 공용 root가 유지되는지 확인한다. `Add Area`, `Add Nested`, `Nested self exit`, 재추가, `Parent removes Area`를 실행해 파생 씬 트리가 정리되는지 본다. gameplay 입력 counter, 전환 중 입력 차단, 키보드 UI 조작, 두 화면비에서의 HUD/cover/modal을 확인한다.
 
-Play를 멈추고 `MyLab > Scene Transitions > Restore Original Setup`을 실행한다. 자동 복구가 이미 끝났으면 이 명령은 추가 변경 없이 반환한다. 원래 scene setup과 Build Settings가 돌아왔는지 확인하고 작업 전 사용자의 Unity 변경 4개가 보존된 상태인지 확인한다.
+Play를 멈추고 `TPLab > Scene Transitions > Restore Original Setup`을 실행한다. 자동 복구가 이미 끝났으면 이 명령은 추가 변경 없이 반환한다. 원래 scene setup과 Build Settings가 돌아왔는지 확인하고 작업 전 사용자의 Unity 변경 4개가 보존된 상태인지 확인한다.
 
 ## 기록과 통합 대기
 

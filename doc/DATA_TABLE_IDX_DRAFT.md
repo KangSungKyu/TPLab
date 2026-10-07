@@ -1,6 +1,6 @@
 # uint idx 생성·추출·PK/FK 계약
 
-2026-10-02. 기준 MyLab `main / a7804a8`, Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`. 최초 상태는 미구현 초안이었다. 2026-10-06 준비한 generic 범위를 구현했으며 [실행 증거](validation/generic-data-tables/README.md)로 확인한다. 기본 제공 테이블의 uint index key, 생성·추출 클래스 등록, PK/FK 탐색 요구는 사용자 지시로 확정이다. 아래 API·인코딩·오류 정책은 이번 구현의 계약이다. [DTO·테이블 매핑 계약](DATA_TABLE_MAPPING_DRAFT.md)과 연결하며 [manager 계약](DATA_TABLE_MANAGER.md)과 함께 적용한다.
+2026-10-02. 기준 TPLab `main / a7804a8`, Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`. 최초 상태는 미구현 초안이었다. 2026-10-06 준비한 generic 범위를 구현했으며 [실행 증거](validation/generic-data-tables/README.md)로 확인한다. 기본 제공 테이블의 uint index key, 생성·추출 클래스 등록, PK/FK 탐색 요구는 사용자 지시로 확정이다. 아래 API·인코딩·오류 정책은 이번 구현의 계약이다. [DTO·테이블 매핑 계약](DATA_TABLE_MAPPING_DRAFT.md)과 연결하며 [manager 계약](DATA_TABLE_MANAGER.md)과 함께 적용한다.
 
 2026-10-06 보완: 조합 값 Parts와 구간 설정 Stride를 함께 지원한다. localType은 여러 작업자의 키 충돌 방지·테이블 내부 분류를 위한 선택적 요소이며 테이블 탐색 종류가 아니다. 프로젝트 세 요소 codec은 테스트 예제로 검증하며 코어 기본 타입으로 추가하지 않는다.
 
@@ -14,7 +14,7 @@ idx는 대상 행의 PK이며 다른 행에 저장하면 그 대상에 대한 FK
 
 Cashier `Utils/Util.cs`의 CreateDataIdx/GetDataTableType/GetDataInnerId는 `idx = (uint)DataTableType * 1000 + innerId`, `type = idx / 1000`, `innerId = idx % 1000`을 사용한다. `Manager/DataTableManager.cs`의 GetDB<T>(uint)는 추출 종류로 등록 테이블을 찾는다. `Commons/Data/ProductData.cs`의 NameIdx·ImageResourceIdx는 대상 PK를 저장하며 `Customer/Data/CustomerCatalog.cs`는 Text·Resource 등의 실제 대상 행 존재를 검증한다.
 
-MyLab은 양방향 규약과 종류별 탐색을 개선 후 채택했다. 게임 enum·1000 구간은 소비 프로젝트가 선택한다. Cashier의 idx=0일 때 첫 T 구현을 찾는 fallback은 적용하지 않고 범위·overflow·미등록 종류·잘못된 대상·참조 누락을 구분한다. Cashier 파일·코드는 변경하거나 복사하지 않았다.
+TPLab은 양방향 규약과 종류별 탐색을 개선 후 채택했다. 게임 enum·1000 구간은 소비 프로젝트가 선택한다. Cashier의 idx=0일 때 첫 T 구현을 찾는 fallback은 적용하지 않고 범위·overflow·미등록 종류·잘못된 대상·참조 누락을 구분한다. Cashier 파일·코드는 변경하거나 복사하지 않았다.
 
 ## 생성·추출 클래스 등록
 

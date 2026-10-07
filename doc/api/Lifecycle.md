@@ -4,9 +4,9 @@
 
 | 항목 | 값 |
 |---|---|
-| Namespace / Assembly | `MyLab.Core.Lifecycle` / `MyLab.Core` |
-| 의존성 | Unity, UniTask 2.5.11. assembly 전체에는 Addressables 참조도 있으므로 [asmdef](../../Assets/MyLab/Core/MyLab.Core.asmdef)를 함께 확인한다. |
-| SourceRevision | `9305b5dd0f730636f431fd5d19a1c9102fdc3bed` (별도 배포 버전 미지정) |
+| Namespace / Assembly | `TPLab.Core.Lifecycle` / `TPLab.Core` |
+| 의존성 | Unity, UniTask 2.5.11. assembly 전체에는 Addressables 참조도 있으므로 [asmdef](../../Assets/TPLab/Core/TPLab.Core.asmdef)를 함께 확인한다. |
+| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0` (별도 배포 버전 미지정) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
 | 계약 원문 | [Singleton](../SINGLETON.md), [root](../SCENE_ROOT.md), [비동기 준비·해제](../ASYNC_SCENE_LIFECYCLE.md) |
 | AI 참조 | [Lifecycle](../ai/api/Lifecycle.md) |
@@ -25,7 +25,7 @@ installer는 자신이 생성한 서비스를 정리하고 대여한 서비스�
 
 ## root와 installer
 
-[ISceneRoot](../../Assets/MyLab/Core/Lifecycle/ISceneRoot.cs)의 정확한 선언이다.
+[ISceneRoot](../../Assets/TPLab/Core/Lifecycle/ISceneRoot.cs)의 정확한 선언이다.
 
 ```csharp
 public interface ISceneRoot
@@ -38,7 +38,7 @@ public interface ISceneRoot
 }
 ```
 
-[SceneOwnedRoot](../../Assets/MyLab/Core/Lifecycle/SceneOwnedRoot.cs)와 [SingletonSceneRoot](../../Assets/MyLab/Core/Lifecycle/SingletonSceneRoot.cs)는 각각 아래 public 멤버를 제공한다. 후자는 `MonoSingleton<SingletonSceneRoot>`의 public 멤버도 상속한다.
+[SceneOwnedRoot](../../Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs)와 [SingletonSceneRoot](../../Assets/TPLab/Core/Lifecycle/SingletonSceneRoot.cs)는 각각 아래 public 멤버를 제공한다. 후자는 `MonoSingleton<SingletonSceneRoot>`의 public 멤버도 상속한다.
 
 ```csharp
 public sealed class SceneOwnedRoot : MonoBehaviour, ISceneRoot
@@ -56,7 +56,7 @@ public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes 
 
 `Configure`는 activation/설치 전에 호출한다. `installers=null`은 빈 목록이며 배열은 복사된다. 각 항목은 null이 아니고 중복 없이 해당 root 또는 자식에 속해야 한다. Inspector의 `Installers`와 `Persist Across Scenes`도 같은 구성 책임을 갖는다. 영속화하면 root와 자식이 `DontDestroyOnLoad`로 함께 유지된다. 일반 씬 별 root의 영속화는 사용하는 씬 관리 계약과 함께 결정한다.
 
-[SceneRootSetup](../../Assets/MyLab/Core/Lifecycle/SceneRootSetup.cs)은 기존 GameObject에 host를 추가하며 GameObject를 생성하지 않는다.
+[SceneRootSetup](../../Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs)은 기존 GameObject에 host를 추가하며 GameObject를 생성하지 않는다.
 
 ```csharp
 public enum SceneRootMode { SceneOwned, Singleton }
@@ -67,7 +67,7 @@ public static ISceneRoot Attach(GameObject root, SceneRootMode mode,
 
 `root=null`은 `ArgumentNullException`, 씬에 속하지 않거나 parent가 있으면 `ArgumentException`, 잘못된 enum은 `ArgumentOutOfRangeException`이다. 활성 runtime root 또는 기존 host가 있으면 `InvalidOperationException`이며 Attach는 이 입력 검사를 host 추가 전에 수행한다. `Configure`의 늦은 호출도 `InvalidOperationException`이다. installer null/중복/외부 소속은 `ArgumentException`이다. 설치 실패는 Unity lifecycle에서 기록되며 host를 준비 완료로 공개하지 않는다. Singleton 중복은 host 컴포넌트만 제거하며 그 installer를 실행하지 않는다.
 
-[SceneRootInstaller](../../Assets/MyLab/Core/Lifecycle/SceneRootInstaller.cs)는 프로젝트 서비스 연결 경계다.
+[SceneRootInstaller](../../Assets/TPLab/Core/Lifecycle/SceneRootInstaller.cs)는 프로젝트 서비스 연결 경계다.
 
 ```csharp
 public abstract class SceneRootInstaller : MonoBehaviour
@@ -89,7 +89,7 @@ public virtual UniTask ReleaseAsync(ISceneRoot root);
 
 ## MonoSingleton 확장
 
-[MonoSingleton](../../Assets/MyLab/Core/Lifecycle/MonoSingleton.cs)은 명시적으로 생성된 컴포넌트 하나를 등록한다. Instance는 검색·자동 생성하지 않는다.
+[MonoSingleton](../../Assets/TPLab/Core/Lifecycle/MonoSingleton.cs)은 명시적으로 생성된 컴포넌트 하나를 등록한다. Instance는 검색·자동 생성하지 않는다.
 
 ```csharp
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
@@ -111,7 +111,7 @@ protected virtual void OnSingletonShutdown();
 
 ## SceneRootFlow
 
-[SceneRootFlow](../../Assets/MyLab/Core/Lifecycle/SceneRootFlow.cs)는 root를 대여해 cover → 준비 또는 종료 → 프로젝트 proceed → reveal을 await한다. UI·입력 정책·씬 로드를 제공하지 않는다.
+[SceneRootFlow](../../Assets/TPLab/Core/Lifecycle/SceneRootFlow.cs)는 root를 대여해 cover → 준비 또는 종료 → 프로젝트 proceed → reveal을 await한다. UI·입력 정책·씬 로드를 제공하지 않는다.
 
 ```csharp
 public sealed class SceneRootFlow
@@ -138,7 +138,7 @@ root/proceedAsync null은 `ArgumentNullException`, 같은 flow 실행 중 재요
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyLab.Core.Lifecycle;
+using TPLab.Core.Lifecycle;
 using UnityEngine;
 
 // async UniTask 메서드 본문 발췌; callerToken은 프로젝트 제공 CancellationToken.

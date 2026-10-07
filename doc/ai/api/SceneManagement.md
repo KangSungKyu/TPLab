@@ -2,9 +2,9 @@
 
 | Field | Value |
 |---|---|
-| Module / Namespace / Assembly | `SceneManagement` / `MyLab.Core.SceneManagement` / `MyLab.Core` |
-| SourceRevision | `18d479bf07fe8479a22187ec7357024e9979d096` |
-| SourcePath | [소스](../../../Assets/MyLab/Core/SceneManagement), [asmdef](../../../Assets/MyLab/Core/MyLab.Core.asmdef) |
+| Module / Namespace / Assembly | `SceneManagement` / `TPLab.Core.SceneManagement` / `TPLab.Core` |
+| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0` |
+| SourcePath | [소스](../../../Assets/TPLab/Core/SceneManagement), [asmdef](../../../Assets/TPLab/Core/TPLab.Core.asmdef) |
 | HumanContract | [사람용 API](../../api/SceneManagement.md), [manager](../../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../../BOOTSTRAP_SYSTEM.md), [로더](../../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
 | Evidence | 현재 P4 전체 Edit271/271·Play253/253(실패0/skip0), Additive/Single Windows Mono build 및 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. [P4 증거](../../validation/scene-loading/p4/README.md). UserAcceptance: user PlayMode confirmation 2026-10-07; per-mode/device/resolution results unspecified. |

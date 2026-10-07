@@ -4,7 +4,7 @@
 
 ## 초기 확인 기준 (의존성 반영 전)
 
-- MyLab: Unity 6000.3.18f1, Addressables 2.9.1, Test Framework 1.6.0, URP 17.3.0. Assets에 자체 C#·asmdef·DLL은 아직 없다. Git 저장소가 초기화되어 있지 않다.
+- TPLab: Unity 6000.3.18f1, Addressables 2.9.1, Test Framework 1.6.0, URP 17.3.0. Assets에 자체 C#·asmdef·DLL은 아직 없다. Git 저장소가 초기화되어 있지 않다.
 - Cashier: 같은 Unity·Addressables·Test Framework 버전. 읽은 checkout은 total_merge, HEAD 8b093946a5ffa85864bea734ce6eeab6ccea41a0다. 폰트·URP·ProjectSettings 수정과 ProfilerCaptures 미추적 폴더가 존재한다. 읽기 전용으로 보존했다.
 - 현재 환경의 버전 확인은 다른 Unity 버전·플랫폼 지원 증거가 아니다. 최소 지원 Unity 버전, 대상 플랫폼·IL2CPP/WebGL 지원은 구현 계약을 정할 때 확인한다.
 
@@ -38,7 +38,7 @@
 | CsvHelper 33.1.0 | 공식 NuGet의 netstandard2.1 DLL, MS-PL OR Apache-2.0 | 사용자 채택 확정. CSV 기본 도구로 사용 |
 | DOTween | Cashier Assets/Plugins/Demigiant/DOTween | 1차 코어의 필수 의존성으로 넣을 근거가 현재 없음. 연출이 필요한 소비 프로젝트에서 사용 |
 | Unity CLI/Connector 0.4.1 | 기존 CLI 실행 파일과 공식 connector 고정 커밋 | 사용자 채택 확정. Editor 개발·검증 도구로 사용 |
-| 2D Animation/Aseprite/PSD/SpriteShape/Tilemap 도구 | Cashier manifest의 MyLab 대비 추가 항목 | 다섯 공용 시스템에 필요한 근거가 생길 때 검토 |
+| 2D Animation/Aseprite/PSD/SpriteShape/Tilemap 도구 | Cashier manifest의 TPLab 대비 추가 항목 | 다섯 공용 시스템에 필요한 근거가 생길 때 검토 |
 
 비동기 기본 도구는 UniTask로 확정했다. 개별 UniTask를 임의로 여러 번 await하지 않고, 공유 완료에는 동시 대기가 가능한 완료 소스를 사용한다. 플랫폼·취소·메인 스레드 계약은 기능별로 검증한다. [UniTask 공식 안내](https://github.com/Cysharp/UniTask/tree/2.5.11)
 
@@ -51,7 +51,7 @@
 5. GameSceneManager에 명시적인 사전 준비 작업을 연결하고 실제 씬 수명을 검증한다. 엔딩·게임 세션·로딩 화면은 소비 프로젝트가 소유한다.
 6. 별도 소비 프로젝트에 가져와 컴파일·최소 사용 예제를 실행한다. Cashier에 적용하는 변경은 별도 요청 범위에서 진행한다.
 
-첫 로컬 구현은 Assets/MyLab/Core와 .meta를 함께 가져오는 방식, MyLab.Core assembly와 MyLab.Core.Pooling namespace, Unity 6000.3 검증 기준을 사용한다. EditMode·PlayMode assembly를 runtime과 분리한다. 여러 프로젝트 배포의 UPM package ID·버전 호환 정책은 소비 프로젝트 검증 단계에서 결정한다. URP·uGUI·DOTween을 코어의 필수 의존성으로 확장하지 않는다. 2026-10-07 추가한 입력 모듈은 Unity Input System만 지원하되 별도 assembly로 분리하며 기존 코어 전체에 입력 의존성을 추가하지 않는다.
+첫 로컬 구현은 Assets/TPLab/Core와 .meta를 함께 가져오는 방식, TPLab.Core assembly와 TPLab.Core.Pooling namespace, Unity 6000.3 검증 기준을 사용한다. EditMode·PlayMode assembly를 runtime과 분리한다. 여러 프로젝트 배포의 UPM package ID·버전 호환 정책은 소비 프로젝트 검증 단계에서 결정한다. URP·uGUI·DOTween을 코어의 필수 의존성으로 확장하지 않는다. 2026-10-07 추가한 입력 모듈은 Unity Input System만 지원하되 별도 assembly로 분리하며 기존 코어 전체에 입력 의존성을 추가하지 않는다.
 
 ## 세션 역할 보완
 
@@ -71,7 +71,7 @@
 - Unity CLI Connector: Packages/manifest.json의 공식 UPM URL에 Cashier와 같은 commit 07c62fd29f1e6d29d8f9a504b968bedbbd47ddc8을 지정했다. 커넥터와 설치된 CLI 실행 파일은 모두 0.4.1이다. [출처](https://github.com/youngwoocho02/unity-cli), [MIT 원문](licenses/UnityCli-LICENSE.txt).
 - CsvHelper: [공식 NuGet 33.1.0](https://www.nuget.org/packages/CsvHelper/33.1.0)의 lib/netstandard2.1/CsvHelper.dll을 Assets/Plugins/CsvHelper/에 배치했다. NuGet의 명시된 의존성 Microsoft.CSharp은 추가 DLL 없이 현재 Unity Editor에서 CSV 실행에 필요한 의존성을 충족했다. 추가 NuGet 관리 plugin은 설치하지 않았다. 다른 플랫폼 빌드 호환성은 미검증이다.
 - CsvHelper DLL의 SHA-256은 20101C398654A14BFD42BD78D7281F43197D19B7B3CF41C7AAE93F1EABA65A61이며 Cashier DLL과 일치한다. 기존 DLL GUID 0737863bb2f229c40911f9a88cc5b5aa를 보존했다. [라이선스 원문](../Assets/Plugins/CsvHelper/LICENSE.txt)을 함께 배치했다.
-- 두 UPM package의 resolve·lock 반영, Unity .meta 짝, Editor 컴파일 완료를 확인했다. 정확한 MyLab Editor PID 42616, Unity 6000.3.18f1, Connector 0.4.1에서 CLI 상태 ready와 Console 오류 0건을 확인했다.
+- 두 UPM package의 resolve·lock 반영, Unity .meta 짝, Editor 컴파일 완료를 확인했다. 정확한 TPLab Editor PID 42616, Unity 6000.3.18f1, Connector 0.4.1에서 CLI 상태 ready와 Console 오류 0건을 확인했다.
 - Editor CLI smoke 실행 성공 1건: CSV 따옴표 내부 쉼표·줄바꿈 및 UniTask 완료 결과 확인 3개를 통과했다. CsvHelper 패키지는 33.1.0이며 런타임 assembly version은 33.0.0.0이다. 비동기 PlayerLoop·취소·PlayMode·Player 빌드 및 NUnit 테스트는 미실행이다. TDD Red/Green 증거로 사용하지 않는다.
 - 재실행 코드: Temp/DependencySetup/smoke.cs. PowerShell에서 내용을 -Raw로 읽어 변수에 담고 `unity-cli --project C:\Users\PC\Projects\MyLab exec $smokeSource --allow-async`로 실행한다. --allow-async는 완료된 UniTask 값의 검사에 필요하며 백그라운드 작업을 예약하지 않는다.
 - 증거: Temp/DependencySetup/dependency-smoke.txt, status-after.txt, console-errors.json. 기본 stdin 전달에서는 CLI가 instance를 찾지 못했고 일반 exec에서는 UniTask 키워드 정책으로 실행 전에 거부되어, project 옵션을 명시한 직접 인수와 --allow-async로 확인했다.

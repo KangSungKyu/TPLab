@@ -1,10 +1,10 @@
 # Input
 
 Module: Input
-Namespace: MyLab.Core.Input
-Assembly: MyLab.Core.Input
-SourceRevision: 9305b5dd0f730636f431fd5d19a1c9102fdc3bed
-SourcePath: [Input/Runtime](../../../Assets/MyLab/Input/Runtime)
+Namespace: TPLab.Core.Input
+Assembly: TPLab.Core.Input
+SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+SourcePath: [Input/Runtime](../../../Assets/TPLab/Input/Runtime)
 HumanContract: [Input](../../api/Input.md), [상세 계약](../../INPUT_SYSTEM_DRAFT.md)
 ImplementationStatus: Implemented
 ValidationStatus: Partial
@@ -87,6 +87,6 @@ Configuration: optional control path/group; JSON action/binding schema/known GUI
 ExtensionPoints: Validator replaces default same-map/group identical path conflict rule; IsReleased for continuous controls, buttons always release-wait. UI adapter belongs to Samples/project, not core.
 RequiredSequence: installer Configure before install → root-owned clone/preparation BlockAll → project registers/acquires desired layers → await root Prepare → CompletePreparation → use → root shutdown. standalone owner follows Lifecycle above.
 ForbiddenUsage: use legacy input API; Enable/Disable/override/destroy borrowed Actions directly; use binding index for persistence; assume BlockAll blocks another asset/direct polling; release all modal/transition blocks after rebind; claim memory sample JSON saves files; Dispose borrowed installer.Input; add speculative InputUser multiplayer.
-Example: [human excerpt](../../api/Input.md) NotRun/project placeholders; [sample UI](../../../Assets/MyLab/Samples/SceneTransitions/Runtime/InputSystemUiScope.cs) and [consumer](../../../tools/core-consumer/templates/ConsumerSmoke.cs) have recorded execution.
+Example: [human excerpt](../../api/Input.md) NotRun/project placeholders; [sample UI](../../../Assets/TPLab/Samples/SceneTransitions/Runtime/InputSystemUiScope.cs) and [consumer](../../../tools/core-consumer/templates/ConsumerSmoke.cs) have recorded execution.
 Compatibility: optional separate assembly, Core-only consumer has no Unity.InputSystem dependency.
 Limitations: native Input System only; no device-specific settings UX/file storage/InputUser routing/semantic alias resolver. forced commit+rollback failure and physical gamepad/touch were not executed.

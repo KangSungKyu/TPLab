@@ -1,4 +1,4 @@
-# MyLab 문서 색인
+# TPLab 문서 색인
 
 ## 읽는 순서
 
@@ -14,11 +14,12 @@
 
 ## 문서와 읽기 조건
 
-코드·기능 기준: 2026-10-07, DataTableManager·CSV Editor importer·GameSceneManager와 Input wrapper 구현·전체 회귀·Windows Mono Player·동일 Unity 소비 프로젝트 검증까지. 입력 최종 사용자 수락 및 사람/AI API 문서 작성을 완료했다. main 통합과 브랜치 정리는 입력 track의 최종 기록을 따른다. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 MyLab이다. 아래에는 실제 존재하는 문서만 연결한다.
+코드·기능 기준: 2026-10-07, DataTableManager·CSV Editor importer·GameSceneManager와 Input wrapper 구현·전체 회귀·Windows Mono Player·동일 Unity 소비 프로젝트 검증까지. 입력 최종 사용자 수락 및 사람/AI API 문서 작성을 완료했다. main 통합과 브랜치 정리는 입력 track의 최종 기록을 따른다. 저장소 이름은 TPLab, 로컬 Unity 프로젝트 이름은 TPLab이다. 아래에는 실제 존재하는 문서만 연결한다.
 
 | 문서 | 읽는 조건 | 내용 |
 |---|---|---|
 | [AGENTS.md](../AGENTS.md) | 모든 작업에서 필수 | 공용 코어 역할·C#·SOLID·TDD·참조 경계·브랜치 판단·검증 후 병합 |
+| [TPLAB_NAMING.md](TPLAB_NAMING.md) | MyLab 이름의 기존 코드·씬·문서 이식 | TPLab namespace·assembly·Assets 경로 통일과 로컬 checkout 경로 유지, 현재 검증 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
@@ -92,7 +93,7 @@
 - [Input wrapper](api/Input.md)는 구현·자동 검증과 2026-10-07 사용자 수락을 완료했다. 현재 통합 상태는 [입력 track](INPUT_SYSTEM_TRACK.md)을 따른다.
 - Windows Mono 소비 프로젝트 가져오기·최소 예제·Player는 실제 실행했다. 다른 버전·플랫폼·IL2CPP와 외부 배포 준비 전체를 통과로 확대하지 않는다.
 - 로딩 progress·팁·자동/버튼 진행 대기 callback과 프로젝트 UI 예제는 [현재 계약](SCENE_LOADING_PRESENTATION_DRAFT.md)에 구현돼 있다. [최종 사용자 확인](SCENE_LOADING_ACCEPTANCE.md)은 2026-10-07 PlayMode 확인으로 완료됐다.
-- Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 MyLab에 적용하지 않는다.
+- Cashier는 읽기 전용 참조다. 이 색인은 Cashier `doc/INDEX.md`의 조건별 문서 선택·단일 본문·과거 증거 구분을 개선 후 적용했다. Cashier의 게임별 규칙·팀 분업·통합 승인 절차는 TPLab에 적용하지 않는다.
 
 ## 입구와 유지 규칙
 

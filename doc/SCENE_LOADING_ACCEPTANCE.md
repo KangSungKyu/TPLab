@@ -1,10 +1,10 @@
 # Scene loading presentation: final user acceptance
 
-이 절차는 자동 테스트 이후 **마지막 한 번의 실제 UI 확인**에 사용한다. 코어의 자동 검증 결과나 [synthetic InputSystem/sample tests](../Assets/MyLab/Tests/PlayMode/LoadingSampleTests.cs)는 사람의 화면 확인과 실제 키보드·게임패드·pointer 조작을 대신하지 않는다. 아직 완료되지 않은 항목은 PASS로 적지 않는다. 실행 결과 수와 source revision은 [scene-loading track](SCENE_LOADING_TRACK.md)에서 관리한다.
+이 절차는 자동 테스트 이후 **마지막 한 번의 실제 UI 확인**에 사용한다. 코어의 자동 검증 결과나 [synthetic InputSystem/sample tests](../Assets/TPLab/Tests/PlayMode/LoadingSampleTests.cs)는 사람의 화면 확인과 실제 키보드·게임패드·pointer 조작을 대신하지 않는다. 아직 완료되지 않은 항목은 PASS로 적지 않는다. 실행 결과 수와 source revision은 [scene-loading track](SCENE_LOADING_TRACK.md)에서 관리한다.
 
 ## 준비와 설정
 
-1. 기존 MyLab Editor에서 `MyLab > Scene Transitions > Open Additive`를 선택한다. Additive 확인 후 `Open Single`도 별도로 실행한다. sample assets가 없을 때만 `Build Sample Assets`를 선택한다.
+1. 기존 TPLab Editor에서 `TPLab > Scene Transitions > Open Additive`를 선택한다. Additive 확인 후 `Open Single`도 별도로 실행한다. sample assets가 없을 때만 `Build Sample Assets`를 선택한다.
 2. 각 열린 sample에서 Hierarchy의 `CommonSceneRoot`를 선택하고 `SceneTransitionSampleController`를 Inspector에서 찾는다. **Use Loading Presentation**은 기본 꺼짐, **Manual Proceed**는 기본 꺼짐이다. `Loading Tips`는 project-owned sample 문구 배열이다. 변경한 뒤 Play한다. 코드에서 전환 전 `ConfigureLoadingPresentation(true, manualProceed: true)` 또는 자동 진행용 `ConfigureLoadingPresentation(true, manualProceed: false)`를 호출해도 된다.
 3. 로딩 화면은 callback이 runtime에 생성하는 전체 화면 Canvas다. 새 Unity scene을 로드하지 않는다. 특히 Single에서는 `CommonSceneRoot`와 그 아래 controller, EventSystem/Input module, loading UI가 persistent hierarchy에 남는지 확인한다.
 

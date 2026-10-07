@@ -1,0 +1,30 @@
+{
+  "Assets/Settings/DefaultVolumeProfile.asset": {
+    "restored": false,
+    "sha256": "463776c51ae49d4fef980e8fd268081b2f505610d79315003faae1acff8f4115"
+  },
+  "Assets/Settings/Mobile_RPAsset.asset": {
+    "restored": false,
+    "sha256": "2d5182d2b8884ac88bc6ed033a0a722c23cfb15a7bc8b7daa38db37227bafd09"
+  },
+  "ProjectSettings/ProjectSettings.asset": {
+    "restored": true,
+    "sha256": "b18db9d5aac18c26e12e1d4556f1c989bb995e2304170746209f971ad021615a"
+  },
+  "ProjectSettings/EditorBuildSettings.asset": {
+    "restored": false,
+    "sha256": "348ba1eca4b0698957f264f877f76227b78583acd3138fd5fc85be92f158e261"
+  },
+  "Assets/Settings/PC_RPAsset.asset": {
+    "restored": true,
+    "sha256": "08a9c221b335a0dbca1b6967b7de5c42b957c5f0d5e43da9edb36ca8fce5966b"
+  },
+  "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset": {
+    "restored": true,
+    "sha256": "47a5975e4fa68b6dbe66c41af7e17c2c76fb675156dfce1b14054d26cb56a135"
+  },
+  "ProjectSettings/UnityConnectSettings.asset": {
+    "restored": true,
+    "sha256": "b7dd1e8290598f5ce86919ba1c98b42b766c8c42191a30fa2c4d12195c4ecd00"
+  }
+}

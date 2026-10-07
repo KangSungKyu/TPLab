@@ -4,7 +4,7 @@
 
 ## 실행 준비
 
-현재 MyLab Editor에서 `MyLab > Scene Transitions > Open Additive`를 선택하고 Play한다. 기존 sample 자산을 재생성할 필요는 없다. Hierarchy의 공용 Bootstrap 오브젝트에서 `SceneTransitionSampleController`를 선택한다. 해당 component의 context menu에 `Input/…` 네 항목이 있다. 아래 리바인딩은 Inspector에서 시작한 뒤 Game view에 포커스를 옮긴다.
+현재 TPLab Editor에서 `TPLab > Scene Transitions > Open Additive`를 선택하고 Play한다. 기존 sample 자산을 재생성할 필요는 없다. Hierarchy의 공용 Bootstrap 오브젝트에서 `SceneTransitionSampleController`를 선택한다. 해당 component의 context menu에 `Input/…` 네 항목이 있다. 아래 리바인딩은 Inspector에서 시작한 뒤 Game view에 포커스를 옮긴다.
 
 ## 키 설정과 저장
 
@@ -20,7 +20,7 @@
 - Play를 멈추고 `Open Single`에서 다시 확인한다. 공용 root가 유지되고 입력·UI가 새 게임 씬에서 동작해야 한다. Play를 다시 시작하면 새 runtime clone에 원본 기본 설정이 적용된다.
 - 실제 게임패드가 있다면 sample asset의 UI navigation/Submit과 Player Attack binding을 확인한다. 포인터 click·키보드 Submit·게임패드 Submit 각각에서 팝업 열기/닫기와 gameplay 차단을 확인한다. 장치가 없으면 게임패드 항목은 미실행으로 기록한다. 이번 자동 rebind 검증은 가상 Keyboard를 사용했으며 물리 게임패드·touch UX의 증거가 아니다.
 
-Play 종료 후 `MyLab > Scene Transitions > Restore Original Setup`을 실행한다. 자동 복구가 이미 끝났으면 추가 변경이 없다. 원래 씬과 Build Settings, 기존 사용자 변경이 보존되는지 확인한다.
+Play 종료 후 `TPLab > Scene Transitions > Restore Original Setup`을 실행한다. 자동 복구가 이미 끝났으면 추가 변경이 없다. 원래 씬과 Build Settings, 기존 사용자 변경이 보존되는지 확인한다.
 
 ## 수락과 통합
 

@@ -1,0 +1,17 @@
+{
+  "results": {
+    "full-edit.json": [271, 271, 0, 0],
+    "full-play.json": [253, 253, 0, 0]
+  },
+  "documents": [
+    "README.md", "AGENTS.md", "tools/README.md", "doc/INDEX.md", "doc/TPLAB_NAMING.md",
+    "doc/api/README.md", "doc/ai/README.md", "doc/ai/api/README.md",
+    "doc/validation/tplab-naming/README.md"
+  ],
+  "assets": [
+    "Assets/TPLab/Core/TPLab.Core.asmdef", "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef",
+    "Assets/TPLab/Samples/SceneTransitions/Scenes/BootstrapAdditive.unity",
+    "Assets/TPLab/Samples/SceneTransitions/Scenes/BootstrapSingle.unity"
+  ],
+  "absentAssetPatterns": ["MyLab", "SceneTransitionEditorTests_*", "BootstrapSceneSourceTests_*"]
+}

@@ -14,7 +14,7 @@ InitScene 같은 씬의 root GameObject에 소유 방식을 선택하고, 프로
 ## Editor에서 선택
 
 1. Hierarchy에서 최상위 GameObject를 선택한다. 기존 InitScene controller가 붙은 객체도 선택할 수 있다.
-2. `GameObject > MyLab > Scene Root > Scene Owned` 또는 `Singleton`을 실행한다.
+2. `GameObject > TPLab > Scene Root > Scene Owned` 또는 `Singleton`을 실행한다.
 3. Inspector의 `Installers`에 SceneRootInstaller 구현 컴포넌트를 필요한 순서로 지정한다. 메뉴는 같은 객체에 붙은 installer를 기본 등록한다. 자식 installer는 직접 지정한다.
 4. 필요하면 `Persist Across Scenes`를 켠다. Play 중에는 설정 Inspector를 잠근다.
 
@@ -49,7 +49,7 @@ rootObject.SetActive(true);
 
 ## 검증 (2026-10-02)
 
-- 동일 MyLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616.
+- 동일 TPLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616.
 - 실제 Red: PlayMode 신규 10개 모두 실패, Editor 신규 3개 모두 실패. [runtime](validation/scene-root/red-play.json), [Editor](validation/scene-root/red-editor.json)
 - 전체 Green: EditMode 41/41, PlayMode 41/41, 실패·skip 0. [EditMode](validation/scene-root/green-edit.json), [PlayMode](validation/scene-root/green-play.json)
 - Editor의 두 메뉴·기존 컴포넌트 보존·순서/영속 설정 직렬화·Undo/Redo와 runtime의 순서·부분 실패·중복 소유·설정 제한·씬 해제/영속성을 자동 검증했다.

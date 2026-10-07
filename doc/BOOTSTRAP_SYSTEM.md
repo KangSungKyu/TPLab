@@ -1,6 +1,6 @@
 # GameSceneManager 최초 진입과 BootstrapSystem
 
-2026-10-06. 최초 진입·주 씬 교체·파생 구역·전환 정의/조건 runtime의 MyLab 내부 자동 검증 기록이 있다. GameSceneManager가 씬 진입·교체·취소·해제를 소유하고 BootstrapSystem은 Inspector 설정과 자동 시작을 담당한다. 전환의 영향 root·조건·수명 계약은 [단계 명세](GAME_SCENE_MANAGER_DRAFT.md)를 따른다. 게임별 씬·서비스·UI를 자동 생성하지 않는다.
+2026-10-06. 최초 진입·주 씬 교체·파생 구역·전환 정의/조건 runtime의 TPLab 내부 자동 검증 기록이 있다. GameSceneManager가 씬 진입·교체·취소·해제를 소유하고 BootstrapSystem은 Inspector 설정과 자동 시작을 담당한다. 전환의 영향 root·조건·수명 계약은 [단계 명세](GAME_SCENE_MANAGER_DRAFT.md)를 따른다. 게임별 씬·서비스·UI를 자동 생성하지 않는다.
 
 ## Inspector 구성
 

@@ -1,16 +1,18 @@
 # TPLab AI 통합 안내
 
-SourceRevision: `18d479bf07fe8479a22187ec7357024e9979d096`. 목적은 Unity 재사용 코어의 정확한 사용/수정이다. API 사실은 실제 public 선언/XML·구현·테스트로 대조한다. [사람용 README](../../README.md), [사람용 API](../api/README.md), [AI API](api/README.md)를 함께 유지한다. 아래의 승인은 소비 프로젝트 작업 권한을 부여하지 않는다. 소비 프로젝트 자체의 사용자 지시/지침을 따른다.
+2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../TPLAB_NAMING.md)에서 기존 MyLab 이름의 이동 규칙과 이번 검증을 확인한다.
+
+SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`. 목적은 Unity 재사용 코어의 정확한 사용/수정이다. API 사실은 실제 public 선언/XML·구현·테스트로 대조한다. [사람용 README](../../README.md), [사람용 API](../api/README.md), [AI API](api/README.md)를 함께 유지한다. 아래의 승인은 소비 프로젝트 작업 권한을 부여하지 않는다. 소비 프로젝트 자체의 사용자 지시/지침을 따른다.
 
 | Module | Namespace / Assembly | Source | Human / AI |
 |---|---|---|---|
-| Pooling | MyLab.Core.Pooling / MyLab.Core | [Pooling](../../Assets/MyLab/Core/Pooling) | [Human](../api/Pooling.md) / [AI](api/Pooling.md) |
-| Lifecycle | MyLab.Core.Lifecycle / MyLab.Core | [Lifecycle](../../Assets/MyLab/Core/Lifecycle) | [Human](../api/Lifecycle.md) / [AI](api/Lifecycle.md) |
-| Resources | MyLab.Core.ResourceManagement / MyLab.Core | [Resources](../../Assets/MyLab/Core/ResourceManagement) | [Human](../api/Resources.md) / [AI](api/Resources.md) |
-| DataTables | MyLab.Core.DataTables / MyLab.Core | [DataTables](../../Assets/MyLab/Core/DataTables) | [Human](../api/DataTables.md) / [AI](api/DataTables.md) |
-| SceneManagement | MyLab.Core.SceneManagement / MyLab.Core | [Scenes](../../Assets/MyLab/Core/SceneManagement) | [Human](../api/SceneManagement.md) / [AI](api/SceneManagement.md) |
-| Input | MyLab.Core.Input / MyLab.Core.Input | [Input](../../Assets/MyLab/Input/Runtime) | [Human](../api/Input.md) / [AI](api/Input.md) |
-| Editor | MyLab.Core.Editor.DataTables / MyLab.Core.Editor.Bootstrap / MyLab.Core.Editor | [Editor](../../Assets/MyLab/Editor) | [Human](../api/Editor.md) / [AI](api/Editor.md) |
+| Pooling | TPLab.Core.Pooling / TPLab.Core | [Pooling](../../Assets/TPLab/Core/Pooling) | [Human](../api/Pooling.md) / [AI](api/Pooling.md) |
+| Lifecycle | TPLab.Core.Lifecycle / TPLab.Core | [Lifecycle](../../Assets/TPLab/Core/Lifecycle) | [Human](../api/Lifecycle.md) / [AI](api/Lifecycle.md) |
+| Resources | TPLab.Core.ResourceManagement / TPLab.Core | [Resources](../../Assets/TPLab/Core/ResourceManagement) | [Human](../api/Resources.md) / [AI](api/Resources.md) |
+| DataTables | TPLab.Core.DataTables / TPLab.Core | [DataTables](../../Assets/TPLab/Core/DataTables) | [Human](../api/DataTables.md) / [AI](api/DataTables.md) |
+| SceneManagement | TPLab.Core.SceneManagement / TPLab.Core | [Scenes](../../Assets/TPLab/Core/SceneManagement) | [Human](../api/SceneManagement.md) / [AI](api/SceneManagement.md) |
+| Input | TPLab.Core.Input / TPLab.Core.Input | [Input](../../Assets/TPLab/Input/Runtime) | [Human](../api/Input.md) / [AI](api/Input.md) |
+| Editor | TPLab.Core.Editor.DataTables / TPLab.Core.Editor.Bootstrap / TPLab.Core.Editor | [Editor](../../Assets/TPLab/Editor) | [Human](../api/Editor.md) / [AI](api/Editor.md) |
 
 RequiredSequence:
 

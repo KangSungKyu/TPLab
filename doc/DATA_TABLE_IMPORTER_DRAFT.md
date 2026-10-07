@@ -1,12 +1,12 @@
 # 데이터 테이블 Editor importer 계약
 
-2026-10-06. 상태: CSV 1차 구현·MyLab 검증. 구현 기준 `main/19b5770`, 작업 `codex/data-table-importer`. 기존 초안의 경로를 유지하며 현재 동작을 이 문서에서 관리한다. [실행 증거](validation/data-table-importer/README.md), [회고](retrospectives/2026-10-06-10-data-table-importer.md)를 함께 확인한다.
+2026-10-06. 상태: CSV 1차 구현·TPLab 검증. 구현 기준 `main/19b5770`, 작업 `codex/data-table-importer`. 기존 초안의 경로를 유지하며 현재 동작을 이 문서에서 관리한다. [실행 증거](validation/data-table-importer/README.md), [회고](retrospectives/2026-10-06-10-data-table-importer.md)를 함께 확인한다.
 
 선행 계약: [manager](DATA_TABLE_MANAGER.md), [DTO 매핑](DATA_TABLE_MAPPING_DRAFT.md), [uint idx](DATA_TABLE_IDX_DRAFT.md), [예시 템플릿](templates/data-tables/README.md). Text/Resource는 예약된 타입이 아니며 생성 이름·필드·종류는 프로젝트가 소유한다.
 
 ## 설정과 시작 방법
 
-`MyLab.Core.Editor.DataTables.DataTableImportSettings`는 Editor 전용 ScriptableObject다. `Tools/MyLab/Data Tables/Create or Select Active Settings`로 **Assets/Editor/MyLab/setting.asset**을 만들고 입력·스키마 폴더를 준비한다. 설정과 meta를 프로젝트 Git에 포함한다. 설정이 없으면 자동화는 꺼지며 자동 생성하지 않는다. 다른 위치의 설정 자산은 Inspector 수동 명령만 사용할 수 있다.
+`TPLab.Core.Editor.DataTables.DataTableImportSettings`는 Editor 전용 ScriptableObject다. `Tools/TPLab/Data Tables/Create or Select Active Settings`로 **Assets/Editor/TPLab/setting.asset**을 만들고 입력·스키마 폴더를 준비한다. 설정과 meta를 프로젝트 Git에 포함한다. 설정이 없으면 자동화는 꺼지며 자동 생성하지 않는다. 다른 위치의 설정 자산은 Inspector 수동 명령만 사용할 수 있다.
 
 | 설정 | 현재 계약 |
 |---|---|
@@ -50,18 +50,18 @@ SchemaFolder의 `.json`은 정의이며 InputFolder의 `.csv`는 행 데이터�
 - `idx`는 이미 프로젝트 생성기로 완성한 PK다. 필수 uint Id로 연결하며 DataRow에서 상속한다. importer는 idx 생성·재번호·Stride/localType 결정을 하지 않는다.
 - `required`는 열 존재 여부다. 빈 문자열·nullable 값의 의미·범위·게임 정책은 실제 table hook/프로젝트 validator가 결정한다. optional 열은 생성 DTO에 [Optional]로 표시한다.
 - 중복/공백 header, 행 필드 수, 미사용 필드의 잘못된 인용, invariant 쉼표 구분, 중복 PK·uint 범위·0·router 종류 불일치를 검사한다. 올바른 header-only CSV는 허용한다.
-- JSON 버전·필수 필드·중복 키·알 수 없는 속성·지원하지 않는 타입을 거부한다. C# 이름은 ASCII 식별자와 유효 namespace만 허용하며 생성 프로젝트 타입의 MyLab.Core namespace 사용은 거부한다.
+- JSON 버전·필수 필드·중복 키·알 수 없는 속성·지원하지 않는 타입을 거부한다. C# 이름은 ASCII 식별자와 유효 namespace만 허용하며 생성 프로젝트 타입의 TPLab.Core namespace 사용은 거부한다.
 - Assets 밖, `..`, 재분석 지점, Editor 출력, core/tests/validation 출력, 입력/스키마와 겹치는 출력 root는 거부한다. 경로·파일명·종류·테이블 이름 충돌은 쓰기 전에 검사한다.
 
 JSON 파서는 이미 설치된 Unity Newtonsoft.Json **3.2.1**을 Editor에서 사용한다. 패키지 추가/변경은 없으며 runtime CSV 파서는 CsvHelper **33.1.0**을 유지한다.
 
 ## 프로젝트 검증 연결
 
-설정은 delegate·Type·서비스를 직렬화하지 않는다. 프로젝트 Editor 초기화 함수에서 **DataTableImportProfiles.Register**로 router factory와 typed 등록 함수를 명시적으로 연결한다. 프로젝트 Editor asmdef는 MyLab.Core와 MyLab.Core.Editor를 참조하고 생성 runtime 타입을 볼 수 있어야 한다.
+설정은 delegate·Type·서비스를 직렬화하지 않는다. 프로젝트 Editor 초기화 함수에서 **DataTableImportProfiles.Register**로 router factory와 typed 등록 함수를 명시적으로 연결한다. 프로젝트 Editor asmdef는 TPLab.Core와 TPLab.Core.Editor를 참조하고 생성 runtime 타입을 볼 수 있어야 한다.
 
 ```csharp
-using MyLab.Core.DataTables;
-using MyLab.Core.Editor.DataTables;
+using TPLab.Core.DataTables;
+using TPLab.Core.Editor.DataTables;
 using UnityEditor;
 using Game.Data;
 
@@ -110,6 +110,6 @@ Runtime의 기존 CSV reader와 표준 idx 검사를 **DataTableCsvValidator.Rea
 
 ## 검증과 후속 범위
 
-집중 테스트는 `MyLab.Core.Tests.DataTableImporterTests`다. 실제 asset 감지→생성→컴파일/domain reload→typed 검증, 데이터 수정·이동·삭제·모드 전환·컴파일 오류/복구는 `DataTableImportEditorCheck.Run()`으로 같은 Editor에서 확인한다. 이 검사는 자신의 임시 자산/setting.asset만 만들고 정리하며 기존 활성 설정이 있으면 시작을 거부한다. [현재 실행 수·소스 hash·Console](validation/data-table-importer/README.md)을 확인한다.
+집중 테스트는 `TPLab.Core.Tests.DataTableImporterTests`다. 실제 asset 감지→생성→컴파일/domain reload→typed 검증, 데이터 수정·이동·삭제·모드 전환·컴파일 오류/복구는 `DataTableImportEditorCheck.Run()`으로 같은 Editor에서 확인한다. 이 검사는 자신의 임시 자산/setting.asset만 만들고 정리하며 기존 활성 설정이 있으면 시작을 거부한다. [현재 실행 수·소스 hash·Console](validation/data-table-importer/README.md)을 확인한다.
 
-JSON 행, 자동 타입 추론·등록, 임의 PK 생성, 외부 폴더 감시, rename migration, 소유권 복원 UI는 후속 요청 범위다. GameSceneManager와 소비 프로젝트 가져오기·Player/IL2CPP 검증은 기존 다음 단계이며 MyLab 내부 검증을 배포 호환성으로 확대하지 않는다.
+JSON 행, 자동 타입 추론·등록, 임의 PK 생성, 외부 폴더 감시, rename migration, 소유권 복원 UI는 후속 요청 범위다. GameSceneManager와 소비 프로젝트 가져오기·Player/IL2CPP 검증은 기존 다음 단계이며 TPLab 내부 검증을 배포 호환성으로 확대하지 않는다.

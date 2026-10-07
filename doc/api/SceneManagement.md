@@ -4,9 +4,9 @@
 
 | 항목 | 값 |
 |---|---|
-| Namespace / Assembly | `MyLab.Core.SceneManagement` / `MyLab.Core` |
-| 의존성 | Unity, UniTask 2.5.11, Addressables 2.9.1. [asmdef](../../Assets/MyLab/Core/MyLab.Core.asmdef) 참조. Core runtime에는 UI/Input 의존성이 없다. |
-| SourceRevision | `18d479bf07fe8479a22187ec7357024e9979d096` |
+| Namespace / Assembly | `TPLab.Core.SceneManagement` / `TPLab.Core` |
+| 의존성 | Unity, UniTask 2.5.11, Addressables 2.9.1. [asmdef](../../Assets/TPLab/Core/TPLab.Core.asmdef) 참조. Core runtime에는 UI/Input 의존성이 없다. |
+| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0` |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
 | 계약 원문 | [씬 관리](../GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](../BOOTSTRAP_SYSTEM.md), [로더](../SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | AI 참조 | [SceneManagement](../ai/api/SceneManagement.md) |
@@ -25,7 +25,7 @@
 
 ## GameSceneManager 호출 API
 
-[소스](../../Assets/MyLab/Core/SceneManagement/GameSceneManager.cs)의 public 호출 선언이다. `SceneTarget`/`ISceneLoader`는 `MyLab.Core.ResourceManagement` 소유이며 [로더 계약](../SCENE_LOADING.md)을 따른다.
+[소스](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs)의 public 호출 선언이다. `SceneTarget`/`ISceneLoader`는 `TPLab.Core.ResourceManagement` 소유이며 [로더 계약](../SCENE_LOADING.md)을 따른다.
 
 ```csharp
 public sealed class GameSceneManager
@@ -91,7 +91,7 @@ public bool CanProceed { get; }
 
 ## BootstrapSystem 설정과 호환 API
 
-[소스](../../Assets/MyLab/Core/SceneManagement/BootstrapSystem.cs). Inspector에 Scene Root, First Scene Path, Auto Start, Callbacks, Load Mode, Scene Source, Addressable Key/Scene Reference 또는 Transition Settings/First Transition Id를 지정한다. default는 AutoStart=true, Additive, BuildScene이며 씬 경로는 프로젝트가 제공한다. definition 구성을 선택하면 기존 target/mode 필드 대신 FirstEntry 정의를 사용한다.
+[소스](../../Assets/TPLab/Core/SceneManagement/BootstrapSystem.cs). Inspector에 Scene Root, First Scene Path, Auto Start, Callbacks, Load Mode, Scene Source, Addressable Key/Scene Reference 또는 Transition Settings/First Transition Id를 지정한다. default는 AutoStart=true, Additive, BuildScene이며 씬 경로는 프로젝트가 제공한다. definition 구성을 선택하면 기존 target/mode 필드 대신 FirstEntry 정의를 사용한다.
 
 ```csharp
 public sealed class BootstrapSystem : MonoBehaviour
@@ -126,7 +126,7 @@ BootstrapAsync는 처음 manager를 공개하고 entry를 시작하며 반복 �
 
 ## callback·조건·데이터 타입
 
-[SceneTransitionCallbacks](../../Assets/MyLab/Core/SceneManagement/SceneTransitionCallbacks.cs)는 프로젝트가 구현한다. 모든 hook의 기본값은 no-op/즉시 완료이며 root/scene을 소유하지 않는다.
+[SceneTransitionCallbacks](../../Assets/TPLab/Core/SceneManagement/SceneTransitionCallbacks.cs)는 프로젝트가 구현한다. 모든 hook의 기본값은 no-op/즉시 완료이며 root/scene을 소유하지 않는다.
 
 ```csharp
 public abstract class SceneTransitionCallbacks : MonoBehaviour
@@ -144,7 +144,7 @@ public virtual UniTask ConfigureGameAsync(Scene scene, ISceneRoot root, Cancella
 
 ShowCover는 표시와 gameplay 입력 차단 완료, ConfigureScene은 준비 전 참조 접속, PreparePresentation은 준비된 root의 화면 준비 완료, HideCover는 최종 표시와 **전환이 소유한 차단만**의 반환을 의미한다. 다른 modal의 차단은 유지한다. OnFailure는 실행 실패/owner 취소를 보고하고 성공으로 변환하지 않는다. hook에서 같은 manager의 command/wait/shutdown을 호출하지 않는다. 오류 표시를 닫아도 reveal이 허용됐다고 취급하지 않는다. reveal 도중 실패는 cover 재표시를 시도한다.
 
-조건은 root GameObject에 직접 붙인다. [SceneTransitionCondition](../../Assets/MyLab/Core/SceneManagement/SceneTransitionCondition.cs)은 disabled component도 평가 대상이며 붙어 있는 모든 조건을 평가한다. 필수ID 목록이 비어도 policy를 우회하지 않는다.
+조건은 root GameObject에 직접 붙인다. [SceneTransitionCondition](../../Assets/TPLab/Core/SceneManagement/SceneTransitionCondition.cs)은 disabled component도 평가 대상이며 붙어 있는 모든 조건을 평가한다. 필수ID 목록이 비어도 policy를 우회하지 않는다.
 
 ```csharp
 public abstract class SceneTransitionCondition : MonoBehaviour
@@ -205,7 +205,7 @@ public sealed class SceneTransitionRejectedException : InvalidOperationException
 public SceneTransitionRejectedException(string message);
 ```
 
-정의/settings [소스](../../Assets/MyLab/Core/SceneManagement/SceneTransitionSettings.cs)는 ID를 ordinal 비교하고 null/empty/duplicate를 거부한다. Configure(null)은 빈 목록이고 Configure는 목록/ID를 검사한다. CreateSnapshot은 kind/mode/source/target/필수ID까지 검증하고 detached readonly 결과를 만든다. FirstEntry source path는 빈 값이며 나머지는 정규 scene path다. derived는 Additive만 허용한다. 정의와 request는 필수ID 배열을 복사하고 null을 empty로 취급한다. Request 생성 자체는 작업을 시작하거나 manager validation을 대신하지 않는다. `SceneTransitionContext`는 affected 씬을 distinct 복사하며 null은 empty다. `SceneLoadingContext`는 progress/presentation 전환별 OperationId, Kind, Target, Mode를 제공하며 scene/root 소유권을 주지 않는다. Registration은 수동 값 snapshot이며 현재 Unity 수명 검사나 소유권 획득을 하지 않는다. JSON/CSV 포맷은 없다.
+정의/settings [소스](../../Assets/TPLab/Core/SceneManagement/SceneTransitionSettings.cs)는 ID를 ordinal 비교하고 null/empty/duplicate를 거부한다. Configure(null)은 빈 목록이고 Configure는 목록/ID를 검사한다. CreateSnapshot은 kind/mode/source/target/필수ID까지 검증하고 detached readonly 결과를 만든다. FirstEntry source path는 빈 값이며 나머지는 정규 scene path다. derived는 Additive만 허용한다. 정의와 request는 필수ID 배열을 복사하고 null을 empty로 취급한다. Request 생성 자체는 작업을 시작하거나 manager validation을 대신하지 않는다. `SceneTransitionContext`는 affected 씬을 distinct 복사하며 null은 empty다. `SceneLoadingContext`는 progress/presentation 전환별 OperationId, Kind, Target, Mode를 제공하며 scene/root 소유권을 주지 않는다. Registration은 수동 값 snapshot이며 현재 Unity 수명 검사나 소유권 획득을 하지 않는다. JSON/CSV 포맷은 없다.
 
 ConditionId는 root 안에서 nonempty/unique, 다른 root와 같은 ID는 허용된다. required ID는 영향 root 중 하나 이상이 제공해야 한다. 최초는 common, 교체는 이전 primary subtree, 추가는 parent, 제거는 requester/parent/제거 subtree를 검사한다. ID와 컴포넌트 구성은 작업 중 고정하고 Evaluate는 동기로 business 상태만 읽는다. 조건에서 전환 시작·종료·취소·자기 대기를 금지한다. preflight false는 무변경 거부다. accepted 후 해제/reveal 경계의 재검사 거부는 취소 실패 경로로 정리한다.
 
@@ -227,8 +227,8 @@ caller token은 해당 await만 취소하며 작업은 계속된다. `CancelTran
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyLab.Core.Lifecycle;
-using MyLab.Core.SceneManagement;
+using TPLab.Core.Lifecycle;
+using TPLab.Core.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

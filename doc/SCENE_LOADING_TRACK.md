@@ -16,7 +16,7 @@
 | /root/input_validation_plan | gpt-6-luna/low | 확정 계약 사람/AI 문서·사용자 체크리스트 | 완료 |
 | /root/input_layers | gpt-6.1-sol/high | Resource progress 및 sample; 비동기 결과 소유권 위험 | 구현·읽기 전용 최종 리뷰 완료 |
 
-사용자 변경4와 보호 raw7은 [hash](validation/scene-loading/p4/preserved-inputs.json)로 대조한다. 원본 Editor PID23120만 MyLab 테스트·빌드를 실행했다. build가 생성한 settings 변화만 복원했다. 자동 검사와 실제 최종 UX 확인은 별도 gate다. PC 종료/절전은 이번 요청에 포함되지 않는다.
+사용자 변경4와 보호 raw7은 [hash](validation/scene-loading/p4/preserved-inputs.json)로 대조한다. 원본 Editor PID23120만 TPLab 테스트·빌드를 실행했다. build가 생성한 settings 변화만 복원했다. 자동 검사와 실제 최종 UX 확인은 별도 gate다. PC 종료/절전은 이번 요청에 포함되지 않는다.
 
 P1 Red Edit13(2pass/11fail), Play209(201pass/8fail). Green Edit13/13, Play210/210, skip0. short filter0은 통과가 아니다. 기존 condition context와 충돌한 표시context는 SceneLoadingContext로 분리했다.
 

@@ -1,6 +1,6 @@
 # 로컬 PrefabPool 계약
 
-로컬 GameObject 프리팹 또는 생성 원본의 동기 풀 어댑터다. 공통 정원·소유권·실패 정리는 [제네릭 ObjectPool<T>](GENERIC_POOL.md)에 위임한다. namespace는 MyLab.Core.Pooling, runtime assembly는 MyLab.Core다. 현재 지원·검증 기준은 Unity 6000.3이며, Assets/MyLab/Core 폴더와 .meta를 소비 프로젝트에 함께 가져오는 방식을 사용한다. UPM 배포는 별도 소비 프로젝트 검증 단계에서 결정한다.
+로컬 GameObject 프리팹 또는 생성 원본의 동기 풀 어댑터다. 공통 정원·소유권·실패 정리는 [제네릭 ObjectPool<T>](GENERIC_POOL.md)에 위임한다. namespace는 TPLab.Core.Pooling, runtime assembly는 TPLab.Core다. 현재 지원·검증 기준은 Unity 6000.3이며, Assets/TPLab/Core 폴더와 .meta를 소비 프로젝트에 함께 가져오는 방식을 사용한다. UPM 배포는 별도 소비 프로젝트 검증 단계에서 결정한다.
 
 - PrefabPool(prefab, capacity, parent, onRent, onReturn)은 원본과 부모를 빌려 사용한다. 원본은 새 객체를 생성하는 동안, 부모는 풀 수명 동안 살아 있어야 한다. 풀은 생성한 모든 복제본과 비활성 보관 루트를 소유한다.
 - Capacity는 대여 중 객체와 대기 객체를 합친 총 소유 정원이다. TryRent(out instance)는 대기 객체를 우선 재사용하고 정원 소진에만 false/null을 반환한다. 입력·수명·콜백 오류는 예외다.
@@ -13,7 +13,7 @@
 Cashier에서 총 소유 정원·수명 소유권·실패 정리의 필요성을 확인했다. 초기 구현은 Unity 기본 풀의 보관 기능을 활용했으나, 일반 C# 클래스 지원과 정책 일관성을 위해 System 컬렉션 기반 제네릭 풀로 전환했다. 현재 runtime은 UnityEngine.Pool에 의존하지 않는다. Cashier 코드와 게임별 상태는 복사하지 않는다. 전환 근거와 최신 검증은 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
 
 ```csharp
-using MyLab.Core.Pooling;
+using TPLab.Core.Pooling;
 
 var pool = new PrefabPool(prefab, capacity: 16, parent: transform,
     onReturn: instance =>
@@ -40,7 +40,7 @@ pool.Dispose();
 
 ## 최초 Unity 기본 풀 기반 구현의 실행 증거 (2026-10-02)
 
-- 정확한 MyLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616. 새 Editor를 실행하지 않았다.
+- 정확한 TPLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616. 새 Editor를 실행하지 않았다.
 - Red: 최소 API stub에서 EditMode 6건 중 통과 1·실패 5·skip 0, PlayMode 17건 중 통과 0·실패 17·skip 0을 실제 실행했다. [EditMode 결과](validation/object-pool/red-edit.json), [PlayMode 결과](validation/object-pool/red-play.json).
 - Green: 최종 구현에서 전체 EditMode 통과 7/7(공용 풀 6건 + Addressables 패키지의 기존 테스트 1건), 전체 PlayMode 통과 17/17. 두 실행 모두 실패 0·skip 0이다. [EditMode 결과](validation/object-pool/green-edit.json), [PlayMode 결과](validation/object-pool/green-play.json).
 - 테스트에 사용한 최종 C#·asmdef·manifest/lock의 [SHA-256 목록](validation/object-pool/test-input-sha256.json)을 남겼다. 이 파일과 테스트 결과는 동일한 작업 커밋에 포함한다.

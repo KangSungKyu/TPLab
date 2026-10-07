@@ -1,10 +1,10 @@
 # DataTables
 
 Module: DataTables
-Namespace: MyLab.Core.DataTables
-Assembly: MyLab.Core
-SourceRevision: 9305b5dd0f730636f431fd5d19a1c9102fdc3bed
-SourcePath: [Core/DataTables](../../../Assets/MyLab/Core/DataTables)
+Namespace: TPLab.Core.DataTables
+Assembly: TPLab.Core
+SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+SourcePath: [Core/DataTables](../../../Assets/TPLab/Core/DataTables)
 HumanContract: [DataTables](../../api/DataTables.md), [상세 계약](../../DATA_TABLE_MANAGER.md)
 ImplementationStatus: Implemented
 ValidationStatus: Partial

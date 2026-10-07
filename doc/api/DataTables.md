@@ -2,8 +2,8 @@
 
 CSV를 프로젝트 DTO로 읽고 모든 테이블·FK 검증이 성공한 snapshot만 공개한다. 기본 경로는 `uint idx`이며, 별도 PK를 쓰는 수동 경로도 제공한다. Text/Resource는 코어 기본 테이블이 아닌 [프로젝트 템플릿](../templates/data-tables/README.md)이다.
 
-- Namespace: `MyLab.Core.DataTables`; Assembly: `MyLab.Core`
-- SourceRevision: `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`; [소스](../../Assets/MyLab/Core/DataTables)
+- Namespace: `TPLab.Core.DataTables`; Assembly: `TPLab.Core`
+- SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [소스](../../Assets/TPLab/Core/DataTables)
 - ImplementationStatus: Implemented; ValidationStatus: Partial. Unity 6000.3.18f1 Windows Mono 소비 프로젝트와 전체 회귀는 [검증 자료](../validation/input-system/p4/README.md)에 있다. 다른 버전·IL2CPP는 미실행이다.
 - 의존성: CsvHelper 33.1.0, UniTask. 상세 계약: [기본 로딩](../DATA_TABLE_MANAGER.md), [idx](../DATA_TABLE_IDX_DRAFT.md), [제네릭 조회](../DATA_TABLE_GENERIC_IMPLEMENTATION.md).
 

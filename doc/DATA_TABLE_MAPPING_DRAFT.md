@@ -1,6 +1,6 @@
 # DTO·테이블·인터페이스 매핑 계약
 
-2026-10-02. 최초 상태: 검토 초안. 2026-10-06 generic 범위 구현 완료. 기준은 MyLab `main / b8c2c91`과 Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`이다. 아래 API와 예제는 현재 구현 계약이며 [DataTableManager](DATA_TABLE_MANAGER.md)와 [검증 증거](validation/generic-data-tables/README.md)를 함께 확인한다.
+2026-10-02. 최초 상태: 검토 초안. 2026-10-06 generic 범위 구현 완료. 기준은 TPLab `main / b8c2c91`과 Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`이다. 아래 API와 예제는 현재 구현 계약이며 [DataTableManager](DATA_TABLE_MANAGER.md)와 [검증 증거](validation/generic-data-tables/README.md)를 함께 확인한다.
 
 후속 요청으로 기본 제공 테이블의 uint 키는 확정했다. 생성·추출 클래스 등록, 종류와 테이블 연결, PK/FK 탐색의 세부 계약은 [uint idx 계약](DATA_TABLE_IDX_DRAFT.md)이 소유한다. 아래 표준 인터페이스·등록 예제도 이 요구에 맞춰 갱신했다.
 
@@ -16,7 +16,7 @@
 
 ## Cashier에서 확인한 구조
 
-| 실제 구조 | MyLab 채택 판단 |
+| 실제 구조 | TPLab 채택 판단 |
 |---|---|
 | `TextData`, `ResourceData`, `ProductData`의 `[Name]`·`[TypeConverter]` 속성 | 개선 후 채택: 기본 DTO와 CsvHelper의 DTO 자동 매핑 경로 제공 |
 | 테이블의 `ReadHeader` → `ValidateHeader<T>` → `GetRecord<T>` → PK/행 검증 | 개선 후 채택: 공용 CSV 파싱·header/중복 키 검사는 manager에 두고 테이블은 매핑·게임 검증을 제공 |
@@ -29,7 +29,7 @@
 
 ## 공용 기반 규격
 
-공용 namespace는 `MyLab.Core.DataTables`다. 기본 CSV 규격은 `idx` 열과 uint 키로 고정한다. ID 구간·0/null 정책은 uint idx 계약을 따르며 기존 수동 Register는 임의 TKey/TRow를 계속 지원한다. 표준 종류 registry와 idx 조회는 새 표준 경로에 적용하고 수동 등록을 자동 변환하지 않는다.
+공용 namespace는 `TPLab.Core.DataTables`다. 기본 CSV 규격은 `idx` 열과 uint 키로 고정한다. ID 구간·0/null 정책은 uint idx 계약을 따르며 기존 수동 Register는 임의 TKey/TRow를 계속 지원한다. 표준 종류 registry와 idx 조회는 새 표준 경로에 적용하고 수동 등록을 자동 변환하지 않는다.
 
 ```csharp
 public interface IDataRow

@@ -1,8 +1,8 @@
 # Pooling
 
-**Module / Namespace / Assembly:** Pooling / `MyLab.Core.Pooling` / `MyLab.Core`
+**Module / Namespace / Assembly:** Pooling / `TPLab.Core.Pooling` / `TPLab.Core`
 
-**SourceRevision / SourcePath / HumanContract:** `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`; [`ObjectPool.cs`](../../../Assets/MyLab/Core/Pooling/ObjectPool.cs), [`PrefabPool.cs`](../../../Assets/MyLab/Core/Pooling/PrefabPool.cs); [`Pooling.md`](../../api/Pooling.md).
+**SourceRevision / SourcePath / HumanContract:** `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [`ObjectPool.cs`](../../../Assets/TPLab/Core/Pooling/ObjectPool.cs), [`PrefabPool.cs`](../../../Assets/TPLab/Core/Pooling/PrefabPool.cs); [`Pooling.md`](../../api/Pooling.md).
 
 **ImplementationStatus / ValidationStatus / Evidence:** Implemented / Partial. 현행 source revision의 Unity `6000.3.18f1` Windows Mono 전체 회귀: [EditMode 258/258](../../validation/input-system/p4/full-EditMode.json), [PlayMode 217/217](../../validation/input-system/p4/full-PlayMode.json); [P4 기록](../../validation/input-system/p4/README.md). 회귀에는 `ObjectPool<T>`·`PrefabPool` 검사가 포함됨. [소비 Player](../../validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json)의 pool 재사용은 generic `ObjectPool<T>` 경로. 과거 focused `object-pool/green-*.json`은 현행 결과가 아님. 다른 Unity 버전·backend·플랫폼 범용성은 검증하지 않음.
 

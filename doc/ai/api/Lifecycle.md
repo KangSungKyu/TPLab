@@ -2,9 +2,9 @@
 
 | Field | Value |
 |---|---|
-| Module / Namespace / Assembly | `Lifecycle` / `MyLab.Core.Lifecycle` / `MyLab.Core` |
-| SourceRevision | `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`; 배포 버전 미지정 |
-| SourcePath | [Lifecycle 소스](../../../Assets/MyLab/Core/Lifecycle), [assembly](../../../Assets/MyLab/Core/MyLab.Core.asmdef) |
+| Module / Namespace / Assembly | `Lifecycle` / `TPLab.Core.Lifecycle` / `TPLab.Core` |
+| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; 배포 버전 미지정 |
+| SourcePath | [Lifecycle 소스](../../../Assets/TPLab/Core/Lifecycle), [assembly](../../../Assets/TPLab/Core/TPLab.Core.asmdef) |
 | HumanContract | [사람용 API](../../api/Lifecycle.md), [root](../../SCENE_ROOT.md), [비동기 계약](../../ASYNC_SCENE_LIFECYCLE.md), [singleton](../../SINGLETON.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
 | Evidence | [p4](../../validation/input-system/p4/README.md): 전체 Edit258/Play217 실패0·skip0, reload8/8, Windows Mono sample/Core consumer build·Player. 모듈 전용 건수가 아니다. 이 문서 작업 새 실행0. |
@@ -107,4 +107,4 @@ async void Install, active root Configure, installer 선파괴, Release hook에�
 
 [사람용 설명 발췌](../../api/Lifecycle.md#사용-발췌)는 실제 선언과 대조했지만 문서 작업 중 compile/run하지 않았다. 정상·caller cancel·owner shutdown·Destroy 순서를 포함한다. 기존 동기 installer는 default async hooks로 호환된다. singleton과 persistence는 별도 선택이다.
 
-확인 환경 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1, Windows Mono. 다른 Unity/IL2CPP/플랫폼, 임의 installer의 취소·종료, 모든 abrupt stop 조합은 미검증. Core asmdef 의존성은 [소스](../../../Assets/MyLab/Core/MyLab.Core.asmdef)가 소유한다. 로딩 진행률·팁·버튼 대기는 이 모듈 기능이 아니다.
+확인 환경 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1, Windows Mono. 다른 Unity/IL2CPP/플랫폼, 임의 installer의 취소·종료, 모든 abrupt stop 조합은 미검증. Core asmdef 의존성은 [소스](../../../Assets/TPLab/Core/TPLab.Core.asmdef)가 소유한다. 로딩 진행률·팁·버튼 대기는 이 모듈 기능이 아니다.

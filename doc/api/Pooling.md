@@ -1,8 +1,8 @@
 # 풀링 API
 
-`MyLab.Core.Pooling` 네임스페이스는 `MyLab.Core` 어셈블리에 있습니다. 일반 참조 객체용 제한 풀 `ObjectPool<T>`와 Unity `GameObject` 프리팹 복제본용 메인 스레드 풀 `PrefabPool`을 제공합니다. 풀은 생성한 객체를 소유하고, 대여 중인 객체도 용량과 종료 정리에 포함합니다. 소비자는 객체를 빌려 쓰고 정확히 한 번 반환합니다. 풀 소유자가 용량과 초기화·재설정·정리 콜백을 선택합니다.
+`TPLab.Core.Pooling` 네임스페이스는 `TPLab.Core` 어셈블리에 있습니다. 일반 참조 객체용 제한 풀 `ObjectPool<T>`와 Unity `GameObject` 프리팹 복제본용 메인 스레드 풀 `PrefabPool`을 제공합니다. 풀은 생성한 객체를 소유하고, 대여 중인 객체도 용량과 종료 정리에 포함합니다. 소비자는 객체를 빌려 쓰고 정확히 한 번 반환합니다. 풀 소유자가 용량과 초기화·재설정·정리 콜백을 선택합니다.
 
-**SourceRevision:** `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`
+**SourceRevision:** `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`
 **ImplementationStatus:** Implemented
 **ValidationStatus:** Partial — Unity `6000.3.18f1` / Windows Mono에서 확인했습니다. 기록된 테스트 범위만 근거로 삼으며 모든 Unity 버전, 백엔드, 플랫폼의 지원을 뜻하지 않습니다.
 
@@ -101,4 +101,4 @@ pool.Dispose();
 - 이전 focused `object-pool/green-*.json` 자료는 과거 증거이며 현행 `PrefabPool` 결과로 사용하지 않습니다.
 - 이 근거는 Unity `6000.3.18f1` / Windows Mono 범위이며, 다른 버전·backend·플랫폼의 호환성을 입증하지 않습니다.
 
-구현: [`ObjectPool.cs`](../../Assets/MyLab/Core/Pooling/ObjectPool.cs), [`PrefabPool.cs`](../../Assets/MyLab/Core/Pooling/PrefabPool.cs).
+구현: [`ObjectPool.cs`](../../Assets/TPLab/Core/Pooling/ObjectPool.cs), [`PrefabPool.cs`](../../Assets/TPLab/Core/Pooling/PrefabPool.cs).

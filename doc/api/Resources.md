@@ -1,13 +1,13 @@
 # 리소스 관리 API
 
-`MyLab.Core.ResourceManagement` 네임스페이스는 `MyLab.Core` 어셈블리에 있습니다. 이 모듈은 서로 다른 두 소유권 경로를 제공합니다.
+`TPLab.Core.ResourceManagement` 네임스페이스는 `TPLab.Core` 어셈블리에 있습니다. 이 모듈은 서로 다른 두 소유권 경로를 제공합니다.
 
 - `ResourceManager`는 프로젝트 또는 씬 범위의 Addressables **에셋 캐시**입니다. 반환된 에셋은 manager가 종료될 때까지 빌려 쓰는 객체입니다.
 - `ISceneLoader`는 실제 로드된 씬 인스턴스 하나와 해당 인스턴스를 언로드할 백엔드 핸들을 독점하는 `LoadedScene`을 반환합니다. 씬 로드는 에셋 캐시를 사용하지 않습니다.
 
 Addressables 설정, catalog/runtime data, 에셋 주소는 소비 프로젝트가 제공합니다. Native 씬은 Player build scene 목록에 활성화되어 있어야 합니다. `ISceneProgressLoader`는 선택적인 씬 backend 단계 진행률을 제공하며, 실제 로딩 화면 UI는 SceneManagement callback을 사용하는 프로젝트가 소유합니다. `ResourceManager`의 에셋 캐시에는 씬 로드/UI API가 없습니다.
 
-**SourceRevision:** `18d479bf07fe8479a22187ec7357024e9979d096`
+**SourceRevision:** `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`
 **ImplementationStatus:** Implemented
 **ValidationStatus:** Partial — 현재 P4 전체 회귀와 Windows Mono 소비 Player smoke를 확인했습니다. 실제 소비 프로젝트 Addressables catalog/content 및 원격 다운로드는 검증하지 않았습니다. IL2CPP와 다른 플랫폼도 미실행입니다. [P4 증거](../validation/scene-loading/p4/README.md).
 
@@ -130,7 +130,7 @@ Addressables 씬은 소비 프로젝트 catalog에 설정한 뒤 `SceneTarget.Ad
 - 현재 전체 회귀: EditMode 271/271, PlayMode 253/253, 실패0·skip0. Input 포함 consumer Editor build 1회와 Player run 1회가 성공했으며, ResourceManager smoke의 확인 범위는 빈 manager 종료다. [P4 증거](../validation/scene-loading/p4/README.md).
 - 이 근거는 Unity `6000.3.18f1` / Windows Mono만 입증합니다. 실제 소비 프로젝트 Addressables catalog/content 또는 원격 다운로드는 검증하지 않았고, IL2CPP·다른 플랫폼도 미실행입니다.
 
-구현: [`ResourceManager.cs`](../../Assets/MyLab/Core/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../Assets/MyLab/Core/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../Assets/MyLab/Core/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../Assets/MyLab/Core/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../Assets/MyLab/Core/ResourceManagement/LoadedScene.cs).
+구현: [`ResourceManager.cs`](../../Assets/TPLab/Core/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../Assets/TPLab/Core/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../Assets/TPLab/Core/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../Assets/TPLab/Core/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../Assets/TPLab/Core/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../Assets/TPLab/Core/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../Assets/TPLab/Core/ResourceManagement/LoadedScene.cs).
 
 ## 진행률 확장 (2026-10-07 P1)
 

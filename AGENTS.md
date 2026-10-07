@@ -1,24 +1,24 @@
-# MyLab 작업 지침
+# TPLab 작업 지침
 
 ## 목적과 역할
 
-- MyLab은 개발·참여하는 Unity 프로젝트에서 재사용할 공용 코어를 개발하고 검증하는 프로젝트다.
+- TPLab은 개발·참여하는 Unity 프로젝트에서 재사용할 공용 코어를 개발하고 검증하는 프로젝트다.
 - 이 세션은 Unity 공용 코어 아키텍처 프로그래머다. 요구사항·호출 흐름 분석, API·상태 소유권·수명 설계, 구현 범위 결정, 테스트 설계와 결과 리뷰를 책임진다.
 - 구현 요청을 받으면 확정된 범위에서 구현·검증한다. 목표·역할 설정이나 설계 검토 요청을 전체 시스템 구현으로 확대하지 않는다.
 - 1차 대상은 ObjectPool, Singleton, ResourceManager, DataTableManager, GameSceneManager다. 작업 시작·범위 변경 시 [문서 색인](doc/INDEX.md)에서 관련 명세만 선택해 읽는다. 새 단계의 검토안과 선행 조건은 [CORE_PLAN.md](doc/CORE_PLAN.md)를 확인한다.
-- Cashier 전용 세션 분업·담당자·승인 절차를 MyLab에 자동 적용하지 않는다. 새 사용자 소유 세션 생성과 다른 세션으로의 메시지는 해당 요청의 권한을 확인한다.
+- Cashier 전용 세션 분업·담당자·승인 절차를 TPLab에 자동 적용하지 않는다. 새 사용자 소유 세션 생성과 다른 세션으로의 메시지는 해당 요청의 권한을 확인한다.
 
 ## C#과 Unity 기준
 
 - Microsoft Learn의 [C# 컨벤션](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)과 [Unity 코드 스타일 안내](https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity)를 참고하며, 아래 프로젝트 선택을 일관되게 적용한다.
 - 타입·메서드·프로퍼티·상수는 PascalCase, 매개변수·지역 변수는 camelCase, private 인스턴스 필드는 _camelCase, 인터페이스는 I 접두사, 비동기 메서드는 Async 접미사를 사용한다.
-- 들여쓰기는 공백 4개, 중괄호는 Allman 방식이다. namespace는 MyLab.Core와 기능 하위 이름을 사용하고 Unity가 지원하는 C# 문법·API 범위에서 작성한다.
+- 들여쓰기는 공백 4개, 중괄호는 Allman 방식이다. namespace는 TPLab.Core와 기능 하위 이름을 사용하고 Unity가 지원하는 C# 문법·API 범위에서 작성한다.
 - Inspector 노출은 필요한 필드에만 [SerializeField] private를 사용한다. 직렬화 필드 이름 변경 시 기존 자산·GUID·직렬화 호환성을 확인한다.
 - public API에는 책임, 입력·반환, 소유권과 필요한 오류·취소 계약을 XML 주석으로 남긴다. 내부 주석은 코드만으로 드러나지 않는 이유에 집중한다.
 - Runtime은 UnityEditor·게임별 도메인·UI를 참조하지 않는다. Editor 코드와 EditMode·PlayMode 테스트는 assembly 경계를 분리한다.
-- MyLab 공용 입력 기능은 Unity Input System만 지원한다. Legacy Input Manager(`UnityEngine.Input`) 어댑터·fallback·양쪽 backend 선택 API를 제공하지 않는다. 입력 모듈은 `Unity.InputSystem`을 명시적으로 참조하고 다른 코어 모듈에는 입력 의존성을 강제하지 않는다. 프로젝트의 Active Input Handling은 Input System Package (New)를 권장하며, Both여도 MyLab은 Input System만 사용한다. 현재 설계·지원 범위·구현 상태는 [INPUT_SYSTEM_DRAFT.md](doc/INPUT_SYSTEM_DRAFT.md)를 따른다.
+- TPLab 공용 입력 기능은 Unity Input System만 지원한다. Legacy Input Manager(`UnityEngine.Input`) 어댑터·fallback·양쪽 backend 선택 API를 제공하지 않는다. 입력 모듈은 `Unity.InputSystem`을 명시적으로 참조하고 다른 코어 모듈에는 입력 의존성을 강제하지 않는다. 프로젝트의 Active Input Handling은 Input System Package (New)를 권장하며, Both여도 TPLab은 Input System만 사용한다. 현재 설계·지원 범위·구현 상태는 [INPUT_SYSTEM_DRAFT.md](doc/INPUT_SYSTEM_DRAFT.md)를 따른다.
 - 사용자 승인 의존성은 UniTask 2.5.11, CsvHelper 33.1.0, Unity CLI/Connector 0.4.1이다. 비동기는 UniTask, CSV는 CsvHelper를 기본으로 사용한다. Unity CLI는 Editor 개발·검증 도구로 사용하며 코어 runtime에 의존시키지 않는다.
-- Unity CLI는 항상 MyLab의 절대 project 경로를 지정한다. 연결된 기존 Editor의 상태·컴파일을 확인하고 다른 프로젝트나 새 Editor로 검증을 대체하지 않는다.
+- Unity CLI는 항상 TPLab의 절대 project 경로를 지정한다. 연결된 기존 Editor의 상태·컴파일을 확인하고 다른 프로젝트나 새 Editor로 검증을 대체하지 않는다.
 
 ## SOLID와 최소 구현
 
@@ -75,7 +75,7 @@
 
 - GameSceneManager Phase 통합은 [SCENE_TRANSITION_TRACK.md](doc/SCENE_TRANSITION_TRACK.md)를 기준으로 한다. main `e9fa4e46f1dc8fe19800800a2229668cb8b4a432`에서 생성한 `codex/game-scenes-track`의 최신 검증 tip에서 Phase 브랜치를 생성하고 `p0-guidelines` → `p0-loaders` → `p3a-flow` → `p3b-areas` → `p4-definitions` → `p5-editor` → `p6-validation`을 순서대로 통합한다. 현재 단위·commit·실제 증거는 track 문서 한 곳에서 갱신한다. Phase 0은 Addressables/Build loader 명시 선택과 씬 instance 소유권을 다룬다. Phase 3A/3B/4/5/6 계약은 [GAME_SCENE_MANAGER_DRAFT.md](doc/GAME_SCENE_MANAGER_DRAFT.md), 최종 한 번의 사용자 확인 기준은 [SCENE_TRANSITION_ACCEPTANCE.md](doc/SCENE_TRANSITION_ACCEPTANCE.md)를 참조한다.
 - 부모 에이전트가 공용 계약·작업 배정·결과 리뷰·회고·Git 통합·Unity 조작을 소유한다. 하위 에이전트는 현재 지원 모델을 확인하고 검색은 luna/low, 작고 확정된 구현은 luna/medium, 통합 구현은 6.1-sol/medium을 우선 선택한다. 비동기 수명·소유권 위험은 high로 기록하고 필요하면 추론을 올린다. 역할·선택 근거·허용 경로·상태를 track 표에 남기며, 미확정 설계는 구현 담당에게 넘기지 않는다.
-- 기본 하위 에이전트는 1개, 독립 작업이 필요한 경우 최대 2개다. 같은 파일 또는 공용 계약을 동시에 수정하지 않는다. Unity 테스트 중 소스 변경을 동결하고, 기존 MyLab Editor는 부모만 조작한다. 새 사용자 소유 세션을 만들지 않는다.
+- 기본 하위 에이전트는 1개, 독립 작업이 필요한 경우 최대 2개다. 같은 파일 또는 공용 계약을 동시에 수정하지 않는다. Unity 테스트 중 소스 변경을 동결하고, 기존 TPLab Editor는 부모만 조작한다. 새 사용자 소유 세션을 만들지 않는다.
 - 각 Phase의 자동 검증·리뷰·회고가 완료되면 해당 Phase를 track에 통합한다. 제안·진행·자동 검증 완료·사용자 확인 대기·완료 상태를 구분하고 증거가 있기 전 완료로 바꾸지 않는다. 최종 시각·사용성 확인은 마지막에 모으되 미검증 영역을 명시한다.
 - 자동 검증 완료와 최종 사용자 확인은 별도 gate다. 사용자의 명시적인 확인이 바로 이어지지 않으면 최종 확인 대기 상태로 둔다. 대기 중에는 `main` 병합과 브랜치 삭제를 하지 않는다. 시간 경과·무응답은 확인이나 승인으로 보지 않는다. `main`은 필요한 자동 검증과 사용자의 명시적 최종 확인이 모두 끝난 뒤에만 병합·푸시한다. main 진행 시 최신 main을 track에 통합하고 영향을 받는 검증을 다시 실행한다.
 - 통합은 원본 commit을 보존하는 fast-forward 또는 일반 merge를 사용한다. track/Phase 브랜치는 최종 main push와 SHA 보존을 확인한 뒤에만 삭제하며, 다른 worktree가 사용 중이면 보류한다.

@@ -1,5 +1,7 @@
 # 재사용 검증 도구
 
+명령의 `C:\Users\PC\Projects\MyLab`은 현재 PC의 실제 checkout 경로 예시다. `--project`에는 각 PC의 절대 경로를 사용하며 코드·assembly·메뉴는 `TPLab`이다. [이름 변경과 검증](../doc/TPLAB_NAMING.md)을 참고한다.
+
 작업별 입력과 출력은 명시한다. 과거 출력은 현재 테스트/승인을 대신하지 않는다. Python 표준 라이브러리만 사용하며 도구는 파일 삭제·Git 통합을 수행하지 않는다. run_unity_tests.py만 명시한 기존 Unity Editor에 테스트를 요청한다.
 
 ```powershell
@@ -15,7 +17,7 @@ run_unity_tests.py는 절대 project 경로의 기존 ready Editor만 사용하�
 
 ```powershell
 python tools/run_unity_tests.py --self-check
-python tools/run_unity_tests.py --project C:\Users\PC\Projects\MyLab --mode PlayMode --filter MyLab.Core.Tests.GameSceneEntryTests --output Temp/MyCheck/play.json
+python tools/run_unity_tests.py --project C:\Users\PC\Projects\MyLab --mode PlayMode --filter TPLab.Core.Tests.GameSceneEntryTests --output Temp/MyCheck/play.json
 ```
 
 최소 실행 검증은 [Phase 2 증거](../doc/validation/game-scene-entry/README.md)의 전체 Edit/Play와 결과 파서 self-check다.
@@ -31,9 +33,9 @@ python tools/capture_validation_inputs.py --self-check
 python tools/capture_validation_inputs.py --evidence doc/validation/scene-loaders --base acb636c933f2eea29f46705d233f4e0dba436965 --preserved Temp/GameScenesTrack/preserved-hashes.json
 ```
 
-P6 도구는 기존 MyLab Editor의 검증과 Windows Mono sample Player 실행을 지원한다. `run_core_consumer.py`만 명시적으로 별도 batch Editor를 시작하며 원래 MyLab Editor의 검증을 대체하지 않는다. `run_scene_player.py`는 이미 빌드된 Player만 실행하고 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 기본 소비 manifest는 UniTask·Addressables와 필요한 Unity built-in만 포함하며 Input 모듈은 제외한다. `--include-input`은 Runtime allowlist와 Input System 1.19.0을 더해 복사본에서 컴파일·Windows Mono Player의 virtual keyboard rebind, lease 복원, JSON override/reset, graceful shutdown을 확인한다. 복사본에는 소스 ProjectSettings 전체 대신 `PlayerSettings.activeInputHandler: 1`만 생성한다. 두 도구의 evidence root에는 `doc/validation/scene-loading`도 허용된다.
+P6 도구는 기존 TPLab Editor의 검증과 Windows Mono sample Player 실행을 지원한다. `run_core_consumer.py`만 명시적으로 별도 batch Editor를 시작하며 원래 TPLab Editor의 검증을 대체하지 않는다. `run_scene_player.py`는 이미 빌드된 Player만 실행하고 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 기본 소비 manifest는 UniTask·Addressables와 필요한 Unity built-in만 포함하며 Input 모듈은 제외한다. `--include-input`은 Runtime allowlist와 Input System 1.19.0을 더해 복사본에서 컴파일·Windows Mono Player의 virtual keyboard rebind, lease 복원, JSON override/reset, graceful shutdown을 확인한다. 복사본에는 소스 ProjectSettings 전체 대신 `PlayerSettings.activeInputHandler: 1`만 생성한다. 두 도구의 evidence root에는 `doc/validation/scene-loading`도 허용된다.
 
-Sample Player는 현재 MyLab Editor에서 `MyLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(bool single, string outputDirectory, string evidencePath)`로 만든다. output은 새 경로 `Temp/GameScenesTrack/ScenePlayers/<run>` 아래, build evidence는 새 JSON `doc/validation/scene-loading/<name>.json` 아래에 지정한다. Builder가 scripting backend, Editor scene setup, Build Settings와 그 원본 bytes를 복원한다. Build 후 `run_scene_player.py` 기본 smoke는 10 checks다. `--loading-presentation`은 sample 자동 진행 UI를 켜고 정확히 12 checks와 progress/reveal/proceed/release/two-cover observations를 요구한다. 이 batch 경로는 Manual Proceed나 실제 physical input/visual acceptance를 검증하지 않는다.
+Sample Player는 현재 TPLab Editor에서 `TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(bool single, string outputDirectory, string evidencePath)`로 만든다. output은 새 경로 `Temp/GameScenesTrack/ScenePlayers/<run>` 아래, build evidence는 새 JSON `doc/validation/scene-loading/<name>.json` 아래에 지정한다. Builder가 scripting backend, Editor scene setup, Build Settings와 그 원본 bytes를 복원한다. Build 후 `run_scene_player.py` 기본 smoke는 10 checks다. `--loading-presentation`은 sample 자동 진행 UI를 켜고 정확히 12 checks와 progress/reveal/proceed/release/two-cover observations를 요구한다. 이 batch 경로는 Manual Proceed나 실제 physical input/visual acceptance를 검증하지 않는다.
 
 ```powershell
 python -B tools/run_core_consumer.py --self-check
@@ -47,10 +49,10 @@ python -B tools/verify_validation.py --evidence doc/validation/scene-integration
 Windows Mono sample build와 automatic loading smoke 예시 (모두 고유한 새 output/evidence 이름으로 실행):
 
 ```powershell
-unity-cli --project C:\Users\PC\Projects\MyLab exec 'MyLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(false, "Temp/GameScenesTrack/ScenePlayers/Loading-Additive-01", "doc/validation/scene-loading/loading-build-additive-01.json"); return null;'
+unity-cli --project C:\Users\PC\Projects\MyLab exec 'TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(false, "Temp/GameScenesTrack/ScenePlayers/Loading-Additive-01", "doc/validation/scene-loading/loading-build-additive-01.json"); return null;'
 python -B tools/run_scene_player.py --project C:\Users\PC\Projects\MyLab --player C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\ScenePlayers\Loading-Additive-01\SceneTransitions.exe --output C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\PlayerRuns\Loading-Additive-01 --evidence C:\Users\PC\Projects\MyLab\doc\validation\scene-loading\player-run-additive-01 --mode additive --expected-checks 12 --loading-presentation
 
-unity-cli --project C:\Users\PC\Projects\MyLab exec 'MyLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(true, "Temp/GameScenesTrack/ScenePlayers/Loading-Single-01", "doc/validation/scene-loading/loading-build-single-01.json"); return null;'
+unity-cli --project C:\Users\PC\Projects\MyLab exec 'TPLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(true, "Temp/GameScenesTrack/ScenePlayers/Loading-Single-01", "doc/validation/scene-loading/loading-build-single-01.json"); return null;'
 python -B tools/run_scene_player.py --project C:\Users\PC\Projects\MyLab --player C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\ScenePlayers\Loading-Single-01\SceneTransitions.exe --output C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\PlayerRuns\Loading-Single-01 --evidence C:\Users\PC\Projects\MyLab\doc\validation\scene-loading\player-run-single-01 --mode single --expected-checks 12 --loading-presentation
 ```
 

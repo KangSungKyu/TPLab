@@ -6,7 +6,7 @@
 
 - Unity Input System만 지원한다. Legacy Input Manager(`UnityEngine.Input`)·backend 선택·자동 fallback은 제공하지 않는다. Unity의 기본 입력 API도 신형 패키지의 `Keyboard`/`Mouse` 등 직접 장치 접근과 구분해서 표현한다.
 - 확인 기준은 Unity 6000.3.18f1 + Input System 1.19.0이다. manifest와 설치 package가 일치하며 현재 `activeInputHandler: 1`(New)을 사용한다. 이번 설계에서 package·ProjectSettings·기존 씬을 변경하지 않는다. 최소 지원 버전·다른 플랫폼 호환성은 아직 미확정이다.
-- 신규 입력 모듈은 `MyLab.Core.Input` namespace, `MyLab.Core.Input` 별도 assembly로 `MyLab.Core`·`UniTask`·`Unity.InputSystem`을 참조한다. 기존 `MyLab.Core.asmdef`는 입력 패키지를 참조하지 않는다. UI 연결은 별도 Samples/프로젝트 assembly에 둔다.
+- 신규 입력 모듈은 `TPLab.Core.Input` namespace, `TPLab.Core.Input` 별도 assembly로 `TPLab.Core`·`UniTask`·`Unity.InputSystem`을 참조한다. 기존 `TPLab.Core.asmdef`는 입력 패키지를 참조하지 않는다. UI 연결은 별도 Samples/프로젝트 assembly에 둔다.
 - 최초 범위는 입력 asset 한 개의 단일 사용자 scope다. 로컬 멀티플레이·InputUser pairing·플레이어별 장치 격리는 후속 요구에 따른다. 신형 Input System의 장치/Action/interaction/processor 기능은 그대로 사용하고 재구현하지 않는다.
 
 기본 API 근거: [바인딩 변경·JSON·표시](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.19/manual/ActionBindings.html), [Action/Map 활성화](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.19/manual/Actions.html#enable-actions), [UI와 게임 입력 구분](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.19/manual/UISupport.html#distinguishing-between-ui-and-game-input). 1.19.0의 설치 소스에서도 `OnApplyBinding`, enabled Action의 리바인딩 거부, operation Dispose와 UI 클릭의 비독점 처리를 확인했다. 개발 중인 다른 버전의 기능을 현재 제공 API로 가정하지 않는다.
@@ -81,7 +81,7 @@ null JSON은 거부하고 native Export의 빈 문자열은 기본값 복원으�
 
 ## 씬 전환과 UI 연결
 
-- 기존 [SceneTransitionCallbacks](../Assets/MyLab/Core/SceneManagement/SceneTransitionCallbacks.cs)의 계약을 재사용한다. ShowCoverAsync는 자기 Transition layer lease를 확보하고 가림막 표시를 기다린다. HideCoverAsync는 reveal 성공 후 자기 lease만 해제한다. 가림막 실패·취소 시 layer를 유지하고 정책상 전환을 중단한다. bool 하나를 false로 바꾸어 다른 팝업 차단까지 해제하지 않는다.
+- 기존 [SceneTransitionCallbacks](../Assets/TPLab/Core/SceneManagement/SceneTransitionCallbacks.cs)의 계약을 재사용한다. ShowCoverAsync는 자기 Transition layer lease를 확보하고 가림막 표시를 기다린다. HideCoverAsync는 reveal 성공 후 자기 lease만 해제한다. 가림막 실패·취소 시 layer를 유지하고 정책상 전환을 중단한다. bool 하나를 false로 바꾸어 다른 팝업 차단까지 해제하지 않는다.
 - callback/입력 scope/가림막은 해제되는 게임 씬보다 오래 살아 있어야 한다. Single 전환의 persistent 공용 root 규칙은 [기존 계약](BOOTSTRAP_SYSTEM.md)을 따른다. layer priority로 scene graph/active scene의 우선순위를 대체하지 않는다.
 - 기본 UI 입력과 gameplay 입력은 자동으로 상호 배제되지 않는다. `InputSystemUIInputModule`과 CanvasGroup/포커스를 연결하는 프로젝트 소유 어댑터를 예제로 제공한다. 코어는 EventSystem/uGUI/UI Toolkit에 의존하지 않는다.
 - 어댑터는 원본 asset의 ActionReference를 그대로 연결하지 않고 manager clone의 Action을 사용한다. UI module 재활성화가 Map을 자동 Enable하는 문제를 포함해 adapter가 module lifecycle을 조정하고 controller 상태를 다시 적용한다. module이 임의로 다른/default asset을 만들지 않게 한다.

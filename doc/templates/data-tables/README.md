@@ -1,8 +1,8 @@
 # 데이터 테이블 예시 템플릿
 
-Text·Resource는 프로젝트별 필드 구성이 달라질 수 있으므로 코어 기본 타입에서 제외했다. [예시 소스](../../../Assets/MyLab/Tests/Fixtures/DataTableTemplates.cs)의 TextRow/TextDataTable, ResourceKeyRow/ResourceKeyDataTable을 프로젝트의 출발점으로 사용한다.
+Text·Resource는 프로젝트별 필드 구성이 달라질 수 있으므로 코어 기본 타입에서 제외했다. [예시 소스](../../../Assets/TPLab/Tests/Fixtures/DataTableTemplates.cs)의 TextRow/TextDataTable, ResourceKeyRow/ResourceKeyDataTable을 프로젝트의 출발점으로 사용한다.
 
-소스 namespace는 `MyLab.Examples.DataTables`다. MyLab에서는 기존 TestFixtures assembly에서 컴파일해 EditMode·PlayMode·native CSV/root 테스트로 검증한다. `MyLab.Core` assembly나 일반 Player runtime에 예시 타입을 포함하지 않으며 테스트 assembly를 제품 의존성으로 추가하지 않는다. 별도 샘플 package·assembly나 자동 등록은 없다.
+소스 namespace는 `TPLab.Examples.DataTables`다. TPLab에서는 기존 TestFixtures assembly에서 컴파일해 EditMode·PlayMode·native CSV/root 테스트로 검증한다. `TPLab.Core` assembly나 일반 Player runtime에 예시 타입을 포함하지 않으며 테스트 assembly를 제품 의존성으로 추가하지 않는다. 별도 샘플 package·assembly나 자동 등록은 없다.
 
 ## 프로젝트에서 사용
 
@@ -23,7 +23,7 @@ var snapshot = await manager.LoadAsync(cancellationToken);
 TextRow text = snapshot.Get<TextRow>(nameIdx);
 ```
 
-namespace는 코어에 `MyLab.Core.DataTables`, 복사한 타입에 프로젝트 namespace를 사용한다. 공급자·Stride·종류 번호·idx 값은 소비 프로젝트가 정한다. 동일 종류에는 하나의 테이블만 등록한다. `new` factory는 재로드와 실패 재시도를 포함한 매 시도마다 새 객체를 제공한다.
+namespace는 코어에 `TPLab.Core.DataTables`, 복사한 타입에 프로젝트 namespace를 사용한다. 공급자·Stride·종류 번호·idx 값은 소비 프로젝트가 정한다. 동일 종류에는 하나의 테이블만 등록한다. `new` factory는 재로드와 실패 재시도를 포함한 매 시도마다 새 객체를 제공한다.
 
 ## 예시 CSV와 변경 지점
 
@@ -43,4 +43,4 @@ idx,key
 
 위 idx는 Stride=1000, 종류 1/2를 선택한 예시다. 필수/선택 열·converter·FK와 오류 정책은 [매핑 계약](../../DATA_TABLE_MAPPING_DRAFT.md), [idx 계약](../../DATA_TABLE_IDX_DRAFT.md)을 따른다. 공개 DTO는 읽기 전용으로 취급하고 관련 참조는 같은 snapshot에서 읽는다.
 
-이번 템플릿 분리의 [검증 기록](../../validation/data-table-templates/README.md)과 [회고](../../retrospectives/2026-10-06-07-data-table-templates.md)를 확인한다. 소비 프로젝트 복사·Player/IL2CPP 실행은 이번 MyLab 테스트와 별도의 후속 검증이다.
+이번 템플릿 분리의 [검증 기록](../../validation/data-table-templates/README.md)과 [회고](../../retrospectives/2026-10-06-07-data-table-templates.md)를 확인한다. 소비 프로젝트 복사·Player/IL2CPP 실행은 이번 TPLab 테스트와 별도의 후속 검증이다.

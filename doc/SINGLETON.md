@@ -1,6 +1,6 @@
 # MonoSingleton 계약
 
-`MyLab.Core.Lifecycle.MonoSingleton<T>`는 Unity 메인 스레드에서 명시적으로 생성한 컴포넌트 하나를 등록한다. 모든 manager가 상속해야 하는 기반은 아니다. Cashier의 등록·정리 hook을 참고하고 초기화 실패, 중복 제거 범위와 반복 Play 수명을 보완했다. Cashier 코드·패키지는 복사하지 않았다.
+`TPLab.Core.Lifecycle.MonoSingleton<T>`는 Unity 메인 스레드에서 명시적으로 생성한 컴포넌트 하나를 등록한다. 모든 manager가 상속해야 하는 기반은 아니다. Cashier의 등록·정리 hook을 참고하고 초기화 실패, 중복 제거 범위와 반복 Play 수명을 보완했다. Cashier 코드·패키지는 복사하지 않았다.
 
 ## API와 소유권
 
@@ -15,7 +15,7 @@
 파생 타입은 `T`에 자신의 타입을 지정한다. `Awake`, `OnEnable`, `OnDestroy`, `OnApplicationQuit`을 숨기지 않고 제공된 hook으로 초기화·정리를 구현한다. 초기화가 아직 진행 중인 자기 자신을 `Instance`로 조회하지 않는다. 비동기 작업·취소·리소스 해제는 소비자의 hook이 소유하며, 이 기반은 비동기 준비 완료를 보장하지 않는다.
 
 ```csharp
-using MyLab.Core.Lifecycle;
+using TPLab.Core.Lifecycle;
 
 public sealed class AppRoot : MonoSingleton<AppRoot>
 {
@@ -34,14 +34,14 @@ Domain Reload가 꺼지면 static 상태를 수동 초기화해야 한다. nonge
 재실행은 다른 테스트가 끝난 동일 Editor에서 다음 명령으로 시작한다. 결과 파일의 완료를 확인하기 전 다른 Editor 명령이나 테스트를 실행하지 않는다.
 
 ```powershell
-unity-cli --project C:\Users\PC\Projects\MyLab exec 'MyLab.Core.Tests.SingletonReloadCheck.Run(); return "started";'
+unity-cli --project C:\Users\PC\Projects\MyLab exec 'TPLab.Core.Tests.SingletonReloadCheck.Run(); return "started";'
 ```
 
 결과는 `Temp/Singleton/reload-check.json`이다. `Success=true`, `CompletedPlayChecks=10`, `SettingsRestored=true`와 각 진입·종료 관찰 기록을 확인한다. 이는 NUnit 테스트 건수와 별도로 보고한다. Test Framework 1.6.0의 중첩 Play 검사에서 실행기가 Domain Reload 후 사라져 실제 Editor 이벤트를 이용했다. Unity CLI/Connector·Test Framework 패키지는 수정하지 않았다.
 
 ## 검증 (2026-10-02)
 
-- 동일 MyLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616.
+- 동일 TPLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616.
 - TDD Red: stub의 PlayMode 14건 중 통과 2, 실패 12, skip 0. [실행 결과](validation/singleton/red-play.json)
 - Green 전체 EditMode: 38/38, 실패·skip 0. [실행 결과](validation/singleton/green-edit.json)
 - Green 전체 PlayMode: 31/31 = 기존 프리팹 17 + Singleton 14, 실패·skip 0. 초기화 공개 순서, 중복·타입 독립성, 비활성화, 소유자 파괴·재생성, 초기화·정리 예외, 재진입, 씬 해제, 영속성·부모 계층 보존을 확인했다. [실행 결과](validation/singleton/green-play.json)

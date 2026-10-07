@@ -102,7 +102,7 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 
 ### Phase 3A 확정 API와 선행 조건
 
-2026-10-06 구현 및 [MyLab 내부 자동 검증](validation/scene-replacement/README.md)을 완료한 계약이다. 파생 구역과 조건은 다음 단위다.
+2026-10-06 구현 및 [TPLab 내부 자동 검증](validation/scene-replacement/README.md)을 완료한 계약이다. 파생 구역과 조건은 다음 단위다.
 
 - `ReplacePrimaryAsync(SceneTarget, LoadSceneMode, CancellationToken)`와 기존 사용성을 유지하는 Build path overload를 제공한다. 최초 진입이 성공했고 현재 주 씬/공용 root/실제 씬 집합이 준비된 Ready 상태에서만 실행한다.
 - `WaitForEntryAsync`는 최초 진입 이력이다. `WaitForTransitionAsync`는 마지막으로 승인된 상태 변경 작업의 공유 완료를 기다린다. 호출자 token은 기다림만 취소하며 `CancelTransition`과 terminal `ShutdownAsync`는 현재 소유 작업·늦은 native 완료까지 기다린다.
@@ -115,7 +115,7 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 
 ### Phase 3B 구현 API와 실행 경계
 
-2026-10-06 구현 및 [MyLab 내부 자동 검증](validation/scene-areas/README.md)을 완료했다. 정의/조건은 다음 단위다.
+2026-10-06 구현 및 [TPLab 내부 자동 검증](validation/scene-areas/README.md)을 완료했다. 정의/조건은 다음 단위다.
 
 - `UniTask<Scene> AddDerivedAsync(SceneTarget target, Scene parent, bool activate = false, int priority = 0, CancellationToken cancellationToken = default)`는 준비된 등록 부모를 유지하며 Additive로만 로드한다. 성공 결과는 이 명령이 실제로 추가한 Scene 인스턴스다. Build path adapter도 같은 경로를 사용한다. 부모는 현재 primary 또는 준비된 derived 인스턴스여야 한다.
 - `RemoveDerivedAsync(Scene scene, Scene requester, CancellationToken cancellationToken = default)`는 대상 자신의 요청 또는 등록 ancestor의 요청만 허용한다. requester/scene은 실제 Scene 인스턴스이며 경로를 권한으로 사용하지 않는다. caller 코드는 그 인스턴스를 소유한 controller에서 호출하는 계약이다.
@@ -150,7 +150,7 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 - 별도 Samples assembly의 프로젝트 예제로 retained Bootstrap/Additive와 영속 common/Single, Hub↔Main, 중첩 구역 추가·자기/ancestor 제거를 실행한다. core runtime에 UI·InputSystem·게임 규칙을 참조시키지 않는다. 설치된 UGUI/InputSystem을 재사용한다.
 - 예제의 screen-space overlay는 화면 전체를 덮고 game/cover/system modal 순서를 명시한다. 전환 차단과 modal 차단을 별도로 소유하고 게임 입력은 manager.CanProceed 및 두 차단 상태를 모두 확인한다. UI 입력은 독립적으로 유지한다. 준비/표현/reveal과 조건 거부·실행 실패는 구별한다. 실제 시각·사용성은 최종 인간 gate다.
 - 기존 Editor에서 네 Domain/Scene Reload 조합을 각각 두 번, 총 8회 진입·graceful 종료한다. harness가 Bootstrap.Configure나 manager reset을 수동 호출하여 이전 상태를 숨기지 않는다. 수명 결함이 실제 Red로 관찰될 때만 해당 경계를 보완한다. 추정한 결함이 실측에서 재현되지 않으면 불필요한 reset을 추가하지 않는다. 원래 scene setup/options/build settings를 복원하고 보호 파일의 bytes를 확인한다.
-- 지원되는 Windows Player를 실제 빌드하고 fresh 실행 결과를 보존한다. 별도 소비 프로젝트는 Core와 필요한 DLL/라이선스 및 승인된 UniTask/Addressables만 가져와 import/compile 및 최소 씬/일반 pool/표준 데이터 테이블 예제를 실행한다. 소비 검증에 MyLab Editor·게임별 코드·URP/UI를 필수 의존성으로 추가하지 않는다.
+- 지원되는 Windows Player를 실제 빌드하고 fresh 실행 결과를 보존한다. 별도 소비 프로젝트는 Core와 필요한 DLL/라이선스 및 승인된 UniTask/Addressables만 가져와 import/compile 및 최소 씬/일반 pool/표준 데이터 테이블 예제를 실행한다. 소비 검증에 TPLab Editor·게임별 코드·URP/UI를 필수 의존성으로 추가하지 않는다.
 - 성공한 Windows Mono 경로를 IL2CPP·다른 플랫폼·원격 Addressables bundle·전체 시각 UX 검증으로 확대하지 않는다. 결과와 미실행 영역은 실제 증거로 기록하고 모든 자동 gate 후 사용자 확인 절차를 하나로 제공한다.
 
 각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. Phase의 필수 자동 검사가 통과하면 승인된 track 통합을 진행한다. 이번 전체 작업의 main 통합에는 최종 명시적 사용자 확인도 필요하며, 사용자 부재 시 [track의 대기·절전 정책](SCENE_TRANSITION_TRACK.md)을 따른다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.

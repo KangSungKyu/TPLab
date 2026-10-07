@@ -1,6 +1,8 @@
 # AI API 색인
 
-SourceRevision: `18d479bf07fe8479a22187ec7357024e9979d096`. [AI README](../README.md)의 설치·읽기 순서를 따른다. signature 블록은 public 선언 발췌이며 private/internal 구현 API는 소비자 사용 대상이 아니다.
+2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../../TPLAB_NAMING.md)에서 기존 MyLab 이름의 이동 규칙과 이번 검증을 확인한다.
+
+SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`. [AI README](../README.md)의 설치·읽기 순서를 따른다. signature 블록은 public 선언 발췌이며 private/internal 구현 API는 소비자 사용 대상이 아니다.
 
 | Module | AI contract | Human contract |
 |---|---|---|

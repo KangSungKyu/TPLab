@@ -1,6 +1,6 @@
 # DataTableManager 계약
 
-2026-10-02. `MyLab.Core.DataTables`의 일반 C# 소유자다. Singleton 상속과 게임별 enum·ID 구간·CSV DTO·검색 규칙을 강제하지 않는다. [검증 기록](validation/data-tables/README.md)에서 현재 실행 범위와 증거를 확인한다.
+2026-10-02. `TPLab.Core.DataTables`의 일반 C# 소유자다. Singleton 상속과 게임별 enum·ID 구간·CSV DTO·검색 규칙을 강제하지 않는다. [검증 기록](validation/data-tables/README.md)에서 현재 실행 범위와 증거를 확인한다.
 
 2026-10-06 표준 uint idx 경로를 구현했다. [DTO·테이블 매핑](DATA_TABLE_MAPPING_DRAFT.md), [idx·조회·FK 계약](DATA_TABLE_IDX_DRAFT.md), [이번 검증](validation/generic-data-tables/README.md)을 따른다. 기존 수동 Register/GetTable과 함께 사용할 수 있다.
 
@@ -73,10 +73,10 @@ Snapshot과 테이블 dictionary는 읽기 전용 container다. 행 객체 자�
 2. PrepareAsync에서 LoadAsync를 기다린다. 마지막 installer까지 준비된 뒤 [SceneRootFlow](ASYNC_SCENE_LIFECYCLE.md)가 씬 진행 callback을 실행한다.
 3. ReleaseAsync와 Uninstall에서 데이터 소유자를 Dispose하고 참조를 비운다. 역순 정리로 ResourceManager의 ShutdownAsync보다 먼저 데이터를 종료한다.
 
-실행 가능한 연결은 [DataTableConsumerProbe](../Assets/MyLab/Tests/Fixtures/DataTableConsumerProbe.cs)와 [ResourceManagerTests](../Assets/MyLab/Tests/PlayMode/ResourceManagerTests.cs)의 기존 수동 및 표준 idx 데이터 root 테스트다. CSV 검증 실패는 root 준비 실패로 전달되어 가림막을 유지하고 씬 진행을 중단하며 자원을 정리한다. 호출자 취소만으로 root 소유자가 종료되지는 않으므로 전환 소유자가 명시적 ShutdownAsync를 수행하는 기존 정책을 따른다.
+실행 가능한 연결은 [DataTableConsumerProbe](../Assets/TPLab/Tests/Fixtures/DataTableConsumerProbe.cs)와 [ResourceManagerTests](../Assets/TPLab/Tests/PlayMode/ResourceManagerTests.cs)의 기존 수동 및 표준 idx 데이터 root 테스트다. CSV 검증 실패는 root 준비 실패로 전달되어 가림막을 유지하고 씬 진행을 중단하며 자원을 정리한다. 호출자 취소만으로 root 소유자가 종료되지는 않으므로 전환 소유자가 명시적 ShutdownAsync를 수행하는 기존 정책을 따른다.
 
 ## Cashier 참조 판단
 
-읽기 전용 기준은 `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`의 `Assets/Scripts/Manager/DataTableManager.cs`와 각 테이블이다. PendingRows·Validate·Commit의 검증 후 공개 원칙을 개선 후 채택했다. Cashier의 테이블별 Commit과 선행 공개를 전체 테이블의 원자성 증거로 사용하지 않고 MyLab은 완전한 후보 snapshot 한 개를 교체한다.
+읽기 전용 기준은 `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`의 `Assets/Scripts/Manager/DataTableManager.cs`와 각 테이블이다. PendingRows·Validate·Commit의 검증 후 공개 원칙을 개선 후 채택했다. Cashier의 테이블별 Commit과 선행 공개를 전체 테이블의 원자성 증거로 사용하지 않고 TPLab은 완전한 후보 snapshot 한 개를 교체한다.
 
 Cashier의 Singleton 상속, 구체 테이블 목록, idx / 1000, Datas label 자동 탐색, Resources fallback, 게임별 FK는 이식하지 않았다. 설치된 CsvHelper만 사용하고 Cashier 코드·plugin·프로젝트 설정은 변경하거나 복사하지 않았다.

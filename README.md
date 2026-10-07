@@ -1,8 +1,10 @@
 # TPLab
 
-Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab pooling, 선택적인 Singleton/scene root 수명, Addressables 자산, CSV 테이블, 씬 전환과 Input System wrapper를 제공한다. 게임별 데이터·UI·저장 정책은 사용하는 프로젝트가 정의한다. 저장소 이름은 TPLab, Unity 프로젝트 폴더 이름은 MyLab이다.
+2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](doc/TPLAB_NAMING.md)에서 기존 MyLab 이름의 이동 규칙과 이번 검증을 확인한다.
 
-[사람용 API](doc/api/README.md) · [AI용 README](doc/ai/README.md) · [AI용 API](doc/ai/api/README.md) · [예제](Assets/MyLab/Samples/SceneTransitions) · [기능 명세](doc/INDEX.md)
+Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab pooling, 선택적인 Singleton/scene root 수명, Addressables 자산, CSV 테이블, 씬 전환과 Input System wrapper를 제공한다. 게임별 데이터·UI·저장 정책은 사용하는 프로젝트가 정의한다. 프로젝트·namespace·assembly 표기는 TPLab으로 통일한다. 소스는 `Assets/TPLab`에 있으며 로컬 checkout 폴더 이름은 설치 환경에 따라 다를 수 있다.
+
+[사람용 API](doc/api/README.md) · [AI용 README](doc/ai/README.md) · [AI용 API](doc/ai/api/README.md) · [예제](Assets/TPLab/Samples/SceneTransitions) · [기능 명세](doc/INDEX.md)
 
 | 모듈 | 제공 기능 |
 |---|---|
@@ -22,15 +24,15 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 
 | 선택 | 가져올 소스 | 의존성 |
 |---|---|---|
-| Core | `Assets/MyLab/Core`, `Assets/Plugins/CsvHelper` | UniTask **2.5.11**, Addressables **2.9.1**, 포함 CsvHelper **33.1.0** DLL |
-| Input 추가 | `Assets/MyLab/Input/Runtime` | Core + Input System **1.19.0** |
-| Editor 추가 | `Assets/MyLab/Editor` | Core + Addressables Editor, Unity Newtonsoft.Json **3.2.2** |
-| 전환 Samples 추가 | `Assets/MyLab/Samples/SceneTransitions` | Core + Input + uGUI **2.0.0**; 예제 씬/Build Settings·Addressables 구성 필요 |
+| Core | `Assets/TPLab/Core`, `Assets/Plugins/CsvHelper` | UniTask **2.5.11**, Addressables **2.9.1**, 포함 CsvHelper **33.1.0** DLL |
+| Input 추가 | `Assets/TPLab/Input/Runtime` | Core + Input System **1.19.0** |
+| Editor 추가 | `Assets/TPLab/Editor` | Core + Addressables Editor, Unity Newtonsoft.Json **3.2.2** |
+| 전환 Samples 추가 | `Assets/TPLab/Samples/SceneTransitions` | Core + Input + uGUI **2.0.0**; 예제 씬/Build Settings·Addressables 구성 필요 |
 
 Core asmdef는 자산/씬 기능과 같은 assembly이므로 폴더 전체를 가져오면 Addressables·UniTask·CsvHelper가 필요하다. Input은 별도 assembly로 선택할 수 있다. `Tests`, `Validation`, fixture는 runtime 설치 대상이 아니다. importer는 프로젝트가 작성할 DTO/validator/profile을 필요로 한다.
 
 1. UPM에서 Addressables를 설치하고 UniTask Git URL `https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11`을 추가한다. 고정 버전은 [manifest](Packages/manifest.json)와 [lock](Packages/packages-lock.json)을 참고한다.
-2. 선택한 소스와 CsvHelper DLL/`.meta`/라이선스 자료를 가져온다. 사용하는 프로젝트의 asmdef에서 `MyLab.Core`, 선택 시 `MyLab.Core.Input`을 참조한다.
+2. 선택한 소스와 CsvHelper DLL/`.meta`/라이선스 자료를 가져온다. 사용하는 프로젝트의 asmdef에서 `TPLab.Core`, 선택 시 `TPLab.Core.Input`을 참조한다.
 3. Input을 선택하면 Input System을 설치하고 Active Input Handling을 Input System에 맞춘다. action asset은 프로젝트가 소유하며 wrapper가 복제한다. legacy native input은 TPLab 지원 정책 밖이다.
 4. 씬의 최상위 root에 SceneOwnedRoot 또는 SingletonSceneRoot을 선택하고 필요한 installer를 연결한다. 준비 완료 후 시스템을 공개하고, owner가 종료를 담당한다. [Lifecycle](doc/api/Lifecycle.md)을 따른다.
 5. 씬 전환에는 명시적인 BuildScene/Addressable target과 실제 등록을 설정한다. Bootstrap 첫 씬 → 게임 씬 Additive를 권장하지만, 영속 공용 root 조건을 만족하면 Single도 선택할 수 있다. [SceneManagement](doc/api/SceneManagement.md)를 따른다.
@@ -43,7 +45,7 @@ Unity CLI/Connector **0.4.1**과 Test Framework **1.6.0**은 이 저장소의 �
 
 ```csharp
 using System.Collections.Generic;
-using MyLab.Core.Pooling;
+using TPLab.Core.Pooling;
 
 using (var pool = new ObjectPool<List<int>>(
     () => new List<int>(), 8, onReturn: list => list.Clear()))
@@ -56,7 +58,7 @@ using (var pool = new ObjectPool<List<int>>(
 }
 ```
 
-실행 확인된 통합 예제는 [sample controller](Assets/MyLab/Samples/SceneTransitions/Runtime/SceneTransitionSampleController.cs)와 [consumer smoke](tools/core-consumer/templates/ConsumerSmoke.cs)다. sample은 `MyLab > Scene Transitions > Open Additive / Open Single`에서 실행하고 `Restore Original Setup`으로 복원한다. 이미 생성된 예제의 사용과 sample builder의 생성은 구분한다. 다른 프로젝트에서 예제 씬을 사용할 때는 해당 프로젝트의 build list·Addressables와 root/installer를 설정해야 한다. 데이터 schema 예시는 [템플릿](doc/templates/data-tables/README.md)을 프로젝트 namespace로 옮겨 변경한다.
+실행 확인된 통합 예제는 [sample controller](Assets/TPLab/Samples/SceneTransitions/Runtime/SceneTransitionSampleController.cs)와 [consumer smoke](tools/core-consumer/templates/ConsumerSmoke.cs)다. sample은 `TPLab > Scene Transitions > Open Additive / Open Single`에서 실행하고 `Restore Original Setup`으로 복원한다. 이미 생성된 예제의 사용과 sample builder의 생성은 구분한다. 다른 프로젝트에서 예제 씬을 사용할 때는 해당 프로젝트의 build list·Addressables와 root/installer를 설정해야 한다. 데이터 schema 예시는 [템플릿](doc/templates/data-tables/README.md)을 프로젝트 namespace로 옮겨 변경한다.
 
 ## 검증과 호환성
 

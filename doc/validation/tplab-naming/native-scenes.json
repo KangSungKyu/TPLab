@@ -1,0 +1,43 @@
+{
+  "productName": "TPLab",
+  "sceneChecks": [
+    {
+      "path": "Assets/Scenes/InitScene.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    },
+    {
+      "path": "Assets/TPLab/Samples/SceneTransitions/Scenes/BootstrapAdditive.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    },
+    {
+      "path": "Assets/TPLab/Samples/SceneTransitions/Scenes/BootstrapSingle.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    },
+    {
+      "path": "Assets/TPLab/Samples/SceneTransitions/Scenes/Hub.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    },
+    {
+      "path": "Assets/TPLab/Samples/SceneTransitions/Scenes/Main.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    },
+    {
+      "path": "Assets/TPLab/Samples/SceneTransitions/Scenes/Area.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    },
+    {
+      "path": "Assets/TPLab/Samples/SceneTransitions/Scenes/Nested.unity",
+      "missingScripts": 0,
+      "sceneRoots": 1
+    }
+  ],
+  "oldAssemblies": 0,
+  "core": "TPLab.Core.Lifecycle.SceneOwnedRoot, TPLab.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "unityVersion": "6000.3.18f1"
+}

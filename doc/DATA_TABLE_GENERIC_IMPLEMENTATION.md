@@ -27,16 +27,16 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 
 | 현재 위치 | 구현 시 연결할 지점 |
 |---|---|
-| [DataTableManager](../Assets/MyLab/Core/DataTables/DataTableManager.cs) | Registration·ReadTable·LoadAndPublishAsync 확장; 공통 CSV 검사·단일 공개·EnsureOpen 유지 |
-| [DataTableSnapshot](../Assets/MyLab/Core/DataTables/DataTableSnapshot.cs) | 같은 세대의 종류/DTO/계약 메타데이터와 router 보관; 제네릭 조회·테이블 binding 추가 |
-| [EditMode 계약 테스트](../Assets/MyLab/Tests/EditMode/DataTableManagerTests.cs) | 기존 수동 파싱·header·FK·실패 보존 회귀 유지; 표준 경로 테스트 추가 |
-| [비동기 테스트](../Assets/MyLab/Tests/PlayMode/DataTableManagerAsyncTests.cs) | 공유 로드·취소·등록 동결·Dispose·worker 완료 회귀 유지 |
-| [소비 fixture](../Assets/MyLab/Tests/Fixtures/DataTableConsumerProbe.cs) · [ResourceManagerTests](../Assets/MyLab/Tests/PlayMode/ResourceManagerTests.cs) | 기존 수동 연결 보존; 표준 DTO/router 준비 후 씬 진행·실패 rollback 경로 검증 |
-| [Core assembly](../Assets/MyLab/Core/MyLab.Core.asmdef) | 기존 경계·참조 재사용; 새 assembly/패키지/DLL을 추가하지 않음 |
+| [DataTableManager](../Assets/TPLab/Core/DataTables/DataTableManager.cs) | Registration·ReadTable·LoadAndPublishAsync 확장; 공통 CSV 검사·단일 공개·EnsureOpen 유지 |
+| [DataTableSnapshot](../Assets/TPLab/Core/DataTables/DataTableSnapshot.cs) | 같은 세대의 종류/DTO/계약 메타데이터와 router 보관; 제네릭 조회·테이블 binding 추가 |
+| [EditMode 계약 테스트](../Assets/TPLab/Tests/EditMode/DataTableManagerTests.cs) | 기존 수동 파싱·header·FK·실패 보존 회귀 유지; 표준 경로 테스트 추가 |
+| [비동기 테스트](../Assets/TPLab/Tests/PlayMode/DataTableManagerAsyncTests.cs) | 공유 로드·취소·등록 동결·Dispose·worker 완료 회귀 유지 |
+| [소비 fixture](../Assets/TPLab/Tests/Fixtures/DataTableConsumerProbe.cs) · [ResourceManagerTests](../Assets/TPLab/Tests/PlayMode/ResourceManagerTests.cs) | 기존 수동 연결 보존; 표준 DTO/router 준비 후 씬 진행·실패 rollback 경로 검증 |
+| [Core assembly](../Assets/TPLab/Core/TPLab.Core.asmdef) | 기존 경계·참조 재사용; 새 assembly/패키지/DLL을 추가하지 않음 |
 
 준비 당시 Registration은 이름·ReadAsync만, snapshot은 이름별 dictionary만 보관했다. 이번 구현으로 표준 registry·DTO·codec·Get/TryGet을 추가했다. LoadAndPublishAsync에서 모든 후보 구성 뒤 AddValidator 실행, 성공 뒤 한 번 공개하는 순서를 유지한다. 기존 테스트 fixture는 임의 int/string key와 수동 GetTable을 사용하므로 자동 전환하지 않는다.
 
-수정 허용 범위는 `Assets/MyLab/Core/DataTables/`, 관련 EditMode/PlayMode 테스트·fixtures와 해당 새 파일의 meta, 관련 명세·검증 자료·회고다. 실제 구현 단위마다 더 좁은 allowlist를 정한다. 공용 namespace는 MyLab.Core.DataTables, 코드·TDD·Git 규칙은 [AGENTS.md](../AGENTS.md)를 따른다.
+수정 허용 범위는 `Assets/TPLab/Core/DataTables/`, 관련 EditMode/PlayMode 테스트·fixtures와 해당 새 파일의 meta, 관련 명세·검증 자료·회고다. 실제 구현 단위마다 더 좁은 allowlist를 정한다. 공용 namespace는 TPLab.Core.DataTables, 코드·TDD·Git 규칙은 [AGENTS.md](../AGENTS.md)를 따른다.
 
 제외: Cashier 변경/코드 복사, Unity scene·prefab·settings, 패키지·기존 assembly 설정, 다른 코어 시스템, 게임 enum·상품 DTO·UI·CSV migration. 기존 InitScene 및 SceneTemplateSettings 사용자 변경을 보존한다. 추가 수정이 실제로 필요하면 영향·이유를 먼저 검토하며 이번 준비를 자동 확장하지 않는다.
 
@@ -47,7 +47,7 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 | 1 | 기본 IdxParts·DecimalIdxCodec·IIdxRouter/IIdxCodec<TParts>, IDataRow/DataRow 계약 | Parts/Stride 경계·전체 형식·왕복·uint.MaxValue/overflow. 테스트 전용 세 요소 codec으로 LocalType 선택성·종류 추출 확인 |
 | 2 | 표준 RegisterTable·CsvHelper DTO 매핑·종류 registry·manager/snapshot Get/TryGet | 최종 PK 조회의 정상/무효/미등록/잘못된 T/누락, 동일 DTO 다른 종류, header-only 메타데이터, 기존 수동 등록 혼합·0 key 보존 |
 | 3 | 기반/프로젝트 예시 테이블 조회·name/interface binding·FK helper를 표준 공개 경로에 연결 | 동일 행·테이블 참조, 추가 interface mapping, factory null/예외/재사용, 필수/선택 FK·잘못된 종류·누락·자기/순환·후보 실패 후 이전 세대 보존 |
-| 4 | root/native CSV 소비 검증과 전체 회귀·실행 문서 | 준비 완료 후 씬 진행·오류 시 중단/가림막 유지·정리, 기존 비동기/자산/root 회귀, MyLab 컴파일/Console·전체 EditMode/PlayMode |
+| 4 | root/native CSV 소비 검증과 전체 회귀·실행 문서 | 준비 완료 후 씬 진행·오류 시 중단/가림막 유지·정리, 기존 비동기/자산/root 회귀, TPLab 컴파일/Console·전체 EditMode/PlayMode |
 
 단계 2의 RegisterTable에는 매핑 명세의 CsvDataTable 기반·fresh factory·단일 행 연결 등 등록에 필요한 최소 부분도 포함한다. 단계 3에서 그 계약을 바꾸는 별도 테이블 생성 경로를 만들지 않는다. FK가 없는 테스트의 후보 공개도 단계 2부터 원자적으로 확인한다. 앞 단계 코드·실행 증거가 존재해야 다음 단위를 시작한다.
 
@@ -64,7 +64,7 @@ TextRow sameGenerationText = snapshot.Get<TextRow>(nameIdx);
 
 ## 검증 환경과 다음 시작
 
-준비 당시 MyLab 기존 Editor는 Unity 6000.3.18f1/Connector 0.4.1, PID 23176, CLI ready 상태였다. 이 상태는 테스트 실행 증거가 아니며 구현 시작 시 절대 project 경로와 기존 Editor의 compile/Play/준비 상태를 다시 확인한다. 임의로 다른 프로젝트나 새 Editor로 대체하지 않는다.
+준비 당시 TPLab 기존 Editor는 Unity 6000.3.18f1/Connector 0.4.1, PID 23176, CLI ready 상태였다. 이 상태는 테스트 실행 증거가 아니며 구현 시작 시 절대 project 경로와 기존 Editor의 compile/Play/준비 상태를 다시 확인한다. 임의로 다른 프로젝트나 새 Editor로 대체하지 않는다.
 
 최초 준비는 문서만 변경하여 Unity 테스트 실행 0건이었다. 준비 당시 문서 검사·보존 증거는 [준비 회고](retrospectives/2026-10-06-02-generic-data-table-ready.md)에 기록한다.
 
