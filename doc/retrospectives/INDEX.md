@@ -35,6 +35,8 @@
 | 2026-10-07 | Input System 전용 정책·wrapper 설계 | 정책 반영·설계 초안 완료, 미구현 | [02-input-system-design](2026-10-07-02-input-system-design.md) |
 | 2026-10-07 | 진행률·로딩 화면·자동/버튼 진행 대기 | 설계 초안 완료, 미구현 | [03-scene-loading-presentation-design](2026-10-07-03-scene-loading-presentation-design.md) |
 
+| 2026-10-07 | Input asset·layer lease·취소 재진입 | 자동 검증 완료·track 통합 | [04-input-layers](2026-10-07-04-input-layers.md) |
+
 ## 작성 형식
 
 작업 규모에 맞게 짧게 작성한다. 해당 없는 항목은 해당 없음으로 표시하며 명세·검증 설명을 반복 복제하지 않는다.

@@ -1,0 +1,7 @@
+{
+    "name": "MyLab.Input.EditModeTests",
+    "rootNamespace": "MyLab.Core.Input.Tests",
+    "references": ["MyLab.Core.Input", "MyLab.Core", "UniTask", "Unity.InputSystem"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

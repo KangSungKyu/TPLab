@@ -1,0 +1,5 @@
+{
+    "name": "MyLab.Core.Input",
+    "rootNamespace": "MyLab.Core.Input",
+    "references": ["MyLab.Core", "UniTask", "Unity.InputSystem"]
+}

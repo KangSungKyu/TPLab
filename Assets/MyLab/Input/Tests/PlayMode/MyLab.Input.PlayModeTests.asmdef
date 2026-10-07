@@ -1,0 +1,5 @@
+{
+    "name": "MyLab.Input.PlayModeTests",
+    "references": ["MyLab.Core.Input", "MyLab.Core", "UniTask", "Unity.InputSystem"],
+    "optionalUnityReferences": ["TestAssemblies"]
+}

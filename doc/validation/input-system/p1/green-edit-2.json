@@ -1,0 +1,40 @@
+{
+  "total": 13,
+  "passed": 12,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Input.Tests.InputLayerTests.CancelledActionCanAcquireAnotherLayerDuringRecalculation:   Expected: not null\r\n  But was:  null\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Input.Tests.InputLayerTests.CloneKeepsSourceDisabledAndResolvesReferenceById",
+    "MyLab.Core.Input.Tests.InputLayerTests.EmptyBlockingLayerSuppressesLowerMap",
+    "MyLab.Core.Input.Tests.InputLayerTests.ForeignAssetReferenceAndMissingActionAreRejected",
+    "MyLab.Core.Input.Tests.InputLayerTests.InvalidAndOverlappingRegistrationHasNoActivationSideEffects",
+    "MyLab.Core.Input.Tests.InputLayerTests.NestedLayersAndOutOfOrderDisposalRecalculateRemainingOwnership",
+    "MyLab.Core.Input.Tests.InputLayerTests.ObserverFailureStopsAllMapsAndInvalidatesExistingLeases",
+    "MyLab.Core.Input.Tests.InputLayerTests.ObserverRefreshConvergesAndNativeChangesAreReconciled",
+    "MyLab.Core.Input.Tests.InputLayerTests.OverlaysShareInputAndWholeScopeBlocksRemainIndependent",
+    "MyLab.Core.Input.Tests.InputLayerTests.PreparationBlockDoesNotFreezeRegistrationAndSnapshotsAreDetached",
+    "MyLab.Core.Input.Tests.InputLayerTests.SamePriorityUsesLatestRemainingLeaseAndDuplicateDisposalIsSafe",
+    "MyLab.Core.Input.Tests.InputLayerTests.ShutdownBlocksNewWorkAndLateLeasesAreHarmless",
+    "MyLab.Core.Input.Tests.InputLayerTests.WorkerThreadCannotMutateScopeOrConsumeALease"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Input.Tests.InputLayerTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 14600,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 14600,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}
