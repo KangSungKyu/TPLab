@@ -33,6 +33,7 @@
 
 | 2026-10-07 | GameSceneManager 최종 수락·main 통합 | 사용자 확인·main 통합 완료 | [01-scene-track-integration](2026-10-07-01-scene-track-integration.md) |
 | 2026-10-07 | Input System 전용 정책·wrapper 설계 | 정책 반영·설계 초안 완료, 미구현 | [02-input-system-design](2026-10-07-02-input-system-design.md) |
+| 2026-10-07 | 진행률·로딩 화면·자동/버튼 진행 대기 | 설계 초안 완료, 미구현 | [03-scene-loading-presentation-design](2026-10-07-03-scene-loading-presentation-design.md) |
 
 ## 작성 형식
 

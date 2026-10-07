@@ -33,6 +33,7 @@
 | [BOOTSTRAP_SYSTEM.md](BOOTSTRAP_SYSTEM.md) | 최초 씬 root·목적지·Single/Additive·공용 수명·취소/종료·Editor/빌드 gate 변경 | GameSceneManager/BootstrapSystem API·상태와 기존 callback 호환, Inspector와 컴파일 후·Play·실제 build list 검증 |
 | [RESOURCE_MANAGER.md](RESOURCE_MANAGER.md) | Addressables 로드·캐시·타입·취소·handle·pool 자산 수명 변경 | ResourceManager 소유권·종료·root 주입과 소비자 준비/해제 |
 | [SCENE_LOADING.md](SCENE_LOADING.md) | Build/Addressables 씬 대상·로더 선택·개별 결과 소유권 변경 | 명시적 backend, 실제 Scene instance, native 해제와 manager 정책의 경계 |
+| [SCENE_LOADING_PRESENTATION_DRAFT.md](SCENE_LOADING_PRESENTATION_DRAFT.md) | 로딩 진행률·게임 팁·자동/버튼 진행 대기·중간 가림막 전환 설계 | 설계 초안: 프로젝트 UI 단계, native/준비 진행률 구분, 입력 차단·모드별 정리·callback 호환; 미구현 |
 | [ResourceManager 검증](validation/resource-manager/README.md) | ResourceManager 검증 계획·결과 해석·회귀 확인 | 실제 Red/Green·native fixture·컴파일/Console·증거·미검증 경계 |
 | [DATA_TABLE_MANAGER.md](DATA_TABLE_MANAGER.md) | CSV 등록·스키마·키·교차 검증·snapshot 공개·재로드·취소 변경 | DataTableManager 소유권·전체 후보 검증과 root 주입 |
 | [DATA_TABLE_MAPPING_DRAFT.md](DATA_TABLE_MAPPING_DRAFT.md) | 기본 DTO·표준 테이블·CsvHelper 자동 매핑·인터페이스 연결 검토 | 구현 계약: 기본 DTO·테이블·명시적 이름/계약 매핑·세대별 소유권 |

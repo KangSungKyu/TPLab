@@ -119,3 +119,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-07 Phase 6 사용자 확인 완료: 사용자가 코드와 최종 Unity 실행 항목을 확인했다. 현재 source 입력283개는 실제 P6 자동 결과의 입력과 일치한다. 같은 변경의 마지막 단위로 기존 track을 재사용하며, [통합 기록](SCENE_TRANSITION_TRACK.md)에 따라 main 반영·승인된 작업 브랜치 정리를 수행한다.
 
 2026-10-07 입력 wrapper 설계: 사용자 확정 정책은 Unity Input System 전용 지원이다. [INPUT_SYSTEM_DRAFT.md](INPUT_SYSTEM_DRAFT.md)에 runtime asset 소유권, layer lease·차단·복원, 리바인딩과 저장 경계, SceneRoot/전환 callback·UI 연결 및 단계별 검증 기준을 작성했다. 정책 반영·설계 초안 작성만 완료했으며 runtime·Editor 구현과 입력 기능 테스트는 아직 하지 않았다. 기존 Samples의 입력 처리는 프로젝트 소유 예시이며 신규 wrapper 구현으로 간주하지 않는다.
+
+2026-10-07 로딩 화면 설계: 사용자가 입력 wrapper 방향을 검토했고 씬 전환에 진행률·게임 팁·자동/버튼 진행 대기를 요청했다. "로딩 씬" 표현은 별도 Unity 씬이 아닌 UI 표시 단계로 정정했다. [SCENE_LOADING_PRESENTATION_DRAFT.md](SCENE_LOADING_PRESENTATION_DRAFT.md)에 cover ON→로딩 화면 공개→로드/준비→진행 대기→cover ON→정리→게임 공개, 입력 차단 수명과 native 진행률의 한계를 제안했다. 설계 초안만 작성했으며 GameSceneManager/loader/callback/입력 wrapper의 신규 동작은 미구현이다.

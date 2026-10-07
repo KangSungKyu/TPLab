@@ -21,6 +21,8 @@
 
 ## 사전 검사와 검증
 
+진행률 전달은 현재 로더 계약에 없다. [로딩 화면 초안](SCENE_LOADING_PRESENTATION_DRAFT.md)에서 기존 ISceneLoader를 보존하는 선택적 progress 경계·StageRatio의 의미·UI observer 실패 후 native 결과 소유권 확보를 제안한다. 진행률 확장과 신규 UI 흐름은 아직 구현하지 않았다.
+
 Build 대상은 실제 Player build scene list 포함 여부, Addressable은 설치된 Addressables 설정의 단일 씬 매핑을 검사한다. 양쪽 모두 실제 SceneAsset/root/공용 수명 모순을 확인하며 주소 씬에 Build Scene 포함을 강제하지 않는다.
 
 P0는 target 잘못된 입력, 명시적 로더 선택, 결과 해제 공유/실패, caller/owner 취소, late completion, 실제 Native/Addressables 씬 load/unload와 기존 Bootstrap 회귀를 검증한다. 실제 콘텐츠 빌드·Player/원격 다운로드·최종 Inspector/UX 확인은 P6 증거 및 사용자 확인과 별개다. 설치된 Addressables 2.9.1의 [씬 로드](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/manual/LoadingScenes.html)와 [해제 API](https://docs.unity3d.com/Packages/com.unity.addressables@2.9/api/UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync.html)를 따른다.

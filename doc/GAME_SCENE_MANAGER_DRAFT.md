@@ -80,6 +80,8 @@ native 로드는 토큰으로 강제 중단하지 않는다. 취소 시 늦은 �
 
 ## 화면·입력·수명
 
+2026-10-07 추가 요청은 [진행률·로딩 화면 설계 초안](SCENE_LOADING_PRESENTATION_DRAFT.md)을 따른다. 기존 가림막-only 구현은 유지하며, 선택적 로딩 UI 공개·자동/버튼 진행 대기·두 번째 가림막 전환을 설계한다. 로딩 화면은 프로젝트 UI이며 별도 정상 씬 추가를 뜻하지 않는다. 아래는 현재 구현 계약이고 신규 흐름은 아직 미구현이다.
+
 GameSceneManager는 전환 cover 시점과 실패 정책을 소유한다. 프로젝트 UI 컴포넌트가 실제 표시·애니메이션·입력을 처리하고, 시스템 메시지는 발신 시스템과 공용 UI 표현자가 담당한다. 일반 UI/알림 → cover/로딩 → 필수 오류 메시지 순서를 프로젝트가 지정한다. 전환과 모달은 각자 입력 차단을 소유하며 한쪽 완료로 다른 차단을 해제하지 않는다. 포인터 차단과 선택/키보드·게임패드 입력도 구분한다.
 
 일반 화면의 기본 권장 구성은 top-level Screen Space - Overlay Canvas + 전체 Stretch Image(anchor 0..1, offset 0)다. UI root는 공용 owner가 명시적으로 관리하고 Single에서는 별도로 영속화한다. game camera viewport/FOV나 reference resolution을 고정할 필요는 없다. cover는 Safe Area 밖까지 Player 렌더 영역을 덮고 문구/버튼만 Safe Area를 따른다. 다중 display는 targetDisplay별 구성이 필요하며 RenderTexture/XR 출력은 별도 어댑터/검증 범위다. 현재 코어는 Canvas 자산이나 기본 UI 구현을 제공하지 않는다. [Canvas](https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/class-Canvas.html), [Safe Area](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Screen-safeArea.html)
