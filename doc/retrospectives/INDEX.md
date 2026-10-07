@@ -81,3 +81,5 @@
 - 2026-10-07 | 씬 로딩 진행률 P1 | 자동 검증 완료 | [기록](2026-10-07-10-scene-loading-progress.md)
 
 - 2026-10-07 | 씬 로딩 표시·진행 대기 P2/3 | 자동 검증 완료 | [기록](2026-10-07-11-scene-loading-flow-and-proceed.md)
+
+- 2026-10-07 | 로딩 UI 예제·통합 검증 P4 | 자동 검증 완료 / 사용자 확인 대기 | [기록](2026-10-07-12-scene-loading-sample-validation.md)

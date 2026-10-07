@@ -9,7 +9,8 @@
     "Unity.ResourceManager",
     "MyLab.SceneTransitionSamples",
     "Unity.InputSystem",
-    "UnityEngine.UI"
+    "UnityEngine.UI",
+    "MyLab.Core.Input"
   ],
   "overrideReferences": true,
   "precompiledReferences": [

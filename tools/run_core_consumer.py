@@ -98,9 +98,10 @@ def resolve_paths(project_arg: str, output_arg: str, evidence_arg: str) -> tuple
         evidence = project / evidence
     evidence = evidence.resolve()
     evidence_roots = ((project / "doc/validation/scene-integration").resolve(),
-                      (project / "doc/validation/input-system").resolve())
+                      (project / "doc/validation/input-system").resolve(),
+                      (project / "doc/validation/scene-loading").resolve())
     if not any(inside(evidence, root) for root in evidence_roots):
-        raise ValueError("--evidence must be inside doc/validation/scene-integration or doc/validation/input-system.")
+        raise ValueError("--evidence must be inside doc/validation/scene-integration, input-system or scene-loading.")
     return project, output, evidence
 
 
@@ -371,7 +372,7 @@ def main() -> int:
     parser.add_argument("--project", help="Absolute MyLab project path.")
     parser.add_argument("--unity", help="Exact Unity Editor executable path.")
     parser.add_argument("--output", help="New output directory below project Temp.")
-    parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration or doc/validation/input-system.")
+    parser.add_argument("--evidence", help="Evidence directory below doc/validation/scene-integration, input-system or scene-loading.")
     parser.add_argument("--timeout-seconds", type=int, default=900)
     parser.add_argument("--include-input", action="store_true",
                         help="Include MyLab.Core.Input and Input System 1.19.0 in the isolated consumer.")

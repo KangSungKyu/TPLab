@@ -169,10 +169,12 @@ namespace MyLab.Samples.SceneTransitions.Editor
             string evidence = Path.GetFullPath(evidencePath);
             string evidenceRoot = Path.GetFullPath("doc/validation/scene-integration") + Path.DirectorySeparatorChar;
             string inputEvidenceRoot = Path.GetFullPath("doc/validation/input-system") + Path.DirectorySeparatorChar;
+            string loadingEvidenceRoot = Path.GetFullPath("doc/validation/scene-loading") + Path.DirectorySeparatorChar;
             if ((!evidence.StartsWith(evidenceRoot, StringComparison.OrdinalIgnoreCase) &&
-                !evidence.StartsWith(inputEvidenceRoot, StringComparison.OrdinalIgnoreCase)) ||
+                !evidence.StartsWith(inputEvidenceRoot, StringComparison.OrdinalIgnoreCase) &&
+                !evidence.StartsWith(loadingEvidenceRoot, StringComparison.OrdinalIgnoreCase)) ||
                 !evidence.EndsWith(".json", StringComparison.OrdinalIgnoreCase) || File.Exists(evidence) || Directory.Exists(evidence))
-                throw new ArgumentException("Use a fresh JSON evidence path below the scene-integration or input-system validation directory.");
+                throw new ArgumentException("Use a fresh JSON evidence path below scene-integration, input-system or scene-loading validation.");
             var baseline = Capture();
             byte[] raw = File.ReadAllBytes(BuildFile);
             var backend = PlayerSettings.GetScriptingBackend(NamedBuildTarget.Standalone);
@@ -455,4 +457,3 @@ namespace MyLab.Samples.SceneTransitions.Editor
         private static bool SameSetup(SceneSetup[] left, SceneSetup[] right) => left.Length == right.Length && left.Zip(right, (a, b) => a.path == b.path && a.isLoaded == b.isLoaded && a.isActive == b.isActive).All(value => value);
     }
 }
-

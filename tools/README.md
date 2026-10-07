@@ -31,14 +31,29 @@ python tools/capture_validation_inputs.py --self-check
 python tools/capture_validation_inputs.py --evidence doc/validation/scene-loaders --base acb636c933f2eea29f46705d233f4e0dba436965 --preserved Temp/GameScenesTrack/preserved-hashes.json
 ```
 
-P6에는 승인된 별도 소비 프로젝트 빌드/Player와 이미 빌드된 sample Player 실행 도구를 제공한다. run_core_consumer.py만 명시적으로 별도 batch Editor를 시작하며 원래 MyLab Editor의 검증을 대체하지 않는다. run_scene_player.py는 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 기본 소비 manifest는 UniTask·Addressables와 필요한 Unity built-in만 포함하며 Input 모듈은 제외한다. `--include-input`은 Runtime allowlist와 Input System 1.19.0을 더해 복사본에서 컴파일·Windows Mono Player의 가상 키보드 rebind, lease 복원, JSON override/reset, graceful shutdown을 확인한다. 이 복사본에는 소스 ProjectSettings 전체 대신 `PlayerSettings.activeInputHandler: 1`만 포함한 최소 설정을 생성한다. 증거 경로는 scene-integration 또는 input-system 아래를 지정한다.
+P6 도구는 기존 MyLab Editor의 검증과 Windows Mono sample Player 실행을 지원한다. `run_core_consumer.py`만 명시적으로 별도 batch Editor를 시작하며 원래 MyLab Editor의 검증을 대체하지 않는다. `run_scene_player.py`는 이미 빌드된 Player만 실행하고 Editor를 시작하지 않는다. 두 도구는 숨긴 프로세스의 PID·fresh log/result·version·exit·nonzero 관찰 수를 검증하고 evidence를 보존한다. 기존 output을 재사용하지 않으며 파일 삭제·Git 통합은 하지 않는다. 기본 소비 manifest는 UniTask·Addressables와 필요한 Unity built-in만 포함하며 Input 모듈은 제외한다. `--include-input`은 Runtime allowlist와 Input System 1.19.0을 더해 복사본에서 컴파일·Windows Mono Player의 virtual keyboard rebind, lease 복원, JSON override/reset, graceful shutdown을 확인한다. 복사본에는 소스 ProjectSettings 전체 대신 `PlayerSettings.activeInputHandler: 1`만 생성한다. 두 도구의 evidence root에는 `doc/validation/scene-loading`도 허용된다.
+
+Sample Player는 현재 MyLab Editor에서 `MyLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(bool single, string outputDirectory, string evidencePath)`로 만든다. output은 새 경로 `Temp/GameScenesTrack/ScenePlayers/<run>` 아래, build evidence는 새 JSON `doc/validation/scene-loading/<name>.json` 아래에 지정한다. Builder가 scripting backend, Editor scene setup, Build Settings와 그 원본 bytes를 복원한다. Build 후 `run_scene_player.py` 기본 smoke는 10 checks다. `--loading-presentation`은 sample 자동 진행 UI를 켜고 정확히 12 checks와 progress/reveal/proceed/release/two-cover observations를 요구한다. 이 batch 경로는 Manual Proceed나 실제 physical input/visual acceptance를 검증하지 않는다.
 
 ```powershell
 python -B tools/run_core_consumer.py --self-check
 python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\MyLab --unity <기존-Editor.exe> --output Temp/<고유-소비자폴더> --evidence doc/validation/input-system/<실행폴더> --include-input
+python -B tools/run_core_consumer.py --project C:\Users\PC\Projects\MyLab --unity <기존-Editor.exe> --output Temp/SceneLoadingConsumer-01 --evidence doc/validation/scene-loading/consumer-01
 python -B tools/run_scene_player.py --self-check
 python -O -B tools/run_scene_player.py --self-check
 python -B tools/verify_validation.py --evidence doc/validation/scene-integration
 ```
+
+Windows Mono sample build와 automatic loading smoke 예시 (모두 고유한 새 output/evidence 이름으로 실행):
+
+```powershell
+unity-cli --project C:\Users\PC\Projects\MyLab exec 'MyLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(false, "Temp/GameScenesTrack/ScenePlayers/Loading-Additive-01", "doc/validation/scene-loading/loading-build-additive-01.json"); return null;'
+python -B tools/run_scene_player.py --project C:\Users\PC\Projects\MyLab --player C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\ScenePlayers\Loading-Additive-01\SceneTransitions.exe --output C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\PlayerRuns\Loading-Additive-01 --evidence C:\Users\PC\Projects\MyLab\doc\validation\scene-loading\player-run-additive-01 --mode additive --expected-checks 12 --loading-presentation
+
+unity-cli --project C:\Users\PC\Projects\MyLab exec 'MyLab.Samples.SceneTransitions.Editor.SceneTransitionSampleBuilder.BuildWindowsMono(true, "Temp/GameScenesTrack/ScenePlayers/Loading-Single-01", "doc/validation/scene-loading/loading-build-single-01.json"); return null;'
+python -B tools/run_scene_player.py --project C:\Users\PC\Projects\MyLab --player C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\ScenePlayers\Loading-Single-01\SceneTransitions.exe --output C:\Users\PC\Projects\MyLab\Temp\GameScenesTrack\PlayerRuns\Loading-Single-01 --evidence C:\Users\PC\Projects\MyLab\doc\validation\scene-loading\player-run-single-01 --mode single --expected-checks 12 --loading-presentation
+```
+
+Each run output directory and build JSON filename must be unused. Use distinct fresh names for reruns. `--loading-presentation` opts into **automatic** mode only; run the [manual UI acceptance](../doc/SCENE_LOADING_ACCEPTANCE.md) separately. Build/sample results and current limitations are recorded in the relevant validation evidence and [scene-loading track](../doc/SCENE_LOADING_TRACK.md).
 
 실행 인수는 각 도구의 `--help`를 사용한다. 실제 두 모드 Player와 소비 실행·driver 실패·검증 제한은 [P6 증거](../doc/validation/scene-integration/README.md)에 기록한다.

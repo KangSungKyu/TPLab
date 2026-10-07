@@ -16,7 +16,7 @@ using UnityEngine.UI;
 namespace MyLab.Samples.SceneTransitions
 {
     /// <summary>Project-owned presentation borrowing Bootstrap.Manager; owns only cloned input and independent UI blocking.</summary>
-    public sealed class SceneTransitionSampleController : SceneTransitionCallbacks
+    public sealed partial class SceneTransitionSampleController : SceneTransitionCallbacks
     {
         [SerializeField] private BootstrapSystem _bootstrap;
         [SerializeField] private InputActionAsset _inputSource;
@@ -138,6 +138,10 @@ namespace MyLab.Samples.SceneTransitions
             bool smoke = args.Contains("-mylab-scene-smoke");
             try
             {
+                if (args.Contains("-mylab-loading-presentation"))
+                {
+                    ConfigureLoadingPresentation(true);
+                }
                 if (smoke)
                 {
                     int index = Array.IndexOf(args, "-mylab-scene-result");
@@ -192,6 +196,7 @@ namespace MyLab.Samples.SceneTransitions
             if (source == null || cover == null || modal == null || module == null) throw new ArgumentException("Explicit sample input and views are required.");
             _cover = cover;
             _modal = modal;
+            _module = module;
             module.enabled = false;
             _input = new InputManager(source);
             _player = _input.Actions.FindActionMap("Player", true);
@@ -365,6 +370,15 @@ namespace MyLab.Samples.SceneTransitions
                 result.Entry = true;
                 result.completedChecks++;
                 result.observations.Add("entry prepared and Player enabled");
+                if (_useLoadingPresentation)
+                {
+                    Require(LoadingPrepareCount == 1 && LoadingRevealCount == 1 && LoadingProgressCount > 0 && ProceedCount == 1 &&
+                        LoadingReleaseCount == 1 && LoadingTwoCoverCount == 1 && _loadingLeaseObserved &&
+                        _loadingPanel != null && !_loadingPanel.gameObject.activeInHierarchy, "loading presentation entry ownership");
+                    result.LoadingFlow = true;
+                    result.completedChecks++;
+                    result.observations.Add("loading entry: native progress, automatic continuation, two covers, retained lease and released UI");
+                }
                 Require(await Manager.TryTransitionAsync("to-main"), "Hub to Main");
                 Require(Manager.GameScene.path == SceneTransitionSamplePaths.Main, "Main actual scene");
                 result.completedChecks++;
@@ -428,6 +442,15 @@ namespace MyLab.Samples.SceneTransitions
                 result.ExecutionFailureHeld = true;
                 result.completedChecks++;
                 result.observations.Add("execution failure: Faulted/cover held/Player off/UI on");
+                if (_useLoadingPresentation)
+                {
+                    Require(_loadingOperation == null && _loadingPanel != null && !_loadingPanel.gameObject.activeInHierarchy &&
+                        LoadingReleaseCount == LoadingPrepareCount && LoadingTwoCoverCount == ProceedCount &&
+                        _loadingLeaseObserved && _cover.alpha == 1 && TransitionBlocked, "loading presentation failure cleanup");
+                    result.LoadingFailureCleanup = true;
+                    result.completedChecks++;
+                    result.observations.Add("loading failure: operation UI/listeners released once, cover/transition lease retained");
+                }
             }
             catch (Exception exception)
             {
@@ -461,7 +484,13 @@ namespace MyLab.Samples.SceneTransitions
                 result.Covers = CoverCount;
                 result.Reveals = RevealCount;
                 result.Failures = FailureCount;
-                result.success = string.IsNullOrEmpty(result.error) && result.completedChecks == 10 && PreparationCount > 0 && PresentationCount > 0 && ReleaseCount > 0;
+                result.LoadingPreparations = LoadingPrepareCount;
+                result.LoadingReveals = LoadingRevealCount;
+                result.LoadingProgressReports = LoadingProgressCount;
+                result.Proceeds = ProceedCount;
+                result.LoadingReleases = LoadingReleaseCount;
+                result.LoadingTwoCovers = LoadingTwoCoverCount;
+                result.success = string.IsNullOrEmpty(result.error) && result.completedChecks == (_useLoadingPresentation ? 12 : 10) && PreparationCount > 0 && PresentationCount > 0 && ReleaseCount > 0;
                 result.exitCode = result.success ? 0 : 1;
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 File.WriteAllText(output, JsonUtility.ToJson(result, true));
@@ -540,6 +569,11 @@ namespace MyLab.Samples.SceneTransitions
         }
         private void OnDestroy()
         {
+            CleanupLoading();
+            if (_loadingPanel != null)
+            {
+                Destroy(_loadingPanel.gameObject);
+            }
             if (_uiScope != null)
             {
                 _uiScope.Unbind();
@@ -569,10 +603,10 @@ namespace MyLab.Samples.SceneTransitions
         public int completedChecks;
         public bool Entry, RoundTrip, NestedAdd, SelfRemoval, AncestorRemoval, ConditionNoEffects, ModalHeldAfterReveal, ExecutionFailureHeld, GracefulShutdown, OwnedRecoveryCreated;
         public int Preparations, Presentations, Releases, Covers, Reveals, Failures;
+        public bool LoadingFlow, LoadingFailureCleanup;
+        public int LoadingPreparations, LoadingReveals, LoadingProgressReports, Proceeds, LoadingReleases, LoadingTwoCovers;
         public string error = "";
         public string unityVersion;
         public List<string> observations = new List<string>();
     }
 }
-
-
