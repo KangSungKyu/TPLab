@@ -35,11 +35,6 @@ namespace TPLabConsumer
 #if TPLAB_ARTIFACT_CONSUMER
                 report.installedPackages = PackageInfo.GetAllRegisteredPackages().Where(p => p.name.StartsWith("com.tplab.", StringComparison.Ordinal))
                     .Select(p => new InstalledPackage { name = p.name, version = p.version, resolvedPath = p.resolvedPath, source = p.source.ToString() }).ToArray();
-                if (Environment.GetEnvironmentVariable("TPLAB_CONSUMER_SAMPLES") == "1")
-                {
-                    VerifySamples();
-                    report.samplesVerified = true;
-                }
 #endif
                 Directory.CreateDirectory(ScenesFolder);
                 CreateRootScene(GamePath);
@@ -52,6 +47,13 @@ namespace TPLabConsumer
                     new EditorBuildSettingsScene(DerivedPath, true)
                 };
 
+#if TPLAB_ARTIFACT_CONSUMER
+                if (Environment.GetEnvironmentVariable("TPLAB_CONSUMER_SAMPLES") == "1")
+                {
+                    VerifySamples();
+                    report.samplesVerified = true;
+                }
+#endif
                 string playerPath = Environment.GetEnvironmentVariable("TPLAB_CONSUMER_PLAYER_PATH");
                 var options = new BuildPlayerOptions
                 {
