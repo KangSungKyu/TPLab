@@ -103,4 +103,4 @@ finally
 }
 ```
 
-취소 token 예외는 프로젝트 호출자에게 전달된다. `Rejected/Cancelled/TimedOut`은 정상 결과로 UI에 표시할 수 있다. 실행 확인된 [sample UI adapter](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/Assets/TPLab/Samples/SceneTransitions/Runtime/InputSystemUiScope.cs)와 [소비 smoke](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/tools/core-consumer/templates/ConsumerSmoke.cs)는 별도 예제다. UI module을 runtime clone에 연결하고 lease/구독을 UI 수명에 맞춰 해제한다. UI는 코어 소유가 아니다. InputUser 멀티플레이, 파일 저장, 설정 화면, 물리 장치별 UX는 제공 범위에 포함하지 않는다.
+취소 token 예외는 프로젝트 호출자에게 전달된다. `Rejected/Cancelled/TimedOut`은 정상 결과로 UI에 표시할 수 있다. 실행 확인된 [sample UI adapter](../../Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs)와 [소비 smoke](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/tools/core-consumer/templates/ConsumerSmoke.cs)는 별도 예제다. UI module을 runtime clone에 연결하고 lease/구독을 UI 수명에 맞춰 해제한다. UI는 코어 소유가 아니다. InputUser 멀티플레이, 파일 저장, 설정 화면, 물리 장치별 UX는 제공 범위에 포함하지 않는다.

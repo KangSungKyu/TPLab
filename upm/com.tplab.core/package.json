@@ -7,6 +7,13 @@
   "displayName": "TPLab Core",
   "license": "MIT",
   "name": "com.tplab.core",
+  "samples": [
+    {
+      "description": "Core-only class pooling and owner cleanup.",
+      "displayName": "Core Pooling",
+      "path": "Samples~/CorePooling"
+    }
+  ],
   "unity": "6000.3",
   "unityRelease": "18f1",
   "version": "0.0.1"

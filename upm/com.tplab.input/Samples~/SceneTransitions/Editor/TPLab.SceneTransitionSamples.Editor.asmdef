@@ -1,0 +1,6 @@
+{
+    "name": "TPLab.SceneTransitionSamples.Editor",
+    "rootNamespace": "TPLab.Samples.SceneTransitions.Editor",
+    "references": ["TPLab.SceneTransitionSamples", "TPLab.Core", "UniTask", "Unity.InputSystem", "UnityEngine.UI"],
+    "includePlatforms": ["Editor"]
+}

@@ -16,4 +16,4 @@ Tag and installation are not verified by this packager. Do not install alongside
 [Human API](Documentation~/api/README.md) · [AI guide](Documentation~/ai/README.md) · [License](LICENSE.md) · [Third-party notices](Third%20Party%20Notices.md)
 
 Confirmed source environment: Unity 6000.3.18f1, Windows Mono. Other versions/platforms/IL2CPP are unverified.
-Samples and their UPM import integration are deferred to P2; this P1 package has no bundled samples.
+Optional samples: Package Manager > selected TPLab package > Samples > Import. Core Pooling needs Core only. Scene Transitions also needs consumer uGUI 2.0.0 and Input System 1.19.0; after import run TPLab > Scene Transitions > Build Sample Assets explicitly before Play. Editor package has no sample. Import into a fresh project to avoid duplicate script GUIDs.

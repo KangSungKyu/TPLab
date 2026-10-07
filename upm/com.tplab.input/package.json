@@ -8,6 +8,13 @@
   "displayName": "TPLab Input",
   "license": "MIT",
   "name": "com.tplab.input",
+  "samples": [
+    {
+      "description": "Project-owned scene/input/loading UI. Requires Input System 1.19.0 and uGUI 2.0.0 in the consumer.",
+      "displayName": "Scene Transitions",
+      "path": "Samples~/SceneTransitions"
+    }
+  ],
   "unity": "6000.3",
   "unityRelease": "18f1",
   "version": "0.0.1"
