@@ -123,3 +123,21 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-07 로딩 표시 흐름: 사용자 요청은 별도 Unity 씬이 아닌 UI 표시 단계였다. P1 progress snapshot, P2 opt-in 표시·자동/수동 대기·두 번째 cover·실패 정리, P4 project-owned sample UI를 구현했다. [계약과 검증 상태](SCENE_LOADING_PRESENTATION_DRAFT.md), [통합 track](SCENE_LOADING_TRACK.md)를 따른다. P4 Edit271/271·Play253/253(실패0·skip0), Additive/Single Windows Mono build와 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공([증거](validation/scene-loading/p4/README.md)). 2026-10-07 사용자가 로딩 UI PlayMode 확인을 전달해 최종 사용자 gate를 완료했다. [최종 통합](validation/scene-loading/integration/README.md)에 따라 main 반영·branch 정리를 진행한다. 개별 장치/해상도, remote Addressables content/download와 IL2CPP coverage는 미검증이다.
 
 7. 첫 배포 준비는 [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md)의 P0 규격 → P1 패키징 → P2 artifact 소비 설치 → P3 후보 검증 → P4 Release를 따른다. 현재는 설계 문서만 작성했으며 실제 패키지/배포 자동화·설치 검증·`v0.0.1` 발행은 미실행이다. 기존 소스 소비 검증을 `.tgz` 설치 결과로 확대하지 않는다.
+
+## 다음 버전 계획 (2026-10-07)
+
+사용자가 첫 `0.0.1` 이후 범위로 **Core 기능별 외부 의존성 분리 검토 → GameUISystem 설계·구현**을 지정했다. 차기 버전 번호·package 구성·새 API는 미확정이며 이번에는 계획만 기록한다. 첫 배포의 Git URL/tarball·Core/Input 예제 분류는 [배포 규격](DISTRIBUTION_PIPELINE.md)을 따른다.
+
+현재 구현 파일의 직접 의존성과 설치 단위의 의존성은 다르다.
+
+| 현재 기능 | 직접 의존성 확인 | 다음 검토 |
+|---|---|---|
+| ObjectPool / PrefabPool | ObjectPool은 System 컬렉션, PrefabPool은 System·UnityEngine; 두 구현에 외부 plugin 참조 없음 | Pool만 사용할 때 다른 Core 기능의 dependency까지 설치해야 하는 assembly 경계 검토 |
+| Lifecycle / SceneManagement | 비동기 준비·전환 계약에 UniTask; 씬 backend 연결에 Addressables 경로 존재 | 기본 수명·비동기 계약·로더 통합의 실제 참조 경계 검토 |
+| ResourceManagement | UniTask·Addressables | 계약과 Addressables 구현을 나눌 필요가 있는지 소비 사례로 판단 |
+| DataTables | CsvHelper·UniTask; CSV attribute가 공용 DTO에도 사용됨 | CSV 변환뿐 아니라 public DTO/계약 의존성을 포함해 분리 비용 검토 |
+| Input | 별도 assembly, Unity Input System·UniTask·Core | 현재 선택 설치 경계를 유지하며 새 UI 연동의 의존 방향 검토 |
+
+현재 `TPLab.Core` 하나에 여러 기능이 들어 있어 Pool 사용 프로젝트도 전체 Core 설치 시 UniTask·Addressables·CsvHelper가 필요하다. 다음 검토에서는 실제 source/asmdef 참조, 최소 소비 프로젝트의 resolve·compile, public API·직렬화/GUID 호환성과 migration 비용을 대조한다. 기능마다 package를 무조건 추가하지 않고 설치 부담을 줄이는 최소 분리안을 선택한다. 기존 UniTask·CsvHelper·Input System 채택을 취소하는 요청으로 해석하지 않는다.
+
+`GameUISystem`은 이후 설계·구현할 공용 UI 관리 기능이다. 현재 제공하는 것은 프로젝트가 UI를 소유하는 씬 전환 callback과 Input wrapper이며 공용 GameUISystem 구현은 없다. 다음 설계에서 공용 시스템이 맡을 UI 등록·표시 수명·표시 순서 범위, 씬/UI 소유자의 종료, modal 입력 lease, 기존 가림막·로딩 callback 연동을 사용 사례로 확정한다. UI prefab·레이아웃·게임 팁·연출과 구체 화면은 프로젝트 재량을 유지한다. 씬 로드 책임과 UI 연출 책임의 경계, 취소·실패 시 정리는 구현 전에 정하고 기존 callback 계약의 변경 필요 여부를 함께 검토한다.

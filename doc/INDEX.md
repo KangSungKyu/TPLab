@@ -20,13 +20,13 @@
 |---|---|---|
 | [AGENTS.md](../AGENTS.md) | 모든 작업에서 필수 | 공용 코어 역할·C#·SOLID·TDD·참조 경계·브랜치 판단·검증 후 병합 |
 | [라이선스](../LICENSE) · [제3자 고지](../THIRD_PARTY_NOTICES.md) | 외부 제공·의존성 추가/동봉 | TPLab 자체 MIT와 제3자 원문·버전·배포 범위 구분 |
-| [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md) | 패키지·dev-build·worktree·Release 설계/구현 시작 | 0.0.1 `.tgz`·Core/Input/Editor 분리, source SHA와 실제 artifact 검증, Phase/gate·현재 미구현 상태 |
+| [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md) | 패키지·dev-build·worktree·Release 설계/구현 시작 | 0.0.1 Git URL/`.tgz`·upm 사본·Core/Input 예제, source SHA와 실제 설치 검증, Phase/gate·현재 미구현 상태 |
 | [TPLAB_NAMING.md](TPLAB_NAMING.md) | TPLab 이름·경로·Cloud 설정 확인 | TPLab namespace·assembly·checkout 경로·Cloud 이름과 기록 보존 기준 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
-| [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·의존성·개발 순서·단계 진행 |
+| [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |

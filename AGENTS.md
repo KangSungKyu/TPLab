@@ -90,7 +90,7 @@
 ## 배포 작업
 
 - 패키징·dev-build·Release의 현재 규격/Phase/gate는 [DISTRIBUTION_PIPELINE.md](doc/DISTRIBUTION_PIPELINE.md)를 따른다. 설계 상태와 실제 구현·artifact 설치·Release 발행을 구분한다.
-- 개발 소스는 `Assets/TPLab`, 생성 공간은 배포 worktree의 `tplab/<run-id>`로 분리한다. 명시한 exact source SHA와 clean checkout을 사용하고 다른 작업의 dirty를 원복하거나 배포물에 섞지 않는다.
+- 개발 소스는 `Assets/TPLab`, 검토 후 버전 관리하는 Git URL 배포 사본은 `upm/`, 생성 공간은 배포 worktree의 `tplab/<run-id>`로 분리한다. 배포 사본을 직접 수정하지 않으며 Git URL/tarball 설치와 사본·압축 payload 일치를 각각 검증한다. 명시한 exact source SHA와 clean checkout을 사용하고 다른 작업의 dirty를 원복하거나 배포물에 섞지 않는다.
 - 실제 `.tgz`를 소비 프로젝트에 설치해 검증한다. 기존 소스 복사 소비 실행과 과거 테스트를 현재 artifact 검증으로 대체하지 않는다. 원본 Editor 검증과 독립 batch consumer의 역할을 지킨다.
 - 2026-10-07 사용자는 저장소 public 전환과 외부 제공을 승인했고 참조 의존성의 최소 조건만 유지하도록 요청했다. TPLab 자체 코드/문서는 [MIT](LICENSE), 제3자는 [고지](THIRD_PARTY_NOTICES.md)의 원문 조건을 따른다. 현재/과거 Git 이력의 인증 정보 노출 여부를 공개 전에 확인하고 Cloud/사용자 설정을 보존한다. 실제 artifact 검증이 끝나지 않은 개발 검증본을 최종 Release로 표시하지 않는다.
 - source SHA·version·package hash·실제 결과·tag/Release 대상을 대조한다. 남은 사용자 확인이 있으면 track/main/Release gate를 기다리며, 자동 검증 완료만으로 최종 배포 완료를 선언하지 않는다.
