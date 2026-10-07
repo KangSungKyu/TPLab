@@ -1,0 +1,32 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 6,
+  "passes": [
+    "MyLab.Core.Input.Tests.InputOverrideTests.EmptyNativeJsonRoundTripsAndIndependentBlockRemainsHeld",
+    "MyLab.Core.Input.Tests.InputOverrideTests.ImportExportResetPreserveSourceAndCurrentLayers",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"{}\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"[]\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"not json\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.UnknownAndDuplicateBindingIdsCannotPartiallyApply"
+  ],
+  "skipped": 0,
+  "total": 6,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Input.Tests.InputOverrideTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 25260,
+    "cliReturnCode": 0,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 25260,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

@@ -13,12 +13,18 @@ namespace MyLab.Core.Input
         private readonly InputActionAsset _source;
         private readonly int _threadId;
         private bool _disposed;
+        private bool _actionsDestroyed;
+        private bool _shutdownStarted;
+        private UniTask _shutdownTask;
 
         /// <summary>Borrowed runtime clone. Activation, overrides and destruction belong to this manager.</summary>
         public InputActionAsset Actions { get; }
 
         /// <summary>Controls map activation through independent project-owned leases.</summary>
         public InputLayerController Layers { get; }
+
+        /// <summary>Owns native rebinding and binding override transactions for this scope.</summary>
+        public InputRebindingController Rebinding { get; }
 
         /// <summary>Creates a disabled scope from a borrowed source asset without modifying the source.</summary>
         public InputManager(InputActionAsset source)
@@ -36,6 +42,7 @@ namespace MyLab.Core.Input
                 Actions.name = source.name + " (Input Scope)";
                 Actions.Disable();
                 Layers = new InputLayerController(Actions, EnsureActive);
+                Rebinding = new InputRebindingController(this);
             }
             catch
             {
@@ -67,8 +74,39 @@ namespace MyLab.Core.Input
         /// <summary>Stops this scope and shares graceful completion; no native input request is abandoned.</summary>
         public UniTask ShutdownAsync()
         {
-            Dispose();
-            return UniTask.CompletedTask;
+            EnsureThread();
+            if (!_shutdownStarted)
+            {
+                _shutdownStarted = true;
+                _shutdownTask = ShutdownCoreAsync().Preserve();
+            }
+            return _shutdownTask;
+        }
+
+        private async UniTask ShutdownCoreAsync()
+        {
+            _disposed = true;
+            Exception failure = null;
+            try
+            {
+                StopOwnedInput();
+            }
+            catch (Exception error)
+            {
+                failure = error;
+            }
+            try
+            {
+                await Rebinding.WaitForCompletionAsync();
+            }
+            finally
+            {
+                DestroyActions();
+            }
+            if (failure != null)
+            {
+                throw failure;
+            }
         }
 
         /// <summary>Immediately stops the scope; repeated teardown and late lease disposal are harmless.</summary>
@@ -77,18 +115,40 @@ namespace MyLab.Core.Input
             EnsureThread();
             if (_disposed)
             {
+                DestroyActions();
                 return;
             }
 
             _disposed = true;
             try
             {
-                Layers.Stop();
+                StopOwnedInput();
             }
             finally
             {
                 DestroyActions();
             }
+        }
+
+        private void StopOwnedInput()
+        {
+            try
+            {
+                Rebinding.Stop();
+            }
+            catch (Exception rebindingFailure)
+            {
+                try
+                {
+                    Layers.Stop();
+                }
+                catch (Exception layerFailure)
+                {
+                    throw new AggregateException(rebindingFailure, layerFailure);
+                }
+                throw;
+            }
+            Layers.Stop();
         }
 
         internal void EnsureActive()
@@ -115,10 +175,12 @@ namespace MyLab.Core.Input
 
         private void DestroyActions()
         {
-            if (Actions == null)
+            if (_actionsDestroyed || Actions == null)
             {
                 return;
             }
+
+            _actionsDestroyed = true;
 
             if (Application.isPlaying)
             {

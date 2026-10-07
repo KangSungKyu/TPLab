@@ -1,0 +1,31 @@
+{
+  "total": 5,
+  "passed": 0,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Input.Tests.InputRebindingTests.CancelKeyAndOwnerCancellationAreDistinct: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ConcurrentMutationAndInvalidRequestsHaveNoSideEffects: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SameMapConflictIsRejectedWithoutMutation: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Input.Tests.InputRebindingTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 26616,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 26616,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

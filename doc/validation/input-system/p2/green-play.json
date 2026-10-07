@@ -1,0 +1,35 @@
+{
+  "total": 8,
+  "passed": 6,
+  "failed": 2,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Input.Tests.InputRebindingTests.RemovedCandidateDeviceCancelsWithoutApplying: Unhandled log message: '[Exception] NullReferenceException: Object reference not set to an instance of an object'. Use UnityEngine.TestTools.LogAssert.Expect",
+    "MyLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait:   Expected: TimedOut\r\n  But was:  Applied\r\n"
+  ],
+  "passes": [
+    "MyLab.Core.Input.Tests.InputRebindingTests.CancelKeyAndOwnerCancellationAreDistinct",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ConcurrentMutationAndInvalidRequestsHaveNoSideEffects",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SameMapConflictIsRejectedWithoutMutation",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ShutdownSharesDrainAndRejectsLateCommit",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ValidatorCanReplaceConflictPolicyAndExceptionsLeaveNoOverride"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Input.Tests.InputRebindingTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 26384,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 26384,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

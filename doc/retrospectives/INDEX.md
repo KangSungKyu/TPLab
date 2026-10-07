@@ -37,6 +37,8 @@
 
 | 2026-10-07 | Input asset·layer lease·취소 재진입 | 자동 검증 완료·track 통합 | [04-input-layers](2026-10-07-04-input-layers.md) |
 
+| 2026-10-07 | Input native 리바인딩·override JSON | 자동 검증 완료·track 통합 | [05-input-rebinding](2026-10-07-05-input-rebinding.md) |
+
 ## 작성 형식
 
 작업 규모에 맞게 짧게 작성한다. 해당 없는 항목은 해당 없음으로 표시하며 명세·검증 설명을 반복 복제하지 않는다.

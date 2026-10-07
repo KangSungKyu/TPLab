@@ -1,0 +1,31 @@
+{
+  "total": 5,
+  "passed": 0,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Input.Tests.InputOverrideTests.ImportExportResetPreserveSourceAndCurrentLayers: System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"{}\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"[]\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"not json\"): System.NotImplementedException : The method or operation is not implemented.",
+    "MyLab.Core.Input.Tests.InputOverrideTests.UnknownAndDuplicateBindingIdsCannotPartiallyApply:   Expected: <System.ArgumentException>\r\n  But was:  <System.NotImplementedException: The method or operation is not implemented.\r\n  at MyLab.Core.Input.Tests.InputOverrideTests+<>c__DisplayClass8_0.<UnknownAndDuplicateBindingIdsCannotPartiallyApply>b__0 () [0x00000] in C:\\Users\\PC\\Projects\\MyLab\\Assets\\MyLab\\Input\\Tests\\EditMode\\InputOverrideTests.cs:77 \r\n  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "EditMode",
+    "filter": "MyLab.Core.Input.Tests.InputOverrideTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 26304,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 26304,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

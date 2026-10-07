@@ -1,11 +1,7 @@
 {
-  "total": 13,
-  "passed": 12,
-  "failed": 1,
-  "skipped": 0,
-  "failures": [
-    "MyLab.Core.Input.Tests.InputLayerTests.CancelledActionCanAcquireAnotherLayerDuringRecalculation:   Expected: not null\r\n  But was:  null\r\n"
-  ],
+  "failed": 0,
+  "failures": [],
+  "passed": 18,
   "passes": [
     "MyLab.Core.Input.Tests.InputLayerTests.CloneKeepsSourceDisabledAndResolvesReferenceById",
     "MyLab.Core.Input.Tests.InputLayerTests.EmptyBlockingLayerSuppressesLowerMap",
@@ -18,25 +14,31 @@
     "MyLab.Core.Input.Tests.InputLayerTests.PreparationBlockDoesNotFreezeRegistrationAndSnapshotsAreDetached",
     "MyLab.Core.Input.Tests.InputLayerTests.SamePriorityUsesLatestRemainingLeaseAndDuplicateDisposalIsSafe",
     "MyLab.Core.Input.Tests.InputLayerTests.ShutdownBlocksNewWorkAndLateLeasesAreHarmless",
-    "MyLab.Core.Input.Tests.InputLayerTests.WorkerThreadCannotMutateScopeOrConsumeALease"
+    "MyLab.Core.Input.Tests.InputLayerTests.WorkerThreadCannotMutateScopeOrConsumeALease",
+    "MyLab.Core.Input.Tests.InputOverrideTests.EmptyNativeJsonRoundTripsAndIndependentBlockRemainsHeld",
+    "MyLab.Core.Input.Tests.InputOverrideTests.ImportExportResetPreserveSourceAndCurrentLayers",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"{}\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"[]\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.MalformedJsonCannotEraseExistingOverrides(\"not json\")",
+    "MyLab.Core.Input.Tests.InputOverrideTests.UnknownAndDuplicateBindingIdsCannotPartiallyApply"
   ],
+  "skipped": 0,
+  "total": 18,
   "execution": {
     "project": "C:\\Users\\PC\\Projects\\MyLab",
     "mode": "EditMode",
-    "filter": "MyLab.Core.Input.Tests.InputLayerTests",
+    "filter": "MyLab.Core.Input.Tests",
     "source": "cli",
     "runId": null,
-    "cliPid": 14600,
-    "cliReturnCode": 1,
+    "cliPid": 11196,
+    "cliReturnCode": 0,
     "editorPid": 23120,
     "attempts": [
       {
-        "cliPid": 14600,
-        "cliReturnCode": 1,
+        "cliPid": 11196,
+        "cliReturnCode": 0,
         "prestartDiscoveryRejected": false
       }
     ]
-  },
-  "validTestRun": false,
-  "limitation": "Compilation failed (Update overload is internal); named output is stale and excluded from pass evidence."
+  }
 }

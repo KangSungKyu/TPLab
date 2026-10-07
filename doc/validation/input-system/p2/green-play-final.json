@@ -1,0 +1,36 @@
+{
+  "total": 9,
+  "passed": 8,
+  "failed": 1,
+  "skipped": 0,
+  "failures": [
+    "MyLab.Core.Input.Tests.InputRebindingTests.RemovedCandidateDeviceCancelsWithoutApplying: System.NullReferenceException : Object reference not set to an instance of an object"
+  ],
+  "passes": [
+    "MyLab.Core.Input.Tests.InputRebindingTests.CancelKeyAndOwnerCancellationAreDistinct",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ConcurrentMutationAndInvalidRequestsHaveNoSideEffects",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SameMapConflictIsRejectedWithoutMutation",
+    "MyLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ShutdownSharesDrainAndRejectsLateCommit",
+    "MyLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait",
+    "MyLab.Core.Input.Tests.InputRebindingTests.ValidatorCanReplaceConflictPolicyAndExceptionsLeaveNoOverride",
+    "MyLab.Core.Input.Tests.InputRuntimeTests.CancelledActionCanAcquireAnotherLayerDuringRecalculation"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\MyLab",
+    "mode": "PlayMode",
+    "filter": "MyLab.Core.Input.Tests",
+    "source": "connector-file",
+    "runId": "26992-1791342134917416300",
+    "cliPid": 26992,
+    "cliReturnCode": 1,
+    "editorPid": 23120,
+    "attempts": [
+      {
+        "cliPid": 26992,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}
