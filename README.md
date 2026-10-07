@@ -15,9 +15,12 @@ GitHub 저장소는 `KangSungKyu/TPLab`이며, 로컬 Unity 프로젝트 폴더�
 
 ## 개발 환경
 
+추가 입력 기능은 **Unity Input System만 지원**하는 정책으로 [wrapper 설계](doc/INPUT_SYSTEM_DRAFT.md)를 진행한다. Legacy Input Manager 어댑터는 제공하지 않는다. 현재는 설계 초안이며 공용 입력 wrapper는 미구현이다.
+
 | 항목 | 버전 |
 |---|---|
 | Unity | 6000.3.18f1 |
+| Input System | 1.19.0, 입력 모듈의 명시적 의존성 |
 | Addressables | 2.9.1 |
 | UniTask | 2.5.11 |
 | CsvHelper | 33.1.0, netstandard2.1 DLL |

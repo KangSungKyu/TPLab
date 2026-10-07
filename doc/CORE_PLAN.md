@@ -51,7 +51,7 @@
 5. GameSceneManager에 명시적인 사전 준비 작업을 연결하고 실제 씬 수명을 검증한다. 엔딩·게임 세션·로딩 화면은 소비 프로젝트가 소유한다.
 6. 별도 소비 프로젝트에 가져와 컴파일·최소 사용 예제를 실행한다. Cashier에 적용하는 변경은 별도 요청 범위에서 진행한다.
 
-첫 로컬 구현은 Assets/MyLab/Core와 .meta를 함께 가져오는 방식, MyLab.Core assembly와 MyLab.Core.Pooling namespace, Unity 6000.3 검증 기준을 사용한다. EditMode·PlayMode assembly를 runtime과 분리한다. 여러 프로젝트 배포의 UPM package ID·버전 호환 정책은 소비 프로젝트 검증 단계에서 결정한다. URP·Input System·uGUI·DOTween 등 특정 프로젝트 도구를 코어의 필수 의존성으로 확장하지 않는다.
+첫 로컬 구현은 Assets/MyLab/Core와 .meta를 함께 가져오는 방식, MyLab.Core assembly와 MyLab.Core.Pooling namespace, Unity 6000.3 검증 기준을 사용한다. EditMode·PlayMode assembly를 runtime과 분리한다. 여러 프로젝트 배포의 UPM package ID·버전 호환 정책은 소비 프로젝트 검증 단계에서 결정한다. URP·uGUI·DOTween을 코어의 필수 의존성으로 확장하지 않는다. 2026-10-07 추가한 입력 모듈은 Unity Input System만 지원하되 별도 assembly로 분리하며 기존 코어 전체에 입력 의존성을 추가하지 않는다.
 
 ## 세션 역할 보완
 
@@ -117,3 +117,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-06 Phase 6: 별도 Samples assembly의 Single/Additive Bootstrap→Hub/Main·중첩 구역·root 조건·독립 cover/modal/InputAction을 제공한다. 동일 원래 Editor의 전체 Edit240/240·Play201/201, Windows Player 두 모드 각10관찰, Reload 네 조합×2 및 동일6000.3.18f1 소비 프로젝트 빌드/11관찰을 확인했다. [증거](validation/scene-integration/README.md)와 [최종 사용자 절차](SCENE_TRANSITION_ACCEPTANCE.md)를 따른다. 다른 Unity 버전·플랫폼 호환성과 전체 시각 UX는 미검증이다. main 병합은 인간 확인 대기다.
 
 2026-10-07 Phase 6 사용자 확인 완료: 사용자가 코드와 최종 Unity 실행 항목을 확인했다. 현재 source 입력283개는 실제 P6 자동 결과의 입력과 일치한다. 같은 변경의 마지막 단위로 기존 track을 재사용하며, [통합 기록](SCENE_TRANSITION_TRACK.md)에 따라 main 반영·승인된 작업 브랜치 정리를 수행한다.
+
+2026-10-07 입력 wrapper 설계: 사용자 확정 정책은 Unity Input System 전용 지원이다. [INPUT_SYSTEM_DRAFT.md](INPUT_SYSTEM_DRAFT.md)에 runtime asset 소유권, layer lease·차단·복원, 리바인딩과 저장 경계, SceneRoot/전환 callback·UI 연결 및 단계별 검증 기준을 작성했다. 정책 반영·설계 초안 작성만 완료했으며 runtime·Editor 구현과 입력 기능 테스트는 아직 하지 않았다. 기존 Samples의 입력 처리는 프로젝트 소유 예시이며 신규 wrapper 구현으로 간주하지 않는다.

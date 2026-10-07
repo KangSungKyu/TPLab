@@ -32,6 +32,7 @@
 | 2026-10-06 | Phase 6 통합 예제·반복 Play·소비 프로젝트·Player | 자동 검증 완료·사용자 확인 대기 | [22-scene-integration](2026-10-06-22-scene-integration.md) |
 
 | 2026-10-07 | GameSceneManager 최종 수락·main 통합 | 사용자 확인·main 통합 완료 | [01-scene-track-integration](2026-10-07-01-scene-track-integration.md) |
+| 2026-10-07 | Input System 전용 정책·wrapper 설계 | 정책 반영·설계 초안 완료, 미구현 | [02-input-system-design](2026-10-07-02-input-system-design.md) |
 
 ## 작성 형식
 

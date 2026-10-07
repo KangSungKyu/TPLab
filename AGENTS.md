@@ -16,6 +16,7 @@
 - Inspector 노출은 필요한 필드에만 [SerializeField] private를 사용한다. 직렬화 필드 이름 변경 시 기존 자산·GUID·직렬화 호환성을 확인한다.
 - public API에는 책임, 입력·반환, 소유권과 필요한 오류·취소 계약을 XML 주석으로 남긴다. 내부 주석은 코드만으로 드러나지 않는 이유에 집중한다.
 - Runtime은 UnityEditor·게임별 도메인·UI를 참조하지 않는다. Editor 코드와 EditMode·PlayMode 테스트는 assembly 경계를 분리한다.
+- MyLab 공용 입력 기능은 Unity Input System만 지원한다. Legacy Input Manager(`UnityEngine.Input`) 어댑터·fallback·양쪽 backend 선택 API를 제공하지 않는다. 입력 모듈은 `Unity.InputSystem`을 명시적으로 참조하고 다른 코어 모듈에는 입력 의존성을 강제하지 않는다. 프로젝트의 Active Input Handling은 Input System Package (New)를 권장하며, Both여도 MyLab은 Input System만 사용한다. 현재 설계·지원 범위·구현 상태는 [INPUT_SYSTEM_DRAFT.md](doc/INPUT_SYSTEM_DRAFT.md)를 따른다.
 - 사용자 승인 의존성은 UniTask 2.5.11, CsvHelper 33.1.0, Unity CLI/Connector 0.4.1이다. 비동기는 UniTask, CSV는 CsvHelper를 기본으로 사용한다. Unity CLI는 Editor 개발·검증 도구로 사용하며 코어 runtime에 의존시키지 않는다.
 - Unity CLI는 항상 MyLab의 절대 project 경로를 지정한다. 연결된 기존 Editor의 상태·컴파일을 확인하고 다른 프로젝트나 새 Editor로 검증을 대체하지 않는다.
 
