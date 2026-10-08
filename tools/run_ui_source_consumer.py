@@ -323,6 +323,39 @@ def _copy_canonical(project, revision, relative, target, canonical_sha256, worki
         stream.write(done.stdout)
 
 
+def _run_graphics_process(command, cwd, env, process_log, stdout_log, timeout):
+    """Bounded visible non-activating Player; hidden Windows windows can produce zero draws."""
+    for path in (process_log, stdout_log):
+        if path.exists():
+            raise FileExistsError(path)
+    started = time.time()
+    startup = subprocess.STARTUPINFO()
+    startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    startup.wShowWindow = 4  # SW_SHOWNOACTIVATE: render without requesting keyboard focus.
+    timed_out = False
+    with stdout_log.open("xb") as log:
+        process = subprocess.Popen(command, cwd=str(cwd), env=env, stdout=log,
+                                   stderr=subprocess.STDOUT, startupinfo=startup)
+        try:
+            return_code = process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            process.terminate()
+            try:
+                return_code = process.wait(timeout=15)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                return_code = process.wait()
+    ended = time.time()
+    return {"pid": process.pid, "startedUnix": started, "completedUnix": ended,
+            "elapsedSeconds": round(ended - started, 3), "returnCode": return_code,
+            "timedOut": timed_out, "windowPolicy": "SW_SHOWNOACTIVATE",
+            "processLog": str(process_log), "stdoutLog": str(stdout_log),
+            "processLogFresh": process_log.is_file() and process_log.stat().st_size > 0 and
+            process_log.stat().st_mtime >= started - 1,
+            "stdoutLogFresh": stdout_log.is_file() and stdout_log.stat().st_mtime >= started - 1}
+
+
 def execute(args):
     if os.name != "nt":
         raise ValueError("Actual consumer requires a graphics-capable Windows host.")
@@ -459,8 +492,8 @@ def execute(args):
             benchmark_path = evidence / (mode + "-benchmark.json")
             env.update({"TPLAB_UI_MODE": mode, "TPLAB_UI_RUN_MODE": mode, "TPLAB_UI_PLAYER_RESULT": str(result_path),
                         "TPLAB_UI_BENCHMARK_OUTPUT": str(benchmark_path)})
-            # Graphics Player: deliberately no -batchmode and no -nographics. Hidden process still renders.
-            process = core.run_process([str(player), "-screen-width", "1280", "-screen-height", "720", "-screen-fullscreen", "0",
+            # Graphics Player: visible without activation; rendering still requires fresh positive draws.
+            process = _run_graphics_process([str(player), "-screen-width", "1280", "-screen-height", "720", "-screen-fullscreen", "0",
                                         "-logFile", str(evidence / (mode + "-player.log"))],
                                        consumer, env, evidence / (mode + "-player.log"), evidence / (mode + "-stdout.log"), args.timeout)
             report["actualExecutions"].append({"kind": mode, **process})
@@ -513,7 +546,7 @@ def execute(args):
         if args.sample_validation_script and not args.build_only:
             sample_result = evidence / "sample-result.json"
             env.update({"TPLAB_UI_MODE": "sample", "TPLAB_UI_RUN_MODE": "sample", "TPLAB_UI_PLAYER_RESULT": str(sample_result)})
-            sample_process = core.run_process([str(sample_player), "-screen-width", "1280", "-screen-height", "720", "-screen-fullscreen", "0",
+            sample_process = _run_graphics_process([str(sample_player), "-screen-width", "1280", "-screen-height", "720", "-screen-fullscreen", "0",
                                                "-logFile", str(evidence / "sample-player.log")],
                                               consumer, env, evidence / "sample-player.log", evidence / "sample-stdout.log", args.timeout)
             report["actualExecutions"].append({"kind": "sample", **sample_process})
