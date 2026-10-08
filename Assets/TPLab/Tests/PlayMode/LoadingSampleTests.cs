@@ -20,8 +20,9 @@ using Object = UnityEngine.Object;
 
 namespace TPLab.Samples.SceneTransitions.Tests
 {
-    public sealed class LoadingSampleTests : InputTestFixture
+    public sealed class LoadingSampleTests
     {
+        private readonly InputTestFixture _inputFixture = new InputTestFixture();
         private GameObject _host;
         private InputActionAsset _source;
         private SceneTransitionSampleController _controller;
@@ -33,6 +34,7 @@ namespace TPLab.Samples.SceneTransitions.Tests
         [SetUp]
         public void SetUp()
         {
+            _inputFixture.Setup();
             _source = InputActionAsset.FromJson(File.ReadAllText(Path.Combine(Application.dataPath, "InputSystem_Actions.inputactions")));
             _host = new GameObject("Loading sample test", typeof(RectTransform), typeof(Canvas), typeof(GraphicRaycaster));
             _host.SetActive(false);
@@ -51,24 +53,32 @@ namespace TPLab.Samples.SceneTransitions.Tests
         [UnityTearDown]
         public IEnumerator CleanupAsync() => UniTask.ToCoroutine(async () =>
         {
-            if (_host != null)
+            try
             {
-                Object.Destroy(_host);
-            }
-            if (_source != null)
-            {
-                Object.Destroy(_source);
-            }
-            foreach (var device in _devices)
-            {
-                if (device.added)
+                if (_host != null)
                 {
-                    InputSystem.RemoveDevice(device);
+                    Object.Destroy(_host);
                 }
+                if (_source != null)
+                {
+                    Object.Destroy(_source);
+                }
+                foreach (var device in _devices)
+                {
+                    if (device.added)
+                    {
+                        InputSystem.RemoveDevice(device);
+                    }
+                }
+                _devices.Clear();
+                await UniTask.NextFrame();
+                LogAssert.NoUnexpectedReceived();
             }
-            _devices.Clear();
-            await UniTask.NextFrame();
-            LogAssert.NoUnexpectedReceived();
+            finally
+            {
+                // Keep the mock runtime alive until async UI/owner cleanup has completed.
+                _inputFixture.TearDown();
+            }
         });
 
         [UnityTest]
