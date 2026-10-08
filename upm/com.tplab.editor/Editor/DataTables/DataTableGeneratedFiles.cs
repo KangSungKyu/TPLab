@@ -73,6 +73,7 @@ namespace TPLab.Core.Editor.DataTables
             }
         }
         /// <summary>Applies an owned source pair and manifest with rollback on I/O failure; returns whether source changed.</summary>
+        /// <remarks>Recognized Windows replacement failures receive at most five atomic attempts per file, with four 50ms waits. Exhaustion preserves rollback and propagates the IOException with destination and attempt diagnostics.</remarks>
         public static bool Apply(string outputFolder, string ownerId, string contract, IReadOnlyDictionary<string, string> files, bool automatic = false)
         {
             Check(outputFolder, ownerId, contract, files, automatic);
@@ -117,7 +118,7 @@ namespace TPLab.Core.Editor.DataTables
                 foreach (var pair in staged)
                 {
                     if (File.Exists(pair.Key))
-                        File.Replace(pair.Value, pair.Key, null);
+                        ReplaceStagedFile(pair.Value, pair.Key);
                     else
                         File.Move(pair.Value, pair.Key);
                 }
@@ -138,6 +139,32 @@ namespace TPLab.Core.Editor.DataTables
             }
             finally { foreach (string stage in staged.Values) if (File.Exists(stage)) File.Delete(stage); }
             return changed;
+        }
+
+        private static void ReplaceStagedFile(string stage, string destination)
+        {
+            const int MaximumAttempts = 5;
+            for (int attempt = 0; ; ++attempt)
+            {
+                try
+                {
+                    File.Replace(stage, destination, null);
+                    return;
+                }
+                catch (IOException error)
+                {
+                    error.Data["ReplacementDestination"] = destination;
+                    error.Data["ReplacementAttempts"] = attempt + 1;
+                    int code = error.HResult & 0xFFFF;
+                    bool temporaryWindowsFailure = Environment.OSVersion.Platform == PlatformID.Win32NT &&
+                        ((uint)error.HResult >> 16) == 0x8007 && (code == 32 || code == 33 || code == 1175);
+                    if (attempt + 1 >= MaximumAttempts || !temporaryWindowsFailure ||
+                        !File.Exists(stage) || !File.Exists(destination))
+                        throw;
+                    // Windows readers may briefly deny deletion. Keep the atomic replace and the bounded rollback path.
+                    System.Threading.Thread.Sleep(50);
+                }
+            }
         }
 
         internal static string Hash(string value)

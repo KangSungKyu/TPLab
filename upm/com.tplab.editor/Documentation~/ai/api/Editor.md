@@ -5,7 +5,7 @@ PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes 
 Module: Editor
 Namespace: TPLab.Core.Editor.DataTables; TPLab.Core.Editor.Bootstrap
 Assembly: TPLab.Core.Editor (includePlatforms: Editor)
-SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+SourceRevision: 896bcbeeb8e627e193bb1eba5032455b7f8e3f32
 SourcePath: [Editor](../../../Editor)
 HumanContract: [Editor](../../api/Editor.md), [importer](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md), [Bootstrap](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/BOOTSTRAP_SYSTEM.md)
 ImplementationStatus: Implemented
@@ -73,11 +73,11 @@ Lifecycle: settings/profile → schema+shared CSV/idx preflight → optional gen
 Threading: idle Editor main thread; assembly excluded from Player.
 Concurrency: queue outside asset callbacks; shared automation cancels obsolete request and resumes after compilation/reload. direct RunAsync overlap unsupported; use RequestManual/Notify. compilation/Play busy returns pending outcome.
 Cancellation: RunAsync token/changed input stamp→Cancelled; before assembly reload cancels queued attempt.
-FailureCleanup: temporary manager disposed; preview scenes closed; low-level Apply rolls back staged file writes. does not promise full runtime/source rollback after every later compilation error.
+FailureCleanup: temporary manager disposed; preview scenes closed; low-level Apply rolls back staged file writes. Windows HRESULT sharing/lock/unable-to-remove-replaced codes32/33/1175 permit only the same atomic File.Replace, maximum5 attempts with50ms intervals (at most200ms requested synchronous waits per replaced file; I/O and OS scheduling add time). Other errors, missing stage/destination, or exhaustion propagate the original IOException and rollback; no delete/move or direct-overwrite fallback. Final IOException.Data includes ReplacementDestination and ReplacementAttempts. does not promise full runtime/source rollback after every later compilation error.
 Configuration: absent ActivePath asset disables automation; Disabled permits manual. normalized Assets paths only, no traversal/links/core/test/Editor output. automatic schema contract changes require manual review/apply.
 ExtensionPoints: InitializeOnLoadMethod registers profile; context.RegisterTable exact DTO/table names/properties; context.Manager binds FK/interface/whole-validator identical project rules; generated partial files for custom rules.
 RequiredSequence: use human setup above; explicit backend scene target/root/actual build scenes must pass compile/Play/build gate before runtime use.
 ForbiddenUsage: JSON row loader; infer C# schema from CSV automatically; overwrite hand-edited .g.cs/unowned files; delete sources on input deletion; rename types automatically; publish validation context manager as runtime manager; include Editor assembly in Player; auto-select loader by scene registration.
 Example: [human declarations](../../api/Editor.md) are NotRun excerpts; [importer template](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md) provides project configuration.
 Compatibility: actual Unity scene properties/Inspector drawer types are Editor integration, not separate runtime consumers. project schema changes may need migration/manual apply.
-Limitations: importer external consumer execution unverified; JSON rows/rename migration/generic PK generation not provided.
+Limitations: minimal Git/tarball importer consumers passed in the P2 validation source; this does not validate project-specific DTO/profile rules. JSON rows/rename migration/generic PK generation not provided.

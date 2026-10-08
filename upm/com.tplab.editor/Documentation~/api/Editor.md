@@ -5,8 +5,8 @@ PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes 
 Editor 도구는 Bootstrap/씬 전환 설정을 사전 검사하고 CSV와 명시적 JSON schema로 프로젝트 DTO·테이블 C# 소스를 생성/검증한다. runtime 데이터를 Editor에서 자동 등록하거나 공개하지 않는다.
 
 - Assembly: `TPLab.Core.Editor` (Editor 전용); Namespace: `TPLab.Core.Editor.DataTables`, `TPLab.Core.Editor.Bootstrap`
-- SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [소스](../../Editor)
-- ImplementationStatus: Implemented; ValidationStatus: Partial. [importer 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/data-table-importer/README.md), [씬 gate 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-transition-editor/README.md), [최종 회귀](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md). importer의 소비 프로젝트 이식 실행은 별도로 확인하지 않았다.
+- SourceRevision: `896bcbeeb8e627e193bb1eba5032455b7f8e3f32`; [소스](../../Editor)
+- ImplementationStatus: Implemented; ValidationStatus: Partial. [importer 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/data-table-importer/README.md), [씬 gate 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-transition-editor/README.md), [최종 회귀](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md). P2에서 실제 Git/tarball importer 소비 실행을 확인했다. 이번 Windows 교체 보정의 새 package 검증은 배포 후보 gate에서 별도로 기록한다.
 - 의존성: Core, UniTask, Addressables Editor 및 설치된 Unity Newtonsoft.Json **3.2.2**. runtime Player에 이 assembly를 포함하지 않는다.
 
 `Create > TPLab > Data Table Import Settings`로 설정을 만들고 자동 사용 시 `Assets/Editor/TPLab/setting.asset`에 저장한다. 없으면 자동화는 꺼져 있다. Inspector에서 명시적 검증/생성도 요청할 수 있다. [schema 및 설정 상세](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md)를 따른다.
@@ -60,7 +60,7 @@ static bool Apply(string outputFolder, string ownerId, string contract,
     IReadOnlyDictionary<string, string> files, bool automatic = false);
 ```
 
-지원 type은 string, bool, int, uint, long, ulong, float, double, decimal 및 value type의 `?`이다. namespace/identifier·unknown/duplicate JSON field·CSV 변환·idx를 사전 검사한다. 생성 결과는 `<Row>.g.cs`, `<Table>.g.cs` 두 partial class다. 별도 partial에 프로젝트 검사/interface를 작성한다. core namespace에 프로젝트 타입을 생성하지 않는다. low-level generator/file APIs는 오류를 예외로 전달하며 invalid schema/소유권/path는 주로 `InvalidDataException`, router null은 `ArgumentNullException`이다. 파일 Apply는 쓰기 실패 시 rollback한다.
+지원 type은 string, bool, int, uint, long, ulong, float, double, decimal 및 value type의 `?`이다. namespace/identifier·unknown/duplicate JSON field·CSV 변환·idx를 사전 검사한다. 생성 결과는 `<Row>.g.cs`, `<Table>.g.cs` 두 partial class다. 별도 partial에 프로젝트 검사/interface를 작성한다. core namespace에 프로젝트 타입을 생성하지 않는다. low-level generator/file APIs는 오류를 예외로 전달하며 invalid schema/소유권/path는 주로 `InvalidDataException`, router null은 `ArgumentNullException`이다. 파일 Apply는 쓰기 실패 시 rollback한다. Windows의 sharing/lock/교체 대상 제거 오류(32/33/1175)는 같은 원자적 `File.Replace`를 최대 5회, 50ms 간격으로만 시도한다. 다른 오류·사라진 파일·소진은 기존 예외/rollback으로 전파하며 삭제 후 Move나 직접 덮어쓰기로 교체를 우회하지 않는다. 교체 파일 하나당 동기 대기 요청 합계는 최대 200ms이며 파일 I/O와 OS 스케줄링 시간은 별도다. 마지막 IOException의 Data에 ReplacementDestination/ReplacementAttempts를 남긴다.
 
 경로는 forward-slash Assets 상대 경로이며 traversal·linked path·보호된 core/test/Editor output은 거부한다. 기존 생성물의 해시와 manifest가 맞아야 수정할 수 있다. 사용자 편집·알 수 없는 파일은 덮어쓰지 않고 `.meta`를 보존한다. 자동 schema 계약 변경은 거부하므로 검토 후 수동 적용한다. 입력 삭제가 generated source 자동 삭제나 rename migration을 뜻하지 않는다. 생성 소스/manifest/설정은 버전 관리할 프로젝트 소스다.
 
