@@ -1,6 +1,6 @@
 # 0.0.1 배포 후보 최종 확인
 
-2026-10-08. 후보: `de879b9396ddae0523bd3ab86939b679b383dd92`. 자동 검증 결과와 사람의 사용성 확인은 구분한다. 현재 main/tag/Release는 진행하지 않았다.
+2026-10-08. 후보: `de879b9396ddae0523bd3ab86939b679b383dd92`. 자동 검증 결과와 사람의 사용성 확인은 구분한다. 최종 확인을 완료하고 [정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 공개했다.
 
 ## 확인할 프로젝트
 
@@ -26,3 +26,5 @@ Importer의 실제 CSV/schema/typed validator와 거부 시 이전 소스 보존
 ## 확인 상태 (2026-10-08)
 
 후속 사용자 응답: **이 문서의 내용을 실행해서 확인했어**. 최종 사용자 확인은 Confirmed다. main/tag/Release·브랜치 정리·Unity/PC 종료를 후속 P4로 진행한다.
+
+2026-10-08 후속: main 통합·v0.0.1 tag·실제 태그 설치·공개 첨부물8개 다운로드 비교를 완료했다. [P4 증거](validation/distribution-release/README.md)를 따른다.

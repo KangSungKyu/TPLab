@@ -20,19 +20,19 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 
 ## 배포 준비
 
-첫 `0.0.1`의 [배포 트랙](doc/DISTRIBUTION_PIPELINE.md)에서 P1/P2와 P3 자동 검증을 완료했다. 최종 후보 `de879b9396ddae0523bd3ab86939b679b383dd92`에서 EditMode286/286·PlayMode253/253, Git URL/`.tgz` 설치8/8과 Windows Mono 소비/예제 실행을 확인했다. [현재 증거](doc/validation/distribution-candidate/README.md)와 [설치·예제 최종 확인](doc/DISTRIBUTION_ACCEPTANCE.md)을 따른다. 사용자 확인 후 main/tag/Release를 진행한다. 저장소는 [public](https://github.com/KangSungKyu/TPLab)이며 TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. 다음 버전의 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 아직 구현하지 않았다.
+첫 [0.0.1 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 정식 공개했다. 검증한 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 `v0.0.1` 태그가 같은 source를 가리킨다. 패키지 3개, SHA256·설치/검증 안내·생성 기록을 제공한다. 사람/AI API는 각 패키지의 Documentation~에 포함된다. [발행 검증](doc/validation/distribution-release/README.md)에서 실제 태그 설치·공개 첨부물 다운로드와 최종 사용자 확인을 확인할 수 있다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. 다음 버전의 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 계획 단계다.
 
-검증 후보의 UPM Git 설치는 소비 `Packages/manifest.json`에 필요한 의존성을 합쳐 설정한다. UniTask는 먼저 고정 Git provider로 지정하고 Input/Editor를 선택하면 Core provider도 명시한다. 아래 블록은 Core만의 entries이며 기존 manifest 전체를 덮어쓰지 않는다.
+정식 UPM Git 설치는 소비 `Packages/manifest.json`에 필요한 의존성을 합쳐 설정한다. UniTask는 먼저 고정 Git provider로 지정하고 Input/Editor를 선택하면 Core provider도 명시한다. 아래 블록은 Core만의 entries이며 기존 manifest 전체를 덮어쓰지 않는다.
 
 ```json
 {
   "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11",
   "com.unity.addressables": "2.9.1",
-  "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#de879b9396ddae0523bd3ab86939b679b383dd92"
+  "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#v0.0.1"
 }
 ```
 
-선택 package도 같은 URL의 `com.tplab.core`를 `com.tplab.input`/`com.tplab.editor`로 바꾸며 같은 SHA를 사용한다. `.tgz`는 같은 후보의 검증 archive를 내려받은 실제 경로로 provider를 지정한다. 정식 Release 첨부물과 `#v0.0.1`은 P4 이후 제공한다. 소스 사본과 UPM package를 함께 설치하면 assembly/GUID가 중복되므로 기존 설치를 검토한다.
+선택 package도 같은 URL의 `com.tplab.core`를 `com.tplab.input`/`com.tplab.editor`로 바꾸며 같은 SHA를 사용한다. `.tgz`는 같은 후보의 검증 archive를 내려받은 실제 경로로 provider를 지정한다. 정식 첨부물은 위 Release에서 다운로드하며 Git URL은 `#v0.0.1`을 사용한다. 소스 사본과 UPM package를 함께 설치하면 assembly/GUID가 중복되므로 기존 설치를 검토한다.
 
 Core 예제는 `TPLab Core > Samples > Core Pooling > Import`로 가져온다. Input 예제는 Input System1.19.0/uGUI2.0.0을 공급하고 `TPLab Input > Samples > Scene Transitions > Import` 후 `TPLab > Scene Transitions > Build Sample Assets`를 명시적으로 실행한다. 예제 생성은 원래 scene setup/Build Settings를 복원한다. 프로젝트 DTO/action/UI 정책은 소비 프로젝트가 소유한다.
 

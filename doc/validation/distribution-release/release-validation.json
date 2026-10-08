@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "stage": "Pre-publication validation; see repository public-release.json for later public-download proof",
+  "version": "0.0.1",
+  "tag": "v0.0.1",
+  "sourceRevision": "de879b9396ddae0523bd3ab86939b679b383dd92",
+  "publicationReady": true,
+  "gates": {
+    "packaging": "Verified",
+    "regression": "Edit286/Play253 Passed",
+    "gitAndTarball": "8/8 Passed",
+    "tagInstallation": "Passed - all3packages/fullsamples",
+    "licenseAndNotices": "Included and packaging verified",
+    "humanAcceptance": "Confirmed"
+  },
+  "archiveSha256": {
+    "com.tplab.core-0.0.1.tgz": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+    "com.tplab.input-0.0.1.tgz": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+    "com.tplab.editor-0.0.1.tgz": "adc7cecb418e64d7dd612379694b25262ddd44dcf4e06b1f8c2c93f99bfe1202"
+  },
+  "tagInstallEvidence": "core-consumer-20261008T014425Z-37332.json"
+}

@@ -1,0 +1,11 @@
+{
+  "releaseMirror": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\releases\\0.0.1",
+  "verifiedPublicAssets": 8,
+  "rawLogArchiveSha256": "b89b19136aa15ce4f177c20c133e06bc196abe1f0ce939880483362fd31ccb4b",
+  "projectSourceArchiveSha256": "60e52cd5ca61f4015d2f81d7f4a656886638c66b84ba3efdbc2632f73fb1549e",
+  "duplicateTagEvidenceRemoved": [
+    "core-consumer-20261008T014425Z-37332.json"
+  ],
+  "validationCheckoutClean": true,
+  "localArchiveIssue": "Initial strict ZIP timestamp rejected pre-1980 imported sources; recreated with standard timestamp clamping, CRC verified, incomplete owned ZIPs removed"
+}

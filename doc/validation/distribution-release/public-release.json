@@ -1,0 +1,67 @@
+{
+  "id": 406323417,
+  "url": "https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1",
+  "tag": "v0.0.1",
+  "sourceRevision": "de879b9396ddae0523bd3ab86939b679b383dd92",
+  "publishedAt": "2026-10-08T01:49:43Z",
+  "draft": false,
+  "prerelease": false,
+  "assets": [
+    {
+      "name": "com.tplab.core-0.0.1.tgz",
+      "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+      "size": 185106,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/com.tplab.core-0.0.1.tgz"
+    },
+    {
+      "name": "com.tplab.editor-0.0.1.tgz",
+      "sha256": "adc7cecb418e64d7dd612379694b25262ddd44dcf4e06b1f8c2c93f99bfe1202",
+      "size": 32424,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/com.tplab.editor-0.0.1.tgz"
+    },
+    {
+      "name": "com.tplab.input-0.0.1.tgz",
+      "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+      "size": 66719,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/com.tplab.input-0.0.1.tgz"
+    },
+    {
+      "name": "distribution-manifest.json",
+      "sha256": "2e0bff6c3f21710e73b42cf4492a862fd1c7861dbd7adeff872ffa76bf4ab549",
+      "size": 84036,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/distribution-manifest.json"
+    },
+    {
+      "name": "INSTALL.md",
+      "sha256": "5ac8bdbd9f902c0fa7046a39b49e0b204ac05b998c4998023028cf4bf8ed906e",
+      "size": 1828,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/INSTALL.md"
+    },
+    {
+      "name": "RELEASE_VALIDATION.json",
+      "sha256": "cde26994aa016a01c246a9d1fceacf7ec31a8dd737746b0d25048cc314c817fc",
+      "size": 967,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/RELEASE_VALIDATION.json"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "91683569749828caeca1898eba33c040c2d052d61ede3bfb3241f31d0002ff77",
+      "size": 276,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/SHA256SUMS.txt"
+    },
+    {
+      "name": "VALIDATION.md",
+      "sha256": "fc94e570d45ecd39d8673846cc698e22a4059ab95ca6f72dc097b048b85e7e2f",
+      "size": 2023,
+      "publicDownloadVerified": true,
+      "url": "https://github.com/KangSungKyu/TPLab/releases/download/v0.0.1/VALIDATION.md"
+    }
+  ]
+}
