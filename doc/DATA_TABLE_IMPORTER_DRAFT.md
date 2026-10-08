@@ -105,7 +105,7 @@ Runtime의 기존 CSV reader와 표준 idx 검사를 **DataTableCsvValidator.Rea
 - 스키마 GUID가 `<owner>.tableimport.json` 소유자를 결정한다. manifest는 소스 hash·입력 GUID·마지막 성공 fingerprint·마지막 검증 성공 소스를 보관한다. 타임스탬프/사용자 절대 경로는 넣지 않는다. `.g.cs`, manifest와 meta를 Git에 포함한다.
 - 생성 파일의 현재 hash가 소유 기록과 다르면 사용자 수정으로 거부한다. 알 수 없는 `.g.cs`/meta·기존 컴파일 타입을 덮어쓰지 않는다. 기존 meta/GUID를 유지하고 편의 기능·interface·validation override는 별도 partial에 작성한다.
 - CSV 이동은 현재 존재하고 GUID가 일치하는 경로로 따라간다. 삭제된 GUID의 Unity 캐시 경로를 읽지 않는다. 이동 후 삭제된 CSV를 다시 만들면 스키마 input 경로로 재연결하고 성공 검증 뒤 새 GUID를 기록한다.
-- 소스 한 쌍과 manifest를 같은 폴더에 stage하고 I/O 실패 시 기존 bytes를 복구하고 stage를 정리한다. 여러 테이블·파일 전체를 DB처럼 원자적으로 쓰는 계약은 아니다. 모든 테이블 사전검사 이후에도 I/O 실패로 이전 쌍의 잠정 반영이 남을 수 있으며 Failed로 진단한다.
+- 소스 한 쌍과 manifest를 같은 폴더에 stage하고 I/O 실패 시 기존 bytes를 복구하고 stage를 정리한다. Windows의 일시적 sharing/lock/교체 대상 제거 오류에만 같은 원자적 교체를 최대5회·50ms 간격으로 시도한다. 영구 오류·소진은 실패를 전파하며 임의 덮어쓰기로 우회하지 않는다. 여러 테이블·파일 전체를 DB처럼 원자적으로 쓰는 계약은 아니다. 모든 테이블 사전검사 이후에도 I/O 실패로 이전 쌍의 잠정 반영이 남을 수 있으며 Failed로 진단한다.
 - 사후 컴파일/hook/FK 실패는 잠정 소스와 진단을 남긴다. 임의 사용자 변경을 자동 rollback하거나 runtime 데이터를 공개하지 않는다. manifest 성공 기록은 전체 검증 후에만 갱신한다. 복원/소유권 재설정 UI는 제공하지 않는다.
 
 ## 검증과 후속 범위
