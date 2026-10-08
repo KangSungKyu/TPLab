@@ -26,6 +26,9 @@ namespace TPLab.UI
         internal UIHooks Hooks;
         internal GameObject View;
         internal bool CloseStarted;
+        internal bool IsPresented;
+        internal bool IsHudSelection;
+        internal UIPresentation Presentation;
 
         internal UIHandle(UIContext context, long id, UIOpenRequest request, UIDefinition definition)
         {
@@ -60,14 +63,15 @@ namespace TPLab.UI
         {
             get;
         }
-        /// <summary>Gets the logical parent. Parent trees are deferred to P3.</summary>
+        /// <summary>Gets the immutable logical parent, independent of physical Canvas/Transform placement.</summary>
         public UIHandle Parent
         {
             get;
         }
         /// <summary>Gets this generation's state, including after termination.</summary>
         public UIState State => CurrentState;
-        /// <summary>Gets the context-owned clone while this generation exists; never destroy it directly.</summary>
+        /// <summary>Gets the context-owned prefab clone while this generation exists; never destroy it directly.</summary>
+        /// <remarks>Renderer-only display places this clone under an owned visibility wrapper, not directly under the host.</remarks>
         public GameObject ViewObject => View;
         /// <summary>Gets the cached token cancelled at the start of this display's termination.</summary>
         public CancellationToken LifetimeToken => _lifetimeToken;
@@ -88,14 +92,14 @@ namespace TPLab.UI
 
         /// <summary>
         /// Shares cleanup completion after native retirement, State Closed, cleared ViewObject, and the Closed observer.
-        /// Successful Reuse retains an inactive clone only after its observer succeeds; other clones are destroyed.
+        /// Successful Reuse retains a hidden clone only after its observer succeeds; renderer-only clones stay active.
         /// Observer/cleanup errors fault this result after discard. Opening errors alone do not fault Closed.
         /// </summary>
         public UniTask Closed
         {
             get
             {
-                Context.EnsureObservation(this);
+                Context.EnsureObservation(this, true);
                 return CloseCompletion.Task;
             }
         }
@@ -123,11 +127,11 @@ namespace TPLab.UI
 
         /// <summary>Starts non-vetoable termination and shares this generation's Closed result.</summary>
         /// <remarks>
-        /// A successful Reuse generation may retain its inactive native clone; failures and partial opening discard it.
+        /// A successful Reuse generation retains its hidden clone and native wrapper; failures and partial opening discard them.
         /// This handle releases its view and display token regardless of retention, and never mutates a later generation.
         /// </remarks>
         /// <param name="cancellationToken">Cancels only this caller's wait; requested cleanup always continues.</param>
-        /// <exception cref="InvalidOperationException">Thread violation, synchronous self-close, or cleanup/native reentry; another display hook may close this handle.</exception>
+        /// <exception cref="InvalidOperationException">Thread violation, a callback inside this subtree, or cleanup/native reentry; independent hooks may close it.</exception>
         /// <exception cref="AggregateException">Cleanup failed after remaining cleanup was attempted.</exception>
         public UniTask CloseAsync(CancellationToken cancellationToken = default)
         {
@@ -162,6 +166,10 @@ namespace TPLab.UI
             _callerToken.ThrowIfCancellationRequested();
             _lifetimeToken.ThrowIfCancellationRequested();
             Context.LifetimeToken.ThrowIfCancellationRequested();
+            if (Context.IsDisposed || Context.RootObject == null)
+            {
+                throw new OperationCanceledException(Context.LifetimeToken);
+            }
             if (CurrentState != UIState.Opening)
             {
                 throw new OperationCanceledException(_lifetimeToken);
@@ -201,6 +209,8 @@ namespace TPLab.UI
             DetachCaller();
             _lifetime.Dispose();
             View = null;
+            Presentation = null;
+            IsPresented = false;
             Hooks = null;
             Definition = null;
             CurrentState = UIState.Closed;

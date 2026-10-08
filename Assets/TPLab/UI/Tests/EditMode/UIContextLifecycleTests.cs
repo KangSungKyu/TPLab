@@ -66,7 +66,7 @@ namespace TPLab.UI.Tests
         {
             for (int frame = 0; frame < 100 && !task.IsCompleted; ++frame)
             {
-                await UniTask.NextFrame();
+                await UniTask.Yield();
             }
             Assert.That(task.IsCompleted, Is.True, "The public completion did not settle within 100 frames.");
         }

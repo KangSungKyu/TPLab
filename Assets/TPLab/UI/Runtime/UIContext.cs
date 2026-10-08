@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TPLab.UI
 {
@@ -11,11 +12,15 @@ namespace TPLab.UI
     /// The root, prefab, provider, and input services are borrowed and are never released here.
     /// </summary>
     /// <remarks>
-    /// Supports direct/keyed borrowed prefabs, optional shared asset preparation, modeless Popup,
-    /// the default host, DestroyOnClose or one inactive Reuse clone per definition, and DeactivateView.
-    /// Deferred HUD, parent, host, rendering-only, and modal policies fail explicitly.
-    /// Hooks may compose independent displays. Synchronous self-close/self-await and owner shutdown
-    /// inside a hook are rejected; native application and cleanup reject all lifecycle mutation.
+    /// Supports direct/keyed borrowed prefabs, shared asset preparation, HUD selection, logical Popup trees,
+    /// explicit borrowed hosts, accepted ordering, and one retained clone per definition. Modal input requires P4.
+    /// Fresh/Deactivate clones prepare inactive. Renderer-only Reuse prepares an active clone behind its owned
+    /// visibility mask with its Canvas/raycasters disabled; display cleanup is independent of GameObject activation.
+    /// Renderer-only roots use an owned visibility wrapper; ViewObject still returns the original prefab clone.
+    /// Prefab overrideSorting and renderer-only ignoreParentGroups layouts are rejected before presentation.
+    /// Graphics require ScreenSpaceOverlay or ScreenSpaceCamera with an explicit camera; incomparable planes are rejected.
+    /// Hooks may compose independent displays. Synchronous self-await, closing a subtree containing that
+    /// hook, and owner shutdown from a hook are rejected. Native application and cleanup reject lifecycle mutation.
     /// Self-await after a callback's await remains forbidden usage outside the synchronous dispatch guard.
     /// Closed observers run after native retirement and handle termination, before Closed completes.
     /// A successful Reuse candidate is published only after its observer succeeds; failure discards it.
@@ -26,8 +31,12 @@ namespace TPLab.UI
         private readonly List<UIHandle> _displays = new List<UIHandle>();
         private readonly Dictionary<string, AssetPreparation> _preparations =
             new Dictionary<string, AssetPreparation>(StringComparer.Ordinal);
-        private readonly Dictionary<string, GameObject> _cachedClones =
-            new Dictionary<string, GameObject>(StringComparer.Ordinal);
+        private readonly Dictionary<string, UIPresentation> _cachedClones =
+            new Dictionary<string, UIPresentation>(StringComparer.Ordinal);
+        private readonly Dictionary<string, Transform> _hosts = new Dictionary<string, Transform>(StringComparer.Ordinal);
+        private UIHandle _currentHud;
+        private bool _selectingHud;
+        private GameObject _renderStorage;
         private Func<string, CancellationToken, UniTask<GameObject>> _loadPrefab;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private readonly CancellationToken _lifetimeToken;
@@ -58,6 +67,7 @@ namespace TPLab.UI
                 throw new ArgumentNullException(nameof(rootObject));
             }
             RootObject = rootObject;
+            _hosts.Add("default", rootObject.transform);
             _loadPrefab = loadPrefab;
             _lifetimeToken = _lifetime.Token;
             // Own only this registration. UniTask owns the native destruction trigger and its token.
@@ -99,9 +109,91 @@ namespace TPLab.UI
             }
         }
 
+        /// <summary>Gets the selected live HUD, or null when no HUD remains selected.</summary>
+        /// <remarks>The getter remains observable after owner termination.</remarks>
+        public UIHandle CurrentHud
+        {
+            get
+            {
+                EnsureMainThread();
+                return _currentHud;
+            }
+        }
+
+        /// <summary>Registers a borrowed physical display container on Unity's main thread without creating UI.</summary>
+        /// <param name="id">Unique nonempty host ID; the implicit default host remains the owner root.</param>
+        /// <param name="container">Live borrowed Transform, independent of a display's logical parent.</param>
+        /// <remarks>
+        /// The caller preserves the host's lifetime and settings. Context termination destroys only owned clones.
+        /// No replacement or automatic Canvas creation is performed.
+        /// </remarks>
+        /// <exception cref="ArgumentException">The ID is blank or already registered.</exception>
+        /// <exception cref="ArgumentNullException">The container is null or destroyed.</exception>
+        /// <exception cref="InvalidOperationException">The thread or cleanup/native mutation boundary is invalid.</exception>
+        /// <exception cref="ObjectDisposedException">The owner is terminating.</exception>
+        public void RegisterHost(string id, Transform container)
+        {
+            EnsureCommand();
+            if (string.IsNullOrWhiteSpace(id) || _hosts.ContainsKey(id))
+            {
+                throw new ArgumentException("A host needs a unique nonempty ID.", nameof(id));
+            }
+            if (container == null)
+            {
+                throw new ArgumentNullException(nameof(container));
+            }
+            _hosts.Add(id, container);
+        }
+        /// <summary>Prepares a HUD before closing the selected HUD and its logical children on Unity's main thread.</summary>
+        /// <param name="request">Registered HUD definition with no logical parent.</param>
+        /// <param name="cancellationToken">Cancels this selection before Visible; owner termination prevents late publication.</param>
+        /// <returns>The new generation after preparation, old subtree termination, and opening succeed.</returns>
+        /// <remarks>
+        /// Preparation failure preserves the current HUD and its children. Once old termination begins it is not
+        /// rolled back; candidate cleanup and callback errors remain observable. Concurrent selection and duplicate
+        /// owner/definition requests are rejected. Assets, hosts, and services remain borrowed.
+        /// </remarks>
+        /// <exception cref="ArgumentException">The request or definition ID is invalid.</exception>
+        /// <exception cref="InvalidOperationException">The role/parent, selection, thread, or mutation boundary is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The caller or owner ended the selection.</exception>
+        /// <exception cref="AggregateException">Termination or candidate cleanup failed after remaining cleanup was attempted.</exception>
+        /// <exception cref="ObjectDisposedException">The owner is terminating.</exception>
+        public UniTask<UIHandle> SelectHudAsync(UIOpenRequest request, CancellationToken cancellationToken = default)
+        {
+            EnsureCommand();
+            if (_selectingHud)
+            {
+                throw new InvalidOperationException("A HUD selection is already in progress.");
+            }
+            UIDefinition definition = ValidateRequest(request, true, cancellationToken);
+            UIHandle previous = _currentHud;
+            if (previous != null)
+            {
+                EnsureSubtreeCloseAllowed(previous);
+            }
+            _selectingHud = true;
+            UIHandle handle = Accept(request, definition, cancellationToken);
+            handle.IsHudSelection = true;
+            RunOpenAsync(handle, previous).Forget();
+            return AwaitSelectionAsync(handle);
+        }
+
+        private async UniTask<UIHandle> AwaitSelectionAsync(UIHandle handle)
+        {
+            try
+            {
+                await handle.OpenCompletion.Task;
+                return handle;
+            }
+            finally
+            {
+                await UniTask.SwitchToMainThread();
+                _selectingHud = false;
+            }
+        }
         /// <summary>Records metadata without loading or creating an instance, including from a display hook.</summary>
         /// <exception cref="ArgumentException">ID/source/policy metadata is invalid or duplicated.</exception>
-        /// <exception cref="NotSupportedException">The definition requires a deferred presentation/input phase.</exception>
+        /// <exception cref="NotSupportedException">Modal input requires its deferred input phase.</exception>
         /// <exception cref="InvalidOperationException">A key needs a configured provider, or the thread/mutation boundary is invalid.</exception>
         /// <exception cref="ObjectDisposedException">The owner is terminating.</exception>
         public void Register(UIDefinition definition)
@@ -137,14 +229,10 @@ namespace TPLab.UI
             {
                 throw new InvalidOperationException("A key definition requires a configured prefab provider.");
             }
-            if (definition.Role != UIRole.Popup || definition.HostId != "default")
+            GetHost(definition.HostId);
+            if (definition.InputMode != UIInputMode.Modeless)
             {
-                throw new NotSupportedException("HUD and explicit Canvas hosts require P3.");
-            }
-            if (definition.InputMode != UIInputMode.Modeless
-                || definition.HideStrategy != UIHideStrategy.DeactivateView)
-            {
-                throw new NotSupportedException("Modal input and renderer-only policies require P4.");
+                throw new NotSupportedException("Modal input requires P4.");
             }
             _definitions.Add(definition.Id, definition);
         }
@@ -179,14 +267,36 @@ namespace TPLab.UI
         public UIHandle BeginOpen(UIOpenRequest request, CancellationToken cancellationToken = default)
         {
             EnsureCommand();
+            UIDefinition definition = ValidateRequest(request, false, cancellationToken);
+            UIHandle handle = Accept(request, definition, cancellationToken);
+            RunOpenAsync(handle).Forget();
+            return handle;
+        }
+
+        private UIDefinition ValidateRequest(UIOpenRequest request, bool hud, CancellationToken cancellationToken)
+        {
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
             UIDefinition definition = GetDefinition(request.DefinitionId);
+            if (hud ? definition.Role != UIRole.Hud || request.Parent != null : definition.Role != UIRole.Popup)
+            {
+                throw new InvalidOperationException("HUD selection requires a parentless HUD; popup opening requires Popup role.");
+            }
             if (request.Parent != null)
             {
-                throw new NotSupportedException("Logical parent trees require P3.");
+                if (request.Parent.Context != this)
+                {
+                    throw new InvalidOperationException("A logical parent must belong to this context.");
+                }
+                for (UIHandle parent = request.Parent; parent != null; parent = parent.Parent)
+                {
+                    if (parent.State != UIState.Visible)
+                    {
+                        throw new InvalidOperationException("A logical parent and its ancestors must remain Visible.");
+                    }
+                }
             }
             UIInputMode inputMode = request.InputMode ?? definition.InputMode;
             if (!Enum.IsDefined(typeof(UIInputMode), inputMode))
@@ -198,21 +308,54 @@ namespace TPLab.UI
                 throw new NotSupportedException("Modal input requires P4, including when a block factory is supplied.");
             }
             cancellationToken.ThrowIfCancellationRequested();
+            GetHost(definition.HostId);
             foreach (UIHandle current in _displays)
             {
-                if (current.State != UIState.Closed && current.DefinitionId == request.DefinitionId)
+                if (current.State != UIState.Closed && current.DefinitionId == request.DefinitionId
+                    && current.Parent == request.Parent)
                 {
-                    throw new InvalidOperationException("This owner already has this definition open or closing.");
+                    throw new InvalidOperationException("This logical owner already has this definition open or closing.");
                 }
             }
+            return definition;
+        }
 
-            UIHandle handle = new UIHandle(this, ++_nextId, request, definition);
+        private UIHandle Accept(UIOpenRequest request, UIDefinition definition, CancellationToken cancellationToken)
+        {
+            var handle = new UIHandle(this, ++_nextId, request, definition);
             _displays.Add(handle);
             handle.ConnectCallerCancellation(cancellationToken);
-            RunOpenAsync(handle).Forget();
             return handle;
         }
 
+        private Transform GetHost(string id)
+        {
+            if (!_hosts.TryGetValue(id, out Transform host) || host == null)
+            {
+                throw new InvalidOperationException("The physical UI host is unknown or destroyed.");
+            }
+            return host;
+        }
+
+        private static bool IsWithin(UIHandle handle, UIHandle ancestor)
+        {
+            for (UIHandle current = handle; current != null; current = current.Parent)
+            {
+                if (current == ancestor)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void EnsureSubtreeCloseAllowed(UIHandle handle)
+        {
+            if (_dispatching != null && IsWithin(_dispatching, handle))
+            {
+                throw new InvalidOperationException("A callback cannot terminate a subtree containing its own display.");
+            }
+        }
         /// <summary>Calls BeginOpen and returns the same handle once its shared Opened result succeeds.</summary>
         public async UniTask<UIHandle> OpenAsync(UIOpenRequest request, CancellationToken cancellationToken = default)
         {
@@ -425,10 +568,11 @@ namespace TPLab.UI
             }
         }
 
-        internal void EnsureObservation(UIHandle handle)
+        internal void EnsureObservation(UIHandle handle, bool closing = false)
         {
             EnsureMainThread();
-            if (_dispatching == handle || _cleanupDepth != 0)
+            if (_dispatching == handle || _cleanupDepth != 0
+                || closing && _dispatching != null && IsWithin(_dispatching, handle))
             {
                 throw new InvalidOperationException("A callback cannot await its own lifecycle operation.");
             }
@@ -497,10 +641,7 @@ namespace TPLab.UI
         {
             EnsureMainThread();
             EnsureMutationAllowed();
-            if (_dispatching == handle)
-            {
-                throw new InvalidOperationException("A callback cannot close its own display.");
-            }
+            EnsureSubtreeCloseAllowed(handle);
             StartClose(handle);
         }
 
@@ -517,7 +658,7 @@ namespace TPLab.UI
             }
         }
 
-        private async UniTask RunOpenAsync(UIHandle handle)
+        private async UniTask RunOpenAsync(UIHandle handle, UIHandle previousHud = null)
         {
             Exception openingError = null;
             try
@@ -526,10 +667,20 @@ namespace TPLab.UI
                 GameObject prefab = await WaitForPrefabAsync(PreparePrefabAsync(handle.Definition), handle.LifetimeToken);
                 await UniTask.SwitchToMainThread();
                 handle.ThrowIfOpeningCancelled();
+                ValidatePresentationOrder(handle, prefab);
                 ++_nativeDepth;
                 try
                 {
-                    handle.View = TakeOrCreateClone(handle, prefab);
+                    handle.Presentation = TakeOrCreateClone(handle, prefab);
+                }
+                catch (Exception error)
+                {
+                    if (_lifetimeToken.IsCancellationRequested || handle.LifetimeToken.IsCancellationRequested || RootObject == null)
+                    {
+                        throw new OperationCanceledException(handle.LifetimeToken);
+                    }
+                    RecordNativeFailure(handle, error);
+                    throw;
                 }
                 finally
                 {
@@ -539,15 +690,48 @@ namespace TPLab.UI
                     .AttachExternalCancellation(handle.LifetimeToken);
                 await UniTask.SwitchToMainThread();
                 handle.ThrowIfOpeningCancelled();
+                ValidatePresentationOrder(handle, handle.View);
+                if (handle.IsHudSelection && previousHud != null)
+                {
+                    StartClose(previousHud);
+                    await previousHud.CloseCompletion.Task.AttachExternalCancellation(handle.LifetimeToken);
+                    await UniTask.SwitchToMainThread();
+                    handle.ThrowIfOpeningCancelled();
+                    ValidatePresentationOrder(handle, handle.View);
+                }
                 ++_nativeDepth;
                 try
                 {
-                    handle.View.transform.SetParent(RootObject.transform, false);
-                    handle.View.SetActive(true);
+                    Transform host = GetHost(handle.Definition.HostId);
+                    handle.Presentation.MoveTo(host);
+                    handle.ThrowIfOpeningCancelled();
+                    handle.IsPresented = true;
+                    ApplySiblingOrder(host);
+                    handle.Presentation.Show();
+                }
+                catch (Exception error)
+                {
+                    if (_lifetimeToken.IsCancellationRequested || handle.LifetimeToken.IsCancellationRequested || RootObject == null)
+                    {
+                        throw new OperationCanceledException(handle.LifetimeToken);
+                    }
+                    RecordNativeFailure(handle, error);
+                    throw;
                 }
                 finally
                 {
                     --_nativeDepth;
+                }
+                if (RootObject == null)
+                {
+                    BeginShutdown();
+                }
+                handle.ThrowIfOpeningCancelled();
+                if (handle.View == null || handle.Presentation.Root == null)
+                {
+                    var nativeError = new InvalidOperationException("The owned display was destroyed during native activation.");
+                    RecordNativeFailure(handle, nativeError);
+                    throw nativeError;
                 }
                 await DispatchAsync(handle, handle.Hooks.OpenAsync, handle.LifetimeToken)
                     .AttachExternalCancellation(handle.LifetimeToken);
@@ -555,6 +739,10 @@ namespace TPLab.UI
                 handle.ThrowIfOpeningCancelled();
                 handle.DetachCaller();
                 handle.CurrentState = UIState.Visible;
+                if (handle.IsHudSelection)
+                {
+                    _currentHud = handle;
+                }
                 handle.OpenCompletion.TrySetResult();
             }
             catch (Exception error)
@@ -566,7 +754,6 @@ namespace TPLab.UI
                 await UniTask.SwitchToMainThread();
                 handle.OpeningDone.TrySetResult();
             }
-
             if (openingError == null)
             {
                 return;
@@ -595,7 +782,87 @@ namespace TPLab.UI
             }
         }
 
-        private GameObject TakeOrCreateClone(UIHandle handle, GameObject prefab)
+        private void ValidatePresentationOrder(UIHandle handle, GameObject source)
+        {
+            var plane = UIPresentation.Validate(source, GetHost(handle.Definition.HostId), handle.Definition.HideStrategy);
+            if (!plane.HasGraphics)
+            {
+                return;
+            }
+            foreach (UIHandle current in _displays)
+            {
+                if (current == handle || !current.IsPresented || current.State == UIState.Closed
+                    || handle.IsHudSelection && _currentHud != null && IsWithin(current, _currentHud))
+                {
+                    continue;
+                }
+                var other = UIPresentation.Validate(current.View, GetHost(current.Definition.HostId), current.Definition.HideStrategy);
+                if (!other.HasGraphics)
+                {
+                    continue;
+                }
+                int fixedOrder = UIPresentation.CompareFixedOrder(plane, other);
+                int logicalOrder = CompareDisplayOrder(handle, current);
+                if (fixedOrder != 0 && Math.Sign(fixedOrder) != Math.Sign(logicalOrder)
+                    || IsWithin(handle, current) && fixedOrder < 0
+                    || IsWithin(current, handle) && fixedOrder > 0)
+                {
+                    throw new InvalidOperationException("Fixed hosts cannot express the accepted UI order or child-before-parent relation.");
+                }
+            }
+        }
+
+        private static int CompareDisplayOrder(UIHandle left, UIHandle right)
+        {
+            int roles = left.Definition.Role.CompareTo(right.Definition.Role);
+            return roles != 0 ? roles : left.Id.CompareTo(right.Id);
+        }
+
+        private void ApplySiblingOrder(Transform host)
+        {
+            var managed = new List<UIHandle>();
+            var slots = new List<int>();
+            foreach (UIHandle current in _displays)
+            {
+                if (current.IsPresented && current.Presentation != null && current.Presentation.Root != null
+                    && current.Presentation.Root.transform.parent == host)
+                {
+                    managed.Add(current);
+                    slots.Add(current.Presentation.Root.transform.GetSiblingIndex());
+                }
+            }
+            managed.Sort(CompareDisplayOrder);
+            slots.Sort();
+            bool changed = false;
+            for (int index = 0; index < managed.Count; ++index)
+            {
+                changed |= managed[index].Presentation.Root.transform.GetSiblingIndex() != slots[index];
+            }
+            if (!changed)
+            {
+                return;
+            }
+            // Gather in desired order, then insert into the original slots. A single insertion pass can
+            // displace previously placed managed roots when three or more roots interleave borrowed siblings.
+            foreach (UIHandle current in managed)
+            {
+                Transform root = current.Presentation.Root.transform;
+                if (root.GetSiblingIndex() != host.childCount - 1)
+                {
+                    root.SetAsLastSibling();
+                }
+            }
+            for (int index = 0; index < managed.Count; ++index)
+            {
+                Transform root = managed[index].Presentation.Root.transform;
+                if (root.GetSiblingIndex() != slots[index])
+                {
+                    root.SetSiblingIndex(slots[index]);
+                }
+            }
+        }
+
+        private UIPresentation TakeOrCreateClone(UIHandle handle, GameObject prefab)
         {
             if (_storage == null)
             {
@@ -603,65 +870,101 @@ namespace TPLab.UI
                 _storage.SetActive(false);
                 _storage.transform.SetParent(RootObject.transform, false);
             }
-
-            GameObject clone;
-            if (_cachedClones.TryGetValue(handle.DefinitionId, out clone))
+            UIPresentation presentation;
+            _cachedClones.TryGetValue(handle.DefinitionId, out presentation);
+            _cachedClones.Remove(handle.DefinitionId);
+            if (presentation == null || presentation.View == null)
             {
-                _cachedClones.Remove(handle.DefinitionId);
+                GameObject clone = UnityEngine.Object.Instantiate(prefab, _storage.transform, false);
+                // Track partial creation before component setup so normal failure cleanup owns it.
+                handle.View = clone;
+                handle.ThrowIfOpeningCancelled();
+                clone.SetActive(false);
+                presentation = new UIPresentation(clone, handle.Definition.HideStrategy);
             }
-            else
-            {
-                clone = null;
-            }
-            if (clone == null)
-            {
-                clone = UnityEngine.Object.Instantiate(prefab, _storage.transform, false);
-            }
-            // Track the rental before native configuration so any failure reaches normal close/discard.
-            handle.View = clone;
-            clone.SetActive(false);
-            clone.transform.SetParent(_storage.transform, false);
-            clone.transform.localPosition = prefab.transform.localPosition;
-            clone.transform.localRotation = prefab.transform.localRotation;
-            clone.transform.localScale = prefab.transform.localScale;
-            return clone;
+            handle.View = presentation.View;
+            handle.Presentation = presentation;
+            presentation.Hide();
+            presentation.RestoreLayout(prefab);
+            return presentation;
         }
 
-        private bool TryCacheClone(string definitionId, GameObject clone)
+        private Transform GetRetentionStorage(UIHideStrategy hideStrategy)
         {
-            if (IsDisposed || clone == null || _storage == null)
+            if (hideStrategy == UIHideStrategy.DeactivateView)
+            {
+                return _storage.transform;
+            }
+            if (_renderStorage == null)
+            {
+                // This storage stays active independently of borrowed owner/Canvas activation.
+                _renderStorage = new GameObject("UIContext Rendering Storage");
+                if (RootObject.scene.IsValid() && RootObject.scene.isLoaded && _renderStorage.scene != RootObject.scene)
+                {
+                    SceneManager.MoveGameObjectToScene(_renderStorage, RootObject.scene);
+                }
+            }
+            return _renderStorage.transform;
+        }
+
+        private bool TryCacheClone(string definitionId, UIPresentation presentation)
+        {
+            if (IsDisposed || presentation == null || presentation.View == null || presentation.Root == null)
             {
                 return false;
             }
-            if (_cachedClones.TryGetValue(definitionId, out GameObject current) && current != null)
+            if (_cachedClones.TryGetValue(definitionId, out UIPresentation current) && current.View != null)
             {
                 return false;
             }
-            _cachedClones[definitionId] = clone;
+            _cachedClones[definitionId] = presentation;
             return true;
         }
-
         private void StartClose(UIHandle handle)
         {
             if (handle.CloseStarted)
             {
                 return;
             }
+            var children = new List<UIHandle>();
+            foreach (UIHandle current in _displays)
+            {
+                if (current.Parent == handle)
+                {
+                    children.Add(current);
+                }
+            }
             handle.CloseStarted = true;
             bool wasVisible = handle.CurrentState == UIState.Visible;
             handle.CurrentState = UIState.Closing;
             handle.DetachCaller();
             handle.CancelLifetime();
-            RunCloseAsync(handle, wasVisible).Forget();
+            foreach (UIHandle child in children)
+            {
+                StartClose(child);
+            }
+            RunCloseAsync(handle, wasVisible, children).Forget();
         }
 
-        private async UniTask RunCloseAsync(UIHandle handle, bool wasVisible)
+        private async UniTask RunCloseAsync(UIHandle handle, bool wasVisible, List<UIHandle> children)
         {
             Action<UIHandle> closedCallback = handle.Hooks.Closed;
             bool requestedReuse = handle.Definition.Retention == UIRetention.Reuse;
-            GameObject candidate = null;
+            UIPresentation candidate = null;
             try
             {
+                foreach (UIHandle child in children)
+                {
+                    try
+                    {
+                        await child.CloseCompletion.Task;
+                    }
+                    catch (Exception error)
+                    {
+                        await UniTask.SwitchToMainThread();
+                        handle.Errors.Add(error);
+                    }
+                }
                 try
                 {
                     await handle.OpeningDone.Task.AttachExternalCancellation(_lifetimeToken);
@@ -688,17 +991,25 @@ namespace TPLab.UI
                 await UniTask.SwitchToMainThread();
                 handle.RunCleanup();
                 GameObject view = handle.View;
-                if (view != null)
+                UIPresentation presentation = handle.Presentation;
+                if (view != null || presentation != null && presentation.Root != null)
                 {
                     ++_nativeDepth;
                     try
                     {
-                        view.SetActive(false);
-                        if (requestedReuse && wasVisible && handle.Errors.Count == 0
-                            && !IsDisposed && _storage != null)
+                        if (presentation != null)
                         {
-                            view.transform.SetParent(_storage.transform, false);
-                            candidate = view;
+                            presentation.Hide();
+                            handle.IsPresented = false;
+                            if (requestedReuse && wasVisible && handle.Errors.Count == 0 && !IsDisposed)
+                            {
+                                presentation.MoveTo(GetRetentionStorage(presentation.HideStrategy));
+                                candidate = presentation;
+                            }
+                        }
+                        else if (view != null)
+                        {
+                            view.SetActive(false);
                         }
                     }
                     catch (Exception error)
@@ -713,7 +1024,7 @@ namespace TPLab.UI
                     {
                         try
                         {
-                            await DestroyOwnedAsync(view);
+                            await DestroyOwnedAsync(presentation != null ? presentation.Root : view);
                         }
                         catch (Exception error)
                         {
@@ -730,6 +1041,11 @@ namespace TPLab.UI
             }
             finally
             {
+                await UniTask.SwitchToMainThread();
+                if (_currentHud == handle)
+                {
+                    _currentHud = null;
+                }
                 handle.Finish();
                 try
                 {
@@ -739,20 +1055,19 @@ namespace TPLab.UI
                 {
                     handle.Errors.Add(error);
                 }
-                // A retired candidate is private until its observer succeeds. Nested displays cannot rent it.
+                // A retired candidate stays private through the observer, including nested new generations.
                 if (candidate != null
                     && (handle.Errors.Count != 0 || !TryCacheClone(handle.DefinitionId, candidate)))
                 {
                     try
                     {
-                        await DestroyOwnedAsync(candidate);
+                        await DestroyOwnedAsync(candidate.Root);
                     }
                     catch (Exception error)
                     {
                         RecordNativeFailure(handle, error);
                     }
                 }
-                // Keep this closing generation tracked through observer/discard so owner shutdown awaits it.
                 _displays.Remove(handle);
                 if (handle.Errors.Count == 0)
                 {
@@ -764,7 +1079,6 @@ namespace TPLab.UI
                 }
             }
         }
-
         private void RecordNativeFailure(UIHandle handle, Exception error)
         {
             Fault = Fault ?? error;
@@ -817,7 +1131,7 @@ namespace TPLab.UI
             }
             IsDisposed = true;
             UIHandle[] owned = _displays.ToArray();
-            var cached = new List<GameObject>(_cachedClones.Values);
+            var cached = new List<UIPresentation>(_cachedClones.Values);
             _cachedClones.Clear();
             var preparations = new List<AssetPreparation>(_preparations.Values);
             _preparations.Clear();
@@ -842,7 +1156,7 @@ namespace TPLab.UI
             RunShutdownAsync(owned, cached, errors).Forget();
         }
 
-        private async UniTask RunShutdownAsync(UIHandle[] owned, List<GameObject> cached, List<Exception> errors)
+        private async UniTask RunShutdownAsync(UIHandle[] owned, List<UIPresentation> cached, List<Exception> errors)
         {
             foreach (UIHandle handle in owned)
             {
@@ -855,11 +1169,11 @@ namespace TPLab.UI
                     errors.Add(error);
                 }
             }
-            foreach (GameObject clone in cached)
+            foreach (UIPresentation clone in cached)
             {
                 try
                 {
-                    await DestroyOwnedAsync(clone);
+                    await DestroyOwnedAsync(clone.Root);
                 }
                 catch (Exception error)
                 {
@@ -876,7 +1190,19 @@ namespace TPLab.UI
                 errors.Add(error);
                 Fault = Fault ?? error;
             }
+            try
+            {
+                await DestroyOwnedAsync(_renderStorage);
+            }
+            catch (Exception error)
+            {
+                errors.Add(error);
+                Fault = Fault ?? error;
+            }
             _storage = null;
+            _renderStorage = null;
+            _currentHud = null;
+            _hosts.Clear();
             _loadPrefab = null;
             _definitions.Clear();
             _lifetime.Dispose();

@@ -73,7 +73,7 @@ namespace TPLab.UI.Tests
         {
             for (int frame = 0; frame < 100 && !task.IsCompleted; ++frame)
             {
-                await UniTask.NextFrame();
+                await UniTask.Yield();
             }
             Assert.That(task.IsCompleted, Is.True, "The public completion did not settle within 100 frames.");
         }
@@ -225,7 +225,7 @@ namespace TPLab.UI.Tests
                 {
                     Assert.That(preparation.Exception.ToString(), Does.Contain("expected-load-failure"));
                 }
-                await UniTask.NextFrame();
+                await UniTask.Yield();
                 Assert.That(provider.CallCount, Is.EqualTo(failure), "Failure must not start an automatic retry.");
                 Assert.That(context.Displays, Is.Empty);
                 Assert.That(CountNativeViews(), Is.Zero);
@@ -281,8 +281,8 @@ namespace TPLab.UI.Tests
             Assert.That(context.Displays, Is.Empty);
             Assert.That(CountNativeViews(), Is.Zero);
             gate.TrySetResult(_source);
-            await UniTask.NextFrame();
-            await UniTask.NextFrame();
+            await UniTask.Yield();
+            await UniTask.Yield();
             Assert.That(projectPreparationCount, Is.Zero, "Late asset readiness must not republish a display.");
             Assert.That(context.Displays, Is.Empty);
             Assert.That(CountNativeViews(), Is.Zero);

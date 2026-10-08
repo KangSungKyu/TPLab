@@ -14,7 +14,9 @@ namespace TPLab.UI
     public sealed class UIHooks
     {
         /// <summary>
-        /// Prepares data and subscriptions on an inactive clone. The supplied token is this display's lifetime.
+        /// Prepares this display's data and subscriptions, separately from source-only UIContext.PrepareAsync.
+        /// Fresh and Deactivate clones are inactive. Renderer-only Reuse clones remain active with owned rendering,
+        /// raycasters, and the visibility mask blocked. The supplied token is this display's lifetime.
         /// Register precise subscription removals on the handle; borrowed services remain project-owned.
         /// </summary>
         public Func<UIHandle, CancellationToken, UniTask> PrepareAsync { get; set; }

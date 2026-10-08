@@ -3,7 +3,8 @@
     "rootNamespace": "TPLab.UI.Tests",
     "references": [
         "TPLab.UI",
-        "UniTask"
+        "UniTask",
+        "UnityEngine.UI"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
