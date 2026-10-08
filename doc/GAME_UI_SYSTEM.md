@@ -26,7 +26,7 @@
 
 표시 준비/열기/닫기 hook은 프로젝트의 데이터 연결·연출을 기다리는 경계다. RegisterCleanup(Action)에는 이번 표시의 정확한 listener 해지/소유 subscription 정리만 등록한다. 표시는 새 token/세대이며 종료 시 역순·한 번 정리한다. 비동기 종료는 await hook에서 수행하고 async void cleanup을 등록하지 않는다.
 
-Opening→Close는 작업 취소와 부분 정리, Closing→Close는 같은 종료 결과 공유다. Closing 중 재Open/표시 변경, 자기 hook에서 자기 작업 재대기/종료 재진입은 거부한다. owner 종료는 사용자 Cancel/바깥 클릭 닫기 거부보다 우선한다. 실패한 hook/정리 뒤에도 남은 자원을 정리하고 오류를 보존한다.
+Opening→Close는 작업 취소와 부분 정리, Closing→Close는 같은 종료 결과 공유다. Closing 중 재Open/표시 변경과 자기 hook의 동기 호출 중 자기 작업 재대기/종료 재진입은 거부한다. hook이 await 이후 자기 Opened/Closed를 다시 기다리는 순환 대기도 금지 사용이다. 현행 구현에서는 await 이후의 자기 순환 대기를 자동 검출한다고 보장하지 않는다. hook의 비동기 대기 기간 전체를 전역 재진입 상태로 잠가 외부의 정상 Close를 거부하지 않는다. owner 종료는 사용자 Cancel/바깥 클릭 닫기 거부보다 우선한다. 실패한 hook/정리 뒤에도 남은 자원을 정리하고 오류를 보존한다.
 
 UIContext의 준비 완료와 root 전체의 준비 완료는 구분한다. SceneRoot installer는 필수 자산/첫 HUD만 준비하고 정상 해제에서 Context Shutdown을 await한 뒤 외부 ResourceManager를 종료한다. UIContext가 scene 로드·업무 규칙·Time.timeScale을 소유하지 않는다.
 
@@ -52,4 +52,10 @@ Input System 연동은 별도 선택 경계이며 Core/Input에서 UI를 역참�
 
 Input adapter는 UI runtime에서 분리하고 TPLab.Core.Input·Unity.InputSystem·UnityEngine.UI를 참조하는 선택 경계로 구현한다. passive 목록의 UI base는 Input assembly를 참조하지 않는다. 기존 Core/Input 재편·새 배포 package/version은 이번 UI 기능의 암묵적 선행 조건으로 추가하지 않는다.
 
-현재 확인 환경은 Unity6000.3.18f1, UniTask2.5.11, uGUI2.0.0, InputSystem1.19.0, Addressables2.9.1이다. 실제 원본 테스트·소비/Player·성능·최종 수락은 아직 미실행이며 다른 Unity/플랫폼 지원을 주장하지 않는다.
+P0의 확인 환경은 Unity6000.3.18f1, UniTask2.5.11, uGUI2.0.0, InputSystem1.19.0, Addressables2.9.1이다. P0 당시 실제 원본 테스트·소비/Player·성능·최종 수락은 미실행이며 다른 Unity/플랫폼 지원을 주장하지 않는다.
+
+## P1 구현 범위와 실제 검증
+
+2026-10-08 source545c342f80061c66ede2fc7f168cfc1c2cb13cee에서 root scope·direct prefab·modeless Popup·default host·DestroyOnClose/DeactivateView의 표시 수명을 구현했다. 나머지 정책을 조용히 무시하지 않고 NotSupported로 거부한다. 정확한 현재 선언과 제한은 [사람 API](api/UI.md), [AI API](ai/api/UI.md), [실제 결과](validation/ui-system/p1/README.md)를 따른다. 현재 UI18/18·기존 root10/10 실패0/skip0이며 외부 소비/Player/성능/최종 UX는 P7 미실행이다.
+
+표시 hook에서 다른 표시를 열거나 닫는 조합은 허용한다. 자기 handle의 동기 Close/Opened/Closed, 현재 hook을 포함한 Context Shutdown/Dispose와 cleanup/native 적용 중 lifecycle 변경은 거부한다. 종료 observer는 native 정리 및 StateClosed/ViewObject null 이후에 호출하며 observer 실패도 공유 Closed 결과에 보존한다. 다른 세대의 표시를 종료 observer가 시작해도 이전 표시의 정리가 이를 변경하지 않는다.

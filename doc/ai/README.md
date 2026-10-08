@@ -2,7 +2,7 @@
 
 2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../TPLAB_NAMING.md)에서 현재 이름·경로 규칙과 검증 기록을 확인한다.
 
-SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`. 목적은 Unity 재사용 코어의 정확한 사용/수정이다. API 사실은 실제 public 선언/XML·구현·테스트로 대조한다. [사람용 README](../../README.md), [사람용 API](../api/README.md), [AI API](api/README.md)를 함께 유지한다. 아래의 승인은 소비 프로젝트 작업 권한을 부여하지 않는다. 소비 프로젝트 자체의 사용자 지시/지침을 따른다.
+SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`은 기존 7개 모듈 문서의 기준이다. UIContext의 독립 개발 source revision은 `545c342f80061c66ede2fc7f168cfc1c2cb13cee`다. 목적은 Unity 재사용 코어의 정확한 사용/수정이다. API 사실은 실제 public 선언/XML·구현·테스트로 대조한다. [사람용 README](../../README.md), [사람용 API](../api/README.md), [AI API](api/README.md)를 함께 유지한다. 아래의 승인은 소비 프로젝트 작업 권한을 부여하지 않는다. 소비 프로젝트 자체의 사용자 지시/지침을 따른다.
 
 | Module | Namespace / Assembly | Source | Human / AI |
 |---|---|---|---|
@@ -13,6 +13,7 @@ SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`. 목적은 Unity 재�
 | SceneManagement | TPLab.Core.SceneManagement / TPLab.Core | [Scenes](../../Assets/TPLab/Core/SceneManagement) | [Human](../api/SceneManagement.md) / [AI](api/SceneManagement.md) |
 | Input | TPLab.Core.Input / TPLab.Core.Input | [Input](../../Assets/TPLab/Input/Runtime) | [Human](../api/Input.md) / [AI](api/Input.md) |
 | Editor | TPLab.Core.Editor.DataTables / TPLab.Core.Editor.Bootstrap / TPLab.Core.Editor | [Editor](../../Assets/TPLab/Editor) | [Human](../api/Editor.md) / [AI](api/Editor.md) |
+| UIContext (P1) | TPLab.UI / TPLab.UI | [UI Runtime](../../Assets/TPLab/UI/Runtime) | [Human](../api/UI.md) / [AI](api/UI.md) |
 
 RequiredSequence:
 
@@ -22,9 +23,10 @@ RequiredSequence:
 4. 프로젝트 DTO/codec/FK/validator·source delegates·scene targets/root conditions·action assets/layers/UI callbacks를 설정한다.
 5. 준비 완료를 await한 뒤 사용/입력을 공개한다. leases/구독을 소비자가 해제하고 시스템/native handles는 소유자가 정리한다.
 6. 계약 변경 시 XML/양쪽 API 문서를 함께 갱신한다. source/tag와 실제 결과 입력을 비교하고 해당 프로젝트의 compile/runtime/사용자 gate를 수행한다.
+7. UIContext P1을 쓰려면 supported direct-prefab Popup 정책으로 정의를 등록하고 optional Prepare → BeginOpen/Opened → CloseAsync → root ShutdownAsync 순서를 따른다. [UI API](api/UI.md)에 적힌 deferred P2-P4 behavior를 P1 availability로 간주하지 않는다.
 
-ImplementationStatus: listed modules Implemented. SceneManagement progress snapshot, opt-in `SceneLoadingContext` flow and project-owned sample loading UI are implemented; UI remains outside Core runtime.
-ValidationStatus: Partial; historical scene-loading P4 Edit271/271 and Play253/253, failed0/skip0; Windows Mono Additive/Single builds and Players passed (12/12 each), and the Input-included consumer completed one Editor build and one Player run. See [P4 evidence](../validation/scene-loading/p4/README.md). UserAcceptance: Confirmed by user PlayMode feedback on 2026-10-07; individual mode/resolution/device results were not supplied. Physical device coverage, remote Addressables content/download, IL2CPP and other platforms remain unverified. Historical P2 counts are not current-source evidence. CI is not configured.
+ImplementationStatus: Existing Core/Input/Editor modules Implemented. UIContext is Implemented for the P1 lifecycle scope only; provider, reuse, HUD, parent trees, host/Canvas, Modal/Input, and Virtual ScrollRect remain unimplemented and explicitly rejected where declared. SceneManagement progress snapshot, opt-in `SceneLoadingContext` flow and project-owned sample loading UI are implemented.
+ValidationStatus: Partial. UI P1: Edit9/9, Play9/9, existing SceneRoot regression10/10, skip0; compile errors0; two expected fixture Console errors asserted and unexpected errors0. [UI P1 evidence](../validation/ui-system/p1/README.md). Consumer install, Player, Profiler, broad UX and user acceptance remain P7 NotRun. Historical scene-loading P4 Edit271/271 and Play253/253, failed0/skip0; Windows Mono Additive/Single builds and Players passed (12/12 each), and the Input-included consumer completed one Editor build and one Player run. See [P4 evidence](../validation/scene-loading/p4/README.md). UserAcceptance for loading presentation: Confirmed by user PlayMode feedback on 2026-10-07; UIContext acceptance is pending. Individual mode/resolution/device results were not supplied. Physical device coverage, remote Addressables content/download, IL2CPP and other platforms remain unverified. Historical P2 counts are not current-source evidence. CI is not configured.
 ForbiddenUsage: Core에 게임 schema/UI/저장 정책 추가; runtime UnityEditor 참조; 공유 자산 cache에 씬 handle 혼합; borrowed manager/action을 임의 Dispose/Destroy; 로컬 경로/개인 Git 승인/세션/PC 종료 지시를 소비 계약으로 복사; 미검증 예제를 실행 성공으로 표시.
 Limitations: source copy 또는 검증 후보 Git/tarball 설치를 선택한다. 정식 UPM Release0.0.1을 제공하며 자동 API generator는 없다. TPLab original code/docs: MIT; third-party code retains its own license/notices. See [License](../../LICENSE) and [Third-party notices](../../THIRD_PARTY_NOTICES.md). 실제 제공 전 source/tag 기준 설치·예제·상대 링크를 확인해야 한다.
 
@@ -32,4 +34,4 @@ DistributionPlan: [0.0.1 package/dev-build contract](../DISTRIBUTION_PIPELINE.md
 
 RepositoryVisibility: Public, verified by unauthenticated GitHub read on 2026-10-07. LicensePolicy: TPLab original code/docs MIT; third-party original notices/licenses retained. Public source includes reviewed UPM candidate copies; 0.0.1 tag/Release assets are published and publicly downloaded/byte-compared.
 
-NextVersion: [Core dependency partition review and GameUISystem](../CORE_PLAN.md#다음-버전-계획-2026-10-07). Planned only; no next version number or GameUISystem API exists. Pool implementation has no external plugin dependency, but currently shares the Core assembly dependency burden. Existing UI remains project-owned through callbacks until a subsequent design defines the common UI boundary.
+NextVersion: [Core dependency partition review and UIContext](../CORE_PLAN.md#다음-버전-계획-2026-10-07). Core dependency partition remains a follow-up; UIContext has entered P1 development with documented API and partial lifecycle verification. No next package version or UI package release is set. Pool code has no external plugin dependency but still shares the current Core assembly dependency burden. UI source remains outside released 0.0.1 package contents; P2-P7 behavior and integration gates remain outstanding.

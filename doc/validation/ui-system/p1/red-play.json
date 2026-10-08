@@ -1,0 +1,32 @@
+{
+  "total": 6,
+  "passed": 0,
+  "failed": 6,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloneIsBorrowedSourceCopyAndStaysInactiveDuringPreparation: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloseWaitsForNativeCloneDestructionAndPreservesBorrowedObjects: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextPlayModeTests.OpeningHookFailureStillDestroysCloneAndRunsAllCleanup: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextPlayModeTests.PreparedCloneActivatesOnlyAfterPrepareHookCompletes: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionCancelsPendingOpenAndDisposesDisplayOnce: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionClosesVisibleDisplayAndRepeatedShutdownIsSafe: System.NotImplementedException : UIContext.Register P1 contract stub."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.UIContextPlayModeTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 9036,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 9036,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

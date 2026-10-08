@@ -1,0 +1,36 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 10,
+  "passes": [
+    "TPLab.Core.Tests.SceneRootTests.CleanupFailureStillAttemptsEveryInstaller",
+    "TPLab.Core.Tests.SceneRootTests.ConfigurationCannotChangeAfterActivation",
+    "TPLab.Core.Tests.SceneRootTests.PartialFailureCleansFailingAndEarlierInstallersButSkipsLaterOnes",
+    "TPLab.Core.Tests.SceneRootTests.RuntimeSetupRequiresInactiveObjectWithoutDisablingExistingComponents",
+    "TPLab.Core.Tests.SceneRootTests.SceneOwnedRootsHaveIndependentInstallations",
+    "TPLab.Core.Tests.SceneRootTests.SceneUnloadCleansSceneOwnedRootWhilePersistentSingletonSurvives",
+    "TPLab.Core.Tests.SceneRootTests.ScriptSelectionInstallsInOrderAndCleansInReverseOrder",
+    "TPLab.Core.Tests.SceneRootTests.SetupRejectsMixedHostsAndInvalidInstallerOwnershipBeforeMutation",
+    "TPLab.Core.Tests.SceneRootTests.SetupRejectsNullChildUnknownModeAndRepeatedInstaller",
+    "TPLab.Core.Tests.SceneRootTests.SingletonSelectionRejectsDuplicateWithoutInstallingOrDestroyingItsObject"
+  ],
+  "skipped": 0,
+  "total": 10,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.Core.Tests.SceneRootTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 14972,
+    "cliReturnCode": 0,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 14972,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "total": 9,
+  "passed": 0,
+  "failed": 9,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenPublishesHandleAndSupportsRepeatedOpenedAwaitAndConveniencePath: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenRejectsUnknownAndDuplicateOwnerDefinition: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextLifecycleTests.CleanupIsReverseOrderAndExactlyOnceIncludingEarlyRegistrationDispose: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextLifecycleTests.CloseWaitCancellationDoesNotStopCleanupAndShutdownSharesCompletion: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextLifecycleTests.ClosingHookAndCleanupFailuresDoNotSkipRemainingCleanupAndShareFailure: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextLifecycleTests.ConstructorRejectsNullAndDestroyedOwner:   Expected: <System.ArgumentNullException>\r\n  But was:  null\r\n",
+    "TPLab.UI.Tests.UIContextLifecycleTests.OpeningCallerCancellationCleansDisplayWithoutEndingOwner: System.NotImplementedException : UIContext.Register P1 contract stub.",
+    "TPLab.UI.Tests.UIContextLifecycleTests.RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays:   Expected: <System.ArgumentException>\r\n  But was:  <System.NotImplementedException: UIContext.Register P1 contract stub.\r\n  at TPLab.UI.Tests.UIContextLifecycleTests+<>c__DisplayClass11_0.<RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays>b__0 () [0x00000] in C:\\Users\\PC\\Projects\\TPLab\\Assets\\TPLab\\UI\\Tests\\EditMode\\UIContextLifecycleTests.cs:86 \r\n  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n",
+    "TPLab.UI.Tests.UIContextLifecycleTests.SelfClosingHookReentryIsRejectedAndStillRunsCleanup: System.NotImplementedException : UIContext.Register P1 contract stub."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "EditMode",
+    "filter": "TPLab.UI.Tests.UIContextLifecycleTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 6968,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 6968,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

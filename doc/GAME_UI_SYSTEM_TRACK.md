@@ -15,7 +15,7 @@
 | Phase | branch | 상태 | 완료 기준 |
 |---|---|---|---|
 | P0 계약/의존성 | codex/game-ui-p0-contracts | 완료 / 문서·정적 검증 | public 결과·취소/handle·owner/host와 실제 의존성 경계 |
-| P1 Context 수명 | codex/game-ui-p1-lifecycle | 미착수 | 실제 Red/Green, root 종료·반복/실패 cleanup·세대 handle |
+| P1 Context 수명 | codex/game-ui-p1-lifecycle | 완료 / 자동 검증·문서·회고 | 실제 Red/Green, root 종료·반복/실패 cleanup·세대 handle |
 | P2 등록/준비/생성 | codex/game-ui-p2-loading | 미착수 | direct/provider·runtime lazy·재사용·늦은 완료와 부분 정리 |
 | P3 HUD/Popup/Canvas | codex/game-ui-p3-presentation | 미착수 | HUD 보존·owner tree·A-B-C와 실제 정렬/숨김 |
 | P4 입력/연출 | codex/game-ui-p4-input | 미착수 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
@@ -30,9 +30,15 @@ P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 �
 | 담당 | 선택·목적 | 허용 범위·상태 |
 |---|---|---|
 | 부모 | 공용 계약·상태 수명·실제 실행·통합 책임 | UI source/관련 테스트·문서/도구만, 기존 사용자 변경 제외 |
-| /root/ui_lifecycle_review 재사용 | 문맥 상속 모델/추론 유지, async 수명·재진입의 계약 리뷰 | 읽기 전용 P0 계약 리뷰 완료; P1 stub/실패 테스트 배정 예정 |
-| /root/ui_dependency_audit | gpt-6-luna/low, 명확한 asmdef/설치 의존성 조사 | 관련 source/docs 읽기만, 완료·재위임 없음 |
+| /root/ui_lifecycle_review 재사용 | 문맥 상속 모델/추론 유지, async 수명·재진입의 계약 리뷰 | P0 리뷰 완료; P1 구현/리뷰/최종 UI18+root10 자동 검증 완료; P2 계약 읽기 준비 완료 |
+| /root/ui_dependency_audit | gpt-6-luna/low, 명확한 asmdef/설치 의존성 조사 | 의존성/입력 조사와 P1 source 규약 정리 완료; 현재 P1 사람/AI 문서6개 갱신만, Git/Unity·재위임 제외 |
 
 ## 현재 증거와 남은 gate
 
 P0는 실제 dependency·[Editor 관찰](validation/ui-system/p0/editor-state.json)과 문서 검증 단위다. Unity 테스트/Player/Profiler 실행0건이며 동작 검증 통과가 아니다. 구현 후 실제 nonzero Red/Green·필요 회귀, 컴파일/제품 Console, source 입력 hash를 Phase별로 기록한다. 최종 사용자 확인은 HUD·A-B-C/자식 종료·실제 입력·1,000/10,000 스크롤·가림막/로딩·화면비·Single/Additive를 묶어 제공한다.
+
+P0 cb82fb427e443f55f72568488bad7869a7510dbe를 track에 fast-forward 통합하고 같은 tip에서 P1 branch를 생성했다. main은8ce768d를 유지한다. P1은 Runtime의UIContext/Handle/정의/요청/hook·enum·root파괴fallback과 Edit9/Play6 실패테스트를 먼저 준비한다. 테스트 수는 예정이며 실제 실행/결과가 아니고, 직접 prefab의 작은 clone은 수명 관측에만 사용한다. provider/공유준비/보관은 P2, Canvas/HUD/depth는 P3, 실제입력은 P4 범위다.
+
+P1 [실제 Red](validation/ui-system/p1/README.md)는 컴파일 오류0 후 Edit9실패/Play6실패·skip0을 같은 Editor에서 확인했다. [Red source 입력](validation/ui-system/p1/red-inputs/test-inputs.json)364개와 보호6개 unchanged를 기록했다. P1 구현 당시 native 파괴 감지를 검토했으며 설치 UniTask의 GameObject destroy token/awake monitor를 재사용했다. 비활성 root 회귀1개는 Green에 추가해 실행했고 별도 Red라고 주장하지 않는다.
+
+P1 source545c342f80061c66ede2fc7f168cfc1c2cb13cee: [최종 근거](validation/ui-system/p1/README.md)의 Refactor Edit9/9+Play9/9 및 기존SceneRoot10/10 실패0/skip0. 종료callback시점·다른popup조합 실제Red2개와보정을포함한다. [회고05](retrospectives/2026-10-08-05-ui-lifecycle.md)를기록했고 문서·증거·회고를 같은 단위로 기록하고 track에 통합한다. 다음 P2는 검증된 P1 tip에서 시작한다. 소비/Player/Profiler/최종UX는P7대기다.

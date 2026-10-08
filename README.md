@@ -15,12 +15,13 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 | [SceneManagement](doc/api/SceneManagement.md) | Bootstrap·Single/Additive·주 씬 교체·중첩 구역·root 조건·진행 표시·선택적 로딩 화면/진행 대기 callback |
 | [Input](doc/api/Input.md) | Input System runtime clone·layer·리바인딩·override JSON |
 | [Editor](doc/api/Editor.md) | CSV/schema importer·설정 asset·씬/root 사전 검사 |
+| [UIContext](doc/api/UI.md) | 개발 중 P1 lifecycle: 직접 prefab Popup의 등록·표시 generation·정리 |
 
 씬 전환 진행률, 선택적 로딩 callback과 자동·수동 진행 대기, 그리고 프로젝트 소유 bar·팁·버튼을 연결한 sample UI가 구현됐다. 2026-10-07 사용자가 로딩 UI를 PlayMode로 확인했다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
 
 ## 배포 준비
 
-첫 [0.0.1 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 정식 공개했다. 검증한 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 `v0.0.1` 태그가 같은 source를 가리킨다. 패키지 3개, SHA256·설치/검증 안내·생성 기록을 제공한다. 사람/AI API는 각 패키지의 Documentation~에 포함된다. [발행 검증](doc/validation/distribution-release/README.md)에서 실제 태그 설치·공개 첨부물 다운로드와 최종 사용자 확인을 확인할 수 있다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. 다음 버전의 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 계획 단계다.
+첫 [0.0.1 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 정식 공개했다. 검증한 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 `v0.0.1` 태그가 같은 source를 가리킨다. 패키지 3개, SHA256·설치/검증 안내·생성 기록을 제공한다. 사람/AI API는 각 패키지의 Documentation~에 포함된다. [발행 검증](doc/validation/distribution-release/README.md)에서 실제 태그 설치·공개 첨부물 다운로드와 최종 사용자 확인을 확인할 수 있다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. [Core 의존성 분리와 UIContext 계획](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 후속 개발 계획이며, UIContext P1 source는 현재 개발 중인 `Assets/TPLab/UI`에 있습니다. P1은 released 0.0.1 Core/Input/Editor package와 tag에 포함되지 않았고 새 package version도 정해지지 않았습니다.
 
 정식 UPM Git 설치는 소비 `Packages/manifest.json`에 필요한 의존성을 합쳐 설정한다. UniTask는 먼저 고정 Git provider로 지정하고 Input/Editor를 선택하면 Core provider도 명시한다. 아래 블록은 Core만의 entries이며 기존 manifest 전체를 덮어쓰지 않는다.
 
@@ -83,6 +84,8 @@ using (var pool = new ObjectPool<List<int>>(
 입력 모듈의 과거 P4 검증은 source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed` 기준이다. 현재 로딩 표시 P4에서는 EditMode **271/271**, PlayMode **253/253**(실패0·skip0), Additive/Single Windows Mono build와 Player(각 12/12), Input 포함 consumer Editor build 1회와 Player run 1회가 성공했다. 자세한 실행/범위는 [P4 증거](doc/validation/scene-loading/p4/README.md)와 [입력 증거](doc/validation/input-system/p4/README.md)를 확인한다.
 
 P2의 targeted 36/36과 그 이전 Core 252/252·224/224는 역사적 결과다. 현재 P4 전체 회귀와 두 모드 build/Player 및 Input 포함 consumer smoke는 성공했다. 2026-10-07 사용자의 PlayMode 확인으로 최종 사용자 gate를 완료했다. 개별 해상도·장치별 확인 결과는 제공되지 않았다. [최종 통합](doc/validation/scene-loading/integration/README.md)에 따라 main에 반영한다.
+
+UIContext P1 lifecycle은 원본 Editor에서 EditMode **9/9**, PlayMode **9/9**, 기존 SceneRoot 회귀 PlayMode **10/10**(각 skip 0), compile 오류0을 확인했다. Root regression의 두 fixture Console 오류는 `LogAssert.Expect`으로 확인됐고 예상 밖 오류는0이다. [P1 evidence](doc/validation/ui-system/p1/README.md). Consumer 설치, Player, Profiler, 폭넓은 화면 UX와 사용자 수락은 P7에서 아직 실행하지 않았다. UIContext는 개발 source이며 0.0.1 release 내용은 바꾸지 않았다.
 
 다른 Unity 버전·플랫폼·IL2CPP, 물리 게임패드/touch의 개별 UX, 모든 abrupt 종료 조합은 미검증이다. CI는 현재 미구성이며 자동 CI 통과로 표현하지 않는다. 변경 시 [문서 갱신 지침](doc/DOCUMENTATION_GUIDE.md)에 따라 XML 주석과 사람/AI 문서를 같은 작업에서 갱신한다. 업그레이드 전에는 소비 프로젝트에서 가져오기·compile·예제 실행을 다시 확인한다. 기존 Text/Resource schema는 core에서 제거되어 프로젝트 템플릿으로만 제공한다.
 

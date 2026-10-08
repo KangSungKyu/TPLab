@@ -1,0 +1,13 @@
+{
+  "observedErrors": 2,
+  "expectedFixtureErrors": 2,
+  "unexpectedErrors": 0,
+  "expectedBy": [
+    "SceneRootTests.cs:116 LogAssert.Expect root-install:failing",
+    "SceneRootTests.cs:137 LogAssert.Expect root-uninstall:second"
+  ],
+  "entries": [
+    "InvalidOperationException: root-uninstall:second\nTPLab.Core.Tests.SceneRootInstallerProbe.Uninstall (TPLab.Core.Lifecycle.ISceneRoot root) (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Tests/Fixtures/SceneRootInstallerProbe.cs:88)\nTPLab.Core.Lifecycle.RootInstallation.Dispose () (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/RootInstallation.cs:242)\nRethrow as AggregateException: Scene root cleanup failed. (root-uninstall:second)\nTPLab.Core.Lifecycle.RootInstallation.Dispose () (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/RootInstallation.cs:261)\nTPLab.Core.Lifecycle.SingletonSceneRoot.OnSingletonShutdown () (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/SingletonSceneRoot.cs:58)\nTPLab.Core.Lifecycle.MonoSingleton`1[T].ReleaseOwnership () (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/MonoSingleton.cs:161)\nTPLab.Core.Lifecycle.MonoSingleton`1:ReleaseOwnership() (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/MonoSingleton.cs:165)\nTPLab.Core.Lifecycle.MonoSingleton`1:OnDestroy() (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/MonoSingleton.cs:75)",
+    "InvalidOperationException: root-install:failing\nTPLab.Core.Tests.SceneRootInstallerProbe.Install (TPLab.Core.Lifecycle.ISceneRoot root) (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Tests/Fixtures/SceneRootInstallerProbe.cs:77)\nTPLab.Core.Lifecycle.RootInstallation.Install () (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/RootInstallation.cs:212)\nTPLab.Core.Lifecycle.SceneOwnedRoot.InitializeIfNeeded () (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs:73)\nTPLab.Core.Lifecycle.SceneOwnedRoot:InitializeIfNeeded() (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs:81)\nTPLab.Core.Lifecycle.SceneOwnedRoot:Awake() (at C:/Users/PC/Projects/MyLab/Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs:52)\nUnityEngine.GameObject:SetActive(Boolean)\nTPLab.Core.Tests.<PartialFailureCleansFailingAndEarlierInstallersButSkipsLaterOnes>d__7:MoveNext() (at Assets/TPLab/Tests/PlayMode/SceneRootTests.cs:117)\nUnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)"
+  ]
+}

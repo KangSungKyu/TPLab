@@ -149,3 +149,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-08 UI Phase 계획: 사용자 선택 명칭은 UIContext다. root의 수명에 따른 공용 영속/scene/HUD 소유, 등록·선택적 자산 준비·runtime 표시의 같은 경로와 내부 생성 책임을 [초안](GAME_UI_SYSTEM_DRAFT.md)에 정리했다. P0 계약/의존성 → P1 Context 수명 → P2 등록/준비/생성 → P3 HUD/Popup/Canvas → P4 Modal/입력/연출 → P5 Virtual ScrollRect → P6 설정/root/예제 → P7 통합/소비/성능/사용자 수락으로 나눈다. 현재는 계획만 작성했으며 runtime·새 track/Phase branch·패키지 분리·배포는 미착수다.
 
 2026-10-08 UI 구현 시작: 사용자가 P0~P7 진행을 승인했다. UIContext/TPLab.UI와 기존 Core·UniTask·uGUI 참조, 선택적 Input adapter 경계를 채택하고 승인된 설계852ee960에서 track/P0 branch를 생성했다. 실제 상태/완료 기준은 [UI track](GAME_UI_SYSTEM_TRACK.md), 공용 계약은 [GAME_UI_SYSTEM](GAME_UI_SYSTEM.md)을 따른다. Core 재편·새 배포/version은 자동 포함하지 않는다.
+
+2026-10-08 UI P1: source545c342에서 root 수명·표시 handle/token·cleanup·실패/취소·native 파괴 fallback을 구현했다. [현재 근거](validation/ui-system/p1/README.md)는 UI18/18·기존root10/10 실패0/skip0이며 [사람 API](api/UI.md)/[AI API](ai/api/UI.md)를 함께 갱신한다. provider/reuse/HUD/Canvas/input/virtual과 최종 소비/성능/사용자 gate는 후속이며0.0.1배포는 그대로다. 다음은P2 shared 준비와 owner범위의 비활성 clone 재사용이다.

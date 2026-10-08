@@ -1,0 +1,35 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 9,
+  "passes": [
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloneIsBorrowedSourceCopyAndStaysInactiveDuringPreparation",
+    "TPLab.UI.Tests.UIContextPlayModeTests.ClosedObserverSeesClosedStateAndNoView",
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloseWaitsForNativeCloneDestructionAndPreservesBorrowedObjects",
+    "TPLab.UI.Tests.UIContextPlayModeTests.IndependentPopupCanOpenAndCloseFromAnotherPopupHook",
+    "TPLab.UI.Tests.UIContextPlayModeTests.NeverActiveOwnerDestructionCancelsContextLifetime",
+    "TPLab.UI.Tests.UIContextPlayModeTests.OpeningHookFailureStillDestroysCloneAndRunsAllCleanup",
+    "TPLab.UI.Tests.UIContextPlayModeTests.PreparedCloneActivatesOnlyAfterPrepareHookCompletes",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionCancelsPendingOpenAndDisposesDisplayOnce",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionClosesVisibleDisplayAndRepeatedShutdownIsSafe"
+  ],
+  "skipped": 0,
+  "total": 9,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.UIContextPlayModeTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 5844,
+    "cliReturnCode": 0,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 5844,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}
