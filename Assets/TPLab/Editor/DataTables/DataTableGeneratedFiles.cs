@@ -111,7 +111,7 @@ namespace TPLab.Core.Editor.DataTables
             {
                 foreach (var pair in writes)
                 {
-                    string stage = pair.Key + "." + Guid.NewGuid().ToString("N") + ".tmp";
+                    string stage = Path.Combine(folder, Guid.NewGuid().ToString("N") + ".tmp");
                     File.WriteAllText(stage, pair.Value, new UTF8Encoding(false));
                     staged.Add(pair.Key, stage);
                 }

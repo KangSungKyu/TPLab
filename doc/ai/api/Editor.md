@@ -79,3 +79,5 @@ ForbiddenUsage: JSON row loader; infer C# schema from CSV automatically; overwri
 Example: [human declarations](../../api/Editor.md) are NotRun excerpts; [importer template](../../DATA_TABLE_IMPORTER_DRAFT.md) provides project configuration.
 Compatibility: actual Unity scene properties/Inspector drawer types are Editor integration, not separate runtime consumers. project schema changes may need migration/manual apply.
 Limitations: minimal Git/tarball importer consumers passed in the P2 validation source; this does not validate project-specific DTO/profile rules. JSON rows/rename migration/generic PK generation not provided.
+
+StagingPath: 임시 파일은 출력 폴더 안의 GUID.tmp로 만들어 최종 파일명에 37자를 덧붙이지 않는다. 최종/임시 절대 경로에는 Unity·OS 파일시스템 제한이 여전히 적용되며 임의의 긴 경로 지원을 보장하지 않는다.

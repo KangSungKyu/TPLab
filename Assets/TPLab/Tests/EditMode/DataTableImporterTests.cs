@@ -352,18 +352,23 @@ namespace TPLab.Core.Tests
             string folder = root + "/" + new string('x', padding);
             string manifest = folder + "/" + owner + ".tableimport.json";
             Assert.That(Path.GetFullPath(manifest).Length, Is.EqualTo(240));
+            Assert.That(Path.GetFullPath(folder + "/" + new string('0', 32) + ".tmp").Length, Is.LessThan(260));
             try
             {
                 var files = DataTableGenerator.Generate(DataTableGenerator.ReadSchema(SchemaJson), "Game.Data");
                 Assert.That(DataTableGeneratedFiles.Apply(folder, owner, "v1", files), Is.True);
                 string meta = folder + "/TextRow.g.cs.meta";
                 File.WriteAllText(meta, "owned meta");
+                string unrelated = folder + "/unrelated.txt";
+                File.WriteAllText(unrelated, "keep");
+                Assert.That(DataTableGeneratedFiles.Apply(folder, owner, "v1", files), Is.False);
                 var changed = files.ToDictionary(pair => pair.Key, pair => pair.Value + "// update\n");
                 Assert.That(DataTableGeneratedFiles.Apply(folder, owner, "v2", changed), Is.True);
                 foreach (var pair in changed)
                     Assert.That(File.ReadAllText(folder + "/" + pair.Key), Is.EqualTo(pair.Value));
                 Assert.That(File.ReadAllText(manifest), Does.Contain("v2"));
                 Assert.That(File.ReadAllText(meta), Is.EqualTo("owned meta"));
+                Assert.That(File.ReadAllText(unrelated), Is.EqualTo("keep"));
                 Assert.That(Directory.GetFiles(folder, "*.tmp"), Is.Empty);
             }
             finally

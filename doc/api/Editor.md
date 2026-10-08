@@ -80,3 +80,5 @@ static IReadOnlyList<string> ValidateEditorSetup(bool enteringPlay);
 빈 오류 목록은 해당 사전 검사 통과이며 씬 실행 완료 증거가 아니다. 저장된 씬은 격리 preview로 검사하고 사용자 씬을 저장/대체하지 않는다. 첫 build scene/root/installer/Single 유지 가능성/정의/condition metadata 및 명시적으로 선택한 BuildScene·Addressables 등록을 검사한다. Inspector·컴파일 후·Play 진입·build gate가 연결되어 있다. unsaved live root와 실제 Player build scene 목록도 검사한다. `SceneAsset`의 등록 여부로 backend를 자동 선택하지 않는다. [Bootstrap 사용](../BOOTSTRAP_SYSTEM.md), [씬 API](SceneManagement.md)를 따른다.
 
 최소 importer 예제는 [설정/profile 템플릿](../DATA_TABLE_IMPORTER_DRAFT.md)이다. 문서의 선언 블록은 발췌(NotRun); 설정을 만들고 profile 등록 → CSV/schema 사전검사 → 명시적 생성 → compile → typed 전체 검증의 순서를 지킨다. JSON 행·자동 타입 추론·자동 이름 변경·runtime 설정 UI는 제공하지 않는다.
+
+StagingPath: 임시 파일은 출력 폴더 안의 GUID.tmp로 만들어 최종 파일명에 37자를 덧붙이지 않는다. 최종/임시 절대 경로에는 Unity·OS 파일시스템 제한이 여전히 적용되며 임의의 긴 경로 지원을 보장하지 않는다.
