@@ -1,0 +1,14 @@
+{
+    "name": "TPLab.UI.EditModeTests",
+    "rootNamespace": "TPLab.UI.Tests",
+    "references": [
+        "TPLab.UI",
+        "UniTask"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "TPLab.UI",
+    "rootNamespace": "TPLab.UI",
+    "references": [
+        "TPLab.Core",
+        "UniTask",
+        "UnityEngine.UI"
+    ]
+}

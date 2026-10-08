@@ -1,0 +1,11 @@
+{
+    "name": "TPLab.UI.PlayModeTests",
+    "rootNamespace": "TPLab.UI.Tests",
+    "references": [
+        "TPLab.UI",
+        "UniTask"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}
