@@ -147,3 +147,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-08 후속 UI 검토: 사용자 요구인 HUD 선택과 modal/modeless popup을 분리하고 logical owner tree·표시 depth·Canvas host의 역할, runtime mode 전환·focus/입력 경계와 관리 Canvas의 rebuild/batch 정책을 [같은 초안](GAME_UI_SYSTEM_DRAFT.md)에 보완했다. 변경 빈도별 Canvas 분할과 native delayed rebuild 재사용은 제안이며 성능 수치·Profiler·UI 구현은 미실행이다.
 
 2026-10-08 UI Phase 계획: 사용자 선택 명칭은 UIContext다. root의 수명에 따른 공용 영속/scene/HUD 소유, 등록·선택적 자산 준비·runtime 표시의 같은 경로와 내부 생성 책임을 [초안](GAME_UI_SYSTEM_DRAFT.md)에 정리했다. P0 계약/의존성 → P1 Context 수명 → P2 등록/준비/생성 → P3 HUD/Popup/Canvas → P4 Modal/입력/연출 → P5 Virtual ScrollRect → P6 설정/root/예제 → P7 통합/소비/성능/사용자 수락으로 나눈다. 현재는 계획만 작성했으며 runtime·새 track/Phase branch·패키지 분리·배포는 미착수다.
+
+2026-10-08 UI 구현 시작: 사용자가 P0~P7 진행을 승인했다. UIContext/TPLab.UI와 기존 Core·UniTask·uGUI 참조, 선택적 Input adapter 경계를 채택하고 승인된 설계852ee960에서 track/P0 branch를 생성했다. 실제 상태/완료 기준은 [UI track](GAME_UI_SYSTEM_TRACK.md), 공용 계약은 [GAME_UI_SYSTEM](GAME_UI_SYSTEM.md)을 따른다. Core 재편·새 배포/version은 자동 포함하지 않는다.

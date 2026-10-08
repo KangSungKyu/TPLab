@@ -100,4 +100,6 @@
 
 - 2026-10-08 · 0.0.1 첫 정식 Release · 공개·발행 검증 완료/브랜치·장치 마감 후속 · [02](2026-10-08-02-distribution-release.md)
 
-- 2026-10-08 · Game UI System 설계 검토 · UIContext 명칭·P0~P7 계획 작성/구현 미착수 · [03](2026-10-08-03-game-ui-design.md)
+- 2026-10-08 · Game UI System 설계 검토 · 설계 작성·852ee960 보존/후속 구현 승인 · [03](2026-10-08-03-game-ui-design.md)
+
+- 2026-10-08 · UIContext P0 계약·의존성 · 구현 승인/계약·Editor 상태 검증 · [04](2026-10-08-04-ui-contracts.md)

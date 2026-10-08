@@ -87,6 +87,15 @@
 - 통합은 원본 commit을 보존하는 fast-forward 또는 일반 merge를 사용한다. track/Phase 브랜치는 최종 main push와 SHA 보존을 확인한 뒤에만 삭제하며, 다른 worktree가 사용 중이면 보류한다.
 - PC 종료 지시는 이번 요청에 한정한다. 구현·자동 검증까지 끝나고 최종 사용자 확인만 대기 중이면 track 결과를 보존하고 Unity를 저장하되 종료하지 않은 채 절전할 수 있다. 작업 또는 테스트가 진행 중이면 절전하지 않는다. 최종 확인·main 통합·정리까지 완료한 경우 Unity 저장 후 정상 종료를 확인하고 PC를 종료한다. Unity 정상 종료가 실패하면 오프라인 전환 후 절전한다.
 
+## UIContext 구현 track 운영
+
+- 사용자 승인된 P0~P7은 [UIContext track](doc/GAME_UI_SYSTEM_TRACK.md), 공용 계약은 [GAME_UI_SYSTEM.md](doc/GAME_UI_SYSTEM.md)를 따른다. 명칭/namespace/assembly는 UIContext/TPLab.UI다. 새 UI source는 Assets/TPLab/UI이고 기존 Core/Input 소스 이동·배포 사본·버전/tag는 자동 포함하지 않는다.
+- UI Runtime은 TPLab.Core·UniTask·uGUI를 사용하되 UnityEditor와 게임 업무 로직을 참조하지 않는다. Core runtime에서 UI 역참조는 금지한다. Input System 연결은 선택 assembly/adapter 경계로 두며 passive Virtual ScrollRect에 Input wrapper를 강제하지 않는다.
+- root별 Context 수명, borrowed ResourceManager/InputManager와 소유 clone/표시 작업/구독·lease를 구분한다. Scene Prepare의 등록/선행 자산 준비와 런타임 표시가 같은 준비·생성 경로를 사용한다. 정상 root 해제에서 UI Shutdown을 await하고 Unity 파괴 fallback도 검증한다.
+- 각 Phase에서 실제 Red→Green·관련 회귀·XML/사람/AI 문서·회고를 수행한 결과만 최신 검증 track에 통합한다. 부모만 Unity/Git/최종 리뷰를 맡으며 테스트 중 source를 동결한다. 기본 하위 agent1개·독립 작업 시 최대2개를 사용하고 모델/추론/허용 파일/상태를 track에 기록한다.
+- Virtual ScrollRect는 필수1,000/10,000 항목에서 기능·총소유/누적 생성 상한을 확인한다. 기본 ScrollRect1,000↔virtual1,000 성능비교와 virtual10,000 확장성 결과를 구분하고 실제 Profiler/Player 결과를 보존한다.
+- 최종 사용자 시각/실제 입력 확인은 P7에 모으며 미확인 시 main 병합·작업 branch 삭제를 보류한다. 이 UI 구현 요청에는 Unity/PC 종료 권한을 추가하지 않는다.
+
 ## 배포 작업
 
 - 패키징·dev-build·Release의 현재 규격/Phase/gate는 [DISTRIBUTION_PIPELINE.md](doc/DISTRIBUTION_PIPELINE.md)를 따른다. 설계 상태와 실제 구현·artifact 설치·Release 발행을 구분한다.

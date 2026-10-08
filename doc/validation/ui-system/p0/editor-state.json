@@ -1,0 +1,15 @@
+{
+  "project": "C:/Users/PC/Projects/TPLab",
+  "editorPid": 24376,
+  "unityVersion": "6000.3.18f1",
+  "connectorVersion": "0.4.1",
+  "ready": true,
+  "compiling": false,
+  "updating": false,
+  "playing": false,
+  "activeScene": "Assets/Scenes/InitScene.unity",
+  "sceneDirty": false,
+  "consoleErrors": 0,
+  "evidence": "Explicit-project unity-cli status, exec and console in current Editor",
+  "sourceBase": "852ee960a22791404f179441f8e789f1fee335bf"
+}

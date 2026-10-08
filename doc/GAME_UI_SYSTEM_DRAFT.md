@@ -1,8 +1,8 @@
 # Game UI System 설계 검토 초안
 
-2026-10-08. 상태: 사용자 검토용 제안 / 미구현. 이번 요청은 uGUI 위의 Canvas·Panel 기반 Popup과 Virtual ScrollRect의 설계 검토다. 구현, package 추가, 기존 API 변경, 0.0.1 배포 갱신은 포함하지 않는다.
+2026-10-08. 설계 검토 기록이다. 사용자가 후속으로 P0~P7 구현 진행을 승인했다. 현재 적용 계약은 [UIContext 계약](GAME_UI_SYSTEM.md), 실제 구현/검증·통합 상태는 [track](GAME_UI_SYSTEM_TRACK.md)에서 확인한다. 이 설계 기록의 제안과 0.0.1 배포 API를 혼동하지 않는다.
 
-사용자가 적은 `tplap.uisystem`은 저장소 이름에 맞춰 TPLab UI 모듈로 해석했다. 제안 namespace `TPLab.UI`, assembly `TPLab.UI`, 향후 설치 단위 `com.tplab.ui`는 확정 전이다. 다음 버전 번호도 미정이다. 선행 계획은 [CORE_PLAN](CORE_PLAN.md#다음-버전-계획-2026-10-07)이다.
+사용자가 적은 `tplap.uisystem`은 저장소 이름에 맞춰 TPLab UI 모듈로 해석했다. P0에서 namespace/assembly `TPLab.UI`를 채택했다. 향후 설치 단위 `com.tplab.ui`와 배포 버전은 별도 범위다. 다음 버전 번호도 미정이다. 선행 계획은 [CORE_PLAN](CORE_PLAN.md#다음-버전-계획-2026-10-07)이다.
 
 ## 현재 구현에서 확인한 경계
 
@@ -302,7 +302,7 @@ TPLab에 등록한 host의 관리 sibling/sorting 범위는 system이 관리하�
 
 ## 구현 Phase 계획 (2026-10-08)
 
-사용자는 UIContext 명칭을 채택하고 구현 가능한 Phase 분할을 요청했다. 현재 단계는 계획 작성이며 아래 P0~P7 모두 미착수다. 기존 합의로 첫 범위를 나눌 수 있고 추가 사용자 결정이 필수인 사항은 현재 발견하지 못했다. P0의 실측에서 합의와 다른 지원 범위/의존성 변경이 필요하면 해당 차이만 재검토한다.
+사용자는 UIContext 명칭을 채택하고 구현 가능한 Phase 분할을 요청했다. 후속 구현 요청으로 P0를 시작했다. 아래 표는 단계별 완료 조건이며 실제 상태와 증거는 track에 기록한다. 기존 합의로 첫 범위를 나눌 수 있고 추가 사용자 결정이 필수인 사항은 현재 발견하지 못했다. P0의 실측에서 합의와 다른 지원 범위/의존성 변경이 필요하면 해당 차이만 재검토한다.
 
 | Phase | 작업 범위 | 완료 조건 |
 |---|---|---|
