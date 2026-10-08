@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "sampleSuccess": false,
+    "errors": 0,
+    "warnings": 0,
+    "sampleErrors": 0,
+    "runId": "7e328c3970e645e0a06200123cae14ff",
+    "sourceRevision": "7603e5240d0d95aa6c3051c6dfc7165426f580d3",
+    "projectPath": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-b\\Project",
+    "unityVersion": "6000.3.18f1",
+    "backend": "Mono2x",
+    "target": "StandaloneWindows64",
+    "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-b\\Build\\UIConsumer.exe",
+    "result": "Succeeded",
+    "error": "",
+    "samplePlayerPath": ""
+}

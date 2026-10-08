@@ -30,7 +30,10 @@
 | [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext 설계 근거·Phase·대규모 검증 조건 | 설계 기록, HUD·Popup·owner/depth·Canvas·virtual scroll 1,000/10,000 |
 | [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | P0 계약: 명시 root·borrowed 자산, 즉시 handle/Open await, cleanup·입력 경계 |
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |
-| [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer Edit/Play 검증 결과 확인 | second Green Edit33/33·Play53/53; final source revision/sample evidence pending |
+| [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer·예제 authoring 검증 결과 | final source21f89e25·UI86/86·새19asset, 이후 통합 검증은P7 |
+| [UI P7 검증](validation/ui-system/p7/README.md) | 전체 회귀·source consumer·실제 Player·성능·보존 확인 | 원본624/624, native Input·1,000/10,000·Canvas 측정, 최종 sample/사용자 수락 구분 |
+| [UI_PERFORMANCE.md](UI_PERFORMANCE.md) | Virtual ScrollRect·Canvas 최적화 결과 검토 | 같은1,000 비교·10,000 확장성·600프레임 median/P95/max, GC·N/A·한계 |
+| [UI_ACCEPTANCE.md](UI_ACCEPTANCE.md) | UI track 최종 사용자 실행 확인 | 두Bootstrap·실제 입력·화면비·focus 복원, 확인 전 main/branch 정리 보류 |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |

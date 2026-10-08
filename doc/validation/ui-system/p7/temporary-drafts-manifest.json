@@ -1,0 +1,191 @@
+{
+  "purpose": "Consumed parent-owned UI drafts; promoted source/tools and immutable evidence retained. Native compiler workaround preserved as historical execution source, not a consumer tool dependency.",
+  "directories": [
+    {
+      "target": "Temp/UI-P3-Docs-20261008",
+      "files": []
+    },
+    {
+      "target": "Temp/UI-P4-Contract-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P4-Contract-20261008/contract.md",
+          "sha256": "dc8206d21ef2798d555963474ff68e93075aa1160f42c8d31c00201d25d4528c"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P4-Docs-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P4-Docs-20261008/draft.md",
+          "sha256": "fe236f78ccadebf2439927faead80d607b374e49f7aa6dbb1a80955a88ae24ed"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P4-Draft-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P4-Draft-20261008/UIContextInputContractTests.cs",
+          "sha256": "712948e8f875530390a34b1a51f97eeb9bbc46f9c2c3ed662c65227e5cf608d2"
+        },
+        {
+          "path": "Temp/UI-P4-Draft-20261008/UIContextInputPresentationTests.cs",
+          "sha256": "170274eea4dccb5279696b6287257fcf87219f561250c2b1d7ad39fdf9f0b214"
+        },
+        {
+          "path": "Temp/UI-P4-Draft-20261008/UIInputSystemAdapterTests.cs",
+          "sha256": "958519dbd60c54344e0c9d4e2fe14ee11ac3edeb6e501caec93c9d7540480054"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P6-Draft-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P6-Draft-20261008/contract.md",
+          "sha256": "a1cbab1923050cb3721c55c37ffe6b09b6a59c4c7424b46e0ceef030eee05396"
+        },
+        {
+          "path": "Temp/UI-P6-Draft-20261008/UIContextInstaller.cs",
+          "sha256": "e5807d5f752425edc1ffe7df246088b456811debb5634cf42bbdb6484df81e02"
+        },
+        {
+          "path": "Temp/UI-P6-Draft-20261008/UIContextInstallerInputSystemPlayModeTests.cs",
+          "sha256": "b7aafc7567354457254506ceb094138101e138dace6d6727d93ef1204d59fdc2"
+        },
+        {
+          "path": "Temp/UI-P6-Draft-20261008/UIContextInstallerPlayModeTests.cs",
+          "sha256": "793da089c7f898040fec3ab3ac8651eb6f8e9862705dcf301ddf90124f825ee5"
+        },
+        {
+          "path": "Temp/UI-P6-Draft-20261008/UIContextSettings.cs",
+          "sha256": "308a3fc1fbf8f4742d07d35575ef221f8b8162e4c2d99ae2a8477a713b2f6123"
+        },
+        {
+          "path": "Temp/UI-P6-Draft-20261008/UIContextSettingsEditModeTests.cs",
+          "sha256": "16d5b64f9f81495f2df8659b505f9668d8d8da6bdd6bde2075ea8f3285fa4434"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P6-Operations-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P6-Operations-20261008/compile_registered_ui.py",
+          "sha256": "8e92c874cc08d30a99a6442f03e27876cf7b4e32933d68a3425e03621ef84167"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P6-Sample-Draft-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/Editor/TPLab.UISamples.OptionalInput.Editor.asmdef",
+          "sha256": "2916d6653522fb291471a1c8a44e954c962ef96231d9ec1261f3b86fe0c422f4"
+        },
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/Editor/UIContextSampleBuilder.cs",
+          "sha256": "b66a06b5c92f63c2578ccc7557f38bbafdfc8e2d09749ede07de70f54329e47e"
+        },
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/plan.md",
+          "sha256": "27dc6f1a9d27bdbee324cccc0bea1dc395ee9767627c519369428bac311a154b"
+        },
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/README.md",
+          "sha256": "7341e0f888e0dba2e4e6e59cbf13798a03996797eba96628adf954cd48b3acb7"
+        },
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/Runtime/TPLab.UISamples.OptionalInput.asmdef",
+          "sha256": "ae555c1baade455466f1445ce290e626b5ef35de41e2a88be0b924caddaa8dfe"
+        },
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/Runtime/UIContextSampleController.cs",
+          "sha256": "8ff152639486b6f5fcb3ef70c070e0886bc5fbad8ebbc73a71df568ea08d5053"
+        },
+        {
+          "path": "Temp/UI-P6-Sample-Draft-20261008/Runtime/UIContextSampleScopeInstaller.cs",
+          "sha256": "3a80f964dee499dafe8511549a43dc6712d32c47642b6f33dd645501802ecb8f"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P7-Benchmark-Draft-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P7-Benchmark-Draft-20261008/README.md",
+          "sha256": "893d59ff022c9280085b4a6358188864f9ec73f600b0801706d67b7b7e0919b5"
+        },
+        {
+          "path": "Temp/UI-P7-Benchmark-Draft-20261008/UICanvasBenchmarkDraft.cs",
+          "sha256": "ea1f52dc121dfd3cd1c62209cf5a96bcc6fb568f19af0c633a4abf9b537582d2"
+        },
+        {
+          "path": "Temp/UI-P7-Benchmark-Draft-20261008/UIVirtualScrollBenchmarkDraft.cs",
+          "sha256": "86e2711db0b9aad80814e95b9ff6c9a3293f8634230f669fd1dd86d96decd25b"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P7-Consumer-Draft-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/__pycache__/run_ui_source_consumer.cpython-314.pyc",
+          "sha256": "a46c409aaaf451a32162885cdf90b7f39f5fbfa077cde88b12a2600b926d9b54"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/__pycache__/test_ui_source_consumer_contract.cpython-314.pyc",
+          "sha256": "5c6b511c0023f79418fa29363d654bb00edf78e74e8c97fd7e24149b97fd243d"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/contract.md",
+          "sha256": "69b1eb1a7c90eab2be5a0dfc58c5d64fc8c69d2bc944f971fea2725a07cb34cb"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/README.md",
+          "sha256": "4f4de69f3ea515bc8d77f953a582ce70578706281a4e59c3b238940dcac93c7c"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/run_ui_source_consumer.py",
+          "sha256": "28be97d4afc6513806db1375c56bd446b830687d9d6e11c97766700947fcd7d6"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/templates/UIConsumerBuild.cs",
+          "sha256": "4987d26cd2eaad5adaa291adc6013b0bac9dddecfd210f2baa7e5e33b6fe5163"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/templates/UIConsumerSmoke.cs",
+          "sha256": "ca9f85d10bff5d516493fc97cddc2e9f5da664434b0f04b103cfd2a0486dfb17"
+        },
+        {
+          "path": "Temp/UI-P7-Consumer-Draft-20261008/test_ui_source_consumer_contract.py",
+          "sha256": "14ecd2c57825616ba63b1ef237089498e33c4ef833c614e91b73b1a35218d4fb"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P7-DocsDraft-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P7-DocsDraft-20261008/UI_ACCEPTANCE.md",
+          "sha256": "e7f4b73eff0b6bf74ef19ae9484c96cb2b82c4ec1087e6b25cbbaca083fff06f"
+        },
+        {
+          "path": "Temp/UI-P7-DocsDraft-20261008/UI_PERFORMANCE.md",
+          "sha256": "38a82cf8eb2dcbbfe706e846c2ea678d17ec2510fc5075840f3a0bae93b98b1e"
+        }
+      ]
+    },
+    {
+      "target": "Temp/UI-P7-SampleValidation-20261008",
+      "files": [
+        {
+          "path": "Temp/UI-P7-SampleValidation-20261008/UIConsumerSampleSmoke.cs",
+          "sha256": "af7beaf69c0c6ada3097447be2c66983cd6b4bce3764e3e8c0b849ecb4b224e3"
+        }
+      ]
+    }
+  ]
+}

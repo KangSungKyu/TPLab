@@ -1,0 +1,16 @@
+{
+  "sourceRevision": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "editorPid": 24376,
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "compiling": false,
+  "updating": false,
+  "playing": false,
+  "activeScene": "Assets/Scenes/InitScene.unity",
+  "sceneDirty": false,
+  "presentationLoaded": true,
+  "installerLoaded": true,
+  "nativeRegistryPermanentRepair": false,
+  "productConsoleUnexpectedErrors": 0,
+  "expectedNegativeFixtureErrorsPreserved": 10,
+  "observation": "Actual CLI exec and Console after full final regression; no Editor restart or original scene change."
+}

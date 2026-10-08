@@ -1,0 +1,23 @@
+{
+  "source": "5c434e2a0aef8a76a91a68d847fc09bc37a0ef2d",
+  "edit": {
+    "total": 318,
+    "passed": 318,
+    "failed": 0,
+    "skipped": 0
+  },
+  "play": {
+    "total": 306,
+    "passed": 305,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failedTest": "UIContextInstallerInputSystemPlayModeTests.RootReverseReleaseClosesUiBeforeBorrowedInputAndResources",
+  "failureStage": "SetUp",
+  "cause": "Core fixture teardown removes its catalogs after native Addressables initialization; repeated initialized path selects locator[0] but list is empty.",
+  "nativeSource": "Library/PackageCache/com.unity.addressables@8460f1c9c927/Runtime/AddressablesImpl.cs:361",
+  "correction": "Fixture-owned empty locator only when previous list is empty, scope cleanup restores existing locators and PlayerPrefs.",
+  "runtimeChanged": false,
+  "checksWeakened": false,
+  "finalRegressionPending": true
+}

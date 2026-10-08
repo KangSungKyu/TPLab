@@ -1,0 +1,15 @@
+{
+  "sourceRevision": "8310a94bcb674f28bee2c246c4e5eae9d6c83804",
+  "documents": 18,
+  "localLinks": 599,
+  "replacementCharacters": 0,
+  "capturedSourceHashesCurrent": 476,
+  "protectedRawFilesUnchanged": 6,
+  "runtimeCoreInputUiUnchangedFromP6": true,
+  "mainUnchanged": "8ce768d96f79ed8328143bebc31e77f060f51205",
+  "manualAcceptancePending": true,
+  "finalReviewPlayersRetained": 2,
+  "ownedTemporaryPathsRemoved": 18,
+  "evidencePayloadRawGitMatches": 181,
+  "savedExecutionBytesPreservedByScopedGitAttributes": true
+}

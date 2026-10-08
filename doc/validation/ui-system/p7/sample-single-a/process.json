@@ -1,0 +1,29 @@
+{
+  "pid": 40024,
+  "startedUnix": 1791462209.094318,
+  "completedUnix": 1791462240.1495738,
+  "elapsedSeconds": 31.055,
+  "returnCode": 2,
+  "timedOut": false,
+  "windowPolicy": "SW_SHOWNOACTIVATE",
+  "processLog": "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\sample-single-a\\player.log",
+  "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\sample-single-a\\stdout.log",
+  "processLogFresh": true,
+  "stdoutLogFresh": true,
+  "runId": "9544dee45046433a9d2d60a62714b2ab",
+  "sourceRevision": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "currentCandidate": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "buildEvidence": "doc\\validation\\ui-system\\p7\\consumer-input-single-a",
+  "unchangedRuntimeSampleHarnessHashMatch": true,
+  "command": [
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-single-p7-a\\SampleBuild\\UIContextSample.exe",
+    "-screen-width",
+    "1280",
+    "-screen-height",
+    "720",
+    "-screen-fullscreen",
+    "0",
+    "-logFile",
+    "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\sample-single-a\\player.log"
+  ]
+}

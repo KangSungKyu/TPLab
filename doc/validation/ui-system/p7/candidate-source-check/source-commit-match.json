@@ -1,0 +1,15 @@
+{
+  "candidateSourceRevision": "8310a94bcb674f28bee2c246c4e5eae9d6c83804",
+  "originalFinalRegressionSourceRevision": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "captured": 476,
+  "gitMatches": 475,
+  "excludedProtected": [
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions"
+  ],
+  "protectedRawFilesUnchanged": 6,
+  "changedCapturedInputsSinceFinalRegression": [
+    "tools/ui-consumer/templates/UIConsumerSampleSmoke.cs"
+  ],
+  "originalRegressionAssetsPackagesProjectInputsUnchanged": true,
+  "explanation": "Only consumer-only sample teardown driver changed. Original project does not import tools C# templates; original full Edit318/Play306 proof remains attached to exact99df source and unchanged original compilation/test inputs. Fresh final consumers validate the changed copied driver."
+}

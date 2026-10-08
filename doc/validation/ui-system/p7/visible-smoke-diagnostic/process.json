@@ -1,0 +1,23 @@
+{
+  "pid": 37316,
+  "startedUnix": 1791460384.9660227,
+  "completedUnix": 1791460391.4060178,
+  "returnCode": 0,
+  "timedOut": false,
+  "sourceRevision": "7603e5240d0d95aa6c3051c6dfc7165426f580d3",
+  "consumerProject": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-b\\Project",
+  "runId": "02b97eeecd8847ccb51b2067e3261183",
+  "window": "SW_SHOWNOACTIVATE",
+  "command": [
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-b\\Build\\UIConsumer.exe",
+    "-screen-width",
+    "1280",
+    "-screen-height",
+    "720",
+    "-screen-fullscreen",
+    "0",
+    "-logFile",
+    "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\visible-smoke-diagnostic\\player.log"
+  ],
+  "purpose": "Same binary, only visibility changed; fresh nonzero-draw gate unchanged"
+}

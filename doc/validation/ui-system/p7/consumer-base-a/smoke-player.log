@@ -1,0 +1,70 @@
+Mono path[0] = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-a/Build/UIConsumer_Data/Managed'
+Mono config path = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-a/Build/MonoBleedingEdge/etc'
+Found 1 interfaces on host : 0) 192.168.0.26
+Player connection [37664]  Target information:
+
+Player connection [37664]  * "[IP] 192.168.0.26 [Port] 55000 [Flags] 2 [Guid] 559867590 [EditorId] 1236761541 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-3J0UFVG) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] Project" 
+
+Player connection [37664] Started UDP target info broadcast (1) on [225.0.0.222:54997].
+
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.3.18f1 (5ebeb53e4c07)
+[Subsystems] Discovering subsystems at path C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-a/Build/UIConsumer_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 4060 Laptop GPU
+[D3D12 Device Filter] Driver Version: 32.0.16.1088
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 7956 MB
+[D3D12 Device Filter] Processor Count: 16
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 4060 Laptop GPU (ID=0x28a0)
+    Vendor:          NVIDIA
+    VRAM:            7956 MB
+    App VRAM Budget: 7188 MB
+    Driver:          32.0.16.1088
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in 18.144 seconds
+- Finished resetting the current domain, in  0.015 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+UnloadTime: 1.789800 ms
+InvalidOperationException: Consumer check failed: Count zero releases bindings and cells
+  at UIConsumer.UIConsumerSmoke.Check (System.Boolean value, System.String name) [0x00027] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-base-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSmoke.cs:51 
+  at UIConsumer.UIConsumerSmoke.VerifyVirtualAsync () [0x0047c] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-base-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSmoke.cs:222 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at UIConsumer.UIConsumerSmoke.RunAsync () [0x0052e] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-base-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSmoke.cs:99 
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception)
+UIConsumer.<RunAsync>d__12:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-base-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSmoke.cs:141)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetResult(AsyncUnit) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:139)
+Cysharp.Threading.Tasks.NextFramePromise:MoveNext() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Delay.cs:408)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:RunCore() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:175)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Update() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:145)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:104)
+
+(Filename: C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-a/Project/Assets/UIConsumer/Runtime/UIConsumerSmoke.cs Line: 141)
+
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+PlayerConnection::Cleanup##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1791460125188,"processId":36760,"allocatedMemory":61575,"memoryLabels":[{"Default":136},{"NewDelete":760},{"Thread":7616},{"Manager":8982},{"GfxDevice":2112},{"Audio":752},{"Serialization":520},{"JobScheduler":32768},{"String":441},{"HashMap":5120},{"PoolAlloc":96},{"CloudService":144},{"VR":1872},{"Video":144},{"Subsystems":96},{"CoreBusinessMetrics":120}]}

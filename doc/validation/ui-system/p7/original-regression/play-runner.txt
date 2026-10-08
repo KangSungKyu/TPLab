@@ -1,0 +1,1 @@
+{"total": 306, "passed": 305, "failed": 1, "skipped": 0, "execution": {"project": "C:\\Users\\PC\\Projects\\TPLab", "mode": "PlayMode", "filter": "TPLab", "source": "cli", "runId": null, "cliPid": 29720, "cliReturnCode": 1, "editorPid": 24376, "attempts": [{"cliPid": 29720, "cliReturnCode": 1, "prestartDiscoveryRejected": false}]}}

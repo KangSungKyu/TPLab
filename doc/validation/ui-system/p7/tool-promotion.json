@@ -1,0 +1,45 @@
+{
+  "copied": [
+    {
+      "from": "Temp/UI-P7-Consumer-Draft-20261008/run_ui_source_consumer.py",
+      "to": "tools/run_ui_source_consumer.py",
+      "originalSha256": "28be97d4afc6513806db1375c56bd446b830687d9d6e11c97766700947fcd7d6",
+      "promotedSha256": "e4737c0a681d44de10cfc350210c1f4a4803bb4a44a696f23c75d19bc024debb"
+    },
+    {
+      "from": "Temp/UI-P7-Consumer-Draft-20261008/test_ui_source_consumer_contract.py",
+      "to": "tools/test_ui_source_consumer_contract.py",
+      "originalSha256": "14ecd2c57825616ba63b1ef237089498e33c4ef833c614e91b73b1a35218d4fb",
+      "promotedSha256": "3b87c6fd6a69322567be513fc6e7a97e598973316b23669bb3c60c1a3d1cfa1b"
+    },
+    {
+      "from": "Temp/UI-P7-Consumer-Draft-20261008/templates/UIConsumerBuild.cs",
+      "to": "tools/ui-consumer/templates/UIConsumerBuild.cs",
+      "originalSha256": "4987d26cd2eaad5adaa291adc6013b0bac9dddecfd210f2baa7e5e33b6fe5163",
+      "promotedSha256": "44079f26e926337824e3d2399d9654ab3337b3964dec2e98e4b3c5ea42e12bd6"
+    },
+    {
+      "from": "Temp/UI-P7-Consumer-Draft-20261008/templates/UIConsumerSmoke.cs",
+      "to": "tools/ui-consumer/templates/UIConsumerSmoke.cs",
+      "originalSha256": "ca9f85d10bff5d516493fc97cddc2e9f5da664434b0f04b103cfd2a0486dfb17",
+      "promotedSha256": "4b9a3dd94e7eb52dfbe89a169463e12526ba0bdb2a50000540b2c91916837a1c"
+    },
+    {
+      "from": "Temp/UI-P7-Benchmark-Draft-20261008/UIVirtualScrollBenchmarkDraft.cs",
+      "to": "tools/ui-consumer/templates/UIVirtualScrollBenchmark.cs",
+      "originalSha256": "86e2711db0b9aad80814e95b9ff6c9a3293f8634230f669fd1dd86d96decd25b",
+      "promotedSha256": "631aa5697df31ebcf830b89323429a1e1225d462691ea0bfb6606353b3f42231"
+    },
+    {
+      "from": "Temp/UI-P7-Benchmark-Draft-20261008/UICanvasBenchmarkDraft.cs",
+      "to": "tools/ui-consumer/templates/UICanvasBenchmark.cs",
+      "originalSha256": "ea1f52dc121dfd3cd1c62209cf5a96bcc6fb568f19af0c633a4abf9b537582d2",
+      "promotedSha256": "0c73f2d47a39d4fddcdf47fa1aaf86f0b56a507348a1f3ce7f0e8084cfafba57"
+    }
+  ],
+  "sampleValidationScriptPending": true,
+  "priorActualRed4": "../p6/p7-consumer-red.txt",
+  "priorActualGreen4": "../p6/p7-consumer-first-green.txt",
+  "newlineRed5": "../p6/p7-newline-red.txt",
+  "newlineGreen5": "../p6/p7-newline-green.txt"
+}

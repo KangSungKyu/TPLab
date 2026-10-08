@@ -1,0 +1,16 @@
+{
+  "source": "09bcdb4854e8d33cc8f6e72db2d6fa77553a8f59",
+  "actualBuilds": 1,
+  "actualPlayers": 1,
+  "buildSuccess": true,
+  "smokeSuccess": false,
+  "cause": "Fixture incorrectly expected zero retained cells after SetCount(0). Runtime budget policy correctly keeps inactive cells.",
+  "runtimeChanged": false,
+  "preservedFailure": "consumer-base-a/smoke-result.json",
+  "fixes": [
+    "Count0 active/binding cleanup with bounded inactive ownership",
+    "Optional Input AddAction expectedControlLayout named parameter for installed1.19",
+    "README absolute checkout argument"
+  ],
+  "performanceExecuted": false
+}

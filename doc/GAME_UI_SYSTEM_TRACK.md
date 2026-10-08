@@ -21,7 +21,7 @@
 | P4 입력/연출 | codex/game-ui-p4-input | 완료 / 자동65개·문서·회고 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
 | P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 완료 / 자동79개·문서·회고 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
 | P6 설정/root/예제 | codex/game-ui-p6-integration | 완료 / 자동UI86·compile·예제19asset·문서·회고 | Inspector/script 동일경로·Single/Additive·callback 예제 |
-| P7 통합/성능/수락 | codex/game-ui-p7-validation | 미착수 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
+| P7 통합/성능/수락 | codex/game-ui-p7-validation | 자동 검증 완료 / 최종 사용자 확인 대기 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
 
 P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 가능하다. P6은 P4/P5, P7은 P6을 선행한다. 문서와 자동 검증은 해당 Phase에서 수행하며 P7까지 미루지 않는다.
 
@@ -76,3 +76,9 @@ P5 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`: [최종 UI79](validation/u
 P5 문서/근거37ad2416e79b7d241bca26935b60a341b8b1a712를 ancestry/CAS로 track에 통합하고 같은 tip에서 P6 branch를 생성했다. 문서14개·상대 링크377개·입력406·보호6·GUID 검사 통과를 기록했다. P6의 [실제 Red7](validation/ui-system/p6/README.md)은 원본 Editor에서 Edit2/Play5 실패7·skip0이고 입력416/보호6 unchanged다. 테스트의 직접 Core assembly 참조와 import 준비 실패는 실행0건으로 분리했다. Runtime Settings/Installer2파일 Green을 수명 담당에게 배정하고 예제는 다른 담당이 Temp에서 준비한다. P7 독립 소비·성능은 미실행이고 main8ce768d를 유지한다.
 
 P6 source `21f89e2580f08be3903724efa0a42e5ad0567c83`: [최종UI86](validation/ui-system/p6/README.md) Edit33/33+Play53/53, 실패0skip0. source471/비보호Git470/보호6 raw unchanged, source 후보70파일·새 예제19asset·원본scene setup 보존·Console0. [회고10](retrospectives/2026-10-08-10-ui-installation.md). Settings/Installer와 선택Input/selfcontained sample을 구현했고 sample Player/performance/최종UX는P7 gate다. P6 doc 이후 ancestry/CAS track 통합 후 같은tip에서P7을 시작한다. Native registry 영구 복구·main 통합·사용자 수락은 주장하지 않는다.
+
+
+P7 작업 source 기록: `09bcdb4` 도구 승격 → `7603e52` fixture/설치 API 정합 → `ee5e233` graphics 창 정책 → `5c434e2` sample active/보관 snapshot과 실제 실행 bookkeeping → `99df25d` 테스트 소유 Addressables locator → `8310a94` 검증 종료 전용 parking scene. 기존 Core/Input/UI Runtime과0.0.1 upm/tag/Release는 보존한다. 원본 전체 회귀는 source99df25d에서 Edit318/318·Play306/306; 최신후보8310a94는 Tools sample driver만 달라 원본 Assets/Packages/ProjectVersion 입력은 같고 fresh consumer가 변경driver를 실제 검증한다. [P7 근거](validation/ui-system/p7/README.md)·[성능](UI_PERFORMANCE.md)·[수락](UI_ACCEPTANCE.md)·[회고11](retrospectives/2026-10-08-11-ui-validation.md). 최종 Single/Additive 소비는 각각Editor1/build2artifacts/Player4를 통과했다. sample은Single80/Additive78checks, 각30양수draw(min11)/inventory7/Continue4/UIcleanup2/ManagerStopped·owned등록0. [최종Source476](validation/ui-system/p7/test-inputs.json)은 before/after동일·비보호Git475일치·보호6raw unchanged. Pythonhelper5/5 및 compile/제품Console0. UI 구현/자동검증 완료와 사용자 수락은 구분하며 실제입력/화면비/포커스복원·main/branch삭제는대기다.
+
+
+P7 담당 갱신: 수명 담당(기존 문맥/모델·추론 유지)은 optional UI 테스트1파일의 fixture-owned Addressables locator와 consumer sample teardown driver1파일을 맡았고 정적 freeze 후 부모가 실제624회귀/consumer를 실행했다. native 담당 gpt-6.1-sol/high는 graphics helper와 native 경계를 읽기 리뷰했다. 문서 담당 gpt-6-luna/low는 허용된 사람/AI/예제문서8개를 갱신했다. 같은 source파일/Unity를 동시 수정하지 않았고 동시 하위담당은최대2개다. 부모가 실패진단·최종deep/schema/hash·GUID/링크·회고·Git/track통합을소유한다.

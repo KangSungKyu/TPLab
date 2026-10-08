@@ -1,0 +1,49 @@
+Mono path[0] = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-c/Build/UIConsumer_Data/Managed'
+Mono config path = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-c/Build/MonoBleedingEdge/etc'
+Found 1 interfaces on host : 0) 192.168.0.26
+Player connection [38224]  Target information:
+
+Player connection [38224]  * "[IP] 192.168.0.26 [Port] 55000 [Flags] 2 [Guid] 1116621909 [EditorId] 3324413765 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-3J0UFVG) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] Project" 
+
+Player connection [38224] Started UDP target info broadcast (1) on [225.0.0.222:54997].
+
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.3.18f1 (5ebeb53e4c07)
+[Subsystems] Discovering subsystems at path C:/Users/PC/Projects/TPLab/Temp/UIConsumer-base-p7-c/Build/UIConsumer_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 4060 Laptop GPU
+[D3D12 Device Filter] Driver Version: 32.0.16.1088
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 7956 MB
+[D3D12 Device Filter] Processor Count: 16
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 4060 Laptop GPU (ID=0x28a0)
+    Vendor:          NVIDIA
+    VRAM:            7956 MB
+    App VRAM Budget: 7188 MB
+    Driver:          32.0.16.1088
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in 19.710 seconds
+- Finished resetting the current domain, in  0.005 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+UnloadTime: 0.931000 ms
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+PlayerConnection::Cleanup##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1791460564771,"processId":36964,"allocatedMemory":61575,"memoryLabels":[{"Default":136},{"NewDelete":760},{"Thread":7616},{"Manager":8982},{"GfxDevice":2112},{"Audio":752},{"Serialization":520},{"JobScheduler":32768},{"String":441},{"HashMap":5120},{"PoolAlloc":96},{"CloudService":144},{"VR":1872},{"Video":144},{"Subsystems":96},{"CoreBusinessMetrics":120}]}

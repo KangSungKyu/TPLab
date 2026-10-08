@@ -1,0 +1,29 @@
+{
+  "pid": 38128,
+  "startedUnix": 1791461754.2254953,
+  "completedUnix": 1791461789.8593445,
+  "elapsedSeconds": 35.634,
+  "returnCode": 0,
+  "timedOut": false,
+  "windowPolicy": "SW_SHOWNOACTIVATE",
+  "processLog": "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\sample-additive-b\\player.log",
+  "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\sample-additive-b\\stdout.log",
+  "processLogFresh": true,
+  "stdoutLogFresh": true,
+  "runId": "9a2335f62ee841fd994838d236016afe",
+  "sourceRevision": "5c434e2a0aef8a76a91a68d847fc09bc37a0ef2d",
+  "currentCandidate": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "buildEvidence": "doc\\validation\\ui-system\\p7\\consumer-input-additive-b",
+  "unchangedRuntimeSampleHarnessHashMatch": true,
+  "command": [
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-p7-b\\SampleBuild\\UIContextSample.exe",
+    "-screen-width",
+    "1280",
+    "-screen-height",
+    "720",
+    "-screen-fullscreen",
+    "0",
+    "-logFile",
+    "C:\\Users\\PC\\Projects\\TPLab\\doc\\validation\\ui-system\\p7\\sample-additive-b\\player.log"
+  ]
+}

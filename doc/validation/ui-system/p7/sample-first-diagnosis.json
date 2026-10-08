@@ -1,0 +1,15 @@
+{
+  "source": "ee5e233744ac8ac4285a9d1340c974675b233400",
+  "actualEditorInvocations": 1,
+  "playerArtifactsBuilt": 2,
+  "actualPlayerExecutions": 4,
+  "actualSamplePlayerExecutions": 1,
+  "regularSmokeSuccess": true,
+  "regularScrollCanvasArmsPassed": 6,
+  "sampleSuccess": false,
+  "sampleFailure": "Sample inventory fixture counted inactive retained children as active cells.",
+  "runtimeChanged": false,
+  "rawResult": "consumer-input-additive-a/sample-result.json",
+  "reportCounterLimitation": "Original report incorrectly records failed sample count0 and Unmeasured; actualExecutions and raw6validated arms preserve actual work. Correction has an actual reporting Red.",
+  "rerunScope": "Changed sample harness + report only; fresh optional source build and sample Player, previous unchanged regular fixtures retained with copied source/harness hash checks."
+}

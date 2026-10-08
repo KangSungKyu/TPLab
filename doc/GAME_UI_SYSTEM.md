@@ -56,7 +56,7 @@ P0의 확인 환경은 Unity6000.3.18f1, UniTask2.5.11, uGUI2.0.0, InputSystem1.
 
 ## P1 구현 범위와 실제 검증
 
-2026-10-08 source545c342f80061c66ede2fc7f168cfc1c2cb13cee에서 root scope·direct prefab·modeless Popup·default host·DestroyOnClose/DeactivateView의 표시 수명을 구현했다. 나머지 정책을 조용히 무시하지 않고 NotSupported로 거부한다. 정확한 현재 선언과 제한은 [사람 API](api/UI.md), [AI API](ai/api/UI.md), [실제 결과](validation/ui-system/p1/README.md)를 따른다. 현재 UI18/18·기존 root10/10 실패0/skip0이며 외부 소비/Player/성능/최종 UX는 P7 미실행이다.
+2026-10-08 source545c342f80061c66ede2fc7f168cfc1c2cb13cee에서 root scope·direct prefab·modeless Popup·default host·DestroyOnClose/DeactivateView의 표시 수명을 구현했다. 나머지 정책을 조용히 무시하지 않고 NotSupported로 거부한다. 정확한 현재 선언과 제한은 [사람 API](api/UI.md), [AI API](ai/api/UI.md), [실제 결과](validation/ui-system/p1/README.md)를 따른다. P1 단계 당시 UI18/18·기존 root10/10 실패0/skip0였고 외부 소비/Player/성능/최종 UX는 당시 P7 미실행이었다. 이는 역사적 상태이며 현재 P7 결과와 남은 gate는 아래 현행 검증 절을 따른다.
 
 표시 hook에서 다른 표시를 열거나 닫는 조합은 허용한다. 자기 handle의 동기 Close/Opened/Closed, 현재 hook을 포함한 Context Shutdown/Dispose와 cleanup/native 적용 중 lifecycle 변경은 거부한다. 종료 observer는 native 정리 및 StateClosed/ViewObject null 이후에 호출하며 observer 실패도 공유 Closed 결과에 보존한다. 다른 세대의 표시를 종료 observer가 시작해도 이전 표시의 정리가 이를 변경하지 않는다.
 
@@ -114,4 +114,11 @@ UIContextSettings는 private SerializeField DTO/readonly 속성으로 정의·�
 
 Install은 Context와 등록만 만들며 표시 clone을 생성하지 않는다. Prepare는 선택 자산만 source로 준비한 뒤 선택 첫 HUD를 연다. Keyed 정의는 설치된 비폐기 ResourceManager 또는 custom provider 중 하나가 필요하며 Resource 초기화는 상위 root Prepare 순서를 따른다. Resource provider는 설치 시 manager 객체를 빌려 다른 owner로 바뀐 installer를 다시 탐색하지 않는다. 정상 순서는 Resource→Input→UI이며 역해제에서 UI Shutdown을 await한 뒤 상위 서비스를 종료한다. Uninstall은 자신의 Context 참조를 먼저 지우고 fallback Dispose를 수행한다. 다른 root의 호출은 거부하지만 파괴 중 같은 root의 fake-null은 정리를 막지 않는다. 별도 Factory/전역 Context/자동 Input 게시를 추가하지 않는다.
 
-[P6 Red 근거](validation/ui-system/p6/README.md)를 기록했고 구현과 최종 Green은 진행 중이다.
+[P6 최종 검증](validation/ui-system/p6/README.md)은 Edit33/33·Play53/53, 실패0/skip0이다. Settings/root installer 및 19개 sample-owned asset의 authoring/compile을 검증했다.
+
+
+## P7 현행 검증 상태
+
+현재 runtime UI는 P6 source `21f89e2580f08be3903724efa0a42e5ad0567c83`와 동일하다. final regression source snapshot `99df25dd6b89fd7f3e322c8033b61eb1364f495e`에서 Edit318/318·Play306/306, 실패0·skip0을 통과했고 입력476개 중475개가 Git source와 일치, 보호6개는 그대로다. [Edit](validation/ui-system/p7/final-regression/edit.json) · [Play](validation/ui-system/p7/final-regression/play.json) · [source match](validation/ui-system/p7/final-source-check/source-commit-match.json).
+
+Base isolated consumer의 build/startup smoke/scroll/Canvas arms는 성공했다. Optional-Input Single candidate `8310a94bcb674f28bee2c246c4e5eae9d6c83804`도 Editor build 1회와 fresh Windows graphics Player 4회(smoke, scroll, Canvas, sample)를 exit0/no-timeout으로 통과했다 ([consumer report](validation/ui-system/p7/consumer-input-single-final/consumer-report.json)). Sample은 80 checks, 30 continuous fresh positive-draw frames(min11), inventory7, manual Continue4, UI-before-Input cleanup2를 기록했다 ([sample validation](validation/ui-system/p7/consumer-input-single-final/sample-validated.json)). Final optional-Input Additive consumer도 candidate `8310a94bcb674f28bee2c246c4e5eae9d6c83804`에서 Editor build 1회와 fresh graphics Player 4회로 통과했다 ([report](validation/ui-system/p7/consumer-input-additive-final/consumer-report.json), [sample validation](validation/ui-system/p7/consumer-input-additive-final/sample-validated.json)). Sample은 78 checks, fresh positive-draw 30 frames(min11), inventory7, manual Continue4, cleanup2, ManagerStopped, owned/registered0, normal scenes2를 기록했다. Single/Additive consumer 모두 통과했고, six benchmark arms 각 600 fresh samples를 기록했다. Base consumer의 [scroll](validation/ui-system/p7/consumer-base-c/scroll-benchmark.json)·[Canvas](validation/ui-system/p7/consumer-base-c/canvas-benchmark.json) 탐색치는 한 장치 결과로 일반 성능 보장이 아니다. Physical input·visual acceptance와 main acceptance는 pending이다. [수동 수락 절차](UI_ACCEPTANCE.md)와 [성능 측정 설명](UI_PERFORMANCE.md)을 참조한다. UI는 공개된 0.0.1 Core/Input/Editor package/tag에 포함되지 않는다.

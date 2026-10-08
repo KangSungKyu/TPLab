@@ -1,0 +1,72 @@
+Mono path[0] = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-final/SampleBuild/UIContextSample_Data/Managed'
+Mono config path = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-final/SampleBuild/MonoBleedingEdge/etc'
+Found 1 interfaces on host : 0) 192.168.0.26
+Player connection [37564]  Target information:
+
+Player connection [37564]  * "[IP] 192.168.0.26 [Port] 55000 [Flags] 2 [Guid] 441404961 [EditorId] 3786561435 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-3J0UFVG) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] Project" 
+
+Player connection [37564] Started UDP target info broadcast (1) on [225.0.0.222:54997].
+
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.3.18f1 (5ebeb53e4c07)
+[Subsystems] Discovering subsystems at path C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-final/SampleBuild/UIContextSample_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 4060 Laptop GPU
+[D3D12 Device Filter] Driver Version: 32.0.16.1088
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 7956 MB
+[D3D12 Device Filter] Processor Count: 16
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 4060 Laptop GPU (ID=0x28a0)
+    Vendor:          NVIDIA
+    VRAM:            7956 MB
+    App VRAM Budget: 7188 MB
+    Driver:          32.0.16.1088
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in 24.999 seconds
+- Finished resetting the current domain, in  0.005 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+Using Windows.Gaming.Input
+UnloadTime: 4.068700 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.541700 ms
+Unloading 14 unused Assets / (1.2 KB). Loaded Objects now: 1567.
+Memory consumption went from 57.4 MB to 57.4 MB.
+Total: 0.847900 ms (FindLiveObjects: 0.046100 ms CreateObjectMapping: 0.016100 ms MarkObjects: 0.771100 ms  DeleteObjects: 0.014300 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.171100 ms
+Unloading 3 unused Assets / (0.9 KB). Loaded Objects now: 1629.
+Memory consumption went from 57.6 MB to 57.6 MB.
+Total: 0.916300 ms (FindLiveObjects: 0.057600 ms CreateObjectMapping: 0.019800 ms MarkObjects: 0.829000 ms  DeleteObjects: 0.009500 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.249100 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 1629.
+Memory consumption went from 57.5 MB to 57.5 MB.
+Total: 0.928400 ms (FindLiveObjects: 0.057400 ms CreateObjectMapping: 0.022400 ms MarkObjects: 0.838100 ms  DeleteObjects: 0.010000 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.197600 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 1629.
+Memory consumption went from 57.5 MB to 57.5 MB.
+Total: 0.888700 ms (FindLiveObjects: 0.055400 ms CreateObjectMapping: 0.022800 ms MarkObjects: 0.800700 ms  DeleteObjects: 0.009300 ms)
+
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+PlayerConnection::Cleanup##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1791463060624,"processId":38092,"allocatedMemory":67629,"memoryLabels":[{"Default":136},{"NewDelete":760},{"Thread":7616},{"Manager":14646},{"GfxDevice":2112},{"Audio":752},{"Serialization":520},{"JobScheduler":32768},{"String":459},{"HashMap":5120},{"PoolAlloc":96},{"CloudService":144},{"VR":1872},{"Video":144},{"NativeArray":372},{"Subsystems":96},{"CoreBusinessMetrics":120}]}

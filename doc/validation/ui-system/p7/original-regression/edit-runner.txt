@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\tools\run_unity_tests_file.py", line 263, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\PC\Projects\TPLab\tools\run_unity_tests_file.py", line 223, in main
+    project, output = output_inside_project(args.project, args.output)
+                      ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\tools\run_unity_tests_file.py", line 36, in output_inside_project
+    raise ValueError("Output filename must end with .native.json")
+ValueError: Output filename must end with .native.json

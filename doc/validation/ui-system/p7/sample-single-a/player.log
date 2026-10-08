@@ -1,0 +1,214 @@
+Mono path[0] = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-a/SampleBuild/UIContextSample_Data/Managed'
+Mono config path = 'C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-a/SampleBuild/MonoBleedingEdge/etc'
+Found 1 interfaces on host : 0) 192.168.0.26
+Player connection [9872]  Target information:
+
+Player connection [9872]  * "[IP] 192.168.0.26 [Port] 55000 [Flags] 2 [Guid] 338452544 [EditorId] 3341190451 [Version] 1048832 [Id] WindowsPlayer(2,DESKTOP-3J0UFVG) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] Project" 
+
+Player connection [9872] Started UDP target info broadcast (1) on [225.0.0.222:54997].
+
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Initialize engine version: 6000.3.18f1 (5ebeb53e4c07)
+[Subsystems] Discovering subsystems at path C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-a/SampleBuild/UIContextSample_Data/UnitySubsystems
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 4060 Laptop GPU
+[D3D12 Device Filter] Driver Version: 32.0.16.1088
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 7956 MB
+[D3D12 Device Filter] Processor Count: 16
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 4060 Laptop GPU (ID=0x28a0)
+    Vendor:          NVIDIA
+    VRAM:            7956 MB
+    App VRAM Budget: 7188 MB
+    Driver:          32.0.16.1088
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in 21.010 seconds
+- Finished resetting the current domain, in  0.002 seconds
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+<RI> Initializing input.
+Using Windows.Gaming.Input
+UnloadTime: 1.196300 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.602000 ms
+Unloading 14 unused Assets / (398 B). Loaded Objects now: 1567.
+Memory consumption went from 57.3 MB to 57.3 MB.
+Total: 0.870100 ms (FindLiveObjects: 0.045100 ms CreateObjectMapping: 0.015200 ms MarkObjects: 0.796400 ms  DeleteObjects: 0.013100 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.146400 ms
+Unloading 3 unused Assets / (0 B). Loaded Objects now: 1629.
+Memory consumption went from 57.6 MB to 57.6 MB.
+Total: 0.752900 ms (FindLiveObjects: 0.055100 ms CreateObjectMapping: 0.014000 ms MarkObjects: 0.675100 ms  DeleteObjects: 0.008400 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.114500 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 1629.
+Memory consumption went from 57.6 MB to 57.6 MB.
+Total: 0.585700 ms (FindLiveObjects: 0.040700 ms CreateObjectMapping: 0.014500 ms MarkObjects: 0.524200 ms  DeleteObjects: 0.006000 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.109500 ms
+Unloading 1 unused Assets / (0 B). Loaded Objects now: 1629.
+Memory consumption went from 57.6 MB to 57.6 MB.
+Total: 0.622000 ms (FindLiveObjects: 0.039300 ms CreateObjectMapping: 0.014600 ms MarkObjects: 0.561800 ms  DeleteObjects: 0.005900 ms)
+
+InvalidOperationException: Unity cannot unload the last normal scene; it remains loaded but unprepared.
+  at TPLab.Core.SceneManagement.GameSceneManager.UnloadOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x0016a] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:833 
+  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x0001e] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Factory.cs:326 
+  at TPLab.Core.SceneManagement.GameSceneManager.CleanupOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x000e4] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:851 
+Rethrow as AggregateException: Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)
+  at TPLab.Core.SceneManagement.GameSceneManager.CleanupOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x00171] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:857 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at TPLab.Core.SceneManagement.GameSceneManager.ReleaseGameAsync () [0x00126] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:890 
+Rethrow as AggregateException: Game scene cleanup failed. (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.))
+  at TPLab.Core.SceneManagement.GameSceneManager.ReleaseGameAsync () [0x001ff] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:901 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at TPLab.Core.SceneManagement.GameSceneManager.RunShutdownAsync () [0x00210] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:942 
+Rethrow as AggregateException: Scene manager shutdown failed. (Game scene cleanup failed. (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)))
+
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception, Object)
+TPLab.Samples.UI.UIContextSampleController:OnFailure(Exception) (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Samples\UI\Runtime\UIContextSampleController.cs:509)
+TPLab.Core.SceneManagement.GameSceneManager:RecordFailure(Exception) (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:1147)
+TPLab.Core.SceneManagement.<RunShutdownAsync>d__103:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:956)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:167)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:SetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:210)
+TPLab.Core.SceneManagement.<ReleaseGameAsync>d__102:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:901)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:167)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:SetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:210)
+TPLab.Core.SceneManagement.<CleanupOwnerAsync>d__100:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:857)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetResult(AsyncUnit) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:139)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:SetResult() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:204)
+TPLab.Core.SceneManagement.<ShutdownOwnerRootsAsync>d__98:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:815)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSource:TrySignalCompletion(UniTaskStatus) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:721)
+Cysharp.Threading.Tasks.UniTaskCompletionSource:TrySetResult() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:612)
+TPLab.Core.Lifecycle.<ShutdownOwnedAsync>d__19:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\Lifecycle\RootInstallation.cs:141)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSource:TrySignalCompletion(UniTaskStatus) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:721)
+Cysharp.Threading.Tasks.UniTaskCompletionSource:TrySetResult() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:612)
+TPLab.UI.<RunShutdownAsync>d__121:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\UI\Runtime\UIContext.cs:1289)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetResult(AsyncUnit) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:139)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:SetResult() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:204)
+TPLab.UI.<DestroyOwnedAsync>d__118:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\UI\Runtime\UIContext.cs:1165)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetResult(AsyncUnit) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:139)
+Cysharp.Threading.Tasks.NextFramePromise:MoveNext() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Delay.cs:408)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:RunCore() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:175)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Update() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:145)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:104)
+
+(Filename: C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-a/Project/Assets/TPLab/Samples/UI/Runtime/UIContextSampleController.cs Line: 509)
+
+InvalidOperationException: Unity cannot unload the last normal scene; it remains loaded but unprepared.
+  at TPLab.Core.SceneManagement.GameSceneManager.UnloadOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x0016a] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:833 
+  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x0001e] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Factory.cs:326 
+  at TPLab.Core.SceneManagement.GameSceneManager.CleanupOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x000e4] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:851 
+Rethrow as AggregateException: Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)
+  at TPLab.Core.SceneManagement.GameSceneManager.CleanupOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x00171] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:857 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at TPLab.Core.SceneManagement.GameSceneManager.ReleaseGameAsync () [0x00126] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:890 
+Rethrow as AggregateException: Game scene cleanup failed. (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.))
+  at TPLab.Core.SceneManagement.GameSceneManager.ReleaseGameAsync () [0x001ff] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:901 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at TPLab.Core.SceneManagement.GameSceneManager.RunShutdownAsync () [0x00210] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:942 
+Rethrow as AggregateException: Scene manager shutdown failed. (Game scene cleanup failed. (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)))
+  at Cysharp.Threading.Tasks.UniTaskCompletionSource.GetResult (System.Int16 token) [0x0002d] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:649 
+  at Cysharp.Threading.Tasks.UniTaskExtensions+AttachExternalCancellationSource.RunTask (Cysharp.Threading.Tasks.UniTask task) [0x00024] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskExtensions.cs:259 
+  at Cysharp.Threading.Tasks.UniTaskExtensions+AttachExternalCancellationSource.GetResult (System.Int16 token) [0x00001] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskExtensions.cs:280 
+  at UIConsumer.UIConsumerSampleSmoke.AwaitOwnedAsync (Cysharp.Threading.Tasks.UniTask operation, System.String name) [0x00073] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:700 
+  at UIConsumer.UIConsumerSampleSmoke.ShutdownAsync () [0x003cd] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:674 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at UIConsumer.UIConsumerSampleSmoke.RunAsync () [0x005a8] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:155 
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception, Object)
+UIConsumer.<RunAsync>d__26:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:163)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:167)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:SetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:210)
+UIConsumer.<ShutdownAsync>d__44:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:691)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetResult(AsyncUnit) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:139)
+Cysharp.Threading.Tasks.NextFramePromise:MoveNext() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Delay.cs:408)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:RunCore() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:203)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Update() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:145)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:104)
+
+(Filename: C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-a/Project/Assets/UIConsumer/Runtime/UIConsumerSampleSmoke.cs Line: 163)
+
+InvalidOperationException: Unity cannot unload the last normal scene; it remains loaded but unprepared.
+  at TPLab.Core.SceneManagement.GameSceneManager.UnloadOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x0016a] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:833 
+  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x0001e] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Factory.cs:326 
+  at TPLab.Core.SceneManagement.GameSceneManager.CleanupOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x000e4] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:851 
+Rethrow as AggregateException: Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)
+  at TPLab.Core.SceneManagement.GameSceneManager.CleanupOwnerAsync (TPLab.Core.SceneManagement.GameSceneManager+OwnedPrimary owner) [0x00171] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:857 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at TPLab.Core.SceneManagement.GameSceneManager.ReleaseGameAsync () [0x00126] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:890 
+Rethrow as AggregateException: Game scene cleanup failed. (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.))
+  at TPLab.Core.SceneManagement.GameSceneManager.ReleaseGameAsync () [0x001ff] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:901 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at TPLab.Core.SceneManagement.GameSceneManager.RunShutdownAsync () [0x00210] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\TPLab\Core\SceneManagement\GameSceneManager.cs:942 
+Rethrow as AggregateException: Scene manager shutdown failed. (Game scene cleanup failed. (Game scene cleanup failed. (Unity cannot unload the last normal scene; it remains loaded but unprepared.)))
+  at Cysharp.Threading.Tasks.UniTaskCompletionSource.GetResult (System.Int16 token) [0x0002d] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:649 
+  at UIConsumer.UIConsumerSampleSmoke.AwaitOwnedAsync (Cysharp.Threading.Tasks.UniTask operation, System.String name) [0x00073] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:700 
+  at UIConsumer.UIConsumerSampleSmoke.ShutdownAsync () [0x003cd] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:674 
+  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:218 
+  at UIConsumer.UIConsumerSampleSmoke.RunAsync () [0x006c9] in C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:171 
+UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+UnityEngine.DebugLogHandler:LogException(Exception, Object)
+UnityEngine.Logger:LogException(Exception, Object)
+UnityEngine.Debug:LogException(Exception, Object)
+UIConsumer.<RunAsync>d__26:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:176)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:167)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:SetException(Exception) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:210)
+UIConsumer.<ShutdownAsync>d__44:MoveNext() (at C:\Users\PC\Projects\TPLab\Temp\UIConsumer-input-single-p7-a\Project\Assets\UIConsumer\Runtime\UIConsumerSampleSmoke.cs:691)
+Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\CompilerServices\StateMachineRunner.cs:189)
+Cysharp.Threading.Tasks.AwaiterActions:Continuation(Object) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.cs:25)
+Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1:TrySetResult(AsyncUnit) (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTaskCompletionSource.cs:139)
+Cysharp.Threading.Tasks.NextFramePromise:MoveNext() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\UniTask.Delay.cs:408)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:RunCore() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:203)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Update() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:145)
+Cysharp.Threading.Tasks.Internal.PlayerLoopRunner:Run() (at .\Library\PackageCache\com.cysharp.unitask@d648f5692cf2\Runtime\Internal\PlayerLoopRunner.cs:104)
+
+(Filename: C:/Users/PC/Projects/TPLab/Temp/UIConsumer-input-single-p7-a/Project/Assets/UIConsumer/Runtime/UIConsumerSampleSmoke.cs Line: 176)
+
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+PlayerConnection::Cleanup##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1791462240092,"processId":40024,"allocatedMemory":67625,"memoryLabels":[{"Default":136},{"NewDelete":760},{"Thread":7616},{"Manager":14646},{"GfxDevice":2112},{"Audio":752},{"Serialization":520},{"JobScheduler":32768},{"String":455},{"HashMap":5120},{"PoolAlloc":96},{"CloudService":144},{"VR":1872},{"Video":144},{"NativeArray":372},{"Subsystems":96},{"CoreBusinessMetrics":120}]}

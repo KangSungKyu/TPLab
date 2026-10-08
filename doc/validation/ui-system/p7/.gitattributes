@@ -1,0 +1,4 @@
+# Preserve actual execution payload bytes and their recorded SHA256 values.
+*.json -text
+*.log -text
+*.txt -text

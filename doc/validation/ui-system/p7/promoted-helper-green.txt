@@ -1,0 +1,10 @@
+test_actual_result_exact_fresh_graphics_and_honest_profiler_availability (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_actual_result_exact_fresh_graphics_and_honest_profiler_availability) ... ok
+test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection) ... ok
+test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob) ... ok
+test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape) ... ok
+test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 13.952s
+
+OK

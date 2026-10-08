@@ -1,0 +1,17 @@
+{
+  "sourceRevision": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "actualPlayerExecutions": 1,
+  "overallPassed": false,
+  "failedStep": "ordered owner shutdown",
+  "functionalChecksCompletedBeforeTeardown": 65,
+  "actualPositiveDrawFrames": 30,
+  "minimumDrawCalls": 11,
+  "inventorySnapshots": 7,
+  "manualContinueCount": 4,
+  "commonUiCleanupCallbacks": 2,
+  "cause": "Single has persistent common root and only one normal game scene. Core rejects unload of Unity last normal scene.",
+  "correctionScope": "Consumer-only teardown parking scene created after all functional/render checks; Core/runtime source unchanged.",
+  "physicalInputVerified": false,
+  "visualAcceptanceVerified": false,
+  "resultSha256": "d2698a1a935e440c60f83cc5be46ee1947112203039b91a875157d0efa4b5cf6"
+}

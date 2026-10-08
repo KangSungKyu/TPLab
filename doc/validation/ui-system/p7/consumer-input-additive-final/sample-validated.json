@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "sourceRevision": "8310a94bcb674f28bee2c246c4e5eae9d6c83804",
+  "sampleEntry": "UIContextBootstrapAdditive",
+  "checks": 78,
+  "actualGraphicsFrames": 30,
+  "minDrawCalls": 11,
+  "inventorySnapshots": 7,
+  "manualContinueCount": 4,
+  "shutdownCleanupCount": 2,
+  "normalScenesBeforeParking": 2,
+  "parkingSceneCreated": false,
+  "parkingSceneRetainedUntilQuit": false,
+  "managerStoppedAndOwnedRegisteredScenesZero": true,
+  "physicalInputVerified": false,
+  "visualAcceptanceVerified": false,
+  "resultSha256": "0811f0346a4c0f6a83b432391b4540dfa8e959e9c1f2de0ab1a50e475bbdcc00",
+  "actualPlayerExecutions": 1
+}

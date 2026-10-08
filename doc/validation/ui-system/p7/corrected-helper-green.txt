@@ -1,0 +1,20 @@
+test_ui_source_consumer_contract (unittest.loader._FailedTest.test_ui_source_consumer_contract) ... ERROR
+
+======================================================================
+ERROR: test_ui_source_consumer_contract (unittest.loader._FailedTest.test_ui_source_consumer_contract)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_ui_source_consumer_contract
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "C:\Users\PC\Projects\TPLab\tools\test_ui_source_consumer_contract.py", line 14, in <module>
+    from run_ui_source_consumer import (
+    ...<4 lines>...
+    )
+ModuleNotFoundError: No module named 'run_ui_source_consumer'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

@@ -1,0 +1,11 @@
+{
+  "sourceRevision": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "captured": 476,
+  "gitMatches": 475,
+  "excludedProtected": [
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions"
+  ],
+  "protectedRawFilesUnchanged": 6,
+  "sourceFrozenThroughoutFinalRegression": true,
+  "runtimeUiSourceUnchangedFromP6": "21f89e2580f08be3903724efa0a42e5ad0567c83"
+}

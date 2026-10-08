@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "sampleEntry": "UIContextBootstrapAdditive",
+  "sourceRevision": "5c434e2a0aef8a76a91a68d847fc09bc37a0ef2d",
+  "currentCandidate": "99df25dd6b89fd7f3e322c8033b61eb1364f495e",
+  "checks": 77,
+  "actualFrames": 30,
+  "minDrawCalls": 11,
+  "inventorySnapshots": 7,
+  "manualContinueCount": 4,
+  "shutdownCleanupCount": 2,
+  "physicalInputVerified": false,
+  "visualAcceptanceVerified": false,
+  "resultSha256": "cbdb4033d71fb5bf703afbc0a9de8092d3061211c68ccf999fde6303b90586f3",
+  "unchangedSelectedSourceAndHarness": true
+}

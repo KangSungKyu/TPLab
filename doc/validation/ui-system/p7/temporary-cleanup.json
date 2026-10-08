@@ -1,0 +1,28 @@
+{
+  "reason": "Consumed owned UI drafts and prior generated consumers removed after immutable evidence/source preservation. Final review consumers retained until manual acceptance.",
+  "removed": [
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P3-Docs-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P4-Contract-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P4-Docs-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P4-Draft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P6-Draft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P6-Operations-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P6-Sample-Draft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P7-Benchmark-Draft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P7-Consumer-Draft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P7-DocsDraft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P7-SampleValidation-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-a",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-b",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-base-p7-c",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-p7-a",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-p7-b",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-single-p7-a",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumerContractTests"
+  ],
+  "retainedForManualAcceptance": [
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-single-p7-final",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-p7-final"
+  ],
+  "cleanupGuard": "Initial empty-root guard stopped at helper parent containing an empty owned fixtures directory; source ownership and zero children verified before nonrecursive removal."
+}

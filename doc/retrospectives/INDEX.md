@@ -115,3 +115,5 @@
 - 2026-10-08: [09 UIContext Virtual ScrollRect](2026-10-08-09-ui-virtual-scroll.md) - P5 final UI79 Edit31/31 and Play48/48, source match verified; P7 remains NotRun.
 
 - 2026-10-08: [10 UIContext 설치/root/예제](2026-10-08-10-ui-installation.md) — 자동UI86/compile/신규19asset 검증 완료, P7 대기.
+
+- 2026-10-08: [11 UIContext P7 통합·소비·성능](2026-10-08-11-ui-validation.md) — 원본624 회귀·두entry sample/graphics 성능 자동 검증 완료, 사용자 수락 대기.
