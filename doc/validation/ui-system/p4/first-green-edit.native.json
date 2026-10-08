@@ -1,0 +1,41 @@
+{
+  "runId": "07916bfe3e9a4f88a4ba435cd9d1a7ae",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests",
+  "mode": "EditMode",
+  "summary": {
+    "total": 24,
+    "passed": 24,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HookCannotCloseItsAncestorButCanOperateIndependentTree",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HudSelectionRejectsWrongRoleParentAndConcurrentRequests",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.ParentValidationAndDuplicateScopeUseLogicalOwner",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.RegisterHostRejectsInvalidAndDuplicateRegistration",
+      "TPLab.UI.Tests.UIContextInputContractTests.AcceptedUserCloseWaitsForSharedNativeCloseCompletion",
+      "TPLab.UI.Tests.UIContextInputContractTests.ForceCloseAndOwnerShutdownCancelOutstandingProjectVeto",
+      "TPLab.UI.Tests.UIContextInputContractTests.OpeningAndRetiredGenerationRejectInputCommands",
+      "TPLab.UI.Tests.UIContextInputContractTests.OrdinaryListenerFailureContinuesNotificationsCleanupAndLeaseRetirement",
+      "TPLab.UI.Tests.UIContextInputContractTests.PendingUserRequestRejectsConcurrentRequestAndPropagatesCallerCancellation",
+      "TPLab.UI.Tests.UIContextInputContractTests.UserCloseReasonsVetoWithoutChangingDisplayAndForceCloseIgnoresVeto",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenPublishesHandleAndSupportsRepeatedOpenedAwaitAndConveniencePath",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenRejectsUnknownAndDuplicateOwnerDefinition",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CleanupIsReverseOrderAndExactlyOnceIncludingEarlyRegistrationDispose",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CloseWaitCancellationDoesNotStopCleanupAndShutdownSharesCompletion",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ClosingHookAndCleanupFailuresDoNotSkipRemainingCleanupAndShareFailure",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ConstructorRejectsNullAndDestroyedOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.OpeningCallerCancellationCleansDisplayWithoutEndingOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays",
+      "TPLab.UI.Tests.UIContextLifecycleTests.SelfClosingHookReentryIsRejectedAndStillRunsCleanup",
+      "TPLab.UI.Tests.UIContextLoadingTests.FailedOrInvalidProviderResultRetriesOnlyOnNextRequest",
+      "TPLab.UI.Tests.UIContextLoadingTests.OwnerShutdownIgnoresLateProviderResultWithoutReleasingSource",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareAndRuntimeOpenShareOneLoadPerKey",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareWaitCancellationKeepsSharedLoadAlive",
+      "TPLab.UI.Tests.UIContextLoadingTests.ProviderDefinitionRequiresConfiguredLoaderAndExplicitSource"
+    ]
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T09:36:40.8756574Z"
+}

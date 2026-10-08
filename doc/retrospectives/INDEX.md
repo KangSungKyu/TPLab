@@ -109,3 +109,5 @@
 - 2026-10-08 · UIContext P2 자산 준비·clone 재사용 · 자동 검증 완료·track 통합 · [06](2026-10-08-06-ui-loading-reuse.md)
 
 - 2026-10-08: [07 UIContext HUD·Popup·Canvas](2026-10-08-07-ui-presentation.md) — 자동 검증 완료, UI48/48·compile/Console0; 소비/성능/최종 UX는P7.
+
+- 2026-10-08: [08 UIContext Modal·Input](2026-10-08-08-ui-input.md) — P4 focused Green Edit24/24·Play41/41; 소비/Player/UX는 P7 NotRun.

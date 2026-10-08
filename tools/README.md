@@ -103,3 +103,8 @@ python tools/run_unity_tests_file.py --project <absolute-project> --editor-pid <
 ```
 
 EditMode UI 테스트는 Editor update 대기에 UniTask.Yield를 사용한다. Time.frameCount에 의존하는 NextFrame은 렌더 없는 Editor에서 진행되지 않을 수 있다. 실제 PlayMode native 렌더·입력 경계는 NextFrame을 유지한다.
+
+
+## UIContext P4 native input boundary
+
+Base TPLab.UI supports modal eligibility and explicit focus without an Input System dependency. Native UI uses the optional TPLab.UI.InputSystem assembly, binding an explicit UIContext, runtime-clone InputManager, InputSystemUIInputModule and EventSystem. The project registers a compatible mapless BlockLower layer and supplies AcquireModalBlock as the context's independent modal lease factory. The adapter preserves other game/transition leases and quarantines held input through raw release plus a later EventSystem frame. Native application faults keep a UIContext-owned BlockAll lease until owner shutdown. The P4 tests use Assets/InputSystem_Actions.inputactions as a borrowed/default fixture; it is not one of the six protected files. Focused results: [Edit24/24](../doc/validation/ui-system/p4/final-edit.json), [native Edit](../doc/validation/ui-system/p4/final-edit.native.json), [Play41/41](../doc/validation/ui-system/p4/final-play.json), [source match](../doc/validation/ui-system/p4/source-commit-match.json). Consumer, graphics Player, Profiler and UX remain unverified.

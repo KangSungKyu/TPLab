@@ -1,0 +1,16 @@
+{
+  "sourceRevision": "deb222cf6fda752d3e0dd6d22bda67f9d60e9e16",
+  "snapshotInputs": 398,
+  "gitBlobMatchesExcludingProtected": 397,
+  "protectedRawUnchanged": 6,
+  "documentsChecked": 14,
+  "relativeLinksChecked": 348,
+  "ownedAssetGuidUniqueness": "PASS",
+  "savedResults": [
+    24,
+    41
+  ],
+  "productConsoleErrors": 0,
+  "readerSelfCheck": "PASS",
+  "metaWhitespace": "Unity authored folder meta trailing whitespace retained"
+}

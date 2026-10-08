@@ -1,0 +1,10 @@
+{
+  "sourceRevision": "deb222cf6fda752d3e0dd6d22bda67f9d60e9e16",
+  "snapshotInputCount": 398,
+  "gitBlobMatchedInputCount": 397,
+  "excludedProtectedInputs": [
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions"
+  ],
+  "protectedCount": 6,
+  "protectedRawBytesUnchanged": true
+}

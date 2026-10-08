@@ -1,0 +1,23 @@
+{
+  "runId": "af1ab72c204e4511bb471af3e7cfcca4",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests.UIContextInputContractTests",
+  "mode": "EditMode",
+  "summary": {
+    "total": 6,
+    "passed": 0,
+    "failed": 6,
+    "skipped": 0,
+    "failures": [
+      "TPLab.UI.Tests.UIContextInputContractTests.AcceptedUserCloseWaitsForSharedNativeCloseCompletion: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.UIContextInputContractTests.ForceCloseAndOwnerShutdownCancelOutstandingProjectVeto: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.UIContextInputContractTests.OpeningAndRetiredGenerationRejectInputCommands: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.UIContextInputContractTests.OrdinaryListenerFailureContinuesNotificationsCleanupAndLeaseRetirement: System.NotSupportedException : Modal input requires P4, including when a block factory is supplied.",
+      "TPLab.UI.Tests.UIContextInputContractTests.PendingUserRequestRejectsConcurrentRequestAndPropagatesCallerCancellation: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.UIContextInputContractTests.UserCloseReasonsVetoWithoutChangingDisplayAndForceCloseIgnoresVeto: System.NotImplementedException : The method or operation is not implemented."
+    ],
+    "passes": []
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T08:59:36.5491748Z"
+}

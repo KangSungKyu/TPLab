@@ -15,13 +15,13 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 | [SceneManagement](doc/api/SceneManagement.md) | Bootstrap·Single/Additive·주 씬 교체·중첩 구역·root 조건·진행 표시·선택적 로딩 화면/진행 대기 callback |
 | [Input](doc/api/Input.md) | Input System runtime clone·layer·리바인딩·override JSON |
 | [Editor](doc/api/Editor.md) | CSV/schema importer·설정 asset·씬/root 사전 검사 |
-| [UIContext](doc/api/UI.md) | P1-P3 개발 source: HUD/Popup, logical parent·host·Canvas presentation, Modeless 수명, DestroyOnClose/Reuse; P3 Edit18/18·Play30/30, compile/Console 오류0 |
+| [UIContext](doc/api/UI.md) | P1-P4 development source: HUD/Popup/Canvas and modal input eligibility; optional Input System adapter; P4 focused Edit24/24·Play41/41, failed/skip0 |
 
 씬 전환 진행률, 선택적 로딩 callback과 자동·수동 진행 대기, 그리고 프로젝트 소유 bar·팁·버튼을 연결한 sample UI가 구현됐다. 2026-10-07 사용자가 로딩 UI를 PlayMode로 확인했다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
 
 ## 배포 준비
 
-첫 [0.0.1 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 정식 공개했다. 검증한 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 `v0.0.1` 태그가 같은 source를 가리킨다. 패키지 3개, SHA256·설치/검증 안내·생성 기록을 제공한다. 사람/AI API는 각 패키지의 Documentation~에 포함된다. [발행 검증](doc/validation/distribution-release/README.md)에서 실제 태그 설치·공개 첨부물 다운로드와 최종 사용자 확인을 확인할 수 있다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. [Core 의존성 분리와 UIContext 계획](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 후속 개발 계획이며, UIContext source는 `Assets/TPLab/UI` 개발 경로에 있으며 P3 source revision은 `18666acae25b04c1c63ca49d8c00ca2ee67da308`입니다. P3 focused Edit18/18·Play30/30, failed/skip0 및 compile/product Console errors0; [P3 evidence](doc/validation/ui-system/p3/README.md). UI는 released 0.0.1 Core/Input/Editor package와 tag에 포함되지 않았고 새 package version도 정해지지 않았습니다.
+첫 [0.0.1 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 정식 공개했다. 검증한 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 `v0.0.1` 태그가 같은 source를 가리킨다. 패키지 3개, SHA256·설치/검증 안내·생성 기록을 제공한다. 사람/AI API는 각 패키지의 Documentation~에 포함된다. [발행 검증](doc/validation/distribution-release/README.md)에서 실제 태그 설치·공개 첨부물 다운로드와 최종 사용자 확인을 확인할 수 있다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. [Core 의존성 분리와 UIContext 계획](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 후속 개발 계획이며, UIContext source는 `Assets/TPLab/UI` 개발 경로에 있으며 P4 source revision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. P4 focused original-Editor Edit24/24 and Play41/41, failed/skip0; [P4 Edit](doc/validation/ui-system/p4/final-edit.json) · [P4 Play](doc/validation/ui-system/p4/final-play.json). P3 remains historical; `18666acae25b04c1c63ca49d8c00ca2ee67da308`입니다. P3 focused Edit18/18·Play30/30, failed/skip0 및 compile/product Console errors0; [P3 evidence](doc/validation/ui-system/p3/README.md). UI remains outside released 0.0.1 Core/Input/Editor packages/tag; no UI package version is set. P5/P6 and consumer, Player, Profiler, broad UX/user acceptance (P7) remain open/NotRun.
 
 정식 UPM Git 설치는 소비 `Packages/manifest.json`에 필요한 의존성을 합쳐 설정한다. UniTask는 먼저 고정 Git provider로 지정하고 Input/Editor를 선택하면 Core provider도 명시한다. 아래 블록은 Core만의 entries이며 기존 manifest 전체를 덮어쓰지 않는다.
 

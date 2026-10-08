@@ -1,0 +1,31 @@
+{
+  "total": 5,
+  "passed": 0,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.UIInputSystemAdapterTests.CancelIsOptInRequestsOnceAndNeverReachesLowerUiAfterAcceptedClose: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.UIInputSystemAdapterTests.HeldControlsRequireRawReleaseAndNextEventSystemFrameWithoutReplay: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.UIInputSystemAdapterTests.IndependentModalAndTransitionLeasesSurviveMiddleRetirement: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.UIInputSystemAdapterTests.NativeAdapterApplicationFailureFaultsUiAndKeepsSafeBlockUntilOwnerShutdown: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.UIInputSystemAdapterTests.UnbindForceReleasesOnlyAdapterPendingLeasesAndPreservesBorrowedOwners: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.UIInputSystemAdapterTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 34608,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 34608,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

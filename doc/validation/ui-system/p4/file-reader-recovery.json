@@ -1,0 +1,9 @@
+{
+  "firstGreenRunId": "07916bfe3e9a4f88a4ba435cd9d1a7ae",
+  "firstGreenNativeResult": "first-green-edit.native.json",
+  "readerError": "PermissionError: [Errno 13] at output.read_text after output.is_file",
+  "sameNativeResultValidated": true,
+  "testRerun": false,
+  "toolChange": "Bounded retry on PermissionError only; malformed JSON/identity errors still fail",
+  "selfCheck": "PASS literal/identity/scope, transient lock recovery, persistent lock timeout, malformed JSON rejection"
+}

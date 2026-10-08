@@ -80,3 +80,18 @@ Reuse 후보는 cleanup 및 StateClosed/ViewObject null 이후 Closed observer�
 ## P3 구현과 검증
 
 source `18666acae25b04c1c63ca49d8c00ca2ee67da308`에서 HUD 교체·논리 자식 종료·borrowed host의 실제 Canvas/sibling 정렬·명시 숨김을 구현했다. [최종 자동 검증](validation/ui-system/p3/README.md)은 UI Edit18/18·Play30/30 실패0/skip0 및 compile/제품 Console0이다. Runtime과 실제 native 관찰을 대조했으며 Canvas 렌더 비활성 fallback을 owned wrapper mask로 차단한다. 사람/AI API와 [회고07](retrospectives/2026-10-08-07-ui-presentation.md)를 갱신했다. P4 입력, P5 virtual, P6 통합과 P7 소비/Player/성능/사용자 수락은 남아 있다.
+
+## P4 확정 계약과 Red 준비
+
+P3 최신 검증 track3725ad6에서 codex/game-ui-p4-input을 생성했다. 아래는 구현할 계약이며 P4 실행·완료 결과가 아니다.
+
+- UIContext 생성자 네 번째 optional `EventSystem eventSystem = null`은 프로젝트의 native EventSystem을 명시적으로 빌리고 read-only `EventSystem`으로 관측한다. 미연결 Context도 CanvasGroup UI-only modal 차단은 지원하되 SetFocus는 거부한다. global EventSystem.current 자동 탐색은 하지 않는다. 게임 조작 차단은 별도의 명시 acquireModalBlock delegate/선택 adapter가 필요하다.
+- UIHandle의 현재 InputMode/CanReceiveInput, Visible에서 SetInputMode·BringToFront(owned subtree 전체), Opening/Visible에서 live clone descendant에 SetFocus를 제공한다. 표시 ID는 불변이고 순서는 별도다. fixed Canvas에 표현 불가능한 front 이동은 native mutation 전에 거부한다. 종료 handle은 이후 rental을 제어하지 못한다.
+- UIUserCloseReason은 Cancel/OutsidePointer/Button. optional UIHooks.CanCloseAsync가 opt-in/veto를 소유한다. RequestCloseAsync는 veto/미참여 false, 허용한 shared Closed 완료 후 true이고 stale/state/concurrent 요청과 caller 취소는 명시 오류다. force Close/root 종료는 veto를 기다리지 않고 남은 veto를 취소한다. outside click/button은 프로젝트 callback이며 자동 fullscreen blocker를 만들지 않는다.
+- 모든 관리 view는 owned RectTransform wrapper+CanvasGroup에 놓여 source CanvasGroup/Selectable 값을 보존한다. ViewObject는 원 clone이다. P3 DeactivateView의 직접 parent 관측은 managed wrapper.parent로 바뀐다. prefab overrideSorting와 ignoreParentGroups 우회는 거부한다. 가장 위 presented Modal 아래 UI는 차단되며 Closing modal lease는 실제 hide/cleanup까지 유지한다. Opening은 Visible 게시 전까지 native 입력 후보/모달 경계에 참여하지 않는다.
+- DisplayChanged는 각 project listener를 독립 호출하는 read-only 동기 알림이다. listener의 synchronous lifecycle mutation을 거부한다. 일반 listener 오류는 남은 listener/cleanup/lease retirement 뒤 해당 lifecycle 결과에 남기고 Context.Fault로 바꾸지 않는다. 선택 adapter의 실제 native 적용 오류는 friend assembly의 단일 내부 callback으로 구분해 Context를 fault시키고 안전 차단을 owner 종료까지 유지한다.
+- TPLab.UI.InputSystem 선택 assembly만 TPLab.Core.Input/Unity.InputSystem을 참조한다. UIInputSystemAdapter.Bind는 같은 명시 EventSystem/module/runtime-clone UI map을 검증한다. AcquireModalBlock은 미리 등록된 mapless BlockLower layer의 독립 lease 하나를 빌린다. Context와 InputManager/EventSystem/module은 borrowed이며 adapter가 service를 Dispose하지 않는다.
+- native retirement/Cancel opt-in은 module pointer/navigation state를 reset하고 raw pointer buttons/touch/submit/cancel/move 해제와 다음 EventSystem frame까지 native 재입력을 격리한다. 퇴장 modal lease만 이 경계까지 보관하며 다른 modal/transition lease를 해제하지 않는다. module의 action toggles 뒤 Layers.Refresh로 기존 입력 정책을 재적용한다. 외부 block이 UI map을 막은 경우에도 raw control 상태를 확인한다. UI map은 native module/adapter 전용이며 임의 raw action 구독의 게임 로직은 이 격리 계약 밖이다.
+- 유효한 상위 C focus는 B 종료 뒤 유지한다. focus history는 display generation+target이며 cached GO의 새 rental을 옛 handle이 복원하지 못한다. module 하나에 경쟁하는 interactive Context 여러 개를 bind하지 않는다. passive persistent overlay와 scene interactive Context는 함께 사용할 수 있다. Unbind/owner 종료는 adapter-owned pending lease만 강제 해제하고 borrowed module을 비활성화한 뒤 유효한 input layer 정책을 재적용한다.
+
+P4 예정 사례17개(Edit6/native UI Play6/InputSystem Play5)의 실제 Red부터 실행한다. raw held 입력 사례는 pointer3/submit/cancel/move/touch7종을 포함한다. 아직 Assets stub/테스트 준비 단계이며 실행0건이다.

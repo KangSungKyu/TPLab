@@ -1,0 +1,32 @@
+{
+  "total": 6,
+  "passed": 0,
+  "failed": 6,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.UIContextInputPresentationTests.ClosingAnimationAndCleanupFailureStillRetireLeaseAndPreserveCFocus: System.NotSupportedException : Modal input requires P4, including when a block factory is supplied.",
+    "TPLab.UI.Tests.UIContextInputPresentationTests.DynamicModeAndBringToFrontMoveWholeSubtreeWithoutChangingGeneration: System.NotSupportedException : Modal input requires P4, including when a block factory is supplied.",
+    "TPLab.UI.Tests.UIContextInputPresentationTests.MiddleModalBlocksAThroughClosingAndPreservesIndependentCFocus: System.NotSupportedException : Modal input requires P4, including when a block factory is supplied.",
+    "TPLab.UI.Tests.UIContextInputPresentationTests.OpeningModalRendersWithoutEnteringInputBoundaryUntilVisible: System.NotSupportedException : Modal input requires P4, including when a block factory is supplied.",
+    "TPLab.UI.Tests.UIContextInputPresentationTests.RetiredReusableHandleCannotChangeLaterRentalOrRestoreStaleFocus: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.UIContextInputPresentationTests.UnsafeNativeGateAndUnrepresentableFrontRejectBeforeBorrowedMutation:   Expected: instance of <System.InvalidOperationException>\r\n  But was:  null\r\n"
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.UIContextInputPresentationTests",
+    "source": "connector-file",
+    "runId": "33584-1791449987122340300",
+    "cliPid": 33584,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 33584,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

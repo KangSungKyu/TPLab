@@ -18,7 +18,7 @@
 | P1 Context 수명 | codex/game-ui-p1-lifecycle | 완료 / 자동 검증·문서·회고 | 실제 Red/Green, root 종료·반복/실패 cleanup·세대 handle |
 | P2 등록/준비/생성 | codex/game-ui-p2-loading | 완료 / 자동 검증·문서·회고 | direct/provider·runtime lazy·재사용·늦은 완료와 부분 정리 |
 | P3 HUD/Popup/Canvas | codex/game-ui-p3-presentation | 완료 / 자동 검증·문서·회고 | HUD 보존·owner tree·A-B-C와 실제 정렬/숨김 |
-| P4 입력/연출 | codex/game-ui-p4-input | 미착수 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
+| P4 입력/연출 | codex/game-ui-p4-input | 완료 / 자동65개·문서·회고 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
 | P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 미착수 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
 | P6 설정/root/예제 | codex/game-ui-p6-integration | 미착수 | Inspector/script 동일경로·Single/Additive·callback 예제 |
 | P7 통합/성능/수락 | codex/game-ui-p7-validation | 미착수 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
@@ -56,3 +56,13 @@ P5 독립 준비: Temp/UI-P5-Draft-20261008의 signature2개/tests2개 초안은
 P3 실제 Red: 원본 Editor PID24376 compile/제품 Console 오류0 뒤 Edit4실패4(CLI30396), Play11실패11(CLI4156의 동일run connector-file 결과), skip0. [근거](validation/ui-system/p3/README.md)와 입력372개/보호6개를 별도 보존했다. Runtime 수명 담당에게 Green 구현을 배정하고 테스트 소스는 동결한다. native child Canvas 비활성화 시 상위 Canvas fallback은 별도 관찰로 기록했으며 UIContext 통과 결과가 아니다.
 
 P3 source18666acae25b04c1c63ca49d8c00ca2ee67da308: [최종 UI48](validation/ui-system/p3/README.md) Edit18/18+Play30/30 실패0/skip0, compile/제품 Console0, source375·보호6 unchanged. HUD/parent/host/Canvas/renderer-only 보관을 구현했다. native fixture3건과 Edit 렌더프레임 의존 Timeout2건은 원본 실패 및 당시 입력을 보존하고 테스트 관측만 보정했다. 재사용 Edit 결과file 도구/self-check·XML/사람/AI 문서·[회고07](retrospectives/2026-10-08-07-ui-presentation.md)를 갱신해 track에 통합한다. 다음 P4는 실제 Red17 예정, 아직 실행0건이며 P5/P6/P7 Temp 초안도 미구현이다. main8ce768d·upm/버전/태그/Release는 보존한다.
+
+P3 문서/증거3725ad6를 track에 fast-forward 통합하고 같은 tip에서 codex/game-ui-p4-input을 생성했다. 명시 borrowed EventSystem(생성자 네 번째 optional), native wrapper input gate·독립 modal lease·DisplayChanged 일반 오류와 native fault 구분·user veto·InputSystem adapter의 raw 해제+frame 경계를 [계약](GAME_UI_SYSTEM.md)에 반영한다. 실제P4 Red17(Edit6/corePlay6/InputPlay5) 준비 중이며 실행/통과 결과는 아직 없다. 부모만 Editor/Git를 맡고 P5/P6 독립 Temp 준비는 미실행이다.
+
+P4 실제 Red: 원본 Editor PID24376에서 Edit6/corePlay6/InputPlay5 모두 실패17·skip0을 확인했다. [근거](validation/ui-system/p4/README.md), 입력394개/보호6개 unchanged. 기존 script 등록 누락은 실제 compiler 입력/로드 어셈블리 확인 후 일회 복구했으며 영구 native registry 복구로 주장하지 않는다. UI Runtime/optional adapter의 Green을 수명 담당에게 배정했다. 기존 Core/Input·사용자6파일·main을 보존한다.
+
+P4 독립 구현 배정(2026-10-08): /root/ui_native_input_adapter를 gpt-6.1-sol/high·필요 문맥만 전달하여 생성했다. 실제 Red17 이후 optional UIInputSystemAdapter.cs 한 파일의 native module/held input/독립 lease 복구를 담당한다. 기존 수명 담당은 UIContext partial bridge/handle/wrapper와 테스트만 수정하며 같은 파일을 병렬 수정하지 않는다. 부모가 계약·리뷰·Unity·Git를 유지한다. ui_dependency_audit는 P4 문서/P6 설정·예제/P7 측정의 Temp 초안 준비를 완료하고 현재 비활성이다. 동시 추가 하위 agent는2개 이하이며 재위임은 하지 않는다.
+
+P4 sourcedeb222cf6fda752d3e0dd6d22bda67f9d60e9e16: [최종UI65](validation/ui-system/p4/README.md) Edit24/24+Play41/41 실패0skip0, source398개 고정(보호Sample제외397개 Git일치)/보호6 raw unchanged/원본ready Console0. UI-only modal·explicitEventSystem/optionalInput adapter·Closing/raw-release+frame 차단·focus·forced/userclose·ordinary/nativefault를 구현했다. XML/사람/AI 문서·[회고08](retrospectives/2026-10-08-08-ui-input.md)과 track통합. 원본registry영구복구·소비/Player/Profiler/최종UX는 주장하지 않는다.
+
+P4 최종 문서/회고/정적검사 완료. native 입력 담당과 수명 담당의 P4 source는동결했고 문서담당P4갱신도완료했다. track통합은검증된tip과의ancestor검사/CAS update-ref로수행해이전phase의source삭제/recreate checkout을피한다. 같은tip에서 P5 branch를생성하며 main은8ce768d를유지한다.

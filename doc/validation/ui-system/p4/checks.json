@@ -1,0 +1,50 @@
+{
+  "sourceRevision": "deb222cf6fda752d3e0dd6d22bda67f9d60e9e16",
+  "results": {
+    "final-edit.json": [
+      24,
+      24,
+      0,
+      0
+    ],
+    "final-play.json": [
+      41,
+      41,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "README.md",
+    "doc/api/UI.md",
+    "doc/api/README.md",
+    "doc/ai/README.md",
+    "doc/ai/api/UI.md",
+    "doc/ai/api/README.md",
+    "doc/CORE_PLAN.md",
+    "doc/GAME_UI_SYSTEM.md",
+    "doc/GAME_UI_SYSTEM_TRACK.md",
+    "doc/GAME_UI_SYSTEM_DRAFT.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-08-08-ui-input.md",
+    "doc/validation/ui-system/p4/README.md",
+    "tools/README.md"
+  ],
+  "assets": [
+    "Assets/TPLab/UI/InputSystem/Runtime/TPLab.UI.InputSystem.asmdef",
+    "Assets/TPLab/UI/InputSystem/Runtime/UIInputSystemAdapter.cs",
+    "Assets/TPLab/UI/InputSystem/Tests/PlayMode/TPLab.UI.InputSystem.PlayModeTests.asmdef",
+    "Assets/TPLab/UI/InputSystem/Tests/PlayMode/UIInputSystemAdapterTests.cs",
+    "Assets/TPLab/UI/Runtime/AssemblyInfo.cs",
+    "Assets/TPLab/UI/Runtime/UIContext.Input.cs",
+    "Assets/TPLab/UI/Runtime/UIContext.cs",
+    "Assets/TPLab/UI/Runtime/UIEnums.cs",
+    "Assets/TPLab/UI/Runtime/UIHandle.cs",
+    "Assets/TPLab/UI/Runtime/UIHooks.cs",
+    "Assets/TPLab/UI/Runtime/UIPresentation.cs",
+    "Assets/TPLab/UI/Tests/EditMode/TPLab.UI.EditModeTests.asmdef",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextInputContractTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextInputPresentationTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs"
+  ]
+}

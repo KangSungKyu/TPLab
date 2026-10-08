@@ -1,14 +1,14 @@
 # UIContext API
 
-TPLab.UI provides a root-owned lifecycle for HUD and Popup displays from direct or provider-keyed prefab sources. ImplementationStatus: Implemented through P3. ValidationStatus: Partial. SourceRevision: `18666acae25b04c1c63ca49d8c00ca2ee67da308`.
+TPLab.UI provides a root-owned lifecycle for HUD and Popup displays from direct or provider-keyed prefab sources. ImplementationStatus: Implemented through P4. ValidationStatus: Partial. SourceRevision: deb222cf6fda752d3e0dd6d22bda67f9d60e9e16.
 
-On original Editor PID 24376, the P3-focused UI suite passed EditMode 18/18 and PlayMode 30/30 (failed 0, skipped 0), with compile errors 0 and product Console errors 0. Edit used connector-exec-file runId `303ed314e92e4c3cb12d9f935257816f`; Play used CLI PID 29644. The 48 focused tests include 18 P3 additions; not every added test had a separate Red run. Evidence: [P3 EditMode](../validation/ui-system/p3/final-edit.json), [native EditMode result](../validation/ui-system/p3/final-edit.native.json), [P3 PlayMode](../validation/ui-system/p3/final-play.json), [Console check](../validation/ui-system/p3/final-console.json), and [P3 validation record](../validation/ui-system/p3/README.md). The source commit contains 375 source files; six protected inputs remained unchanged. Historical P1/P2 evidence remains [P2/P1 EditMode](../validation/ui-system/p2/final-edit.json) and [P2/P1 PlayMode](../validation/ui-system/p2/final-play.json). Consumer installation, Player, Profiler, broad UX, and user acceptance remain **NotRun** (P7). UI remains development source, outside the released 0.0.1 Core/Input/Editor packages and tag; no UI package version is set.
+On original Editor PID 24376, the P3-focused UI suite passed EditMode 18/18 and PlayMode 30/30 (failed 0, skipped 0), with compile errors 0 and product Console errors 0. Edit used connector-exec-file runId `303ed314e92e4c3cb12d9f935257816f`; Play used CLI PID 29644. The 48 focused tests include 18 P3 additions; not every added test had a separate Red run. Evidence: [P3 EditMode](../validation/ui-system/p3/final-edit.json), [native EditMode result](../validation/ui-system/p3/final-edit.native.json), [P3 PlayMode](../validation/ui-system/p3/final-play.json), [Console check](../validation/ui-system/p3/final-console.json), and [P3 validation record](../validation/ui-system/p3/README.md). The source commit contains 375 source files; six protected inputs remained unchanged. Historical P1/P2 evidence remains [P2/P1 EditMode](../validation/ui-system/p2/final-edit.json) and [P2/P1 PlayMode](../validation/ui-system/p2/final-play.json). P4 final focused original-Editor validation passed EditMode 24/24 and PlayMode 41/41 (failed 0, skipped 0); Edit runId c4c9dd94c6b74ec9be545306d0bcc897, Play CLI PID 34520, Editor PID 24376, product Console 0. Evidence: [P4 Edit](../validation/ui-system/p4/final-edit.json), [native Edit](../validation/ui-system/p4/final-edit.native.json), [P4 Play](../validation/ui-system/p4/final-play.json), and [source match](../validation/ui-system/p4/source-commit-match.json). SourceRevision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Consumer installation, Player, Profiler, broad UX, and user acceptance remain **NotRun** (P7). UI remains development source, outside the released 0.0.1 Core/Input/Editor packages and tag; no UI package version is set.
 
 ## Responsibility and ownership
 
 `UIContext` owns accepted display generations, instantiated clones, one optional reusable clone per definition, shared provider-key preparation coordination, cleanup registrations, and root-linked lifetime. The root, direct prefab source, provider, and external services are borrowed; context shutdown never destroys or disposes them. Connect the context to the actual persistent or scene root and await `ShutdownAsync()` before unloading it. `Dispose()` begins the same fallback but cannot await asynchronous hooks.
 
-All Unity object operations and callbacks run on Unity's main thread. P3 supports HUD selection, logical parent trees for Popup displays, registered borrowed hosts, managed fixed Canvas/sibling order, DeactivateView and constrained DisableCanvasRendering, and DestroyOnClose or Reuse. Modal/Input is deferred to P4; Virtual ScrollRect is deferred to P5.
+All Unity object operations and callbacks run on Unity's main thread. P3 supports HUD selection, logical parent trees for Popup displays, registered borrowed hosts, managed fixed Canvas/sibling order, DeactivateView and constrained DisableCanvasRendering, and DestroyOnClose or Reuse. P4 Modal/Input eligibility and the optional Input System adapter are implemented; P5 Virtual ScrollRect remains deferred.
 
 ## Public declarations
 
@@ -18,7 +18,7 @@ P3 adds host registration and HUD selection to the P1/P2 public signatures:
 public sealed class UIContext : IDisposable
 public UIContext(GameObject rootObject,
     Func<string, CancellationToken, UniTask<GameObject>> loadPrefab = null,
-    Func<IDisposable> acquireModalBlock = null)
+    Func<IDisposable> acquireModalBlock = null, EventSystem eventSystem = null)
 public void RegisterHost(string id, Transform container);
 public UIHandle CurrentHud { get; }
 public UniTask<UIHandle> SelectHudAsync(UIOpenRequest request, CancellationToken cancellationToken = default);
@@ -55,17 +55,50 @@ A `UIDefinition` requires one live direct prefab or one non-empty explicit `asse
 
 `UIContext.PrepareAsync` is optional asset preparation only: it verifies that a direct prefab is alive or resolves a key through the provider. It never instantiates or warms a clone. Concurrent requests for the same key share one provider request; a successful borrowed prefab result stays cached per key until owner shutdown. A caller token cancels only that caller's wait; shared preparation uses the context lifetime. Failure removes the key entry, so another explicit Prepare/Open request may retry; there is no automatic retry. If the context ends during a provider call, waiters are cancelled and a late result is ignored rather than displayed or cached. The provider and returned source remain untouched.
 
+## P4 modal eligibility, focus, and user-close requests
+
+P4 adds a borrowed, explicit EventSystem and per-generation input commands:
+
+~~~csharp
+public EventSystem EventSystem { get; }
+public event Action<UIHandle> DisplayChanged;
+public UIInputMode InputMode { get; }
+public bool CanReceiveInput { get; }
+public void SetInputMode(UIInputMode inputMode);
+public void BringToFront();
+public void SetFocus(GameObject target);
+public UniTask<bool> RequestCloseAsync(UIUserCloseReason reason,
+    CancellationToken cancellationToken = default);
+public Func<UIHandle, UIUserCloseReason, CancellationToken, UniTask<bool>> CanCloseAsync { get; set; }
+
+// Optional TPLab.UI.InputSystem assembly
+public void Bind(UIContext context, InputManager input,
+    InputSystemUIInputModule module, Guid uiMapId);
+public IDisposable AcquireModalBlock(string layerId);
+public void Unbind();
+~~~
+
+SetInputMode requires a Visible generation. Modal mode gates lower UI and, when configured, acquires an independent lease from the supplied modal factory. Without that factory, Modal still blocks lower UI but makes no gameplay-input guarantee. CanReceiveInput reports logical eligibility of a Visible generation, not borrowed map/module activation. BringToFront reorders the owned logical subtree without changing its generation or borrowed host/sorting state. SetFocus requires an explicit borrowed EventSystem and a live target inside the handle's view. An Opening hook may set focus; the context remembers it and applies it when the generation becomes Visible and eligible.
+
+User close is opt-in through CanCloseAsync. Missing handler or veto returns false and leaves the display open; accepted close returns true only after shared close completes as Closed. Caller cancellation cancels that request/approval wait, not owner cleanup. Forced CloseAsync and owner shutdown bypass veto and cancel pending approval. Reasons are Cancel, OutsidePointer, and Button; no outside detector or backdrop is installed.
+
+Base TPLab.UI has no Core.Input or Unity Input System dependency; UI-only Modal works without the optional adapter. Native integration uses the separate TPLab.UI.InputSystem assembly. Bind requires the same explicit EventSystem as the module and configured action references from the runtime-cloned UI map. The project pre-registers a compatible mapless BlockLower layer and supplies adapter.AcquireModalBlock as the context's modal factory. EventSystem, InputManager, module, actions and external leases are borrowed. Adapter owns only its subscriptions/recovery leases; it never disposes those borrowed owners.
+
+Modal retirement keeps lower UI blocked through hide and cleanup, raw pointer/touch/submit/cancel/move release, and a later EventSystem frame, preventing the closing event from reaching newly exposed UI. Closing middle modal B in A(modeless)-B(modal)-C(modeless) preserves C focus and independent game/transition leases. Unbind disables the borrowed module and refreshes existing layer policy; it does not return an active display's modal lease. On native state-application failure, the adapter's BlockAll lease transfers to UIContext and remains owned there through owner shutdown, including after Unbind.
+
+DisplayChanged dispatch is synchronous and read-only: all listeners are attempted, and listener failures surface through the affected lifecycle completion after remaining cleanup and lease retirement. SetInputMode, BringToFront and SetFocus command failures throw from that command and are removed from its error batch, so they do not poison a later close. Ordinary listener failures do not set Fault; native adapter application failures do. Arbitrary raw Input System action subscribers bypass the supported native UI replay boundary. See the [P4 UI/input contract](../GAME_UI_SYSTEM.md).
+
 ## Errors
 
-UIContext construction rejects a null/destroyed root with ArgumentNullException. Register(null) throws ArgumentNullException; empty/duplicate IDs, invalid metadata, or definitions that do not select exactly one source throw ArgumentException. A key without a configured provider throws InvalidOperationException. Unsupported Modal input throws NotSupportedException until P4; invalid presentation topology, unsupported renderer-only setup, or invalid logical parent relationships throw InvalidOperationException. Operations after owner termination throw ObjectDisposedException where declared.
+UIContext construction rejects a null/destroyed root with ArgumentNullException. Register(null) throws ArgumentNullException; empty/duplicate IDs, invalid metadata, or definitions that do not select exactly one source throw ArgumentException. A key without a configured provider throws InvalidOperationException. Modal input is supported through P4; invalid presentation topology, unsupported renderer-only setup, or invalid logical parent relationships throw InvalidOperationException. Operations after owner termination throw ObjectDisposedException where declared.
 
-BeginOpen rejects a null request with ArgumentNullException, unknown ID with ArgumentException, Modal input with NotSupportedException, invalid or non-visible parent relationships with InvalidOperationException, invalid mode with ArgumentException, pre-cancelled token with OperationCanceledException, and duplicate active/closing owner-definition pair with InvalidOperationException. Opening failure is reported through Opened after cleanup; cleanup failure is preserved with the opening error in AggregateException. Close/Shutdown cleanup errors are aggregated after remaining cleanup is attempted.
+BeginOpen rejects a null request with ArgumentNullException, unknown ID with ArgumentException, invalid or non-visible parent relationships with InvalidOperationException, invalid mode with ArgumentException, pre-cancelled token with OperationCanceledException, and duplicate active/closing owner-definition pair with InvalidOperationException. Modal input is supported through P4. Opening failure is reported through Opened after cleanup; cleanup failure is preserved with the opening error in AggregateException. Close/Shutdown cleanup errors are aggregated after remaining cleanup is attempted.
 
 ## Opening, display preparation, and reuse
 
 `BeginOpen` validates the definition and request, reserves a new context-local handle ID, rejects a duplicate active/closing display of the same definition, snapshots hooks, and starts the lifecycle. It returns the handle before hooks finish. `Opened` reports the opening outcome. `OpenAsync` calls the same path and returns that handle after `Opened` succeeds.
 
-The opening path resolves the prefab, takes a cached clone or instantiates under storage, then invokes request UIHooks.PrepareAsync for display data/subscriptions. For fresh DeactivateView instances, storage and the clone are inactive during this hook. For fresh DisableCanvasRendering instances, the clone is constructed under inactive storage, then its owned presentation wrapper is prepared and shown; after reuse, the renderer-only clone GameObject remains active in active rendering storage while its Canvas, captured GraphicRaycasters, and wrapper visibility mask are disabled. UIHandle.ViewObject is the inner clone; renderer-only mode places it under the owned wrapper. This hook is distinct from UIContext.PrepareAsync asset preparation. After display preparation, the presentation root is parented under the registered host and activated/shown, then UIHooks.OpenAsync runs. Opened succeeds only after the opening hooks complete.
+The opening path resolves the prefab, takes a cached clone or instantiates under storage, then invokes request UIHooks.PrepareAsync for display data/subscriptions. For fresh DeactivateView instances, storage and the clone are inactive during this hook. For fresh DisableCanvasRendering instances, the clone is constructed under inactive storage, then its owned presentation wrapper is prepared and shown; after reuse, the renderer-only clone GameObject remains active in active rendering storage while its Canvas, captured GraphicRaycasters, and wrapper visibility mask are disabled. Every managed display places the inner clone under its owned input/visibility wrapper; the host parents that wrapper and UIHandle.ViewObject returns the inner clone. This hook is distinct from UIContext.PrepareAsync asset preparation. After display preparation, the presentation root is parented under the registered host and activated/shown, then UIHooks.OpenAsync runs. Opened succeeds only after the opening hooks complete.
 
 DestroyOnClose destroys the owned clone/presentation. Reuse retains at most one candidate per definition after successful visible close, cleanup, and Closed observer. DeactivateView candidates are inactive clones; DisableCanvasRendering candidates remain active GameObjects in active rendering storage with the dedicated Canvas/raycasters disabled and the owned visibility CanvasGroup masking rendering/raycasts. Every generation gets a fresh handle, token, and cleanup set. Opening, cleanup, native, or Closed observer failures discard the candidate.
 
@@ -95,7 +128,7 @@ await handle.CloseAsync();
 await context.ShutdownAsync();
 ```
 
-Modal/Input remains deferred to P4 and Virtual ScrollRect to P5. Consumer installation, Player, Profiler, broad UX, and user acceptance remain NotRun under P7.
+P4 Modal/Input eligibility and the optional Input System adapter are implemented; P5 Virtual ScrollRect remains deferred. Consumer installation, Player, Profiler, broad UX, and user acceptance remain NotRun under P7.
 
 ## Registered hosts, HUD selection, and presentation
 
@@ -111,4 +144,4 @@ DisableCanvasRendering requires a dedicated Canvas on the owned clone root. Any 
 
 For DeactivateView, fresh instances are inactive during inactive display preparation and close deactivates the view. For DisableCanvasRendering, a fresh clone is constructed under inactive storage, then shown as an active GameObject with Canvas and raycasters enabled. A successfully reused renderer-only clone is retained under active rendering storage: its GameObject remains active while its Canvas/raycasters are disabled and the owned visibility group masks rendering and raycasts. Re-show restores captured Canvas/raycaster state and opens the mask. Thus Reuse is at most one clone per definition but renderer-only cached clones are active GameObjects, not inactive clones. Reuse is published only after successful visible close, cleanup, and Closed observer; failure discards the candidate. Before each generation, authored Transform and RectTransform anchors, pivot, size, and position are restored from the borrowed prefab. Moving the presentation root to a host preserves its anchored position.
 
-Explanatory examples remain NotRun. P4 Modal/Input and P5 Virtual ScrollRect remain deferred; P7 consumer, Player, Profiler, broad UX, and user-acceptance gates remain NotRun.
+Explanatory examples remain NotRun. P4 Modal/Input is implemented; P5 Virtual ScrollRect remains deferred; P7 consumer, Player, Profiler, broad UX, and user-acceptance gates remain NotRun.
