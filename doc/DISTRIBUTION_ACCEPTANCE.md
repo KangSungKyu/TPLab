@@ -25,4 +25,4 @@ Importer의 실제 CSV/schema/typed validator와 거부 시 이전 소스 보존
 
 ## 확인 상태 (2026-10-08)
 
-사용자 응답: **확인할 예정이야**. 최종 사용자 확인은 Pending이며 main/tag/Release·브랜치 삭제·Unity/PC 종료는 미실행이다. 확인 결과가 전달되면 후속 P4를 진행한다.
+후속 사용자 응답: **이 문서의 내용을 실행해서 확인했어**. 최종 사용자 확인은 Confirmed다. main/tag/Release·브랜치 정리·Unity/PC 종료를 후속 P4로 진행한다.

@@ -1,0 +1,37 @@
+{
+  "originalMain": "af9958ba402be2bc7f31d453afb2b14294a47ac8",
+  "userFiles": [
+    {
+      "path": "Assets/Scenes/InitScene.unity",
+      "sha256": "c0fec936f9fbbe9ce1f0ef041ca2968ae0004a4ca1e4f4ac22e81925a363b3ee",
+      "sameAsP3": true
+    },
+    {
+      "path": "Assets/Settings/DefaultVolumeProfile.asset",
+      "sha256": "463776c51ae49d4fef980e8fd268081b2f505610d79315003faae1acff8f4115",
+      "sameAsP3": true
+    },
+    {
+      "path": "Assets/Settings/Mobile_RPAsset.asset",
+      "sha256": "2d5182d2b8884ac88bc6ed033a0a722c23cfb15a7bc8b7daa38db37227bafd09",
+      "sameAsP3": true
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "sha256": "fc19f8b13f7c8e2262a3498e8fc019323abeb1465535da6891ec4f25b1f18af7",
+      "sameAsP3": true
+    },
+    {
+      "path": "ProjectSettings/SceneTemplateSettings.json",
+      "sha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "sameAsP3": true
+    },
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "sha256": "b18db9d5aac18c26e12e1d4556f1c989bb995e2304170746209f971ad021615a",
+      "sameAsP3": true
+    }
+  ],
+  "userAcceptance": "Confirmed by user: executed and checked DISTRIBUTION_ACCEPTANCE.md",
+  "packageSource": "de879b9396ddae0523bd3ab86939b679b383dd92"
+}
