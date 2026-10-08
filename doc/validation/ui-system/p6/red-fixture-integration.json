@@ -1,0 +1,12 @@
+{
+  "testsStartedBeforeCorrection": 0,
+  "changes": [
+    "Assets/TPLab/UI/Tests/EditMode/TPLab.UI.EditModeTests.asmdef",
+    "Assets/TPLab/UI/Tests/PlayMode/TPLab.UI.PlayModeTests.asmdef",
+    "Assets/TPLab/UI/InputSystem/Tests/PlayMode/TPLab.UI.InputSystem.PlayModeTests.asmdef",
+    "Assets/TPLab/UI/InputSystem/Tests/PlayMode/UIContextInstallerInputSystemPlayModeTests.cs"
+  ],
+  "reason": "Direct Core type references in installer tests require explicit test asmdef dependency; optional namespace aligned with existing whole UI filter",
+  "testBodiesChanged": false,
+  "baseUIRuntimeInputDependencyAdded": false
+}

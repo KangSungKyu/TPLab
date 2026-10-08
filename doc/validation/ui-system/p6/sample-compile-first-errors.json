@@ -1,0 +1,11 @@
+[
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(88,98): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(89,103): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(90,103): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(91,100): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(92,102): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(93,99): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(94,109): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(95,110): error CS0103: The name 'SceneTarget' does not exist in the current context",
+  "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs(96,112): error CS0103: The name 'SceneTarget' does not exist in the current context"
+]

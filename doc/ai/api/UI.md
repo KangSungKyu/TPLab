@@ -6,11 +6,11 @@
 
 ## SourceRevision / SourcePath / HumanContract
 
-SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302. Public declarations and XML links identify the P5 source revision.
+SourceRevision: 21f89e2580f08be3903724efa0a42e5ad0567c83. FinalEvidence: P6 final Edit33/33 + Play53/53; sample authoring19/compile verified; sample Player/UX pending P7. Public declarations and XML links identify the current development source; the final P6 source revision is pending.
 
 ## ImplementationStatus / ValidationStatus / Evidence
 
-ImplementationStatus: Implemented through P5. ValidationStatus: Partial (P5 focused tests/source match verified; P6/P7 remain open). SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302.
+ImplementationStatus: Implemented through P6. ValidationStatus: Partial (P6 focused tests passed; P6 final source match and sample19 authoring/compile are verified; sample Player remains P7 pending; P7 gates remain open). SourceRevision: 21f89e2580f08be3903724efa0a42e5ad0567c83.
 
 ## Symbol / Signature / Constraints
 
@@ -59,7 +59,7 @@ DestroyOnClose destroys the clone/presentation. Reuse retains at most one candid
 
 ## Configuration / ExtensionPoints
 
-Supported through P5: direct prefab or provider key; Hud or Popup role; registered host; Modeless or Modal input eligibility; accepted fixed Canvas topology; DeactivateView or constrained DisableCanvasRendering; DestroyOnClose or Reuse; fixed-height vertical one-column VirtualScrollRect. acquireModalBlock optionally supplies a UI modal lease factory. P6 installer/settings and P7 consumer/Player/Profiler/Canvas/UX gates remain open.
+Display behavior scope through P5: direct prefab or provider key; Hud or Popup role; registered host; Modeless or Modal input eligibility; accepted fixed Canvas topology; DeactivateView or constrained DisableCanvasRendering; DestroyOnClose or Reuse; fixed-height vertical one-column VirtualScrollRect. P6 adds settings/root installation in the same base UI assembly; optional acquireModalBlock supplies the gameplay modal lease factory. P6 focused tests passed; final source revision/sample evidence pending. P7 consumer/Player/Profiler/Canvas/UX gates remain NotRun.
 
 ## RequiredSequence / ForbiddenUsage
 
@@ -125,7 +125,7 @@ DisableCanvasRendering requires a dedicated Canvas on the clone root and rejects
 
 Fresh clones are created under inactive storage before display preparation. DeactivateView close deactivates the clone. Renderer-only presentation uses an active GameObject with its Canvas/raycasters and wrapper mask controlling visibility. A reused renderer-only clone remains active under active rendering storage while its Canvas and captured GraphicRaycasters are disabled and wrapper mask is closed. Re-show restores captured native enablement and opens the mask. Therefore a cached renderer-only clone is not an inactive GameObject. Before each generation, Transform and RectTransform anchors, pivot, size, and position are restored from the prefab; moving the presentation root preserves anchored position. Reuse remains one clone per definition and is published only after successful close, cleanup, and observer; failures discard it.
 
-P4 Modal/Input and P5 VirtualScrollRect are implemented in development source. Explanatory examples remain NotRun; P7 consumer, Player, Profiler, broad UX, and user-acceptance gates remain NotRun.
+P4 Modal/Input, P5 VirtualScrollRect, and P6 settings/root installation are implemented in development source. P6 focused tests passed Edit33/33 and Play53/53, failed0/skip0; [P6 validation](../../validation/ui-system/p6/README.md), [Edit](../../validation/ui-system/p6/final-edit.json), [Play](../../validation/ui-system/p6/final-play.json). P6 final source match and sample19 authoring/compile are verified; sample Player remains P7 pending. P7 consumer, graphics Player, Profiler/performance, broad UX, and user-acceptance gates remain NotRun.
 
 ## P5 fixed-height virtual list
 
@@ -139,3 +139,20 @@ P4 Modal/Input and P5 VirtualScrollRect are implemented in development source. E
 - `VirtualCellBinding.Index`, `Generation`, and cached `LifetimeToken` remain readable after cancellation-source disposal. `View` and `IsCurrent` require main-thread access. Async project code must return to main thread and check both token and `IsCurrent` before touching a recycled view. Data and subscriptions remain project-owned.
 
 P5 first Green passed Edit31/31 and Play48/48. Final UI79 passed Edit31/31 and Play48/48, failed0/skip0, with product Console empty. [Final Edit](../../validation/ui-system/p5/final-edit.json) | [Final Play](../../validation/ui-system/p5/final-play.json). The Play connector result was recovered after a CLI timeout without rerunning the test. SourceRevision `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`; final snapshot verified 405 non-protected source matches and six protected files unchanged. Fourteen virtual-list tests include synthetic PointerEventData dispatch, not physical-device/Input System UX. P7 consumer, Player, Profiler/performance, Canvas comparison, broad UX, and user acceptance remain NotRun.
+
+## P6 Settings/Installer contract
+
+P6 final focused validation passed Edit33/33 and Play53/53, failed0/skip0. [Validation record](../../validation/ui-system/p6/README.md) · [Edit result](../../validation/ui-system/p6/final-edit.json) · [Play result](../../validation/ui-system/p6/final-play.json). P6 final source match and sample19 authoring/compile are verified; sample Player remains P7 pending; installer tests do not establish sample acceptance.
+
+Namespace: TPLab.UI.Installation. Assembly: TPLab.UI (base, no Input System reference).
+SourcePath: Assets/TPLab/UI/Runtime/UIContextSettings.cs and UIContextInstaller.cs. HumanContract: [P6 API](../../api/UI.md#p6-settings-and-root-installation).
+
+Symbol/Signature: UIContextSettings.Configure(UIContextDefinitionData[] definitions, string firstHudDefinitionId = null, string[] preloadDefinitionIds = null); CreateSnapshot(): IReadOnlyList<UIDefinition>; FirstHudDefinitionId: string; PreloadDefinitionIds: IReadOnlyList<string>.
+Configuration: definitions require unique/nonblank IDs, explicit prefab XOR asset key, declared enum values and nonblank host; first-HUD ID must resolve to Role.Hud; preload IDs unique/registered. Inspector CreateSnapshot repeats the script validator. Configuration copies DTO/list values; immutable definition snapshots detach later settings edits.
+
+Symbol/Signature: UIContextInstaller.Configure(UIContextSettings settings, HostBinding[] hosts = null, ResourceManagerInstaller resources = null, Func<string, CancellationToken, UniTask<GameObject>> loadPrefab = null, EventSystem eventSystem = null, Func<IDisposable> acquireModalBlock = null, UIHooks firstHudHooks = null); Context: UIContext; Install(ISceneRoot); PrepareAsync(ISceneRoot, CancellationToken): UniTask; ReleaseAsync(ISceneRoot): UniTask; Uninstall(ISceneRoot).
+Inputs/Errors: containing live top-level scene root required; HostBinding.Id/Container name a borrowed scene Transform; no duplicate or implicit default host registration. Resource/custom-provider mutually exclusive; keyed sources require provider; resource installation must precede UI.Install. Invalid metadata preserves prior Configure state. Main-thread and installed-owner identity checks apply. Read exact ArgumentException/InvalidOperationException/OperationCanceledException/AggregateException boundaries in XML.
+Ownership/Lifecycle: own context, displays/clones, subscriptions and factory-returned leases; borrow Settings, hosts/root, assets, resource owner/provider, explicit EventSystem/hooks. Install snapshots registrations and metadata without load/clone; Prepare preloads sources without displays then selects first HUD via normal path. Normal reverse Release awaits UI before borrowed services release; context observable until Uninstall, which clears references and starts idempotent fallback.
+Concurrency/Cancellation: one shared prepare attempt; first root token controls attempt, later caller cancellation only affects its wait. Failure retained until Uninstall. No late publication after root/context termination.
+RequiredSequence: configure providers/hosts and resource/input owners -> project wiring -> UI.Install -> optional shared UI.Prepare/root Prepare -> project explicitly publishes input -> runtime context operations -> await UI.Release -> project/service reverse release -> UI.Uninstall/fallback.
+ForbiddenUsage: reconfigure installed UI; resolve global EventSystem/ResourceManager; dispose borrowed sources/services; release independent input/preparation/transition leases; claim source-preload creates UI clones; use asset edits as live registration updates; infer user acceptance from unit tests.

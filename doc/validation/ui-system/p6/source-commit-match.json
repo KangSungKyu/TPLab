@@ -1,0 +1,11 @@
+{
+  "sourceRevision": "21f89e2580f08be3903724efa0a42e5ad0567c83",
+  "totalSnapshot": 471,
+  "nonProtectedGitMatches": 470,
+  "excludedProtectedSnapshot": [
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions"
+  ],
+  "protectedRawCount": 6,
+  "protectedRawUnchanged": true,
+  "comparison": "Text CRLF to LF; DLL raw; exact source Git blobs via cat-file batch"
+}

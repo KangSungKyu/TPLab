@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-08T11:10:00.269068+00:00",
+  "editorPid": 24376,
+  "actualEdit": [
+    33,
+    32,
+    1,
+    0
+  ],
+  "actualPlay": [
+    53,
+    51,
+    2,
+    0
+  ],
+  "enumProbe": {
+    "enumValueIndex999Became": 1,
+    "intValue999Rejected": true
+  },
+  "fixtureCorrections": [
+    "write underlying invalid enum with intValue",
+    "search explicitly inactive installer child",
+    "initialize owned empty Addressables catalog and restore previous prefs/locators"
+  ],
+  "runtimeChanged": false,
+  "logsSuppressed": false
+}

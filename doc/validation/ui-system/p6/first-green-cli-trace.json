@@ -1,0 +1,47 @@
+{
+  "previousPrestartDiscoveryFailures": 2,
+  "previousActualRunsStarted": 0,
+  "currentCalls": [
+    {
+      "command": [
+        "unity-cli",
+        "status"
+      ],
+      "projectArg": "C:/Users/PC/Projects/TPLab",
+      "returnCode": 0,
+      "stdout": "Unity: ready\n  Project: C:/Users/PC/Projects/TPLab\n  Version: 6000.3.18f1\n  Connector: 0.4.1\n  PID:     24376\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "unity-cli",
+        "console"
+      ],
+      "projectArg": "C:/Users/PC/Projects/TPLab",
+      "returnCode": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "unity-cli",
+        "status"
+      ],
+      "projectArg": "C:/Users/PC/Projects/TPLab",
+      "returnCode": 0,
+      "stdout": "Unity: ready\n  Project: C:/Users/PC/Projects/TPLab\n  Version: 6000.3.18f1\n  Connector: 0.4.1\n  PID:     24376\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "unity-cli",
+        "exec"
+      ],
+      "projectArg": "C:/Users/PC/Projects/TPLab",
+      "returnCode": 0,
+      "stdout": "{\"started\":true,\"runId\":\"5e5dae00663949369f44942c1c09d4d4\",\"project\":\"C:\\\\Users\\\\PC\\\\Projects\\\\TPLab\",\"filter\":\"TPLab.UI.Tests\",\"mode\":\"EditMode\"}\n",
+      "stderr": ""
+    }
+  ],
+  "testRunnerCodeUnchanged": true
+}

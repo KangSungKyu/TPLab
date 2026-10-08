@@ -1,0 +1,31 @@
+{
+  "total": 5,
+  "passed": 0,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.Installation.UIContextInstallerInputSystemPlayModeTests.RootReverseReleaseClosesUiBeforeBorrowedInputAndResources: System.NotImplementedException : Signature stub; P6 implementation is not authorized here.",
+    "TPLab.UI.Tests.Installation.UIContextInstallerPlayModeTests.FirstHudFailureStillReleasesPartialContextAndPreservesBorrowedPrefab: System.NotImplementedException : Signature stub; P6 implementation is not authorized here.",
+    "TPLab.UI.Tests.Installation.UIContextInstallerPlayModeTests.InstallDoesNotClone_PrepareSelectsExactlyTheConfiguredHud: System.NotImplementedException : Signature stub; P6 implementation is not authorized here.",
+    "TPLab.UI.Tests.Installation.UIContextInstallerPlayModeTests.SceneOwnedShutdownLeavesPersistentRootContextAlive: System.NotImplementedException : Signature stub; P6 implementation is not authorized here.",
+    "TPLab.UI.Tests.Installation.UIContextInstallerPlayModeTests.SourcePreloadDoesNotCreateDisplay_ExplicitOpenUsesPreparedSource: System.NotImplementedException : Signature stub; P6 implementation is not authorized here."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.Installation",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 29492,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 29492,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

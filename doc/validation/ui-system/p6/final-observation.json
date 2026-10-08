@@ -1,0 +1,14 @@
+{
+  "editorPid": 24376,
+  "isCompiling": false,
+  "isUpdating": false,
+  "isPlaying": false,
+  "activeScene": "Assets/Scenes/InitScene.unity",
+  "activeSceneDirty": false,
+  "uiPresentationLoaded": true,
+  "installerLoaded": "TPLab.UI.Installation.UIContextInstaller",
+  "sampleBuilderLoaded": "TPLab.Samples.UI.Editor.UIContextSampleBuilder",
+  "compilerCount": 7344,
+  "presentationRegistered": false,
+  "permanentRepair": false
+}

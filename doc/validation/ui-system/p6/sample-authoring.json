@@ -1,0 +1,33 @@
+{
+  "editorPid": 24376,
+  "sceneSetupPreserved": true,
+  "activeSceneDirty": false,
+  "generatedAssetCount": 19,
+  "sourceCompileErrors": 0,
+  "protectedRawCount": 6,
+  "protectedRawUnchanged": true,
+  "assets": {
+    "Assets/TPLab/Samples/UI/Prefabs/Cell.prefab": "ad954048d22086a80a4f89a501e4a71e1982dd480fccc3184ca3a1333a7ca614",
+    "Assets/TPLab/Samples/UI/Prefabs/HudA.prefab": "e7c493b88c77f0534ab8256b7aed7d0829467ac7692424c6afd9b8947fa53c5e",
+    "Assets/TPLab/Samples/UI/Prefabs/HudB.prefab": "7088514a8571c257743151b4cc8276e7a177f94f61920d91c822d1a691a03a7d",
+    "Assets/TPLab/Samples/UI/Prefabs/Inventory.prefab": "162d328de5ffbea8b89f4cfc995769bf89021820256d0f6d331bfd5f4cba4613",
+    "Assets/TPLab/Samples/UI/Prefabs/PopupA.prefab": "422172fc43ff5923ac56152067c92cccd20bf2bdc424ada5603038b4b51b2e03",
+    "Assets/TPLab/Samples/UI/Prefabs/PopupB.prefab": "288271bd758ea14a458484ff34b3fae016bb2f1d1917c56469436d24c751f28e",
+    "Assets/TPLab/Samples/UI/Prefabs/PopupC.prefab": "fead2ea79f7679e6f7388cf604cbd5b5827d27cd7be9ad0645fb3803e0afcad7",
+    "Assets/TPLab/Samples/UI/Prefabs/SceneHud.prefab": "c8844de43283cf14988eb757081d36a446b2f1185b146e99bc6b8858ab47b728",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextArea.unity": "5bd2f086720bae8519195e0c93fc3701ec56a137ac07b2d5ca58c010d606ed5f",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapAdditive.unity": "059781a7dea12e64e88efb0403bc24bde649f053c621a27d5175fe7b0d317cd4",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapSingle.unity": "5676051d458f479c792f6f27149cbdaa0ce8228051c7147f2dd6246ed377e2e9",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextHub.unity": "5bd2f086720bae8519195e0c93fc3701ec56a137ac07b2d5ca58c010d606ed5f",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextMain.unity": "5bd2f086720bae8519195e0c93fc3701ec56a137ac07b2d5ca58c010d606ed5f",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextNested.unity": "5bd2f086720bae8519195e0c93fc3701ec56a137ac07b2d5ca58c010d606ed5f",
+    "Assets/TPLab/Samples/UI/Settings/CommonUI.asset": "ad61c35cc12a9a6db81770d50126ad1fc2025f9a474d192803ebf8a7ffabc989",
+    "Assets/TPLab/Samples/UI/Settings/SceneUI.asset": "d28f5f2ac22244d2c7d42f671b64c74dd84d016b1a05bd6ce8b2d93f01554f0c",
+    "Assets/TPLab/Samples/UI/Settings/TransitionsAdditive.asset": "dfbc7dad67e8b65971e7c7b7f6fea062e5bc6c4d3abc8cc8e0b23b3bde81418f",
+    "Assets/TPLab/Samples/UI/Settings/TransitionsSingle.asset": "19b81c5eaab3823382d404683cc5df761b61d9765a5500c4ea261eadc9c156fd",
+    "Assets/TPLab/Samples/UI/Settings/UIInput.inputactions": "a0ba485202d784a85aafdb12f848e2b6977e48943396684a220b4e2ce42c2570"
+  },
+  "playTests": 0,
+  "playerBuilds": 0,
+  "manualAcceptance": "Pending"
+}

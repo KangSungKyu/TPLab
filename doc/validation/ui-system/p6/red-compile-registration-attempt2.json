@@ -1,0 +1,16 @@
+{
+  "before": 7341,
+  "after": 7344,
+  "addedOwnedPaths": [
+    "Assets/TPLab/UI/Runtime/UIPresentation.cs",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs"
+  ],
+  "preservedExistingPaths": true,
+  "importedTestAsmdefs": [
+    "Assets/TPLab/UI/Tests/EditMode/TPLab.UI.EditModeTests.asmdef",
+    "Assets/TPLab/UI/Tests/PlayMode/TPLab.UI.PlayModeTests.asmdef",
+    "Assets/TPLab/UI/InputSystem/Tests/PlayMode/TPLab.UI.InputSystem.PlayModeTests.asmdef"
+  ],
+  "permanentRepair": false
+}

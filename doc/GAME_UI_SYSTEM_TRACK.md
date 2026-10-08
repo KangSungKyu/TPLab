@@ -20,7 +20,7 @@
 | P3 HUD/Popup/Canvas | codex/game-ui-p3-presentation | 완료 / 자동 검증·문서·회고 | HUD 보존·owner tree·A-B-C와 실제 정렬/숨김 |
 | P4 입력/연출 | codex/game-ui-p4-input | 완료 / 자동65개·문서·회고 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
 | P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 완료 / 자동79개·문서·회고 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
-| P6 설정/root/예제 | codex/game-ui-p6-integration | 미착수 | Inspector/script 동일경로·Single/Additive·callback 예제 |
+| P6 설정/root/예제 | codex/game-ui-p6-integration | 완료 / 자동UI86·compile·예제19asset·문서·회고 | Inspector/script 동일경로·Single/Additive·callback 예제 |
 | P7 통합/성능/수락 | codex/game-ui-p7-validation | 미착수 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
 
 P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 가능하다. P6은 P4/P5, P7은 P6을 선행한다. 문서와 자동 검증은 해당 Phase에서 수행하며 P7까지 미루지 않는다.
@@ -72,3 +72,7 @@ P4 doc bc400a7fa65eac6861a9ea7a1e6be39f98aea6fd를 ancestry/CAS로track통합하
 P5 [actualRed14](validation/ui-system/p5/README.md)는원본Editor24376 Edit7/Play7실패14skip0, inputs406/protected6 unchanged. 새소유source4만import한뒤기존registry경로7336개전부보존+누락UI3개등록으로compileConsole0을확인했다. 연결재등록의미시작실패는별도기록했다. 수명담당에게Runtime2파일만Green을배정하고14개tests는동결한다.
 
 P5 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`: [최종 UI79](validation/ui-system/p5/README.md) Edit31/31 + Play48/48, 실패0·skip0. 고정 높이 세로 가상 목록, viewport 예산과 축소 trim, native 관성, 명시 Refresh 재바인딩과 자동 세대 보존, 취소·부분 실패 정리를 구현했다. 최종 입력406개 중 보호 SampleInput 제외405개는 커밋과 일치하고 보호6개 raw bytes는 유지된다. 원본 Editor 등록 누락은 일회 컴파일 입력 보정 후 실제 실행했으며 영구 복구로 주장하지 않는다. 사람/AI 문서와 회고09를 같은 단계에서 갱신하고 최신 tip을 track에 통합한다. P6 설정/root/예제, P7 독립 소비·그래픽 Player·성능·최종 사용자 확인은 남아 있다.
+
+P5 문서/근거37ad2416e79b7d241bca26935b60a341b8b1a712를 ancestry/CAS로 track에 통합하고 같은 tip에서 P6 branch를 생성했다. 문서14개·상대 링크377개·입력406·보호6·GUID 검사 통과를 기록했다. P6의 [실제 Red7](validation/ui-system/p6/README.md)은 원본 Editor에서 Edit2/Play5 실패7·skip0이고 입력416/보호6 unchanged다. 테스트의 직접 Core assembly 참조와 import 준비 실패는 실행0건으로 분리했다. Runtime Settings/Installer2파일 Green을 수명 담당에게 배정하고 예제는 다른 담당이 Temp에서 준비한다. P7 독립 소비·성능은 미실행이고 main8ce768d를 유지한다.
+
+P6 source `21f89e2580f08be3903724efa0a42e5ad0567c83`: [최종UI86](validation/ui-system/p6/README.md) Edit33/33+Play53/53, 실패0skip0. source471/비보호Git470/보호6 raw unchanged, source 후보70파일·새 예제19asset·원본scene setup 보존·Console0. [회고10](retrospectives/2026-10-08-10-ui-installation.md). Settings/Installer와 선택Input/selfcontained sample을 구현했고 sample Player/performance/최종UX는P7 gate다. P6 doc 이후 ancestry/CAS track 통합 후 같은tip에서P7을 시작한다. Native registry 영구 복구·main 통합·사용자 수락은 주장하지 않는다.

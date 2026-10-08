@@ -1,0 +1,20 @@
+test_actual_result_exact_fresh_graphics_and_honest_profiler_availability (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_actual_result_exact_fresh_graphics_and_honest_profiler_availability) ... ok
+test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection) ... ok
+test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob) ... ERROR
+test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape) ... ok
+test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only) ... ok
+
+======================================================================
+ERROR: test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\test_ui_source_consumer_contract.py", line 338, in test_git_text_attributes_allow_crlf_working_license_without_changing_canonical_blob
+    identity = source_identity(project, revision)
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\run_ui_source_consumer.py", line 191, in source_identity
+    raise ValueError("Allowlisted working bytes differ from selected Git blob: " + relative)
+ValueError: Allowlisted working bytes differ from selected Git blob: Assets/Plugins/CsvHelper/LICENSE.txt
+
+----------------------------------------------------------------------
+Ran 5 tests in 10.417s
+
+FAILED (errors=1)

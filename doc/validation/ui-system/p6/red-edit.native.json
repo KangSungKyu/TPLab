@@ -1,0 +1,19 @@
+{
+  "runId": "a7c5a001045a4e4bbd36ce1bd31293bb",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests.Installation",
+  "mode": "EditMode",
+  "summary": {
+    "total": 2,
+    "passed": 0,
+    "failed": 2,
+    "skipped": 0,
+    "failures": [
+      "TPLab.UI.Tests.Installation.UIContextSettingsEditModeTests.ConfigureAndInspectorValuesCreateEquivalentDetachedSnapshots: System.NotImplementedException : Signature stub; P6 implementation is not authorized here.",
+      "TPLab.UI.Tests.Installation.UIContextSettingsEditModeTests.InvalidDefinitionAndHudMetadataRejectsWithoutSceneObjects:   Expected: <System.ArgumentException>\r\n  But was:  <System.NotImplementedException: Signature stub; P6 implementation is not authorized here.\r\n  at TPLab.UI.Tests.Installation.UIContextSettingsEditModeTests+<>c__DisplayClass1_0.<InvalidDefinitionAndHudMetadataRejectsWithoutSceneObjects>b__0 () [0x00000] in C:\\Users\\PC\\Projects\\TPLab\\Assets\\TPLab\\UI\\Tests\\EditMode\\UIContextSettingsEditModeTests.cs:73 \r\n  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n"
+    ],
+    "passes": []
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T10:46:07.0756470Z"
+}

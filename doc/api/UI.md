@@ -1,6 +1,6 @@
 # UIContext API
 
-TPLab.UI provides a root-owned lifecycle for HUD and Popup displays from direct or provider-keyed prefab sources. ImplementationStatus: Implemented through P5. ValidationStatus: Partial (P5 focused tests/source match verified; P6/P7 remain open). SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302.
+TPLab.UI provides a root-owned lifecycle for HUD and Popup displays from direct or provider-keyed prefab sources. ImplementationStatus: Implemented through P6. ValidationStatus: Partial (P6 focused Edit/Play tests passed; P6 final source match and sample19 authoring/compile are verified; sample Player remains P7 pending; P7 gates remain open). SourceRevision: 21f89e2580f08be3903724efa0a42e5ad0567c83. FinalEvidence: P6 final Edit33/33 + Play53/53; sample authoring19/compile verified; sample Player/UX pending P7.
 
 On original Editor PID 24376, the P3-focused UI suite passed EditMode 18/18 and PlayMode 30/30 (failed 0, skipped 0), with compile errors 0 and product Console errors 0. Edit used connector-exec-file runId `303ed314e92e4c3cb12d9f935257816f`; Play used CLI PID 29644. The 48 focused tests include 18 P3 additions; not every added test had a separate Red run. Evidence: [P3 EditMode](../validation/ui-system/p3/final-edit.json), [native EditMode result](../validation/ui-system/p3/final-edit.native.json), [P3 PlayMode](../validation/ui-system/p3/final-play.json), [Console check](../validation/ui-system/p3/final-console.json), and [P3 validation record](../validation/ui-system/p3/README.md). The source commit contains 375 source files; six protected inputs remained unchanged. Historical P1/P2 evidence remains [P2/P1 EditMode](../validation/ui-system/p2/final-edit.json) and [P2/P1 PlayMode](../validation/ui-system/p2/final-play.json). P4 final focused original-Editor validation passed EditMode 24/24 and PlayMode 41/41 (failed 0, skipped 0); Edit runId c4c9dd94c6b74ec9be545306d0bcc897, Play CLI PID 34520, Editor PID 24376, product Console 0. Evidence: [P4 Edit](../validation/ui-system/p4/final-edit.json), [native Edit](../validation/ui-system/p4/final-edit.native.json), [P4 Play](../validation/ui-system/p4/final-play.json), and [source match](../validation/ui-system/p4/source-commit-match.json). SourceRevision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Consumer installation, Player, Profiler, broad UX, and user acceptance remain **NotRun** (P7). UI remains development source, outside the released 0.0.1 Core/Input/Editor packages and tag; no UI package version is set.
 
@@ -8,7 +8,7 @@ On original Editor PID 24376, the P3-focused UI suite passed EditMode 18/18 and 
 
 `UIContext` owns accepted display generations, instantiated clones, one optional reusable clone per definition, shared provider-key preparation coordination, cleanup registrations, and root-linked lifetime. The root, direct prefab source, provider, and external services are borrowed; context shutdown never destroys or disposes them. Connect the context to the actual persistent or scene root and await `ShutdownAsync()` before unloading it. `Dispose()` begins the same fallback but cannot await asynchronous hooks.
 
-All Unity object operations and callbacks run on Unity's main thread. P3 supports HUD selection, logical parent trees for Popup displays, registered borrowed hosts, managed fixed Canvas/sibling order, DeactivateView and constrained DisableCanvasRendering, and DestroyOnClose or Reuse. P4 Modal/Input eligibility and the optional Input System adapter are implemented; P5 fixed-height virtual list is implemented.
+All Unity object operations and callbacks run on Unity's main thread. P3 supports HUD selection, logical parent trees for Popup displays, registered borrowed hosts, managed fixed Canvas/sibling order, DeactivateView and constrained DisableCanvasRendering, and DestroyOnClose or Reuse. P4 Modal/Input eligibility and the optional Input System adapter are implemented; P5 fixed-height virtual list and P6 settings/root installer are implemented in development source. P6 focused Edit33/33 and Play53/53 passed, failed0/skip0; see [P6 validation](../validation/ui-system/p6/README.md), [Edit](../validation/ui-system/p6/final-edit.json), and [Play](../validation/ui-system/p6/final-play.json). P6 final source match and sample19 authoring/compile are verified; sample Player remains P7 pending. P7 consumer install, graphics Player, Profiler/performance, broad UX, and user acceptance remain NotRun.
 
 ## Public declarations
 
@@ -128,7 +128,7 @@ await handle.CloseAsync();
 await context.ShutdownAsync();
 ```
 
-P4 Modal/Input and P5 VirtualScrollRect are implemented in development source. P5 first Green passed Edit31/31 and Play48/48; final UI79 passed Edit31/31 and Play48/48, failed0/skip0, product Console empty. [Final Edit](../validation/ui-system/p5/final-edit.json) · [Final Play](../validation/ui-system/p5/final-play.json). Edit runId `7984bff4b98d43e0b8aba050ba85b45e`; Play connector run `34780-1791455587583642700` recovered its same completed result after CLI timeout, with no rerun. SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302. Snapshot verified 405 non-protected source matches and six protected files unchanged ([match record](../validation/ui-system/p5/source-commit-match.json)). P6 installer/settings and P7 consumer installation, Player, Profiler/performance, Canvas composition, UX, and user acceptance remain NotRun.
+P4 Modal/Input and P5 VirtualScrollRect are implemented in development source. P5 first Green passed Edit31/31 and Play48/48; final UI79 passed Edit31/31 and Play48/48, failed0/skip0, product Console empty. [Final Edit](../validation/ui-system/p5/final-edit.json) · [Final Play](../validation/ui-system/p5/final-play.json). Edit runId `7984bff4b98d43e0b8aba050ba85b45e`; Play connector run `34780-1791455587583642700` recovered its same completed result after CLI timeout, with no rerun. SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302. Snapshot verified 405 non-protected source matches and six protected files unchanged ([match record](../validation/ui-system/p5/source-commit-match.json)). P6 settings/root installation is implemented and focused-verified; P7 consumer/Player/Profiler/Canvas/UX/user acceptance remain pending.
 
 ## Registered hosts, HUD selection, and presentation
 
@@ -144,7 +144,7 @@ DisableCanvasRendering requires a dedicated Canvas on the owned clone root. Any 
 
 For DeactivateView, fresh instances are inactive during inactive display preparation and close deactivates the view. For DisableCanvasRendering, a fresh clone is constructed under inactive storage, then shown as an active GameObject with Canvas and raycasters enabled. A successfully reused renderer-only clone is retained under active rendering storage: its GameObject remains active while its Canvas/raycasters are disabled and the owned visibility group masks rendering and raycasts. Re-show restores captured Canvas/raycaster state and opens the mask. Thus Reuse is at most one clone per definition but renderer-only cached clones are active GameObjects, not inactive clones. Reuse is published only after successful visible close, cleanup, and Closed observer; failure discards the candidate. Before each generation, authored Transform and RectTransform anchors, pivot, size, and position are restored from the borrowed prefab. Moving the presentation root to a host preserves its anchored position.
 
-Explanatory examples remain NotRun. P4 Modal/Input is implemented; P5 fixed-height virtual list is implemented; P6 installer/settings and P7 consumer, Player, Profiler, broad UX, and user-acceptance gates remain NotRun.
+Explanatory examples remain NotRun. P4 Modal/Input, P5 fixed-height virtual list, and P6 settings/root installation are implemented in development source. P6 focused tests passed Edit33/33 and Play53/53, failed0/skip0; [P6 validation](../validation/ui-system/p6/README.md). P6 final source match and sample19 authoring/compile are verified; sample Player remains P7 pending. P7 consumer, graphics Player, Profiler/performance, broad UX, and user-acceptance gates remain NotRun.
 
 ## P5: fixed-height virtual list
 
@@ -187,4 +187,36 @@ public readonly struct VirtualCellBinding
 
 Commands and Unity view checks run on the main thread. Bind/unbind callbacks must not synchronously reenter `Configure`, `SetCount`, `Refresh`, or `ScrollToIndex` on this component; unrelated UI composition is allowed. Invalid numeric values/count/index use `ArgumentOutOfRangeException`; invalid borrowed topology/layout uses `ArgumentException` (null bind uses `ArgumentNullException`); wrong thread, unconfigured calls, or structural callback reentry use `InvalidOperationException`. Cleanup/native errors are aggregated after remaining cleanup is attempted. Do not force layout/canvas rebuilds per bound row.
 
-P5 first focused Green passed Edit31/31 and Play48/48. Final focused UI79 passed Edit31/31 and Play48/48, failed0/skip0, product Console empty. [Final Edit](../validation/ui-system/p5/final-edit.json) | [Final Play](../validation/ui-system/p5/final-play.json). Edit runId `7984bff4b98d43e0b8aba050ba85b45e`; Play connector run `34780-1791455587583642700` recovered the completed result after CLI timeout without rerunning. SourceRevision: `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`. The final snapshot verified 405 non-protected source matches and six protected files unchanged. P6 installer/settings and P7 consumer installation, Player, Profiler/performance, Canvas composition, broad UX, and user acceptance remain NotRun. UI remains development source outside released 0.0.1 packages/tag.
+P5 first focused Green passed Edit31/31 and Play48/48. Final focused UI79 passed Edit31/31 and Play48/48, failed0/skip0, product Console empty. [Final Edit](../validation/ui-system/p5/final-edit.json) | [Final Play](../validation/ui-system/p5/final-play.json). Edit runId `7984bff4b98d43e0b8aba050ba85b45e`; Play connector run `34780-1791455587583642700` recovered the completed result after CLI timeout without rerunning. SourceRevision: `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`. The final snapshot verified 405 non-protected source matches and six protected files unchanged. P6 settings/root installation is implemented and focused-verified; P7 consumer/Player/Profiler/Canvas/UX/user acceptance remain pending. UI remains development source outside released 0.0.1 packages/tag.
+
+## P6: settings and root installation
+
+Namespace `TPLab.UI.Installation` remains in the base `TPLab.UI` assembly; it does not require Input System. `UIContextDefinitionData` is serialized registration metadata with `Id`, `Prefab`, `AssetKey`, `Role`, `HostId`, `InputMode`, `Retention`, and `HideStrategy`. Exactly one source is required. `UIContextSettings` is a borrowed ScriptableObject asset; Inspector values and script configuration use the same validator. IDs are unique/nonblank, enums must be declared values, the first HUD must refer to a HUD definition, and preload IDs must be registered and unique.
+
+```csharp
+public void UIContextSettings.Configure(UIContextDefinitionData[] definitions,
+    string firstHudDefinitionId = null, string[] preloadDefinitionIds = null);
+public string UIContextSettings.FirstHudDefinitionId { get; }
+public IReadOnlyList<string> UIContextSettings.PreloadDefinitionIds { get; }
+public IReadOnlyList<UIDefinition> UIContextSettings.CreateSnapshot();
+
+public UIContext UIContextInstaller.Context { get; }
+public void UIContextInstaller.Configure(UIContextSettings settings,
+    UIContextInstaller.HostBinding[] hosts = null,
+    ResourceManagerInstaller resources = null,
+    Func<string, CancellationToken, UniTask<GameObject>> loadPrefab = null,
+    EventSystem eventSystem = null, Func<IDisposable> acquireModalBlock = null,
+    UIHooks firstHudHooks = null);
+public override void UIContextInstaller.Install(ISceneRoot root);
+public override UniTask UIContextInstaller.PrepareAsync(ISceneRoot root, CancellationToken cancellationToken);
+public override UniTask UIContextInstaller.ReleaseAsync(ISceneRoot root);
+public override void UIContextInstaller.Uninstall(ISceneRoot root);
+```
+
+These qualified declarations identify the symbols; they are explanatory signatures, not a compilable class listing. `HostBinding(string id, Transform container)` borrows a live scene container and exposes `Id`/`Container`; the implicit `default` host is the owner root and cannot be registered again. Install rejects an unrelated/non-root owner or missing host. Resource and custom provider are mutually exclusive; keyed definitions require one. A borrowed resource installer must already be installed before UI. Direct prefab definitions need neither provider nor ResourceManager.
+
+Configure validates before replacing script configuration. Install snapshots the definitions and first-HUD/preload lists, creates one context, and registers metadata without cloning/loading. Later edits to the shared Settings asset do not change that installation. Prepare shares one attempt: source preloads create no displays, then first-HUD selection uses the ordinary context pipeline. The first preparation token controls the attempt; later tokens cancel only their own wait. Failure stays observable until Uninstall. Thread, owner identity, root/context cancellation, and late completion checks follow the Runtime XML contract.
+
+Order installers as required resource/input owners, project wiring, UI. Normal reverse Release awaits UI shutdown before earlier services terminate; Uninstall clears `Context` and provides idempotent destruction fallback. Release leaves the terminating context observable until Uninstall. Hosts, settings, prefab assets, provider, EventSystem, ResourceManager, and project hooks remain borrowed. Partial installation attempts cleanup and preserves both installation/cleanup failures. Neither UI installation nor a modal lease calls InputManagerInstaller.CompletePreparation: the project publishes input only after its complete root is prepared.
+
+The optional [project walkthrough](../../Assets/TPLab/Samples/UI/README.md) uses the existing Core Bootstrap/scene callbacks and optional Input System adapter. Scene ownership, visibility, gameplay permission, callback-owned loading UI, and retained clones remain separate lifetimes. Its import, Player, performance and user-acceptance evidence is recorded separately from installer unit tests.

@@ -113,3 +113,5 @@
 - 2026-10-08: [08 UIContext Modal·Input](2026-10-08-08-ui-input.md) — P4 focused Green Edit24/24·Play41/41; 소비/Player/UX는 P7 NotRun.
 
 - 2026-10-08: [09 UIContext Virtual ScrollRect](2026-10-08-09-ui-virtual-scroll.md) - P5 final UI79 Edit31/31 and Play48/48, source match verified; P7 remains NotRun.
+
+- 2026-10-08: [10 UIContext 설치/root/예제](2026-10-08-10-ui-installation.md) — 자동UI86/compile/신규19asset 검증 완료, P7 대기.

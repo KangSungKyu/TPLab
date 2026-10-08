@@ -1,0 +1,51 @@
+{
+  "runId": "5e5dae00663949369f44942c1c09d4d4",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests",
+  "mode": "EditMode",
+  "summary": {
+    "total": 33,
+    "passed": 32,
+    "failed": 1,
+    "skipped": 0,
+    "failures": [
+      "TPLab.UI.Tests.Installation.UIContextSettingsEditModeTests.InvalidDefinitionAndHudMetadataRejectsWithoutSceneObjects:   Expected: instance of <System.ArgumentException>\r\n  But was:  null\r\n"
+    ],
+    "passes": [
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HookCannotCloseItsAncestorButCanOperateIndependentTree",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HudSelectionRejectsWrongRoleParentAndConcurrentRequests",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.ParentValidationAndDuplicateScopeUseLogicalOwner",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.RegisterHostRejectsInvalidAndDuplicateRegistration",
+      "TPLab.UI.Tests.Installation.UIContextSettingsEditModeTests.ConfigureAndInspectorValuesCreateEquivalentDetachedSnapshots",
+      "TPLab.UI.Tests.UIContextInputContractTests.AcceptedUserCloseWaitsForSharedNativeCloseCompletion",
+      "TPLab.UI.Tests.UIContextInputContractTests.ForceCloseAndOwnerShutdownCancelOutstandingProjectVeto",
+      "TPLab.UI.Tests.UIContextInputContractTests.OpeningAndRetiredGenerationRejectInputCommands",
+      "TPLab.UI.Tests.UIContextInputContractTests.OrdinaryListenerFailureContinuesNotificationsCleanupAndLeaseRetirement",
+      "TPLab.UI.Tests.UIContextInputContractTests.PendingUserRequestRejectsConcurrentRequestAndPropagatesCallerCancellation",
+      "TPLab.UI.Tests.UIContextInputContractTests.UserCloseReasonsVetoWithoutChangingDisplayAndForceCloseIgnoresVeto",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenPublishesHandleAndSupportsRepeatedOpenedAwaitAndConveniencePath",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenRejectsUnknownAndDuplicateOwnerDefinition",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CleanupIsReverseOrderAndExactlyOnceIncludingEarlyRegistrationDispose",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CloseWaitCancellationDoesNotStopCleanupAndShutdownSharesCompletion",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ClosingHookAndCleanupFailuresDoNotSkipRemainingCleanupAndShareFailure",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ConstructorRejectsNullAndDestroyedOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.OpeningCallerCancellationCleansDisplayWithoutEndingOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays",
+      "TPLab.UI.Tests.UIContextLifecycleTests.SelfClosingHookReentryIsRejectedAndStillRunsCleanup",
+      "TPLab.UI.Tests.UIContextLoadingTests.FailedOrInvalidProviderResultRetriesOnlyOnNextRequest",
+      "TPLab.UI.Tests.UIContextLoadingTests.OwnerShutdownIgnoresLateProviderResultWithoutReleasingSource",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareAndRuntimeOpenShareOneLoadPerKey",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareWaitCancellationKeepsSharedLoadAlive",
+      "TPLab.UI.Tests.UIContextLoadingTests.ProviderDefinitionRequiresConfiguredLoaderAndExplicitSource",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.ContentExtentUsesFixedRowsAndGapsAndBecomesZeroForNoRows",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.EmptyingRowsUnbindsEveryActiveGenerationAndKeepsBorrowedInputsAlive",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.InvalidConfigurationIsRejectedBeforeReplacingWorkingState",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.InvalidCountDoesNotReplaceValidLogicalState",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.LayoutGroupOnContentIsRejectedBeforeReplacingWorkingState",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.TenThousandRowsKeepLogicalCountSeparateFromRealGraphicCells",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.WarmFixedViewportRefreshDoesNotContinueCreatingOrDestroyingCells"
+    ]
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T11:03:57.6486158Z"
+}

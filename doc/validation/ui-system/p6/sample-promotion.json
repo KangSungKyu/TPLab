@@ -1,0 +1,37 @@
+{
+  "copied": [
+    {
+      "source": "Temp\\UI-P6-Sample-Draft-20261008\\Runtime\\UIContextSampleController.cs",
+      "destination": "Assets\\TPLab\\Samples\\UI\\Runtime\\UIContextSampleController.cs",
+      "sha256": "8ff152639486b6f5fcb3ef70c070e0886bc5fbad8ebbc73a71df568ea08d5053"
+    },
+    {
+      "source": "Temp\\UI-P6-Sample-Draft-20261008\\Runtime\\UIContextSampleScopeInstaller.cs",
+      "destination": "Assets\\TPLab\\Samples\\UI\\Runtime\\UIContextSampleScopeInstaller.cs",
+      "sha256": "3a80f964dee499dafe8511549a43dc6712d32c47642b6f33dd645501802ecb8f"
+    },
+    {
+      "source": "Temp\\UI-P6-Sample-Draft-20261008\\Runtime\\TPLab.UISamples.OptionalInput.asmdef",
+      "destination": "Assets\\TPLab\\Samples\\UI\\Runtime\\TPLab.UISamples.OptionalInput.asmdef",
+      "sha256": "ae555c1baade455466f1445ce290e626b5ef35de41e2a88be0b924caddaa8dfe"
+    },
+    {
+      "source": "Temp\\UI-P6-Sample-Draft-20261008\\Editor\\UIContextSampleBuilder.cs",
+      "destination": "Assets\\TPLab\\Samples\\UI\\Editor\\UIContextSampleBuilder.cs",
+      "sha256": "b66a06b5c92f63c2578ccc7557f38bbafdfc8e2d09749ede07de70f54329e47e"
+    },
+    {
+      "source": "Temp\\UI-P6-Sample-Draft-20261008\\Editor\\TPLab.UISamples.OptionalInput.Editor.asmdef",
+      "destination": "Assets\\TPLab\\Samples\\UI\\Editor\\TPLab.UISamples.OptionalInput.Editor.asmdef",
+      "sha256": "2916d6653522fb291471a1c8a44e954c962ef96231d9ec1261f3b86fe0c422f4"
+    },
+    {
+      "source": "Temp\\UI-P6-Sample-Draft-20261008\\README.md",
+      "destination": "Assets\\TPLab\\Samples\\UI\\README.md",
+      "sha256": "7341e0f888e0dba2e4e6e59cbf13798a03996797eba96628adf954cd48b3acb7"
+    }
+  ],
+  "generatedOutputsExpected": 19,
+  "compiled": false,
+  "userFilesChanged": false
+}

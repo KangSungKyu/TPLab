@@ -1,0 +1,40 @@
+{
+  "sourceRevision": "21f89e2580f08be3903724efa0a42e5ad0567c83",
+  "results": {
+    "final-edit.json": [
+      33,
+      33,
+      0,
+      0
+    ],
+    "final-play.json": [
+      53,
+      53,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "README.md",
+    "doc/api/README.md",
+    "doc/api/UI.md",
+    "doc/ai/README.md",
+    "doc/ai/api/README.md",
+    "doc/ai/api/UI.md",
+    "doc/CORE_PLAN.md",
+    "doc/INDEX.md",
+    "doc/GAME_UI_SYSTEM.md",
+    "doc/GAME_UI_SYSTEM_TRACK.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-08-10-ui-installation.md",
+    "doc/validation/ui-system/p6/README.md",
+    "Assets/TPLab/Samples/UI/README.md"
+  ],
+  "assets": [
+    "Assets/TPLab/UI/Runtime/UIContextSettings.cs",
+    "Assets/TPLab/UI/Runtime/UIContextInstaller.cs",
+    "Assets/TPLab/Samples/UI/Settings/UIInput.inputactions",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapSingle.unity",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapAdditive.unity"
+  ]
+}

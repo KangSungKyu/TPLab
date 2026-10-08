@@ -107,3 +107,11 @@ bind/unbind callback 안의 같은 목록 Configure/SetCount/Refresh/ScrollToInd
 P5 source 반영 전 Temp 테스트14개는 계획이며 실제 Red/Green, consumer/Player/성능 성공이 아니다. 실제 상태는 track/검증 근거를 따른다.
 
 P5 구현 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`와 [실제 UI79 검증](validation/ui-system/p5/README.md)을 기록했다. Configure의 성공 교체는 이전 binding/cell을 정리하고 Count0부터 시작한다. 자동 native 이동은 물리 elastic/inertia를 보존하고 계산 범위만 clamp하며 count·viewport/jump는 물리 위치를 clamp한다. bind 실패는 모든 부분 세대를 취소·해제하고 자동 재시도를 중단하며 명시 command로 재시도한다. 성능·소비·사용자 수락은 P7이다.
+
+## P6 설정과 root 계약
+
+UIContextSettings는 private SerializeField DTO/readonly 속성으로 정의·선택 preload ID·선택 첫 HUD ID를 보관한다. Inspector와 Configure/CreateSnapshot이 같은 검증을 거치며 Install에서 정의·preload·첫 HUD를 owner-local로 복사한다. 같은 Settings가 나중에 바뀌어도 설치된 root의 준비를 바꾸지 않는다. Host/EventSystem/ResourceManager와 callback은 installer에 명시적으로 빌린다.
+
+Install은 Context와 등록만 만들며 표시 clone을 생성하지 않는다. Prepare는 선택 자산만 source로 준비한 뒤 선택 첫 HUD를 연다. Keyed 정의는 설치된 비폐기 ResourceManager 또는 custom provider 중 하나가 필요하며 Resource 초기화는 상위 root Prepare 순서를 따른다. Resource provider는 설치 시 manager 객체를 빌려 다른 owner로 바뀐 installer를 다시 탐색하지 않는다. 정상 순서는 Resource→Input→UI이며 역해제에서 UI Shutdown을 await한 뒤 상위 서비스를 종료한다. Uninstall은 자신의 Context 참조를 먼저 지우고 fallback Dispose를 수행한다. 다른 root의 호출은 거부하지만 파괴 중 같은 root의 fake-null은 정리를 막지 않는다. 별도 Factory/전역 Context/자동 Input 게시를 추가하지 않는다.
+
+[P6 Red 근거](validation/ui-system/p6/README.md)를 기록했고 구현과 최종 Green은 진행 중이다.

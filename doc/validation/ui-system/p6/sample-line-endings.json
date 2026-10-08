@@ -1,0 +1,22 @@
+{
+  "reason": "Match repository eol=lf policy and exact consumer Git blob verification",
+  "changed": [
+    "Assets/TPLab/Samples/UI.meta",
+    "Assets/TPLab/Samples/UI/Editor.meta",
+    "Assets/TPLab/Samples/UI/README.md.meta",
+    "Assets/TPLab/Samples/UI/Runtime.meta",
+    "Assets/TPLab/Samples/UI/Editor/TPLab.UISamples.OptionalInput.Editor.asmdef.meta",
+    "Assets/TPLab/Samples/UI/Editor/UIContextSampleBuilder.cs.meta",
+    "Assets/TPLab/Samples/UI/Runtime/TPLab.UISamples.OptionalInput.asmdef.meta",
+    "Assets/TPLab/Samples/UI/Runtime/UIContextSampleController.cs",
+    "Assets/TPLab/Samples/UI/Runtime/UIContextSampleController.cs.meta",
+    "Assets/TPLab/Samples/UI/Runtime/UIContextSampleScopeInstaller.cs.meta",
+    "Assets/TPLab/UI/Runtime/UIContextInstaller.cs.meta",
+    "Assets/TPLab/UI/Runtime/UIContextSettings.cs.meta",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextSettingsEditModeTests.cs.meta",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextInstallerPlayModeTests.cs.meta",
+    "Assets/TPLab/UI/InputSystem/Tests/PlayMode/UIContextInstallerInputSystemPlayModeTests.cs.meta"
+  ],
+  "onlyCrLfToLf": true,
+  "trailingNativeYamlWhitespacePreserved": true
+}

@@ -1,0 +1,11 @@
+{
+  "expectedNewTests": 7,
+  "newSources": {
+    "UIContextSettings.cs": "Assets/TPLab/UI/Runtime/UIContextSettings.cs",
+    "UIContextInstaller.cs": "Assets/TPLab/UI/Runtime/UIContextInstaller.cs",
+    "UIContextSettingsEditModeTests.cs": "Assets/TPLab/UI/Tests/EditMode/UIContextSettingsEditModeTests.cs",
+    "UIContextInstallerPlayModeTests.cs": "Assets/TPLab/UI/Tests/PlayMode/UIContextInstallerPlayModeTests.cs",
+    "UIContextInstallerInputSystemPlayModeTests.cs": "Assets/TPLab/UI/InputSystem/Tests/PlayMode/UIContextInstallerInputSystemPlayModeTests.cs"
+  },
+  "status": "signature scaffolds only; actual tests pending"
+}

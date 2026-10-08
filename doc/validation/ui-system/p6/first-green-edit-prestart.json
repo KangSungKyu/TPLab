@@ -1,0 +1,6 @@
+{
+  "testsStarted": false,
+  "nativeOutputExists": false,
+  "reason": "CLI discovery returned no Unity instances at test preflight after compile request",
+  "sameEditorPid": 24376
+}

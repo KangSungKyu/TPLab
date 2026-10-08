@@ -158,4 +158,6 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 
 2026-10-08 UI P4 source `deb222cf6fda752d3e0dd6d22bda67f9d60e9e16`: explicit EventSystem focus/modal/user-close와 선택 InputSystem native adapter를 구현했다. [UI65/65](validation/ui-system/p4/README.md) 실패0skip0, 입력398/보호6 unchanged/제품Console0. 소비/graphics Player·성능·사용자UX는P7이며 다음P5는고정높이세로 Virtual ScrollRect다.
 
-2026-10-08 UI P5 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`: viewport 상한을 가지는 고정 높이 Virtual ScrollRect와 binding 세대·취소를 구현했다. [UI79/79](validation/ui-system/p5/README.md), 실패0·skip0, 입력406/보호6 unchanged/제품Console0. 1,000·10,000 표시와 재사용은 기능 검증이며 성능 측정 결과가 아니다. P6 설정/root/예제 이후 P7 독립 소비·그래픽 Player·성능·사용자 확인을 진행한다.
+2026-10-08 UI P5 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`: viewport 상한을 가지는 고정 높이 Virtual ScrollRect와 binding 세대·취소를 구현했다. [UI79/79](validation/ui-system/p5/README.md), 실패0·skip0, 입력406/보호6 unchanged/제품Console0. 1,000·10,000 표시와 재사용은 기능 검증이며 성능 측정 결과가 아니다.
+
+2026-10-08 UI P6: `TPLab.UI.Installation` settings/root installer와 자체 UI/Input sample을 개발 소스에 추가했다. [second Green](validation/ui-system/p6/README.md)은 Edit33/33·Play53/53, 실패0·skip0이다. 최종 source revision과 sample evidence는 `21f89e2580f08be3903724efa0a42e5ad0567c83` / `P6 final Edit33/33 + Play53/53; sample authoring19/compile verified; sample Player/UX pending P7` 상태로 보류하며 부모 통합 후 확정한다. P7 독립 소비·graphics Player·Profiler/performance·broad UX·user acceptance는 미실행.

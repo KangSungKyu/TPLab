@@ -1,0 +1,51 @@
+test_actual_result_exact_fresh_graphics_and_honest_profiler_availability (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_actual_result_exact_fresh_graphics_and_honest_profiler_availability) ... ERROR
+test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection) ... ERROR
+test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape) ... ERROR
+test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only) ... ERROR
+
+======================================================================
+ERROR: test_actual_result_exact_fresh_graphics_and_honest_profiler_availability (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_actual_result_exact_fresh_graphics_and_honest_profiler_availability)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\test_ui_source_consumer_contract.py", line 254, in test_actual_result_exact_fresh_graphics_and_honest_profiler_availability
+    self.assertTrue(validate_result(result, **arguments))
+                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\run_ui_source_consumer.py", line 19, in validate_result
+    raise NotImplementedError("P7 actual graphics Player result validation is not implemented.")
+NotImplementedError: P7 actual graphics Player result validation is not implemented.
+
+======================================================================
+ERROR: test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\test_ui_source_consumer_contract.py", line 169, in test_allowlist_runtime_metas_dependencies_optional_input_and_link_rejection
+    base = source_files(project, include_input=False)
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\run_ui_source_consumer.py", line 8, in source_files
+    raise NotImplementedError("P7 runtime source allowlist is not implemented.")
+NotImplementedError: P7 runtime source allowlist is not implemented.
+
+======================================================================
+ERROR: test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\test_ui_source_consumer_contract.py", line 206, in test_paths_are_fresh_direct_temp_child_and_ui_evidence_without_links_or_escape
+    output, evidence = resolve_ui_paths(project, output_arg, evidence_arg)
+                       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\run_ui_source_consumer.py", line 13, in resolve_ui_paths
+    raise NotImplementedError("P7 scoped fresh output/evidence resolution is not implemented.")
+NotImplementedError: P7 scoped fresh output/evidence resolution is not implemented.
+
+======================================================================
+ERROR: test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only (test_ui_source_consumer_contract.UiSourceConsumerContractTests.test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\test_ui_source_consumer_contract.py", line 288, in test_source_identity_exact_head_and_allowlisted_git_blob_bytes_only
+    identity = source_identity(project, expected_revision=revision)
+  File "C:\Users\PC\Projects\TPLab\Temp\UI-P7-Consumer-Draft-20261008\run_ui_source_consumer.py", line 24, in source_identity
+    raise NotImplementedError("P7 exact source revision and blob verification is not implemented.")
+NotImplementedError: P7 exact source revision and blob verification is not implemented.
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.366s
+
+FAILED (errors=4)

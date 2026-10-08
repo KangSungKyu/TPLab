@@ -1,0 +1,32 @@
+{
+  "reason": "P5 source/tests/docs/evidence committed and no running reference uses these drafts",
+  "removedOwnedFiles": [
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Draft-20261008\\VirtualCellBinding.cs",
+      "sha256": "3271ce8d6cf8355ae251d8c4a3f237e21b3f7b407f2b6e26469803997680ea68"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Draft-20261008\\VirtualScrollRect.cs",
+      "sha256": "83ba3c8e13fdd47590ca6e10d0998405e70c6c09bf741abced956d728f4fc80e"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Draft-20261008\\VirtualScrollRectEditModeTests.cs",
+      "sha256": "b1f639ddaca2f9cbacb22225d79cbef25288eabdc7f7035415c0cdc708209e2d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Draft-20261008\\VirtualScrollRectPlayModeTests.cs",
+      "sha256": "84cedd3c6f518b7ffe606fc9c599f33944fa4c6e069855f057fa5c4371dbbb73"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Docs-20261008\\draft.md",
+      "sha256": "4a4a551d2f5296fe2f41e589e92d25155d6d6e373d741c35ae01c1b1fbc67bb2"
+    }
+  ],
+  "removedEmptyDirectories": [
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Draft-20261008",
+    "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UI-P5-Docs-20261008"
+  ],
+  "recursiveDeleteUsed": false,
+  "protectedFilesUnchanged": 6,
+  "otherTempRetainedForP6P7": true
+}

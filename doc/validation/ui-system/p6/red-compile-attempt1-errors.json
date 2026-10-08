@@ -1,0 +1,12 @@
+{
+  "testsStarted": false,
+  "errors": [
+    "Assets\\TPLab\\UI\\Tests\\PlayMode\\UIContextInstallerPlayModeTests.cs(7,13): error CS0234: The type or namespace name 'Core' does not exist in the namespace 'TPLab' (are you missing an assembly reference?)",
+    "Assets\\TPLab\\UI\\Tests\\PlayMode\\UIContextInstallerPlayModeTests.cs(8,13): error CS0234: The type or namespace name 'Core' does not exist in the namespace 'TPLab' (are you missing an assembly reference?)",
+    "Assets\\TPLab\\UI\\Tests\\PlayMode\\UIContextInstallerPlayModeTests.cs(172,17): error CS0246: The type or namespace name 'SceneOwnedRoot' could not be found (are you missing a using directive or an assembly reference?)",
+    "Assets\\TPLab\\UI\\Tests\\EditMode\\UIContextSettingsEditModeTests.cs(4,13): error CS0234: The type or namespace name 'Core' does not exist in the namespace 'TPLab' (are you missing an assembly reference?)",
+    "Assets\\TPLab\\UI\\InputSystem\\Tests\\PlayMode\\UIContextInstallerInputSystemPlayModeTests.cs(8,18): error CS0234: The type or namespace name 'Lifecycle' does not exist in the namespace 'TPLab.Core' (are you missing an assembly reference?)",
+    "Assets\\TPLab\\UI\\InputSystem\\Tests\\PlayMode\\UIContextInstallerInputSystemPlayModeTests.cs(9,18): error CS0234: The type or namespace name 'ResourceManagement' does not exist in the namespace 'TPLab.Core' (are you missing an assembly reference?)"
+  ],
+  "reason": "Existing test asmdef edits had not been imported into native assembly definitions"
+}

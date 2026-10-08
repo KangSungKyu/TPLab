@@ -30,6 +30,7 @@
 | [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext 설계 근거·Phase·대규모 검증 조건 | 설계 기록, HUD·Popup·owner/depth·Canvas·virtual scroll 1,000/10,000 |
 | [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | P0 계약: 명시 root·borrowed 자산, 즉시 handle/Open await, cleanup·입력 경계 |
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |
+| [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer Edit/Play 검증 결과 확인 | second Green Edit33/33·Play53/53; final source revision/sample evidence pending |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |
