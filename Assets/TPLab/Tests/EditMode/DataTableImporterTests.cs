@@ -340,6 +340,39 @@ namespace TPLab.Core.Tests
             finally { UnityEngine.Object.DestroyImmediate(settings); }
         }
 
+        [Test]
+        public void ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath()
+        {
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                Assert.Ignore("Windows path boundary regression.");
+            string root = "Assets/ImporterLongPath_" + Guid.NewGuid().ToString("N");
+            string owner = "schema_" + Guid.NewGuid().ToString("N");
+            int padding = 240 - Path.GetFullPath(root + "/" + owner + ".tableimport.json").Length - 1;
+            Assert.That(padding, Is.InRange(1, 120), "Validation checkout must allow a bounded path fixture.");
+            string folder = root + "/" + new string('x', padding);
+            string manifest = folder + "/" + owner + ".tableimport.json";
+            Assert.That(Path.GetFullPath(manifest).Length, Is.EqualTo(240));
+            try
+            {
+                var files = DataTableGenerator.Generate(DataTableGenerator.ReadSchema(SchemaJson), "Game.Data");
+                Assert.That(DataTableGeneratedFiles.Apply(folder, owner, "v1", files), Is.True);
+                string meta = folder + "/TextRow.g.cs.meta";
+                File.WriteAllText(meta, "owned meta");
+                var changed = files.ToDictionary(pair => pair.Key, pair => pair.Value + "// update\n");
+                Assert.That(DataTableGeneratedFiles.Apply(folder, owner, "v2", changed), Is.True);
+                foreach (var pair in changed)
+                    Assert.That(File.ReadAllText(folder + "/" + pair.Key), Is.EqualTo(pair.Value));
+                Assert.That(File.ReadAllText(manifest), Does.Contain("v2"));
+                Assert.That(File.ReadAllText(meta), Is.EqualTo("owned meta"));
+                Assert.That(Directory.GetFiles(folder, "*.tmp"), Is.Empty);
+            }
+            finally
+            {
+                if (Directory.Exists(root))
+                    Directory.Delete(root, true);
+            }
+        }
+
         private static void WithProject(Action<DataTableImportSettings, string, string> test)
         {
             string folder = "Assets/ImporterServiceTest_" + Guid.NewGuid().ToString("N");
