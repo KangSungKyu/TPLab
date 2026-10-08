@@ -1,0 +1,33 @@
+{
+  "total": 7,
+  "passed": 0,
+  "failed": 7,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.UIContextReuseTests.ClosedObserverFailureDiscardsRetiredCloneWithoutAffectingNewDisplay: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextReuseTests.PartialOpeningOrCleanupFailureDiscardsReusableClone: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextReuseTests.ReuseCacheKeepsOnlyOneInactiveCloneAfterNestedCloseCallbacks: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextReuseTests.ReuseReopensSameCloneWithFreshGenerationAndCleanup: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextReuseTests.RootDestructionDestroysCachedCloneAndPreservesBorrowedSource: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextReuseTests.RuntimeLazyOpenUsesInactivePreparationBeforeActivation: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextReuseTests.ShutdownDestroysCachedCloneAndPreservesBorrowedSource: System.NotSupportedException : Asset providers and reuse require P2."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.UIContextReuseTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 1784,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 1784,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

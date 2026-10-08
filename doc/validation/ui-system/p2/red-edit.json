@@ -1,0 +1,31 @@
+{
+  "total": 5,
+  "passed": 0,
+  "failed": 5,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.UIContextLoadingTests.FailedOrInvalidProviderResultRetriesOnlyOnNextRequest: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextLoadingTests.OwnerShutdownIgnoresLateProviderResultWithoutReleasingSource: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextLoadingTests.PrepareAndRuntimeOpenShareOneLoadPerKey: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextLoadingTests.PrepareWaitCancellationKeepsSharedLoadAlive: System.NotSupportedException : Asset providers and reuse require P2.",
+    "TPLab.UI.Tests.UIContextLoadingTests.ProviderDefinitionRequiresConfiguredLoaderAndExplicitSource: System.NotSupportedException : Asset providers and reuse require P2."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "EditMode",
+    "filter": "TPLab.UI.Tests.UIContextLoadingTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 5288,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 5288,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

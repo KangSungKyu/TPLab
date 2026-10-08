@@ -151,3 +151,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-08 UI 구현 시작: 사용자가 P0~P7 진행을 승인했다. UIContext/TPLab.UI와 기존 Core·UniTask·uGUI 참조, 선택적 Input adapter 경계를 채택하고 승인된 설계852ee960에서 track/P0 branch를 생성했다. 실제 상태/완료 기준은 [UI track](GAME_UI_SYSTEM_TRACK.md), 공용 계약은 [GAME_UI_SYSTEM](GAME_UI_SYSTEM.md)을 따른다. Core 재편·새 배포/version은 자동 포함하지 않는다.
 
 2026-10-08 UI P1: source545c342에서 root 수명·표시 handle/token·cleanup·실패/취소·native 파괴 fallback을 구현했다. [현재 근거](validation/ui-system/p1/README.md)는 UI18/18·기존root10/10 실패0/skip0이며 [사람 API](api/UI.md)/[AI API](ai/api/UI.md)를 함께 갱신한다. provider/reuse/HUD/Canvas/input/virtual과 최종 소비/성능/사용자 gate는 후속이며0.0.1배포는 그대로다. 다음은P2 shared 준비와 owner범위의 비활성 clone 재사용이다.
+
+2026-10-08 UI P2 sourcecea4268: explicit provider 공유/source-only 준비·runtime lazy·clone Reuse 구현, [UI Edit14/Play16](validation/ui-system/p2/README.md)30/30 실패0/skip0. [회고06](retrospectives/2026-10-08-06-ui-loading-reuse.md)를 기록했다. 다음 P3는 HUD/parent/Canvas/order/숨김이며 P7 소비/Player/성능/최종 UX는 미실행이다.

@@ -2,65 +2,85 @@
 
 ## Module / Namespace / Assembly
 
-`TPLab.UI` / `TPLab.UI` / runtime source [Assets/TPLab/UI/Runtime](../../../Assets/TPLab/UI/Runtime). Runtime assembly references `TPLab.Core`, `UniTask`, and `UnityEngine.UI`. Confirmed project environment: Unity 6000.3.18f1, UniTask 2.5.11, uGUI 2.0.0.
+`TPLab.UI` / `TPLab.UI` / [runtime source](../../../Assets/TPLab/UI/Runtime). Runtime assembly references `TPLab.Core`, `UniTask`, and `UnityEngine.UI`. Confirmed environment: Unity 6000.3.18f1, UniTask 2.5.11, uGUI 2.0.0.
 
 ## SourceRevision / SourcePath / HumanContract
 
-SourceRevision: `545c342f80061c66ede2fc7f168cfc1c2cb13cee`. Source paths: [UIContext](../../../Assets/TPLab/UI/Runtime/UIContext.cs), [UIHandle](../../../Assets/TPLab/UI/Runtime/UIHandle.cs), [definition](../../../Assets/TPLab/UI/Runtime/UIDefinition.cs), [request](../../../Assets/TPLab/UI/Runtime/UIOpenRequest.cs), [hooks](../../../Assets/TPLab/UI/Runtime/UIHooks.cs), [enums](../../../Assets/TPLab/UI/Runtime/UIEnums.cs). Human contract: [doc/api/UI.md](../../api/UI.md); design contract: [GAME_UI_SYSTEM.md](../../GAME_UI_SYSTEM.md).
+SourceRevision: `cea4268b82e0f119e0d4dbc8c788b7632d21f3ee`. Sources: [UIContext](../../../Assets/TPLab/UI/Runtime/UIContext.cs), [UIHandle](../../../Assets/TPLab/UI/Runtime/UIHandle.cs), [UIDefinition](../../../Assets/TPLab/UI/Runtime/UIDefinition.cs), [UIOpenRequest](../../../Assets/TPLab/UI/Runtime/UIOpenRequest.cs), [UIHooks](../../../Assets/TPLab/UI/Runtime/UIHooks.cs), [enums](../../../Assets/TPLab/UI/Runtime/UIEnums.cs). Human contract: [doc/api/UI.md](../../api/UI.md). Design contract: [GAME_UI_SYSTEM.md](../../GAME_UI_SYSTEM.md).
 
 ## ImplementationStatus / ValidationStatus / Evidence
 
-ImplementationStatus: **Implemented (P1 scope)**. ValidationStatus: **Partial**. Original Unity Editor PID 24376, Unity 6000.3.18f1: UI EditMode 9/9 and PlayMode 9/9, skip 0; existing `SceneRootTests` PlayMode regression 10/10, skip 0; compile errors 0. The two expected SceneRoot fixture Console errors were asserted by `LogAssert.Expect`; unexpected errors 0. Evidence: [Edit](../../validation/ui-system/p1/refactor-edit.json), [Play](../../validation/ui-system/p1/refactor-play.json), [root regression](../../validation/ui-system/p1/root-regression-play.json), [expected Console errors](../../validation/ui-system/p1/console-expected-errors.json). Consumer install, Player, Profiler, broad UX, and user acceptance are P7 **NotRun**.
+ImplementationStatus: **Implemented (P1/P2 scope)**. ValidationStatus: **Partial**. On original Unity Editor PID 24376, combined P2 and P1 lifecycle suite passed: EditMode 14/14 and PlayMode 16/16, failed 0, skipped 0; compile errors 0 and product Console errors 0. These totals include 12 P2 tests and 18 P1 regression tests. Evidence: [EditMode](../../validation/ui-system/p2/final-edit.json), [PlayMode](../../validation/ui-system/p2/final-play.json). An earlier CLI invocation timed out with no result; it is not counted as a pass or test failure: [transport record](../../validation/ui-system/p2/transport-rejected.json). Consumer installation, Player, Profiler, broad UX, and user acceptance remain P7 **NotRun**. UI is development source, separate from released 0.0.1 Core/Input/Editor packages/tag; no UI release version is set.
 
 ## Symbol / Signature / Constraints
 
-- `UIDefinition(string id, GameObject prefab = null, string assetKey = null, UIRole role = UIRole.Popup, string hostId = "default", UIInputMode inputMode = UIInputMode.Modeless, UIRetention retention = UIRetention.DestroyOnClose, UIHideStrategy hideStrategy = UIHideStrategy.DeactivateView)`. Properties: `Id`, `Prefab`, `AssetKey`, `Role`, `HostId`, `InputMode`, `Retention`, `HideStrategy`.
-- `UIOpenRequest(string definitionId, UIHandle parent = null, UIInputMode? inputMode = null, UIHooks hooks = null)`. Properties: `DefinitionId`, `Parent`, `InputMode`, `Hooks`.
+P2 changes no public signature:
+
+- `UIDefinition(string id, GameObject prefab = null, string assetKey = null, UIRole role = UIRole.Popup, string hostId = "default", UIInputMode inputMode = UIInputMode.Modeless, UIRetention retention = UIRetention.DestroyOnClose, UIHideStrategy hideStrategy = UIHideStrategy.DeactivateView)`; properties `Id`, `Prefab`, `AssetKey`, `Role`, `HostId`, `InputMode`, `Retention`, `HideStrategy`.
+- `UIOpenRequest(string definitionId, UIHandle parent = null, UIInputMode? inputMode = null, UIHooks hooks = null)`; properties `DefinitionId`, `Parent`, `InputMode`, `Hooks`.
 - `UIContext(GameObject rootObject, Func<string, CancellationToken, UniTask<GameObject>> loadPrefab = null, Func<IDisposable> acquireModalBlock = null)`; properties `RootObject`, `LifetimeToken`, `IsDisposed`, `Fault`, `Displays`.
 - `void UIContext.Register(UIDefinition definition)`; `UniTask UIContext.PrepareAsync(string definitionId, CancellationToken cancellationToken = default)`.
 - `UIHandle UIContext.BeginOpen(UIOpenRequest request, CancellationToken cancellationToken = default)`; `UniTask<UIHandle> UIContext.OpenAsync(UIOpenRequest request, CancellationToken cancellationToken = default)`.
 - `UniTask UIContext.ShutdownAsync()`; `void UIContext.Dispose()`; `UIContext : IDisposable`.
-- `UIHandle` properties: `Context`, `Id`, `DefinitionId`, `Parent`, `State`, `ViewObject`, `LifetimeToken`, `Opened`, `Closed`; methods `IDisposable RegisterCleanup(Action cleanup)` and `UniTask CloseAsync(CancellationToken cancellationToken = default)`.
-- `UIHooks`: settable `Func<UIHandle, CancellationToken, UniTask> PrepareAsync`, `OpenAsync`, `CloseAsync`; `Action<UIHandle> Closed`.
+- `UIHandle` properties `Context`, `Id`, `DefinitionId`, `Parent`, `State`, `ViewObject`, `LifetimeToken`, `Opened`, `Closed`; methods `IDisposable RegisterCleanup(Action cleanup)` and `UniTask CloseAsync(CancellationToken cancellationToken = default)`.
+- `UIHooks` callbacks: `Func<UIHandle, CancellationToken, UniTask> PrepareAsync`, `OpenAsync`, `CloseAsync`; `Action<UIHandle> Closed`.
 - Enums: `UIState { Opening, Visible, Closing, Closed }`; `UIRole { Hud, Popup }`; `UIInputMode { Modeless, Modal }`; `UIRetention { DestroyOnClose, Reuse }`; `UIHideStrategy { DeactivateView, DisableCanvasRendering }`.
 
 ## Inputs / Outputs / Errors
 
-`Register` requires nonempty unique ID and exactly one live direct prefab or nonempty key; metadata must use a defined policy. P1 rejects key/provider and `Reuse` with `NotSupportedException` (P2), HUD/explicit host with `NotSupportedException` (P3), Modal/non-default hide strategy with `NotSupportedException` (P4). `BeginOpen` rejects non-null parent (`NotSupportedException`, P3), invalid input enum (`ArgumentException`), Modal (`NotSupportedException`, P4), pre-canceled token (`OperationCanceledException`), and same-owner duplicate definition (`InvalidOperationException`). Unknown definition is `ArgumentException`; destroyed borrowed prefab is `InvalidOperationException`.
+`UIContext` construction with null/destroyed root throws `ArgumentNullException`. `Register(null)` throws `ArgumentNullException`; empty/duplicate ID, invalid metadata, or not exactly one live direct prefab/nonempty key throws `ArgumentException`; key without configured provider throws `InvalidOperationException`; unsupported HUD/host/renderer-only policy (P3) or Modal policy (P4) throws `NotSupportedException`. `PrepareAsync` unknown ID throws `ArgumentException`; caller/owner cancellation throws `OperationCanceledException`; destroyed direct source, provider returning no live prefab, or no-longer-live resolved source throws `InvalidOperationException`; provider exceptions propagate. `BeginOpen` null request throws `ArgumentNullException`, unknown ID throws `ArgumentException`, non-null parent and Modal mode throw `NotSupportedException`, invalid mode throws `ArgumentException`, pre-cancelled token throws `OperationCanceledException`, and duplicate active/closing definition throws `InvalidOperationException`. Calls after owner shutdown throw `ObjectDisposedException` where declared. Opening failure is reported through `Opened` after partial cleanup; if cleanup fails too, both errors are aggregated. Close/Shutdown cleanup errors are aggregated after remaining cleanup is attempted.
 
-`PrepareAsync` validates direct prefab readiness only; no instantiate/warm-up. `BeginOpen` returns a generation immediately and publishes `Opened` after lifecycle hooks. `OpenAsync` awaits and returns the same handle. Opening failure/cancellation is observable through `Opened` after partial cleanup. `Closed` represents cleanup/observer/native failures; open failure alone does not fault it. Cleanup failures are aggregated after remaining cleanup attempts. Root null/destroyed at construction throws `ArgumentNullException`; wrong thread, prohibited self-reentry, or lifecycle mutation during cleanup/native application throws `InvalidOperationException`; operations after termination throw `ObjectDisposedException` where declared.
+`UIContext.PrepareAsync` is optional **asset preparation only**. For a direct prefab it verifies the borrowed source is alive; for a key it resolves a borrowed prefab through the provider. It does not instantiate/warm a clone. Same-key provider loads share one context preparation, and a successful borrowed prefab remains cached per key until owner shutdown. Caller cancellation cancels only that caller's wait; owner shutdown cancels waiters. Failed shared preparation is removed and retries only on a later explicit request. A late provider result after owner shutdown is ignored, not displayed/cached; neither provider nor borrowed source is destroyed/released.
+
+`BeginOpen` returns a generation immediately. It rejects a non-null parent (P3), Modal input (P4), a pre-cancelled request (`OperationCanceledException`), and duplicate active/closing definition (`InvalidOperationException`). `Opened` reports opening success/failure after partial cleanup. `OpenAsync` is the same lifecycle path and returns the same handle after `Opened` succeeds.
 
 ## Ownership / Lifecycle / Threading
 
-Connect context → register → optional prepare → begin/open → await `Opened` → close → await `ShutdownAsync` before root/scene unload. Context owns display clones/storage, per-display hook snapshot, cleanup registrations, and lifetime. Root, direct prefab source, provider, input services, and lease factory are borrowed and are never destroyed/disposed by Context. Instantiation is under inactive storage; `PrepareAsync` hook runs inactive; clone is then parented to borrowed root and activated before `OpenAsync` hook. Hooks must observe cancellation and stop touching their clone; cancellation cannot forcibly stop project code. `Closed` is invoked after native clone destruction, state becomes Closed and `ViewObject` clears, then the shared `Closed` task completes. All APIs/callbacks require Unity main thread.
+Context owns clones/storage, handles, callback snapshots, per-generation cleanup, provider-key preparation coordination, and at most one inactive reused clone per definition. Root, source prefab, provider, and external services are borrowed. All Unity object operations/callbacks run on the main thread.
+
+Opening resolves the source, takes a cached clone or instantiates under inactive context storage, runs request `UIHooks.PrepareAsync` while the clone is inactive, reparents to the borrowed root and activates it, then runs `UIHooks.OpenAsync`. The display `PrepareAsync` hook is not `UIContext.PrepareAsync`: the latter only prepares/resolves an asset and never creates a clone.
+
+`DestroyOnClose` destroys the clone. `Reuse` retains a clone only after a successful visible close, cleanup, and `Closed` observer. Every display gets a fresh handle/token/cleanup generation. Opening failure/cancellation and any close/cleanup/native/observer failure discard the clone. `Closed` runs after native retirement and `State == Closed`/`ViewObject == null`; its result completes only after observer and cache/discard processing. A new generation opened by the observer is independent of retirement for the previous generation.
 
 ## Concurrency / Cancellation / FailureCleanup
 
-`BeginOpen`/`OpenAsync` caller cancellation stops opening and initiates that display's cleanup; registration detaches once Visible. `UIHandle.LifetimeToken` cancels at termination start. Prepare caller cancellation affects that request only. `CloseAsync` cancellation affects only that caller's wait; close cleanup continues. `ShutdownAsync` shares completion and cancels owner/pending work; it does not own cancellation of external asset/input services. `Dispose` starts synchronous fallback without awaiting async hooks. Cleanup callbacks run once in reverse registration order; early registration Dispose runs its action immediately once. `Closed` observer errors join cleanup errors. Synchronous self-close/self-await/shutdown is rejected; after a hook genuinely yields, self-await cycles and attempts to shut down its own context are forbidden and not reliably detected. Independent display composition is allowed. Avoid assuming `UniTask.AsTask()` maps an `OperationCanceledException` to `TaskStatus.Canceled`; this bridge may report `Faulted` with the cancellation exception.
+- Same-key provider requests share in-flight asset preparation. `PrepareAsync` cancellation is waiter-only; shared work follows context lifetime.
+- Failed preparation entry is removed; retry requires a later explicit Prepare/Open call.
+- Owner shutdown cancels waiters and prevents late provider publication without disposing the provider/source. The provider operation may still finish after shutdown.
+- Opening request cancellation starts partial cleanup and is detached after Visible. `UIHandle.LifetimeToken` cancels when that generation begins termination.
+- `CloseAsync` cancellation affects only the caller's wait; started cleanup continues. Cleanup runs once in reverse registration order; early registration disposal invokes that cleanup once immediately.
+- Opening error is surfaced by `Opened`; if cleanup succeeds, it does not by itself fault `Closed`. If cleanup also fails, opening result preserves both errors. Closing/cleanup/native/observer failures are preserved after remaining cleanup attempts.
+- Shutdown is idempotent, rejects new work, cancels owner/preparation waiters, closes accepted displays, destroys cached clones and storage, and shares completion. Shutdown waits for display retirement and cached clone destruction, not a borrowed provider's arbitrary late completion.
+- `Dispose` starts fallback without awaiting asynchronous hooks. Root destruction also starts owner fallback. Await `ShutdownAsync` before unloading the root.
 
 ## Configuration / ExtensionPoints
 
-Supported P1 configuration: one borrowed direct prefab, role `Popup`, host ID `default`, `Modeless`, `DestroyOnClose`, `DeactivateView`. Constructor `loadPrefab` and `acquireModalBlock` are reserved but never invoked by P1. `UIHooks` values are copied at request acceptance and callbacks remain project-owned. Provider implementation/cache, reuse, HUD, parent tree, host/Canvas registration/order, Modal/Input adapter, renderer-only hide, and Virtual ScrollRect remain unimplemented.
+Supported P2 display configuration: direct prefab or provider key; role `Popup`; host `default`; `Modeless`; `DeactivateView`; `DestroyOnClose` or `Reuse`. Provider is supplied through the existing constructor delegate. `acquireModalBlock` remains reserved for P4. HUD selection, parent tree, explicit host/Canvas order (P3), renderer-only hide (P3) and Modal/Input behavior (P4), and Virtual ScrollRect (P5) remain deferred and rejected where applicable. P2 does not add factory, provider, installation, or package APIs.
 
 ## RequiredSequence / ForbiddenUsage
 
-1. Construct against the actual persistent/scene root.
-2. `Register` definitions using the supported direct-Prefab P1 policy.
-3. Optionally call `PrepareAsync`; it does not instantiate.
-4. Call `BeginOpen` and observe `handle.Opened`, or call `OpenAsync` for the same path.
-5. Register precise synchronous cleanup; close the handle and await `ShutdownAsync` before root destruction.
+1. Construct `UIContext` against a live persistent/scene root; supply `loadPrefab` when definitions use keys.
+2. Register each definition with exactly one source.
+3. Optionally call `UIContext.PrepareAsync` to prepare/resolve the asset. It does not create a clone.
+4. Call `BeginOpen` and await `Opened`, or use `OpenAsync`. Display-specific inactive clone/data preparation runs in request `UIHooks.PrepareAsync`.
+5. Close the handle and await its shared result. Await `ShutdownAsync` before root/scene unload.
 
-Do not dispose borrowed root/prefab/provider/services, destroy `ViewObject`, treat enum availability as feature support, register async-void cleanup, self-await after yield, or use `Dispose` as graceful async shutdown. P1 is development source only and is not in released 0.0.1 packages/tag.
+Do not destroy/dispose borrowed roots, source prefabs, provider or services; do not stop shared preparation when one waiter cancels; do not expect automatic retry; do not destroy `ViewObject`; do not retain failed/dirty clones; do not use a stale handle to affect a later generation; do not use `Dispose` as graceful asynchronous shutdown. Hooks must observe cancellation and stop touching a terminated clone. Synchronous self-close/self-await/shutdown is rejected; self-await after yielding remains forbidden even though the synchronous guard cannot reliably detect it. `UniTask.AsTask()` may report an `OperationCanceledException` as `TaskStatus.Faulted`; inspect the exception.
 
 ## Example / Compatibility / Limitations
 
+Explanatory only; **NotRun** as a standalone example:
+
 ```csharp
-var context = new UIContext(ownerRoot);
-context.Register(new UIDefinition("settings", prefab: settingsPrefab));
-var handle = context.BeginOpen(new UIOpenRequest("settings"));
+var context = new UIContext(ownerRoot, loadPrefab: LoadPrefabAsync);
+context.Register(new UIDefinition("settings", assetKey: "ui/settings",
+    retention: UIRetention.Reuse));
+await context.PrepareAsync("settings"); // asset only
+var handle = context.BeginOpen(new UIOpenRequest("settings",
+    hooks: new UIHooks { PrepareAsync = PrepareViewAsync }));
 await handle.Opened;
 await handle.CloseAsync();
 await context.ShutdownAsync();
 ```
 
-Explanatory only; **NotRun** as a standalone example. P1 lifecycle tests do not verify this exact snippet, consumer installation, Player, Profiler, broad UX, or user acceptance. No migration compatibility, new package version, or support beyond the stated Unity/package environment is claimed.
+P2 does not change the released 0.0.1 packages/tag. Consumer installation, Player, Profiler, broad UX, and user acceptance are not established by the focused suite. See [UIContext design](../../GAME_UI_SYSTEM.md), [P2 EditMode](../../validation/ui-system/p2/final-edit.json), and [P2 PlayMode](../../validation/ui-system/p2/final-play.json).

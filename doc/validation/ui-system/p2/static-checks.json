@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "cea4268b82e0f119e0d4dbc8c788b7632d21f3ee",
+  "markdownFiles": 12,
+  "localLinks": 289,
+  "missingLinks": [],
+  "capturedInputs": 368,
+  "capturedInputsUnchanged": true,
+  "protectedFiles": 6,
+  "protectedFilesUnchanged": true,
+  "committedSourceFiles": 6,
+  "sourceMatchesCommit": true,
+  "ownedWhitespace": "Passed",
+  "removedOwnedTempFiles": [
+    "Temp\\UI-P2-Docs-20261008\\UI-ai.md",
+    "Temp\\UI-P2-Docs-20261008\\UI-human.md"
+  ],
+  "scope": "Static evidence only. Unity tests are recorded separately."
+}

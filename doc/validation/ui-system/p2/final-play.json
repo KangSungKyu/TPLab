@@ -1,0 +1,42 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 16,
+  "passes": [
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloneIsBorrowedSourceCopyAndStaysInactiveDuringPreparation",
+    "TPLab.UI.Tests.UIContextPlayModeTests.ClosedObserverSeesClosedStateAndNoView",
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloseWaitsForNativeCloneDestructionAndPreservesBorrowedObjects",
+    "TPLab.UI.Tests.UIContextPlayModeTests.IndependentPopupCanOpenAndCloseFromAnotherPopupHook",
+    "TPLab.UI.Tests.UIContextPlayModeTests.NeverActiveOwnerDestructionCancelsContextLifetime",
+    "TPLab.UI.Tests.UIContextPlayModeTests.OpeningHookFailureStillDestroysCloneAndRunsAllCleanup",
+    "TPLab.UI.Tests.UIContextPlayModeTests.PreparedCloneActivatesOnlyAfterPrepareHookCompletes",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionCancelsPendingOpenAndDisposesDisplayOnce",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionClosesVisibleDisplayAndRepeatedShutdownIsSafe",
+    "TPLab.UI.Tests.UIContextReuseTests.ClosedObserverFailureDiscardsRetiredCloneWithoutAffectingNewDisplay",
+    "TPLab.UI.Tests.UIContextReuseTests.PartialOpeningOrCleanupFailureDiscardsReusableClone",
+    "TPLab.UI.Tests.UIContextReuseTests.ReuseCacheKeepsOnlyOneInactiveCloneAfterNestedCloseCallbacks",
+    "TPLab.UI.Tests.UIContextReuseTests.ReuseReopensSameCloneWithFreshGenerationAndCleanup",
+    "TPLab.UI.Tests.UIContextReuseTests.RootDestructionDestroysCachedCloneAndPreservesBorrowedSource",
+    "TPLab.UI.Tests.UIContextReuseTests.RuntimeLazyOpenUsesInactivePreparationBeforeActivation",
+    "TPLab.UI.Tests.UIContextReuseTests.ShutdownDestroysCachedCloneAndPreservesBorrowedSource"
+  ],
+  "skipped": 0,
+  "total": 16,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 28744,
+    "cliReturnCode": 0,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 28744,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

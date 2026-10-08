@@ -1,0 +1,21 @@
+{
+  "project": "C:/Users/PC/Projects/TPLab",
+  "editorPid": 24376,
+  "cliPid": 20724,
+  "mode": "EditMode",
+  "filter": "TPLab.UI.Tests.UIContextLoadingTests",
+  "result": "NoNonzeroResult",
+  "error": "Error: timed out sending command to Unity: cannot connect to Unity",
+  "countedAsPass": false,
+  "countedAsRedOrFailedTest": false,
+  "recovery": {
+    "sameEditorPid": 24376,
+    "healthReady": true,
+    "compileErrors": false,
+    "nativeIsRunActive": false,
+    "playing": false,
+    "sourceChanged": false,
+    "editorRestarted": false
+  },
+  "nextInvocation": "Fresh UI namespace regression including P2 tests after transport recovery; not a replacement result for CLI20724"
+}

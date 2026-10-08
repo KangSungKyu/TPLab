@@ -59,3 +59,9 @@ P0의 확인 환경은 Unity6000.3.18f1, UniTask2.5.11, uGUI2.0.0, InputSystem1.
 2026-10-08 source545c342f80061c66ede2fc7f168cfc1c2cb13cee에서 root scope·direct prefab·modeless Popup·default host·DestroyOnClose/DeactivateView의 표시 수명을 구현했다. 나머지 정책을 조용히 무시하지 않고 NotSupported로 거부한다. 정확한 현재 선언과 제한은 [사람 API](api/UI.md), [AI API](ai/api/UI.md), [실제 결과](validation/ui-system/p1/README.md)를 따른다. 현재 UI18/18·기존 root10/10 실패0/skip0이며 외부 소비/Player/성능/최종 UX는 P7 미실행이다.
 
 표시 hook에서 다른 표시를 열거나 닫는 조합은 허용한다. 자기 handle의 동기 Close/Opened/Closed, 현재 hook을 포함한 Context Shutdown/Dispose와 cleanup/native 적용 중 lifecycle 변경은 거부한다. 종료 observer는 native 정리 및 StateClosed/ViewObject null 이후에 호출하며 observer 실패도 공유 Closed 결과에 보존한다. 다른 세대의 표시를 종료 observer가 시작해도 이전 표시의 정리가 이를 변경하지 않는다.
+
+## P2 구현 범위와 실제 검증
+
+2026-10-08 sourcecea4268b82e0f119e0d4dbc8c788b7632d21f3ee에서 explicit key provider와 direct prefab의 같은 표시 준비, source-only Prepare, definition별 clone 최대1개 Reuse를 구현했다. native 자산/provider는 borrowed이며 실패 entry는 다음 명시 요청에서만 재시도한다. caller 준비 취소는 공유 자산 작업을 종료하지 않고 owner 종료 후 late result는 무시한다. [실제 UI30/30](validation/ui-system/p2/README.md)·실패0/skip0·compile/제품 Console 오류0이다. HUD/Canvas/graph/input/scroll 및 최종 외부/성능/UX gate는 남아 있다.
+
+Reuse 후보는 cleanup 및 StateClosed/ViewObject null 이후 Closed observer가 성공해야 cache에 공개한다. 실패/초과 후보를 폐기하며 callback이 만든 새 표시의 수명을 변경하지 않는다. owner Shutdown은 active/retiring/cached clone의 실제 파괴를 기다린다. public PrepareAsync는 인스턴스를 만들지 않고 UIHooks.PrepareAsync는 표시 중 inactive clone의 데이터/구독을 준비한다.

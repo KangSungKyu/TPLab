@@ -1,0 +1,29 @@
+{
+  "sourceRevision": "cea4268b82e0f119e0d4dbc8c788b7632d21f3ee",
+  "editorPid": 24376,
+  "project": "C:/Users/PC/Projects/TPLab",
+  "unity": "6000.3.18f1",
+  "connector": "0.4.1",
+  "compileErrors": 0,
+  "postTestsConsoleErrors": 0,
+  "protectedFilesUnchanged": 6,
+  "testInputs": 368,
+  "tests": {
+    "EditMode": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    "PlayMode": {
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "consumer": "NotRun",
+  "player": "NotRun",
+  "profiler": "NotRun",
+  "userAcceptance": "NotRun"
+}
