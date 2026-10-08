@@ -29,6 +29,16 @@ namespace TPLab.UI
         internal bool IsPresented;
         internal bool IsHudSelection;
         internal UIPresentation Presentation;
+        internal UIInputMode CurrentInputMode;
+        internal bool InputEligible;
+        internal bool InputPublished;
+        internal long Order;
+        internal IDisposable ModalLease;
+        internal CancellationTokenSource UserApproval;
+        internal bool UserRequestPending;
+        internal GameObject FocusTarget;
+        internal long FocusSequence;
+        internal bool FocusPending;
 
         internal UIHandle(UIContext context, long id, UIOpenRequest request, UIDefinition definition)
         {
@@ -36,6 +46,7 @@ namespace TPLab.UI
             Id = id;
             DefinitionId = request.DefinitionId;
             Parent = request.Parent;
+            CurrentInputMode = request.InputMode ?? definition.InputMode;
             Definition = definition;
             _lifetimeToken = _lifetime.Token;
             UIHooks requested = request.Hooks;
@@ -44,6 +55,7 @@ namespace TPLab.UI
                 PrepareAsync = requested?.PrepareAsync,
                 OpenAsync = requested?.OpenAsync,
                 CloseAsync = requested?.CloseAsync,
+                CanCloseAsync = requested?.CanCloseAsync,
                 Closed = requested?.Closed
             };
         }
@@ -71,11 +83,64 @@ namespace TPLab.UI
         /// <summary>Gets this generation's state, including after termination.</summary>
         public UIState State => CurrentState;
         /// <summary>Gets the context-owned prefab clone while this generation exists; never destroy it directly.</summary>
-        /// <remarks>Renderer-only display places this clone under an owned visibility wrapper, not directly under the host.</remarks>
+        /// <remarks>Every display places this original clone under an owned input/visibility wrapper; that wrapper is the managed host child.</remarks>
         public GameObject ViewObject => View;
         /// <summary>Gets the cached token cancelled at the start of this display's termination.</summary>
         public CancellationToken LifetimeToken => _lifetimeToken;
 
+        /// <summary>Gets this display generation's current input mode, separately from its native visibility.</summary>
+        /// <remarks>The cached generation value remains observable after retirement. The value belongs to this generation.</remarks>
+        public UIInputMode InputMode => CurrentInputMode;
+
+        /// <summary>Gets whether this Visible generation is eligible within the context's modal boundary.</summary>
+        /// <remarks>
+        /// This is logical UI eligibility; it does not promise a borrowed input map or adapter recovery gate is enabled.
+        /// Opening, Closing, and retired generations are ineligible. The value belongs to this generation.
+        /// </remarks>
+        public bool CanReceiveInput => CurrentState == UIState.Visible && InputEligible && !Context.IsDisposed && Context.Fault == null;
+
+        /// <summary>Changes a Visible generation's input mode and independent modal lease on Unity's main thread.</summary>
+        /// <exception cref="InvalidOperationException">Not Visible, reentrant, or native state cannot be applied safely.</exception>
+        /// <exception cref="ArgumentException">The mode is invalid.</exception>
+        public void SetInputMode(UIInputMode inputMode)
+        {
+            Context.SetInputMode(this, inputMode);
+        }
+
+        /// <summary>Moves this Visible generation and its logical subtree forward, preserving role and parent-before-child order.</summary>
+        /// <remarks>The immutable generation Id does not change. Borrowed hosts and sorting settings are not reordered.</remarks>
+        /// <exception cref="InvalidOperationException">Not Visible, reentrant, or fixed native layout cannot express the requested order.</exception>
+        public void BringToFront()
+        {
+            Context.BringToFront(this);
+        }
+
+        /// <summary>Requests focus for a live owned-view target on Unity's main thread.</summary>
+        /// <param name="target">Borrowed live target within this generation's owned prefab clone.</param>
+        /// <remarks>A prepared Opening generation remembers the target without native selection; eligible Visible applies it. No global EventSystem is resolved.</remarks>
+        /// <exception cref="InvalidOperationException">No explicit EventSystem connection, ineligible/state invalid, or reentry.</exception>
+        /// <exception cref="ArgumentException">The target is destroyed, foreign, or outside this generation's view.</exception>
+        public void SetFocus(GameObject target)
+        {
+            Context.SetFocus(this, target);
+        }
+
+        /// <summary>Requests opted-in project approval before terminating this Visible generation.</summary>
+        /// <param name="reason">Explicit user action; no outside pointer detector is installed by this API.</param>
+        /// <param name="cancellationToken">Cancels this user request with OperationCanceledException; it never replaces owner cleanup.</param>
+        /// <returns>True after this accepted close reaches Closed; false when no handler is registered or project approval vetoes it.</returns>
+        /// <remarks>
+        /// Concurrent user requests are rejected. Forced CloseAsync and owner shutdown ignore approval and cancel outstanding veto work.
+        /// Approval callbacks must not await this same display operation; synchronous lifecycle/cleanup/native reentry is rejected.
+        /// Cleanup/listener/native errors remain failed results rather than successful true. The value belongs to this generation.
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">Stale/state invalid, concurrent request, thread violation, or forbidden reentry.</exception>
+        /// <exception cref="ArgumentException">The reason is invalid.</exception>
+        /// <exception cref="OperationCanceledException">The caller or forced display/owner termination cancelled outstanding approval.</exception>
+        public UniTask<bool> RequestCloseAsync(UIUserCloseReason reason, CancellationToken cancellationToken = default)
+        {
+            return Context.RequestCloseAsync(this, reason, cancellationToken);
+        }
         /// <summary>Shares the opening outcome, published after partial cleanup if opening fails or is cancelled.</summary>
         /// <remarks>
         /// Synchronous callback self-await is rejected. Self-await after a callback has yielded is forbidden
@@ -170,6 +235,10 @@ namespace TPLab.UI
             {
                 throw new OperationCanceledException(Context.LifetimeToken);
             }
+            if (Context.Fault != null)
+            {
+                throw new InvalidOperationException("The context has a native application fault.", Context.Fault);
+            }
             if (CurrentState != UIState.Opening)
             {
                 throw new OperationCanceledException(_lifetimeToken);
@@ -211,6 +280,10 @@ namespace TPLab.UI
             View = null;
             Presentation = null;
             IsPresented = false;
+            InputEligible = false;
+            InputPublished = false;
+            FocusTarget = null;
+            FocusPending = false;
             Hooks = null;
             Definition = null;
             CurrentState = UIState.Closed;

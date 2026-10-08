@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 namespace TPLab.UI
@@ -13,11 +14,11 @@ namespace TPLab.UI
     /// </summary>
     /// <remarks>
     /// Supports direct/keyed borrowed prefabs, shared asset preparation, HUD selection, logical Popup trees,
-    /// explicit borrowed hosts, accepted ordering, and one retained clone per definition. Modal input requires P4.
+    /// explicit borrowed hosts, mutable subtree ordering, modal input eligibility, explicit focus, and one retained clone per definition.
     /// Fresh/Deactivate clones prepare inactive. Renderer-only Reuse prepares an active clone behind its owned
     /// visibility mask with its Canvas/raycasters disabled; display cleanup is independent of GameObject activation.
-    /// Renderer-only roots use an owned visibility wrapper; ViewObject still returns the original prefab clone.
-    /// Prefab overrideSorting and renderer-only ignoreParentGroups layouts are rejected before presentation.
+    /// Every managed view uses an owned input/visibility wrapper; ViewObject still returns the original prefab clone.
+    /// Prefab overrideSorting and ignoreParentGroups layouts are rejected before presentation.
     /// Graphics require ScreenSpaceOverlay or ScreenSpaceCamera with an explicit camera; incomparable planes are rejected.
     /// Hooks may compose independent displays. Synchronous self-await, closing a subtree containing that
     /// hook, and owner shutdown from a hook are rejected. Native application and cleanup reject lifecycle mutation.
@@ -25,7 +26,7 @@ namespace TPLab.UI
     /// Closed observers run after native retirement and handle termination, before Closed completes.
     /// A successful Reuse candidate is published only after its observer succeeds; failure discards it.
     /// </remarks>
-    public sealed class UIContext : IDisposable
+    public sealed partial class UIContext : IDisposable
     {
         private readonly Dictionary<string, UIDefinition> _definitions = new Dictionary<string, UIDefinition>();
         private readonly List<UIHandle> _displays = new List<UIHandle>();
@@ -48,18 +49,23 @@ namespace TPLab.UI
         private int _cleanupDepth;
         private int _nativeDepth;
 
-        /// <summary>Connects a borrowed root and optional keyed prefab provider; input integration remains reserved.</summary>
+        /// <summary>Connects a borrowed root, optional keyed prefab provider, independent modal lease factory, and explicit EventSystem.</summary>
         /// <param name="rootObject">Live owner root; await ShutdownAsync before destroying it.</param>
         /// <param name="loadPrefab">
         /// Returns a borrowed live prefab for an explicit key. The owner token cancels UI waits; the provider
         /// retains native asset/service ownership and may finish after UI shutdown. Late results are ignored.
         /// </param>
-        /// <param name="acquireModalBlock">Reserved independent lease factory; Modal integration requires P4.</param>
+        /// <param name="acquireModalBlock">Optional independent game-input blocking lease factory. Native UI-only modal gating works without it; game controls require explicit integration.</param>
+        /// <param name="eventSystem">
+        /// Optional borrowed native EventSystem for this context's focus. Focus requires an explicit connection;
+        /// no global current EventSystem is resolved. This context never destroys or disposes the native owner.
+        /// </param>
         /// <exception cref="ArgumentNullException">The root is null or destroyed.</exception>
         /// <exception cref="InvalidOperationException">Called outside Unity's main thread.</exception>
         public UIContext(GameObject rootObject,
             Func<string, CancellationToken, UniTask<GameObject>> loadPrefab = null,
-            Func<IDisposable> acquireModalBlock = null)
+            Func<IDisposable> acquireModalBlock = null,
+            EventSystem eventSystem = null)
         {
             EnsureMainThread();
             if (rootObject == null)
@@ -67,8 +73,10 @@ namespace TPLab.UI
                 throw new ArgumentNullException(nameof(rootObject));
             }
             RootObject = rootObject;
+            EventSystem = eventSystem;
             _hosts.Add("default", rootObject.transform);
             _loadPrefab = loadPrefab;
+            _acquireModalBlock = acquireModalBlock;
             _lifetimeToken = _lifetime.Token;
             // Own only this registration. UniTask owns the native destruction trigger and its token.
             _rootRegistration = rootObject.GetCancellationTokenOnDestroy().Register(OnRootDestroyed);
@@ -79,6 +87,18 @@ namespace TPLab.UI
         {
             get;
         }
+        /// <summary>Gets the explicitly borrowed native EventSystem, or null when focus is unconnected.</summary>
+        /// <remarks>Registration and shutdown do not transfer ownership. Observe destroyed-object null normally.</remarks>
+        public EventSystem EventSystem { get; }
+
+        /// <summary>Notifies accepted, visible, closing, retired, input, order, and focus changes on Unity's main thread.</summary>
+        /// <remarks>
+        /// Notification is read-only: synchronous lifecycle mutation is rejected. Every project listener is attempted.
+        /// Ordinary listener failures propagate through the affected lifecycle result after cleanup and lease retirement;
+        /// they do not set Fault. Native adapter application uses a separate internal friend-assembly boundary.
+        /// Subscribers own unsubscription. Native focus callbacks are guarded only during synchronous state application.
+        /// </remarks>
+        public event Action<UIHandle> DisplayChanged;
         /// <summary>Gets the cached owner token, also observable after termination.</summary>
         public CancellationToken LifetimeToken => _lifetimeToken;
         /// <summary>Gets whether permanent termination has begun.</summary>
@@ -193,7 +213,6 @@ namespace TPLab.UI
         }
         /// <summary>Records metadata without loading or creating an instance, including from a display hook.</summary>
         /// <exception cref="ArgumentException">ID/source/policy metadata is invalid or duplicated.</exception>
-        /// <exception cref="NotSupportedException">Modal input requires its deferred input phase.</exception>
         /// <exception cref="InvalidOperationException">A key needs a configured provider, or the thread/mutation boundary is invalid.</exception>
         /// <exception cref="ObjectDisposedException">The owner is terminating.</exception>
         public void Register(UIDefinition definition)
@@ -230,10 +249,7 @@ namespace TPLab.UI
                 throw new InvalidOperationException("A key definition requires a configured prefab provider.");
             }
             GetHost(definition.HostId);
-            if (definition.InputMode != UIInputMode.Modeless)
-            {
-                throw new NotSupportedException("Modal input requires P4.");
-            }
+
             _definitions.Add(definition.Id, definition);
         }
 
@@ -303,10 +319,7 @@ namespace TPLab.UI
             {
                 throw new ArgumentException("Invalid input policy.", nameof(request));
             }
-            if (inputMode != UIInputMode.Modeless)
-            {
-                throw new NotSupportedException("Modal input requires P4, including when a block factory is supplied.");
-            }
+
             cancellationToken.ThrowIfCancellationRequested();
             GetHost(definition.HostId);
             foreach (UIHandle current in _displays)
@@ -323,8 +336,10 @@ namespace TPLab.UI
         private UIHandle Accept(UIOpenRequest request, UIDefinition definition, CancellationToken cancellationToken)
         {
             var handle = new UIHandle(this, ++_nextId, request, definition);
+            handle.Order = ++_nextOrder;
             _displays.Add(handle);
             handle.ConnectCallerCancellation(cancellationToken);
+            NotifyDisplayChanged(handle);
             return handle;
         }
 
@@ -553,9 +568,9 @@ namespace TPLab.UI
 
         internal void EnsureMutationAllowed()
         {
-            if (_cleanupDepth != 0 || _nativeDepth != 0)
+            if (_cleanupDepth != 0 || _nativeDepth != 0 || _notificationDepth != 0)
             {
-                throw new InvalidOperationException("Cleanup or native application cannot reenter lifecycle commands.");
+                throw new InvalidOperationException("Cleanup, native application, or read-only notification cannot reenter lifecycle commands.");
             }
         }
 
@@ -581,9 +596,9 @@ namespace TPLab.UI
         internal void EnsureCleanupRegistration()
         {
             EnsureMainThread();
-            if (_cleanupDepth != 0 || _nativeDepth != 0)
+            if (_cleanupDepth != 0 || _nativeDepth != 0 || _notificationDepth != 0)
             {
-                throw new InvalidOperationException("Cleanup or native application cannot register more cleanup.");
+                throw new InvalidOperationException("Cleanup, native application, or read-only notification cannot register more cleanup.");
             }
         }
 
@@ -664,6 +679,7 @@ namespace TPLab.UI
             try
             {
                 handle.ThrowIfOpeningCancelled();
+                ThrowRecordedErrors(handle);
                 GameObject prefab = await WaitForPrefabAsync(PreparePrefabAsync(handle.Definition), handle.LifetimeToken);
                 await UniTask.SwitchToMainThread();
                 handle.ThrowIfOpeningCancelled();
@@ -737,8 +753,23 @@ namespace TPLab.UI
                     .AttachExternalCancellation(handle.LifetimeToken);
                 await UniTask.SwitchToMainThread();
                 handle.ThrowIfOpeningCancelled();
+                ThrowRecordedErrors(handle);
+                ApplyInputBridge(handle);
+                if (handle.CurrentInputMode == UIInputMode.Modal)
+                {
+                    AcquireModalLease(handle);
+                }
+                handle.ThrowIfOpeningCancelled();
                 handle.DetachCaller();
                 handle.CurrentState = UIState.Visible;
+                handle.InputPublished = true;
+                RefreshInput(handle);
+                NotifyDisplayChanged(handle);
+                if (_lifetimeToken.IsCancellationRequested || handle.LifetimeToken.IsCancellationRequested || RootObject == null)
+                {
+                    throw new OperationCanceledException(handle.LifetimeToken);
+                }
+                ThrowRecordedErrors(handle);
                 if (handle.IsHudSelection)
                 {
                     _currentHud = handle;
@@ -815,7 +846,7 @@ namespace TPLab.UI
         private static int CompareDisplayOrder(UIHandle left, UIHandle right)
         {
             int roles = left.Definition.Role.CompareTo(right.Definition.Role);
-            return roles != 0 ? roles : left.Id.CompareTo(right.Id);
+            return roles != 0 ? roles : left.Order.CompareTo(right.Order);
         }
 
         private void ApplySiblingOrder(Transform host)
@@ -939,6 +970,15 @@ namespace TPLab.UI
             handle.CurrentState = UIState.Closing;
             handle.DetachCaller();
             handle.CancelLifetime();
+            NotifyDisplayChanged(handle);
+            try
+            {
+                RefreshInput(handle);
+            }
+            catch (Exception)
+            {
+                // Native failure is recorded; forced subtree cleanup must still proceed.
+            }
             foreach (UIHandle child in children)
             {
                 StartClose(child);
@@ -1046,7 +1086,18 @@ namespace TPLab.UI
                 {
                     _currentHud = null;
                 }
+                handle.IsPresented = false;
+                RetireModalLease(handle);
                 handle.Finish();
+                try
+                {
+                    RefreshInput(handle);
+                }
+                catch (Exception)
+                {
+                    // Preserve the native failure while completing remaining retirement.
+                }
+                NotifyDisplayChanged(handle);
                 try
                 {
                     DispatchClosed(handle, closedCallback);
@@ -1081,8 +1132,8 @@ namespace TPLab.UI
         }
         private void RecordNativeFailure(UIHandle handle, Exception error)
         {
-            Fault = Fault ?? error;
             handle.Errors.Add(error);
+            ProtectNativeFault(error);
         }
 
         private async UniTask DestroyOwnedAsync(GameObject owned)
@@ -1137,6 +1188,20 @@ namespace TPLab.UI
             _preparations.Clear();
             _rootRegistration.Dispose();
             List<Exception> errors = new List<Exception>();
+            ++_nativeDepth;
+            try
+            {
+                _inputShutdown?.Invoke();
+            }
+            catch (Exception error)
+            {
+                errors.Add(error);
+                Fault = Fault ?? error;
+            }
+            finally
+            {
+                --_nativeDepth;
+            }
             try
             {
                 _lifetime.Cancel();
@@ -1199,11 +1264,24 @@ namespace TPLab.UI
                 errors.Add(error);
                 Fault = Fault ?? error;
             }
+            IDisposable faultBlock = _inputFaultBlock;
+            _inputFaultBlock = null;
+            try
+            {
+                faultBlock?.Dispose();
+            }
+            catch (Exception error)
+            {
+                errors.Add(error);
+                Fault = Fault ?? error;
+            }
             _storage = null;
             _renderStorage = null;
             _currentHud = null;
             _hosts.Clear();
             _loadPrefab = null;
+            _acquireModalBlock = null;
+            DisplayChanged = null;
             _definitions.Clear();
             _lifetime.Dispose();
             if (errors.Count == 0)

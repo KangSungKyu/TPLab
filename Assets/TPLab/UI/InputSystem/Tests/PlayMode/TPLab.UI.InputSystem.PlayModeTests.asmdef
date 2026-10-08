@@ -1,0 +1,16 @@
+{
+    "name": "TPLab.UI.InputSystem.PlayModeTests",
+    "rootNamespace": "TPLab.UI.Tests",
+    "references": [
+        "TPLab.UI",
+        "TPLab.UI.InputSystem",
+        "TPLab.Core.Input",
+        "Unity.InputSystem",
+        "Unity.InputSystem.TestFramework",
+        "UnityEngine.UI",
+        "UniTask"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}

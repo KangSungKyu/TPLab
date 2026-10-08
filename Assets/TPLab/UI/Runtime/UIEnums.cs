@@ -31,6 +31,16 @@ namespace TPLab.UI
         Modal
     }
 
+    /// <summary>Identifies an explicit project/native user request without forcing display termination.</summary>
+    public enum UIUserCloseReason
+    {
+        /// <summary>An opted-in cancel action intercepted before the native EventSystem dispatch.</summary>
+        Cancel,
+        /// <summary>A project-owned outside-pointer callback; no automatic backdrop is created.</summary>
+        OutsidePointer,
+        /// <summary>A project-owned explicit close-button callback.</summary>
+        Button
+    }
     /// <summary>Defines owned clone retention after a managed close.</summary>
     public enum UIRetention
     {

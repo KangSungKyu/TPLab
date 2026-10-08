@@ -143,6 +143,21 @@ def validate_native_result(record, run_id, project, filter_value):
     return summary
 
 
+
+def wait_for_native_record(output, timeout):
+    """Wait for this run's atomic result; a temporary Windows file lock does not restart tests."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if output.is_file():
+            try:
+                return json.loads(output.read_text(encoding="utf-8"))
+            except PermissionError:
+                # Antivirus/indexers can briefly hold a just-renamed result file on Windows.
+                pass
+        time.sleep(0.25)
+    raise TimeoutError("Native result file was absent or unreadable before timeout; no test retry was attempted")
+
+
 def self_check():
     hostile = 'filter "x"; System.IO.File.Delete("no");\\line\nnext'
     literal = csharp_literal(hostile)
@@ -168,7 +183,30 @@ def self_check():
     else:
         raise AssertionError("Mismatched run result was accepted")
     assert result_from_text('{"total":1,"passed":1,"failed":0,"skipped":0}') is not None
-    print("PASS: C# literal, result extraction/identity, and output path constraints")
+    from unittest.mock import Mock, patch
+    result_file = Mock()
+    result_file.is_file.return_value = True
+    result_file.read_text.side_effect = [PermissionError("transient"), json.dumps(sample)]
+    with patch("time.monotonic", side_effect=[0, 0, 0.25]), patch("time.sleep"):
+        assert wait_for_native_record(result_file, 1) == sample
+    assert result_file.read_text.call_count == 2
+    result_file.read_text.side_effect = PermissionError("persistent")
+    with patch("time.monotonic", side_effect=[0, 0, 1]), patch("time.sleep"):
+        try:
+            wait_for_native_record(result_file, 1)
+        except TimeoutError:
+            pass
+        else:
+            raise AssertionError("Persistent result-file lock did not time out")
+    result_file.read_text.side_effect = None
+    result_file.read_text.return_value = "invalid json"
+    try:
+        wait_for_native_record(result_file, 1)
+    except json.JSONDecodeError:
+        pass
+    else:
+        raise AssertionError("Malformed result was retried or accepted")
+    print("PASS: C# literal, result identity, output paths, bounded file-lock recovery, malformed result rejection")
 
 
 def main():
@@ -210,16 +248,12 @@ def main():
         raise RuntimeError("Unity exec returned no matching started record: " + started.stdout + started.stderr)
 
     print(json.dumps({"started": True, "runId": run_id, "editorPid": editor_pid, "project": str(project), "filter": args.filter, "mode": "EditMode", "nativeOutput": str(output)}, ensure_ascii=False), flush=True)
-    deadline = time.monotonic() + args.timeout
-    while time.monotonic() < deadline:
-        if output.is_file():
-            record = json.loads(output.read_text(encoding="utf-8"))
-            summary = validate_native_result(record, run_id, project, args.filter)
-            print(json.dumps({"runId": run_id, "project": str(project), "filter": args.filter,
-                              "mode": "EditMode", "summary": summary}, ensure_ascii=False))
-            return 0 if summary["failed"] == 0 and summary["skipped"] == 0 else 1
-        time.sleep(0.25)
-    raise TimeoutError("Native result file was not written before timeout; no test retry was attempted")
+    record = wait_for_native_record(output, args.timeout)
+    summary = validate_native_result(record, run_id, project, args.filter)
+    print(json.dumps({"runId": run_id, "project": str(project), "filter": args.filter,
+                      "mode": "EditMode", "summary": summary}, ensure_ascii=False))
+    return 0 if summary["failed"] == 0 and summary["skipped"] == 0 else 1
+
 
 
 if __name__ == "__main__":

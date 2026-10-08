@@ -23,7 +23,7 @@ namespace TPLab.UI
 
         /// <summary>
         /// Awaits project opening work after native activation. The display lifetime cancels this work on close.
-        /// Returning completes preparation for the handle's Opened observation.
+        /// Opening remains input-ineligible until this callback succeeds. Returning publishes native modal/focus state before Opened completes.
         /// </summary>
         public Func<UIHandle, CancellationToken, UniTask> OpenAsync { get; set; }
 
@@ -33,6 +33,14 @@ namespace TPLab.UI
         /// </summary>
         public Func<UIHandle, CancellationToken, UniTask> CloseAsync { get; set; }
 
+        /// <summary>Optionally approves an explicit user close request for this display generation.</summary>
+        /// <remarks>
+        /// Null means user close is not opted in; false vetoes it. Forced close and owner shutdown never consult this callback.
+        /// The token is scoped to approval and caller/forced termination, separately from graceful close animation.
+        /// Project communication remains project-owned. Stop accessing the view after cancellation and register subscription cleanup.
+        /// The callback runs on Unity's main thread and must not request or await this same lifecycle operation.
+        /// </remarks>
+        public Func<UIHandle, UIUserCloseReason, CancellationToken, UniTask<bool>> CanCloseAsync { get; set; }
         /// <summary>
         /// Observes termination once, including partial opening and owner fallback. Errors remain observable
         /// through Closed; callbacks must not request or await this same display's termination again.

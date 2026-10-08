@@ -295,8 +295,8 @@ namespace TPLab.UI.Tests.PlayMode
                 var b = await Open(context, new UIOpenRequest("b"));
                 var c = await Open(context, new UIOpenRequest("c", parent: ownedChild == 1 ? b : null));
                 var cView = c.ViewObject;
-                Assert.That(a.ViewObject.transform.GetSiblingIndex(), Is.LessThan(b.ViewObject.transform.GetSiblingIndex()));
-                Assert.That(b.ViewObject.transform.GetSiblingIndex(), Is.LessThan(cView.transform.GetSiblingIndex()));
+                Assert.That(a.ViewObject.transform.parent.GetSiblingIndex(), Is.LessThan(b.ViewObject.transform.parent.GetSiblingIndex()));
+                Assert.That(b.ViewObject.transform.parent.GetSiblingIndex(), Is.LessThan(cView.transform.parent.GetSiblingIndex()));
                 await Complete(b.CloseAsync());
                 Assert.That(a.State, Is.EqualTo(UIState.Visible));
                 Assert.That(a.ViewObject.activeInHierarchy, Is.True);
@@ -305,7 +305,7 @@ namespace TPLab.UI.Tests.PlayMode
                 {
                     Assert.That(c.State, Is.EqualTo(UIState.Visible));
                     Assert.That(cView != null && cView.activeInHierarchy, Is.True);
-                    Assert.That(a.ViewObject.transform.GetSiblingIndex(), Is.LessThan(cView.transform.GetSiblingIndex()));
+                    Assert.That(a.ViewObject.transform.parent.GetSiblingIndex(), Is.LessThan(cView.transform.parent.GetSiblingIndex()));
                     await Complete(c.CloseAsync());
                 }
                 else
@@ -348,17 +348,17 @@ namespace TPLab.UI.Tests.PlayMode
             loadA.TrySetResult(_source);
             await Wait(aOpened);
             await aOpened;
-            Assert.That(a.ViewObject.transform.parent, Is.SameAs(_host.transform));
-            Assert.That(b.ViewObject.transform.parent, Is.SameAs(_host.transform));
-            int aIndex = a.ViewObject.transform.GetSiblingIndex();
-            int bIndex = b.ViewObject.transform.GetSiblingIndex();
+            Assert.That(a.ViewObject.transform.parent.parent, Is.SameAs(_host.transform));
+            Assert.That(b.ViewObject.transform.parent.parent, Is.SameAs(_host.transform));
+            int aIndex = a.ViewObject.transform.parent.GetSiblingIndex();
+            int bIndex = b.ViewObject.transform.parent.GetSiblingIndex();
             Assert.That(aIndex, Is.LessThan(bIndex), "Load completion may not reverse accepted depth.");
             Assert.That(unmanaged.transform.GetSiblingIndex(), Is.EqualTo(unmanagedIndex));
             for (int frame = 0; frame < 3; ++frame)
             {
                 await UniTask.NextFrame();
-                Assert.That(a.ViewObject.transform.GetSiblingIndex(), Is.EqualTo(aIndex));
-                Assert.That(b.ViewObject.transform.GetSiblingIndex(), Is.EqualTo(bIndex));
+                Assert.That(a.ViewObject.transform.parent.GetSiblingIndex(), Is.EqualTo(aIndex));
+                Assert.That(b.ViewObject.transform.parent.GetSiblingIndex(), Is.EqualTo(bIndex));
             }
             Assert.That(_host.GetComponent<Canvas>().sortingOrder, Is.EqualTo(hostOrder));
             await Complete(context.ShutdownAsync());
@@ -392,23 +392,23 @@ namespace TPLab.UI.Tests.PlayMode
             for (int index = 0; index < 3; ++index)
             {
                 Assert.That(borrowed[index].GetSiblingIndex(), Is.EqualTo(index * 2));
-                Assert.That(handles[index].ViewObject.transform.GetSiblingIndex(), Is.EqualTo(index * 2 + 1));
+                Assert.That(handles[index].ViewObject.transform.parent.GetSiblingIndex(), Is.EqualTo(index * 2 + 1));
             }
             // A project native change may disorder managed roots. The next managed open reapplies
             // its complete order without exchanging a borrowed sibling's final slot.
-            handles[2].ViewObject.transform.SetSiblingIndex(1);
+            handles[2].ViewObject.transform.parent.SetSiblingIndex(1);
             borrowed[1].SetSiblingIndex(2);
-            handles[0].ViewObject.transform.SetSiblingIndex(3);
+            handles[0].ViewObject.transform.parent.SetSiblingIndex(3);
             borrowed[2].SetSiblingIndex(4);
-            handles[1].ViewObject.transform.SetSiblingIndex(5);
+            handles[1].ViewObject.transform.parent.SetSiblingIndex(5);
             Register(context, "fourth");
             var fourth = await Open(context, new UIOpenRequest("fourth"));
             for (int index = 0; index < 3; ++index)
             {
                 Assert.That(borrowed[index].GetSiblingIndex(), Is.EqualTo(index * 2));
-                Assert.That(handles[index].ViewObject.transform.GetSiblingIndex(), Is.EqualTo(index * 2 + 1));
+                Assert.That(handles[index].ViewObject.transform.parent.GetSiblingIndex(), Is.EqualTo(index * 2 + 1));
             }
-            Assert.That(fourth.ViewObject.transform.GetSiblingIndex(), Is.EqualTo(6));
+            Assert.That(fourth.ViewObject.transform.parent.GetSiblingIndex(), Is.EqualTo(6));
             await Complete(context.ShutdownAsync());
             Assert.That(borrowed[0] != null && borrowed[1] != null && borrowed[2] != null, Is.True);
         }
@@ -424,7 +424,7 @@ namespace TPLab.UI.Tests.PlayMode
             var context = Create();
             Register(context, "existing");
             var existing = await Open(context, new UIOpenRequest("existing"));
-            int sibling = existing.ViewObject.transform.GetSiblingIndex();
+            int sibling = existing.ViewObject.transform.parent.GetSiblingIndex();
             int childCount = _host.transform.childCount;
             var unsafeGroup = Source("IgnoreParentGroupSource", dedicatedCanvas: true);
             unsafeGroup.GetComponent<CanvasGroup>().ignoreParentGroups = true;
@@ -445,7 +445,7 @@ namespace TPLab.UI.Tests.PlayMode
                 await ExpectInvalid(async () => { await context.OpenAsync(new UIOpenRequest(id)); });
                 Assert.That(existing.State, Is.EqualTo(UIState.Visible));
                 Assert.That(existing.ViewObject.activeInHierarchy, Is.True);
-                Assert.That(existing.ViewObject.transform.GetSiblingIndex(), Is.EqualTo(sibling));
+                Assert.That(existing.ViewObject.transform.parent.GetSiblingIndex(), Is.EqualTo(sibling));
                 Assert.That(_host.transform.childCount, Is.EqualTo(childCount));
                 Assert.That(context.Fault, Is.Null);
             }
@@ -550,8 +550,8 @@ namespace TPLab.UI.Tests.PlayMode
             Assert.That(second.State, Is.EqualTo(UIState.Visible));
             Assert.That(left.transform.GetSiblingIndex(), Is.EqualTo(leftIndex));
             Assert.That(right.transform.GetSiblingIndex(), Is.EqualTo(rightIndex));
-            Assert.That(first.ViewObject.transform.parent, Is.SameAs(left.transform));
-            Assert.That(second.ViewObject.transform.parent, Is.SameAs(right.transform));
+            Assert.That(first.ViewObject.transform.parent.parent, Is.SameAs(left.transform));
+            Assert.That(second.ViewObject.transform.parent.parent, Is.SameAs(right.transform));
             Assert.That(fixedHosts.Fault, Is.Null);
             await Complete(context.ShutdownAsync());
             await Complete(fixedHosts.ShutdownAsync());
@@ -685,8 +685,8 @@ namespace TPLab.UI.Tests.PlayMode
             Assert.That(selected, Is.SameAs(candidate));
             Assert.That(selected.State, Is.EqualTo(UIState.Visible));
             Assert.That(independent.State, Is.EqualTo(UIState.Visible));
-            Assert.That(selected.ViewObject.transform.GetSiblingIndex(),
-                Is.LessThan(independent.ViewObject.transform.GetSiblingIndex()), "A later HUD stays behind Popup.");
+            Assert.That(selected.ViewObject.transform.parent.GetSiblingIndex(),
+                Is.LessThan(independent.ViewObject.transform.parent.GetSiblingIndex()), "A later HUD stays behind Popup.");
             CollectionAssert.AreEqual(new[]
             {
                 "next-prepare", "child-closed", "old-close", "old-closed", "next-open"
@@ -931,7 +931,7 @@ namespace TPLab.UI.Tests.PlayMode
             Register(context, "existing");
             var existing = await Open(context, new UIOpenRequest("existing"));
             var view = existing.ViewObject;
-            int siblingIndex = view.transform.GetSiblingIndex();
+            int siblingIndex = view.transform.parent.GetSiblingIndex();
             int hostChildren = _host.transform.childCount;
             await ExpectInvalid(async () =>
             {
@@ -942,7 +942,7 @@ namespace TPLab.UI.Tests.PlayMode
             Assert.That(existing.State, Is.EqualTo(UIState.Visible));
             Assert.That(existing.ViewObject, Is.SameAs(view));
             Assert.That(view.activeInHierarchy, Is.True);
-            Assert.That(view.transform.GetSiblingIndex(), Is.EqualTo(siblingIndex));
+            Assert.That(view.transform.parent.GetSiblingIndex(), Is.EqualTo(siblingIndex));
             Assert.That(_host.transform.childCount, Is.EqualTo(hostChildren));
             Assert.That(_host.GetComponent<Canvas>().enabled, Is.True);
             Assert.That(_host.GetComponent<GraphicRaycaster>().enabled, Is.True);

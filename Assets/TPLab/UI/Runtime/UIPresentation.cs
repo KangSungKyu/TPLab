@@ -20,44 +20,41 @@ namespace TPLab.UI
             View = view;
             Root = view;
             HideStrategy = hideStrategy;
-            if (hideStrategy == UIHideStrategy.DisableCanvasRendering)
+            _canvas = view.GetComponent<Canvas>();
+            // CanvasGroup permits one component per GameObject. Keep every project component intact.
+            Root = new GameObject("UIContext Visibility", typeof(RectTransform));
+            try
             {
-                _canvas = view.GetComponent<Canvas>();
-                // CanvasGroup permits one component per GameObject. Keep every project component intact.
-                Root = new GameObject("UIContext Visibility", typeof(RectTransform));
-                try
+                Root.transform.SetParent(view.transform.parent, false);
+                var wrapper = (RectTransform)Root.transform;
+                wrapper.anchorMin = Vector2.zero;
+                wrapper.anchorMax = Vector2.one;
+                wrapper.pivot = new Vector2(0.5f, 0.5f);
+                wrapper.sizeDelta = Vector2.zero;
+                wrapper.anchoredPosition3D = Vector3.zero;
+                var rect = view.transform as RectTransform;
+                Vector3 anchoredPosition = rect != null ? rect.anchoredPosition3D : Vector3.zero;
+                view.transform.SetParent(wrapper, false);
+                if (rect != null)
                 {
-                    Root.transform.SetParent(view.transform.parent, false);
-                    var wrapper = (RectTransform)Root.transform;
-                    wrapper.anchorMin = Vector2.zero;
-                    wrapper.anchorMax = Vector2.one;
-                    wrapper.pivot = new Vector2(0.5f, 0.5f);
-                    wrapper.sizeDelta = Vector2.zero;
-                    wrapper.anchoredPosition3D = Vector3.zero;
-                    var rect = view.transform as RectTransform;
-                    Vector3 anchoredPosition = rect != null ? rect.anchoredPosition3D : Vector3.zero;
-                    view.transform.SetParent(wrapper, false);
-                    if (rect != null)
-                    {
-                        rect.anchoredPosition3D = anchoredPosition;
-                    }
-                    _visibility = Root.AddComponent<CanvasGroup>();
-                    _visibility.ignoreParentGroups = false;
-                    CaptureRaycasters();
+                    rect.anchoredPosition3D = anchoredPosition;
                 }
-                catch
+                _visibility = Root.AddComponent<CanvasGroup>();
+                _visibility.ignoreParentGroups = false;
+                CaptureRaycasters();
+            }
+            catch
+            {
+                // Until construction returns, the handle only tracks the clone. Retire this partial wrapper too.
+                if (Application.isPlaying)
                 {
-                    // Until construction returns, the handle only tracks the clone. Retire this partial wrapper too.
-                    if (Application.isPlaying)
-                    {
-                        UnityEngine.Object.Destroy(Root);
-                    }
-                    else
-                    {
-                        UnityEngine.Object.DestroyImmediate(Root);
-                    }
-                    throw;
+                    UnityEngine.Object.Destroy(Root);
                 }
+                else
+                {
+                    UnityEngine.Object.DestroyImmediate(Root);
+                }
+                throw;
             }
         }
 
@@ -105,15 +102,15 @@ namespace TPLab.UI
                         entry.Key.enabled = entry.Value;
                     }
                 }
-                _visibility.alpha = 1f;
-                _visibility.blocksRaycasts = true;
-                _visibility.interactable = true;
             }
+            _visibility.alpha = 1f;
+            SetInputEnabled(false);
             View.SetActive(true);
         }
 
         internal void Hide()
         {
+            SetInputEnabled(false);
             if (HideStrategy == UIHideStrategy.DeactivateView)
             {
                 View.SetActive(false);
@@ -133,6 +130,12 @@ namespace TPLab.UI
                     entry.Key.enabled = false;
                 }
             }
+        }
+
+        internal void SetInputEnabled(bool enabled)
+        {
+            _visibility.blocksRaycasts = enabled;
+            _visibility.interactable = enabled;
         }
 
         private void CaptureRaycasters()
@@ -182,12 +185,12 @@ namespace TPLab.UI
                 {
                     throw new InvalidOperationException("Renderer-only hiding requires a dedicated Canvas on the owned clone root.");
                 }
-                foreach (var group in view.GetComponentsInChildren<CanvasGroup>(true))
+            }
+            foreach (var group in view.GetComponentsInChildren<CanvasGroup>(true))
+            {
+                if (group.ignoreParentGroups)
                 {
-                    if (group.ignoreParentGroups)
-                    {
-                        throw new InvalidOperationException("ignoreParentGroups can bypass the owned rendering and raycast mask.");
-                    }
+                    throw new InvalidOperationException("ignoreParentGroups can bypass the owned input and rendering mask.");
                 }
             }
             bool hasGraphics = view.GetComponentsInChildren<Graphic>(true).Length != 0;

@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--base", required=True)
     parser.add_argument("--preserved", type=Path, required=True)
+    parser.add_argument("--additional-input", action="append", default=[], help="Additional literal file inside the selected checkout used by this test fixture.")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     folder = args.evidence.resolve()
@@ -28,9 +29,14 @@ def main():
         "git", "ls-files", "-z", "--cached", "--others", "--exclude-standard", "--",
         "Assets/TPLab", "Assets/Plugins", "Packages", "ProjectSettings/ProjectVersion.txt", "tools"
     ], cwd=root).decode("utf-8").split("\0")
+    for value in args.additional_input:
+        target = (root / value).resolve()
+        if not target.is_relative_to(root) or not target.is_file():
+            parser.error("Additional inputs must be existing files inside this checkout")
+        files.append(target.relative_to(root).as_posix())
     hashes = {}
     for path in sorted(set(files)):
-        if path and Path(path).suffix in {".cs", ".asmdef", ".unity", ".asset", ".meta", ".dll", ".json", ".txt", ".py"}:
+        if path and Path(path).suffix in {".cs", ".asmdef", ".unity", ".asset", ".meta", ".dll", ".json", ".inputactions", ".txt", ".py"}:
             hashes[path] = digest((root / path).read_bytes(), not path.endswith(".dll"))
     (folder / "test-inputs.json").write_text(json.dumps({
         "baseCommit": args.base, "normalization": "Text CRLF to LF; DLL bytes unchanged.", "sha256": hashes
