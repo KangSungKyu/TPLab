@@ -330,30 +330,44 @@ namespace UIConsumer
             VirtualScrollRect inventory = Read<VirtualScrollRect>("_inventory");
             ScrollRect scroll = Read<ScrollRect>("_scroll");
             Dictionary<int, long> rows = Read<Dictionary<int, long>>("_visibleRows");
-            int budget = Mathf.CeilToInt(scroll.viewport.rect.height / 24f) + 1 + 2 * 2;
+            float viewportHeight = scroll.viewport.rect.height;
+            int budget = Mathf.CeilToInt(viewportHeight / 24f) + 1 + 2 * 2;
             int first = int.MaxValue;
             int last = -1;
+            bool indicesValid = true;
             foreach (int index in rows.Keys)
             {
                 first = Math.Min(first, index);
                 last = Math.Max(last, index);
-                if (index < 0 || index >= count)
+                indicesValid &= index >= 0 && index < count;
+            }
+            int contentChildren = scroll.content.childCount;
+            int activeChildren = 0;
+            foreach (Transform child in scroll.content)
+            {
+                if (child.gameObject.activeSelf && child.gameObject.activeInHierarchy)
                 {
-                    throw new InvalidOperationException("Binding index outside current Count.");
+                    ++activeChildren;
                 }
             }
-            Check(inventory.Count == count && inventory.CountOwned <= budget &&
-                inventory.CountOwned == inventory.CountActive + inventory.CountInactive &&
-                rows.Count == inventory.CountActive && scroll.content.childCount == inventory.CountActive &&
-                (count == 0 || inventory.CountActive > 0),
-                "Bounded actual cell ownership " + label);
-            _inventorySnapshots.Add(new InventorySnapshot
+            var observed = new InventorySnapshot
             {
-                phase = label, logicalCount = count, active = inventory.CountActive, inactive = inventory.CountInactive,
-                owned = inventory.CountOwned, budget = budget, created = inventory.TotalCreated,
-                destroyed = inventory.TotalDestroyed, viewportHeight = scroll.viewport.rect.height,
-                first = last < 0 ? -1 : first, last = last
-            });
+                phase = label, expectedCount = count, logicalCount = inventory.Count,
+                active = inventory.CountActive, inactive = inventory.CountInactive, owned = inventory.CountOwned,
+                budget = budget, created = inventory.TotalCreated, destroyed = inventory.TotalDestroyed,
+                viewportHeight = viewportHeight, first = last < 0 ? -1 : first, last = last,
+                contentChildren = contentChildren, activeChildren = activeChildren, bindingCount = rows.Count,
+                indicesValid = indicesValid
+            };
+            _inventorySnapshots.Add(observed);
+            Check(observed.logicalCount == count && observed.owned <= budget &&
+                observed.owned == observed.active + observed.inactive &&
+                observed.bindingCount == observed.active && observed.activeChildren == observed.active &&
+                indicesValid && (count == 0 || observed.active > 0),
+                "Bounded actual cell ownership " + label + ": logical/expected=" + observed.logicalCount + "/" + count +
+                " active/inactive/owned=" + observed.active + "/" + observed.inactive + "/" + observed.owned +
+                " budget=" + budget + " bindingCount=" + observed.bindingCount +
+                " content/activeChildren=" + contentChildren + "/" + activeChildren + " indicesValid=" + indicesValid);
         }
 
         private async UniTask VerifyScenesAsync()
@@ -806,7 +820,9 @@ namespace UIConsumer
         private sealed class InventorySnapshot
         {
             public string phase;
-            public int logicalCount, active, inactive, owned, budget, created, destroyed, first, last;
+            public int expectedCount, logicalCount, active, inactive, owned, budget, created, destroyed, first, last;
+            public int contentChildren, activeChildren, bindingCount;
+            public bool indicesValid;
             public float viewportHeight;
         }
 

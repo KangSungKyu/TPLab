@@ -543,6 +543,8 @@ def execute(args):
             report[mode] = {"success": True, "arms": len(candidates), "runtimeChecks": raw.get("checks", [])}
             if any(counter["status"] != "Available" for candidate in candidates for counter in candidate["profiler"].values()):
                 report["performanceStatus"] = "Partial: unavailable/incomplete markers retained as N/A/Partial"
+        if not args.build_only and report["performanceStatus"] == "Unmeasured":
+            report["performanceStatus"] = "Measured: all requested markers have complete fresh coverage"
         if args.sample_validation_script and not args.build_only:
             sample_result = evidence / "sample-result.json"
             env.update({"TPLAB_UI_MODE": "sample", "TPLAB_UI_RUN_MODE": "sample", "TPLAB_UI_PLAYER_RESULT": str(sample_result)})
@@ -550,6 +552,7 @@ def execute(args):
                                                "-logFile", str(evidence / "sample-player.log")],
                                               consumer, env, evidence / "sample-player.log", evidence / "sample-stdout.log", args.timeout)
             report["actualExecutions"].append({"kind": "sample", **sample_process})
+            report["sample"].update({"actualPlayerExecutions": 1, "acceptance": "Executed: sample result validation pending or failed."})
             sample = core.read_json(sample_result, sample_process["startedUnix"])
             begin, end = sample.get("startedUnix"), sample.get("completedUnix")
             if (sample_process["returnCode"] != 0 or sample_process["timedOut"] or not sample_process["processLogFresh"] or
