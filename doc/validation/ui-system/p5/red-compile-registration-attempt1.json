@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": "InvalidOperationException: Unregistered owned source: Assets/TPLab/UI/Runtime/VirtualCellBinding.cs",
+  "mutationStarted": false,
+  "testsStarted": false,
+  "nextStep": "Import the new owned source files before registry validation"
+}

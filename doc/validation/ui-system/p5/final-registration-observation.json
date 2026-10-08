@@ -1,0 +1,16 @@
+{
+  "editorPid": 24376,
+  "activeTests": false,
+  "isCompiling": false,
+  "isUpdating": false,
+  "isPlaying": false,
+  "activeSceneDirty": false,
+  "missingOwnedPaths": [
+    "Assets/TPLab/UI/Runtime/UIPresentation.cs",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs"
+  ],
+  "loadedUIPresentation": true,
+  "loadedVirtualScrollRect": true,
+  "permanentRegistryRepair": false
+}

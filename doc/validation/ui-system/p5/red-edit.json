@@ -1,0 +1,25 @@
+{
+  "total": 7,
+  "passed": 0,
+  "failed": 7,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.ContentExtentUsesFixedRowsAndGapsAndBecomesZeroForNoRows: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.EmptyingRowsUnbindsEveryActiveGenerationAndKeepsBorrowedInputsAlive: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.InvalidConfigurationIsRejectedBeforeReplacingWorkingState: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.InvalidCountDoesNotReplaceValidLogicalState: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.LayoutGroupOnContentIsRejectedBeforeReplacingWorkingState: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.TenThousandRowsKeepLogicalCountSeparateFromRealGraphicCells: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectEditModeTests.WarmFixedViewportRefreshDoesNotContinueCreatingOrDestroyingCells: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "editorPid": 24376,
+    "filter": "TPLab.UI.Tests.VirtualScrollRectEditModeTests",
+    "mode": "EditMode",
+    "runId": "c96afaf16bae4eae864c5c485357689c",
+    "source": "connector-exec-file",
+    "nativeResultFile": "red-edit.native.json"
+  }
+}

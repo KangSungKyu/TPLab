@@ -95,3 +95,15 @@ P3 최신 검증 track3725ad6에서 codex/game-ui-p4-input을 생성했다. 아�
 - 유효한 상위 C focus는 B 종료 뒤 유지한다. focus history는 display generation+target이며 cached GO의 새 rental을 옛 handle이 복원하지 못한다. module 하나에 경쟁하는 interactive Context 여러 개를 bind하지 않는다. passive persistent overlay와 scene interactive Context는 함께 사용할 수 있다. Unbind/owner 종료는 adapter-owned pending lease만 강제 해제하고 borrowed module을 비활성화한 뒤 유효한 input layer 정책을 재적용한다.
 
 P4 예정 사례17개(Edit6/native UI Play6/InputSystem Play5)의 실제 Red부터 실행한다. raw held 입력 사례는 pointer3/submit/cancel/move/touch7종을 포함한다. 아직 Assets stub/테스트 준비 단계이며 실행0건이다.
+
+## P5 구현 계약
+
+기존 ScrollRect를 빌리는 독립 세로·고정높이·한열 VirtualScrollRect와 readonly VirtualCellBinding을 제공한다. Configure/SetCount/Refresh/ScrollToIndex는 Unity main thread에서만 호출한다. content/cell은 가로 stretch·위쪽 anchor/pivot, content에는 LayoutGroup/ContentSizeFitter를 두지 않는 첫 범위다. 잘못된 숫자·배치·count·callback 재진입은 작업중 상태 변경 전에 거부한다. Configure는 이전 정상 목록을 invalid 입력 때문에 해제하지 않는다.
+
+bind/unbind callback 안의 같은 목록 Configure/SetCount/Refresh/ScrollToIndex 구조 변경은 InvalidOperationException이다. 다른 독립 UI 작업은 전역적으로 차단하지 않는다. native onValueChanged와 자체 layout 갱신은 private coalescing으로 구분한다. cell 반환/disable/destroy/실패는 이전 binding token을 취소하고 IsCurrent를 false로 만든 뒤 남은 정리를 시도한다. 프로젝트 async 결과는 main thread 복귀 후 token과 IsCurrent 확인을 모두 수행한다. source prefab/ScrollRect와 다른 listener를 정리하지 않는다.
+
+총 extent는 count*height+max(0,count-1)*spacing이며 0건은0이다. count/viewport 변경과 logical jump는 native 위치를 clamp하고 visible coverage를 유지한다. active+inactive는 viewport와 overscan의 창 예산으로 제한하며 고정 viewport warm 이후 생성/파괴 수가 scrolling으로 누적 증가하지 않는다. 자동 scroll reconcile는 같은 index의 binding을매frame 교체하지 않는다. 공개 Refresh의 프로젝트 데이터 재binding 정책은 실제 구현/XML에서 명시한다. 기존 Core ObjectPool은 고정capacity이며 trim API가 없어 viewport 변화에 맞는 작은 private cell holder를 사용하고 공용 Pool API는 확장하지 않는다.
+
+P5 source 반영 전 Temp 테스트14개는 계획이며 실제 Red/Green, consumer/Player/성능 성공이 아니다. 실제 상태는 track/검증 근거를 따른다.
+
+P5 구현 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`와 [실제 UI79 검증](validation/ui-system/p5/README.md)을 기록했다. Configure의 성공 교체는 이전 binding/cell을 정리하고 Count0부터 시작한다. 자동 native 이동은 물리 elastic/inertia를 보존하고 계산 범위만 clamp하며 count·viewport/jump는 물리 위치를 clamp한다. bind 실패는 모든 부분 세대를 취소·해제하고 자동 재시도를 중단하며 명시 command로 재시도한다. 성능·소비·사용자 수락은 P7이다.

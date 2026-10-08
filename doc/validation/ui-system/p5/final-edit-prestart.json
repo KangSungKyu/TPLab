@@ -1,0 +1,8 @@
+{
+  "testsStarted": false,
+  "nativeOutputExists": false,
+  "reason": "CLI console discovery returned no Unity instances after source whitespace/PlayMode reload",
+  "sameEditorPid": 24376,
+  "reconfirmedResponding": true,
+  "reconfirmedConsoleErrors": []
+}

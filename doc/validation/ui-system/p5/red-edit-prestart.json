@@ -1,0 +1,7 @@
+{
+  "testsStarted": false,
+  "expectedEditorPid": 24376,
+  "sourceSnapshot": "red-inputs/test-inputs.json",
+  "failure": "Console discovery returned no Unity instances immediately after compilation/domain reload; native TestRunner invocation was never reached",
+  "nextStep": "Reconfirm same original Editor status and Console before a fresh test start"
+}

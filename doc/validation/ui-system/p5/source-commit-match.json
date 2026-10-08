@@ -1,0 +1,11 @@
+{
+  "sourceRevision": "8f8abd290d540dc0b6ba30c5acc8b36b271bc302",
+  "snapshotEntries": 406,
+  "matchedNonProtectedGitInputs": 405,
+  "protectedInputs": 6,
+  "excludedProtectedSnapshotPaths": [
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions"
+  ],
+  "allCurrentInputHashesMatch": true,
+  "allProtectedRawBytesMatch": true
+}

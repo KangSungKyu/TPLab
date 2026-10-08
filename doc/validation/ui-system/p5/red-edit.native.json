@@ -1,0 +1,24 @@
+{
+  "runId": "c96afaf16bae4eae864c5c485357689c",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests.VirtualScrollRectEditModeTests",
+  "mode": "EditMode",
+  "summary": {
+    "total": 7,
+    "passed": 0,
+    "failed": 7,
+    "skipped": 0,
+    "failures": [
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.ContentExtentUsesFixedRowsAndGapsAndBecomesZeroForNoRows: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.EmptyingRowsUnbindsEveryActiveGenerationAndKeepsBorrowedInputsAlive: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.InvalidConfigurationIsRejectedBeforeReplacingWorkingState: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.InvalidCountDoesNotReplaceValidLogicalState: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.LayoutGroupOnContentIsRejectedBeforeReplacingWorkingState: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.TenThousandRowsKeepLogicalCountSeparateFromRealGraphicCells: System.NotImplementedException : The method or operation is not implemented.",
+      "TPLab.UI.Tests.VirtualScrollRectEditModeTests.WarmFixedViewportRefreshDoesNotContinueCreatingOrDestroyingCells: System.NotImplementedException : The method or operation is not implemented."
+    ],
+    "passes": []
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T10:00:45.4169664Z"
+}

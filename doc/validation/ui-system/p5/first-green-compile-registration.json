@@ -1,0 +1,11 @@
+{
+  "before": 7336,
+  "after": 7339,
+  "addedOwnedPaths": [
+    "Assets/TPLab/UI/Runtime/UIPresentation.cs",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs"
+  ],
+  "preservedExistingPaths": true,
+  "permanentRepair": false
+}

@@ -19,7 +19,7 @@
 | P2 등록/준비/생성 | codex/game-ui-p2-loading | 완료 / 자동 검증·문서·회고 | direct/provider·runtime lazy·재사용·늦은 완료와 부분 정리 |
 | P3 HUD/Popup/Canvas | codex/game-ui-p3-presentation | 완료 / 자동 검증·문서·회고 | HUD 보존·owner tree·A-B-C와 실제 정렬/숨김 |
 | P4 입력/연출 | codex/game-ui-p4-input | 완료 / 자동65개·문서·회고 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
-| P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 미착수 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
+| P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 완료 / 자동79개·문서·회고 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
 | P6 설정/root/예제 | codex/game-ui-p6-integration | 미착수 | Inspector/script 동일경로·Single/Additive·callback 예제 |
 | P7 통합/성능/수락 | codex/game-ui-p7-validation | 미착수 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
 
@@ -66,3 +66,9 @@ P4 독립 구현 배정(2026-10-08): /root/ui_native_input_adapter를 gpt-6.1-so
 P4 sourcedeb222cf6fda752d3e0dd6d22bda67f9d60e9e16: [최종UI65](validation/ui-system/p4/README.md) Edit24/24+Play41/41 실패0skip0, source398개 고정(보호Sample제외397개 Git일치)/보호6 raw unchanged/원본ready Console0. UI-only modal·explicitEventSystem/optionalInput adapter·Closing/raw-release+frame 차단·focus·forced/userclose·ordinary/nativefault를 구현했다. XML/사람/AI 문서·[회고08](retrospectives/2026-10-08-08-ui-input.md)과 track통합. 원본registry영구복구·소비/Player/Profiler/최종UX는 주장하지 않는다.
 
 P4 최종 문서/회고/정적검사 완료. native 입력 담당과 수명 담당의 P4 source는동결했고 문서담당P4갱신도완료했다. track통합은검증된tip과의ancestor검사/CAS update-ref로수행해이전phase의source삭제/recreate checkout을피한다. 같은tip에서 P5 branch를생성하며 main은8ce768d를유지한다.
+
+P4 doc bc400a7fa65eac6861a9ea7a1e6be39f98aea6fd를 ancestry/CAS로track통합하고같은tip에서P5 branch를생성했다. 수명담당에게검토된Temp4source/테스트14개+meta Red scaffold만배정했으며 아직실행0건이다. 문서담당은P6 Temp설정/root 7개예정test의base/optionalInput의존분리를검토한다. Assets/Unity/Git는P5source담당/부모만변경하며P6 Green/실행은아직없다.
+
+P5 [actualRed14](validation/ui-system/p5/README.md)는원본Editor24376 Edit7/Play7실패14skip0, inputs406/protected6 unchanged. 새소유source4만import한뒤기존registry경로7336개전부보존+누락UI3개등록으로compileConsole0을확인했다. 연결재등록의미시작실패는별도기록했다. 수명담당에게Runtime2파일만Green을배정하고14개tests는동결한다.
+
+P5 source `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`: [최종 UI79](validation/ui-system/p5/README.md) Edit31/31 + Play48/48, 실패0·skip0. 고정 높이 세로 가상 목록, viewport 예산과 축소 trim, native 관성, 명시 Refresh 재바인딩과 자동 세대 보존, 취소·부분 실패 정리를 구현했다. 최종 입력406개 중 보호 SampleInput 제외405개는 커밋과 일치하고 보호6개 raw bytes는 유지된다. 원본 Editor 등록 누락은 일회 컴파일 입력 보정 후 실제 실행했으며 영구 복구로 주장하지 않는다. 사람/AI 문서와 회고09를 같은 단계에서 갱신하고 최신 tip을 track에 통합한다. P6 설정/root/예제, P7 독립 소비·그래픽 Player·성능·최종 사용자 확인은 남아 있다.

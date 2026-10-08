@@ -1,0 +1,8 @@
+{
+  "reason": "git diff --cached --check reported extra blank EOF only",
+  "files": [
+    "Assets/TPLab/UI/Tests/EditMode/VirtualScrollRectEditModeTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/VirtualScrollRectPlayModeTests.cs"
+  ],
+  "testBodyChanged": false
+}

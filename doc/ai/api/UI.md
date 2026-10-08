@@ -6,11 +6,11 @@
 
 ## SourceRevision / SourcePath / HumanContract
 
-SourceRevision: deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Public declarations and XML links identify the P4 source revision.
+SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302. Public declarations and XML links identify the P5 source revision.
 
 ## ImplementationStatus / ValidationStatus / Evidence
 
-ImplementationStatus: Implemented through P4. ValidationStatus: Partial. SourceRevision: deb222cf6fda752d3e0dd6d22bda67f9d60e9e16.
+ImplementationStatus: Implemented through P5. ValidationStatus: Partial (P5 focused tests/source match verified; P6/P7 remain open). SourceRevision: 8f8abd290d540dc0b6ba30c5acc8b36b271bc302.
 
 ## Symbol / Signature / Constraints
 
@@ -59,7 +59,7 @@ DestroyOnClose destroys the clone/presentation. Reuse retains at most one candid
 
 ## Configuration / ExtensionPoints
 
-Supported through P4: direct prefab or provider key; Hud or Popup role; registered host; Modeless or Modal input eligibility; accepted fixed Canvas topology; DeactivateView or constrained DisableCanvasRendering; DestroyOnClose or Reuse. acquireModalBlock optionally supplies a UI modal lease factory. P4 Modal/Input is implemented; P5 Virtual ScrollRect remains deferred.
+Supported through P5: direct prefab or provider key; Hud or Popup role; registered host; Modeless or Modal input eligibility; accepted fixed Canvas topology; DeactivateView or constrained DisableCanvasRendering; DestroyOnClose or Reuse; fixed-height vertical one-column VirtualScrollRect. acquireModalBlock optionally supplies a UI modal lease factory. P6 installer/settings and P7 consumer/Player/Profiler/Canvas/UX gates remain open.
 
 ## RequiredSequence / ForbiddenUsage
 
@@ -87,7 +87,7 @@ await handle.CloseAsync();
 await context.ShutdownAsync();
 ```
 
-P3-focused tests passed EditMode 18/18 and PlayMode 30/30 on original Editor PID24376, failed0/skip0; compile and product Console errors0. Edit runId `303ed314e92e4c3cb12d9f935257816f`; Play CLI PID29644. The 48 focused tests include 18 P3 additions; not every added test had a separate Red run. Evidence: [P3 Edit](../../validation/ui-system/p3/final-edit.json), [native Edit result](../../validation/ui-system/p3/final-edit.native.json), [P3 Play](../../validation/ui-system/p3/final-play.json), [Console](../../validation/ui-system/p3/final-console.json), [validation record](../../validation/ui-system/p3/README.md). SourceRevision is `18666acae25b04c1c63ca49d8c00ca2ee67da308` (375 source files; protected six unchanged). UI remains development source outside released 0.0.1 packages/tag. P4 Modal/Input is implemented; P5 Virtual ScrollRect remains deferred. P4 focused original-Editor validation: EditMode 24/24, PlayMode 41/41, failed 0/skip 0; [Edit](../../validation/ui-system/p4/final-edit.json) · [Play](../../validation/ui-system/p4/final-play.json). SourceRevision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Consumer install, Player, Profiler, broad UX, and user acceptance remain P7 NotRun. See [UIContext design](../../GAME_UI_SYSTEM.md).
+P3-focused tests passed EditMode 18/18 and PlayMode 30/30 on original Editor PID24376, failed0/skip0; compile and product Console errors0. Edit runId `303ed314e92e4c3cb12d9f935257816f`; Play CLI PID29644. The 48 focused tests include 18 P3 additions; not every added test had a separate Red run. Evidence: [P3 Edit](../../validation/ui-system/p3/final-edit.json), [native Edit result](../../validation/ui-system/p3/final-edit.native.json), [P3 Play](../../validation/ui-system/p3/final-play.json), [Console](../../validation/ui-system/p3/final-console.json), [validation record](../../validation/ui-system/p3/README.md). SourceRevision is `18666acae25b04c1c63ca49d8c00ca2ee67da308` (375 source files; protected six unchanged). UI remains development source outside released 0.0.1 packages/tag. P4 Modal/Input and P5 VirtualScrollRect are implemented in development source. P4 focused original-Editor validation: EditMode 24/24, PlayMode 41/41, failed 0/skip 0; [Edit](../../validation/ui-system/p4/final-edit.json) · [Play](../../validation/ui-system/p4/final-play.json). SourceRevision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Consumer install, Player, Profiler, broad UX, and user acceptance remain P7 NotRun. See [UIContext design](../../GAME_UI_SYSTEM.md).
 
 
 ## P4 modal/input API and constraints
@@ -109,7 +109,7 @@ Behavior and ownership:
 - Unbind disables the borrowed module, refreshes layer policy, and detaches active modal wrappers; it does not return a live display's lease. Native application failure causes UIContext to retain the adapter-provided BlockAll lease through owner shutdown, even after Unbind. DisplayChanged listeners run synchronously in read-only dispatch; all are attempted. Listener failures propagate through the affected lifecycle result after cleanup/lease retirement. SetInputMode, BringToFront or SetFocus command failures throw from the command and do not poison later close. Ordinary listener errors do not set Fault. Arbitrary raw action subscribers are outside the native UI replay guarantee.
 - Invalid mode/reason uses ArgumentException; invalid state/thread/reentry/competing requests use declared InvalidOperationException boundaries. Read XML on each public symbol for exact exception scope.
 
-Final focused P4 original-Editor results: EditMode 24/24 and PlayMode 41/41, failed 0, skipped 0; product Console 0. Edit runId c4c9dd94c6b74ec9be545306d0bcc897; Play CLI PID 34520; Editor PID 24376. [Edit](../../validation/ui-system/p4/final-edit.json); [native Edit](../../validation/ui-system/p4/final-edit.native.json); [Play](../../validation/ui-system/p4/final-play.json); [source match](../../validation/ui-system/p4/source-commit-match.json). SourceRevision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Consumer installation, Player, Profiler, broad UX, and user acceptance remain NotRun (P7). P5 VirtualScrollRect and P6 installer/settings remain subsequent gates.
+Final focused P4 original-Editor results: EditMode 24/24 and PlayMode 41/41, failed 0, skipped 0; product Console 0. Edit runId c4c9dd94c6b74ec9be545306d0bcc897; Play CLI PID 34520; Editor PID 24376. [Edit](../../validation/ui-system/p4/final-edit.json); [native Edit](../../validation/ui-system/p4/final-edit.native.json); [Play](../../validation/ui-system/p4/final-play.json); [source match](../../validation/ui-system/p4/source-commit-match.json). SourceRevision deb222cf6fda752d3e0dd6d22bda67f9d60e9e16. Consumer installation, Player, Profiler, broad UX, and user acceptance remain NotRun (P7). P5 final focused Edit31/31 and Play48/48 passed; P6 installer/settings remain subsequent work. [P5 Edit](../../validation/ui-system/p5/final-edit.json) | [P5 Play](../../validation/ui-system/p5/final-play.json).
 
 ## P3 hosts, selection, presentation, and constraints
 
@@ -125,4 +125,17 @@ DisableCanvasRendering requires a dedicated Canvas on the clone root and rejects
 
 Fresh clones are created under inactive storage before display preparation. DeactivateView close deactivates the clone. Renderer-only presentation uses an active GameObject with its Canvas/raycasters and wrapper mask controlling visibility. A reused renderer-only clone remains active under active rendering storage while its Canvas and captured GraphicRaycasters are disabled and wrapper mask is closed. Re-show restores captured native enablement and opens the mask. Therefore a cached renderer-only clone is not an inactive GameObject. Before each generation, Transform and RectTransform anchors, pivot, size, and position are restored from the prefab; moving the presentation root preserves anchored position. Reuse remains one clone per definition and is published only after successful close, cleanup, and observer; failures discard it.
 
-P4 Modal/Input is implemented; P5 Virtual ScrollRect remains deferred. Explanatory examples remain NotRun; P7 consumer, Player, Profiler, broad UX, and user-acceptance gates remain NotRun.
+P4 Modal/Input and P5 VirtualScrollRect are implemented in development source. Explanatory examples remain NotRun; P7 consumer, Player, Profiler, broad UX, and user-acceptance gates remain NotRun.
+
+## P5 fixed-height virtual list
+
+`VirtualScrollRect` uses a borrowed vertical `ScrollRect`, its direct viewport/content, and one borrowed fixed-height prefab. It owns its clones, per-binding tokens, inactive staging storage, and its own native listener. The supported topology is one column, finite positive height, finite non-negative spacing, top-stretch content/cell roots with pivot `(0.5, 1)` and identity transforms, no horizontal padding, and no `LayoutGroup` or `ContentSizeFitter` on those roots.
+
+- `Configure(ScrollRect, RectTransform, float, Action<VirtualCellBinding>, Action<VirtualCellBinding> = null, int overscan = 2, float spacing = 0)` validates before replacing state. A successful Configure retires old cells and resets Count to zero; explicitly set the new count. Borrowed ScrollRect/prefab and unrelated listeners are preserved.
+- `SetCount(int)` updates logical length and extent, then clamps content. Extent is `count * height + max(0, count - 1) * spacing`, zero when empty. `ScrollToIndex(0)` resets an empty list; other indexes must be valid and jumps stop inertia. Native drag, elasticity, scrollbar, and inertia remain ScrollRect-owned.
+- `Refresh()` explicitly replaces visible binding generations after data changes. Automatic scroll/viewport reconciliation preserves unchanged in-range bindings and avoids idle rebinding.
+- `CountActive`, `CountInactive`, `CountOwned`, `TotalCreated`, and `TotalDestroyed` report settled state. The viewport cell budget is `ceil(viewportHeight / (height + spacing)) + 1 + 2 * overscan`. Reconciliation pre-creates at most `min(Count, budget)` cells, but retained cells may remain up to the viewport budget after Count shrinks, including Count zero. Count zero gives CountActive zero; CountInactive and CountOwned may still be nonzero. Viewport shrink trims excess clones. Warmed viewport stability is functional bounded-ownership evidence, not a performance measurement.
+- Bind/native reconciliation failures clean partial generations and surface an aggregate error. Automatic retry stops until explicit `SetCount`, `Refresh`, or `ScrollToIndex`. Unbind, failure, disable, and destruction invalidate/cancel generations and attempt remaining cleanup. Do not structurally reenter this component from bind/unbind.
+- `VirtualCellBinding.Index`, `Generation`, and cached `LifetimeToken` remain readable after cancellation-source disposal. `View` and `IsCurrent` require main-thread access. Async project code must return to main thread and check both token and `IsCurrent` before touching a recycled view. Data and subscriptions remain project-owned.
+
+P5 first Green passed Edit31/31 and Play48/48. Final UI79 passed Edit31/31 and Play48/48, failed0/skip0, with product Console empty. [Final Edit](../../validation/ui-system/p5/final-edit.json) | [Final Play](../../validation/ui-system/p5/final-play.json). The Play connector result was recovered after a CLI timeout without rerunning the test. SourceRevision `8f8abd290d540dc0b6ba30c5acc8b36b271bc302`; final snapshot verified 405 non-protected source matches and six protected files unchanged. Fourteen virtual-list tests include synthetic PointerEventData dispatch, not physical-device/Input System UX. P7 consumer, Player, Profiler/performance, Canvas comparison, broad UX, and user acceptance remain NotRun.

@@ -1,0 +1,19 @@
+{
+  "sourceRevision": "8f8abd290d540dc0b6ba30c5acc8b36b271bc302",
+  "sourcePathsPresentInBeeResponseFiles": {
+    "Library\\Bee\\artifacts\\1900b0aE.dag\\TPLab.UI.EditModeTests.rsp": [
+      "Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs",
+      "Assets/TPLab/UI/Tests/EditMode/VirtualScrollRectEditModeTests.cs"
+    ],
+    "Library\\Bee\\artifacts\\1900b0aE.dag\\TPLab.UI.PlayModeTests.rsp": [
+      "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs",
+      "Assets/TPLab/UI/Tests/PlayMode/VirtualScrollRectPlayModeTests.cs"
+    ],
+    "Library\\Bee\\artifacts\\1900b0aE.dag\\TPLab.UI.rsp": [
+      "Assets/TPLab/UI/Runtime/UIPresentation.cs",
+      "Assets/TPLab/UI/Runtime/VirtualScrollRect.cs",
+      "Assets/TPLab/UI/Runtime/VirtualCellBinding.cs"
+    ]
+  },
+  "claimsPermanentRepair": false
+}

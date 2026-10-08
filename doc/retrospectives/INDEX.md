@@ -111,3 +111,5 @@
 - 2026-10-08: [07 UIContext HUD·Popup·Canvas](2026-10-08-07-ui-presentation.md) — 자동 검증 완료, UI48/48·compile/Console0; 소비/성능/최종 UX는P7.
 
 - 2026-10-08: [08 UIContext Modal·Input](2026-10-08-08-ui-input.md) — P4 focused Green Edit24/24·Play41/41; 소비/Player/UX는 P7 NotRun.
+
+- 2026-10-08: [09 UIContext Virtual ScrollRect](2026-10-08-09-ui-virtual-scroll.md) - P5 final UI79 Edit31/31 and Play48/48, source match verified; P7 remains NotRun.

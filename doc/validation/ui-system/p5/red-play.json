@@ -1,0 +1,33 @@
+{
+  "total": 7,
+  "passed": 0,
+  "failed": 7,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.BindFailureCancelsAndUnbindsPartialRentals: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.ExtentAndLastIndexJumpStayWithinNativeViewportBounds: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.LateBindingGenerationCannotOverwriteTheRecycledRows: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.LogicalJumpScrollbarAndEventSystemDragInertiaKeepTextRowsInRange: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.ResizeDisableEnableAndDestroyReleaseBindingsButPreserveBorrowedScrollRectAndPrefab: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.ShrinkingAndRestoringCountClampsTheNativeContentAndBindings: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.VirtualScrollRectPlayModeTests.SmallAndLargeCountsKeepVisibleGraphicIndicesCorrect: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.VirtualScrollRectPlayModeTests",
+    "source": "connector-file",
+    "runId": "32752-1791453658689430400",
+    "cliPid": 32752,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 32752,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}
