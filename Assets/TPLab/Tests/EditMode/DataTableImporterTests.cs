@@ -162,6 +162,63 @@ namespace TPLab.Core.Tests
         }
 
         [Test]
+        public void TransientManifestReadLockIsRetriedWithoutRewritingSources()
+        {
+            string folder = "Assets/ImporterWriterTest_" + Guid.NewGuid().ToString("N");
+            System.Threading.Thread release = null;
+            FileStream reader = null;
+            try
+            {
+                var files = DataTableGenerator.Generate(DataTableGenerator.ReadSchema(SchemaJson), "Game.Data");
+                DataTableGeneratedFiles.Apply(folder, "owner", "v1", files);
+                string source = folder + "/TextRow.g.cs";
+                DateTime written = File.GetLastWriteTimeUtc(source);
+                File.WriteAllText(source + ".meta", "keep GUID");
+                reader = new FileStream(folder + "/owner.tableimport.json", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                release = new System.Threading.Thread(() =>
+                {
+                    System.Threading.Thread.Sleep(75);
+                    reader.Dispose();
+                }) { IsBackground = true };
+                release.Start();
+                Assert.That(DataTableGeneratedFiles.Apply(folder, "owner", "v2", files), Is.False);
+                Assert.That(File.ReadAllText(folder + "/owner.tableimport.json"), Does.Contain("v2"));
+                Assert.That(File.GetLastWriteTimeUtc(source), Is.EqualTo(written));
+                Assert.That(File.ReadAllText(source + ".meta"), Is.EqualTo("keep GUID"));
+                Assert.That(Directory.GetFiles(folder, "*.tmp"), Is.Empty);
+            }
+            finally
+            {
+                release?.Join();
+                reader?.Dispose();
+                if (Directory.Exists(folder)) Directory.Delete(folder, true);
+            }
+        }
+
+        [Test]
+        public void PersistentManifestReadLockRollsBackSourcePairAndRemovesStaging()
+        {
+            string folder = "Assets/ImporterWriterTest_" + Guid.NewGuid().ToString("N");
+            try
+            {
+                var files = DataTableGenerator.Generate(DataTableGenerator.ReadSchema(SchemaJson), "Game.Data");
+                DataTableGeneratedFiles.Apply(folder, "owner", "v1", files);
+                var originals = Directory.GetFiles(folder).ToDictionary(p => p, File.ReadAllBytes);
+                var changed = files.ToDictionary(p => p.Key, p => p.Value + "// changed\n");
+                using (var reader = new FileStream(folder + "/owner.tableimport.json", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    var started = System.Diagnostics.Stopwatch.StartNew();
+                    Assert.Throws<IOException>(() => DataTableGeneratedFiles.Apply(folder, "owner", "v2", changed));
+                    Assert.That(started.Elapsed.TotalSeconds, Is.LessThan(5));
+                    foreach (var pair in originals)
+                        Assert.That(File.ReadAllBytes(pair.Key), Is.EqualTo(pair.Value));
+                    Assert.That(Directory.GetFiles(folder, "*.tmp"), Is.Empty);
+                }
+            }
+            finally { if (Directory.Exists(folder)) Directory.Delete(folder, true); }
+        }
+
+        [Test]
         public void MissingSettingsDisableAutomaticWork()
         {
             Assert.That(DataTableImporter.RunAsync(null, true, true).GetAwaiter().GetResult().Status, Is.EqualTo(DataTableImportStatus.Disabled));
