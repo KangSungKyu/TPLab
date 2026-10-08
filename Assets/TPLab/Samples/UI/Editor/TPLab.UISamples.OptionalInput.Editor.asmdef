@@ -1,0 +1,15 @@
+{
+    "name": "TPLab.UISamples.OptionalInput.Editor",
+    "rootNamespace": "TPLab.Samples.UI.Editor",
+    "references": [
+        "TPLab.UISamples.OptionalInput",
+        "TPLab.Core",
+        "TPLab.Core.Input",
+        "TPLab.UI",
+        "TPLab.UI.InputSystem",
+        "UniTask",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": ["Editor"]
+}

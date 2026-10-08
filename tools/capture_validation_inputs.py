@@ -36,7 +36,7 @@ def main():
         files.append(target.relative_to(root).as_posix())
     hashes = {}
     for path in sorted(set(files)):
-        if path and Path(path).suffix in {".cs", ".asmdef", ".unity", ".asset", ".meta", ".dll", ".json", ".inputactions", ".txt", ".py"}:
+        if path and Path(path).suffix in {".cs", ".asmdef", ".prefab", ".unity", ".asset", ".meta", ".dll", ".json", ".inputactions", ".txt", ".py"}:
             hashes[path] = digest((root / path).read_bytes(), not path.endswith(".dll"))
     (folder / "test-inputs.json").write_text(json.dumps({
         "baseCommit": args.base, "normalization": "Text CRLF to LF; DLL bytes unchanged.", "sha256": hashes

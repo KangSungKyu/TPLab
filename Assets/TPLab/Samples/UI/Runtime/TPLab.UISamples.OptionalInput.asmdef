@@ -1,0 +1,13 @@
+{
+    "name": "TPLab.UISamples.OptionalInput",
+    "rootNamespace": "TPLab.Samples.UI",
+    "references": [
+        "TPLab.Core",
+        "TPLab.Core.Input",
+        "TPLab.UI",
+        "TPLab.UI.InputSystem",
+        "UniTask",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ]
+}

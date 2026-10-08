@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d4258da901441ab0f6fcd47f9c98a5, type: 3}
+  m_Name: CommonUI
+  m_EditorClassIdentifier: TPLab.UI::TPLab.UI.Installation.UIContextSettings
+  _definitions:
+  - _id: hud-a
+    _prefab: {fileID: 2871647423409891072, guid: 8f82b60f34dca30458de9eff491156c1, type: 3}
+    _assetKey: 
+    _role: 0
+    _hostId: sample
+    _inputMode: 0
+    _retention: 1
+    _hideStrategy: 0
+  - _id: hud-b
+    _prefab: {fileID: 6915327065210037245, guid: e481f5763ef21bf4aba01da1a5883cf8, type: 3}
+    _assetKey: 
+    _role: 0
+    _hostId: sample
+    _inputMode: 0
+    _retention: 1
+    _hideStrategy: 0
+  - _id: a
+    _prefab: {fileID: 279545009910830400, guid: c9af5498be7784e409c0cf27406c7507, type: 3}
+    _assetKey: 
+    _role: 1
+    _hostId: sample
+    _inputMode: 0
+    _retention: 1
+    _hideStrategy: 0
+  - _id: b
+    _prefab: {fileID: 456376812406243382, guid: 5cae1175d27288043bd023714e095933, type: 3}
+    _assetKey: 
+    _role: 1
+    _hostId: sample
+    _inputMode: 1
+    _retention: 1
+    _hideStrategy: 0
+  - _id: c
+    _prefab: {fileID: 2564714510546327887, guid: 4277846e9cce84745a5226195779470d, type: 3}
+    _assetKey: 
+    _role: 1
+    _hostId: sample
+    _inputMode: 0
+    _retention: 0
+    _hideStrategy: 0
+  - _id: inventory
+    _prefab: {fileID: 5022067817704544248, guid: 2c0db9b63ef123c48954c61e35cab6c1, type: 3}
+    _assetKey: 
+    _role: 1
+    _hostId: sample
+    _inputMode: 0
+    _retention: 1
+    _hideStrategy: 0
+  - _id: transition-shield
+    _prefab: {fileID: 456376812406243382, guid: 5cae1175d27288043bd023714e095933, type: 3}
+    _assetKey: 
+    _role: 1
+    _hostId: sample
+    _inputMode: 1
+    _retention: 1
+    _hideStrategy: 0
+  _firstHudDefinitionId: hud-a
+  _preloadDefinitionIds:
+  - a
+  - b
+  - c
+  - inventory
