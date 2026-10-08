@@ -12,7 +12,7 @@ Invoke from the checkout, substituting a real fresh name, exact SHA and installe
 
 ```powershell
 python tools/run_ui_source_consumer.py `
-  --project . --revision <exact-40-digit-final-dev-SHA> `
+  --project "$($PWD.Path)" --revision <exact-40-digit-final-dev-SHA> `
   --unity "C:/Program Files/Unity/Hub/Editor/6000.3.18f1/Unity.exe" `
   --core-runner tools/run_core_consumer.py `
   --scroll-benchmark tools/ui-consumer/templates/UIVirtualScrollBenchmark.cs `

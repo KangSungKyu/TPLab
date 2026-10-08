@@ -219,7 +219,7 @@ namespace UIConsumer
                 virtualScroll.SetCount(10000); virtualScroll.ScrollToIndex(9999); await UniTask.NextFrame();
                 Check(virtualScroll.Count == 10000 && virtualScroll.CountOwned <= 42, "Virtual10000 native scrolling with bounded cells");
                 virtualScroll.SetCount(0); await UniTask.NextFrame();
-                Check(virtualScroll.CountActive == 0 && virtualScroll.CountOwned == 0 && unbinds == binds, "Count zero releases bindings and cells");
+                Check(virtualScroll.Count == 0 && virtualScroll.CountActive == 0 && virtualScroll.CountInactive == virtualScroll.CountOwned && virtualScroll.CountOwned <= 42 && unbinds == binds, "Count zero releases bindings and retains only budgeted inactive cells");
             }
             finally { Destroy(holder); Destroy(prefab); }
             await UniTask.NextFrame();
@@ -262,15 +262,15 @@ namespace UIConsumer
             _actions = ScriptableObject.CreateInstance<InputActionAsset>();
             var game = new InputActionMap("Game"); game.AddAction("Fire", InputActionType.Button, "<Keyboard>/space"); _actions.AddActionMap(game);
             var ui = new InputActionMap("UI");
-            ui.AddAction("Point", InputActionType.PassThrough, "<Mouse>/position", expectedControlType: "Vector2");
-            ui.AddAction("Click", InputActionType.PassThrough, "<Mouse>/leftButton", expectedControlType: "Button");
-            ui.AddAction("Right", InputActionType.PassThrough, "<Mouse>/rightButton", expectedControlType: "Button");
-            ui.AddAction("Middle", InputActionType.PassThrough, "<Mouse>/middleButton", expectedControlType: "Button");
-            ui.AddAction("Scroll", InputActionType.PassThrough, "<Mouse>/scroll", expectedControlType: "Vector2");
-            ui.AddAction("Move", InputActionType.PassThrough, "<Gamepad>/leftStick", expectedControlType: "Vector2");
+            ui.AddAction("Point", InputActionType.PassThrough, "<Mouse>/position", expectedControlLayout: "Vector2");
+            ui.AddAction("Click", InputActionType.PassThrough, "<Mouse>/leftButton", expectedControlLayout: "Button");
+            ui.AddAction("Right", InputActionType.PassThrough, "<Mouse>/rightButton", expectedControlLayout: "Button");
+            ui.AddAction("Middle", InputActionType.PassThrough, "<Mouse>/middleButton", expectedControlLayout: "Button");
+            ui.AddAction("Scroll", InputActionType.PassThrough, "<Mouse>/scroll", expectedControlLayout: "Vector2");
+            ui.AddAction("Move", InputActionType.PassThrough, "<Gamepad>/leftStick", expectedControlLayout: "Vector2");
             ui.AddAction("Submit", InputActionType.Button, "<Keyboard>/enter"); ui.AddAction("Cancel", InputActionType.Button, "<Keyboard>/escape");
-            ui.AddAction("Position", InputActionType.PassThrough, expectedControlType: "Vector3");
-            ui.AddAction("Orientation", InputActionType.PassThrough, expectedControlType: "Quaternion");
+            ui.AddAction("Position", InputActionType.PassThrough, expectedControlLayout: "Vector3");
+            ui.AddAction("Orientation", InputActionType.PassThrough, expectedControlLayout: "Quaternion");
             _actions.AddActionMap(ui); _input = new InputManager(_actions);
             _input.Actions.devices = new InputDevice[] { _keyboard, _mouse };
             _gameMap = _input.Actions.FindActionMap("Game"); _uiMap = _input.Actions.FindActionMap("UI");
