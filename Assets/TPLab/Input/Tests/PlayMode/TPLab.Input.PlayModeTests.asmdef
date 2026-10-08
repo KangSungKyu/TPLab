@@ -1,5 +1,15 @@
 {
-    "name": "TPLab.Input.PlayModeTests",
-    "references": ["TPLab.Core.Input", "TPLab.Core", "TPLab.SceneTransitionSamples", "UniTask", "Unity.InputSystem", "UnityEngine.UI"],
-    "optionalUnityReferences": ["TestAssemblies"]
+  "name": "TPLab.Input.PlayModeTests",
+  "references": [
+    "TPLab.Core.Input",
+    "TPLab.Core",
+    "TPLab.SceneTransitionSamples",
+    "UniTask",
+    "Unity.InputSystem",
+    "UnityEngine.UI",
+    "Unity.InputSystem.TestFramework"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

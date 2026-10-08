@@ -20,7 +20,7 @@ using Object = UnityEngine.Object;
 
 namespace TPLab.Samples.SceneTransitions.Tests
 {
-    public sealed class LoadingSampleTests
+    public sealed class LoadingSampleTests : InputTestFixture
     {
         private GameObject _host;
         private InputActionAsset _source;
@@ -49,7 +49,7 @@ namespace TPLab.Samples.SceneTransitions.Tests
         }
 
         [UnityTearDown]
-        public IEnumerator TearDown() => UniTask.ToCoroutine(async () =>
+        public IEnumerator CleanupAsync() => UniTask.ToCoroutine(async () =>
         {
             if (_host != null)
             {

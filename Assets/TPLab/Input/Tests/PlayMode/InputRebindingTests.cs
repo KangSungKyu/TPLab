@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace TPLab.Core.Input.Tests
 {
-    public sealed class InputRebindingTests
+    public sealed class InputRebindingTests : InputTestFixture
     {
         private InputActionAsset _source;
         private InputManager _input;
@@ -33,7 +33,7 @@ namespace TPLab.Core.Input.Tests
         }
 
         [TearDown]
-        public void TearDown()
+        public void DisposeInputScope()
         {
             _input.Dispose();
             if (_keyboard.added)

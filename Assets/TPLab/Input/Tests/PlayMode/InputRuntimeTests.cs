@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace TPLab.Core.Input.Tests
 {
-    public sealed class InputRuntimeTests
+    public sealed class InputRuntimeTests : InputTestFixture
     {
         [UnityTest]
         public IEnumerator CancelledActionCanAcquireAnotherLayerDuringRecalculation()

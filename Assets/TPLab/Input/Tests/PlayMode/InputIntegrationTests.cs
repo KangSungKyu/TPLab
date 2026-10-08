@@ -16,7 +16,7 @@ using Object = UnityEngine.Object;
 
 namespace TPLab.Core.Input.Tests
 {
-    public sealed class InputIntegrationTests
+    public sealed class InputIntegrationTests : InputTestFixture
     {
         [UnityTest]
         public IEnumerator SceneOwnedScopeWaitsForRootAndPublishesExplicitly() => RootScopeAsync(false).ToCoroutine();

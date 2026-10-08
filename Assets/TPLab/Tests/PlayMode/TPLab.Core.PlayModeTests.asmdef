@@ -10,7 +10,8 @@
     "TPLab.SceneTransitionSamples",
     "Unity.InputSystem",
     "UnityEngine.UI",
-    "TPLab.Core.Input"
+    "TPLab.Core.Input",
+    "Unity.InputSystem.TestFramework"
   ],
   "overrideReferences": true,
   "precompiledReferences": [
