@@ -59,14 +59,33 @@ namespace TPLab.UI.Tests.Installation
             try
             {
                 PlayerPrefs.SetString(Addressables.kAddressablesRuntimeDataPath, settingsPath);
+                if (previousLocators.Length == 0)
+                {
+                    // Earlier fixtures can leave Addressables initialized after removing their own catalogs.
+                    // Its repeated initialization needs one locator; this empty seed belongs only to this fixture.
+                    Addressables.AddResourceLocator(new ResourceLocationMap(
+                        "TPLabUIInstallerEmpty-" + Guid.NewGuid().ToString("N")));
+                }
                 await bootstrap.InitializeAsync().Timeout(TimeSpan.FromSeconds(10));
             }
             finally
             {
                 _catalogLocators = Addressables.ResourceLocators.Except(previousLocators).ToArray();
-                bootstrap.Dispose();
-                if (hadPath) PlayerPrefs.SetString(Addressables.kAddressablesRuntimeDataPath, previousPath);
-                else PlayerPrefs.DeleteKey(Addressables.kAddressablesRuntimeDataPath);
+                try
+                {
+                    bootstrap.Dispose();
+                }
+                finally
+                {
+                    if (hadPath)
+                    {
+                        PlayerPrefs.SetString(Addressables.kAddressablesRuntimeDataPath, previousPath);
+                    }
+                    else
+                    {
+                        PlayerPrefs.DeleteKey(Addressables.kAddressablesRuntimeDataPath);
+                    }
+                }
             }
         }
 
