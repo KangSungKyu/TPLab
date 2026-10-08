@@ -3,7 +3,7 @@
 Module: Editor
 Namespace: TPLab.Core.Editor.DataTables; TPLab.Core.Editor.Bootstrap
 Assembly: TPLab.Core.Editor (includePlatforms: Editor)
-SourceRevision: 896bcbeeb8e627e193bb1eba5032455b7f8e3f32
+SourceRevision: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
 SourcePath: [Editor](../../../Assets/TPLab/Editor)
 HumanContract: [Editor](../../api/Editor.md), [importer](../../DATA_TABLE_IMPORTER_DRAFT.md), [Bootstrap](../../BOOTSTRAP_SYSTEM.md)
 ImplementationStatus: Implemented
