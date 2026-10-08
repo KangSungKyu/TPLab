@@ -1,0 +1,61 @@
+{
+  "sourceRevision": "de879b9396ddae0523bd3ab86939b679b383dd92",
+  "originalMain": "af9958ba402be2bc7f31d453afb2b14294a47ac8",
+  "archives": [
+    {
+      "filename": "com.tplab.core-0.0.1.tgz",
+      "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+      "twoFreshBuildsMatch": true,
+      "sameAsP2": true
+    },
+    {
+      "filename": "com.tplab.input-0.0.1.tgz",
+      "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+      "twoFreshBuildsMatch": true,
+      "sameAsP2": true
+    },
+    {
+      "filename": "com.tplab.editor-0.0.1.tgz",
+      "sha256": "adc7cecb418e64d7dd612379694b25262ddd44dcf4e06b1f8c2c93f99bfe1202",
+      "twoFreshBuildsMatch": true,
+      "sameAsP2": false
+    }
+  ],
+  "changedPackageInputsFromP2": [
+    "Assets/TPLab/Editor/DataTables/DataTableGeneratedFiles.cs",
+    "doc/ai/api/Editor.md",
+    "doc/api/Editor.md"
+  ],
+  "protectedFiles": [
+    {
+      "path": "Assets/Scenes/InitScene.unity",
+      "sha256": "c0fec936f9fbbe9ce1f0ef041ca2968ae0004a4ca1e4f4ac22e81925a363b3ee",
+      "unchanged": true
+    },
+    {
+      "path": "Assets/Settings/DefaultVolumeProfile.asset",
+      "sha256": "463776c51ae49d4fef980e8fd268081b2f505610d79315003faae1acff8f4115",
+      "unchanged": true
+    },
+    {
+      "path": "Assets/Settings/Mobile_RPAsset.asset",
+      "sha256": "2d5182d2b8884ac88bc6ed033a0a722c23cfb15a7bc8b7daa38db37227bafd09",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "sha256": "fc19f8b13f7c8e2262a3498e8fc019323abeb1465535da6891ec4f25b1f18af7",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/SceneTemplateSettings.json",
+      "sha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "sha256": "b18db9d5aac18c26e12e1d4556f1c989bb995e2304170746209f971ad021615a",
+      "unchanged": true
+    }
+  ]
+}

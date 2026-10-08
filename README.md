@@ -20,7 +20,7 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 
 ## 배포 준비
 
-첫 `0.0.1`의 [배포 트랙](doc/DISTRIBUTION_PIPELINE.md)에서 P1 패키징과 P2 실제 설치를 완료했다. Core·선택적 Input/Editor의 Git URL/`.tgz` 설치 8/8 구성과 소비/예제 Windows Mono 실행을 확인했다. [현재 증거](doc/validation/distribution-consumer/README.md)의 exact SHA는 `5f2e08d8bacb2320ca0832120f194c326869ce40`이다. 정식 tag/Release와 P3 최종 회귀·사용자 확인은 남아 있다. 저장소는 [public](https://github.com/KangSungKyu/TPLab)이며 외부 제공을 허용한다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. 다음 버전의 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 아직 구현하지 않았다.
+첫 `0.0.1`의 [배포 트랙](doc/DISTRIBUTION_PIPELINE.md)에서 P1/P2와 P3 자동 검증을 완료했다. 최종 후보 `de879b9396ddae0523bd3ab86939b679b383dd92`에서 EditMode286/286·PlayMode253/253, Git URL/`.tgz` 설치8/8과 Windows Mono 소비/예제 실행을 확인했다. [현재 증거](doc/validation/distribution-candidate/README.md)와 [설치·예제 최종 확인](doc/DISTRIBUTION_ACCEPTANCE.md)을 따른다. 사용자 확인 후 main/tag/Release를 진행한다. 저장소는 [public](https://github.com/KangSungKyu/TPLab)이며 TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. 다음 버전의 [Core 의존성 분리 검토와 GameUISystem](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07)은 아직 구현하지 않았다.
 
 검증 후보의 UPM Git 설치는 소비 `Packages/manifest.json`에 필요한 의존성을 합쳐 설정한다. UniTask는 먼저 고정 Git provider로 지정하고 Input/Editor를 선택하면 Core provider도 명시한다. 아래 블록은 Core만의 entries이며 기존 manifest 전체를 덮어쓰지 않는다.
 
@@ -28,7 +28,7 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 {
   "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.11",
   "com.unity.addressables": "2.9.1",
-  "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#5f2e08d8bacb2320ca0832120f194c326869ce40"
+  "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#de879b9396ddae0523bd3ab86939b679b383dd92"
 }
 ```
 

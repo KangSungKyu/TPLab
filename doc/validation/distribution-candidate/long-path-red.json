@@ -1,0 +1,38 @@
+{
+  "sourceRevision": "0abe7fd3f86c3dbd35c44d63019c34c603a5cefb",
+  "process": {
+    "pid": 34048,
+    "startedUtc": "2026-10-08T01:16:40.704766+00:00",
+    "startedUnix": 1791422200.7047708,
+    "endedUtc": "2026-10-08T01:16:53.597951+00:00",
+    "elapsedSeconds": 12.893,
+    "returnCode": 2,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-path-red\\editor.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-path-red\\stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true
+  },
+  "summary": {
+    "id": "2",
+    "testcasecount": "1",
+    "result": "Failed(Child)",
+    "total": "1",
+    "passed": "0",
+    "failed": "1",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-08 01:16:52Z",
+    "end-time": "2026-10-08 01:16:52Z",
+    "duration": "0.1103135"
+  },
+  "failures": [
+    {
+      "name": "TPLab.Core.Tests.DataTableImporterTests.ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath",
+      "message": "System.IO.DirectoryNotFoundException : Could not find a part of the path \"C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Assets\\ImporterLongPath_c7fcc20cc8864f028cce694449d9d83a\\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\schema_6ca3f86492d34f44b017e0f46ec34596.tableimport.json.68b16394509940b6a8c67f847f1fea08.tmp\""
+    }
+  ]
+}

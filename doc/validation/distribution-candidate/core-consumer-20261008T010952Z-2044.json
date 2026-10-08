@@ -1,0 +1,217 @@
+{
+  "actualRuns": 2,
+  "allowlist": [],
+  "createdUtc": "2026-10-08T01:09:52.686646+00:00",
+  "editor": {},
+  "errors": [
+    "Artifact setup/importer preparation failed."
+  ],
+  "expectedUnityVersion": "6000.3.18f1",
+  "harnessTemplates": {
+    "ConsumerBuild.cs": "bdc24c2ce83ccd5a008d43adfb5db1ca3068b93b2478e0f90fb256430f23339d",
+    "ConsumerSetup.cs": "650b77fbda36b47c2914e17ec8385f5d61fc811ef3ea58e131da41ca8b04e667",
+    "ConsumerSmoke.cs": "9ba12e7f1357f8890b9c510184b75d262612b4fc3b4ab28a818537e157011834",
+    "EditorProbe.cs": "eaebe8face645d28fc786f3bb8bd7894521e76419f9a8dab7d920fdf09d129a5",
+    "ProjectVersion.txt.in": "49acfbeaed7b14df027494cef9f89f66b4beac575ff9dca2f6d6f340748db4a9",
+    "manifest.json.in": "24e71784757509b9a3ca9b3c98c3a13221a0d2b4a8d50705a1ae46dcde32a1d8",
+    "run_core_consumer.py": "2bbe66db75c5a378e2e94e4a0a608b097b7b63b45f94dff0fd50eaf461684d53",
+    "run_scene_player.py": "6cd642383681861d7730ca6f248a027a6fe1f7366ead717439d28cd9bb797583"
+  },
+  "includeInput": true,
+  "installation": {
+    "artifacts": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-final-a\\artifacts",
+    "dependencies": {
+      "com.tplab.core": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#cc9609f9766a781b1268fba40793fb12119748d4",
+      "com.tplab.editor": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.editor#cc9609f9766a781b1268fba40793fb12119748d4",
+      "com.tplab.input": "https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.input#cc9609f9766a781b1268fba40793fb12119748d4",
+      "com.unity.modules.imgui": "1.0.0",
+      "com.unity.modules.ui": "1.0.0",
+      "com.unity.nuget.newtonsoft-json": "3.2.2",
+      "com.unity.ugui": "2.0.0"
+    },
+    "importSamples": true,
+    "includeEditor": true,
+    "manifestSha256": "4ca55cf5743bc0ae96ef888fdae8ae9eb89daa9cf23addce20d409cf395b321c",
+    "mode": "git",
+    "packages": [
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.unity.addressables": "2.9.1"
+        },
+        "filename": "com.tplab.core-0.0.1.tgz",
+        "id": "com.tplab.core",
+        "payloadSha256": "3b889777ba6ffd3165000a0a0c8c1c786a908dbebb9f06170d8e8262751d8bc1",
+        "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.inputsystem": "1.19.0"
+        },
+        "filename": "com.tplab.input-0.0.1.tgz",
+        "id": "com.tplab.input",
+        "payloadSha256": "1cadb8834cb90f99426b1ada97a7cfd27ed7444a6bdd3552466ad35cdff0e81c",
+        "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+        "version": "0.0.1"
+      },
+      {
+        "dependencies": {
+          "com.cysharp.unitask": "2.5.11",
+          "com.tplab.core": "0.0.1",
+          "com.unity.addressables": "2.9.1",
+          "com.unity.nuget.newtonsoft-json": "3.2.2"
+        },
+        "filename": "com.tplab.editor-0.0.1.tgz",
+        "id": "com.tplab.editor",
+        "payloadSha256": "29b88818f09ab56c9e9a822dc709e63681ec3f84a2125066c2dbb3a3620a09a2",
+        "sha256": "a477e615a031a68b111005008deb089d23c9018f2942fe4633dec956adffba41",
+        "version": "0.0.1"
+      }
+    ],
+    "sourceRevision": "cc9609f9766a781b1268fba40793fb12119748d4",
+    "version": "0.0.1"
+  },
+  "manifest": {
+    "requested": {
+      "com.cysharp.unitask": "2.5.11",
+      "com.unity.addressables": "2.9.1",
+      "com.unity.inputsystem": "1.19.0",
+      "com.unity.modules.assetbundle": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.uielements": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+      "com.unity.nuget.newtonsoft-json": "3.2.2"
+    },
+    "sha256": "8f4947980e5e7fa6ddf1083515a413b9c542a511fb56b77a1253ddf1662b2a32"
+  },
+  "observations": {},
+  "outputProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a",
+  "packageVersions": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.unity.addressables": "2.9.1",
+    "com.unity.inputsystem": "1.19.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.2.2"
+  },
+  "player": {},
+  "runId": "20261008T010952Z-2044",
+  "sampleImport": {
+    "elapsedSeconds": 57.261,
+    "endedUtc": "2026-10-08T01:10:49.984958+00:00",
+    "pid": 32884,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Logs\\sample-import.log",
+    "processLogFresh": true,
+    "result": {
+      "error": "",
+      "importer": {
+        "automaticNoMutation": false,
+        "baselineAssetsUnchanged": false,
+        "buildSettingsUnchanged": false,
+        "defaultAutomaticDisabled": false,
+        "defaultSettingsDisabled": false,
+        "diagnostic": "",
+        "generatedAwaitingCompilation": false,
+        "generatedDiagnostic": "",
+        "generatedUnwrittenPending": false,
+        "generatedValidated": false,
+        "generatedValidatorObserved": false,
+        "invalidSchemaDiagnostic": "",
+        "invalidSchemaDiagnostics": false,
+        "manualDiagnostic": "",
+        "manualTypedValidated": false,
+        "manualValidatorObserved": false,
+        "missingSettingsDisabled": false,
+        "ownedAssetsCleaned": false,
+        "packageBytesUnchanged": false,
+        "packagesDiagnostic": "",
+        "packagesOutputDenied": false,
+        "profileUnregistered": false,
+        "rejectedDiagnostic": "",
+        "requiresGeneratedValidationPhase": false,
+        "validatorFailurePreservesOwnedSources": false
+      },
+      "imports": [
+        {
+          "imported": true,
+          "name": "Core Pooling",
+          "package": "com.tplab.core",
+          "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\Samples\\TPLab Core\\0.0.1\\Core Pooling"
+        },
+        {
+          "imported": true,
+          "name": "Scene Transitions",
+          "package": "com.tplab.input",
+          "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\Samples\\TPLab Input\\0.0.1\\Scene Transitions"
+        }
+      ],
+      "samplesImported": true,
+      "success": true
+    },
+    "returnCode": 0,
+    "startedUnix": 1791421792.7237883,
+    "startedUtc": "2026-10-08T01:09:52.723785+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Logs\\sample-import-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "schemaVersion": 1,
+  "setup": {
+    "elapsedSeconds": 7.19,
+    "endedUtc": "2026-10-08T01:10:57.175437+00:00",
+    "pid": 29232,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Logs\\setup.log",
+    "processLogFresh": true,
+    "result": {
+      "error": "TPLabConsumer.EditorProbe+ProbeException: Installed Editor importer probe failed: Generation must be reported as pending compilation: Could not find a part of the path \"C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\TPLabConsumerImporterProbe_e690871efcc54d44b8171fac92312f95\\Generated\\schema_df171e8fcd43f0f4abbd99e4f675cf27.tableimport.json.9fc4496acd8e4f9b94e65b616f750648.tmp\" ---> System.IO.InvalidDataException: Generation must be reported as pending compilation: Could not find a part of the path \"C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\TPLabConsumerImporterProbe_e690871efcc54d44b8171fac92312f95\\Generated\\schema_df171e8fcd43f0f4abbd99e4f675cf27.tableimport.json.9fc4496acd8e4f9b94e65b616f750648.tmp\"\r\n  at TPLabConsumer.EditorProbe.Require (System.Boolean condition, System.String diagnostic) [0x0000a] in C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\Editor\\EditorProbe.cs:377 \r\n  at TPLabConsumer.EditorProbe.RunAsync () [0x00a7d] in C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\Editor\\EditorProbe.cs:174 \r\n   --- End of inner exception stack trace ---\r\n  at TPLabConsumer.EditorProbe.RunAsync () [0x00b17] in C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\Editor\\EditorProbe.cs:191 \r\n  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource`1[T].GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:370 \r\n  at TPLabConsumer.ConsumerSetup.PerformAsync () [0x000d4] in C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\Editor\\ConsumerSetup.cs:30 ",
+      "importer": {
+        "automaticNoMutation": true,
+        "baselineAssetsUnchanged": false,
+        "buildSettingsUnchanged": false,
+        "defaultAutomaticDisabled": true,
+        "defaultSettingsDisabled": true,
+        "diagnostic": "",
+        "generatedAwaitingCompilation": false,
+        "generatedDiagnostic": "Failed: Could not find a part of the path \"C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Assets\\TPLabConsumerImporterProbe_e690871efcc54d44b8171fac92312f95\\Generated\\schema_df171e8fcd43f0f4abbd99e4f675cf27.tableimport.json.9fc4496acd8e4f9b94e65b616f750648.tmp\"",
+        "generatedUnwrittenPending": true,
+        "generatedValidated": false,
+        "generatedValidatorObserved": false,
+        "invalidSchemaDiagnostic": "Failed: Schema version and dataType must be integers.",
+        "invalidSchemaDiagnostics": true,
+        "manualDiagnostic": "Validated: All 1 tables passed shared and project validation.",
+        "manualTypedValidated": true,
+        "manualValidatorObserved": true,
+        "missingSettingsDisabled": true,
+        "ownedAssetsCleaned": true,
+        "packageBytesUnchanged": false,
+        "packagesDiagnostic": "Failed: Use a normalized Assets path: Packages/TPLabConsumerImporterProbe_e690871efcc54d44b8171fac92312f95",
+        "packagesOutputDenied": true,
+        "profileUnregistered": true,
+        "rejectedDiagnostic": "",
+        "requiresGeneratedValidationPhase": false,
+        "validatorFailurePreservesOwnedSources": false
+      },
+      "imports": [],
+      "samplesImported": false,
+      "success": false
+    },
+    "returnCode": 1,
+    "startedUnix": 1791421849.9858265,
+    "startedUtc": "2026-10-08T01:10:49.985824+00:00",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\Temp\\DistributionConsumer\\git-full-p3-a\\Logs\\setup-stdout.log",
+    "stdoutLogFresh": true,
+    "timedOut": false
+  },
+  "sourceProject": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source",
+  "success": false,
+  "unityExecutable": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.18f1\\Unity.exe"
+}

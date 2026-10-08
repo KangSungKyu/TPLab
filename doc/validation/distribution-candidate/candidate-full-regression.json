@@ -1,0 +1,47 @@
+{
+  "sourceRevision": "5ffe2a9deece93ccc216cdff728f0f8da30661d0",
+  "unityVersion": "6000.3.18f1",
+  "success": false,
+  "scope": "Additional exact-candidate full project regression; does not replace original Editor",
+  "runs": [
+    {
+      "mode": "EditMode",
+      "process": {
+        "pid": 27132,
+        "startedUtc": "2026-10-08T00:43:08.002465+00:00",
+        "startedUnix": 1791420188.0024714,
+        "endedUtc": "2026-10-08T00:47:02.301703+00:00",
+        "elapsedSeconds": 234.299,
+        "returnCode": 2,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression\\EditMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression\\EditMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "283",
+        "result": "Failed(Child)",
+        "total": "283",
+        "passed": "282",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 00:46:40Z",
+        "end-time": "2026-10-08 00:47:00Z",
+        "duration": "20.029746"
+      },
+      "failures": [
+        {
+          "name": "TPLab.Core.Tests.DataTableImporterTests.UnknownFilesAndAutomaticContractChangesAreProtected",
+          "message": "System.IO.IOException : 바꿀 파일을 제거할 수 없습니다"
+        }
+      ]
+    }
+  ],
+  "error": "AssertionError"
+}

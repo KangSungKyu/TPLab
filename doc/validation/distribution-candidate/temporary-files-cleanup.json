@@ -1,0 +1,170 @@
+{
+  "scope": "This P3 unit one-shot files only; necessary results preserved under doc/validation/distribution-candidate",
+  "removedFiles": [
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\add_lock_tests.py",
+      "sha256": "fcbfcdd6fb7b6c5d4d25e85c9e14273fc40f45dcbc42693c044545ca9ebec98a"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\add_path_test.py",
+      "sha256": "c039fb847400eff99f6aeb7417b78052f87de5ec48c5fb1c22cefade664e9101"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\align_path_docs.py",
+      "sha256": "f4c7e9a77672fda5eea0077b6509763ecc68b2cf5d1664c8400cdf68500b6e1c"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\attach_input_fixtures.py",
+      "sha256": "193e00e034e45cf1ddd7b5a117211373aab52995199a991d7150c9da5a94c99d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\check_snapshot.py",
+      "sha256": "476edc36ca608fb2de0bcf8b6f5eb34ded61ffdce92a8a786a93158142c09e07"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\clarify_delay.py",
+      "sha256": "415facf1bffcb49f4136d0dbbe129c3b67ddb7b9f892afdfcff74115c29f5c9c"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\clarify_human_project.py",
+      "sha256": "1b3bc7939ab1db2052f44b65bd320e3827c5dd9b9480532ee7d9b725c9ea3775"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\close_api.py",
+      "sha256": "33e69b209e5c336f24f419b06a5529d2210d9dd0ba539cef53024ff19a73c159"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\close_final_docs.py",
+      "sha256": "25070f6aec11291dfe996dae0a1b209ec37130b1844c83678c7c455a2b789042"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\correct_result_field.py",
+      "sha256": "465f9d9b86a495db0a91e9232e152eba20ba4c70fdef2b2d433232dbc6a2bf87"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\evidence-readme-draft.md",
+      "sha256": "51c04f01d3d0da811c2b7fdc56f05f31640cd51975c93e4efecb683fc294c193"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\final_protection.py",
+      "sha256": "6dbe0b5514bb38e7e4b927a9d2e218ba1f50c19cd941213f9b5d15333b590458"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\fix_fixture_cleanup.py",
+      "sha256": "70bdfb70357959b318abfdbaf187f2f6fe1a4fc5bd75d0d9ebcf644b417aa887"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\fix_lock.py",
+      "sha256": "c58a1128151479e2337db76089595a65db2e10bdd9612b741bffbeb444096ba4"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\fix_path.py",
+      "sha256": "73894610e7292f235f12d02843654a9bac782b02b98c8ac69548d3c8cd4dfdf7"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\improve_retrospective.py",
+      "sha256": "cce0db220c38ae60f1808eacf7750b2391d77f032fe4176c943c19744b0b9c56"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_cleanup_run.py",
+      "sha256": "37463d133378e4e682b65bf94effcbb6bb5e68c177e8ff7d6c0b5716fc473a0d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_documents.py",
+      "sha256": "cb2d7f530824c02c00d559f5bdd217e5bc22c5ec5c5a1a070a8f5c813887fd63"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_final_docs.py",
+      "sha256": "4c1e22040141220e1cd44c64869c0dc947271a3cc389845406d8909da3fcd4dc"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_final2.py",
+      "sha256": "01237499c2bd8de05ef0f854aea5086d4f19660de54ab557fb84a98eb536a3c4"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_fixture_run.py",
+      "sha256": "e5c3ad3bdd6c7fa1ae1d62ab01b7e108b84492290ee5c267197621e9ae0b34eb"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_green.py",
+      "sha256": "c61eb9634412ab217eb377c42fce4db3f15b32e0e2e8a4b2c4e633a2898c3f9c"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_path_green.py",
+      "sha256": "fff09ec78ebc05acc276508ab65cc6b05bf2859341f12cb0ab375d95b7384ba2"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_path_projection.py",
+      "sha256": "f8f5b1755b867542fc293d601db8d015f051241569c8ca7592429c6376b0105d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_path_red.py",
+      "sha256": "708217da9c2812e18caaf2b1a9711922a167210ab967d972b00016cbf83f7e7c"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\prepare_release_notes.py",
+      "sha256": "e576f7adf80d91d457f4d342376d2090cac46cf6dc5eb77f7c49e994bc8f8401"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\python-final2.txt",
+      "sha256": "f31f1a31b4eb6146784b1416f57f4fdd817268ab072216305b7ca27e78465e9f"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\record_user_pending.py",
+      "sha256": "cd96b7a5c89801cf14a1e99b398c34f97a97a0d6fd806ff035f17b086880433c"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\review_corrections.py",
+      "sha256": "02e69da616a7f07b9d3f48fba423f8066e3a139bcc52afa8f3c776bd554f5a2d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_candidate_green.py",
+      "sha256": "aef0a9107247eb3e6a3c44b7452ed2a996c96cc832452498ed08fed0d563e01d"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_candidate_regression.py",
+      "sha256": "471b5f8d6193a4a5f79cefe8640f9780a11f7e7c5a3685ebc27e9dd36401dbfd"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_cleanup_green.py",
+      "sha256": "0f11d8b122fa947cc05f5ea5f30423d478c6e82648bab85402d510548e1b9aff"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_final.py",
+      "sha256": "40ea987cccdd93e4b314e36a7410d3cd36285f4aa0c56278658c1659f90d69c6"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_final2.py",
+      "sha256": "b731fd4f0546d5b1087ba9afb58c21606654faea8987face79de154c38dbdbb8"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_fixture_green.py",
+      "sha256": "13f9f4f8f443e582e21d8d21b53f0d56131c1b1e6af3bd131f23cfc0450490fb"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_graphics.py",
+      "sha256": "b6c98724532abb8dc4caca3296d1bb2b76f707255202725d15ec919b52a1e740"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_lock_red.py",
+      "sha256": "a29f4eb2f04c43f6fa1e51f9e86922afb035b2a382d6b70ec9248186668c7dde"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_path_green.py",
+      "sha256": "509ed2fb1d19dd78aa047efc4a457621ed2c9f07f63a7e357c12a21bd3ed0e5f"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\run_path_red.py",
+      "sha256": "a2f326c632eadee1067639dddd395fbc989c477e6c4d00ec40c25a7c3cd6999e"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\update_status.py",
+      "sha256": "6d49bbd64d7344630a6141c12ece8b19be5d56eae9dbca31f9caaabd3fc0691e"
+    },
+    {
+      "path": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1\\Temp\\DistributionP3\\check_final_documents.py",
+      "sha256": "7e5384f889b5f37b8d977a0378d64953e9d3fd342e31dc635d9ae04ba4ad35d6"
+    }
+  ],
+  "retained": "Archives, raw logs, actual consumer projects and release-note draft for pending acceptance/P4"
+}

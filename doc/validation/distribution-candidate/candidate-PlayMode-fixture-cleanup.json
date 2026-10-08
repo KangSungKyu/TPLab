@@ -1,0 +1,34 @@
+{
+  "sourceRevision": "896bcbeeb8e627e193bb1eba5032455b7f8e3f32",
+  "scope": "Same full253 tests with official isolated input and correctly ordered async cleanup; prior failures preserved",
+  "process": {
+    "pid": 33656,
+    "startedUtc": "2026-10-08T01:05:36.064348+00:00",
+    "startedUnix": 1791421536.0643544,
+    "endedUtc": "2026-10-08T01:05:51.352527+00:00",
+    "elapsedSeconds": 15.288,
+    "returnCode": 0,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-play-fixture-cleanup\\editor.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-play-fixture-cleanup\\stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true
+  },
+  "summary": {
+    "id": "2",
+    "testcasecount": "253",
+    "result": "Passed",
+    "total": "253",
+    "passed": "253",
+    "failed": "0",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-08 01:05:47Z",
+    "end-time": "2026-10-08 01:05:50Z",
+    "duration": "2.769783"
+  },
+  "failures": []
+}

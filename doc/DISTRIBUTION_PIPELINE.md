@@ -1,8 +1,8 @@
 # TPLab 배포 규격과 dev-build track
 
-2026-10-07. Status: **P1 / 패키징 구현·소비 검증 대기**, PipelineImplementation: **P1Implemented**, PackageValidation: **NotRun**. 첫 목표 버전은 `0.0.1`, 태그는 `v0.0.1`이다. 현재 소비 설치는 [소스 가져오기](../README.md)이며 검증된 Release는 아직 제공하지 않는다. P1의 개발 검증용 생성 도구와 문서는 아래에 제공한다.
+2026-10-08. Status: **P3 / 최종 후보 자동 검증 완료·사용자 확인 대기**, PipelineImplementation: **P1/P2Implemented**, PackageValidation: **P3Passed/UserPending**. 목표 버전은 `0.0.1`, 태그는 `v0.0.1`이다. [실제 Git/tarball 설치](validation/distribution-consumer/README.md)는 완료했으며 정식 tag/Release는 아직 제공하지 않는다. P3의 고정 후보는 `de879b9396ddae0523bd3ab86939b679b383dd92`이다. [최종 확인 절차](DISTRIBUTION_ACCEPTANCE.md)를 따른다.
 
-최초 설계 기준 main은 `993a0617b8b5253175d9a225432f0aa642d19d3d`, Git URL·예제 분류·차기 범위 보완 기준은 `36e8ffbb0833293474da43396481895e5d8108d0`다. 기존 코어 기능·이름 변경 검증은 선행 기록이며 실제 배포물 설치 통과를 대신하지 않는다. 이번 범위는 규격·운영·구현 단계 작성이다. 배포 자동화 구현, 개발 소스 이동, 패키지 생성, Unity 테스트, 태그·Release 발행은 후속 단위다.
+최초 설계 기준 main은 `993a0617b8b5253175d9a225432f0aa642d19d3d`, Git URL·예제 분류·차기 범위 보완 기준은 `36e8ffbb0833293474da43396481895e5d8108d0`다. 기존 코어 기능·이름 변경 검증은 선행 기록이며 실제 배포물 설치 통과를 대신하지 않는다. P0는 규격·운영 설계, P1은 패키징, P2는 실제 설치까지 완료했다. 개발 원본은 Assets에 유지한다. 현재 P3는 후보 회귀·최종 확인이며 main/tag/Release 발행은 P4다.
 
 ## 배포 단위
 
@@ -16,9 +16,9 @@
 
 package ID는 새 배포 명세의 후보 식별자다. 첫 구현에서 중복·명명 검사를 통과한 뒤 고정한다. C# namespace·assembly 이름 `TPLab.Core`, `TPLab.Core.Input`, `TPLab.Core.Editor`는 유지한다. Input·Editor 설치는 선택이며 Core에 입력·uGUI·URP를 강제하지 않는다. 개발용 Connector·IDE·Unity Test Framework를 소비 runtime dependency에 추가하지 않는다.
 
-개발 예제는 `Assets/TPLab/Samples/Core`와 `Assets/TPLab/Samples/Input`으로 분류한다. Core 기능만 필요한 예제는 Core, Input을 함께 사용하는 예제는 Input에 둔다. 실제 의존성으로 분류하며 폴더 이름만 바꿔 Core-only 지원을 주장하지 않는다. 현재 씬 전환 예제는 Core·Input·uGUI 2.0.0을 사용하므로 P2에서 `Assets/TPLab/Samples/Input/SceneTransitions`로 옮기고 `com.tplab.input`의 선택 sample로 제공한다. 현재 소스 경로는 여전히 `Assets/TPLab/Samples/Input/SceneTransitions`이며 이번 문서 작업에서 이동하지 않는다.
+개발 예제는 `Assets/TPLab/Samples/Core`와 `Assets/TPLab/Samples/Input`으로 분류한다. Core 기능만 필요한 예제는 Core, Input을 함께 사용하는 예제는 Input에 둔다. 실제 의존성으로 분류하며 폴더 이름만 바꿔 Core-only 지원을 주장하지 않는다. 씬 전환 예제는 Core·Input·uGUI 2.0.0을 사용하므로 `Assets/TPLab/Samples/Input/SceneTransitions`에서 `com.tplab.input`의 선택 sample로 제공한다. `Assets/TPLab/Samples/Core/CorePooling`은 Core만 사용한다. P2에서 두 sample의 실제 import/실행과 기존 GUID 보존을 확인했다.
 
-package sample 폴더·manifest 설정은 Unity 6000.3의 Samples 규격에 맞춰 P1/P2에서 확정한다. Git URL과 tarball 양쪽에서 Package Manager에 예제가 표시되고 소비 프로젝트의 Assets에 import되는지 확인한다. 두 설치 방식의 상대 sample 경로·구성이 같아야 한다. 샘플 import만으로 사용자 Input Handling·Build Settings·Addressables·시작 씬을 자동 변경하지 않는다. 데이터 테이블 템플릿은 Editor package의 선택적 sample 후보다. 기존 테스트/fixture·Validation 스크립트는 기본 소비 패키지에서 제외하고 검증 checkout이 소유한다. package 자체의 테스트 구성이 필요해지면 별도 opt-in 경계를 검토한다.
+package sample 폴더·manifest 설정은 Unity 6000.3의 `Samples~`와 `samples` 규격을 사용한다. Git URL과 tarball 양쪽에서 실제 `Sample.Import`와 Assets의 import 결과를 확인했다. 두 설치 방식의 상대 sample 경로·구성이 같아야 한다. 샘플 import만으로 사용자 Input Handling·Build Settings·Addressables·시작 씬을 자동 변경하지 않는다. 데이터 테이블 템플릿은 Editor package의 선택적 sample 후보다. 기존 테스트/fixture·Validation 스크립트는 기본 소비 패키지에서 제외하고 검증 checkout이 소유한다. package 자체의 테스트 구성이 필요해지면 별도 opt-in 경계를 검토한다.
 
 [Unity package layout](https://docs.unity3d.com/6000.3/Documentation/Manual/cus-layout.html)과 [Samples 규격](https://docs.unity3d.com/6000.3/Documentation/Manual/cus-samples.html)을 따른다. `Runtime`·`Editor`의 기존 파일/폴더 `.meta`는 매핑 대상마다 한 번만 복사하며 GUID를 보존한다. 패키지 root·새 생성 문서에는 기존 부모 GUID를 중복 전파하지 않는다. 소스 복사본과 같은 GUID/assembly의 패키지를 한 소비 프로젝트에 동시에 설치하지 않는다.
 
@@ -68,7 +68,7 @@ package sample 폴더·manifest 설정은 Unity 6000.3의 Samples 규격에 맞�
 
 UniTask의 현재 원본은 Git URL이므로 소비 프로젝트 `Packages/manifest.json`에 직접 고정한다. UPM은 package 간 Git URL dependency를 지원하지 않는다. TPLab package manifest에는 버전 계약을 기록하고 **소비 프로젝트가 실제 공급원을 명시**하도록 설치 안내와 검증 도구가 확인한다. TPLab Input/Editor의 Core dependency 역시 registry가 공급한다고 가정하지 않고 소비 manifest에 Core의 Git URL 또는 `.tgz` 공급원을 먼저 지정한다. [Unity Git dependency 제약](https://docs.unity3d.com/6000.3/Documentation/Manual/upm-git.html).
 
-아래는 **후속 설치 예시 / NotRun**이다. 각 PC가 다운로드한 실제 파일 위치로 바꾼다. 설치 대상 프로젝트 root 아래 `Vendor/TPLab/`에 두는 예를 사용하며 경로는 `Packages/manifest.json` 기준이다. URL에 계정 비밀값을 넣지 않는다.
+아래는 **소비 프로젝트 설정 예시**다. P2에서 실제 provider resolve/실행을 확인했으며 정식 Release 첨부물은 P4 이후 제공한다. 각 PC가 다운로드한 실제 파일 위치로 바꾼다. 설치 대상 프로젝트 root 아래 `Vendor/TPLab/`에 두는 예를 사용하며 경로는 `Packages/manifest.json` 기준이다. URL에 계정 비밀값을 넣지 않는다.
 
 ```json
 {
@@ -82,7 +82,7 @@ UniTask의 현재 원본은 Git URL이므로 소비 프로젝트 `Packages/manif
 
 Input을 선택하면 같은 위치의 `com.tplab.input-0.0.1.tgz`와 `com.unity.inputsystem: 1.19.0`을, Editor를 선택하면 `com.tplab.editor-0.0.1.tgz`와 `com.unity.nuget.newtonsoft-json: 3.2.2`를 더한다. 실제 공급원/lock·resolved package version을 읽고 일치 여부를 검증한다. 현재 [원본 manifest](../Packages/manifest.json)를 통째로 복사하지 않는다.
 
-Git 설치는 실제 tag에 포함된 `upm/`을 사용한다. 다음 URL은 **후속 설치 예시 / NotRun**이며 현재 `upm/`·`v0.0.1`이 없으므로 아직 설치 가능한 URL로 안내하지 않는다.
+Git 설치는 실제 tag에 포함된 `upm/`을 사용한다. 다음 URL은 **P4 이후 정식 설치 예시**다. `upm/`은 존재하며 후보 SHA 설치를 검증했다. `v0.0.1`은 아직 발행하지 않았으므로 현재 tag URL의 설치 성공을 주장하지 않는다.
 
 ```text
 https://github.com/KangSungKyu/TPLab.git?path=/upm/com.tplab.core#v0.0.1
@@ -124,7 +124,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 
 `distribution-manifest.json`은 schemaVersion, sourceRevision, version, package별 ID/버전/filename/SHA256, source-to-package mapping hash, 의존성 계약, 필수 검증/정책 상태를 기록한다. 실행 PC/시각/원래 Editor PID·검증 consumer PID·실제 test count·exit와 로그 경로는 별도 검증 evidence에 둔다. MIT/제3자 고지·필수 설치/build 검증을 충족하지 못한 개발 검증본은 `publishable: false`로 표시한다. 라이선스 결정만으로 artifact 설치 검증을 완료로 표시하지 않는다. 새 파일과 증거의 상세 schema는 P1에서 실제 명령 구현과 함께 확정한다.
 
-재사용 대상은 [도구 안내](../tools/README.md)와 기존 도구다. `run_core_consumer.py`는 현재 Assets 소스 allowlist를 복사하므로 배포물 설치 검증을 이미 지원한다고 보고하지 않는다. P2에서 tarball/Git URL 설치 mode를 추가하거나 공통 consumer 경로를 최소 분리한다. 두 방식 모두 빈 소비 프로젝트에서 실제 UPM resolve·compile·최소 실행을 확인하고 소스 복사나 local path 설치로 대체하지 않는다. evidence 경로 allowlist도 배포 검증 root로 확장하고 안전성 self-check를 수행한다. 기존 원본 Editor 검증은 기존 Editor에서, 독립 소비 검증은 명시된 별도 batch consumer에서 실행한다. 두 검증을 서로 대체하지 않는다.
+재사용 대상은 [도구 안내](../tools/README.md)와 기존 도구다. `run_core_consumer.py`는 기본 source-copy mode와 별도의 tarball/Git 설치 mode를 제공한다. P2에서 빈 소비 프로젝트의 실제 UPM resolve·compile·최소 실행을 확인했다. 실제 artifact mode에는 Assets의 Core/Input/Editor 사본을 넣지 않는다. 배포 증거 경로·tamper·payload·symlink 거부 계약도 테스트했다. 기존 원본 Editor 검증은 기존 Editor에서, 독립 소비 검증은 명시된 별도 batch consumer에서 실행한다. 두 검증을 서로 대체하지 않는다.
 
 ## 구현 Phase와 완료 조건
 
@@ -133,7 +133,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 | P0 규격·운영 | 이 문서, 입구/지침/회고 연결 | 현재 소스/assembly/의존성 대조, 상대 링크·범위·공백·보호 검사 | 완료 / main 반영·public 확인 |
 | P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 구현·계약 테스트18/18 완료; 실제3 archive·사본171 files·재현 검증 완료([증거](validation/distribution-packaging/README.md)) |
 | P2 실제 설치 | Git URL·tarball 소비 mode, Core/Input sample 분류·import 경로 수정, Editor importer 수명 | 각 설치 방식의 Core만/Input/Editor/전체+Sample resolve·compile·최소 실행, negative 경로, 원본 보호 | 8/8 Git/tarball 실제 설치·compile·최소 실행 완료([P2 증거](validation/distribution-consumer/README.md)); 개발 경로 fixture·원본 보호 확인 |
-| P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 미실행 |
+| P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 자동 검증 완료 / [최종 확인](DISTRIBUTION_ACCEPTANCE.md) 대기 |
 | P4 첫 Release | main 통합·`v0.0.1`·public Release와 검증된 첨부물 | 정책/필수 gate 충족, source tag·SHA256·버전 일치·tag URL 설치·다운로드한 실제 첨부물 검증, 브랜치 정리 | 미실행 |
 
 현재 코어의 [PlayMode 수락](SCENE_LOADING_ACCEPTANCE.md)은 선행 기록이다. 패키지 설치/sample import/새 Editor workflow의 사용자 확인이 필요하면 P3 마지막에 모아 실제 실행 방법·기대 결과를 전달한다. 응답이 바로 이어지지 않으면 track 결과를 보존하고 main 통합·Release를 기다린다. 사용자 확인 항목이 없는 변경은 기존 자동 검증 후 병합 정책을 따른다. 시간 경과를 승인으로 보지 않는다.
@@ -185,3 +185,13 @@ Track `23e2764993e46d3fcd18e8d46d8029ac1863f1df`에서 `codex/dev-build-v0.0.1-p
 부모는 패키징/소비 Python 도구·Unity 실행·결과 리뷰·문서·Git을 소유한다.
 
 P2 완료 후보: `5f2e08d8bacb2320ca0832120f194c326869ce40`. Git URL/실제 tarball8/8, consumer Editor18+Player8+sample Player4(48 checks), 개발 경로 fixture4process/두 모드24 checks, 33 Python methods32pass/1OS skip, Unity path12/12 Green. [P2 증거](validation/distribution-consumer/README.md)와 [회고18](retrospectives/2026-10-07-18-distribution-consumer.md)가 선행 상태를 소유한다. 부모가 source/harness/payload를 리뷰하고 phase를 track으로 통합·푸시하며 main/tag/Release와 phase 삭제는 진행하지 않는다. P3는 이 후보의 코드/산출물 해시와 후속 변경 범위를 확인한 뒤 fixed release candidate 회귀·최종 확인을 수행한다.
+
+## P3 작업 기록 (2026-10-08)
+
+Track5ffe2a9에서 P3 candidate branch를 이어 진행했다. 최종 검증 source `de879b9396ddae0523bd3ab86939b679b383dd92`은 원본·검토된 upm 사본을 포함한다. 정확한 후보에서 Edit286/286·Play253/253, Git/tarball8/8(30process·sample48checks), archive3개 bytes 재현, Python32pass/1OS skip, 원본 main·사용자파일6개 보호를 확인했다. [P3 증거](validation/distribution-candidate/README.md), [최종 확인](DISTRIBUTION_ACCEPTANCE.md), [회고](retrospectives/2026-10-08-01-distribution-candidate.md)를 따른다. 최초 실패는 별도 기록에 보존하며 product Input runtime은 변경하지 않았다.
+
+| Agent | Model / effort | 역할·허용 경로 | 상태 |
+|---|---|---|---|
+| `/root/distribution_editor_probe` | gpt-6.1-sol / medium | Editor파일교체·긴경로·testfixture/source/upm diff 읽기 전용 리뷰; Git·Unity·파일변경·재위임 금지 | 완료: 최소 변경·cleanup·문서 계약 대조, 실제 실행은 부모 담당 |
+
+P3 phase를 track에 fast-forward 통합·push하고 사용자 확인을 기다린다. tag용 frozen source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 후속 증거 마감 commit으로 tag를 이동하지 않는다. main은 원래af9958에 그대로 있다. P4 발행·tagURL/실제첨부물 다운로드·브랜치정리·Unity/PC종료는 아직 진행하지 않았다.

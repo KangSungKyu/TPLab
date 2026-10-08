@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.1103135">
+  <test-suite type="TestSuite" id="1000" name="TPLab" fullname="TPLab" runstate="Runnable" testcasecount="286" result="Failed" site="Child" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.110314" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1319" name="TPLab.Core.EditModeTests.dll" fullname="C:/Users/PC/Projects/TPLab/tplab/worktrees/p3-source/Library/ScriptAssemblies/TPLab.Core.EditModeTests.dll" runstate="Runnable" testcasecount="267" result="Failed" site="Child" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.102609" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="34048" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1320" name="TPLab" fullname="TPLab" runstate="Runnable" testcasecount="267" result="Failed" site="Child" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.100249" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1321" name="Core" fullname="TPLab.Core" runstate="Runnable" testcasecount="267" result="Failed" site="Child" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.094794" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1322" name="Tests" fullname="TPLab.Core.Tests" runstate="Runnable" testcasecount="267" result="Failed" site="Child" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.087997" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1069" name="DataTableImporterTests" fullname="TPLab.Core.Tests.DataTableImporterTests" classname="TPLab.Core.Tests.DataTableImporterTests" runstate="Runnable" testcasecount="43" result="Failed" site="Child" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.081588" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1119" name="ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath" fullname="TPLab.Core.Tests.DataTableImporterTests.ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath" methodname="ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath" classname="TPLab.Core.Tests.DataTableImporterTests" runstate="Runnable" seed="2089967028" result="Failed" label="Error" start-time="2026-10-08 01:16:52Z" end-time="2026-10-08 01:16:52Z" duration="0.067152" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[System.IO.DirectoryNotFoundException : Could not find a part of the path "C:\Users\PC\Projects\TPLab\tplab\worktrees\p3-source\Assets\ImporterLongPath_c7fcc20cc8864f028cce694449d9d83a\xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\schema_6ca3f86492d34f44b017e0f46ec34596.tableimport.json.68b16394509940b6a8c67f847f1fea08.tmp"]]></message>
+                  <stack-trace><![CDATA[  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <41d29b352f6a475ab1bf7c6628b82790>:0 
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.IO.FileOptions options) [0x00000] in <41d29b352f6a475ab1bf7c6628b82790>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream..ctor(string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,int,System.IO.FileOptions)
+  at System.IO.StreamWriter..ctor (System.String path, System.Boolean append, System.Text.Encoding encoding, System.Int32 bufferSize) [0x00055] in <41d29b352f6a475ab1bf7c6628b82790>:0 
+  at System.IO.StreamWriter..ctor (System.String path, System.Boolean append, System.Text.Encoding encoding) [0x00000] in <41d29b352f6a475ab1bf7c6628b82790>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.StreamWriter..ctor(string,bool,System.Text.Encoding)
+  at System.IO.File.WriteAllText (System.String path, System.String contents, System.Text.Encoding encoding) [0x00034] in <41d29b352f6a475ab1bf7c6628b82790>:0 
+  at TPLab.Core.Editor.DataTables.DataTableGeneratedFiles.Apply (System.String outputFolder, System.String ownerId, System.String contract, System.Collections.Generic.IReadOnlyDictionary`2[TKey,TValue] files, System.Boolean automatic) [0x00326] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p3-source\Assets\TPLab\Editor\DataTables\DataTableGeneratedFiles.cs:138 
+  at TPLab.Core.Tests.DataTableImporterTests.ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath () [0x000f6] in C:\Users\PC\Projects\TPLab\tplab\worktrees\p3-source\Assets\TPLab\Tests\EditMode\DataTableImporterTests.cs:358 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <41d29b352f6a475ab1bf7c6628b82790>:0 ]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/TPLab\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

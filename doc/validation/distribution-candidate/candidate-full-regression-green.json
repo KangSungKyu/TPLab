@@ -1,0 +1,116 @@
+{
+  "sourceRevision": "f31f994bd2d2631226770629bfe6f5af1ee289d8",
+  "unityVersion": "6000.3.18f1",
+  "success": false,
+  "scope": "Additional exact-candidate full project regression; does not replace original Editor",
+  "runs": [
+    {
+      "mode": "EditMode",
+      "process": {
+        "pid": 27908,
+        "startedUtc": "2026-10-08T00:55:43.716819+00:00",
+        "startedUnix": 1791420943.716825,
+        "endedUtc": "2026-10-08T00:56:08.970206+00:00",
+        "elapsedSeconds": 25.253,
+        "returnCode": 0,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-green\\EditMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-green\\EditMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "285",
+        "result": "Passed",
+        "total": "285",
+        "passed": "285",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 00:55:53Z",
+        "end-time": "2026-10-08 00:56:08Z",
+        "duration": "14.6282942"
+      },
+      "failures": []
+    },
+    {
+      "mode": "PlayMode",
+      "process": {
+        "pid": 6596,
+        "startedUtc": "2026-10-08T00:56:08.974098+00:00",
+        "startedUnix": 1791420968.9740999,
+        "endedUtc": "2026-10-08T00:56:20.989115+00:00",
+        "elapsedSeconds": 12.015,
+        "returnCode": 2,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-green\\PlayMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-green\\PlayMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "253",
+        "result": "Failed(Child)",
+        "total": "253",
+        "passed": "243",
+        "failed": "10",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 00:56:17Z",
+        "end-time": "2026-10-08 00:56:20Z",
+        "duration": "2.4707643"
+      },
+      "failures": [
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit",
+          "message": "  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes",
+          "message": "  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming",
+          "message": "  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputIntegrationTests.SubmitOpeningModalDoesNotSubmitNewFocusInSameFrame",
+          "message": "  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputIntegrationTests.WholeScopeBlockDisablesUiModuleAndReactivationCannotBypassIt",
+          "message": "  Held Submit must not replay through a newly activated UI module.\n  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputRebindingTests.OwnerDisposalWhileAcquiringBlockIsCancellation",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputRebindingTests.OwnerShutdownWhileAcquiringBlockIsCancellation",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal",
+          "message": "  Expected: Pending\n  But was:  Succeeded\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "TPLab.Core.Input.Tests.InputRuntimeTests.CancelledActionCanAcquireAnotherLayerDuringRecalculation",
+          "message": "  Expected: Performed\n  But was:  Waiting\n"
+        }
+      ]
+    }
+  ],
+  "error": "AssertionError"
+}

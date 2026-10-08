@@ -20,7 +20,7 @@
 |---|---|---|
 | [AGENTS.md](../AGENTS.md) | 모든 작업에서 필수 | 공용 코어 역할·C#·SOLID·TDD·참조 경계·브랜치 판단·검증 후 병합 |
 | [라이선스](../LICENSE) · [제3자 고지](../THIRD_PARTY_NOTICES.md) | 외부 제공·의존성 추가/동봉 | TPLab 자체 MIT와 제3자 원문·버전·배포 범위 구분 |
-| [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md) | 패키지·dev-build·worktree·Release 설계/구현 시작 | 0.0.1 Git URL/`.tgz`·upm 사본·Core/Input 예제, source SHA와 실제 설치 검증, Phase/gate·P1/P2 실제 설치 완료와 P3/P4 대기 상태 |
+| [DISTRIBUTION_PIPELINE.md](DISTRIBUTION_PIPELINE.md) | 패키지·dev-build·worktree·Release 설계/구현 시작 | 0.0.1 Git URL/`.tgz`·upm 사본·Core/Input 예제, source SHA와 실제 설치 검증, Phase/gate·P3 자동 검증 완료·사용자 확인/P4 대기 상태 |
 | [TPLAB_NAMING.md](TPLAB_NAMING.md) | TPLab 이름·경로·Cloud 설정 확인 | TPLab namespace·assembly·checkout 경로·Cloud 이름과 기록 보존 기준 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
@@ -108,3 +108,6 @@
 - [Scene loading implementation track](SCENE_LOADING_TRACK.md): 진행률 → 표시·대기 → 예제/최종 UX 확인.
 
 - [P2 실제 배포물 소비 검증](validation/distribution-consumer/README.md): exact source와 Git/tarball8구성·Core/Input sample import·Editor generated DTO 두 launch 검증, source fixture와 원본 Editor 경계.
+
+- [P3 최종 후보 증거](validation/distribution-candidate/README.md): exact SHA 전체 회귀·Git/tarball8구성·재현·원본 보호·실패 기록.
+- [배포 최종 사용자 확인](DISTRIBUTION_ACCEPTANCE.md): 실제 패키지/예제·Additive/Single·Continue·화면비/복원 확인, 이후 P4 발행.

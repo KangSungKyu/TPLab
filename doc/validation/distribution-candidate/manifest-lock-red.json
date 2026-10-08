@@ -1,0 +1,38 @@
+{
+  "sourceRevision": "da32f9b528270067acc9eeba21145c625629764e",
+  "process": {
+    "pid": 17296,
+    "startedUtc": "2026-10-08T00:53:49.536714+00:00",
+    "startedUnix": 1791420829.5367193,
+    "endedUtc": "2026-10-08T00:54:00.805257+00:00",
+    "elapsedSeconds": 11.269,
+    "returnCode": 2,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-lock-red\\editor.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-lock-red\\stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true
+  },
+  "summary": {
+    "id": "2",
+    "testcasecount": "1",
+    "result": "Failed(Child)",
+    "total": "1",
+    "passed": "0",
+    "failed": "1",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-08 00:53:59Z",
+    "end-time": "2026-10-08 00:53:59Z",
+    "duration": "0.1977771"
+  },
+  "failures": [
+    {
+      "name": "TPLab.Core.Tests.DataTableImporterTests.TransientManifestReadLockIsRetriedWithoutRewritingSources",
+      "message": "System.IO.IOException : The process cannot access the file because it is being used by another process."
+    }
+  ]
+}

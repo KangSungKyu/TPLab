@@ -1,0 +1,46 @@
+{
+  "duplicateEvidenceRemovedAfterExactCopy": [
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T011939Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T011939Z-29272.json",
+      "sha256": "b595143db4966d5f1fc1cb3b970e9c34ceb7959d99bec086958329b964c073ff"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T012343Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T012343Z-29272.json",
+      "sha256": "15adf278184b540b3d89b361fb144e6dfbe456751918a93e398860950a032f8d"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T012450Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T012450Z-29272.json",
+      "sha256": "81815b260956998dc56fb27b4a1f8c8b645e6472f2b46742ced963512422e56f"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T012613Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T012613Z-29272.json",
+      "sha256": "42d3a740e0bbde1b4c42d1c6e7bd0447ef8202d1c80c9f4802456ee0b87c99c3"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T012727Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T012727Z-29272.json",
+      "sha256": "d3a5645885afc05c93683e71251c42861c9028ea9c8e730d904074da16e834f0"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T013037Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T013037Z-29272.json",
+      "sha256": "51ae73d7ab7dd24143ba69473058e518e26e306950b8ea9a5e096ecf8abed667"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T013143Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T013143Z-29272.json",
+      "sha256": "7ec737e881c2af4f4d965625b90dfdad828d1f0a0621a7312806a4fb5c7cd60e"
+    },
+    {
+      "source": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\doc\\validation\\distribution-consumer\\p3-final2\\core-consumer-20261008T013454Z-29272.json",
+      "preserved": "doc\\validation\\distribution-candidate\\core-consumer-20261008T013454Z-29272.json",
+      "sha256": "96cff3eff678de8c735ea5c5613b9c49cca2937a0f47523e9c3ebf0a213a675d"
+    }
+  ],
+  "validationSourceNowClean": true,
+  "retained": "Final archives, reproduction run, consumer projects and raw regression logs remain for user acceptance/P4"
+}

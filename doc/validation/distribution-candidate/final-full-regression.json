@@ -1,0 +1,73 @@
+{
+  "sourceRevision": "cc9609f9766a781b1268fba40793fb12119748d4",
+  "scope": "Final candidate full project tests, official isolated virtual input; physical/visual input remains user acceptance",
+  "success": true,
+  "runs": [
+    {
+      "mode": "EditMode",
+      "process": {
+        "pid": 8216,
+        "startedUtc": "2026-10-08T01:09:12.828626+00:00",
+        "startedUnix": 1791421752.8286316,
+        "endedUtc": "2026-10-08T01:09:40.256029+00:00",
+        "elapsedSeconds": 27.427,
+        "returnCode": 0,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-final-regression\\EditMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-final-regression\\EditMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "285",
+        "result": "Passed",
+        "total": "285",
+        "passed": "285",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 01:09:22Z",
+        "end-time": "2026-10-08 01:09:39Z",
+        "duration": "17.339568"
+      },
+      "failures": []
+    },
+    {
+      "mode": "PlayMode",
+      "process": {
+        "pid": 24608,
+        "startedUtc": "2026-10-08T01:09:40.260021+00:00",
+        "startedUnix": 1791421780.2600238,
+        "endedUtc": "2026-10-08T01:09:52.469080+00:00",
+        "elapsedSeconds": 12.209,
+        "returnCode": 0,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-final-regression\\PlayMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-final-regression\\PlayMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "253",
+        "result": "Passed",
+        "total": "253",
+        "passed": "253",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 01:09:48Z",
+        "end-time": "2026-10-08 01:09:51Z",
+        "duration": "2.7498927"
+      },
+      "failures": []
+    }
+  ]
+}

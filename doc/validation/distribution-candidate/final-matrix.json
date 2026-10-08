@@ -1,0 +1,17 @@
+{
+  "sourceRevision": "cc9609f9766a781b1268fba40793fb12119748d4",
+  "success": false,
+  "configurations": [
+    {
+      "installation": "git",
+      "scope": "full",
+      "success": false,
+      "actualRuns": 2,
+      "evidence": "core-consumer-20261008T010952Z-2044.json",
+      "errors": [
+        "Artifact setup/importer preparation failed."
+      ]
+    }
+  ],
+  "error": "['Artifact setup/importer preparation failed.']"
+}

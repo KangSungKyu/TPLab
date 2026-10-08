@@ -1,0 +1,8 @@
+{
+  "scope": "Changed/new Markdown relative filesystem links only; HTTP and fragment targets excluded",
+  "files": 8,
+  "checkedLinks": 260,
+  "brokenLinks": [],
+  "gitDiffCheck": "Passed",
+  "userAcceptance": "Pending - user will check"
+}

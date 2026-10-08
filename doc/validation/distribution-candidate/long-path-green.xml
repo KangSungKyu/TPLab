@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.1409438">
+  <test-suite type="TestSuite" id="1000" name="TPLab" fullname="TPLab" runstate="Runnable" testcasecount="286" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.140944" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1319" name="TPLab.Core.EditModeTests.dll" fullname="C:/Users/PC/Projects/TPLab/tplab/worktrees/p3-source/Library/ScriptAssemblies/TPLab.Core.EditModeTests.dll" runstate="Runnable" testcasecount="267" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.129743" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13080" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1320" name="TPLab" fullname="TPLab" runstate="Runnable" testcasecount="267" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.127360" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1321" name="Core" fullname="TPLab.Core" runstate="Runnable" testcasecount="267" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.125381" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1322" name="Tests" fullname="TPLab.Core.Tests" runstate="Runnable" testcasecount="267" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.123364" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1069" name="DataTableImporterTests" fullname="TPLab.Core.Tests.DataTableImporterTests" classname="TPLab.Core.Tests.DataTableImporterTests" runstate="Runnable" testcasecount="43" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.115887" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1119" name="ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath" fullname="TPLab.Core.Tests.DataTableImporterTests.ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath" methodname="ValidWindowsDestinationDoesNotRequireAnOverlongStagingPath" classname="TPLab.Core.Tests.DataTableImporterTests" runstate="Runnable" seed="820340242" result="Passed" start-time="2026-10-08 01:17:51Z" end-time="2026-10-08 01:17:51Z" duration="0.102843" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/PC/AppData/LocalLow/DefaultCompany/TPLab\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

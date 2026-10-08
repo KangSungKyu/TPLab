@@ -1,0 +1,70 @@
+{
+  "sourceRevision": "de879b9396ddae0523bd3ab86939b679b383dd92",
+  "success": true,
+  "configurations": [
+    {
+      "installation": "git",
+      "scope": "full",
+      "success": true,
+      "actualRuns": 6,
+      "evidence": "core-consumer-20261008T011939Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "git",
+      "scope": "core",
+      "success": true,
+      "actualRuns": 3,
+      "evidence": "core-consumer-20261008T012343Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "git",
+      "scope": "input",
+      "success": true,
+      "actualRuns": 3,
+      "evidence": "core-consumer-20261008T012450Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "git",
+      "scope": "editor",
+      "success": true,
+      "actualRuns": 3,
+      "evidence": "core-consumer-20261008T012613Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "tarball",
+      "scope": "full",
+      "success": true,
+      "actualRuns": 6,
+      "evidence": "core-consumer-20261008T012727Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "tarball",
+      "scope": "core",
+      "success": true,
+      "actualRuns": 3,
+      "evidence": "core-consumer-20261008T013037Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "tarball",
+      "scope": "input",
+      "success": true,
+      "actualRuns": 3,
+      "evidence": "core-consumer-20261008T013143Z-29272.json",
+      "errors": []
+    },
+    {
+      "installation": "tarball",
+      "scope": "editor",
+      "success": true,
+      "actualRuns": 3,
+      "evidence": "core-consumer-20261008T013454Z-29272.json",
+      "errors": []
+    }
+  ]
+}

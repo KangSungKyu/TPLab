@@ -1,0 +1,75 @@
+{
+  "sourceRevision": "f31f994bd2d2631226770629bfe6f5af1ee289d8",
+  "scope": "Same full253 tests with graphics initialized; prior nographics failure is preserved",
+  "process": {
+    "pid": 21852,
+    "startedUtc": "2026-10-08T00:59:02.621181+00:00",
+    "startedUnix": 1791421142.6211853,
+    "endedUtc": "2026-10-08T00:59:16.745474+00:00",
+    "elapsedSeconds": 14.124,
+    "returnCode": 2,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-play-graphics\\editor.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-play-graphics\\stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true
+  },
+  "summary": {
+    "id": "2",
+    "testcasecount": "253",
+    "result": "Failed(Child)",
+    "total": "253",
+    "passed": "243",
+    "failed": "10",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-08 00:59:12Z",
+    "end-time": "2026-10-08 00:59:15Z",
+    "duration": "2.5033772"
+  },
+  "failures": [
+    {
+      "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit",
+      "message": "  Expected: False\n  But was:  True\n"
+    },
+    {
+      "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes",
+      "message": "  Expected: False\n  But was:  True\n"
+    },
+    {
+      "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming",
+      "message": "  Expected: False\n  But was:  True\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputIntegrationTests.SubmitOpeningModalDoesNotSubmitNewFocusInSameFrame",
+      "message": "  Expected: 1\n  But was:  0\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputIntegrationTests.WholeScopeBlockDisablesUiModuleAndReactivationCannotBypassIt",
+      "message": "  Held Submit must not replay through a newly activated UI module.\n  Expected: False\n  But was:  True\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputRebindingTests.OwnerDisposalWhileAcquiringBlockIsCancellation",
+      "message": "  Expected: True\n  But was:  False\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputRebindingTests.OwnerShutdownWhileAcquiringBlockIsCancellation",
+      "message": "  Expected: True\n  But was:  False\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal",
+      "message": "  Expected: Pending\n  But was:  Succeeded\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait",
+      "message": "  Expected: True\n  But was:  False\n"
+    },
+    {
+      "name": "TPLab.Core.Input.Tests.InputRuntimeTests.CancelledActionCanAcquireAnotherLayerDuringRecalculation",
+      "message": "  Expected: Performed\n  But was:  Waiting\n"
+    }
+  ]
+}

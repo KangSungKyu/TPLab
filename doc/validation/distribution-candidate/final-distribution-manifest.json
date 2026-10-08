@@ -1,0 +1,1512 @@
+{
+  "gates": {
+    "installation": "NotRun",
+    "packaging": "Verified",
+    "player": "NotRun",
+    "release": "NotRun",
+    "samples": "NotRun"
+  },
+  "packages": [
+    {
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.11",
+        "com.unity.addressables": "2.9.1"
+      },
+      "filename": "com.tplab.core-0.0.1.tgz",
+      "id": "com.tplab.core",
+      "payloadSha256": "3b889777ba6ffd3165000a0a0c8c1c786a908dbebb9f06170d8e8262751d8bc1",
+      "sha256": "e55b2b9eac183edc7527259f7b153b6679445ca4f6b3855cfbc9923a925c9c18",
+      "version": "0.0.1"
+    },
+    {
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.11",
+        "com.tplab.core": "0.0.1",
+        "com.unity.inputsystem": "1.19.0"
+      },
+      "filename": "com.tplab.input-0.0.1.tgz",
+      "id": "com.tplab.input",
+      "payloadSha256": "1cadb8834cb90f99426b1ada97a7cfd27ed7444a6bdd3552466ad35cdff0e81c",
+      "sha256": "86ef6de06c1bc5e4dc7168df050c8c5b1daa580c00863c2408cc805664d1d7cf",
+      "version": "0.0.1"
+    },
+    {
+      "dependencies": {
+        "com.cysharp.unitask": "2.5.11",
+        "com.tplab.core": "0.0.1",
+        "com.unity.addressables": "2.9.1",
+        "com.unity.nuget.newtonsoft-json": "3.2.2"
+      },
+      "filename": "com.tplab.editor-0.0.1.tgz",
+      "id": "com.tplab.editor",
+      "payloadSha256": "29b88818f09ab56c9e9a822dc709e63681ec3f84a2125066c2dbb3a3620a09a2",
+      "sha256": "a477e615a031a68b111005008deb089d23c9018f2942fe4633dec956adffba41",
+      "version": "0.0.1"
+    }
+  ],
+  "packagingToolchain": {
+    "python": "3.14.6",
+    "zlib": "1.3.1.zlib-ng"
+  },
+  "publicationSnapshot": "Matched",
+  "publishable": false,
+  "schemaVersion": 1,
+  "sourceInputsSha256": {
+    "Assets/Plugins/CsvHelper.meta": "35317bdf7deee7aa804acd90691adfadbe00808f85c25bef0909bab841300cd1",
+    "Assets/Plugins/CsvHelper/CsvHelper.dll": "20101c398654a14bfd42bd78d7281f43197d19b7b3cf41c7aae93f1eaba65a61",
+    "Assets/Plugins/CsvHelper/CsvHelper.dll.meta": "c8ec2e899f95ea2839edf77ac3fced1951e15de7cab90ef6995186306425e90f",
+    "Assets/Plugins/CsvHelper/LICENSE.txt": "58d0d21c221a085b56fc3a5bdcc62a612149413df288d98d536ccbb221f249ac",
+    "Assets/Plugins/CsvHelper/LICENSE.txt.meta": "856c608964b2a06971ec6fba45c7edee6de8da5da65517915f8acf5eb770fb36",
+    "Assets/TPLab/Core.meta": "e8fb824adf0c4a56e0431cbad181dd96c8a8f17647a36a96af89b10ebaab78c4",
+    "Assets/TPLab/Core/DataTables.meta": "90dca792aa43f09e32a20f825389781164957db9516f72a64e3659332129042c",
+    "Assets/TPLab/Core/DataTables/CsvDataTable.cs": "5105b572e60b2e084cdfb18862d91986af00ac08f867c01601117e4dafba1b50",
+    "Assets/TPLab/Core/DataTables/CsvDataTable.cs.meta": "1b6ec68ef8aba8237ab6352815f8a3edb5b2c71741564298b6bd2ac50d88a7a1",
+    "Assets/TPLab/Core/DataTables/DataRow.cs": "cd0c087df85eafe0680a5edc10a9c40757469723c7c01b81e548c5f6b27005fe",
+    "Assets/TPLab/Core/DataTables/DataRow.cs.meta": "a594f4b8b8c297e62049c2ca3dcd1ef8ca88b8070bd6e9ae7aa80c93768bf45a",
+    "Assets/TPLab/Core/DataTables/DataTableCsvValidator.cs": "3a863a9af7af6969e86cd876090dccf1ada925994072d36cea5f5c08f3e9e123",
+    "Assets/TPLab/Core/DataTables/DataTableCsvValidator.cs.meta": "1302447740b7d66a19dc5c8394689753d65749eed9ef2dfae4b6c392b41417a9",
+    "Assets/TPLab/Core/DataTables/DataTableManager.cs": "f4144a837fec28fd71f3925537089106ae4973152f35d91ee3f1ed369ab6c799",
+    "Assets/TPLab/Core/DataTables/DataTableManager.cs.meta": "1383a19daac11f513a83277c440d97f98333a9438f2af3a5479a2c3d34319232",
+    "Assets/TPLab/Core/DataTables/DataTableSnapshot.cs": "d551ddb1f99c1d87e2eeb4c3bdd91df2cd62668ea335b1577cf24c3b378b59b1",
+    "Assets/TPLab/Core/DataTables/DataTableSnapshot.cs.meta": "f833e5c46309a4fdbd51144de3054a82dfc61e32e799d9c080062717628de617",
+    "Assets/TPLab/Core/DataTables/IdxCodec.cs": "3cea7c8227406f7fb693d232ed94ac62a57d5a7d9d8f9ea93c303dfba27a6f52",
+    "Assets/TPLab/Core/DataTables/IdxCodec.cs.meta": "8cec176330fb32105cbb6a7feddffaf2b6140eec63f35c5e39330b098f46d7a9",
+    "Assets/TPLab/Core/Lifecycle.meta": "884b197727a6dd384fdedda1d0f1e9beebdc1e4beb4cdc2210f1af6b0fed73f6",
+    "Assets/TPLab/Core/Lifecycle/ISceneRoot.cs": "2b7ea39c5ae91771d8c956cb0e762d060aa862ea2ea1b18d5521bdddbcb3d6dd",
+    "Assets/TPLab/Core/Lifecycle/ISceneRoot.cs.meta": "a9ac18bb10878385b894357df1536c1299a383a753f62e39ad1597bb575a0fe3",
+    "Assets/TPLab/Core/Lifecycle/MonoSingleton.cs": "f90d369c24ffeac7a1544a6fcf66868fd47d762e092ce21d444013f73ebce7e6",
+    "Assets/TPLab/Core/Lifecycle/MonoSingleton.cs.meta": "2aff9193767befea192a9504311267a0d0f043fb6aaeb2976cb8a468ae3fba56",
+    "Assets/TPLab/Core/Lifecycle/RootInstallation.cs": "c4e668f21ea48e951c160bbc5b8c405a879af5ca9740c49b898526ca7d4f024e",
+    "Assets/TPLab/Core/Lifecycle/RootInstallation.cs.meta": "914abdfccc5c2af424b52ea0e40095ae9c780285be6cffb804751fe320df25be",
+    "Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs": "11d279016c9d1015bf1bb2a49e7ef0fba262ef38fd1a671c1c1cde6e3f171793",
+    "Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs.meta": "fda5a58e007cb06009ee2dbe814e43a2ae546f2a7e2a09f29d9b961c7d365c99",
+    "Assets/TPLab/Core/Lifecycle/SceneRootFlow.cs": "390d9b76c022b4dadb234402829f7637e2fa48f568d85855f4f0f18f4a78531f",
+    "Assets/TPLab/Core/Lifecycle/SceneRootFlow.cs.meta": "7eacbef6ed9612439584b5e455947d17e1f1cde01fc68c82352dac4bb77ada24",
+    "Assets/TPLab/Core/Lifecycle/SceneRootInstaller.cs": "41725f93c341cbee66610701c5e910c0daae818230f6a3758d777205360bbed8",
+    "Assets/TPLab/Core/Lifecycle/SceneRootInstaller.cs.meta": "d3bd7c2da34c5166e357af6a6b51792e15e2c94f2453765f48e12e4b69fa59e5",
+    "Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs": "8d7e50921a61db06251659e264b1a86f9688acbcc85e420cb7cf768f850bfcf4",
+    "Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs.meta": "374d490853239373803385fe9d338350c7c22eb10fca811065576f8ffe641cb7",
+    "Assets/TPLab/Core/Lifecycle/SingletonRuntime.cs": "34dc3f23fdaf79e50cacdbc23ca931a594b6419d4f185caf3090a20bd028c25a",
+    "Assets/TPLab/Core/Lifecycle/SingletonRuntime.cs.meta": "a9f3897485fe6485241ba2b272e78d7ac5094d8cd8d12e53864f43fc315540ec",
+    "Assets/TPLab/Core/Lifecycle/SingletonSceneRoot.cs": "3c9ed533943497cdc0f7f78d558945a31112576a577629baa6f84a1fd58c4cd0",
+    "Assets/TPLab/Core/Lifecycle/SingletonSceneRoot.cs.meta": "ac57d2e37c804df190b3f12aea7d0dbe1c69a1d81a06dacac19d0c1df5d32a5e",
+    "Assets/TPLab/Core/Pooling.meta": "acf96ab21a29aa87653d59ce7aa68a5b073ffcf81ce42cd003f4189fe6bb4a37",
+    "Assets/TPLab/Core/Pooling/ObjectPool.cs": "84b52429d22ec377123d67cba0b6ce2a264efcf6870f285cce1b25430dbaba17",
+    "Assets/TPLab/Core/Pooling/ObjectPool.cs.meta": "b174352380a543ec158544029453d36cfc69c85cde024bf4a102a36e1e9257d1",
+    "Assets/TPLab/Core/Pooling/PrefabPool.cs": "396ddf1c2999d46657d593e49b77095edab8091b839073a1345e31edabe90bfc",
+    "Assets/TPLab/Core/Pooling/PrefabPool.cs.meta": "cb63171ca5630378858058b7277e38f5ef8b3f871e515bd616f7a80de21edc51",
+    "Assets/TPLab/Core/ResourceManagement.meta": "6540d17ea194f45fd956849c5dca333540686177d43d7dc2918cc1bc11e309df",
+    "Assets/TPLab/Core/ResourceManagement/AddressableSceneLoader.cs": "f4c1d6cd314a304548fb418878d95ac2e4f49131c8cc8079a880e9a3ae8aa4ab",
+    "Assets/TPLab/Core/ResourceManagement/AddressableSceneLoader.cs.meta": "505065ba378ef53a34e042192ae3112f8a959b5157de78acce0a0d9f8c493540",
+    "Assets/TPLab/Core/ResourceManagement/ISceneLoader.cs": "e92985adefa29b32c58fe5f05b9983dbd6bba10dad0467f40a3327b464c4fdf9",
+    "Assets/TPLab/Core/ResourceManagement/ISceneLoader.cs.meta": "f6a503250cb5eeb7c4044e89a4bcd4932a478bdc9caadb7615fda0216893f583",
+    "Assets/TPLab/Core/ResourceManagement/ISceneProgressLoader.cs": "8d70ce7c9ee9e8c1c6dc9613b89f6e965a6fbb5d9251b2be51de75ff3bfebfda",
+    "Assets/TPLab/Core/ResourceManagement/ISceneProgressLoader.cs.meta": "c148608002803228180971b776059e3de28a957481c74bcdbcda13f51dacee78",
+    "Assets/TPLab/Core/ResourceManagement/LoadedScene.cs": "c49a9244eb44d8cfaf511c9d8ef56d03ff787ec014af75edb10c8c3e84680f8c",
+    "Assets/TPLab/Core/ResourceManagement/LoadedScene.cs.meta": "4a67f30190e645da705986de0ff73074e371243d0b4d72afc62b00538730ef1e",
+    "Assets/TPLab/Core/ResourceManagement/NativeSceneLoader.cs": "8a28cbc718474608ecdafc54041d31a311777ee5216548faa85ff85f67baa6f2",
+    "Assets/TPLab/Core/ResourceManagement/NativeSceneLoader.cs.meta": "4f67c5426b6e9ba86a680219680d4841d5b8947efcb705174c7d83fb6be8e07f",
+    "Assets/TPLab/Core/ResourceManagement/ResourceManager.cs": "2421b3ff46209bc4c3c185e5e4fa9f5a29566f88e58764ba12c1ff515e647639",
+    "Assets/TPLab/Core/ResourceManagement/ResourceManager.cs.meta": "fde90bfe485e0fbec05999c62680ccc8a30789940dba886f285581cd9bbfd5f8",
+    "Assets/TPLab/Core/ResourceManagement/ResourceManagerInstaller.cs": "fd925b94159cf405b16b0f118e18c66229d3232e7189f34ba6baad03f904b385",
+    "Assets/TPLab/Core/ResourceManagement/ResourceManagerInstaller.cs.meta": "aba2a0f27b7784c7830656a9aa94ebfd2f8c9b5f6616a877f94ffcbf3a6b1446",
+    "Assets/TPLab/Core/ResourceManagement/SceneLoadProgress.cs": "eaa7ebdc92503415156dc930dd62e4732cae4a84f618b132997f691af3360b47",
+    "Assets/TPLab/Core/ResourceManagement/SceneLoadProgress.cs.meta": "ff6794419c425d7798a0e116d29db45f24f88367f220a522f45701e8cbd5a485",
+    "Assets/TPLab/Core/ResourceManagement/SceneTarget.cs": "f54826dcc2a66c480f9bdb0f2a004c66131c98448a6893144d913a8a9ca250ae",
+    "Assets/TPLab/Core/ResourceManagement/SceneTarget.cs.meta": "b71731d428a9874a5d6dcedb6d0430b04f961e114405123e026473780ef940eb",
+    "Assets/TPLab/Core/SceneManagement.meta": "2d4ce7b571fbad8c5e583631859ba73710bc0497641ca6e8cceb3009070c0e1e",
+    "Assets/TPLab/Core/SceneManagement/BootstrapCallbacks.cs": "09d62dbdd26ff18fdf27f47532431820beb00b5f93900c42645b4c7f14bdbbd4",
+    "Assets/TPLab/Core/SceneManagement/BootstrapCallbacks.cs.meta": "23ca2b825486cbe350ff02294f2f37b6810df08671d526fd2f6600fe09a3cbdf",
+    "Assets/TPLab/Core/SceneManagement/BootstrapSystem.cs": "5b6b9f7e9b53db79a9b45ad6a3c7186b3aaa33a8d17b209ea97af4b1075a090e",
+    "Assets/TPLab/Core/SceneManagement/BootstrapSystem.cs.meta": "665023286c4a1720a8685465e96380b4aca6dec8a324dbfab06b92fc09140a0e",
+    "Assets/TPLab/Core/SceneManagement/GameSceneManager.cs": "22d2b28e5133fac5bd871691b48b0f59eef25d75e83cfe0fcf756aba4756dc71",
+    "Assets/TPLab/Core/SceneManagement/GameSceneManager.cs.meta": "128b4d1d7a18a8ac2ca84c71adeee774388f7a8a194d29236f9b3bf6b25ee590",
+    "Assets/TPLab/Core/SceneManagement/SceneRegistration.cs": "82e58caf4df31d7ddf90d1fb69f3a3572803abda69a19dbd1e9bf9f54a2bf5e5",
+    "Assets/TPLab/Core/SceneManagement/SceneRegistration.cs.meta": "a090aac723665a1be5be9c06d0c640d651cec1678dcbe859b355af1f4de5d72d",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionCallbacks.cs": "4f7a94044f9ad1feece959ecba389c2106a93825ca2ba18c36d75cfcfdd95eea",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionCallbacks.cs.meta": "135eb5aa73216ea991583198f7b0498df1ae1dc2c29ef4d7b3af6d30fe9a67cd",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionCondition.cs": "9a3ddd4a42c64fc2a039e72c3c7da47406cc6249ad2e09d7cf54a766e91af8a9",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionCondition.cs.meta": "ea05f630589f527d7c1c437ca5f68e6bbf7c9683a9abd1958e5e0c5ab6c3c71d",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionContext.cs": "ba4044e703981e9bb4f8c281172ed3cd0f76f2a3097ee8825c1375a703d5ad44",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionContext.cs.meta": "c9eaf52c46177de0065793b8fe527445ca3effa945e533c1fe2edf3ec46d43a8",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionDefinition.cs": "e843aff05253a3c756f794e477d6dc589c5ddd858b912c74493dd7c6e007573d",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionDefinition.cs.meta": "1c94e25fbaf467884cba288f0550b53b1caab1ca9e6422eefa7e3f16cb05c0e4",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionProgress.cs": "e282350dc874202ea44e1018005ddca6f4879ff1b96880670ffc357f1db0e2a9",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionProgress.cs.meta": "ecaed3ef52603af4f36376ffc4124d72fd19fd8bd774a08b276efe0156b36f3d",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionRejectedException.cs": "a2b6c4abec97804418c6d168d3ce7470d0d59240701e9d40c60457a9e5434942",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionRejectedException.cs.meta": "97207bcbf5574b93a0acf0632a47279a51316a0e4753c21657f0eae6047248b1",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionRequest.cs": "611a5adfc1bb114481e8c1c288cec1fc772c536e4a4fd80ccc95d88651d69f6e",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionRequest.cs.meta": "66ded29facef1c5d4331f99ccb5817b98a4910c295a9331ecf304c0bf1355be2",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionSettings.cs": "acdb75c72def096add2e9498b6fe1cae35e36c13d995ba026a1e1ec9f1c69352",
+    "Assets/TPLab/Core/SceneManagement/SceneTransitionSettings.cs.meta": "7896128d37a868584447fa527561bbd479fcee8e90bf42f8cf39b666deb23b18",
+    "Assets/TPLab/Core/TPLab.Core.asmdef": "b64e9f2a942f60138868a4dcc05a79ddd21ec502b9de5ea4114bc84b4b159b55",
+    "Assets/TPLab/Core/TPLab.Core.asmdef.meta": "2433980837c8d9347b2f58a3ac20605beaa10edf54f85f9324495319d09e4181",
+    "Assets/TPLab/Editor.meta": "b86563fb68b4eff8a383ec9cb5ee8aacc589a656cc08d1eb7664947a9fb57561",
+    "Assets/TPLab/Editor/Bootstrap.meta": "7152f5114eedb3204a59d10f993fec6deb46a609fe98942828a46a2d3de8d7ca",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapBuildProcessor.cs": "a5d7806cf5d5f866d517513d1f12772e61ac71772ce95a13c2ff210356b3fa56",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapBuildProcessor.cs.meta": "a91b0485573784a2921fc80115916014c5704ae801b88c4437b6a9b64ff64387",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapEditor.cs": "67a8f8acf983f43b07db6dd6d75bcc04c5cbab2c7c25feb77e489480cfb135e1",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapEditor.cs.meta": "0f1a62d47fa4feb0deb283e0d458320e64466a593ae3593981c086d13a252ebd",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapEditorValidation.cs": "fb221ce8570172a4604203cf90e4faae0ae82d433118f4948ac25c37462dae3a",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapEditorValidation.cs.meta": "e6024c1c04362637b625c5a0af15f0b28281b6ed66219ee49169ae094cde8f6b",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapValidator.cs": "2677b48c6c6dbf3193f26063dbeb3ea2adf69830d24658148c6c808b1b95a8a4",
+    "Assets/TPLab/Editor/Bootstrap/BootstrapValidator.cs.meta": "786025104fd25d4ba48cda232a1969a52f6dc0f779d8b96831e4dca29b4a6ea9",
+    "Assets/TPLab/Editor/Bootstrap/SceneTransitionSettingsEditor.cs": "a5a1bb0ad1a4675c1f4869887e4b38de572b960468cbe23d42dad38e6659d489",
+    "Assets/TPLab/Editor/Bootstrap/SceneTransitionSettingsEditor.cs.meta": "cda77f3a4b9759fa5860fafa9b9eb69e6ac59fb8ee9832b72a69a3afa7056c7f",
+    "Assets/TPLab/Editor/DataTables.meta": "b99a949684cb111faae03a29e69052ac974c00760855b571672e114f456e0b10",
+    "Assets/TPLab/Editor/DataTables/DataTableGeneratedFiles.cs": "cf9160b49662d223f1848ed167e2c805a117c683bb8787eafdcc029540c26258",
+    "Assets/TPLab/Editor/DataTables/DataTableGeneratedFiles.cs.meta": "6c1e890d68228eba5d6eb03aeb5f914d87469054b24c43e0b3253089ccf9158b",
+    "Assets/TPLab/Editor/DataTables/DataTableGenerator.cs": "83c0b654049312c1c00715c0270d6151ff22c4aced27cf8ea0a2a96607dad2e3",
+    "Assets/TPLab/Editor/DataTables/DataTableGenerator.cs.meta": "505fd6ad2f538c3806840ed3b251d71c761166702fea5f2028604da8851272d7",
+    "Assets/TPLab/Editor/DataTables/DataTableImportAutomation.cs": "f0fa9109009c3f1540c13d7e8e9fe97299f6e31a9baa983262cf6abbf94ea133",
+    "Assets/TPLab/Editor/DataTables/DataTableImportAutomation.cs.meta": "4c0cccf9fbf9acc811f651f17776b2625c89062c282863c1fe1f9180696acf35",
+    "Assets/TPLab/Editor/DataTables/DataTableImportSettings.cs": "b5bd3cc8608c5a77c058af775b6526dd0b198e28fddffff796229283899bae09",
+    "Assets/TPLab/Editor/DataTables/DataTableImportSettings.cs.meta": "d663dae7dd39bc3aaa39fc7b70d256699be5eda53281e90d4d3b4c8bd255e337",
+    "Assets/TPLab/Editor/DataTables/DataTableImporter.cs": "b2b6d2e974c0c2443382d44139a233cf8b09a1559f1950396e110dbf4b871cff",
+    "Assets/TPLab/Editor/DataTables/DataTableImporter.cs.meta": "b0cb532fcf72b1d6dd498180c114cc1bbb6f16a0ce3cdbe9c001a8f1b5415f49",
+    "Assets/TPLab/Editor/SceneRootInspector.cs": "c4a0c1223e549090c6db154bd9dd4106255d79c98b08e8234e6d71a38428d4fc",
+    "Assets/TPLab/Editor/SceneRootInspector.cs.meta": "d3935e9c5712630b43846c79b288ec1c6c2b4cf75889eb4d215d3fc93768f2cd",
+    "Assets/TPLab/Editor/SceneRootMenu.cs": "963bd58b7118766903a8c837181ee52fdc8aeafd0c652e90bfd2a473042c392b",
+    "Assets/TPLab/Editor/SceneRootMenu.cs.meta": "696f6d973274662bc68e58952972716abae03b5f354ece6a660bbee4e9b4ee54",
+    "Assets/TPLab/Editor/TPLab.Core.Editor.asmdef": "e6232a9e66d8986a0fa176e56f3b8eeabe704915a37b1e13112c27e94ee8d3de",
+    "Assets/TPLab/Editor/TPLab.Core.Editor.asmdef.meta": "dd343340b7b87d8bfed137d5bbc6018bbd96de17f55a07d252dec25ff9b10328",
+    "Assets/TPLab/Input/Runtime.meta": "c49eb75fa30e8081ca4c58ca35a9d253b3b159e5523867fdc2114c20c106b820",
+    "Assets/TPLab/Input/Runtime/InputLayerController.cs": "179ffe117761ebfdf9efb61ef3ebd3c61f9d968df013f0a5d6e727ce322ce543",
+    "Assets/TPLab/Input/Runtime/InputLayerController.cs.meta": "6cbbbc9c4df03e6358ac06f9744f95d39827a7281884d1fb093832ac4d409c8f",
+    "Assets/TPLab/Input/Runtime/InputManager.cs": "957417cf8485151a088475f2f9e8c06a0059e20354f428c530896caddbbe7c5d",
+    "Assets/TPLab/Input/Runtime/InputManager.cs.meta": "2e474cd19ad2eebd572d4c10067c3212ad93d15701cccc29bb2c1a8c17bd70de",
+    "Assets/TPLab/Input/Runtime/InputManagerInstaller.cs": "82a09a7131471c3e6e093cac6904db359e45a40379e7052a2d39ce0e47338295",
+    "Assets/TPLab/Input/Runtime/InputManagerInstaller.cs.meta": "c236368c43351d598c4f7533b63160e54b0bffca54c1a5dccd0b8c4bc272ec9b",
+    "Assets/TPLab/Input/Runtime/InputRebindingController.cs": "886ec98ef66b92cf176f22a63401137f1fd7859bcd017a56420a4fb2a8e22f29",
+    "Assets/TPLab/Input/Runtime/InputRebindingController.cs.meta": "c5806de5cb11de01ae3ba0f01a029cf637efbf1d20ff7d65240fb38a4e07aaa2",
+    "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef": "36f0cf485f8bc40e7a4ff1f36efb043b42f1df6e0281fcd679e03a42d13c7955",
+    "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef.meta": "e0d529b87f1ef48aea85908eb7a6686b9199f1367f22740aa810f4a248fa9634",
+    "Assets/TPLab/Samples/Core/CorePooling.meta": "eb8b2435ab1bd5fc6246910e6700f6d685bcb1ae8b46b2688ccce14851ad58de",
+    "Assets/TPLab/Samples/Core/CorePooling/CorePooling.unity": "31c9d0d50845074aa9f73268cf97dcf6622174469c9daa27b32352a35133e789",
+    "Assets/TPLab/Samples/Core/CorePooling/CorePooling.unity.meta": "4a4a69054c0bcefe2b4e4059398ac617ef932e1d287b1abf1c69d1b0d372c325",
+    "Assets/TPLab/Samples/Core/CorePooling/CorePoolingSample.cs": "be0f85568c69937d7d06ca2cd24148afbdd4bdc61f28a26c207bc5de14409903",
+    "Assets/TPLab/Samples/Core/CorePooling/CorePoolingSample.cs.meta": "4198a53951b8c32ab637e5822812a3378a897bda6637fedefdd93cb284e2abfc",
+    "Assets/TPLab/Samples/Core/CorePooling/README.md": "f9d71496b11578583ddfd727844b7ae6ef8ad19c905a97e98f8bb26166f855d8",
+    "Assets/TPLab/Samples/Core/CorePooling/README.md.meta": "c3f6912420605a57c9f74b435d1527afa63f8ca146723a3045f121cb55b1f987",
+    "Assets/TPLab/Samples/Core/CorePooling/TPLab.CorePoolingSample.asmdef": "567e6e4fcd5d93b3169f6a81ce39a8f8f6ca5c20dd0d8bbdd8aa0be65f0ed84c",
+    "Assets/TPLab/Samples/Core/CorePooling/TPLab.CorePoolingSample.asmdef.meta": "25f3a8755e8d961d6a4e0915be050cd9703c9cf41619bd66000a298cca407be7",
+    "Assets/TPLab/Samples/Input/SceneTransitions.meta": "610dc42a8b940ae08733c04207149fce4615fada678c26fa9465253a9865a63c",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Editor.meta": "f8700927f31090b11b4d617070358a0c4314c55ca473ca61352d8f5bf847a3ae",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs": "1b1739a3a224b80e4bd079a37cc1f5b101ce8160565b4ec506dbf6784544d501",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs.meta": "d319a7d90b4a62e81d35e3170fb6ee92f88d329b2d69f3514124ef7d493ad1a6",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef": "dece5ab3e62e7cce644ac6122fda24bae5194d75d85acd777e1bf3fbb0a5c11c",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef.meta": "c34508c50d2c322fe1b8a69812c5d97e17293043de4556a86b0c84e1f4b31bf5",
+    "Assets/TPLab/Samples/Input/SceneTransitions/README.md": "cebcf1e85fb2fd68d7100492ea08c0abf22cf66040913820fe55b121613138c2",
+    "Assets/TPLab/Samples/Input/SceneTransitions/README.md.meta": "f3baac10ff06b93beed179bbcfd8c49c94ab395df7e1e9a0958f58813ae4a66d",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime.meta": "5a375cfbaff38b6dec5976afbc8f719fc007b384eaed9d96192760b7bdf3b794",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/InputSystemUiScope.cs": "f10742b5e30c55590867ea94d3a90a6a725b053c3493e28377e43a55d6630330",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/InputSystemUiScope.cs.meta": "7debb8b099f0e7837cb175b1f27a019a3b16356232d7cce1d1142302373118f0",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneConsumer.cs": "11f80e2390ab486cf7487dbd76fa7e0b8f80a1bb775b568c40aaabd3be36683a",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneConsumer.cs.meta": "f7e6534c78b550aeb2f22b7cfd2857881c1a4169fa9f35ccef8bdd2fb36d66f1",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneInstaller.cs": "1149fcca52bf9f641df36b77ce9f04aee4f35abda7b8143f1be8884123de2162",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneInstaller.cs.meta": "bc4a9bc2f5816771b74ff2bcf4ac61e145df2bceaf90a25b8d1bf4204494a67e",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleTransitionCondition.cs": "aa1ef830db9fec2f5ee5fb9d4bb175b40b45b4825d296dee3054fd7c33e37ee5",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleTransitionCondition.cs.meta": "a504f3c4f3e968d3015e68a22bb00b7149c0fb656b2057815788cb4fb35bffad",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs": "277636b38db285cc40a8670f33656ea9c51cd3e33e52fd7f472129d5aed4f7f0",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs.meta": "2e4b25d466b739660fd843727e0bc3cd9bd2cf21f857f7431e11f6ae2ac797b2",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.cs": "d4eb04f633bab4a84fd4d404087dda6ab52703f55c1ea597332eeffd6f2ee4c1",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.cs.meta": "b649174f6ef92fa7be47eb9f07f3c15a83007821e0e9649cc8a49032a955930c",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs": "4c4293d50d23d4795cded9c0b99387d7094da742eee3dabe376aee44dce98d62",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs.meta": "9be9762fe3e222c89dcc0e0fb9cd97de3b26c06e58a6016c399d9dbde75f5e74",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef": "aa8053da916a06e666dd2e944c7d579c045433e135ac18a422afc2a964f708ec",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef.meta": "aa6db670306e8736abde1d199ffa1eb79e9106fcc39f3830e98fa7c2fbfff160",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes.meta": "dd0dfe6d814263dd448792177f88224b24dd3bb7af1d3d20f91ca2471acff2e0",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Area.unity": "1c9f11b6889b2a50e0a4c66e4406b4b4ebdeaba751b1406018a6ebcf5060d566",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Area.unity.meta": "d6e216c2bd4250bac5586fdcfed0a82f64e48e83c13066be692c481b24138f49",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapAdditive.unity": "1228554856a7ac77c18b8fb5b47106743e6044df5191141a8839a17f88c5de08",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapAdditive.unity.meta": "16f1dd5117adf9302f7d869481d444bbca46d9b24e35a56739f066daf2992b5c",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapSingle.unity": "602c8a75683a937bb43e451c38b002c3020a96551c8e6cf6c1fb0559f9501aa2",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapSingle.unity.meta": "f58dc45331d73242f4391b1e86eb5e0753dbad3e50746152c162d894e4d9edb3",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Hub.unity": "700e715d52e41a3b2be3264f2fec6e81db947b76c3f39e295a4fde7fb3978dce",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Hub.unity.meta": "b65e724a428927f7691378880af21689f762c088c75eeca9fc0b506613c7b38d",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Main.unity": "6e3c15707f2ab5e1ce5c69a6d0555a28a81db5fa5ab6d2d0ed71efc28767626d",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Main.unity.meta": "45fdca32d1a759d518206f60b21fd40c4a8506b213a8d5b109aefd1c9f1a88af",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Nested.unity": "0a263f6441ef216250ff8e532b1e5823065ab6d9f9fe75264f9bed44599ed42e",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Nested.unity.meta": "1da063f15d64f13ede73028cfb15b3453ee85289926d4a9ccd1597aa27fbc1fd",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings.meta": "6cc03c6226745cffb24783e32604e04a5c958bcf48872ac74f0eadef560f1069",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Additive.asset": "245baad63cb05a46d091cc7e1041600a47352f6a29bad103d20cba9e1e9172e3",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Additive.asset.meta": "0643e7b888b2ce3c48912edf2e05e3926834ff7335eb7f8cfe93e7c9b42a5a80",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions": "1c6cbb519d65ecfe19a29231735b7f54741a20ac1a8ad4f46a18e1bfb28a3c39",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions.meta": "6c422e1856cc7ebaf4f733722f29237d81052799194963e8983134ae4dc2b0a5",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Single.asset": "a84707688ff3912131d0120efea45e0cb16d3bb151f107ba8e6d28a31597ce09",
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Single.asset.meta": "e01fce409ae057d1dafaeea80cbe76b2d5e22680a29145b428c4e2b0640c4b45",
+    "Assets/TPLab/Samples/Input/SceneTransitions/sample-owner.txt": "27ce64b40616702d37e2521cf79df77f8104ec8aee0053072f5600ad2798a80d",
+    "Assets/TPLab/Samples/Input/SceneTransitions/sample-owner.txt.meta": "326192b006369b04a1074742d3df794bbbc13678b310bcdf0633dc4bdcf31996",
+    "LICENSE": "bc4d094ad478c4af51f619c4a1ae33cbbc638288116420972c27b56b1f394fb5",
+    "ProjectSettings/ProjectVersion.txt": "d03fca18d2e511a37f7a81f8709404ebb2a571d3e0e5c854038c91a943ae15da",
+    "THIRD_PARTY_NOTICES.md": "fefebc5eb624c902a9ff473539671b6a81989fb569cf4f571fe5a0d7ce836ba2",
+    "doc/ai/api/DataTables.md": "20f3f19d3671c00047e0eb31f039124900ea4500da0529c1f3cd0de5da3979bd",
+    "doc/ai/api/Editor.md": "3697f03e63bac0ffefa99f5bdd26244b2b7c5575d508adee00d4a299573d7a97",
+    "doc/ai/api/Input.md": "686800bbe710b1f124957c1847cef33954cda2fc0a1c34ccbbe40df957a33fa6",
+    "doc/ai/api/Lifecycle.md": "3bf5448f791946baa66b2b0e6c3df025692e48ed507298afa53566e0ebc577b7",
+    "doc/ai/api/Pooling.md": "27b9c49337fbbe5120b1349f9c93e057cbd807427e71a499911bdff7859ec6ba",
+    "doc/ai/api/Resources.md": "ef2cf424c4e513869ce3c535004cd29d2a60308ef094bdadaebba7b7318b4693",
+    "doc/ai/api/SceneManagement.md": "5932bd077ab5e0407e106fe53135c4e8577ccb56dcd228b578b957c153baf2f4",
+    "doc/api/DataTables.md": "d923b1cd397378372e8d4189094ece5c23c3004a82bfcabbe1890750f930e5d1",
+    "doc/api/Editor.md": "de654d89ebb43dc35ed072caa4b2a314e806ee2e176366ab8cf2641d32dca7d5",
+    "doc/api/Input.md": "7995ffbdf283273fc9118818e1aec7249029ae59829dc92e09fd0e790bebed5c",
+    "doc/api/Lifecycle.md": "49a326bd5c413f232acd041ad4f078d2562d6bebb0227782e6a44c44d6752fa8",
+    "doc/api/Pooling.md": "56a5646dfcd3fa7287929d1f13e2fb4fdcc2f0d51239a110749b940eb1dd7d39",
+    "doc/api/Resources.md": "33f05769fd998e18ea802955e8a0ddc9d12fce718d18eff80a889ebc25a44cb4",
+    "doc/api/SceneManagement.md": "863461dd3153e47b0f662ba3c1758d60277d46f79c3624d9fe0a2da676ff29c7",
+    "doc/licenses/UniTask-LICENSE.txt": "b0e6aada5cdff8e90865b150498b81af955343f1d8f091e5b609fd94c4d4b3d0"
+  },
+  "sourceMapping": [
+    {
+      "package": "com.tplab.core",
+      "sha256": "e8fb824adf0c4a56e0431cbad181dd96c8a8f17647a36a96af89b10ebaab78c4",
+      "source": "Assets/TPLab/Core.meta",
+      "target": "Runtime.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "90dca792aa43f09e32a20f825389781164957db9516f72a64e3659332129042c",
+      "source": "Assets/TPLab/Core/DataTables.meta",
+      "target": "Runtime/DataTables.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "5105b572e60b2e084cdfb18862d91986af00ac08f867c01601117e4dafba1b50",
+      "source": "Assets/TPLab/Core/DataTables/CsvDataTable.cs",
+      "target": "Runtime/DataTables/CsvDataTable.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "1b6ec68ef8aba8237ab6352815f8a3edb5b2c71741564298b6bd2ac50d88a7a1",
+      "source": "Assets/TPLab/Core/DataTables/CsvDataTable.cs.meta",
+      "target": "Runtime/DataTables/CsvDataTable.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "cd0c087df85eafe0680a5edc10a9c40757469723c7c01b81e548c5f6b27005fe",
+      "source": "Assets/TPLab/Core/DataTables/DataRow.cs",
+      "target": "Runtime/DataTables/DataRow.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "a594f4b8b8c297e62049c2ca3dcd1ef8ca88b8070bd6e9ae7aa80c93768bf45a",
+      "source": "Assets/TPLab/Core/DataTables/DataRow.cs.meta",
+      "target": "Runtime/DataTables/DataRow.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "3a863a9af7af6969e86cd876090dccf1ada925994072d36cea5f5c08f3e9e123",
+      "source": "Assets/TPLab/Core/DataTables/DataTableCsvValidator.cs",
+      "target": "Runtime/DataTables/DataTableCsvValidator.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "1302447740b7d66a19dc5c8394689753d65749eed9ef2dfae4b6c392b41417a9",
+      "source": "Assets/TPLab/Core/DataTables/DataTableCsvValidator.cs.meta",
+      "target": "Runtime/DataTables/DataTableCsvValidator.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f4144a837fec28fd71f3925537089106ae4973152f35d91ee3f1ed369ab6c799",
+      "source": "Assets/TPLab/Core/DataTables/DataTableManager.cs",
+      "target": "Runtime/DataTables/DataTableManager.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "1383a19daac11f513a83277c440d97f98333a9438f2af3a5479a2c3d34319232",
+      "source": "Assets/TPLab/Core/DataTables/DataTableManager.cs.meta",
+      "target": "Runtime/DataTables/DataTableManager.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "d551ddb1f99c1d87e2eeb4c3bdd91df2cd62668ea335b1577cf24c3b378b59b1",
+      "source": "Assets/TPLab/Core/DataTables/DataTableSnapshot.cs",
+      "target": "Runtime/DataTables/DataTableSnapshot.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f833e5c46309a4fdbd51144de3054a82dfc61e32e799d9c080062717628de617",
+      "source": "Assets/TPLab/Core/DataTables/DataTableSnapshot.cs.meta",
+      "target": "Runtime/DataTables/DataTableSnapshot.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "3cea7c8227406f7fb693d232ed94ac62a57d5a7d9d8f9ea93c303dfba27a6f52",
+      "source": "Assets/TPLab/Core/DataTables/IdxCodec.cs",
+      "target": "Runtime/DataTables/IdxCodec.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "8cec176330fb32105cbb6a7feddffaf2b6140eec63f35c5e39330b098f46d7a9",
+      "source": "Assets/TPLab/Core/DataTables/IdxCodec.cs.meta",
+      "target": "Runtime/DataTables/IdxCodec.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "884b197727a6dd384fdedda1d0f1e9beebdc1e4beb4cdc2210f1af6b0fed73f6",
+      "source": "Assets/TPLab/Core/Lifecycle.meta",
+      "target": "Runtime/Lifecycle.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "2b7ea39c5ae91771d8c956cb0e762d060aa862ea2ea1b18d5521bdddbcb3d6dd",
+      "source": "Assets/TPLab/Core/Lifecycle/ISceneRoot.cs",
+      "target": "Runtime/Lifecycle/ISceneRoot.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "a9ac18bb10878385b894357df1536c1299a383a753f62e39ad1597bb575a0fe3",
+      "source": "Assets/TPLab/Core/Lifecycle/ISceneRoot.cs.meta",
+      "target": "Runtime/Lifecycle/ISceneRoot.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f90d369c24ffeac7a1544a6fcf66868fd47d762e092ce21d444013f73ebce7e6",
+      "source": "Assets/TPLab/Core/Lifecycle/MonoSingleton.cs",
+      "target": "Runtime/Lifecycle/MonoSingleton.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "2aff9193767befea192a9504311267a0d0f043fb6aaeb2976cb8a468ae3fba56",
+      "source": "Assets/TPLab/Core/Lifecycle/MonoSingleton.cs.meta",
+      "target": "Runtime/Lifecycle/MonoSingleton.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "c4e668f21ea48e951c160bbc5b8c405a879af5ca9740c49b898526ca7d4f024e",
+      "source": "Assets/TPLab/Core/Lifecycle/RootInstallation.cs",
+      "target": "Runtime/Lifecycle/RootInstallation.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "914abdfccc5c2af424b52ea0e40095ae9c780285be6cffb804751fe320df25be",
+      "source": "Assets/TPLab/Core/Lifecycle/RootInstallation.cs.meta",
+      "target": "Runtime/Lifecycle/RootInstallation.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "11d279016c9d1015bf1bb2a49e7ef0fba262ef38fd1a671c1c1cde6e3f171793",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs",
+      "target": "Runtime/Lifecycle/SceneOwnedRoot.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "fda5a58e007cb06009ee2dbe814e43a2ae546f2a7e2a09f29d9b961c7d365c99",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs.meta",
+      "target": "Runtime/Lifecycle/SceneOwnedRoot.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "390d9b76c022b4dadb234402829f7637e2fa48f568d85855f4f0f18f4a78531f",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneRootFlow.cs",
+      "target": "Runtime/Lifecycle/SceneRootFlow.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "7eacbef6ed9612439584b5e455947d17e1f1cde01fc68c82352dac4bb77ada24",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneRootFlow.cs.meta",
+      "target": "Runtime/Lifecycle/SceneRootFlow.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "41725f93c341cbee66610701c5e910c0daae818230f6a3758d777205360bbed8",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneRootInstaller.cs",
+      "target": "Runtime/Lifecycle/SceneRootInstaller.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "d3bd7c2da34c5166e357af6a6b51792e15e2c94f2453765f48e12e4b69fa59e5",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneRootInstaller.cs.meta",
+      "target": "Runtime/Lifecycle/SceneRootInstaller.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "8d7e50921a61db06251659e264b1a86f9688acbcc85e420cb7cf768f850bfcf4",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs",
+      "target": "Runtime/Lifecycle/SceneRootSetup.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "374d490853239373803385fe9d338350c7c22eb10fca811065576f8ffe641cb7",
+      "source": "Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs.meta",
+      "target": "Runtime/Lifecycle/SceneRootSetup.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "34dc3f23fdaf79e50cacdbc23ca931a594b6419d4f185caf3090a20bd028c25a",
+      "source": "Assets/TPLab/Core/Lifecycle/SingletonRuntime.cs",
+      "target": "Runtime/Lifecycle/SingletonRuntime.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "a9f3897485fe6485241ba2b272e78d7ac5094d8cd8d12e53864f43fc315540ec",
+      "source": "Assets/TPLab/Core/Lifecycle/SingletonRuntime.cs.meta",
+      "target": "Runtime/Lifecycle/SingletonRuntime.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "3c9ed533943497cdc0f7f78d558945a31112576a577629baa6f84a1fd58c4cd0",
+      "source": "Assets/TPLab/Core/Lifecycle/SingletonSceneRoot.cs",
+      "target": "Runtime/Lifecycle/SingletonSceneRoot.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "ac57d2e37c804df190b3f12aea7d0dbe1c69a1d81a06dacac19d0c1df5d32a5e",
+      "source": "Assets/TPLab/Core/Lifecycle/SingletonSceneRoot.cs.meta",
+      "target": "Runtime/Lifecycle/SingletonSceneRoot.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "acf96ab21a29aa87653d59ce7aa68a5b073ffcf81ce42cd003f4189fe6bb4a37",
+      "source": "Assets/TPLab/Core/Pooling.meta",
+      "target": "Runtime/Pooling.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "84b52429d22ec377123d67cba0b6ce2a264efcf6870f285cce1b25430dbaba17",
+      "source": "Assets/TPLab/Core/Pooling/ObjectPool.cs",
+      "target": "Runtime/Pooling/ObjectPool.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "b174352380a543ec158544029453d36cfc69c85cde024bf4a102a36e1e9257d1",
+      "source": "Assets/TPLab/Core/Pooling/ObjectPool.cs.meta",
+      "target": "Runtime/Pooling/ObjectPool.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "396ddf1c2999d46657d593e49b77095edab8091b839073a1345e31edabe90bfc",
+      "source": "Assets/TPLab/Core/Pooling/PrefabPool.cs",
+      "target": "Runtime/Pooling/PrefabPool.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "cb63171ca5630378858058b7277e38f5ef8b3f871e515bd616f7a80de21edc51",
+      "source": "Assets/TPLab/Core/Pooling/PrefabPool.cs.meta",
+      "target": "Runtime/Pooling/PrefabPool.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "6540d17ea194f45fd956849c5dca333540686177d43d7dc2918cc1bc11e309df",
+      "source": "Assets/TPLab/Core/ResourceManagement.meta",
+      "target": "Runtime/ResourceManagement.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f4c1d6cd314a304548fb418878d95ac2e4f49131c8cc8079a880e9a3ae8aa4ab",
+      "source": "Assets/TPLab/Core/ResourceManagement/AddressableSceneLoader.cs",
+      "target": "Runtime/ResourceManagement/AddressableSceneLoader.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "505065ba378ef53a34e042192ae3112f8a959b5157de78acce0a0d9f8c493540",
+      "source": "Assets/TPLab/Core/ResourceManagement/AddressableSceneLoader.cs.meta",
+      "target": "Runtime/ResourceManagement/AddressableSceneLoader.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "e92985adefa29b32c58fe5f05b9983dbd6bba10dad0467f40a3327b464c4fdf9",
+      "source": "Assets/TPLab/Core/ResourceManagement/ISceneLoader.cs",
+      "target": "Runtime/ResourceManagement/ISceneLoader.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f6a503250cb5eeb7c4044e89a4bcd4932a478bdc9caadb7615fda0216893f583",
+      "source": "Assets/TPLab/Core/ResourceManagement/ISceneLoader.cs.meta",
+      "target": "Runtime/ResourceManagement/ISceneLoader.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "8d70ce7c9ee9e8c1c6dc9613b89f6e965a6fbb5d9251b2be51de75ff3bfebfda",
+      "source": "Assets/TPLab/Core/ResourceManagement/ISceneProgressLoader.cs",
+      "target": "Runtime/ResourceManagement/ISceneProgressLoader.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "c148608002803228180971b776059e3de28a957481c74bcdbcda13f51dacee78",
+      "source": "Assets/TPLab/Core/ResourceManagement/ISceneProgressLoader.cs.meta",
+      "target": "Runtime/ResourceManagement/ISceneProgressLoader.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "c49a9244eb44d8cfaf511c9d8ef56d03ff787ec014af75edb10c8c3e84680f8c",
+      "source": "Assets/TPLab/Core/ResourceManagement/LoadedScene.cs",
+      "target": "Runtime/ResourceManagement/LoadedScene.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "4a67f30190e645da705986de0ff73074e371243d0b4d72afc62b00538730ef1e",
+      "source": "Assets/TPLab/Core/ResourceManagement/LoadedScene.cs.meta",
+      "target": "Runtime/ResourceManagement/LoadedScene.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "8a28cbc718474608ecdafc54041d31a311777ee5216548faa85ff85f67baa6f2",
+      "source": "Assets/TPLab/Core/ResourceManagement/NativeSceneLoader.cs",
+      "target": "Runtime/ResourceManagement/NativeSceneLoader.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "4f67c5426b6e9ba86a680219680d4841d5b8947efcb705174c7d83fb6be8e07f",
+      "source": "Assets/TPLab/Core/ResourceManagement/NativeSceneLoader.cs.meta",
+      "target": "Runtime/ResourceManagement/NativeSceneLoader.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "2421b3ff46209bc4c3c185e5e4fa9f5a29566f88e58764ba12c1ff515e647639",
+      "source": "Assets/TPLab/Core/ResourceManagement/ResourceManager.cs",
+      "target": "Runtime/ResourceManagement/ResourceManager.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "fde90bfe485e0fbec05999c62680ccc8a30789940dba886f285581cd9bbfd5f8",
+      "source": "Assets/TPLab/Core/ResourceManagement/ResourceManager.cs.meta",
+      "target": "Runtime/ResourceManagement/ResourceManager.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "fd925b94159cf405b16b0f118e18c66229d3232e7189f34ba6baad03f904b385",
+      "source": "Assets/TPLab/Core/ResourceManagement/ResourceManagerInstaller.cs",
+      "target": "Runtime/ResourceManagement/ResourceManagerInstaller.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "aba2a0f27b7784c7830656a9aa94ebfd2f8c9b5f6616a877f94ffcbf3a6b1446",
+      "source": "Assets/TPLab/Core/ResourceManagement/ResourceManagerInstaller.cs.meta",
+      "target": "Runtime/ResourceManagement/ResourceManagerInstaller.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "eaa7ebdc92503415156dc930dd62e4732cae4a84f618b132997f691af3360b47",
+      "source": "Assets/TPLab/Core/ResourceManagement/SceneLoadProgress.cs",
+      "target": "Runtime/ResourceManagement/SceneLoadProgress.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "ff6794419c425d7798a0e116d29db45f24f88367f220a522f45701e8cbd5a485",
+      "source": "Assets/TPLab/Core/ResourceManagement/SceneLoadProgress.cs.meta",
+      "target": "Runtime/ResourceManagement/SceneLoadProgress.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f54826dcc2a66c480f9bdb0f2a004c66131c98448a6893144d913a8a9ca250ae",
+      "source": "Assets/TPLab/Core/ResourceManagement/SceneTarget.cs",
+      "target": "Runtime/ResourceManagement/SceneTarget.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "b71731d428a9874a5d6dcedb6d0430b04f961e114405123e026473780ef940eb",
+      "source": "Assets/TPLab/Core/ResourceManagement/SceneTarget.cs.meta",
+      "target": "Runtime/ResourceManagement/SceneTarget.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "2d4ce7b571fbad8c5e583631859ba73710bc0497641ca6e8cceb3009070c0e1e",
+      "source": "Assets/TPLab/Core/SceneManagement.meta",
+      "target": "Runtime/SceneManagement.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "09d62dbdd26ff18fdf27f47532431820beb00b5f93900c42645b4c7f14bdbbd4",
+      "source": "Assets/TPLab/Core/SceneManagement/BootstrapCallbacks.cs",
+      "target": "Runtime/SceneManagement/BootstrapCallbacks.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "23ca2b825486cbe350ff02294f2f37b6810df08671d526fd2f6600fe09a3cbdf",
+      "source": "Assets/TPLab/Core/SceneManagement/BootstrapCallbacks.cs.meta",
+      "target": "Runtime/SceneManagement/BootstrapCallbacks.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "5b6b9f7e9b53db79a9b45ad6a3c7186b3aaa33a8d17b209ea97af4b1075a090e",
+      "source": "Assets/TPLab/Core/SceneManagement/BootstrapSystem.cs",
+      "target": "Runtime/SceneManagement/BootstrapSystem.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "665023286c4a1720a8685465e96380b4aca6dec8a324dbfab06b92fc09140a0e",
+      "source": "Assets/TPLab/Core/SceneManagement/BootstrapSystem.cs.meta",
+      "target": "Runtime/SceneManagement/BootstrapSystem.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "22d2b28e5133fac5bd871691b48b0f59eef25d75e83cfe0fcf756aba4756dc71",
+      "source": "Assets/TPLab/Core/SceneManagement/GameSceneManager.cs",
+      "target": "Runtime/SceneManagement/GameSceneManager.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "128b4d1d7a18a8ac2ca84c71adeee774388f7a8a194d29236f9b3bf6b25ee590",
+      "source": "Assets/TPLab/Core/SceneManagement/GameSceneManager.cs.meta",
+      "target": "Runtime/SceneManagement/GameSceneManager.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "82e58caf4df31d7ddf90d1fb69f3a3572803abda69a19dbd1e9bf9f54a2bf5e5",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneRegistration.cs",
+      "target": "Runtime/SceneManagement/SceneRegistration.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "a090aac723665a1be5be9c06d0c640d651cec1678dcbe859b355af1f4de5d72d",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneRegistration.cs.meta",
+      "target": "Runtime/SceneManagement/SceneRegistration.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "4f7a94044f9ad1feece959ecba389c2106a93825ca2ba18c36d75cfcfdd95eea",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionCallbacks.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionCallbacks.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "135eb5aa73216ea991583198f7b0498df1ae1dc2c29ef4d7b3af6d30fe9a67cd",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionCallbacks.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionCallbacks.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "9a3ddd4a42c64fc2a039e72c3c7da47406cc6249ad2e09d7cf54a766e91af8a9",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionCondition.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionCondition.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "ea05f630589f527d7c1c437ca5f68e6bbf7c9683a9abd1958e5e0c5ab6c3c71d",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionCondition.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionCondition.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "ba4044e703981e9bb4f8c281172ed3cd0f76f2a3097ee8825c1375a703d5ad44",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionContext.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionContext.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "c9eaf52c46177de0065793b8fe527445ca3effa945e533c1fe2edf3ec46d43a8",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionContext.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionContext.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "e843aff05253a3c756f794e477d6dc589c5ddd858b912c74493dd7c6e007573d",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionDefinition.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionDefinition.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "1c94e25fbaf467884cba288f0550b53b1caab1ca9e6422eefa7e3f16cb05c0e4",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionDefinition.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionDefinition.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "e282350dc874202ea44e1018005ddca6f4879ff1b96880670ffc357f1db0e2a9",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionProgress.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionProgress.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "ecaed3ef52603af4f36376ffc4124d72fd19fd8bd774a08b276efe0156b36f3d",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionProgress.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionProgress.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "a2b6c4abec97804418c6d168d3ce7470d0d59240701e9d40c60457a9e5434942",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionRejectedException.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionRejectedException.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "97207bcbf5574b93a0acf0632a47279a51316a0e4753c21657f0eae6047248b1",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionRejectedException.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionRejectedException.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "611a5adfc1bb114481e8c1c288cec1fc772c536e4a4fd80ccc95d88651d69f6e",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionRequest.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionRequest.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "66ded29facef1c5d4331f99ccb5817b98a4910c295a9331ecf304c0bf1355be2",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionRequest.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionRequest.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "acdb75c72def096add2e9498b6fe1cae35e36c13d995ba026a1e1ec9f1c69352",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionSettings.cs",
+      "target": "Runtime/SceneManagement/SceneTransitionSettings.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "7896128d37a868584447fa527561bbd479fcee8e90bf42f8cf39b666deb23b18",
+      "source": "Assets/TPLab/Core/SceneManagement/SceneTransitionSettings.cs.meta",
+      "target": "Runtime/SceneManagement/SceneTransitionSettings.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "b64e9f2a942f60138868a4dcc05a79ddd21ec502b9de5ea4114bc84b4b159b55",
+      "source": "Assets/TPLab/Core/TPLab.Core.asmdef",
+      "target": "Runtime/TPLab.Core.asmdef"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "2433980837c8d9347b2f58a3ac20605beaa10edf54f85f9324495319d09e4181",
+      "source": "Assets/TPLab/Core/TPLab.Core.asmdef.meta",
+      "target": "Runtime/TPLab.Core.asmdef.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "35317bdf7deee7aa804acd90691adfadbe00808f85c25bef0909bab841300cd1",
+      "source": "Assets/Plugins/CsvHelper.meta",
+      "target": "Runtime/ThirdParty/CsvHelper.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "20101c398654a14bfd42bd78d7281f43197d19b7b3cf41c7aae93f1eaba65a61",
+      "source": "Assets/Plugins/CsvHelper/CsvHelper.dll",
+      "target": "Runtime/ThirdParty/CsvHelper/CsvHelper.dll"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "c8ec2e899f95ea2839edf77ac3fced1951e15de7cab90ef6995186306425e90f",
+      "source": "Assets/Plugins/CsvHelper/CsvHelper.dll.meta",
+      "target": "Runtime/ThirdParty/CsvHelper/CsvHelper.dll.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "58d0d21c221a085b56fc3a5bdcc62a612149413df288d98d536ccbb221f249ac",
+      "source": "Assets/Plugins/CsvHelper/LICENSE.txt",
+      "target": "Runtime/ThirdParty/CsvHelper/LICENSE.txt"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "856c608964b2a06971ec6fba45c7edee6de8da5da65517915f8acf5eb770fb36",
+      "source": "Assets/Plugins/CsvHelper/LICENSE.txt.meta",
+      "target": "Runtime/ThirdParty/CsvHelper/LICENSE.txt.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "eb8b2435ab1bd5fc6246910e6700f6d685bcb1ae8b46b2688ccce14851ad58de",
+      "source": "Assets/TPLab/Samples/Core/CorePooling.meta",
+      "target": "Samples~/CorePooling.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "31c9d0d50845074aa9f73268cf97dcf6622174469c9daa27b32352a35133e789",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/CorePooling.unity",
+      "target": "Samples~/CorePooling/CorePooling.unity"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "4a4a69054c0bcefe2b4e4059398ac617ef932e1d287b1abf1c69d1b0d372c325",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/CorePooling.unity.meta",
+      "target": "Samples~/CorePooling/CorePooling.unity.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "be0f85568c69937d7d06ca2cd24148afbdd4bdc61f28a26c207bc5de14409903",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/CorePoolingSample.cs",
+      "target": "Samples~/CorePooling/CorePoolingSample.cs"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "4198a53951b8c32ab637e5822812a3378a897bda6637fedefdd93cb284e2abfc",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/CorePoolingSample.cs.meta",
+      "target": "Samples~/CorePooling/CorePoolingSample.cs.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "f9d71496b11578583ddfd727844b7ae6ef8ad19c905a97e98f8bb26166f855d8",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/README.md",
+      "target": "Samples~/CorePooling/README.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "c3f6912420605a57c9f74b435d1527afa63f8ca146723a3045f121cb55b1f987",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/README.md.meta",
+      "target": "Samples~/CorePooling/README.md.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "567e6e4fcd5d93b3169f6a81ce39a8f8f6ca5c20dd0d8bbdd8aa0be65f0ed84c",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/TPLab.CorePoolingSample.asmdef",
+      "target": "Samples~/CorePooling/TPLab.CorePoolingSample.asmdef"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "25f3a8755e8d961d6a4e0915be050cd9703c9cf41619bd66000a298cca407be7",
+      "source": "Assets/TPLab/Samples/Core/CorePooling/TPLab.CorePoolingSample.asmdef.meta",
+      "target": "Samples~/CorePooling/TPLab.CorePoolingSample.asmdef.meta"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "56a5646dfcd3fa7287929d1f13e2fb4fdcc2f0d51239a110749b940eb1dd7d39",
+      "source": "doc/api/Pooling.md",
+      "target": "Documentation~/api/Pooling.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "27b9c49337fbbe5120b1349f9c93e057cbd807427e71a499911bdff7859ec6ba",
+      "source": "doc/ai/api/Pooling.md",
+      "target": "Documentation~/ai/api/Pooling.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "49a326bd5c413f232acd041ad4f078d2562d6bebb0227782e6a44c44d6752fa8",
+      "source": "doc/api/Lifecycle.md",
+      "target": "Documentation~/api/Lifecycle.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "3bf5448f791946baa66b2b0e6c3df025692e48ed507298afa53566e0ebc577b7",
+      "source": "doc/ai/api/Lifecycle.md",
+      "target": "Documentation~/ai/api/Lifecycle.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "33f05769fd998e18ea802955e8a0ddc9d12fce718d18eff80a889ebc25a44cb4",
+      "source": "doc/api/Resources.md",
+      "target": "Documentation~/api/Resources.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "ef2cf424c4e513869ce3c535004cd29d2a60308ef094bdadaebba7b7318b4693",
+      "source": "doc/ai/api/Resources.md",
+      "target": "Documentation~/ai/api/Resources.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "d923b1cd397378372e8d4189094ece5c23c3004a82bfcabbe1890750f930e5d1",
+      "source": "doc/api/DataTables.md",
+      "target": "Documentation~/api/DataTables.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "20f3f19d3671c00047e0eb31f039124900ea4500da0529c1f3cd0de5da3979bd",
+      "source": "doc/ai/api/DataTables.md",
+      "target": "Documentation~/ai/api/DataTables.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "863461dd3153e47b0f662ba3c1758d60277d46f79c3624d9fe0a2da676ff29c7",
+      "source": "doc/api/SceneManagement.md",
+      "target": "Documentation~/api/SceneManagement.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "5932bd077ab5e0407e106fe53135c4e8577ccb56dcd228b578b957c153baf2f4",
+      "source": "doc/ai/api/SceneManagement.md",
+      "target": "Documentation~/ai/api/SceneManagement.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "bc4d094ad478c4af51f619c4a1ae33cbbc638288116420972c27b56b1f394fb5",
+      "source": "LICENSE",
+      "target": "LICENSE.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "fefebc5eb624c902a9ff473539671b6a81989fb569cf4f571fe5a0d7ce836ba2",
+      "source": "THIRD_PARTY_NOTICES.md",
+      "target": "Third Party Notices.md"
+    },
+    {
+      "package": "com.tplab.core",
+      "sha256": "b0e6aada5cdff8e90865b150498b81af955343f1d8f091e5b609fd94c4d4b3d0",
+      "source": "doc/licenses/UniTask-LICENSE.txt",
+      "target": "ThirdPartyNotices~/UniTask-LICENSE.txt"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "c49eb75fa30e8081ca4c58ca35a9d253b3b159e5523867fdc2114c20c106b820",
+      "source": "Assets/TPLab/Input/Runtime.meta",
+      "target": "Runtime.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "179ffe117761ebfdf9efb61ef3ebd3c61f9d968df013f0a5d6e727ce322ce543",
+      "source": "Assets/TPLab/Input/Runtime/InputLayerController.cs",
+      "target": "Runtime/InputLayerController.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "6cbbbc9c4df03e6358ac06f9744f95d39827a7281884d1fb093832ac4d409c8f",
+      "source": "Assets/TPLab/Input/Runtime/InputLayerController.cs.meta",
+      "target": "Runtime/InputLayerController.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "957417cf8485151a088475f2f9e8c06a0059e20354f428c530896caddbbe7c5d",
+      "source": "Assets/TPLab/Input/Runtime/InputManager.cs",
+      "target": "Runtime/InputManager.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "2e474cd19ad2eebd572d4c10067c3212ad93d15701cccc29bb2c1a8c17bd70de",
+      "source": "Assets/TPLab/Input/Runtime/InputManager.cs.meta",
+      "target": "Runtime/InputManager.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "82a09a7131471c3e6e093cac6904db359e45a40379e7052a2d39ce0e47338295",
+      "source": "Assets/TPLab/Input/Runtime/InputManagerInstaller.cs",
+      "target": "Runtime/InputManagerInstaller.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "c236368c43351d598c4f7533b63160e54b0bffca54c1a5dccd0b8c4bc272ec9b",
+      "source": "Assets/TPLab/Input/Runtime/InputManagerInstaller.cs.meta",
+      "target": "Runtime/InputManagerInstaller.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "886ec98ef66b92cf176f22a63401137f1fd7859bcd017a56420a4fb2a8e22f29",
+      "source": "Assets/TPLab/Input/Runtime/InputRebindingController.cs",
+      "target": "Runtime/InputRebindingController.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "c5806de5cb11de01ae3ba0f01a029cf637efbf1d20ff7d65240fb38a4e07aaa2",
+      "source": "Assets/TPLab/Input/Runtime/InputRebindingController.cs.meta",
+      "target": "Runtime/InputRebindingController.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "36f0cf485f8bc40e7a4ff1f36efb043b42f1df6e0281fcd679e03a42d13c7955",
+      "source": "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef",
+      "target": "Runtime/TPLab.Core.Input.asmdef"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "e0d529b87f1ef48aea85908eb7a6686b9199f1367f22740aa810f4a248fa9634",
+      "source": "Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef.meta",
+      "target": "Runtime/TPLab.Core.Input.asmdef.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "610dc42a8b940ae08733c04207149fce4615fada678c26fa9465253a9865a63c",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions.meta",
+      "target": "Samples~/SceneTransitions.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "f8700927f31090b11b4d617070358a0c4314c55ca473ca61352d8f5bf847a3ae",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Editor.meta",
+      "target": "Samples~/SceneTransitions/Editor.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "1b1739a3a224b80e4bd079a37cc1f5b101ce8160565b4ec506dbf6784544d501",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs",
+      "target": "Samples~/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "d319a7d90b4a62e81d35e3170fb6ee92f88d329b2d69f3514124ef7d493ad1a6",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs.meta",
+      "target": "Samples~/SceneTransitions/Editor/SceneTransitionSampleBuilder.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "dece5ab3e62e7cce644ac6122fda24bae5194d75d85acd777e1bf3fbb0a5c11c",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef",
+      "target": "Samples~/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "c34508c50d2c322fe1b8a69812c5d97e17293043de4556a86b0c84e1f4b31bf5",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef.meta",
+      "target": "Samples~/SceneTransitions/Editor/TPLab.SceneTransitionSamples.Editor.asmdef.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "cebcf1e85fb2fd68d7100492ea08c0abf22cf66040913820fe55b121613138c2",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/README.md",
+      "target": "Samples~/SceneTransitions/README.md"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "f3baac10ff06b93beed179bbcfd8c49c94ab395df7e1e9a0958f58813ae4a66d",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/README.md.meta",
+      "target": "Samples~/SceneTransitions/README.md.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "5a375cfbaff38b6dec5976afbc8f719fc007b384eaed9d96192760b7bdf3b794",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime.meta",
+      "target": "Samples~/SceneTransitions/Runtime.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "f10742b5e30c55590867ea94d3a90a6a725b053c3493e28377e43a55d6630330",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/InputSystemUiScope.cs",
+      "target": "Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "7debb8b099f0e7837cb175b1f27a019a3b16356232d7cce1d1142302373118f0",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/InputSystemUiScope.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "11f80e2390ab486cf7487dbd76fa7e0b8f80a1bb775b568c40aaabd3be36683a",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneConsumer.cs",
+      "target": "Samples~/SceneTransitions/Runtime/SampleSceneConsumer.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "f7e6534c78b550aeb2f22b7cfd2857881c1a4169fa9f35ccef8bdd2fb36d66f1",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneConsumer.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/SampleSceneConsumer.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "1149fcca52bf9f641df36b77ce9f04aee4f35abda7b8143f1be8884123de2162",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneInstaller.cs",
+      "target": "Samples~/SceneTransitions/Runtime/SampleSceneInstaller.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "bc4a9bc2f5816771b74ff2bcf4ac61e145df2bceaf90a25b8d1bf4204494a67e",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleSceneInstaller.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/SampleSceneInstaller.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "aa1ef830db9fec2f5ee5fb9d4bb175b40b45b4825d296dee3054fd7c33e37ee5",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleTransitionCondition.cs",
+      "target": "Samples~/SceneTransitions/Runtime/SampleTransitionCondition.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "a504f3c4f3e968d3015e68a22bb00b7149c0fb656b2057815788cb4fb35bffad",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SampleTransitionCondition.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/SampleTransitionCondition.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "277636b38db285cc40a8670f33656ea9c51cd3e33e52fd7f472129d5aed4f7f0",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs",
+      "target": "Samples~/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "2e4b25d466b739660fd843727e0bc3cd9bd2cf21f857f7431e11f6ae2ac797b2",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/SceneTransitionSampleController.Loading.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "d4eb04f633bab4a84fd4d404087dda6ab52703f55c1ea597332eeffd6f2ee4c1",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.cs",
+      "target": "Samples~/SceneTransitions/Runtime/SceneTransitionSampleController.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "b649174f6ef92fa7be47eb9f07f3c15a83007821e0e9649cc8a49032a955930c",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSampleController.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/SceneTransitionSampleController.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "4c4293d50d23d4795cded9c0b99387d7094da742eee3dabe376aee44dce98d62",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs",
+      "target": "Samples~/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "9be9762fe3e222c89dcc0e0fb9cd97de3b26c06e58a6016c399d9dbde75f5e74",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs.meta",
+      "target": "Samples~/SceneTransitions/Runtime/SceneTransitionSamplePaths.cs.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "aa8053da916a06e666dd2e944c7d579c045433e135ac18a422afc2a964f708ec",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef",
+      "target": "Samples~/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "aa6db670306e8736abde1d199ffa1eb79e9106fcc39f3830e98fa7c2fbfff160",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef.meta",
+      "target": "Samples~/SceneTransitions/Runtime/TPLab.SceneTransitionSamples.asmdef.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "dd0dfe6d814263dd448792177f88224b24dd3bb7af1d3d20f91ca2471acff2e0",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes.meta",
+      "target": "Samples~/SceneTransitions/Scenes.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "1c9f11b6889b2a50e0a4c66e4406b4b4ebdeaba751b1406018a6ebcf5060d566",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Area.unity",
+      "target": "Samples~/SceneTransitions/Scenes/Area.unity"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "d6e216c2bd4250bac5586fdcfed0a82f64e48e83c13066be692c481b24138f49",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Area.unity.meta",
+      "target": "Samples~/SceneTransitions/Scenes/Area.unity.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "1228554856a7ac77c18b8fb5b47106743e6044df5191141a8839a17f88c5de08",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapAdditive.unity",
+      "target": "Samples~/SceneTransitions/Scenes/BootstrapAdditive.unity"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "16f1dd5117adf9302f7d869481d444bbca46d9b24e35a56739f066daf2992b5c",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapAdditive.unity.meta",
+      "target": "Samples~/SceneTransitions/Scenes/BootstrapAdditive.unity.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "602c8a75683a937bb43e451c38b002c3020a96551c8e6cf6c1fb0559f9501aa2",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapSingle.unity",
+      "target": "Samples~/SceneTransitions/Scenes/BootstrapSingle.unity"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "f58dc45331d73242f4391b1e86eb5e0753dbad3e50746152c162d894e4d9edb3",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/BootstrapSingle.unity.meta",
+      "target": "Samples~/SceneTransitions/Scenes/BootstrapSingle.unity.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "700e715d52e41a3b2be3264f2fec6e81db947b76c3f39e295a4fde7fb3978dce",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Hub.unity",
+      "target": "Samples~/SceneTransitions/Scenes/Hub.unity"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "b65e724a428927f7691378880af21689f762c088c75eeca9fc0b506613c7b38d",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Hub.unity.meta",
+      "target": "Samples~/SceneTransitions/Scenes/Hub.unity.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "6e3c15707f2ab5e1ce5c69a6d0555a28a81db5fa5ab6d2d0ed71efc28767626d",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Main.unity",
+      "target": "Samples~/SceneTransitions/Scenes/Main.unity"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "45fdca32d1a759d518206f60b21fd40c4a8506b213a8d5b109aefd1c9f1a88af",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Main.unity.meta",
+      "target": "Samples~/SceneTransitions/Scenes/Main.unity.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "0a263f6441ef216250ff8e532b1e5823065ab6d9f9fe75264f9bed44599ed42e",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Nested.unity",
+      "target": "Samples~/SceneTransitions/Scenes/Nested.unity"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "1da063f15d64f13ede73028cfb15b3453ee85289926d4a9ccd1597aa27fbc1fd",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Scenes/Nested.unity.meta",
+      "target": "Samples~/SceneTransitions/Scenes/Nested.unity.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "6cc03c6226745cffb24783e32604e04a5c958bcf48872ac74f0eadef560f1069",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings.meta",
+      "target": "Samples~/SceneTransitions/Settings.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "245baad63cb05a46d091cc7e1041600a47352f6a29bad103d20cba9e1e9172e3",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Additive.asset",
+      "target": "Samples~/SceneTransitions/Settings/Additive.asset"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "0643e7b888b2ce3c48912edf2e05e3926834ff7335eb7f8cfe93e7c9b42a5a80",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Additive.asset.meta",
+      "target": "Samples~/SceneTransitions/Settings/Additive.asset.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "1c6cbb519d65ecfe19a29231735b7f54741a20ac1a8ad4f46a18e1bfb28a3c39",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions",
+      "target": "Samples~/SceneTransitions/Settings/SampleInput.inputactions"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "6c422e1856cc7ebaf4f733722f29237d81052799194963e8983134ae4dc2b0a5",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions.meta",
+      "target": "Samples~/SceneTransitions/Settings/SampleInput.inputactions.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "a84707688ff3912131d0120efea45e0cb16d3bb151f107ba8e6d28a31597ce09",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Single.asset",
+      "target": "Samples~/SceneTransitions/Settings/Single.asset"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "e01fce409ae057d1dafaeea80cbe76b2d5e22680a29145b428c4e2b0640c4b45",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/Settings/Single.asset.meta",
+      "target": "Samples~/SceneTransitions/Settings/Single.asset.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "27ce64b40616702d37e2521cf79df77f8104ec8aee0053072f5600ad2798a80d",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/sample-owner.txt",
+      "target": "Samples~/SceneTransitions/sample-owner.txt"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "326192b006369b04a1074742d3df794bbbc13678b310bcdf0633dc4bdcf31996",
+      "source": "Assets/TPLab/Samples/Input/SceneTransitions/sample-owner.txt.meta",
+      "target": "Samples~/SceneTransitions/sample-owner.txt.meta"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "7995ffbdf283273fc9118818e1aec7249029ae59829dc92e09fd0e790bebed5c",
+      "source": "doc/api/Input.md",
+      "target": "Documentation~/api/Input.md"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "686800bbe710b1f124957c1847cef33954cda2fc0a1c34ccbbe40df957a33fa6",
+      "source": "doc/ai/api/Input.md",
+      "target": "Documentation~/ai/api/Input.md"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "bc4d094ad478c4af51f619c4a1ae33cbbc638288116420972c27b56b1f394fb5",
+      "source": "LICENSE",
+      "target": "LICENSE.md"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "fefebc5eb624c902a9ff473539671b6a81989fb569cf4f571fe5a0d7ce836ba2",
+      "source": "THIRD_PARTY_NOTICES.md",
+      "target": "Third Party Notices.md"
+    },
+    {
+      "package": "com.tplab.input",
+      "sha256": "b0e6aada5cdff8e90865b150498b81af955343f1d8f091e5b609fd94c4d4b3d0",
+      "source": "doc/licenses/UniTask-LICENSE.txt",
+      "target": "ThirdPartyNotices~/UniTask-LICENSE.txt"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "b86563fb68b4eff8a383ec9cb5ee8aacc589a656cc08d1eb7664947a9fb57561",
+      "source": "Assets/TPLab/Editor.meta",
+      "target": "Editor.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "7152f5114eedb3204a59d10f993fec6deb46a609fe98942828a46a2d3de8d7ca",
+      "source": "Assets/TPLab/Editor/Bootstrap.meta",
+      "target": "Editor/Bootstrap.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "a5d7806cf5d5f866d517513d1f12772e61ac71772ce95a13c2ff210356b3fa56",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapBuildProcessor.cs",
+      "target": "Editor/Bootstrap/BootstrapBuildProcessor.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "a91b0485573784a2921fc80115916014c5704ae801b88c4437b6a9b64ff64387",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapBuildProcessor.cs.meta",
+      "target": "Editor/Bootstrap/BootstrapBuildProcessor.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "67a8f8acf983f43b07db6dd6d75bcc04c5cbab2c7c25feb77e489480cfb135e1",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapEditor.cs",
+      "target": "Editor/Bootstrap/BootstrapEditor.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "0f1a62d47fa4feb0deb283e0d458320e64466a593ae3593981c086d13a252ebd",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapEditor.cs.meta",
+      "target": "Editor/Bootstrap/BootstrapEditor.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "fb221ce8570172a4604203cf90e4faae0ae82d433118f4948ac25c37462dae3a",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapEditorValidation.cs",
+      "target": "Editor/Bootstrap/BootstrapEditorValidation.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "e6024c1c04362637b625c5a0af15f0b28281b6ed66219ee49169ae094cde8f6b",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapEditorValidation.cs.meta",
+      "target": "Editor/Bootstrap/BootstrapEditorValidation.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "2677b48c6c6dbf3193f26063dbeb3ea2adf69830d24658148c6c808b1b95a8a4",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapValidator.cs",
+      "target": "Editor/Bootstrap/BootstrapValidator.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "786025104fd25d4ba48cda232a1969a52f6dc0f779d8b96831e4dca29b4a6ea9",
+      "source": "Assets/TPLab/Editor/Bootstrap/BootstrapValidator.cs.meta",
+      "target": "Editor/Bootstrap/BootstrapValidator.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "a5a1bb0ad1a4675c1f4869887e4b38de572b960468cbe23d42dad38e6659d489",
+      "source": "Assets/TPLab/Editor/Bootstrap/SceneTransitionSettingsEditor.cs",
+      "target": "Editor/Bootstrap/SceneTransitionSettingsEditor.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "cda77f3a4b9759fa5860fafa9b9eb69e6ac59fb8ee9832b72a69a3afa7056c7f",
+      "source": "Assets/TPLab/Editor/Bootstrap/SceneTransitionSettingsEditor.cs.meta",
+      "target": "Editor/Bootstrap/SceneTransitionSettingsEditor.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "b99a949684cb111faae03a29e69052ac974c00760855b571672e114f456e0b10",
+      "source": "Assets/TPLab/Editor/DataTables.meta",
+      "target": "Editor/DataTables.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "cf9160b49662d223f1848ed167e2c805a117c683bb8787eafdcc029540c26258",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableGeneratedFiles.cs",
+      "target": "Editor/DataTables/DataTableGeneratedFiles.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "6c1e890d68228eba5d6eb03aeb5f914d87469054b24c43e0b3253089ccf9158b",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableGeneratedFiles.cs.meta",
+      "target": "Editor/DataTables/DataTableGeneratedFiles.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "83c0b654049312c1c00715c0270d6151ff22c4aced27cf8ea0a2a96607dad2e3",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableGenerator.cs",
+      "target": "Editor/DataTables/DataTableGenerator.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "505fd6ad2f538c3806840ed3b251d71c761166702fea5f2028604da8851272d7",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableGenerator.cs.meta",
+      "target": "Editor/DataTables/DataTableGenerator.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "f0fa9109009c3f1540c13d7e8e9fe97299f6e31a9baa983262cf6abbf94ea133",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableImportAutomation.cs",
+      "target": "Editor/DataTables/DataTableImportAutomation.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "4c0cccf9fbf9acc811f651f17776b2625c89062c282863c1fe1f9180696acf35",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableImportAutomation.cs.meta",
+      "target": "Editor/DataTables/DataTableImportAutomation.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "b5bd3cc8608c5a77c058af775b6526dd0b198e28fddffff796229283899bae09",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableImportSettings.cs",
+      "target": "Editor/DataTables/DataTableImportSettings.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "d663dae7dd39bc3aaa39fc7b70d256699be5eda53281e90d4d3b4c8bd255e337",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableImportSettings.cs.meta",
+      "target": "Editor/DataTables/DataTableImportSettings.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "b2b6d2e974c0c2443382d44139a233cf8b09a1559f1950396e110dbf4b871cff",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableImporter.cs",
+      "target": "Editor/DataTables/DataTableImporter.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "b0cb532fcf72b1d6dd498180c114cc1bbb6f16a0ce3cdbe9c001a8f1b5415f49",
+      "source": "Assets/TPLab/Editor/DataTables/DataTableImporter.cs.meta",
+      "target": "Editor/DataTables/DataTableImporter.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "c4a0c1223e549090c6db154bd9dd4106255d79c98b08e8234e6d71a38428d4fc",
+      "source": "Assets/TPLab/Editor/SceneRootInspector.cs",
+      "target": "Editor/SceneRootInspector.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "d3935e9c5712630b43846c79b288ec1c6c2b4cf75889eb4d215d3fc93768f2cd",
+      "source": "Assets/TPLab/Editor/SceneRootInspector.cs.meta",
+      "target": "Editor/SceneRootInspector.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "963bd58b7118766903a8c837181ee52fdc8aeafd0c652e90bfd2a473042c392b",
+      "source": "Assets/TPLab/Editor/SceneRootMenu.cs",
+      "target": "Editor/SceneRootMenu.cs"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "696f6d973274662bc68e58952972716abae03b5f354ece6a660bbee4e9b4ee54",
+      "source": "Assets/TPLab/Editor/SceneRootMenu.cs.meta",
+      "target": "Editor/SceneRootMenu.cs.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "e6232a9e66d8986a0fa176e56f3b8eeabe704915a37b1e13112c27e94ee8d3de",
+      "source": "Assets/TPLab/Editor/TPLab.Core.Editor.asmdef",
+      "target": "Editor/TPLab.Core.Editor.asmdef"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "dd343340b7b87d8bfed137d5bbc6018bbd96de17f55a07d252dec25ff9b10328",
+      "source": "Assets/TPLab/Editor/TPLab.Core.Editor.asmdef.meta",
+      "target": "Editor/TPLab.Core.Editor.asmdef.meta"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "de654d89ebb43dc35ed072caa4b2a314e806ee2e176366ab8cf2641d32dca7d5",
+      "source": "doc/api/Editor.md",
+      "target": "Documentation~/api/Editor.md"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "3697f03e63bac0ffefa99f5bdd26244b2b7c5575d508adee00d4a299573d7a97",
+      "source": "doc/ai/api/Editor.md",
+      "target": "Documentation~/ai/api/Editor.md"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "bc4d094ad478c4af51f619c4a1ae33cbbc638288116420972c27b56b1f394fb5",
+      "source": "LICENSE",
+      "target": "LICENSE.md"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "fefebc5eb624c902a9ff473539671b6a81989fb569cf4f571fe5a0d7ce836ba2",
+      "source": "THIRD_PARTY_NOTICES.md",
+      "target": "Third Party Notices.md"
+    },
+    {
+      "package": "com.tplab.editor",
+      "sha256": "b0e6aada5cdff8e90865b150498b81af955343f1d8f091e5b609fd94c4d4b3d0",
+      "source": "doc/licenses/UniTask-LICENSE.txt",
+      "target": "ThirdPartyNotices~/UniTask-LICENSE.txt"
+    }
+  ],
+  "sourceMappingSha256": "f9e2fa475c647b61f0465ec80c562cae4f9e445482097ff4e37425e04f47bb74",
+  "sourceRevision": "cc9609f9766a781b1268fba40793fb12119748d4",
+  "version": "0.0.1"
+}

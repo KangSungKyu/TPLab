@@ -1,0 +1,124 @@
+{
+  "sourceRevision": "75ff996a78ff4a4d638c6a54c3e187ed7f451ac1",
+  "unityVersion": "6000.3.18f1",
+  "success": false,
+  "scope": "Additional exact-candidate full project regression; does not replace original Editor",
+  "runs": [
+    {
+      "mode": "EditMode",
+      "process": {
+        "pid": 31196,
+        "startedUtc": "2026-10-08T01:02:41.583263+00:00",
+        "startedUnix": 1791421361.5832694,
+        "endedUtc": "2026-10-08T01:03:08.751288+00:00",
+        "elapsedSeconds": 27.168,
+        "returnCode": 0,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-fixture\\EditMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-fixture\\EditMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "285",
+        "result": "Passed",
+        "total": "285",
+        "passed": "285",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 01:02:53Z",
+        "end-time": "2026-10-08 01:03:07Z",
+        "duration": "14.4824135"
+      },
+      "failures": []
+    },
+    {
+      "mode": "PlayMode",
+      "process": {
+        "pid": 23572,
+        "startedUtc": "2026-10-08T01:03:08.755648+00:00",
+        "startedUnix": 1791421388.7556512,
+        "endedUtc": "2026-10-08T01:03:21.117742+00:00",
+        "elapsedSeconds": 12.362,
+        "returnCode": 2,
+        "timedOut": false,
+        "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-fixture\\PlayMode.log",
+        "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-regression-fixture\\PlayMode-stdout.log",
+        "processLogFresh": true,
+        "stdoutLogFresh": true
+      },
+      "summary": {
+        "id": "2",
+        "testcasecount": "253",
+        "result": "Failed(Child)",
+        "total": "253",
+        "passed": "241",
+        "failed": "12",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-08 01:03:17Z",
+        "end-time": "2026-10-08 01:03:20Z",
+        "duration": "2.7539181"
+      },
+      "failures": [
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.AutomaticContinuationDoesNotWaitForHeldSubmitOrPointerRelease",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.CancelledWaitReleasesListenersWithoutReleasingTransition",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedContinueButtonFailsPendingWait",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.DestroyedUiOwnerCancelsPendingWait",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.EarlyAndDuplicateClicksDoNotCompleteLaterOperation",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldGamepadSubmitRequiresReleaseThenFreshSubmit",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldKeyboardSubmitRequiresReleaseThenFreshSubmit",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.HeldPointerReleaseDoesNotProceedAndFreshClickDoes",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.LoadingRevealKeepsTransitionAndIndependentModalLeases",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.PreparedManualUiShowsReadyAndFullStageBarWhileStillWaiting",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.ProgressShowsStageRatioAndUnknownWorkWithoutChangingActivePolicy",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        },
+        {
+          "name": "TPLab.Samples.SceneTransitions.Tests.LoadingSampleTests.SecondaryPointerButtonsAlsoRequireNeutralBeforeArming",
+          "message": "TearDown : System.NullReferenceException : Object reference not set to an instance of an object"
+        }
+      ]
+    }
+  ],
+  "error": "AssertionError"
+}

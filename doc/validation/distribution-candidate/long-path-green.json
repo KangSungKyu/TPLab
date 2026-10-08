@@ -1,0 +1,33 @@
+{
+  "sourceRevision": "32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed",
+  "process": {
+    "pid": 13080,
+    "startedUtc": "2026-10-08T01:17:39.717023+00:00",
+    "startedUnix": 1791422259.7170289,
+    "endedUtc": "2026-10-08T01:17:52.185510+00:00",
+    "elapsedSeconds": 12.469,
+    "returnCode": 0,
+    "timedOut": false,
+    "processLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-path-green\\editor.log",
+    "stdoutLog": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source\\tplab\\p3-path-green\\stdout.log",
+    "processLogFresh": true,
+    "stdoutLogFresh": true
+  },
+  "summary": {
+    "id": "2",
+    "testcasecount": "1",
+    "result": "Passed",
+    "total": "1",
+    "passed": "1",
+    "failed": "0",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-08 01:17:51Z",
+    "end-time": "2026-10-08 01:17:51Z",
+    "duration": "0.1409438"
+  },
+  "failures": []
+}
