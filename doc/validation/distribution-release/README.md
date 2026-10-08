@@ -9,3 +9,5 @@ Release 첨부물8개를 draft 단계 및 공개 단계에서 각각 실제 다�
 [병합 전 보호](before-integration.json)의 사용자파일6개는 P3와 동일했고 main 병합 후도 보존했다. [기존 Editor](original-editor-compile.json)는 최신 main import 후 ready/compile idle/C# 오류0이다. Console에는 의도된 이전 test 예외가 있으므로 제품 Console 전체 무오류로 표현하지 않는다. [exact CI](source-ci.json)는 미구성/unprotected 확인이며 CI 실행 성공이 아니다.
 
 검증 범위: Unity6000.3.18f1·Windows Mono·동일 PC. 사용자는 최종 확인 문서의 실행을 확인했다. 모든 물리장치·타PC·Unity버전·플랫폼·IL2CPP·원격Addressables까지 확대하지 않는다. 브랜치/worktree 정리와 Unity/PC 종료는 release source/package 내용 변경과 구분하며 별도 마감 운영 기록을 남긴다.
+
+[브랜치·worktree 마감](branch-cleanup.json): 배포 track/P1/P2/P3의 로컬·원격4개 branch와 임시 worktree2개를 제거했다. 모든 tip은 main에서 도달 가능하다. 최종 장치 관측은 로컬 tplab/releases/0.0.1/operations.json에 기록한다.

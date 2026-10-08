@@ -11,3 +11,5 @@
 마감: 최종 문서 tip을 main에 보존하고 dev-build track/P1/P2/P3의 tip·원격·main ancestry·worktree 미사용을 확인해 이번4개 브랜치를 정리한다. 필요한 Release 파일·raw log·검증 프로젝트 소스와 최종 운영 기록은 원본 tplab/releases/0.0.1에 보존하고 소유한 native worktree/임시 출력만 제거한다. 정상 Unity 저장·종료를 확인한 뒤 사용자가 요청한 PC 종료를 실행한다. 저장으로 발생한 사용자 자산 변경을 commit하지 않는다. 종료 관측과 정확한 삭제 tip/main SHA는 마감 운영 기록 및 최종 보고에서 확인한다.
 
 로컬 보존 ZIP은 샘플의 Unix epoch 파일 날짜로 첫 생성이 실패했다. 표준 strict_timestamps=False로 ZIP 범위에 날짜만 맞춰 재생성하고 CRC를 확인했다. 원본 파일 bytes나 공개 첨부물은 변경하지 않았다. [보존 기록](../validation/distribution-release/cleanup-preparation.json)을 따른다.
+
+마감 보완: [실제 정리 기록](../validation/distribution-release/branch-cleanup.json)에 branch4개 tip과 main ancestry·로컬/원격 삭제 및 worktree2개 제거를 보존했다. 완료된 수락 문서의 임시 경로는 당시 기록으로 명시했다. main에서 직접 문서를 수정하지 않도록 release-0.0.1-close 임시 branch로 이 마감 metadata만 반영하고, main push 후 이 branch도 정리한다.

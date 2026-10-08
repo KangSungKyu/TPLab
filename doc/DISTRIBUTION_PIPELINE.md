@@ -1,6 +1,6 @@
 # TPLab 배포 규격과 dev-build track
 
-2026-10-08. Status: **P4 / 0.0.1 정식 공개·발행 검증 완료**, PipelineImplementation: **P1/P2/P3/P4Implemented**, PackageValidation: **Passed/UserConfirmed**. 태그 `v0.0.1`의 고정 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`다. [정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1), [P4 증거](validation/distribution-release/README.md), [사용자 최종 확인](DISTRIBUTION_ACCEPTANCE.md)을 따른다. 브랜치와 장치 종료의 실제 마감은 운영 기록으로 구분한다.
+2026-10-08. Status: **P4 / 0.0.1 정식 공개·발행 검증 완료**, PipelineImplementation: **P1/P2/P3/P4Implemented**, PackageValidation: **Passed/UserConfirmed**. 태그 `v0.0.1`의 고정 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`다. [정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1), [P4 증거](validation/distribution-release/README.md), [사용자 최종 확인](DISTRIBUTION_ACCEPTANCE.md)을 따른다. 브랜치4개/worktree2개 정리는 [완료 기록](validation/distribution-release/branch-cleanup.json)을 따른다. 사용자 요청에 따른 장치 종료는 별도 일회성 운영 기록이다.
 
 최초 설계 기준 main은 `993a0617b8b5253175d9a225432f0aa642d19d3d`, Git URL·예제 분류·차기 범위 보완 기준은 `36e8ffbb0833293474da43396481895e5d8108d0`다. 기존 코어 기능·이름 변경 검증은 선행 기록이며 실제 배포물 설치 통과를 대신하지 않는다. P0는 규격·운영 설계, P1은 패키징, P2는 실제 설치까지 완료했다. 개발 원본은 Assets에 유지한다. 현재 P3는 후보 회귀·최종 확인이며 main/tag/Release 발행은 P4다.
 
@@ -134,7 +134,7 @@ python tools/build_distribution.py --source <절대-clean-checkout>
 | P1 패키징 | 원본→검토할 `upm/` 사본, clean 후보 SHA→3개 `.tgz`, 문서/라이선스 projection, hash/manifest | 최소 Red/Green: dirty·잘못된 SHA·경로 탈출·기존 output·symlink 거부; 같은 입력의 archive hash 일치; 원본/사본/tarball payload·버전/`.meta`/DLL 일치 | 구현·계약 테스트18/18 완료; 실제3 archive·사본171 files·재현 검증 완료([증거](validation/distribution-packaging/README.md)) |
 | P2 실제 설치 | Git URL·tarball 소비 mode, Core/Input sample 분류·import 경로 수정, Editor importer 수명 | 각 설치 방식의 Core만/Input/Editor/전체+Sample resolve·compile·최소 실행, negative 경로, 원본 보호 | 8/8 Git/tarball 실제 설치·compile·최소 실행 완료([P2 증거](validation/distribution-consumer/README.md)); 개발 경로 fixture·원본 보호 확인 |
 | P3 배포 후보 | commit 고정, 회귀·Windows Mono sample/consumer·문서/정책 gate | source/산출물/결과 일치, 실제 전체 결과 nonzero, 필요한 사용자 확인 완료 | 완료 / 자동 검증·[사용자 확인](DISTRIBUTION_ACCEPTANCE.md) 완료 |
-| P4 첫 Release | main 통합·`v0.0.1`·public Release와 검증된 첨부물 | 정책/필수 gate 충족, source tag·SHA256·버전 일치·tag URL 설치·다운로드한 실제 첨부물 검증, 브랜치 정리 | 정식 공개·tag URL·첨부물 검증 완료 / 브랜치·장치 마감 후속 |
+| P4 첫 Release | main 통합·`v0.0.1`·public Release와 검증된 첨부물 | 정책/필수 gate 충족, source tag·SHA256·버전 일치·tag URL 설치·다운로드한 실제 첨부물 검증, 브랜치 정리 | 완료 / 정식 공개·tag URL·첨부물 검증·브랜치/worktree 정리 |
 
 현재 코어의 [PlayMode 수락](SCENE_LOADING_ACCEPTANCE.md)은 선행 기록이다. 패키지 설치/sample import/새 Editor workflow의 사용자 확인이 필요하면 P3 마지막에 모아 실제 실행 방법·기대 결과를 전달한다. 응답이 바로 이어지지 않으면 track 결과를 보존하고 main 통합·Release를 기다린다. 사용자 확인 항목이 없는 변경은 기존 자동 검증 후 병합 정책을 따른다. 시간 경과를 승인으로 보지 않는다.
 

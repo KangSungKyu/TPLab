@@ -1,0 +1,40 @@
+{
+  "deletedBranches": [
+    {
+      "branch": "codex/dev-build-v0.0.1-p1-packaging",
+      "tip": "23e2764993e46d3fcd18e8d46d8029ac1863f1df",
+      "main": "c72168b1890438e2e5e465d98db2c05eeaf8765d",
+      "localDeleted": true,
+      "remoteDeleted": true
+    },
+    {
+      "branch": "codex/dev-build-v0.0.1-p2-consumer",
+      "tip": "5ffe2a9deece93ccc216cdff728f0f8da30661d0",
+      "main": "c72168b1890438e2e5e465d98db2c05eeaf8765d",
+      "localDeleted": true,
+      "remoteDeleted": true
+    },
+    {
+      "branch": "codex/dev-build-v0.0.1-p3-candidate",
+      "tip": "c4ab28215f93d2e556b966b75d7a67917593ccf9",
+      "main": "c72168b1890438e2e5e465d98db2c05eeaf8765d",
+      "localDeleted": true,
+      "remoteDeleted": true
+    },
+    {
+      "branch": "codex/dev-build-v0.0.1",
+      "tip": "c72168b1890438e2e5e465d98db2c05eeaf8765d",
+      "main": "c72168b1890438e2e5e465d98db2c05eeaf8765d",
+      "localDeleted": true,
+      "remoteDeleted": true
+    }
+  ],
+  "worktreesRemoved": [
+    "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p3-source",
+    "C:\\Users\\PC\\Projects\\TPLab\\tplab\\worktrees\\p1"
+  ],
+  "retainedArtifacts": "C:\\Users\\PC\\Projects\\TPLab\\tplab\\releases\\0.0.1",
+  "mainAtCleanup": "c72168b1890438e2e5e465d98db2c05eeaf8765d",
+  "sourceTag": "v0.0.1",
+  "sourceRevision": "de879b9396ddae0523bd3ab86939b679b383dd92"
+}
