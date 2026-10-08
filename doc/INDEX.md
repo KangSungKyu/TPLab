@@ -27,6 +27,7 @@
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
+| [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext·HUD·Popup·Virtual ScrollRect 설계/Phase 검토 | 미구현 설계·P0~P7 계획: root 수명, 등록/준비/runtime 표시, owner·depth·Canvas, modal/focus, 단계별 검증과 최종 수락 |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |

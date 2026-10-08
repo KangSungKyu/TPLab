@@ -141,3 +141,9 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 현재 `TPLab.Core` 하나에 여러 기능이 들어 있어 Pool 사용 프로젝트도 전체 Core 설치 시 UniTask·Addressables·CsvHelper가 필요하다. 다음 검토에서는 실제 source/asmdef 참조, 최소 소비 프로젝트의 resolve·compile, public API·직렬화/GUID 호환성과 migration 비용을 대조한다. 기능마다 package를 무조건 추가하지 않고 설치 부담을 줄이는 최소 분리안을 선택한다. 기존 UniTask·CsvHelper·Input System 채택을 취소하는 요청으로 해석하지 않는다.
 
 `GameUISystem`은 이후 설계·구현할 공용 UI 관리 기능이다. 현재 제공하는 것은 프로젝트가 UI를 소유하는 씬 전환 callback과 Input wrapper이며 공용 GameUISystem 구현은 없다. 다음 설계에서 공용 시스템이 맡을 UI 등록·표시 수명·표시 순서 범위, 씬/UI 소유자의 종료, modal 입력 lease, 기존 가림막·로딩 callback 연동을 사용 사례로 확정한다. UI prefab·레이아웃·게임 팁·연출과 구체 화면은 프로젝트 재량을 유지한다. 씬 로드 책임과 UI 연출 책임의 경계, 취소·실패 시 정리는 구현 전에 정하고 기존 callback 계약의 변경 필요 여부를 함께 검토한다.
+
+2026-10-08 GameUISystem 설계 검토: [초안](GAME_UI_SYSTEM_DRAFT.md)에 uGUI Canvas/Panel 기반 popup과 Virtual ScrollRect를 제안했다. 기본 lazy 준비·닫기 후 인스턴스 정리, 명시적 공용/scene 등록과 선택적 재사용을 권장하며 현행 ResourceManager는 자산을 개별 해제하지 않는 제한을 기록한다. namespace/package·입력 연동·가상화 첫 범위는 사용자 검토 전 제안이고 UI 구현·의존성 분리는 아직 수행하지 않았다.
+
+2026-10-08 후속 UI 검토: 사용자 요구인 HUD 선택과 modal/modeless popup을 분리하고 logical owner tree·표시 depth·Canvas host의 역할, runtime mode 전환·focus/입력 경계와 관리 Canvas의 rebuild/batch 정책을 [같은 초안](GAME_UI_SYSTEM_DRAFT.md)에 보완했다. 변경 빈도별 Canvas 분할과 native delayed rebuild 재사용은 제안이며 성능 수치·Profiler·UI 구현은 미실행이다.
+
+2026-10-08 UI Phase 계획: 사용자 선택 명칭은 UIContext다. root의 수명에 따른 공용 영속/scene/HUD 소유, 등록·선택적 자산 준비·runtime 표시의 같은 경로와 내부 생성 책임을 [초안](GAME_UI_SYSTEM_DRAFT.md)에 정리했다. P0 계약/의존성 → P1 Context 수명 → P2 등록/준비/생성 → P3 HUD/Popup/Canvas → P4 Modal/입력/연출 → P5 Virtual ScrollRect → P6 설정/root/예제 → P7 통합/소비/성능/사용자 수락으로 나눈다. 현재는 계획만 작성했으며 runtime·새 track/Phase branch·패키지 분리·배포는 미착수다.
