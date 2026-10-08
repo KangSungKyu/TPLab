@@ -208,7 +208,9 @@ namespace TPLab.Core.Tests
                 using (var reader = new FileStream(folder + "/owner.tableimport.json", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     var started = System.Diagnostics.Stopwatch.StartNew();
-                    Assert.Throws<IOException>(() => DataTableGeneratedFiles.Apply(folder, "owner", "v2", changed));
+                    var error = Assert.Throws<IOException>(() => DataTableGeneratedFiles.Apply(folder, "owner", "v2", changed));
+                    Assert.That(error.Data["ReplacementDestination"], Is.EqualTo(DataTableGeneratedFiles.AssetPath(folder + "/owner.tableimport.json")));
+                    Assert.That(error.Data["ReplacementAttempts"], Is.EqualTo(5));
                     Assert.That(started.Elapsed.TotalSeconds, Is.LessThan(5));
                     foreach (var pair in originals)
                         Assert.That(File.ReadAllBytes(pair.Key), Is.EqualTo(pair.Value));

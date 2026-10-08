@@ -53,7 +53,7 @@ SchemaFolder의 `.json`은 정의이며 InputFolder의 `.csv`는 행 데이터�
 - JSON 버전·필수 필드·중복 키·알 수 없는 속성·지원하지 않는 타입을 거부한다. C# 이름은 ASCII 식별자와 유효 namespace만 허용하며 생성 프로젝트 타입의 TPLab.Core namespace 사용은 거부한다.
 - Assets 밖, `..`, 재분석 지점, Editor 출력, core/tests/validation 출력, 입력/스키마와 겹치는 출력 root는 거부한다. 경로·파일명·종류·테이블 이름 충돌은 쓰기 전에 검사한다.
 
-JSON 파서는 이미 설치된 Unity Newtonsoft.Json **3.2.1**을 Editor에서 사용한다. 패키지 추가/변경은 없으며 runtime CSV 파서는 CsvHelper **33.1.0**을 유지한다.
+JSON 파서는 이미 설치된 Unity Newtonsoft.Json **3.2.2**을 Editor에서 사용한다. 패키지 추가/변경은 없으며 runtime CSV 파서는 CsvHelper **33.1.0**을 유지한다.
 
 ## 프로젝트 검증 연결
 
