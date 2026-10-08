@@ -5,7 +5,7 @@ PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes 
 Module: Editor
 Namespace: TPLab.Core.Editor.DataTables; TPLab.Core.Editor.Bootstrap
 Assembly: TPLab.Core.Editor (includePlatforms: Editor)
-SourceRevision: 896bcbeeb8e627e193bb1eba5032455b7f8e3f32
+SourceRevision: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
 SourcePath: [Editor](../../../Editor)
 HumanContract: [Editor](../../api/Editor.md), [importer](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md), [Bootstrap](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/BOOTSTRAP_SYSTEM.md)
 ImplementationStatus: Implemented
@@ -81,3 +81,5 @@ ForbiddenUsage: JSON row loader; infer C# schema from CSV automatically; overwri
 Example: [human declarations](../../api/Editor.md) are NotRun excerpts; [importer template](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md) provides project configuration.
 Compatibility: actual Unity scene properties/Inspector drawer types are Editor integration, not separate runtime consumers. project schema changes may need migration/manual apply.
 Limitations: minimal Git/tarball importer consumers passed in the P2 validation source; this does not validate project-specific DTO/profile rules. JSON rows/rename migration/generic PK generation not provided.
+
+StagingPath: 임시 파일은 출력 폴더 안의 GUID.tmp로 만들어 최종 파일명에 37자를 덧붙이지 않는다. 최종/임시 절대 경로에는 Unity·OS 파일시스템 제한이 여전히 적용되며 임의의 긴 경로 지원을 보장하지 않는다.
