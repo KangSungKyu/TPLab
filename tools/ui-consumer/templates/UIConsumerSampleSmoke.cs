@@ -51,6 +51,9 @@ namespace UIConsumer
         private int _shutdownCleanupCount;
         private int _manualContinueCount;
         private bool _shutdownCompleted;
+        private Scene _parkingScene;
+        private string _parkingSceneName;
+        private int _normalScenesBeforeParking = -1;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void AttachToExplicitSample()
@@ -188,6 +191,12 @@ namespace UIConsumer
                 report.inventory = _inventorySnapshots.ToArray();
                 report.manualContinueCount = _manualContinueCount;
                 report.shutdownCleanupCount = _shutdownCleanupCount;
+                report.normalScenesBeforeParking = _normalScenesBeforeParking;
+                report.parkingSceneCreated = _parkingSceneName != null;
+                report.parkingSceneName = _parkingSceneName;
+                report.parkingSceneHandle = _parkingScene.handle;
+                report.parkingSceneRetainedUntilQuit = _parkingSceneName != null &&
+                    _parkingScene.IsValid() && _parkingScene.isLoaded && _parkingScene.rootCount == 0;
                 report.completedUnix = UnixTime();
                 report.graphicsDeviceType = SystemInfo.graphicsDeviceType.ToString();
                 report.width = Screen.width;
@@ -653,6 +662,7 @@ namespace UIConsumer
             {
                 if (_bootstrap != null)
                 {
+                    EnsureTeardownParkingScene();
                     await AwaitOwnedAsync(_bootstrap.ShutdownAsync(), "game scene shutdown");
                 }
             }
@@ -676,6 +686,14 @@ namespace UIConsumer
             Check(_context != null && _context.IsDisposed && _input != null && _input.IsDisposed &&
                 !_root.IsReady && !_root.IsPrepared && _root.RootObject != null && _shutdownCleanupCount > 0,
                 "Same common root retires UI before Input and preserves borrowed root");
+            Check(_bootstrap.Manager.State == SceneTransitionState.Stopped &&
+                _bootstrap.Manager.RegisteredScenes.Count == 0 && _bootstrap.Manager.OwnedScenes.Count == 0 &&
+                !_bootstrap.Manager.GameScene.IsValid(), "Manager stopped and retired all registered owned game scenes");
+            if (_parkingSceneName != null)
+            {
+                Check(_parkingScene.IsValid() && _parkingScene.isLoaded && _parkingScene.rootCount == 0,
+                    "Fixture-owned empty parking scene remains loaded until Player Quit");
+            }
             foreach (UIHandle handle in displays)
             {
                 Check(handle.State == UIState.Closed && handle.ViewObject == null &&
@@ -689,6 +707,39 @@ namespace UIConsumer
                     "Borrowed prefab remains alive inactive " + (source == null ? "missing" : source.name));
             }
             _shutdownCompleted = true;
+        }
+
+        private void EnsureTeardownParkingScene()
+        {
+            if (_parkingSceneName != null)
+            {
+                if (!_parkingScene.IsValid() || !_parkingScene.isLoaded || _parkingScene.rootCount != 0)
+                {
+                    throw new InvalidOperationException("Fixture-owned parking scene was altered during shutdown.");
+                }
+                return;
+            }
+            int loaded = 0;
+            for (int index = 0; index < SceneManager.sceneCount; ++index)
+            {
+                Scene scene = SceneManager.GetSceneAt(index);
+                if (scene.IsValid() && scene.isLoaded)
+                {
+                    ++loaded;
+                }
+            }
+            _normalScenesBeforeParking = loaded;
+            if (loaded != 1 || _bootstrap.Manager == null || _bootstrap.Manager.OwnedScenes.Count == 0)
+            {
+                return;
+            }
+            // Single's common owner is persistent. A second normal scene permits real game-scene unload.
+            // Created only after functional/render checks; never register it with the project manager.
+            _parkingScene = SceneManager.CreateScene("UIConsumerParking-" + Guid.NewGuid().ToString("N"));
+            _parkingSceneName = _parkingScene.name;
+            Check(_parkingScene.IsValid() && _parkingScene.isLoaded && _parkingScene.rootCount == 0,
+                "Validation driver created its own empty parking scene for native teardown");
+            // Keep the last normal scene alive through Application.Quit; never unload borrowed scenes here.
         }
 
         private async UniTask AwaitOwnedAsync(UniTask operation, string name)
@@ -830,10 +881,10 @@ namespace UIConsumer
         private sealed class SampleReport
         {
             public string schema, mode, runId, sourceRevision, projectPath, unityVersion, backend, target;
-            public string sampleEntry, graphicsDeviceType, error, failedStep, failureState, lastState;
+            public string sampleEntry, graphicsDeviceType, error, failedStep, failureState, lastState, parkingSceneName;
             public double startedUnix, completedUnix;
-            public bool success, physicalInputVerified, visualAcceptanceVerified;
-            public int width, height, actualFrames, manualContinueCount, shutdownCleanupCount;
+            public bool success, physicalInputVerified, visualAcceptanceVerified, parkingSceneCreated, parkingSceneRetainedUntilQuit;
+            public int width, height, actualFrames, manualContinueCount, shutdownCleanupCount, normalScenesBeforeParking, parkingSceneHandle;
             public long drawCalls;
             public int[] unityFrames, recorderCounts;
             public long[] rawDrawCalls;
