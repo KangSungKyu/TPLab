@@ -87,8 +87,9 @@ namespace TPLab.UI
         }
 
         /// <summary>
-        /// Shares cleanup completion after native destruction, State Closed, cleared ViewObject, and the Closed observer.
-        /// Observer/cleanup errors fault this shared result; opening errors alone do not fault Closed.
+        /// Shares cleanup completion after native retirement, State Closed, cleared ViewObject, and the Closed observer.
+        /// Successful Reuse retains an inactive clone only after its observer succeeds; other clones are destroyed.
+        /// Observer/cleanup errors fault this result after discard. Opening errors alone do not fault Closed.
         /// </summary>
         public UniTask Closed
         {
@@ -121,6 +122,10 @@ namespace TPLab.UI
         }
 
         /// <summary>Starts non-vetoable termination and shares this generation's Closed result.</summary>
+        /// <remarks>
+        /// A successful Reuse generation may retain its inactive native clone; failures and partial opening discard it.
+        /// This handle releases its view and display token regardless of retention, and never mutates a later generation.
+        /// </remarks>
         /// <param name="cancellationToken">Cancels only this caller's wait; requested cleanup always continues.</param>
         /// <exception cref="InvalidOperationException">Thread violation, synchronous self-close, or cleanup/native reentry; another display hook may close this handle.</exception>
         /// <exception cref="AggregateException">Cleanup failed after remaining cleanup was attempted.</exception>

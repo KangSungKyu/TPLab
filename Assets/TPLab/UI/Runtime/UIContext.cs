@@ -11,17 +11,24 @@ namespace TPLab.UI
     /// The root, prefab, provider, and input services are borrowed and are never released here.
     /// </summary>
     /// <remarks>
-    /// P1 supports direct prefabs, modeless Popup, the default host, DestroyOnClose, and DeactivateView.
-    /// Deferred provider, retention, HUD, parent, host, rendering-only, and modal policies fail explicitly.
+    /// Supports direct/keyed borrowed prefabs, optional shared asset preparation, modeless Popup,
+    /// the default host, DestroyOnClose or one inactive Reuse clone per definition, and DeactivateView.
+    /// Deferred HUD, parent, host, rendering-only, and modal policies fail explicitly.
     /// Hooks may compose independent displays. Synchronous self-close/self-await and owner shutdown
     /// inside a hook are rejected; native application and cleanup reject all lifecycle mutation.
     /// Self-await after a callback's await remains forbidden usage outside the synchronous dispatch guard.
-    /// Closed observers run after native destruction and handle termination, before Closed completes.
+    /// Closed observers run after native retirement and handle termination, before Closed completes.
+    /// A successful Reuse candidate is published only after its observer succeeds; failure discards it.
     /// </remarks>
     public sealed class UIContext : IDisposable
     {
         private readonly Dictionary<string, UIDefinition> _definitions = new Dictionary<string, UIDefinition>();
         private readonly List<UIHandle> _displays = new List<UIHandle>();
+        private readonly Dictionary<string, AssetPreparation> _preparations =
+            new Dictionary<string, AssetPreparation>(StringComparer.Ordinal);
+        private readonly Dictionary<string, GameObject> _cachedClones =
+            new Dictionary<string, GameObject>(StringComparer.Ordinal);
+        private Func<string, CancellationToken, UniTask<GameObject>> _loadPrefab;
         private readonly CancellationTokenSource _lifetime = new CancellationTokenSource();
         private readonly CancellationToken _lifetimeToken;
         private readonly UniTaskCompletionSource _shutdown = new UniTaskCompletionSource();
@@ -32,10 +39,13 @@ namespace TPLab.UI
         private int _cleanupDepth;
         private int _nativeDepth;
 
-        /// <summary>Connects borrowed services. Optional provider/input boundaries are reserved for later phases.</summary>
+        /// <summary>Connects a borrowed root and optional keyed prefab provider; input integration remains reserved.</summary>
         /// <param name="rootObject">Live owner root; await ShutdownAsync before destroying it.</param>
-        /// <param name="loadPrefab">Reserved borrowed provider; P1 rejects key definitions and does not invoke it.</param>
-        /// <param name="acquireModalBlock">Reserved independent lease factory; P1 rejects Modal requests.</param>
+        /// <param name="loadPrefab">
+        /// Returns a borrowed live prefab for an explicit key. The owner token cancels UI waits; the provider
+        /// retains native asset/service ownership and may finish after UI shutdown. Late results are ignored.
+        /// </param>
+        /// <param name="acquireModalBlock">Reserved independent lease factory; Modal integration requires P4.</param>
         /// <exception cref="ArgumentNullException">The root is null or destroyed.</exception>
         /// <exception cref="InvalidOperationException">Called outside Unity's main thread.</exception>
         public UIContext(GameObject rootObject,
@@ -48,6 +58,7 @@ namespace TPLab.UI
                 throw new ArgumentNullException(nameof(rootObject));
             }
             RootObject = rootObject;
+            _loadPrefab = loadPrefab;
             _lifetimeToken = _lifetime.Token;
             // Own only this registration. UniTask owns the native destruction trigger and its token.
             _rootRegistration = rootObject.GetCancellationTokenOnDestroy().Register(OnRootDestroyed);
@@ -76,13 +87,22 @@ namespace TPLab.UI
             get
             {
                 EnsureMainThread();
-                return Array.AsReadOnly(_displays.ToArray());
+                var current = new List<UIHandle>();
+                foreach (UIHandle handle in _displays)
+                {
+                    if (handle.State != UIState.Closed)
+                    {
+                        current.Add(handle);
+                    }
+                }
+                return current.AsReadOnly();
             }
         }
 
         /// <summary>Records metadata without loading or creating an instance, including from a display hook.</summary>
         /// <exception cref="ArgumentException">ID/source/policy metadata is invalid or duplicated.</exception>
-        /// <exception cref="NotSupportedException">The definition requires a deferred phase.</exception>
+        /// <exception cref="NotSupportedException">The definition requires a deferred presentation/input phase.</exception>
+        /// <exception cref="InvalidOperationException">A key needs a configured provider, or the thread/mutation boundary is invalid.</exception>
         /// <exception cref="ObjectDisposedException">The owner is terminating.</exception>
         public void Register(UIDefinition definition)
         {
@@ -113,9 +133,9 @@ namespace TPLab.UI
             {
                 throw new ArgumentException("The definition ID is already registered.", nameof(definition));
             }
-            if (hasKey || definition.Retention != UIRetention.DestroyOnClose)
+            if (hasKey && _loadPrefab == null)
             {
-                throw new NotSupportedException("Asset providers and reuse require P2.");
+                throw new InvalidOperationException("A key definition requires a configured prefab provider.");
             }
             if (definition.Role != UIRole.Popup || definition.HostId != "default")
             {
@@ -129,14 +149,23 @@ namespace TPLab.UI
             _definitions.Add(definition.Id, definition);
         }
 
-        /// <summary>Checks direct prefab readiness without instantiation or warm-up.</summary>
-        /// <remarks>Cancellation affects this request. Display hooks may prepare independent definitions; cleanup/native reentry is rejected.</remarks>
+        /// <summary>Optionally prepares an asset without clone creation, warm-up, or display.</summary>
+        /// <param name="definitionId">Registered definition with a live direct prefab or an explicit provider key.</param>
+        /// <param name="cancellationToken">Cancels only this caller's wait; another waiter and the shared owner load continue.</param>
+        /// <returns>Borrowed asset readiness, shared by ordinal key until owner shutdown.</returns>
+        /// <remarks>
+        /// Failure is removed from the shared key cache; only a later explicit request retries it.
+        /// Owner termination cancels waiters and prevents late publication without disposing the asset/provider.
+        /// Display hooks may prepare independent definitions; cleanup/native reentry is rejected.
+        /// </remarks>
+        /// <exception cref="OperationCanceledException">The caller or owner ended its wait.</exception>
+        /// <exception cref="InvalidOperationException">The provider returns no live prefab or the mutation boundary is invalid.</exception>
         public UniTask PrepareAsync(string definitionId, CancellationToken cancellationToken = default)
         {
             EnsureCommand();
             cancellationToken.ThrowIfCancellationRequested();
-            GetDefinition(definitionId);
-            return UniTask.CompletedTask;
+            UIDefinition definition = GetDefinition(definitionId);
+            return WaitForPrefabAsync(PreparePrefabAsync(definition), cancellationToken).AsUniTask();
         }
 
         /// <summary>
@@ -171,7 +200,7 @@ namespace TPLab.UI
             cancellationToken.ThrowIfCancellationRequested();
             foreach (UIHandle current in _displays)
             {
-                if (current.DefinitionId == request.DefinitionId)
+                if (current.State != UIState.Closed && current.DefinitionId == request.DefinitionId)
                 {
                     throw new InvalidOperationException("This owner already has this definition open or closing.");
                 }
@@ -193,7 +222,8 @@ namespace TPLab.UI
         }
 
         /// <summary>
-        /// Permanently ends the owner and shares completion of every display cleanup and owned native destruction.
+        /// Permanently ends the owner, cancels asset waiters, and shares completion of display cleanup
+        /// and native destruction of active, retiring, and cached owned clones. Borrowed providers may finish later.
         /// Cleanup continues after callback errors. Borrowed roots, sources, providers, and input services survive.
         /// </summary>
         /// <exception cref="InvalidOperationException">Called during a display callback, cleanup, or native state application.</exception>
@@ -221,13 +251,130 @@ namespace TPLab.UI
             }
         }
 
+        private sealed class AssetPreparation
+        {
+            internal readonly UniTaskCompletionSource<GameObject> Completion =
+                new UniTaskCompletionSource<GameObject>();
+        }
+
+        private async UniTask<GameObject> PreparePrefabAsync(UIDefinition definition)
+        {
+            EnsureMainThread();
+            _lifetimeToken.ThrowIfCancellationRequested();
+            if (string.IsNullOrWhiteSpace(definition.AssetKey))
+            {
+                if (definition.Prefab == null)
+                {
+                    throw new InvalidOperationException("The borrowed prefab was destroyed by its owner.");
+                }
+                return definition.Prefab;
+            }
+
+            string key = definition.AssetKey;
+            if (!_preparations.TryGetValue(key, out AssetPreparation preparation))
+            {
+                preparation = new AssetPreparation();
+                _preparations.Add(key, preparation);
+                // Own and observe shared failures even when every caller has cancelled its wait.
+                preparation.Completion.Task.Forget(
+                    _ =>
+                    {
+                    }, false);
+                RunPreparationAsync(key, preparation).Forget();
+            }
+            GameObject prefab = await preparation.Completion.Task;
+            await UniTask.SwitchToMainThread();
+            _lifetimeToken.ThrowIfCancellationRequested();
+            if (prefab == null)
+            {
+                RemovePreparation(key, preparation);
+                throw new InvalidOperationException("The prepared borrowed prefab is no longer alive.");
+            }
+            return prefab;
+        }
+
+        private async UniTask RunPreparationAsync(string key, AssetPreparation preparation)
+        {
+            try
+            {
+                EnsureMainThread();
+                GameObject prefab = await _loadPrefab(key, _lifetimeToken);
+                await UniTask.SwitchToMainThread();
+                if (IsDisposed)
+                {
+                    // The native asset still belongs to its provider; a late result must never be published here.
+                    preparation.Completion.TrySetCanceled(_lifetimeToken);
+                    return;
+                }
+                if (prefab == null)
+                {
+                    throw new InvalidOperationException("The provider returned no live prefab for '" + key + "'.");
+                }
+                preparation.Completion.TrySetResult(prefab);
+            }
+            catch (Exception error)
+            {
+                await UniTask.SwitchToMainThread();
+                if (IsDisposed)
+                {
+                    preparation.Completion.TrySetCanceled(_lifetimeToken);
+                }
+                else
+                {
+                    RemovePreparation(key, preparation);
+                    preparation.Completion.TrySetException(error);
+                }
+            }
+        }
+
+        private void RemovePreparation(string key, AssetPreparation preparation)
+        {
+            if (_preparations.TryGetValue(key, out AssetPreparation current)
+                && ReferenceEquals(current, preparation))
+            {
+                _preparations.Remove(key);
+            }
+        }
+
+        private static UniTask<GameObject> WaitForPrefabAsync(UniTask<GameObject> preparation,
+            CancellationToken cancellationToken)
+        {
+            if (!cancellationToken.CanBeCanceled)
+            {
+                return preparation;
+            }
+            var completion = new UniTaskCompletionSource<GameObject>();
+            var registration = cancellationToken.Register(() =>
+                completion.TrySetCanceled(cancellationToken));
+            ForwardPreparationAsync(preparation, completion, registration).Forget();
+            return completion.Task;
+        }
+
+        private static async UniTask ForwardPreparationAsync(UniTask<GameObject> preparation,
+            UniTaskCompletionSource<GameObject> completion, CancellationTokenRegistration registration)
+        {
+            try
+            {
+                completion.TrySetResult(await preparation);
+            }
+            catch (Exception error)
+            {
+                // Late failure is consumed even if cancellation already completed this caller's wait.
+                completion.TrySetException(error);
+            }
+            finally
+            {
+                registration.Dispose();
+            }
+        }
+
         private UIDefinition GetDefinition(string id)
         {
             if (string.IsNullOrWhiteSpace(id) || !_definitions.TryGetValue(id, out UIDefinition definition))
             {
                 throw new ArgumentException("Unknown UI definition.", nameof(id));
             }
-            if (definition.Prefab == null)
+            if (string.IsNullOrWhiteSpace(definition.AssetKey) && definition.Prefab == null)
             {
                 throw new InvalidOperationException("The borrowed prefab was destroyed by its owner.");
             }
@@ -376,17 +523,13 @@ namespace TPLab.UI
             try
             {
                 handle.ThrowIfOpeningCancelled();
-                if (_storage == null)
-                {
-                    _storage = new GameObject("UIContext Inactive Storage");
-                    _storage.SetActive(false);
-                    _storage.transform.SetParent(RootObject.transform, false);
-                }
+                GameObject prefab = await WaitForPrefabAsync(PreparePrefabAsync(handle.Definition), handle.LifetimeToken);
+                await UniTask.SwitchToMainThread();
+                handle.ThrowIfOpeningCancelled();
                 ++_nativeDepth;
                 try
                 {
-                    handle.View = UnityEngine.Object.Instantiate(handle.Definition.Prefab, _storage.transform, false);
-                    handle.View.SetActive(false);
+                    handle.View = TakeOrCreateClone(handle, prefab);
                 }
                 finally
                 {
@@ -452,6 +595,52 @@ namespace TPLab.UI
             }
         }
 
+        private GameObject TakeOrCreateClone(UIHandle handle, GameObject prefab)
+        {
+            if (_storage == null)
+            {
+                _storage = new GameObject("UIContext Inactive Storage");
+                _storage.SetActive(false);
+                _storage.transform.SetParent(RootObject.transform, false);
+            }
+
+            GameObject clone;
+            if (_cachedClones.TryGetValue(handle.DefinitionId, out clone))
+            {
+                _cachedClones.Remove(handle.DefinitionId);
+            }
+            else
+            {
+                clone = null;
+            }
+            if (clone == null)
+            {
+                clone = UnityEngine.Object.Instantiate(prefab, _storage.transform, false);
+            }
+            // Track the rental before native configuration so any failure reaches normal close/discard.
+            handle.View = clone;
+            clone.SetActive(false);
+            clone.transform.SetParent(_storage.transform, false);
+            clone.transform.localPosition = prefab.transform.localPosition;
+            clone.transform.localRotation = prefab.transform.localRotation;
+            clone.transform.localScale = prefab.transform.localScale;
+            return clone;
+        }
+
+        private bool TryCacheClone(string definitionId, GameObject clone)
+        {
+            if (IsDisposed || clone == null || _storage == null)
+            {
+                return false;
+            }
+            if (_cachedClones.TryGetValue(definitionId, out GameObject current) && current != null)
+            {
+                return false;
+            }
+            _cachedClones[definitionId] = clone;
+            return true;
+        }
+
         private void StartClose(UIHandle handle)
         {
             if (handle.CloseStarted)
@@ -469,6 +658,8 @@ namespace TPLab.UI
         private async UniTask RunCloseAsync(UIHandle handle, bool wasVisible)
         {
             Action<UIHandle> closedCallback = handle.Hooks.Closed;
+            bool requestedReuse = handle.Definition.Retention == UIRetention.Reuse;
+            GameObject candidate = null;
             try
             {
                 try
@@ -496,7 +687,6 @@ namespace TPLab.UI
                 }
                 await UniTask.SwitchToMainThread();
                 handle.RunCleanup();
-
                 GameObject view = handle.View;
                 if (view != null)
                 {
@@ -504,6 +694,12 @@ namespace TPLab.UI
                     try
                     {
                         view.SetActive(false);
+                        if (requestedReuse && wasVisible && handle.Errors.Count == 0
+                            && !IsDisposed && _storage != null)
+                        {
+                            view.transform.SetParent(_storage.transform, false);
+                            candidate = view;
+                        }
                     }
                     catch (Exception error)
                     {
@@ -513,13 +709,16 @@ namespace TPLab.UI
                     {
                         --_nativeDepth;
                     }
-                    try
+                    if (candidate == null)
                     {
-                        await DestroyOwnedAsync(view);
-                    }
-                    catch (Exception error)
-                    {
-                        RecordNativeFailure(handle, error);
+                        try
+                        {
+                            await DestroyOwnedAsync(view);
+                        }
+                        catch (Exception error)
+                        {
+                            RecordNativeFailure(handle, error);
+                        }
                     }
                 }
             }
@@ -527,13 +726,11 @@ namespace TPLab.UI
             {
                 await UniTask.SwitchToMainThread();
                 handle.Errors.Add(error);
-                // Managed cleanup remains obligatory even if a native boundary unexpectedly fails.
                 handle.RunCleanup();
             }
             finally
             {
                 handle.Finish();
-                _displays.Remove(handle);
                 try
                 {
                     DispatchClosed(handle, closedCallback);
@@ -542,6 +739,21 @@ namespace TPLab.UI
                 {
                     handle.Errors.Add(error);
                 }
+                // A retired candidate is private until its observer succeeds. Nested displays cannot rent it.
+                if (candidate != null
+                    && (handle.Errors.Count != 0 || !TryCacheClone(handle.DefinitionId, candidate)))
+                {
+                    try
+                    {
+                        await DestroyOwnedAsync(candidate);
+                    }
+                    catch (Exception error)
+                    {
+                        RecordNativeFailure(handle, error);
+                    }
+                }
+                // Keep this closing generation tracked through observer/discard so owner shutdown awaits it.
+                _displays.Remove(handle);
                 if (handle.Errors.Count == 0)
                 {
                     handle.CloseCompletion.TrySetResult();
@@ -559,18 +771,28 @@ namespace TPLab.UI
             handle.Errors.Add(error);
         }
 
-        private static async UniTask DestroyOwnedAsync(GameObject owned)
+        private async UniTask DestroyOwnedAsync(GameObject owned)
         {
             if (owned == null)
             {
                 return;
             }
-            if (!Application.isPlaying)
+            ++_nativeDepth;
+            try
             {
-                UnityEngine.Object.DestroyImmediate(owned);
-                return;
+                if (!Application.isPlaying)
+                {
+                    UnityEngine.Object.DestroyImmediate(owned);
+                }
+                else
+                {
+                    UnityEngine.Object.Destroy(owned);
+                }
             }
-            UnityEngine.Object.Destroy(owned);
+            finally
+            {
+                --_nativeDepth;
+            }
             while (owned != null)
             {
                 await UniTask.NextFrame();
@@ -595,6 +817,10 @@ namespace TPLab.UI
             }
             IsDisposed = true;
             UIHandle[] owned = _displays.ToArray();
+            var cached = new List<GameObject>(_cachedClones.Values);
+            _cachedClones.Clear();
+            var preparations = new List<AssetPreparation>(_preparations.Values);
+            _preparations.Clear();
             _rootRegistration.Dispose();
             List<Exception> errors = new List<Exception>();
             try
@@ -605,14 +831,18 @@ namespace TPLab.UI
             {
                 errors.Add(error);
             }
+            foreach (AssetPreparation preparation in preparations)
+            {
+                preparation.Completion.TrySetCanceled(_lifetimeToken);
+            }
             foreach (UIHandle handle in owned)
             {
                 StartClose(handle);
             }
-            RunShutdownAsync(owned, errors).Forget();
+            RunShutdownAsync(owned, cached, errors).Forget();
         }
 
-        private async UniTask RunShutdownAsync(UIHandle[] owned, List<Exception> errors)
+        private async UniTask RunShutdownAsync(UIHandle[] owned, List<GameObject> cached, List<Exception> errors)
         {
             foreach (UIHandle handle in owned)
             {
@@ -625,6 +855,18 @@ namespace TPLab.UI
                     errors.Add(error);
                 }
             }
+            foreach (GameObject clone in cached)
+            {
+                try
+                {
+                    await DestroyOwnedAsync(clone);
+                }
+                catch (Exception error)
+                {
+                    errors.Add(error);
+                    Fault = Fault ?? error;
+                }
+            }
             try
             {
                 await DestroyOwnedAsync(_storage);
@@ -635,6 +877,7 @@ namespace TPLab.UI
                 Fault = Fault ?? error;
             }
             _storage = null;
+            _loadPrefab = null;
             _definitions.Clear();
             _lifetime.Dispose();
             if (errors.Count == 0)
