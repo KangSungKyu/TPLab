@@ -73,6 +73,7 @@ namespace TPLab.Core.Editor.DataTables
             }
         }
         /// <summary>Applies an owned source pair and manifest with rollback on I/O failure; returns whether source changed.</summary>
+        /// <remarks>Recognized Windows replacement failures receive at most five atomic attempts per file, with four 50ms waits. Exhaustion preserves rollback and propagates the IOException with destination and attempt diagnostics.</remarks>
         public static bool Apply(string outputFolder, string ownerId, string contract, IReadOnlyDictionary<string, string> files, bool automatic = false)
         {
             Check(outputFolder, ownerId, contract, files, automatic);

@@ -3,8 +3,8 @@
 Editor 도구는 Bootstrap/씬 전환 설정을 사전 검사하고 CSV와 명시적 JSON schema로 프로젝트 DTO·테이블 C# 소스를 생성/검증한다. runtime 데이터를 Editor에서 자동 등록하거나 공개하지 않는다.
 
 - Assembly: `TPLab.Core.Editor` (Editor 전용); Namespace: `TPLab.Core.Editor.DataTables`, `TPLab.Core.Editor.Bootstrap`
-- SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [소스](../../Assets/TPLab/Editor)
-- ImplementationStatus: Implemented; ValidationStatus: Partial. [importer 검증](../validation/data-table-importer/README.md), [씬 gate 검증](../validation/scene-transition-editor/README.md), [최종 회귀](../validation/input-system/p4/README.md). importer의 소비 프로젝트 이식 실행은 별도로 확인하지 않았다.
+- SourceRevision: `896bcbeeb8e627e193bb1eba5032455b7f8e3f32`; [소스](../../Assets/TPLab/Editor)
+- ImplementationStatus: Implemented; ValidationStatus: Partial. [importer 검증](../validation/data-table-importer/README.md), [씬 gate 검증](../validation/scene-transition-editor/README.md), [최종 회귀](../validation/input-system/p4/README.md). P2에서 실제 Git/tarball importer 소비 실행을 확인했다. 이번 Windows 교체 보정의 새 package 검증은 배포 후보 gate에서 별도로 기록한다.
 - 의존성: Core, UniTask, Addressables Editor 및 설치된 Unity Newtonsoft.Json **3.2.2**. runtime Player에 이 assembly를 포함하지 않는다.
 
 `Create > TPLab > Data Table Import Settings`로 설정을 만들고 자동 사용 시 `Assets/Editor/TPLab/setting.asset`에 저장한다. 없으면 자동화는 꺼져 있다. Inspector에서 명시적 검증/생성도 요청할 수 있다. [schema 및 설정 상세](../DATA_TABLE_IMPORTER_DRAFT.md)를 따른다.
