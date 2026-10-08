@@ -1,0 +1,15 @@
+{
+  "kind": "Native uGUI observation; not a UIContext Red or Green result",
+  "project": "C:/Users/PC/Projects/TPLab",
+  "editorPid": 24376,
+  "unity": "6000.3.18f1",
+  "fixture": "HideAndDontSave parent Canvas, owned child Canvas and Image; immediate cleanup in finally",
+  "beforeOwned": true,
+  "afterDisableOwned": false,
+  "afterDisableParent": true,
+  "afterReparentParent": true,
+  "graphicActive": true,
+  "sceneDirtyBefore": false,
+  "sceneDirtyAfter": false,
+  "decision": "DisableCanvasRendering also uses a separate owned visibility CanvasGroup; borrowed parent Canvas and existing project groups are preserved."
+}

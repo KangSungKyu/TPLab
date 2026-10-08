@@ -1,0 +1,35 @@
+{
+  "runId": "303ed314e92e4c3cb12d9f935257816f",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests",
+  "mode": "EditMode",
+  "summary": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HookCannotCloseItsAncestorButCanOperateIndependentTree",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HudSelectionRejectsWrongRoleParentAndConcurrentRequests",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.ParentValidationAndDuplicateScopeUseLogicalOwner",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.RegisterHostRejectsInvalidAndDuplicateRegistration",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenPublishesHandleAndSupportsRepeatedOpenedAwaitAndConveniencePath",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenRejectsUnknownAndDuplicateOwnerDefinition",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CleanupIsReverseOrderAndExactlyOnceIncludingEarlyRegistrationDispose",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CloseWaitCancellationDoesNotStopCleanupAndShutdownSharesCompletion",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ClosingHookAndCleanupFailuresDoNotSkipRemainingCleanupAndShareFailure",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ConstructorRejectsNullAndDestroyedOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.OpeningCallerCancellationCleansDisplayWithoutEndingOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays",
+      "TPLab.UI.Tests.UIContextLifecycleTests.SelfClosingHookReentryIsRejectedAndStillRunsCleanup",
+      "TPLab.UI.Tests.UIContextLoadingTests.FailedOrInvalidProviderResultRetriesOnlyOnNextRequest",
+      "TPLab.UI.Tests.UIContextLoadingTests.OwnerShutdownIgnoresLateProviderResultWithoutReleasingSource",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareAndRuntimeOpenShareOneLoadPerKey",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareWaitCancellationKeepsSharedLoadAlive",
+      "TPLab.UI.Tests.UIContextLoadingTests.ProviderDefinitionRequiresConfiguredLoaderAndExplicitSource"
+    ]
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T08:22:52.9576197Z"
+}

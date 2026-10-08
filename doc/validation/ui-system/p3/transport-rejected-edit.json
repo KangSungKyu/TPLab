@@ -1,0 +1,20 @@
+{
+  "status": "RejectedTransportNoResult",
+  "mode": "EditMode",
+  "filter": "TPLab.UI.Tests",
+  "originalEditorPid": 24376,
+  "cliPid": "Unavailable: runner error did not preserve PID",
+  "error": "No nonzero result for this invocation: Error: timed out sending command to Unity: cannot connect to Unity",
+  "testTotals": null,
+  "sourceInputsVerifiedUnchanged": 374,
+  "followup": {
+    "connectorReady": true,
+    "compileErrors": false,
+    "playing": false,
+    "compiling": false,
+    "updating": false,
+    "testRunActive": false,
+    "nativeProbe": "TestRunnerApi.IsRunActive reflection, same original Editor"
+  },
+  "decision": "Preserve this failed transport separately. A new invocation on the same unchanged source and idle original Editor follows; no failed/completed test result is rerun or counted."
+}

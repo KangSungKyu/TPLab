@@ -1,0 +1,37 @@
+{
+  "total": 11,
+  "passed": 0,
+  "failed": 11,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.AcceptedOrderSurvivesReverseLoadCompletionOnSharedCanvas: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudCloseFailureDiscardsCandidateAndPreservesErrors: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudPrepareFailurePreservesCurrentHudAndChildren: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudSwitchClosesOwnedChildrenAndPreservesIndependentPopup: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.MiddleClosePreservesIndependentPopupAndClosesOwnedChild: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.OwnerCancellationPreventsLateHudPublication: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ParentCloseCancelsPendingChildAndCompletesChildFirst: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyHideRejectsSharedCanvasWithoutAffectingSibling: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyReuseKeepsActivationAndDisablesOwnedRaycasts: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ReusedRectTransformRestoresPrefabLayoutBeforePreparation: System.NotImplementedException : The method or operation is not implemented.",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.SeparateCanvasOrderMatchesLogicalOrderAndRejectsUnsupportedLayouts: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.PlayMode.UIContextPresentationTests",
+    "source": "connector-file",
+    "runId": "4156-1791443257031831600",
+    "cliPid": 4156,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 4156,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

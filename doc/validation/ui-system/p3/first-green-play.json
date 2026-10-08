@@ -1,0 +1,57 @@
+{
+  "total": 30,
+  "passed": 27,
+  "failed": 3,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyRejectsVisibilityBypassBeforeMutatingExistingView:   Expected: instance of <System.InvalidOperationException>\r\n  But was:  null\r\n",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyReuseKeepsActivationAndDisablesOwnedRaycasts:   The visible fixture must receive an actual native UI hit.\r\n  Expected: True\r\n  But was:  False\r\n",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.SeparateCanvasOrderMatchesLogicalOrderAndRejectsUnsupportedLayouts:   Expected: instance of <System.InvalidOperationException>\r\n  But was:  null\r\n"
+  ],
+  "passes": [
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.AcceptedOrderSurvivesReverseLoadCompletionOnSharedCanvas",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudCloseFailureDiscardsCandidateAndPreservesErrors",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudPrepareFailurePreservesCurrentHudAndChildren",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudSwitchClosesOwnedChildrenAndPreservesIndependentPopup",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.MiddleClosePreservesIndependentPopupAndClosesOwnedChild",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.OwnerCancellationPreventsLateHudPublication",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ParentCloseCancelsPendingChildAndCompletesChildFirst",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.PersistentOwnerKeepsRendererOnlyRetentionInItsOwnScene",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyHideRejectsSharedCanvasWithoutAffectingSibling",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ReusedRectTransformRestoresPrefabLayoutBeforePreparation",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ThreeAcceptedRootsKeepInterleavedBorrowedSiblingSlots",
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloneIsBorrowedSourceCopyAndStaysInactiveDuringPreparation",
+    "TPLab.UI.Tests.UIContextPlayModeTests.ClosedObserverSeesClosedStateAndNoView",
+    "TPLab.UI.Tests.UIContextPlayModeTests.CloseWaitsForNativeCloneDestructionAndPreservesBorrowedObjects",
+    "TPLab.UI.Tests.UIContextPlayModeTests.IndependentPopupCanOpenAndCloseFromAnotherPopupHook",
+    "TPLab.UI.Tests.UIContextPlayModeTests.NeverActiveOwnerDestructionCancelsContextLifetime",
+    "TPLab.UI.Tests.UIContextPlayModeTests.OpeningHookFailureStillDestroysCloneAndRunsAllCleanup",
+    "TPLab.UI.Tests.UIContextPlayModeTests.PreparedCloneActivatesOnlyAfterPrepareHookCompletes",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionCancelsPendingOpenAndDisposesDisplayOnce",
+    "TPLab.UI.Tests.UIContextPlayModeTests.RootDestructionClosesVisibleDisplayAndRepeatedShutdownIsSafe",
+    "TPLab.UI.Tests.UIContextReuseTests.ClosedObserverFailureDiscardsRetiredCloneWithoutAffectingNewDisplay",
+    "TPLab.UI.Tests.UIContextReuseTests.PartialOpeningOrCleanupFailureDiscardsReusableClone",
+    "TPLab.UI.Tests.UIContextReuseTests.ReuseCacheKeepsOnlyOneInactiveCloneAfterNestedCloseCallbacks",
+    "TPLab.UI.Tests.UIContextReuseTests.ReuseReopensSameCloneWithFreshGenerationAndCleanup",
+    "TPLab.UI.Tests.UIContextReuseTests.RootDestructionDestroysCachedCloneAndPreservesBorrowedSource",
+    "TPLab.UI.Tests.UIContextReuseTests.RuntimeLazyOpenUsesInactivePreparationBeforeActivation",
+    "TPLab.UI.Tests.UIContextReuseTests.ShutdownDestroysCachedCloneAndPreservesBorrowedSource"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 28132,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 28132,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "status": "Passed",
+  "documents": 14,
+  "markdownLinks": 337,
+  "sourceInputs": 375,
+  "protectedRawFiles": 6,
+  "sourceCommitFiles": 13,
+  "guidCheck": "Passed",
+  "consoleErrors": 0,
+  "editorPid": 24376,
+  "toolSelfCheck": "Passed",
+  "sourceRevision": "18666acae25b04c1c63ca49d8c00ca2ee67da308",
+  "consumerPlayerProfilerUserAcceptance": "P7NotRun"
+}

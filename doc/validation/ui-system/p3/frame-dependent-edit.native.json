@@ -1,0 +1,36 @@
+{
+  "runId": "22f4844c52e84c00a19d38afd85f3d69",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "filter": "TPLab.UI.Tests",
+  "mode": "EditMode",
+  "summary": {
+    "total": 18,
+    "passed": 16,
+    "failed": 2,
+    "skipped": 0,
+    "failures": [
+      "TPLab.UI.Tests.UIContextLoadingTests.FailedOrInvalidProviderResultRetriesOnlyOnNextRequest: Timeout value of 180000 ms was exceeded. If this is intended, increase the timeout value using a TimeoutAttribute.",
+      "TPLab.UI.Tests.UIContextLoadingTests.OwnerShutdownIgnoresLateProviderResultWithoutReleasingSource: Timeout value of 180000 ms was exceeded. If this is intended, increase the timeout value using a TimeoutAttribute."
+    ],
+    "passes": [
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HookCannotCloseItsAncestorButCanOperateIndependentTree",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HudSelectionRejectsWrongRoleParentAndConcurrentRequests",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.ParentValidationAndDuplicateScopeUseLogicalOwner",
+      "TPLab.UI.Tests.EditMode.UIContextPresentationTests.RegisterHostRejectsInvalidAndDuplicateRegistration",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenPublishesHandleAndSupportsRepeatedOpenedAwaitAndConveniencePath",
+      "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenRejectsUnknownAndDuplicateOwnerDefinition",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CleanupIsReverseOrderAndExactlyOnceIncludingEarlyRegistrationDispose",
+      "TPLab.UI.Tests.UIContextLifecycleTests.CloseWaitCancellationDoesNotStopCleanupAndShutdownSharesCompletion",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ClosingHookAndCleanupFailuresDoNotSkipRemainingCleanupAndShareFailure",
+      "TPLab.UI.Tests.UIContextLifecycleTests.ConstructorRejectsNullAndDestroyedOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.OpeningCallerCancellationCleansDisplayWithoutEndingOwner",
+      "TPLab.UI.Tests.UIContextLifecycleTests.RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays",
+      "TPLab.UI.Tests.UIContextLifecycleTests.SelfClosingHookReentryIsRejectedAndStillRunsCleanup",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareAndRuntimeOpenShareOneLoadPerKey",
+      "TPLab.UI.Tests.UIContextLoadingTests.PrepareWaitCancellationKeepsSharedLoadAlive",
+      "TPLab.UI.Tests.UIContextLoadingTests.ProviderDefinitionRequiresConfiguredLoaderAndExplicitSource"
+    ]
+  },
+  "error": null,
+  "completedUtc": "2026-10-08T08:20:31.0630364Z"
+}

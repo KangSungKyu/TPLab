@@ -1,0 +1,22 @@
+{
+  "purpose": "Editor native Canvas fixture precondition observation; not a UIContext test result",
+  "originalEditorPid": 24376,
+  "assemblyMvid": "9853ceba-1e48-43ad-a5b9-847a49326d2d",
+  "observed": {
+    "standalone": false,
+    "standaloneStored": false,
+    "parentedActive": true,
+    "parentedActiveRoot": false,
+    "parentedStored": true,
+    "parentedInactive": true,
+    "parentedInactiveRoot": true,
+    "inactiveStored": true,
+    "restoredActive": true
+  },
+  "sourceValidatorProbe": {
+    "groupFailure": "InvalidOperationException: ignoreParentGroups can bypass the owned rendering and raycast mask.",
+    "standaloneCanvasFailure": null
+  },
+  "decision": "Native root Canvas ignored overrideSorting setter in this fixture. Tests now author the flag under an active ancestor Canvas and assert true before using the source.",
+  "rejectedProbe": "JsonUtility.ToJson cannot serialize engine types; replaced with read-only Editor SerializedObject. Every temporary object was destroyed in finally."
+}

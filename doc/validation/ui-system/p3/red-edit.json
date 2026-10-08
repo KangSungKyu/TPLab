@@ -1,0 +1,30 @@
+{
+  "total": 4,
+  "passed": 0,
+  "failed": 4,
+  "skipped": 0,
+  "failures": [
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HookCannotCloseItsAncestorButCanOperateIndependentTree: System.NotSupportedException : Logical parent trees require P3.",
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HudSelectionRejectsWrongRoleParentAndConcurrentRequests: System.NotSupportedException : HUD and explicit Canvas hosts require P3.",
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.ParentValidationAndDuplicateScopeUseLogicalOwner:   Expected: <System.InvalidOperationException>\r\n  But was:  <System.NotSupportedException: Logical parent trees require P3.\r\n  at TPLab.UI.UIContext.BeginOpen (TPLab.UI.UIOpenRequest request, System.Threading.CancellationToken cancellationToken) [0x00127] in C:\\Users\\PC\\Projects\\TPLab\\Assets\\TPLab\\UI\\Runtime\\UIContext.cs:258 \r\n  at TPLab.UI.Tests.EditMode.UIContextPresentationTests+<>c__DisplayClass16_0.<CheckParentsAndDuplicates>b__0 () [0x00000] in C:\\Users\\PC\\Projects\\TPLab\\Assets\\TPLab\\UI\\Tests\\EditMode\\UIContextPresentationTests.cs:159 \r\n  at NUnit.Framework.Assert.Throws (NUnit.Framework.Constraints.IResolveConstraint expression, NUnit.Framework.TestDelegate code, System.String message, System.Object[] args) [0x0002f] in <f577cd9686154d6ab10efd7e65e64366>:0 >\r\n",
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.RegisterHostRejectsInvalidAndDuplicateRegistration: System.NotImplementedException : The method or operation is not implemented."
+  ],
+  "passes": [],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "EditMode",
+    "filter": "TPLab.UI.Tests.EditMode.UIContextPresentationTests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 30396,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 30396,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

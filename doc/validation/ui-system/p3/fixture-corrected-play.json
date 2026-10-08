@@ -1,0 +1,40 @@
+{
+  "total": 14,
+  "passed": 14,
+  "failed": 0,
+  "skipped": 0,
+  "failures": [],
+  "passes": [
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.AcceptedOrderSurvivesReverseLoadCompletionOnSharedCanvas",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudCloseFailureDiscardsCandidateAndPreservesErrors",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudPrepareFailurePreservesCurrentHudAndChildren",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.HudSwitchClosesOwnedChildrenAndPreservesIndependentPopup",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.MiddleClosePreservesIndependentPopupAndClosesOwnedChild",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.OwnerCancellationPreventsLateHudPublication",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ParentCloseCancelsPendingChildAndCompletesChildFirst",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.PersistentOwnerKeepsRendererOnlyRetentionInItsOwnScene",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyHideRejectsSharedCanvasWithoutAffectingSibling",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyRejectsVisibilityBypassBeforeMutatingExistingView",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.RendererOnlyReuseKeepsActivationAndDisablesOwnedRaycasts",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ReusedRectTransformRestoresPrefabLayoutBeforePreparation",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.SeparateCanvasOrderMatchesLogicalOrderAndRejectsUnsupportedLayouts",
+    "TPLab.UI.Tests.PlayMode.UIContextPresentationTests.ThreeAcceptedRootsKeepInterleavedBorrowedSiblingSlots"
+  ],
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "PlayMode",
+    "filter": "TPLab.UI.Tests.PlayMode.UIContextPresentationTests",
+    "source": "connector-file",
+    "runId": "28332-1791446162243165700",
+    "cliPid": 28332,
+    "cliReturnCode": 1,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 28332,
+        "cliReturnCode": 1,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

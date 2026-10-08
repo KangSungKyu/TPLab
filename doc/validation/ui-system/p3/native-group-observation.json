@@ -1,0 +1,18 @@
+{
+  "purpose": "native CanvasGroup multiplicity observation; not a TDD result",
+  "editorPid": 24376,
+  "unityVersion": "6000.3.18f1",
+  "observed": {
+    "firstExists": true,
+    "secondExists": false,
+    "groupCount": 1,
+    "imageExists": true,
+    "rendererExists": true
+  },
+  "limitation": "A CanvasGroup cannot be added twice on the same GameObject. The preceding rejected probe tried to access the null second group; all temporary HideAndDontSave objects were destroyed in finally.",
+  "consoleFollowup": {
+    "command": "unity-cli console --project C:/Users/PC/Projects/TPLab --type error --lines 50",
+    "actualErrors": []
+  },
+  "decision": "Renderer-only policy uses a separate owned RectTransform wrapper with its own CanvasGroup and preserves the prefab clone CanvasGroup."
+}

@@ -107,3 +107,5 @@
 - 2026-10-08 · UIContext P1 수명·정리·취소·native fallback · 자동 검증 완료·track 통합 · [05](2026-10-08-05-ui-lifecycle.md)
 
 - 2026-10-08 · UIContext P2 자산 준비·clone 재사용 · 자동 검증 완료·track 통합 · [06](2026-10-08-06-ui-loading-reuse.md)
+
+- 2026-10-08: [07 UIContext HUD·Popup·Canvas](2026-10-08-07-ui-presentation.md) — 자동 검증 완료, UI48/48·compile/Console0; 소비/성능/최종 UX는P7.

@@ -1,0 +1,44 @@
+{
+  "sourceRevision": "18666acae25b04c1c63ca49d8c00ca2ee67da308",
+  "results": {
+    "final-edit.json": [
+      18,
+      18,
+      0,
+      0
+    ],
+    "final-play.json": [
+      30,
+      30,
+      0,
+      0
+    ]
+  },
+  "documents": [
+    "README.md",
+    "doc/api/UI.md",
+    "doc/api/README.md",
+    "doc/ai/README.md",
+    "doc/ai/api/UI.md",
+    "doc/ai/api/README.md",
+    "doc/CORE_PLAN.md",
+    "doc/GAME_UI_SYSTEM.md",
+    "doc/GAME_UI_SYSTEM_TRACK.md",
+    "doc/GAME_UI_SYSTEM_DRAFT.md",
+    "doc/retrospectives/INDEX.md",
+    "doc/retrospectives/2026-10-08-07-ui-presentation.md",
+    "doc/validation/ui-system/p3/README.md",
+    "tools/README.md"
+  ],
+  "assets": [
+    "Assets/TPLab/UI/Runtime/UIContext.cs",
+    "Assets/TPLab/UI/Runtime/UIHandle.cs",
+    "Assets/TPLab/UI/Runtime/UIHooks.cs",
+    "Assets/TPLab/UI/Runtime/UIPresentation.cs",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextLifecycleTests.cs",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextLoadingTests.cs",
+    "Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs",
+    "Assets/TPLab/UI/Tests/PlayMode/TPLab.UI.PlayModeTests.asmdef",
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs"
+  ]
+}

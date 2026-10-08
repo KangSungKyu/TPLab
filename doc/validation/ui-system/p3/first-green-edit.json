@@ -1,0 +1,44 @@
+{
+  "failed": 0,
+  "failures": [],
+  "passed": 18,
+  "passes": [
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HookCannotCloseItsAncestorButCanOperateIndependentTree",
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.HudSelectionRejectsWrongRoleParentAndConcurrentRequests",
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.ParentValidationAndDuplicateScopeUseLogicalOwner",
+    "TPLab.UI.Tests.EditMode.UIContextPresentationTests.RegisterHostRejectsInvalidAndDuplicateRegistration",
+    "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenPublishesHandleAndSupportsRepeatedOpenedAwaitAndConveniencePath",
+    "TPLab.UI.Tests.UIContextLifecycleTests.BeginOpenRejectsUnknownAndDuplicateOwnerDefinition",
+    "TPLab.UI.Tests.UIContextLifecycleTests.CleanupIsReverseOrderAndExactlyOnceIncludingEarlyRegistrationDispose",
+    "TPLab.UI.Tests.UIContextLifecycleTests.CloseWaitCancellationDoesNotStopCleanupAndShutdownSharesCompletion",
+    "TPLab.UI.Tests.UIContextLifecycleTests.ClosingHookAndCleanupFailuresDoNotSkipRemainingCleanupAndShareFailure",
+    "TPLab.UI.Tests.UIContextLifecycleTests.ConstructorRejectsNullAndDestroyedOwner",
+    "TPLab.UI.Tests.UIContextLifecycleTests.OpeningCallerCancellationCleansDisplayWithoutEndingOwner",
+    "TPLab.UI.Tests.UIContextLifecycleTests.RegisterRejectsInvalidAndDuplicateDefinitionsWithoutCreatingDisplays",
+    "TPLab.UI.Tests.UIContextLifecycleTests.SelfClosingHookReentryIsRejectedAndStillRunsCleanup",
+    "TPLab.UI.Tests.UIContextLoadingTests.FailedOrInvalidProviderResultRetriesOnlyOnNextRequest",
+    "TPLab.UI.Tests.UIContextLoadingTests.OwnerShutdownIgnoresLateProviderResultWithoutReleasingSource",
+    "TPLab.UI.Tests.UIContextLoadingTests.PrepareAndRuntimeOpenShareOneLoadPerKey",
+    "TPLab.UI.Tests.UIContextLoadingTests.PrepareWaitCancellationKeepsSharedLoadAlive",
+    "TPLab.UI.Tests.UIContextLoadingTests.ProviderDefinitionRequiresConfiguredLoaderAndExplicitSource"
+  ],
+  "skipped": 0,
+  "total": 18,
+  "execution": {
+    "project": "C:\\Users\\PC\\Projects\\TPLab",
+    "mode": "EditMode",
+    "filter": "TPLab.UI.Tests",
+    "source": "cli",
+    "runId": null,
+    "cliPid": 28488,
+    "cliReturnCode": 0,
+    "editorPid": 24376,
+    "attempts": [
+      {
+        "cliPid": 28488,
+        "cliReturnCode": 0,
+        "prestartDiscoveryRejected": false
+      }
+    ]
+  }
+}

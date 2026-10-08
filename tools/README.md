@@ -92,3 +92,14 @@ python -m unittest discover -s tools -p test_distribution_consumer.py -v
 ```
 
 Batch consumer는 예제 builder의 `Temp` 출력을 각 성공 build 직후 자체 `Build/Sample-<mode>`에 보존한다. Unity는 다음 build 또는 Editor 종료에서 Temp를 정리할 수 있으므로, 종료한 Editor의 Temp Player를 실행 대상으로 삼지 않는다. 원본 Editor에서 사용하는 기존 sample builder의 output 규격은 유지한다.
+
+## EditMode 완료 결과 파일
+
+`run_unity_tests_file.py`는 설치된 Unity CLI Connector의 native EditMode 실행을 기존 명시 Editor/PID에서 시작하고 완료 결과를 별도 파일로 보존한다. 소스/컴파일 idle·TestRunner idle을 확인하며, runId/project/filter/mode와 nonzero 실행 수를 검증한다. 시작 식별자를 즉시 출력하고 기존 출력 파일을 덮어쓰지 않으며 자동 재실행하지 않는다. TestRunner가 아직 진행 중이면 timeout을 통과로 해석하지 않는다. PlayMode는 기존 `run_unity_tests.py`를 사용한다.
+
+```text
+python tools/run_unity_tests_file.py --self-check
+python tools/run_unity_tests_file.py --project <absolute-project> --editor-pid <existing-pid> --filter TPLab.UI.Tests --output <absolute-project>/doc/validation/<phase>/final-edit.native.json
+```
+
+EditMode UI 테스트는 Editor update 대기에 UniTask.Yield를 사용한다. Time.frameCount에 의존하는 NextFrame은 렌더 없는 Editor에서 진행되지 않을 수 있다. 실제 PlayMode native 렌더·입력 경계는 NextFrame을 유지한다.

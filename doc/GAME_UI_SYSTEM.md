@@ -65,3 +65,18 @@ P0의 확인 환경은 Unity6000.3.18f1, UniTask2.5.11, uGUI2.0.0, InputSystem1.
 2026-10-08 sourcecea4268b82e0f119e0d4dbc8c788b7632d21f3ee에서 explicit key provider와 direct prefab의 같은 표시 준비, source-only Prepare, definition별 clone 최대1개 Reuse를 구현했다. native 자산/provider는 borrowed이며 실패 entry는 다음 명시 요청에서만 재시도한다. caller 준비 취소는 공유 자산 작업을 종료하지 않고 owner 종료 후 late result는 무시한다. [실제 UI30/30](validation/ui-system/p2/README.md)·실패0/skip0·compile/제품 Console 오류0이다. HUD/Canvas/graph/input/scroll 및 최종 외부/성능/UX gate는 남아 있다.
 
 Reuse 후보는 cleanup 및 StateClosed/ViewObject null 이후 Closed observer가 성공해야 cache에 공개한다. 실패/초과 후보를 폐기하며 callback이 만든 새 표시의 수명을 변경하지 않는다. owner Shutdown은 active/retiring/cached clone의 실제 파괴를 기다린다. public PrepareAsync는 인스턴스를 만들지 않고 UIHooks.PrepareAsync는 표시 중 inactive clone의 데이터/구독을 준비한다.
+
+## P3 확정 범위와 선행 테스트 준비
+
+2026-10-08. P2 검증 tip에서 진행한다. 신규 public 진입은 `RegisterHost(string id, Transform container)`, `CurrentHud`, `SelectHudAsync(UIOpenRequest, CancellationToken)`다. 아래 계약은 P3에서 구현했다. 최종 실행 근거는 아래 검증 절을 따른다.
+
+- default host는 borrowed root Transform이다. 명시 host는 ID별 한 번 등록하며 borrowed host/Canvas를 파괴하거나 재설정하지 않는다. 표시 직전 살아 있는 host를 다시 검사한다.
+- logical parent는 같은 Context의 Visible handle만 가능하며 중복 범위는 `(Parent 또는 Context, DefinitionId)`다. parent 종료는 subtree 신규 요청을 막고 준비 중 자식을 취소하며 자식부터 완료한다. callback이 종료할 subtree에 자기 표시를 포함하면 동기 재진입을 거부한다. 독립 표시 조합은 유지한다.
+- HUD는 SelectHudAsync로 선택한다. parent 없는 Hud 역할만 허용하고 동시 선택/현재 정의 재선택은 거부한다. 다음 asset/clone/Prepare 성공 전 기존 HUD와 자식을 유지한다. 기존 종료가 시작된 뒤 rollback을 약속하지 않는다. 기존 종료 실패 시 candidate를 정리하고 오류를 보존하며 일반 callback 실패만으로 Context를 native fault로 만들지 않는다.
+- 실제 순서는 HUD/Popup 역할과 고정 host 영역, 접수 Id, 부모보다 앞선 자식 조건을 만족해야 한다. 같은 effective Canvas에서는 관리 표시의 sibling 순서만 적용한다. 독립 Canvas의 실제 sorting layer 값/order를 비교하고 renderMode/camera/targetDisplay 불일치·순서 동률·우회 override 등 표현 불가능한 배치는 기존 표시를 건드리기 전 거부한다. source-only 수명 fixture에는 Canvas를 강제하지 않으며 실제 Graphic 구성에는 Canvas 검증을 적용한다.
+- DisableCanvasRendering은 owned clone의 전용 Canvas에 한정한다. Canvas 및 owned raycaster/로컬 상호작용을 차단하며 공유 host Canvas를 끄지 않는다. 설치 uGUI의 실제 native 관찰에서 child Canvas 비활성화 후 Graphic이 active 상위 Canvas로 fallback했다. 따라서 RendererOnly에만 host 전체 크기의 owned RectTransform wrapper와 CanvasGroup alpha=0을 사용한다. public ViewObject는 원래 prefab clone이고 실제 parent는 wrapper다. CanvasGroup은 같은 GameObject에 두 개를 추가할 수 없으므로 이 구조로 프로젝트 prefab의 기존 CanvasGroup 값을 보존한다. DeactivateView는 wrapper 없이 직접 host에 배치한다. prefab의 overrideSorting 및 ignoreParentGroups로 관리 순서/가림을 우회하는 구성은 명시적으로 거부한다. 새 clone의 Prepare는 inactive이고 이 정책의 Reuse는 GO 활성/Canvas와 raycaster 차단 상태에서 Prepare한다. 표시 구독·업무 update 정리는 프로젝트 hook의 책임이고 실제 EventSystem focus/게임 입력 차단은 P4에서 검증한다.
+- Reuse는 Transform뿐 아니라 RectTransform의 anchor/pivot/size/anchoredPosition도 borrowed prefab 규격으로 복원한다. 자산·host·owner 수명과 source-only Prepare 의미는 P2 계약을 유지한다.
+
+## P3 구현과 검증
+
+source `18666acae25b04c1c63ca49d8c00ca2ee67da308`에서 HUD 교체·논리 자식 종료·borrowed host의 실제 Canvas/sibling 정렬·명시 숨김을 구현했다. [최종 자동 검증](validation/ui-system/p3/README.md)은 UI Edit18/18·Play30/30 실패0/skip0 및 compile/제품 Console0이다. Runtime과 실제 native 관찰을 대조했으며 Canvas 렌더 비활성 fallback을 owned wrapper mask로 차단한다. 사람/AI API와 [회고07](retrospectives/2026-10-08-07-ui-presentation.md)를 갱신했다. P4 입력, P5 virtual, P6 통합과 P7 소비/Player/성능/사용자 수락은 남아 있다.

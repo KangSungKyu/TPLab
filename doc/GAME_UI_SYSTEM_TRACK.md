@@ -17,7 +17,7 @@
 | P0 계약/의존성 | codex/game-ui-p0-contracts | 완료 / 문서·정적 검증 | public 결과·취소/handle·owner/host와 실제 의존성 경계 |
 | P1 Context 수명 | codex/game-ui-p1-lifecycle | 완료 / 자동 검증·문서·회고 | 실제 Red/Green, root 종료·반복/실패 cleanup·세대 handle |
 | P2 등록/준비/생성 | codex/game-ui-p2-loading | 완료 / 자동 검증·문서·회고 | direct/provider·runtime lazy·재사용·늦은 완료와 부분 정리 |
-| P3 HUD/Popup/Canvas | codex/game-ui-p3-presentation | 미착수 | HUD 보존·owner tree·A-B-C와 실제 정렬/숨김 |
+| P3 HUD/Popup/Canvas | codex/game-ui-p3-presentation | 완료 / 자동 검증·문서·회고 | HUD 보존·owner tree·A-B-C와 실제 정렬/숨김 |
 | P4 입력/연출 | codex/game-ui-p4-input | 미착수 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
 | P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 미착수 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
 | P6 설정/root/예제 | codex/game-ui-p6-integration | 미착수 | Inspector/script 동일경로·Single/Additive·callback 예제 |
@@ -30,8 +30,8 @@ P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 �
 | 담당 | 선택·목적 | 허용 범위·상태 |
 |---|---|---|
 | 부모 | 공용 계약·상태 수명·실제 실행·통합 책임 | UI source/관련 테스트·문서/도구만, 기존 사용자 변경 제외 |
-| /root/ui_lifecycle_review 재사용 | 문맥 상속 모델/추론 유지, async 수명·재진입의 계약 리뷰 | P0 리뷰 완료; P1 구현/리뷰/최종 UI18+root10 자동 검증 완료; P2 구현/리뷰/UI30 자동 검증 완료; 현재 P3 계약 읽기 검토 |
-| /root/ui_dependency_audit | gpt-6-luna/low, 명확한 asmdef/설치 의존성 조사 | 의존성/입력 조사와 P1 source 규약 정리 완료; P2 사람/AI 문서6개 갱신 완료, Git/Unity·재위임 제외 |
+| /root/ui_lifecycle_review 재사용 | 문맥 상속 모델/추론 유지, async 수명·재진입의 계약 리뷰 | P0 리뷰 완료; P1 구현/리뷰/최종 UI18+root10 자동 검증 완료; P2 구현/리뷰/UI30 자동 검증 완료; P3 구현/리뷰/UI48 자동 검증 완료; P4 Temp 테스트17개 준비(미실행) |
+| /root/ui_dependency_audit | gpt-6-luna/low, 명확한 asmdef/설치 의존성 조사 | 의존성/입력 조사와 P1 source 규약 정리 완료; P2 문서 완료; P5 Temp tests/signature 초안14개 준비 완료(미실행); P7 Temp benchmark2개 초안 완료(미컴파일/미실행); 현재 P4 native 입력 경계 읽기 검토, Assets/Git/Unity·재위임 제외 |
 
 ## 현재 증거와 남은 gate
 
@@ -48,3 +48,11 @@ P1 문서/증거69b0826를 track에 fast-forward 통합한 뒤 같은 tip에서 
 P2 [실제 Red](validation/ui-system/p2/README.md)는 같은 원본 Editor에서 Edit5/Play7 실패12·skip0을 확인했다. source368개 및 보호6개 unchanged를 기록하고 수명 담당에게 Runtime의 key 공유/재사용 Green을 배정했다. 당시 P2 자동 검증 완료 상태는 아니었다.
 
 P2 sourcecea4268b82e0f119e0d4dbc8c788b7632d21f3ee: 같은 원본 Editor의 [UI 전체30개](validation/ui-system/p2/README.md) Edit14/14+Play16/16 실패0/skip0, compile/제품 Console 오류0, 보호6 unchanged. [회고06](retrospectives/2026-10-08-06-ui-loading-reuse.md)와 source/XML·사람/AI 문서를 갱신해 track에 통합한다. 결과 없는 transport 시도는 별도 보존했다. 다음 P3 contract를 읽기 검토 중이며 Runtime 미구현, P5 읽기 조사만 완료다.
+
+P2 문서/증거15e5eb65edea47ff4e830be54a4e90ea081df14e를 track에 fast-forward 통합하고 같은 tip에서 P3 branch를 생성했다. P2 정적 검사는 문서12개/상대 링크289개, source368개와 보호6개 unchanged 및 source6개 commit 일치를 확인했다. 임시 문서2개는 소유 경로 확인 후 제거했다. P3의 실제 Red 준비와 P5의 Temp 초안은 분리하며 P5 초안은 테스트 실행이나 구현 완료로 기록하지 않는다.
+
+P5 독립 준비: Temp/UI-P5-Draft-20261008의 signature2개/tests2개 초안은 아직 Assets에 반영하지 않았고 실행0건이다. 14개 예정 사례에 규모별 실제 viewport coverage/index-position-Text 일치, native drag/inertia, count/resize/lifetime, binding generation·실제 지연 결과, 고정 viewport warm 후 누적 생성 안정 조건을 포함한다. P5 branch에서 source 반영/컴파일 후 실제 Red를 실행하며 재개에 필요한 Temp4개는 그 전까지 보존한다.
+
+P3 실제 Red: 원본 Editor PID24376 compile/제품 Console 오류0 뒤 Edit4실패4(CLI30396), Play11실패11(CLI4156의 동일run connector-file 결과), skip0. [근거](validation/ui-system/p3/README.md)와 입력372개/보호6개를 별도 보존했다. Runtime 수명 담당에게 Green 구현을 배정하고 테스트 소스는 동결한다. native child Canvas 비활성화 시 상위 Canvas fallback은 별도 관찰로 기록했으며 UIContext 통과 결과가 아니다.
+
+P3 source18666acae25b04c1c63ca49d8c00ca2ee67da308: [최종 UI48](validation/ui-system/p3/README.md) Edit18/18+Play30/30 실패0/skip0, compile/제품 Console0, source375·보호6 unchanged. HUD/parent/host/Canvas/renderer-only 보관을 구현했다. native fixture3건과 Edit 렌더프레임 의존 Timeout2건은 원본 실패 및 당시 입력을 보존하고 테스트 관측만 보정했다. 재사용 Edit 결과file 도구/self-check·XML/사람/AI 문서·[회고07](retrospectives/2026-10-08-07-ui-presentation.md)를 갱신해 track에 통합한다. 다음 P4는 실제 Red17 예정, 아직 실행0건이며 P5/P6/P7 Temp 초안도 미구현이다. main8ce768d·upm/버전/태그/Release는 보존한다.

@@ -153,3 +153,5 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 2026-10-08 UI P1: source545c342에서 root 수명·표시 handle/token·cleanup·실패/취소·native 파괴 fallback을 구현했다. [현재 근거](validation/ui-system/p1/README.md)는 UI18/18·기존root10/10 실패0/skip0이며 [사람 API](api/UI.md)/[AI API](ai/api/UI.md)를 함께 갱신한다. provider/reuse/HUD/Canvas/input/virtual과 최종 소비/성능/사용자 gate는 후속이며0.0.1배포는 그대로다. 다음은P2 shared 준비와 owner범위의 비활성 clone 재사용이다.
 
 2026-10-08 UI P2 sourcecea4268: explicit provider 공유/source-only 준비·runtime lazy·clone Reuse 구현, [UI Edit14/Play16](validation/ui-system/p2/README.md)30/30 실패0/skip0. [회고06](retrospectives/2026-10-08-06-ui-loading-reuse.md)를 기록했다. 다음 P3는 HUD/parent/Canvas/order/숨김이며 P7 소비/Player/성능/최종 UX는 미실행이다.
+
+2026-10-08 UI P3 source `18666acae25b04c1c63ca49d8c00ca2ee67da308`: HUD 선택·parent tree·Canvas/host 순서·전용 renderer-only 숨김과 보관 구현. [UI48/48](validation/ui-system/p3/README.md) 실패0/skip0, source375·보호6 unchanged. [회고07](retrospectives/2026-10-08-07-ui-presentation.md)를 기록했고 P4 actual input/모달/focus, P5 virtual scroll 이후 P6/P7을 진행한다.
