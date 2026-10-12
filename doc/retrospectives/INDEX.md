@@ -119,3 +119,5 @@
 - 2026-10-08: [11 UIContext P7 통합·소비·성능](2026-10-08-11-ui-validation.md) — 원본624 회귀·두entry sample/graphics 성능 자동 검증 완료, 사용자 수락 대기.
 
 - 2026-10-12: [01 UI compiler 등록 누락 복구](2026-10-12-01-ui-compiler-registration.md) — 원본 컴파일/Console0, UI86/86, 표준 재등록 후 clean compile·reload·Play 유지 확인.
+
+- 2026-10-12: [02 UI 예제 프레임 잔상](2026-10-12-02-ui-sample-frame-clear.md) — 배경 Camera 누락 재현·same-Play 잔상 제거, 두entry 실제Editor 전환 확인·최종수락 대기.

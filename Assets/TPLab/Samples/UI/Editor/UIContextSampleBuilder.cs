@@ -149,6 +149,15 @@ namespace TPLab.Samples.UI.Editor
             InNewScene(path, scene =>
             {
                 var owner = new GameObject("Common UI/Input owner"); owner.SetActive(false);
+                // Overlay UI does not clear the frame; this sample has no gameplay camera.
+                var background = new GameObject("Sample background camera", typeof(Camera));
+                background.transform.SetParent(owner.transform, false);
+                var camera = background.GetComponent<Camera>();
+                camera.clearFlags = CameraClearFlags.SolidColor;
+                camera.backgroundColor = new Color(.02f, .035f, .05f, 1f);
+                camera.cullingMask = 0;
+                camera.depth = -100;
+                camera.orthographic = true;
                 var input = owner.AddComponent<InputManagerInstaller>(); input.Configure(source);
                 var scope = owner.AddComponent<UIContextSampleScopeInstaller>();
                 var ui = owner.AddComponent<UIContextInstaller>();

@@ -1,0 +1,34 @@
+{
+  "sourceBase": "bb4372bb17ef9e471e28ff27f835a1ccb4e1581e",
+  "changedSourceHashes": {
+    "Assets/TPLab/Samples/UI/Editor/UIContextSampleBuilder.cs": "c84c56cf943ccc3aa2a36404fa0b7ef13c84099a38045fc67c2bed586b711e7f",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapAdditive.unity": "51cce585dd6975e6fec53dced3d817cc8cb7aac33ebaaec0d35998d6dd80f4c5",
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapSingle.unity": "9ad5652f33b0b6f37978b03bf325bd596fc876549c1997f4a61d99478c123170"
+  },
+  "protectedCurrentUnchanged": {
+    "Assets/Scenes/InitScene.unity": true,
+    "Assets/Settings/DefaultVolumeProfile.asset": true,
+    "Assets/Settings/Mobile_RPAsset.asset": true,
+    "Assets/TPLab/Samples/Input/SceneTransitions/Settings/SampleInput.inputactions": true,
+    "ProjectSettings/EditorBuildSettings.asset": false,
+    "ProjectSettings/SceneTemplateSettings.json": true
+  },
+  "originalBuildSettingsBackupSha256": "fc19f8b13f7c8e2262a3498e8fc019323abeb1465535da6891ec4f25b1f18af7",
+  "buildSettingsScope": "Temporarily selected Single then restored the five enabled Additive UI review scenes; original review backup retained. Temporary raw file differs from baseline. Not staged.",
+  "ownedMetasUnchanged": {
+    "Assets/TPLab/Samples/UI/Editor/UIContextSampleBuilder.cs": true,
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapAdditive.unity": true,
+    "Assets/TPLab/Samples/UI/Scenes/UIContextBootstrapSingle.unity": true
+  },
+  "sameStateDiagnostic": "No Camera before; solid-color Camera removed old status/popup/cover pixels in the same active Play state",
+  "freshEntryFlows": [
+    "Single: entry Continue, A/B/C, B/C close, Hub-to-Main automatic replacement; Camera retained in DontDestroyOnLoad",
+    "Additive: entry Continue, A/B/C, B/C close, Hub-to-Main automatic replacement; Camera retained in Bootstrap"
+  ],
+  "freshUnitTestCount": 0,
+  "freshPlayerBuildCount": 0,
+  "freshPerformanceCount": 0,
+  "physicalInputAcceptance": false,
+  "manualReviewStillActive": true,
+  "mainMerge": false
+}
