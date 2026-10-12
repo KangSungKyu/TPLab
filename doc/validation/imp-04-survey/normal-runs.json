@@ -1,0 +1,198 @@
+[
+  {
+    "label": "async-root",
+    "result": {
+      "failed": 0,
+      "failures": [],
+      "passed": 15,
+      "passes": [
+        "TPLab.Core.Tests.AsyncSceneRootTests.CancellationDuringReleaseFinishesCleanupBeforeStoppingScene",
+        "TPLab.Core.Tests.AsyncSceneRootTests.CancelledFlowCannotProceedOrRevealAfterLatePreparation",
+        "TPLab.Core.Tests.AsyncSceneRootTests.CoverAndAllPreparationAndScenePresentationAreAwaited",
+        "TPLab.Core.Tests.AsyncSceneRootTests.CoverFailureDoesNotStartSystemsOrScene",
+        "TPLab.Core.Tests.AsyncSceneRootTests.DestructionCancelsWaitersAndLateResultsCannotProceed",
+        "TPLab.Core.Tests.AsyncSceneRootTests.OneWaiterCancellationDoesNotCancelSharedPreparation",
+        "TPLab.Core.Tests.AsyncSceneRootTests.PreparationAndRollbackFailuresAreBothPreserved",
+        "TPLab.Core.Tests.AsyncSceneRootTests.PreparationFailureRollsBackAndKeepsCover",
+        "TPLab.Core.Tests.AsyncSceneRootTests.ReleaseFailureStillCleansOtherSystemsAndKeepsCover",
+        "TPLab.Core.Tests.AsyncSceneRootTests.ReleaseWaitsUnderCoverAndCleansInReverseOrder",
+        "TPLab.Core.Tests.AsyncSceneRootTests.RevealCancellationRestoresCoverWithoutCancelledToken",
+        "TPLab.Core.Tests.AsyncSceneRootTests.RevealFailureRestoresCoverBeforeReporting",
+        "TPLab.Core.Tests.AsyncSceneRootTests.SameFlowRejectsOverlappingOperations",
+        "TPLab.Core.Tests.AsyncSceneRootTests.ShutdownCancelsPreparationAndCannotRunItAgain",
+        "TPLab.Core.Tests.AsyncSceneRootTests.SingletonRegistrationDoesNotAllowEarlySceneProgress"
+      ],
+      "skipped": 0,
+      "total": 15,
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "PlayMode",
+        "filter": "TPLab.Core.Tests.AsyncSceneRootTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 19256,
+        "cliReturnCode": 0,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 19256,
+            "cliReturnCode": 0,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    },
+    "timing": {
+      "filter": "TPLab.Core.Tests.AsyncSceneRootTests",
+      "mode": "PlayMode",
+      "startedUTC": "2026-10-12T06:10:43.565497+00:00",
+      "endedUTC": "2026-10-12T06:10:50.410025+00:00",
+      "driverWallSeconds": 6.84379249997437,
+      "measurementIncludes": "ready probe, Console, IPC, domain reload, test execution, result retrieval",
+      "exitCode": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "tools/run_unity_tests.py",
+        "--project",
+        "C:\\Users\\PC\\Projects\\TPLab",
+        "--mode",
+        "PlayMode",
+        "--filter",
+        "TPLab.Core.Tests.AsyncSceneRootTests",
+        "--output",
+        "Temp\\imp-04-survey\\async-root-play.json"
+      ]
+    }
+  },
+  {
+    "label": "input-rebinding",
+    "result": {
+      "failed": 0,
+      "failures": [],
+      "passed": 11,
+      "passes": [
+        "TPLab.Core.Input.Tests.InputRebindingTests.CancelKeyAndOwnerCancellationAreDistinct",
+        "TPLab.Core.Input.Tests.InputRebindingTests.CompositeRootRejectsWhilePartKeepsStableId",
+        "TPLab.Core.Input.Tests.InputRebindingTests.ConcurrentMutationAndInvalidRequestsHaveNoSideEffects",
+        "TPLab.Core.Input.Tests.InputRebindingTests.OwnerDisposalWhileAcquiringBlockIsCancellation",
+        "TPLab.Core.Input.Tests.InputRebindingTests.OwnerShutdownWhileAcquiringBlockIsCancellation",
+        "TPLab.Core.Input.Tests.InputRebindingTests.RemovedCandidateDeviceCancelsWithoutApplying",
+        "TPLab.Core.Input.Tests.InputRebindingTests.SameMapConflictIsRejectedWithoutMutation",
+        "TPLab.Core.Input.Tests.InputRebindingTests.SelectedButtonWaitsForReleaseAndRestoresCurrentModal",
+        "TPLab.Core.Input.Tests.InputRebindingTests.ShutdownSharesDrainAndRejectsLateCommit",
+        "TPLab.Core.Input.Tests.InputRebindingTests.TimeoutIncludesReleaseWait",
+        "TPLab.Core.Input.Tests.InputRebindingTests.ValidatorCanReplaceConflictPolicyAndExceptionsLeaveNoOverride"
+      ],
+      "skipped": 0,
+      "total": 11,
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "PlayMode",
+        "filter": "TPLab.Core.Input.Tests.InputRebindingTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 39760,
+        "cliReturnCode": 0,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 39760,
+            "cliReturnCode": 0,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    },
+    "timing": {
+      "filter": "TPLab.Core.Input.Tests.InputRebindingTests",
+      "mode": "PlayMode",
+      "startedUTC": "2026-10-12T06:11:45.168350+00:00",
+      "endedUTC": "2026-10-12T06:11:52.300392+00:00",
+      "driverWallSeconds": 7.131525699980557,
+      "measurementIncludes": "ready probe, Console, IPC, domain reload, test execution, result retrieval",
+      "exitCode": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "tools/run_unity_tests.py",
+        "--project",
+        "C:\\Users\\PC\\Projects\\TPLab",
+        "--mode",
+        "PlayMode",
+        "--filter",
+        "TPLab.Core.Input.Tests.InputRebindingTests",
+        "--output",
+        "Temp\\imp-04-survey\\input-rebinding-play.json"
+      ]
+    }
+  },
+  {
+    "label": "resource-manager",
+    "result": {
+      "failed": 0,
+      "failures": [],
+      "passed": 20,
+      "passes": [
+        "TPLab.Core.Tests.ResourceManagerTests.AllCancelledWaitersStillLeaveOwnerCache",
+        "TPLab.Core.Tests.ResourceManagerTests.BackgroundThreadCallsDoNotMutateOwner",
+        "TPLab.Core.Tests.ResourceManagerTests.CallerCancellationDoesNotCancelSharedLoad",
+        "TPLab.Core.Tests.ResourceManagerTests.DataTablesArePublishedBeforeSceneProceedAndDisposedBeforeResource",
+        "TPLab.Core.Tests.ResourceManagerTests.FailedLoadIsRemovedAndCanRetry",
+        "TPLab.Core.Tests.ResourceManagerTests.InitializationDispatchFailureCanRetry",
+        "TPLab.Core.Tests.ResourceManagerTests.InitializationIsSharedAndOwnerTerminationIsPermanent",
+        "TPLab.Core.Tests.ResourceManagerTests.InvalidCsvStopsSceneKeepsCoverAndReleasesResource",
+        "TPLab.Core.Tests.ResourceManagerTests.InvalidKeysTypesAndPreCancellationDoNotDispatch",
+        "TPLab.Core.Tests.ResourceManagerTests.InvalidStandardIdxKeepsCoverAndReleasesResource",
+        "TPLab.Core.Tests.ResourceManagerTests.PreparationCallerCancellationKeepsCoverUntilOwnerShutdown",
+        "TPLab.Core.Tests.ResourceManagerTests.PreparationFailureKeepsCoverAndReleasesOwnedResources",
+        "TPLab.Core.Tests.ResourceManagerTests.RootDestructionCancelsLoadAndReleasesLateCompletion",
+        "TPLab.Core.Tests.ResourceManagerTests.SceneOwnedRootWaitsForRequiredAssetBeforeRevealing",
+        "TPLab.Core.Tests.ResourceManagerTests.SeparateOwnersKeepIndependentNativeReferences",
+        "TPLab.Core.Tests.ResourceManagerTests.SharedLoadCachesOneOwnedHandle",
+        "TPLab.Core.Tests.ResourceManagerTests.ShutdownCancelsWaitersAndDrainsLateHandle",
+        "TPLab.Core.Tests.ResourceManagerTests.ShutdownDuringInitializationCannotPublishReadiness",
+        "TPLab.Core.Tests.ResourceManagerTests.SingletonRootDisposesPrefabPoolBeforeAssetHandle",
+        "TPLab.Core.Tests.ResourceManagerTests.StandardDataTablesReadyBeforeSingletonSceneProceed"
+      ],
+      "skipped": 0,
+      "total": 20,
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "PlayMode",
+        "filter": "TPLab.Core.Tests.ResourceManagerTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 44224,
+        "cliReturnCode": 0,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 44224,
+            "cliReturnCode": 0,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    },
+    "timing": {
+      "filter": "TPLab.Core.Tests.ResourceManagerTests",
+      "mode": "PlayMode",
+      "startedUTC": "2026-10-12T06:11:52.300981+00:00",
+      "endedUTC": "2026-10-12T06:12:00.086724+00:00",
+      "driverWallSeconds": 7.785238600044977,
+      "measurementIncludes": "ready probe, Console, IPC, domain reload, test execution, result retrieval",
+      "exitCode": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "tools/run_unity_tests.py",
+        "--project",
+        "C:\\Users\\PC\\Projects\\TPLab",
+        "--mode",
+        "PlayMode",
+        "--filter",
+        "TPLab.Core.Tests.ResourceManagerTests",
+        "--output",
+        "Temp\\imp-04-survey\\resource-manager-play.json"
+      ]
+    }
+  }
+]
