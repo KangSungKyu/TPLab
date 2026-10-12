@@ -301,4 +301,4 @@ native-only `SceneLoaderPlayModeTests` 14개는 explicit TCS 62개에 포함하�
 - 현지 전체 EditMode/PlayMode 회귀·EditMode 실험·case별 새 duration·Player·최종 제품 UX·IL2CPP/다른 기기는 미실행이다. 선택46개 결과를 전체 회귀로 확대하지 않는다.
 - 최종 문서 HEAD 규칙 검사/Actions와 PR 링크는 PR 본문·완료 보고에 기록한다. source 기준은 위 main이며 문서 자체 최종 SHA를 실행 source로 혼동하지 않는다.
 - 필요한 사용자 결정: (a) explicit62개/추가 provider·continuation·native·Input 중 적용할 정확한 메서드 범위, (b) helper/개별 속성/혼합 방식, (c) 그룹별 timeout 값. 권장 혼합·30초/필요한 native60초는 제안이다. UI는 제외한다.
-- 백로그 IMP-04는 1단계 조사·실험을 완료한 진행 상태다. 적용·값 설정과 main 병합은 사용자 범위 지정/확인 후이며 IMP-01 등 다음 큐 항목은 시작하지 않는다.
+- 백로그 IMP-04는 1단계 조사·실험을 완료한 진행 상태다. 2026-10-12 사용자가 [PR #5](https://github.com/KangSungKyu/TPLab/pull/5)의 조사 문서 병합을 승인했다. 기존 테스트 적용·값 설정은 별도 사용자 범위 지정/확인 후이며 IMP-01 등 다음 큐 항목은 시작하지 않는다.
