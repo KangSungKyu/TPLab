@@ -4,7 +4,7 @@
 
 **SourceRevision:** `901d56c582691d55f4aa9698e91be57231328635`
 **ImplementationStatus:** Implemented
-**ValidationStatus:** Verified for IMP-01 in Windows Mono Editor — 자동 검증 완료·사용자 수락 대기. 이번 소비 프로젝트/Player는 미실행입니다. 이전 실행은 역사적 증거입니다. Unity `6000.3.18f1` / Windows Mono에서 확인했습니다. 기록된 테스트 범위만 근거로 삼으며 모든 Unity 버전, 백엔드, 플랫폼의 지원을 뜻하지 않습니다.
+**ValidationStatus:** Verified for IMP-01 in Windows Mono Editor — 자동 검증 완료·2026-10-12 사용자 수락 완료(PR #7). 이번 소비 프로젝트/Player는 미실행입니다. 이전 실행은 역사적 증거입니다. Unity `6000.3.18f1` / Windows Mono에서 확인했습니다. 기록된 테스트 범위만 근거로 삼으며 모든 Unity 버전, 백엔드, 플랫폼의 지원을 뜻하지 않습니다.
 
 ## `ObjectPool<T>`
 
@@ -102,7 +102,7 @@ pool.Dispose();
 
 ## 검증 근거와 한계
 
-- IMP-01: 실제 Red 18개 중 예상 실패1 → Green Prefab18/18·기존generic24/24·보충15/15, 초기 전체 Edit334/334·Play307/307 이후 추가 경계3개를 검증했고, 최종 전체 Edit335/335·Play309/309, fail/skip0. 워밍업 뒤 재사용/정원 점검/죽은 슬롯 회복 두 GC 테스트가 각1,000회 0바이트 조건을 통과했습니다. [IMP-01 검증 기록](../validation/imp-01/README.md)의 범위·raw 결과·한계를 확인하세요. 살아 있는 대여·isAlive 생략은 baseline/현재 모두 PASS, dead inactive는 같은 호출 교체를 baseline FAIL/현재 PASS로 사후 비교했습니다. 공개 Prune은 보류(소비 프로젝트의 즉시 정리 필요에 따라 별도 결정)입니다. 사용자 수락과 새 소비 프로젝트/Player 검증은 별도입니다. 아래 과거 결과는 현재 변경의 Green 증거가 아닙니다.
+- IMP-01: 실제 Red 18개 중 예상 실패1 → Green Prefab18/18·기존generic24/24·보충15/15, 초기 전체 Edit334/334·Play307/307 이후 추가 경계3개를 검증했고, 최종 전체 Edit335/335·Play309/309, fail/skip0. 워밍업 뒤 재사용/정원 점검/죽은 슬롯 회복 두 GC 테스트가 각1,000회 0바이트 조건을 통과했습니다. [IMP-01 검증 기록](../validation/imp-01/README.md)의 범위·raw 결과·한계를 확인하세요. 살아 있는 대여·isAlive 생략은 baseline/현재 모두 PASS, dead inactive는 같은 호출 교체를 baseline FAIL/현재 PASS로 사후 비교했습니다. 공개 Prune은 보류(소비 프로젝트의 즉시 정리 필요에 따라 별도 결정)입니다. 2026-10-12 사용자 수락을 완료했으며 새 소비 프로젝트/Player 검증은 별도입니다. 아래 과거 결과는 현재 변경의 Green 증거가 아닙니다.
 
 - 이전 source revision `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`의 역사적 전체 회귀: [EditMode 258/258](../validation/input-system/p4/full-EditMode.json), [PlayMode 217/217](../validation/input-system/p4/full-PlayMode.json). 전체 실행에는 `ObjectPool<T>`와 `PrefabPool` 검사가 포함됩니다. 실행 환경·범위는 [P4 검증 기록](../validation/input-system/p4/README.md)을 참조하세요.
 - 이전 Input 포함 소비 프로젝트는 별도 Windows Mono Editor/Player에서 성공했습니다. Player의 pool 재사용 관찰은 **generic `ObjectPool<T>`** 경로입니다. [`최종 소비 결과`](../validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json).

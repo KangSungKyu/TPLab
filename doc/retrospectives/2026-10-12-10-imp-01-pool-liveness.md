@@ -43,3 +43,9 @@
 - 읽기 전용 verifier(/root/imp04_survey_verification, gpt-6.1-sol/high)는 main위치·보존형vs변경형·newtests·상태6곳을 검토했고 중요문제없음. 부모만 Unity/Git을 조작했다. 하위 추가실행없음.
 - Counts의 지연 한계 유지·공개Prune은 별도 사용자 결정으로 보류. 신규Player/IL2CPP/소비설치/다른플랫폼/시각UX·예제는 미실행. 최종HEAD 규칙/Actions는 PR/완료보고로 확인한다. 병합/forcepush/branch삭제·IMP02시작은 이 요청에서 수행하지 않는다. 새 shutdown/절전 권한도 없다.
 - 이번 Temp/imp-01-followup 증거는 영속validation JSON으로 보존하고 사용한 명시파일만 완료후 정리한다. 예전Temp/사용자작업은 건드리지 않는다.
+
+## 2026-10-12 PR #7 승인·통합
+
+- 사용자가 최종 후보 b9f25bf의 병합을 명시 승인했다. 승인 tip의 code/test9·dirty6 hash를 재확인했고 필수335/309와 동일하다. 문서7개에 수락·백로그 상태·색인을 반영한다. code/test/config 변경이 없어 추가 Unity 실행은 없으며 이를 새 테스트 통과로 세지 않는다.
+- 수락 기록을 포함한 final tip의 규칙·Actions 성공 후 일반 merge로 원본 이력을 보존하고 로컬/원격main 일치·tip 도달성을 확인한다. 해당 branch만 양쪽 삭제한다. 실제 final tip/main SHA·검사 URL·삭제 결과는 PR #7/최종 보고에서 확인한다.
+- 승인 후 자동 진행 규칙(백로그33/55)에 따라 통합·정리가 끝나면 IMP-02 D02=TryReturn만 새 main 브랜치로 시작한다. 이전 범위의 병합 금지는 이 새로운 통합 승인이 대체하며 다른 IMP의 수락을 뜻하지 않는다. Prune·종료/절전은 추가 승인하지 않았다.
