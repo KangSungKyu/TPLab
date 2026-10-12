@@ -24,7 +24,7 @@ namespace TPLab.Core.Pooling
         /// <summary>Maximum total owned instances, including outstanding loans.</summary>
         public int Capacity { get; }
 
-        /// <summary>Current tracked owned count; does not check liveness or allocate.</summary>
+        /// <summary>Current tracked owned count; does not check liveness or allocate. External death remains counted until lazy rent checks.</summary>
         public int CountOwned => _owned.Count;
 
         /// <summary>Current tracked loan count; does not check liveness or allocate. External death remains counted until lazy rent checks.</summary>

@@ -26,7 +26,7 @@ namespace TPLab.Core.Pooling
         /// <summary>Tracked owned clone count; external destruction remains counted until lazy rent checks.</summary>
         public int CountOwned => _pool.CountOwned;
 
-        /// <summary>Tracked borrowed clone count; getter does not check Unity liveness or allocate.</summary>
+        /// <summary>Tracked borrowed clone count; getter does not check Unity liveness or allocate. External destruction remains counted until lazy rent checks.</summary>
         public int CountRented => _pool.CountRented;
 
         /// <summary>Tracked inactive clone count; getter does not check Unity liveness or allocate.</summary>
