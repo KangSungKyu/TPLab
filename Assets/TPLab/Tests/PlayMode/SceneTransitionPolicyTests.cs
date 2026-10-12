@@ -433,6 +433,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator LateFalseBeforeSingleReleaseDoesNotShutdownOrLoad() => UniTask.ToCoroutine(async () =>
         {
             await EnterAsync(single: true);
@@ -454,6 +455,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator LateFalseBeforeRemovalRetainsEntirePreparedSubtree() => UniTask.ToCoroutine(async () =>
         {
             await EnterAsync();

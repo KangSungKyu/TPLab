@@ -71,6 +71,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator DirectManagerSharesWaitWithoutCancellingItsOwner() => UniTask.ToCoroutine(async () =>
         {
             CreateBootstrap(LoadSceneMode.Additive);

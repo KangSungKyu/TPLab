@@ -1,0 +1,557 @@
+{
+  "sourceRevision": "d6163084bb2d7dc0420941ad9e35555ef900cab5",
+  "targetCount": 24,
+  "excluded": [],
+  "timeoutMilliseconds": 30000,
+  "classFilters": [
+    "TPLab.Core.Tests.AsyncSceneRootTests",
+    "TPLab.Core.Tests.GameSceneReplacementTests",
+    "TPLab.Core.Tests.GameSceneAreaTests",
+    "TPLab.Core.Tests.BootstrapPlayModeTests",
+    "TPLab.Core.Tests.GameSceneEntryTests",
+    "TPLab.Core.Tests.SceneLoaderPlayModeTests",
+    "TPLab.Core.Tests.SceneTransitionPolicyTests"
+  ],
+  "methods": [
+    {
+      "class": "AsyncSceneRootTests",
+      "method": "CoverAndAllPreparationAndScenePresentationAreAwaited",
+      "fullName": "TPLab.Core.Tests.AsyncSceneRootTests.CoverAndAllPreparationAndScenePresentationAreAwaited",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs",
+      "beforeDeclarationLine": 128,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "CheckPreparation().ToCoroutine();",
+      "afterDeclarationLine": 129,
+      "timeoutAttributeLine": 128,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "AsyncSceneRootTests",
+      "method": "ReleaseWaitsUnderCoverAndCleansInReverseOrder",
+      "fullName": "TPLab.Core.Tests.AsyncSceneRootTests.ReleaseWaitsUnderCoverAndCleansInReverseOrder",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs",
+      "beforeDeclarationLine": 158,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "CheckRelease().ToCoroutine();",
+      "afterDeclarationLine": 160,
+      "timeoutAttributeLine": 159,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "AsyncSceneRootTests",
+      "method": "SingletonRegistrationDoesNotAllowEarlySceneProgress",
+      "fullName": "TPLab.Core.Tests.AsyncSceneRootTests.SingletonRegistrationDoesNotAllowEarlySceneProgress",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs",
+      "beforeDeclarationLine": 320,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "CheckSingleton().ToCoroutine();",
+      "afterDeclarationLine": 323,
+      "timeoutAttributeLine": 322,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneReplacementTests",
+      "method": "SingleWaitsForOldGracefulShutdownBeforeNativeLoad",
+      "fullName": "TPLab.Core.Tests.GameSceneReplacementTests.SingleWaitsForOldGracefulShutdownBeforeNativeLoad",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneReplacementTests.cs",
+      "beforeDeclarationLine": 131,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 132,
+      "timeoutAttributeLine": 131,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneReplacementTests",
+      "method": "OwnerCancellationWaitsForLateCandidateThenPreservesOldRoot",
+      "fullName": "TPLab.Core.Tests.GameSceneReplacementTests.OwnerCancellationWaitsForLateCandidateThenPreservesOldRoot",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneReplacementTests.cs",
+      "beforeDeclarationLine": 201,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 203,
+      "timeoutAttributeLine": 202,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneReplacementTests",
+      "method": "ShutdownSharesWaitForLateCandidateAndCleansEveryOwnedScene",
+      "fullName": "TPLab.Core.Tests.GameSceneReplacementTests.ShutdownSharesWaitForLateCandidateAndCleansEveryOwnedScene",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneReplacementTests.cs",
+      "beforeDeclarationLine": 224,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 227,
+      "timeoutAttributeLine": 226,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneReplacementTests",
+      "method": "CallerCancellationStopsOnlyItsReplacementWait",
+      "fullName": "TPLab.Core.Tests.GameSceneReplacementTests.CallerCancellationStopsOnlyItsReplacementWait",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneReplacementTests.cs",
+      "beforeDeclarationLine": 247,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 251,
+      "timeoutAttributeLine": 250,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneReplacementTests",
+      "method": "CompletedOperationAwaiterCanImmediatelyStartAndCancelTheNextOperation",
+      "fullName": "TPLab.Core.Tests.GameSceneReplacementTests.CompletedOperationAwaiterCanImmediatelyStartAndCancelTheNextOperation",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneReplacementTests.cs",
+      "beforeDeclarationLine": 442,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 447,
+      "timeoutAttributeLine": 446,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneAreaTests",
+      "method": "PendingSameRemovalSharesResultAfterAuthorityValidationAndCallerCancellation",
+      "fullName": "TPLab.Core.Tests.GameSceneAreaTests.PendingSameRemovalSharesResultAfterAuthorityValidationAndCallerCancellation",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs",
+      "beforeDeclarationLine": 226,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 227,
+      "timeoutAttributeLine": 226,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneAreaTests",
+      "method": "OtherCommandsAreRejectedDuringRemovalWithoutEffects",
+      "fullName": "TPLab.Core.Tests.GameSceneAreaTests.OtherCommandsAreRejectedDuringRemovalWithoutEffects",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs",
+      "beforeDeclarationLine": 260,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 262,
+      "timeoutAttributeLine": 261,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneAreaTests",
+      "method": "OwnerCancellationWaitsForLateAddedCandidateAndPreservesRegisteredTree",
+      "fullName": "TPLab.Core.Tests.GameSceneAreaTests.OwnerCancellationWaitsForLateAddedCandidateAndPreservesRegisteredTree",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs",
+      "beforeDeclarationLine": 304,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 307,
+      "timeoutAttributeLine": 306,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneAreaTests",
+      "method": "ShutdownWaitsForLateAddedCandidateAndThenReleasesRegisteredTree",
+      "fullName": "TPLab.Core.Tests.GameSceneAreaTests.ShutdownWaitsForLateAddedCandidateAndThenReleasesRegisteredTree",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs",
+      "beforeDeclarationLine": 369,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 373,
+      "timeoutAttributeLine": 372,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneAreaTests",
+      "method": "OwnerCancellationDuringRemovalWaitsForEntireBegunSubtreeCleanup",
+      "fullName": "TPLab.Core.Tests.GameSceneAreaTests.OwnerCancellationDuringRemovalWaitsForEntireBegunSubtreeCleanup",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs",
+      "beforeDeclarationLine": 459,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 464,
+      "timeoutAttributeLine": 463,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneAreaTests",
+      "method": "SingleCancellationDuringDescendantReleaseFinishesGracefulTreeWithoutNativeLoad",
+      "fullName": "TPLab.Core.Tests.GameSceneAreaTests.SingleCancellationDuringDescendantReleaseFinishesGracefulTreeWithoutNativeLoad",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs",
+      "beforeDeclarationLine": 483,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 489,
+      "timeoutAttributeLine": 488,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "BootstrapPlayModeTests",
+      "method": "CommonInstallerReentryIsRejectedAfterAsynchronousCover",
+      "fullName": "TPLab.Core.Tests.BootstrapPlayModeTests.CommonInstallerReentryIsRejectedAfterAsynchronousCover",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/BootstrapPlayModeTests.cs",
+      "beforeDeclarationLine": 112,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 113,
+      "timeoutAttributeLine": 112,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "BootstrapPlayModeTests",
+      "method": "CallerCancellationDoesNotCancelSharedEntry",
+      "fullName": "TPLab.Core.Tests.BootstrapPlayModeTests.CallerCancellationDoesNotCancelSharedEntry",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/BootstrapPlayModeTests.cs",
+      "beforeDeclarationLine": 404,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 406,
+      "timeoutAttributeLine": 405,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "GameSceneEntryTests",
+      "method": "DirectManagerSharesWaitWithoutCancellingItsOwner",
+      "fullName": "TPLab.Core.Tests.GameSceneEntryTests.DirectManagerSharesWaitWithoutCancellingItsOwner",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/GameSceneEntryTests.cs",
+      "beforeDeclarationLine": 74,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 75,
+      "timeoutAttributeLine": 74,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneLoaderPlayModeTests",
+      "method": "ExplicitSourceChoosesOnlyItsInjectedLoader",
+      "fullName": "TPLab.Core.Tests.SceneLoaderPlayModeTests.ExplicitSourceChoosesOnlyItsInjectedLoader",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs",
+      "beforeDeclarationLine": 386,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 387,
+      "timeoutAttributeLine": 386,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneLoaderPlayModeTests",
+      "method": "OwnerCancellationWaitsForLateNativeResultAndCleansIt",
+      "fullName": "TPLab.Core.Tests.SceneLoaderPlayModeTests.OwnerCancellationWaitsForLateNativeResultAndCleansIt",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs",
+      "beforeDeclarationLine": 404,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 406,
+      "timeoutAttributeLine": 405,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneLoaderPlayModeTests",
+      "method": "CallerCancellationLeavesNativeOwnerAndResultAlive",
+      "fullName": "TPLab.Core.Tests.SceneLoaderPlayModeTests.CallerCancellationLeavesNativeOwnerAndResultAlive",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs",
+      "beforeDeclarationLine": 423,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 426,
+      "timeoutAttributeLine": 425,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneLoaderPlayModeTests",
+      "method": "WrongSceneResultIsRetainedThenCleanedWithoutReveal",
+      "fullName": "TPLab.Core.Tests.SceneLoaderPlayModeTests.WrongSceneResultIsRetainedThenCleanedWithoutReveal",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs",
+      "beforeDeclarationLine": 443,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "CheckWrongResult(false).ToCoroutine();",
+      "afterDeclarationLine": 447,
+      "timeoutAttributeLine": 446,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneLoaderPlayModeTests",
+      "method": "WrongTargetResultIsRetainedThenCleanedWithoutReveal",
+      "fullName": "TPLab.Core.Tests.SceneLoaderPlayModeTests.WrongTargetResultIsRetainedThenCleanedWithoutReveal",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs",
+      "beforeDeclarationLine": 446,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "CheckWrongResult(true).ToCoroutine();",
+      "afterDeclarationLine": 451,
+      "timeoutAttributeLine": 450,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneTransitionPolicyTests",
+      "method": "LateFalseBeforeSingleReleaseDoesNotShutdownOrLoad",
+      "fullName": "TPLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeSingleReleaseDoesNotShutdownOrLoad",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneTransitionPolicyTests.cs",
+      "beforeDeclarationLine": 436,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 437,
+      "timeoutAttributeLine": 436,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    },
+    {
+      "class": "SceneTransitionPolicyTests",
+      "method": "LateFalseBeforeRemovalRetainsEntirePreparedSubtree",
+      "fullName": "TPLab.Core.Tests.SceneTransitionPolicyTests.LateFalseBeforeRemovalRetainsEntirePreparedSubtree",
+      "sourcePath": "Assets/TPLab/Tests/PlayMode/SceneTransitionPolicyTests.cs",
+      "beforeDeclarationLine": 457,
+      "returnType": "IEnumerator",
+      "asyncDeclaration": false,
+      "attributesBefore": [
+        "UnityTest"
+      ],
+      "hasTestCase": false,
+      "hasTimeoutBefore": false,
+      "eligible": true,
+      "adapterExpression": "UniTask.ToCoroutine(async () =>",
+      "afterDeclarationLine": 459,
+      "timeoutAttributeLine": 458,
+      "attributesAfter": [
+        "UnityTest",
+        "Timeout(30000)"
+      ]
+    }
+  ],
+  "attributeAdditionsByFile": {
+    "Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs": 3,
+    "Assets/TPLab/Tests/PlayMode/BootstrapPlayModeTests.cs": 2,
+    "Assets/TPLab/Tests/PlayMode/GameSceneAreaTests.cs": 6,
+    "Assets/TPLab/Tests/PlayMode/GameSceneEntryTests.cs": 1,
+    "Assets/TPLab/Tests/PlayMode/GameSceneReplacementTests.cs": 5,
+    "Assets/TPLab/Tests/PlayMode/SceneLoaderPlayModeTests.cs": 5,
+    "Assets/TPLab/Tests/PlayMode/SceneTransitionPolicyTests.cs": 2
+  },
+  "bodyAndHelperRawBytesUnchangedAfterRemovingAdditions": true,
+  "backlogAttachmentSha256": "9ffcd83ce8f103d16346ff22ef939c3669bf263eb6e5d5184b5de38efafc5591",
+  "backlogCopiedBytesExactly": true
+}

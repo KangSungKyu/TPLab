@@ -1,0 +1,7 @@
+{
+  "returnCode": 0,
+  "output": "{ project = C:/Users/PC/Projects/TPLab/Assets, isPlaying = False, isCompiling = False, isUpdating = False, timeoutAttributes30000Loaded = 24 }\n",
+  "editorPid": 24376,
+  "targetCount": 24,
+  "compiledTimeoutMilliseconds": 30000
+}
