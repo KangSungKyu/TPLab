@@ -23,13 +23,13 @@ namespace TPLab.Core.Pooling
         /// <summary>Maximum number of owned clones, both rented and inactive.</summary>
         public int Capacity => _pool.Capacity;
 
-        /// <summary>Number of clones currently owned by this pool.</summary>
+        /// <summary>Tracked owned clone count; external destruction remains counted until lazy rent checks.</summary>
         public int CountOwned => _pool.CountOwned;
 
-        /// <summary>Number of clones currently borrowed by consumers.</summary>
+        /// <summary>Tracked borrowed clone count; getter does not check Unity liveness or allocate.</summary>
         public int CountRented => _pool.CountRented;
 
-        /// <summary>Number of clones available for reuse.</summary>
+        /// <summary>Tracked inactive clone count; getter does not check Unity liveness or allocate.</summary>
         public int CountInactive => _pool.CountInactive;
 
         /// <summary>Whether the pool has permanently ended its lifetime.</summary>
@@ -66,7 +66,7 @@ namespace TPLab.Core.Pooling
             _storageRoot = new GameObject("PrefabPool");
             _storageRoot.SetActive(false);
             _storageRoot.transform.SetParent(parent, false);
-            _pool = new ObjectPool<GameObject>(CreateInstance, capacity, RentInstance, ReturnInstance, DestroyInstance);
+            _pool = new ObjectPool<GameObject>(CreateInstance, capacity, RentInstance, ReturnInstance, DestroyInstance, instance => instance != null);
         }
 
         /// <summary>Reuses or creates a clone, configures it, then sets it active.</summary>
@@ -74,7 +74,7 @@ namespace TPLab.Core.Pooling
         /// <returns>False only when all owned slots are rented; otherwise true.</returns>
         /// <exception cref="ObjectDisposedException">The pool has been disposed.</exception>
         /// <exception cref="InvalidOperationException">Reentry, missing source/parent/root, or a destroyed clone.</exception>
-        /// <remarks>Callback exceptions propagate after the affected clone is discarded. An inactive parent stays inactive.</remarks>
+        /// <remarks>Dead inactive clones are skipped; when capacity is full without reusable clones, externally destroyed loans free their slots. Counts are lazy. Callback exceptions propagate after discard. An inactive parent stays inactive.</remarks>
         public bool TryRent(out GameObject instance)
         {
             instance = null;

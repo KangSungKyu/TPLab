@@ -15,6 +15,8 @@ namespace TPLab.Core.Pooling
         private readonly Action<T> _onRent;
         private readonly Action<T> _onReturn;
         private readonly Action<T> _onDestroy;
+        private readonly Func<T, bool> _isAlive;
+        private readonly List<T> _deadInstances;
         private readonly Stack<T> _inactive = new Stack<T>();
         private readonly Dictionary<T, bool> _owned = new Dictionary<T, bool>(new ReferenceComparer());
         private bool _isBusy;
@@ -22,13 +24,13 @@ namespace TPLab.Core.Pooling
         /// <summary>Maximum total owned instances, including outstanding loans.</summary>
         public int Capacity { get; }
 
-        /// <summary>Current total owned instance count.</summary>
+        /// <summary>Current tracked owned count; does not check liveness or allocate.</summary>
         public int CountOwned => _owned.Count;
 
-        /// <summary>Current outstanding loan count.</summary>
+        /// <summary>Current tracked loan count; does not check liveness or allocate. External death remains counted until lazy rent checks.</summary>
         public int CountRented => _owned.Count - _inactive.Count;
 
-        /// <summary>Current instance count available for reuse.</summary>
+        /// <summary>Current tracked inactive count; does not check liveness or allocate.</summary>
         public int CountInactive => _inactive.Count;
 
         /// <summary>Whether this pool has permanently ended its lifetime.</summary>
@@ -40,11 +42,12 @@ namespace TPLab.Core.Pooling
         /// <param name="onRent">Optional preparation before handing the instance to a consumer.</param>
         /// <param name="onReturn">Optional reset before placing the instance in inactive storage.</param>
         /// <param name="onDestroy">Optional cleanup for discarded or disposed instances; provide it for owned external resources.</param>
+        /// <param name="isAlive">Optional liveness policy checked during rent under the mutation guard; null preserves unchecked reuse. Must not mutate this pool.</param>
         /// <exception cref="ArgumentNullException">The factory is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Capacity is not positive.</exception>
         /// <remarks>No implicit IDisposable call is made; the caller explicitly supplies the appropriate cleanup policy.</remarks>
         public ObjectPool(Func<T> createInstance, int capacity, Action<T> onRent = null,
-            Action<T> onReturn = null, Action<T> onDestroy = null)
+            Action<T> onReturn = null, Action<T> onDestroy = null, Func<T, bool> isAlive = null)
         {
             if (createInstance == null)
             {
@@ -58,6 +61,8 @@ namespace TPLab.Core.Pooling
             _onRent = onRent;
             _onReturn = onReturn;
             _onDestroy = onDestroy;
+            _isAlive = isAlive;
+            _deadInstances = isAlive == null ? null : new List<T>(capacity);
             Capacity = capacity;
         }
 
@@ -66,8 +71,8 @@ namespace TPLab.Core.Pooling
         /// <returns>False only when all available capacity is rented; otherwise true.</returns>
         /// <exception cref="ObjectDisposedException">The pool is closed.</exception>
         /// <exception cref="InvalidOperationException">Mutation reentry or an invalid factory result.</exception>
-        /// <exception cref="AggregateException">Both preparation and failed-instance cleanup throw.</exception>
-        /// <remarks>Factory errors propagate. Preparation failure discards the affected instance and restores capacity.</remarks>
+        /// <exception cref="AggregateException">Preparation and cleanup both fail, or dead-instance cleanup fails; all detected dead cleanup is attempted.</exception>
+        /// <remarks>Factory errors propagate. Dead inactive entries are skipped in LIFO order. Owned loans are checked only when reuse is unavailable and capacity is full. Inactive predicate failure preserves the Peek candidate; sweep predicate failure preserves unswept ownership. Dead or predicate-failing factory results use owned failure cleanup. Preparation failure restores capacity. Warmed reuse and capacity checks add no allocation; creation and caller callbacks may allocate.</remarks>
         public bool TryRent(out T instance)
         {
             instance = null;
@@ -76,6 +81,7 @@ namespace TPLab.Core.Pooling
             bool ownsCandidate = false;
             try
             {
+                RemoveDeadInactive();
                 if (_inactive.Count > 0)
                 {
                     candidate = _inactive.Pop();
@@ -85,7 +91,11 @@ namespace TPLab.Core.Pooling
                 {
                     if (_owned.Count >= Capacity)
                     {
-                        return false;
+                        RemoveDeadLoans();
+                        if (_owned.Count >= Capacity)
+                        {
+                            return false;
+                        }
                     }
                     candidate = _createInstance();
                     if (candidate == null || _owned.ContainsKey(candidate))
@@ -93,6 +103,11 @@ namespace TPLab.Core.Pooling
                         throw new InvalidOperationException("Factory must return a new non-null instance owned exclusively by this pool.");
                     }
                     _owned.Add(candidate, true);
+                    ownsCandidate = true;
+                    if (_isAlive != null && !_isAlive(candidate))
+                    {
+                        throw new InvalidOperationException("Factory must return a live instance.");
+                    }
                 }
                 ownsCandidate = true;
                 _onRent?.Invoke(candidate);
@@ -195,6 +210,96 @@ namespace TPLab.Core.Pooling
             if (failures != null)
             {
                 throw new AggregateException("Pool cleanup failed for one or more instances.", failures);
+            }
+        }
+
+        private void RemoveDeadInactive()
+        {
+            if (_isAlive == null)
+            {
+                return;
+            }
+            List<Exception> failures = null;
+            try
+            {
+                while (_inactive.Count > 0)
+                {
+                    // Evaluate before popping: a throwing or reentrant predicate preserves this candidate.
+                    var candidate = _inactive.Peek();
+                    if (_isAlive(candidate))
+                    {
+                        break;
+                    }
+                    _inactive.Pop();
+                    _owned.Remove(candidate);
+                    CleanupDeadInstance(candidate, ref failures);
+                }
+            }
+            catch (Exception failure)
+            {
+                if (failures == null)
+                {
+                    throw;
+                }
+                failures.Add(failure);
+                throw new AggregateException("Pool liveness check and cleanup failed.", failures);
+            }
+            if (failures != null)
+            {
+                throw new AggregateException("Pool dead-instance cleanup failed.", failures);
+            }
+        }
+
+        private void RemoveDeadLoans()
+        {
+            if (_isAlive == null)
+            {
+                return;
+            }
+            _deadInstances.Clear();
+            try
+            {
+                // Collect first so predicate failure leaves ownership unchanged. Concrete enumeration does not box.
+                foreach (var entry in _owned)
+                {
+                    if (!_isAlive(entry.Key))
+                    {
+                        _deadInstances.Add(entry.Key);
+                    }
+                }
+                for (int i = 0; i < _deadInstances.Count; i++)
+                {
+                    _owned.Remove(_deadInstances[i]);
+                }
+                List<Exception> failures = null;
+                for (int i = 0; i < _deadInstances.Count; i++)
+                {
+                    CleanupDeadInstance(_deadInstances[i], ref failures);
+                }
+                if (failures != null)
+                {
+                    throw new AggregateException("Pool dead-instance cleanup failed.", failures);
+                }
+            }
+            finally
+            {
+                _deadInstances.Clear();
+            }
+        }
+
+        private void CleanupDeadInstance(T instance, ref List<Exception> failures)
+        {
+            try
+            {
+                _onDestroy?.Invoke(instance);
+            }
+            catch (Exception failure)
+            {
+                if (failures == null)
+                {
+                    failures = new List<Exception>();
+                }
+                failures.Add(failure);
             }
         }
 
