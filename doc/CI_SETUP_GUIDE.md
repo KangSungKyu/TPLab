@@ -57,13 +57,13 @@ Codex가 병합 전에 쓰는 `tools/check_github_ci.py`는 **main이 보호돼 
 | S1 | 테스트용 브랜치에서 테스트 파일에 `[Ignore]` 한 줄 추가한 PR을 연다(병합하지 않고 닫는다) | `PR 규칙 검사`가 실패하고 오류에 해당 줄이 나온다 | 워크플로 경로·`fetch-depth`·SHA 전달 확인 |
 | S2 | 같은 방식으로 `.meta` 없는 `.cs`를 추가한다 | `.meta` 오류가 나온다 | `META_ROOTS`와 기준 커밋의 `.meta` 존재 확인 |
 | S3 | S1의 PR에 `@claude IMP-NN 검토해줘`라고 댓글을 단다 | Claude가 `CLAUDE.md` 형식으로 댓글을 단다 | App 설치, 시크릿 이름, 권한 확인 |
-| S4 | S3 실행 뒤 PR 커밋 목록과 브랜치를 본다 | **Claude의 커밋·푸시가 없다.** 파일 수정 시도가 로그에 거부로 남는다 | 6절의 쓰기 차단 항목을 우선 해결. 해결 전에는 `@claude` 사용 중단 |
+| S4 | S3 실행 뒤 PR 커밋 목록과 브랜치를 본다 | **Claude의 로컬 파일 생성·커밋도 없다.** 시도 시 로그에 거부로 남는다. PR·브랜치에도 새 커밋·푸시가 없다 | 6절의 쓰기 차단 항목을 우선 해결. 해결 전에는 `@claude` 사용 중단 |
 | S5 | Claude 사용량 화면에서 한 번 실행의 사용량을 본다 | 예상 범위 안이다 | `--max-turns`를 낮춘다 |
 
 ## 6. 아직 확인하지 못한 것
 
-- `--allowedTools`/`--disallowedTools` 조합이 의도대로 **쓰기를 막는지**. Action이 댓글 작성에 필요한 자체 도구를 허용 목록과 어떻게 합치는지 확인하지 못했다. S4가 이를 검증한다.
-- Claude GitHub App 토큰이 워크플로의 `permissions: contents: read`보다 넓은 쓰기 권한을 가질 수 있는지. 문서상 앱 인증이 기본이므로, 도구 차단이 1차 방어선이고 S4 확인이 필수다.
+- 기존 `--disallowedTools`만으로는 로컬 파일 생성·커밋을 막지 못했다는 S4 결과가 보고됐다(로컬 커밋 `4cea32e`). 변경안은 `settings.permissions.deny`와 `persist-credentials: false`를 사용한다. 새 설정의 실제 쓰기 차단은 **미확인**이며, 기본 브랜치 반영 후 PR #2에서 S4를 재검증한다.
+- 1차 방어선은 `contents: read` 토큰, 도구 차단(`settings.permissions.deny`)은 2차이며 S4 재검증 결과를 기록한다. 이 설명은 **해당 토큰으로 수행하는 원격 콘텐츠 쓰기**의 범위다. 토큰 권한은 로컬 파일 생성·커밋을 막지 않으며, 별도 GitHub App/설치 토큰의 권한도 자동으로 제한하지 않는다. `persist-credentials: false`는 checkout 자격 증명을 Git 설정에 남기지 않는 옵션이며 다른 인증 경로까지 제거하지 않는다. 실제 인증 경로와 로컬 생성·커밋·원격 푸시·MCP 쓰기 차단을 S4에서 각각 확인하고, 읽기 전용을 보장한다고 표현하지 않는다. [Action 권한 문서](https://github.com/anthropics/claude-code-action/blob/main/docs/security.md), [설정 문서](https://github.com/anthropics/claude-code-action/blob/main/docs/configuration.md).
 - 공식 "Code Review"(워크플로 없이 PR 자동 리뷰) 기능의 조건과 비용. 이 초안은 사용자가 정한 "호출 시에만" 방식을 따른다.
 - 구독 토큰을 CI에서 쓰는 것의 한도·약관 세부. 공식 문서는 지원한다고 적지만 사용량 한도는 요금제에 따른다.
 
