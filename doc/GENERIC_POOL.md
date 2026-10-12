@@ -4,14 +4,14 @@
 
 ## 사용 계약
 
-- 생성자: `ObjectPool<T>(Func<T> createInstance, int capacity, Action<T> onRent = null, Action<T> onReturn = null, Action<T> onDestroy = null)`. 정원은 양수, factory는 필수다.
+- 생성자: `ObjectPool<T>(Func<T> createInstance, int capacity, Action<T> onRent = null, Action<T> onReturn = null, Action<T> onDestroy = null, Func<T, bool> isAlive = null)`. 정원은 양수, factory는 필수다.
 - factory는 null이 아닌 새로운 객체를 이 풀 전용으로 제공한다. 동일 풀의 이미 소유한 객체를 다시 제공하면 예외이며 기존 객체는 폐기하지 않는다. 서로 다른 풀에 동일 객체를 공유해서는 안 된다. factory 내부 부분 생성물이 생긴 뒤 실패하면 factory가 정리한다.
 - `TryRent(out T)`는 대기 객체를 먼저 재사용하고 총 소유 정원 소진에만 false/null을 반환한다. 총 정원에는 대여 중 객체가 포함된다. factory·준비 콜백 오류는 예외로 전달한다.
 - `Return(T)`은 해당 풀에서 대여 중인 객체만 허용한다. null·비소유·중복 반환을 거부한다. 값 Equals/GetHashCode를 재정의하거나 값이 바뀌어도 참조 동일성으로 소유권을 판별한다. 같은 값을 가진 서로 다른 객체는 각각의 슬롯이다.
 - 준비·반환 콜백이 실패하면 해당 객체를 소유 목록에서 제거하고 onDestroy를 호출한다. 다른 객체는 보존하고 정원을 회복한다. onDestroy도 실패하면 원래 오류와 정리 오류를 AggregateException으로 함께 전달한다. 정리 완료를 보장할 수 없는 외부 자원은 정리 콜백이 재시도·보고 정책을 소유한다.
 - `Dispose()`는 먼저 영구 종료와 카운트 0을 확정하고 대여·대기 객체의 정리를 모두 시도한다. 일부 정리 콜백이 실패해도 나머지를 수행한 뒤 AggregateException으로 모은다. 반복 Dispose는 무시하며 실패한 정리를 다시 호출하지 않는다. 종료 후 대여·반환은 ObjectDisposedException이다. 종료 시 반환 콜백은 호출하지 않는다.
-- 단일 스레드에서 사용한다. factory·준비·반환·실패 정리 도중 풀 변경 재진입은 거부한다. 동시 접근의 lock·자동 반환 lease·prewarm·전역 registry는 추가하지 않았다.
-- 일반 클래스의 자원 정리는 onDestroy에서 명시한다. IDisposable을 자동 호출하지 않으며, managed 객체만 사용하면 콜백 없이 소유 참조를 해제한다. 제네릭 풀 자체는 Unity의 파괴된 객체 판정·SetActive·Transform을 처리하지 않는다. Unity 객체에는 적절한 콜백을 제공하거나 PrefabPool을 사용한다.
+- 단일 스레드에서 사용한다. factory·생존 판정·준비·반환·실패 정리 도중 풀 변경 재진입은 거부한다. 동시 접근의 lock·자동 반환 lease·prewarm·전역 registry는 추가하지 않았다.
+- 일반 클래스의 자원 정리는 onDestroy에서 명시한다. IDisposable을 자동 호출하지 않으며, managed 객체만 사용하면 콜백 없이 소유 참조를 해제한다. 제네릭 풀 자체는 Unity를 참조하지 않으며, 선택한 isAlive 정책 외에는 파괴 판정·SetActive·Transform을 처리하지 않는다. Unity 객체에는 적절한 콜백을 제공하거나 PrefabPool을 사용한다.
 - 대기 보관은 Stack<T>, 소유 상태는 참조 비교 Dictionary<T, bool> 하나로 관리한다. Unity 기본 풀의 내부 카운터와 별도 소유 카운터를 이중 관리하지 않는다.
 
 ```csharp
@@ -36,6 +36,20 @@ using (var pool = new ObjectPool<List<int>>(
     }
 }
 ```
+
+## 지연 생존 확인 (IMP-01 / D-01=A1)
+
+`isAlive`가 null이면 기존 판정 없는 정책을 유지하며 생존 확인용 scratch도 만들지 않는다. 설정하면 생성자에서 capacity 크기의 재사용 scratch를 준비한다. `TryRent`는 대기 Stack의 Peek을 판정하고 죽은 객체를 제거하여 살아 있는 객체의 LIFO 순서를 보존한다. 재사용 객체가 없고 총 소유 수가 정원에 도달했을 때만 대여 목록 전체를 판정한다. 죽은 슬롯을 회수한 뒤 필요하면 새 객체를 생성한다. 정상 재사용에서는 대여 목록을 순회하지 않는다.
+
+CountOwned/CountRented/CountInactive getter는 판정·정리·할당을 하지 않는다. 외부에서 객체가 죽어도 다음 관련 TryRent 확인 전까지 추적 수에 포함될 수 있다. 워밍업 후 재사용·살아 있는 정원 소진 확인은 풀 내부 할당을 추가하지 않으며, factory와 호출자 콜백의 할당은 별도다. 생존 확인의 CPU 비용은 0을 보장하지 않는다.
+
+생존 predicate는 기존 변경 재진입 가드 안에서 실행된다. 대기 후보의 predicate 예외는 Peek 후보를 소유·대기 상태로 보존한다. 대여 목록은 모든 predicate 결과를 scratch에 모은 뒤 제거하므로 순회 중 predicate 예외는 그 목록의 소유권을 바꾸지 않는다. 이미 제거한 대기 객체의 정리는 취소되지 않는다. 제거된 죽은 객체마다 onDestroy를 정확히 한 번 시도하며, 정리 오류가 있어도 검출된 다른 죽은 객체의 정리를 모두 시도한 뒤 AggregateException을 전달한다. 슬롯은 정리 성공 여부와 무관하게 회수되며 이후 Dispose에서 해당 객체를 다시 정리하지 않는다. 대기 정리 실패 뒤 predicate도 실패하면 두 종류의 오류를 집계한다.
+
+factory의 null·동일 풀 중복 참조 검증이 먼저 수행된다. 소유 등록 후 새 결과를 predicate로 판정하며, 죽은 결과 또는 predicate 예외는 기존 소유 실패 정리 경로로 폐기된다. onRent는 실행하지 않는다. cleanup도 실패하면 원래 오류와 정리 오류를 집계한다. Return/Dispose 검증·예외 우선순위는 유지한다.
+
+선택 매개변수 추가로 기존 소스 호출은 그대로 컴파일된다. 생성자 CLR 시그니처가 바뀌므로 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. PrefabPool은 Unity fake-null 판정을 제공하며 외부 파괴된 복제본의 슬롯을 같은 지연 경로로 회수한다. 파괴된 복제본의 Return은 계속 ArgumentNullException이다.
+
+IMP-01 구현과 보충 테스트의 실행 결과는 [IMP-01 검증 기록](validation/imp-01/README.md)에 기록한다(source `d7f319c6f18713bb9fba77dd9505fc9dbe26f088`, Green18/24/15·전체Edit334/Play307 모두 통과, 사용자 수락 대기). 아래 2026-10-02 결과는 이전 구현의 역사적 증거다.
 
 ## Unity 기본 풀 검토 결과
 
