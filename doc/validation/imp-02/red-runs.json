@@ -1,0 +1,92 @@
+[
+  {
+    "phase": "Red - required public bool TryReturn signature absent",
+    "mode": "EditMode",
+    "filter": "TPLab.Core.Tests.ObjectPoolTryReturnTests",
+    "driverStartedUtc": "2026-10-12T09:00:33.591643+00:00",
+    "driverFinishedUtc": "2026-10-12T09:00:44.617064+00:00",
+    "driverWallSeconds": 11.025465400016401,
+    "driverExitCode": 1,
+    "result": {
+      "total": 13,
+      "passed": 0,
+      "failed": 13,
+      "skipped": 0,
+      "failures": [
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposeCleanupMayTryReturnWithoutInterruptingOtherCleanup:   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposedPoolReturnsFalseBeforeInputValidation(0):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposedPoolReturnsFalseBeforeInputValidation(1):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposedPoolReturnsFalseBeforeInputValidation(2):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.InvalidActiveReturnsKeepExistingValidation(0):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.InvalidActiveReturnsKeepExistingValidation(1):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.InvalidActiveReturnsKeepExistingValidation(2):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.RentOrPredicateReentryKeepsTheExistingGuard(False):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.RentOrPredicateReentryKeepsTheExistingGuard(True):   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.ResetAndCleanupFailuresStillAggregateAndRecoverCapacity:   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.ReturnCallbackReentryStillThrowsAndRecoversCapacity:   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.SuccessfulReturnResetsOnceAndReusesLoan:   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.WarmedTryReturnReuseAllocatesZero:   Required public API: bool ObjectPool`1.TryReturn(Item)\r\n  Expected: not null\r\n  But was:  null\r\n"
+      ],
+      "passes": [],
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "EditMode",
+        "filter": "TPLab.Core.Tests.ObjectPoolTryReturnTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 18552,
+        "cliReturnCode": 1,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 18552,
+            "cliReturnCode": 1,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "Red - required public bool TryReturn signature absent",
+    "mode": "PlayMode",
+    "filter": "TPLab.Core.Tests.PrefabPoolTryReturnTests",
+    "driverStartedUtc": "2026-10-12T09:00:44.708292+00:00",
+    "driverFinishedUtc": "2026-10-12T09:01:15.593724+00:00",
+    "driverWallSeconds": 30.88544699997874,
+    "driverExitCode": 1,
+    "result": {
+      "total": 7,
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0,
+      "failures": [
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.ActiveInvalidReturnsKeepExistingValidation:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.DestroyedParentKeepsContextErrorBeforeInputValidation:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.DisableAndDestroyCallbacksTryReturnWithoutInterruptingDisposal:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.LateDestroyedLoanReturnsFalseAfterDisposalWhileReturnStillThrows:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.RentCallbackReentryStillThrows:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.ResetFailureStillThrowsAndDiscardsTheLoan:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.SuccessfulReturnDeactivatesResetsAndReusesLoan:   Required public API: bool PrefabPool.TryReturn(GameObject)\r\n  Expected: not null\r\n  But was:  null\r\n"
+      ],
+      "passes": [],
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "PlayMode",
+        "filter": "TPLab.Core.Tests.PrefabPoolTryReturnTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 18820,
+        "cliReturnCode": 1,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 18820,
+            "cliReturnCode": 1,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    }
+  }
+]

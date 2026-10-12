@@ -1,0 +1,209 @@
+[
+  {
+    "phase": "Green",
+    "mode": "EditMode",
+    "filter": "TPLab.Core.Tests.ObjectPoolTryReturnTests",
+    "driverStartedUtc": "2026-10-12T09:07:39.705574+00:00",
+    "driverFinishedUtc": "2026-10-12T09:07:41.804929+00:00",
+    "driverWallSeconds": 2.099389999988489,
+    "driverExitCode": 0,
+    "result": {
+      "failed": 0,
+      "failures": [],
+      "passed": 13,
+      "passes": [
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposeCleanupMayTryReturnWithoutInterruptingOtherCleanup",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposedPoolReturnsFalseBeforeInputValidation(0)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposedPoolReturnsFalseBeforeInputValidation(1)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.DisposedPoolReturnsFalseBeforeInputValidation(2)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.InvalidActiveReturnsKeepExistingValidation(0)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.InvalidActiveReturnsKeepExistingValidation(1)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.InvalidActiveReturnsKeepExistingValidation(2)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.RentOrPredicateReentryKeepsTheExistingGuard(False)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.RentOrPredicateReentryKeepsTheExistingGuard(True)",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.ResetAndCleanupFailuresStillAggregateAndRecoverCapacity",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.ReturnCallbackReentryStillThrowsAndRecoversCapacity",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.SuccessfulReturnResetsOnceAndReusesLoan",
+        "TPLab.Core.Tests.ObjectPoolTryReturnTests.WarmedTryReturnReuseAllocatesZero"
+      ],
+      "skipped": 0,
+      "total": 13,
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "EditMode",
+        "filter": "TPLab.Core.Tests.ObjectPoolTryReturnTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 47568,
+        "cliReturnCode": 0,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 46892,
+            "cliReturnCode": 1,
+            "prestartDiscoveryRejected": true
+          },
+          {
+            "cliPid": 47568,
+            "cliReturnCode": 0,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "Green",
+    "mode": "PlayMode",
+    "filter": "TPLab.Core.Tests.PrefabPoolTryReturnTests",
+    "driverStartedUtc": "2026-10-12T09:07:41.820611+00:00",
+    "driverFinishedUtc": "2026-10-12T09:07:51.366096+00:00",
+    "driverWallSeconds": 9.545523000007961,
+    "driverExitCode": 0,
+    "result": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "passes": [
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.ActiveInvalidReturnsKeepExistingValidation",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.DestroyedParentKeepsContextErrorBeforeInputValidation",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.DisableAndDestroyCallbacksTryReturnWithoutInterruptingDisposal",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.LateDestroyedLoanReturnsFalseAfterDisposalWhileReturnStillThrows",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.RentCallbackReentryStillThrows",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.ResetFailureStillThrowsAndDiscardsTheLoan",
+        "TPLab.Core.Tests.PrefabPoolTryReturnTests.SuccessfulReturnDeactivatesResetsAndReusesLoan"
+      ],
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "PlayMode",
+        "filter": "TPLab.Core.Tests.PrefabPoolTryReturnTests",
+        "source": "connector-file",
+        "runId": "39232-1791796062306750500",
+        "cliPid": 39232,
+        "cliReturnCode": 1,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 39232,
+            "cliReturnCode": 1,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "Green",
+    "mode": "EditMode",
+    "filter": "TPLab.Core.Tests.ObjectPoolTests",
+    "driverStartedUtc": "2026-10-12T09:07:51.387857+00:00",
+    "driverFinishedUtc": "2026-10-12T09:07:59.049794+00:00",
+    "driverWallSeconds": 7.661992600013036,
+    "driverExitCode": 0,
+    "result": {
+      "failed": 0,
+      "failures": [],
+      "passed": 24,
+      "passes": [
+        "TPLab.Core.Tests.ObjectPoolTests.CapacityIncludesBorrowedObjects",
+        "TPLab.Core.Tests.ObjectPoolTests.ChangingValueHashDoesNotLoseOwnershipOrAdmitEqualForeignObjects",
+        "TPLab.Core.Tests.ObjectPoolTests.CleanupCallbackSeesClosedEmptyPoolAndCannotRentAgain",
+        "TPLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity(0)",
+        "TPLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNonPositiveCapacity(-1)",
+        "TPLab.Core.Tests.ObjectPoolTests.ConstructorRejectsNullFactory",
+        "TPLab.Core.Tests.ObjectPoolTests.DisposeAttemptsAllCleanupEvenWhenEveryDestroyCallbackThrows",
+        "TPLab.Core.Tests.ObjectPoolTests.DisposeCleansUpBorrowedAndIdleObjectsOnceAndRejectsReuse",
+        "TPLab.Core.Tests.ObjectPoolTests.DuplicateReturnIsRejectedAndCannotCreateTwoLoansOfTheSameInstance",
+        "TPLab.Core.Tests.ObjectPoolTests.EqualValuesStillRepresentDistinctOwnedInstances",
+        "TPLab.Core.Tests.ObjectPoolTests.FactoryFailureLeavesCapacityAvailableForRetry",
+        "TPLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported(True)",
+        "TPLab.Core.Tests.ObjectPoolTests.HookAndCleanupFailuresAreBothReported(False)",
+        "TPLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(True)",
+        "TPLab.Core.Tests.ObjectPoolTests.HookFailureDiscardsOnlyAffectedInstanceAndAllowsRetry(False)",
+        "TPLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected(True)",
+        "TPLab.Core.Tests.ObjectPoolTests.MutationFromCallbacksIsRejected(False)",
+        "TPLab.Core.Tests.ObjectPoolTests.MutationFromFactoryIsRejected",
+        "TPLab.Core.Tests.ObjectPoolTests.NullFactoryResultIsRejectedWithoutConsumingCapacity",
+        "TPLab.Core.Tests.ObjectPoolTests.RepeatedFactoryReferenceIsRejectedWithoutDestroyingTheOriginalLoan",
+        "TPLab.Core.Tests.ObjectPoolTests.ResourceDisposalIsExplicitThroughDestroyCallback",
+        "TPLab.Core.Tests.ObjectPoolTests.ReturnRejectsForeignInstanceWithoutDestroyingIt",
+        "TPLab.Core.Tests.ObjectPoolTests.ReturnRejectsNull",
+        "TPLab.Core.Tests.ObjectPoolTests.ReturnResetsPlainClassAndNextRentReusesIt"
+      ],
+      "skipped": 0,
+      "total": 24,
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "EditMode",
+        "filter": "TPLab.Core.Tests.ObjectPoolTests",
+        "source": "cli",
+        "runId": null,
+        "cliPid": 46432,
+        "cliReturnCode": 0,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 46432,
+            "cliReturnCode": 0,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "Green",
+    "mode": "PlayMode",
+    "filter": "TPLab.Core.Tests.PrefabPoolTests",
+    "driverStartedUtc": "2026-10-12T09:07:59.077391+00:00",
+    "driverFinishedUtc": "2026-10-12T09:08:11.759149+00:00",
+    "driverWallSeconds": 12.681806000007782,
+    "driverExitCode": 0,
+    "result": {
+      "total": 18,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "passes": [
+        "TPLab.Core.Tests.PrefabPoolTests.ActiveSourceIsConfiguredBeforeCloneOnEnable",
+        "TPLab.Core.Tests.PrefabPoolTests.CapacityIncludesRentedInstances",
+        "TPLab.Core.Tests.PrefabPoolTests.DestroyedParentRejectsOperationsButStillAllowsDisposal",
+        "TPLab.Core.Tests.PrefabPoolTests.DisposeDestroysRentedAndInactiveInstancesAndIsIdempotent",
+        "TPLab.Core.Tests.PrefabPoolTests.DisposedPoolRejectsRentAndReturn",
+        "TPLab.Core.Tests.PrefabPoolTests.MutatingReentryFromRentHookIsRejected",
+        "TPLab.Core.Tests.PrefabPoolTests.MutatingReentryFromReturnHookIsRejected",
+        "TPLab.Core.Tests.PrefabPoolTests.OnEnableCannotReenterThePool",
+        "TPLab.Core.Tests.PrefabPoolTests.RentedCloneDestroyedByConsumerFreesItsSlot",
+        "TPLab.Core.Tests.PrefabPoolTests.RentHookDestroyingInstanceIsReportedAndCapacityRecovered",
+        "TPLab.Core.Tests.PrefabPoolTests.RentHookFailureDiscardsInstanceAndAllowsRetry",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnedInstanceIsReusedWithSourceTransform",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnHookDestroyingInstanceIsReportedAndCapacityRecovered",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnHookFailureDiscardsInstanceAndAllowsRetry",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnHookResetsConsumerStateBeforeReuse",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnRejectsAnotherPoolsInstanceWithoutChangingIt",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnRejectsDuplicateWithoutAddingAnotherSlot",
+        "TPLab.Core.Tests.PrefabPoolTests.ReturnRejectsNull"
+      ],
+      "execution": {
+        "project": "C:\\Users\\PC\\Projects\\TPLab",
+        "mode": "PlayMode",
+        "filter": "TPLab.Core.Tests.PrefabPoolTests",
+        "source": "connector-file",
+        "runId": "48032-1791796079877122300",
+        "cliPid": 48032,
+        "cliReturnCode": 1,
+        "editorPid": 24376,
+        "attempts": [
+          {
+            "cliPid": 48032,
+            "cliReturnCode": 1,
+            "prestartDiscoveryRejected": false
+          }
+        ]
+      }
+    }
+  }
+]
