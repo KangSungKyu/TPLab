@@ -1,0 +1,23 @@
+{
+  "sourceRelativePath": "Assets/TPLab/Tests/PlayMode/Imp04TimeoutExperiment.cs",
+  "metaRelativePath": "Assets/TPLab/Tests/PlayMode/Imp04TimeoutExperiment.cs.meta",
+  "sourceSha256": "d5462fa03b7babcad1f06e606b243003a5b92b6844c80d94526a894bd2465451",
+  "metaSha256": "bbe178ff292239f4b4b9545c5cf6949b42a74ce6a0926acb6e502aea426e868a",
+  "expectedTests": [
+    "TPLab.Core.Tests.Imp04TimeoutExperiment.AControlCompletesAfterBoundedCoroutine",
+    "TPLab.Core.Tests.Imp04TimeoutExperiment.BTimeoutStopsBeforeBoundedCoroutineCompletes"
+  ],
+  "filter": "TPLab.Core.Tests.Imp04TimeoutExperiment",
+  "timeoutMilliseconds": 250,
+  "selfTerminationMilliseconds": 1000,
+  "expectedPassed": 1,
+  "expectedFailed": 1,
+  "expectedSkipped": 0,
+  "ownerEditorPid": 24376,
+  "temporaryNotForCommit": true,
+  "executed": true,
+  "expectedOutcomeMatched": true,
+  "testRunId": "43892-1791785196399221700",
+  "temporarySourceRemoved": true,
+  "sourceAndMetaNeverStaged": true
+}
