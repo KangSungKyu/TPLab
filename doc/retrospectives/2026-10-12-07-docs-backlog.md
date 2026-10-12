@@ -4,7 +4,7 @@
 
 - 초판 요청: 첨부 두 문서를 원문 그대로 반영하고 PR #4를 생성했다. 개정 요청(2026-10-12): 승인된 새 첨부 두 파일로 교체하고 같은 브랜치에 별도 커밋·일반 푸시한다. 첨부 문서의 내용은 임의로 다듬지 않는다. 구현·main 병합·강제 푸시·브랜치 삭제는 제외하며 지시문 `CODEX_PROMPT_1.md`/`CODEX_PROMPT.md`는 저장소에 넣지 않는다.
 - 기준: main/origin/main/server `c1804e17f3f0cdfbcf32066f48685dc952cb220b`; 작업 `codex/docs-backlog`; 초판 커밋 `bbc313a15ed155986aed2d39a857bb8242e06360`을 보존한다. 기존 dirty 6개는 raw SHA256으로 보존하며 stage하지 않는다.
-- 상태: 개정 문서 반영·정적 검토, PR 사용자 확인 대기. 백로그의 결정 기록은 제공 자료로 보존하며 이번 문서 개정을 구현·GC 정책 확정·main 병합 승인으로 사용하지 않는다.
+- 상태: 2026-10-12 사용자가 개정 PR #4의 main 병합을 승인했다. 문서 수락은 완료했고 실제 통합/브랜치 정리 결과는 PR 본문·Git 이력·완료 보고에 기록한다. 백로그의 결정 기록은 제공 자료로 보존하며 이 수락을 구현·GC 정책 확정으로 확대하지 않는다.
 - 기준 규칙: [문서화 지침](../DOCUMENTATION_GUIDE.md), [작업 규칙](../../AGENTS.md), [관련 CI 수락 기록](2026-10-12-06-ci-review-acceptance.md).
 
 ## 결정과 변경
@@ -63,8 +63,8 @@
 
 ## 다음 작업
 
-- PR 문서 수락 및 main 병합 승인 대기. 브랜치 삭제·main 병합·강제 푸시는 수행하지 않는다.
-- 초판 위치/CI 전제·GC 메타데이터 수정은 이번 개정 첨부로 반영했다. 남은 확인은 개정 PR의 최종 수락·병합 승인, IMP-12 정책 확정/AGENTS 반영과 IMP-13의 별도 요청 범위다.
+- 사용자 문서 수락·main 통합 승인을 확인했다. 필수 검증 후 일반 merge, main 동기화·조상/해시 확인과 이 작업 브랜치 정리를 수행한다. 강제 푸시·무관한 브랜치 정리는 하지 않는다.
+- 초판 위치/CI 전제·GC 메타데이터 수정 및 개정 문서 수락은 완료했다. IMP-12 정책 확정/AGENTS 반영과 IMP-13의 별도 요청 범위는 후속 결정으로 남는다.
 - IMP-04 조사나 IMP-01~13 구현/정식 UI 점검은 시작하지 않았다. 개정본의 항목별 gate와 해당 요청 범위를 별도로 확인한다.
 
 
@@ -75,3 +75,11 @@
 - `/root/ui_dependency_audit`를 읽기 전용 개정 대조에 재사용했다. 새 후보의 존재 확인은 문서 대조이며 IMP-13 전체 점검을 수행하거나 구현하지 않는다. 후보 심볼은 현재 소스에 있고 UIContext partial 두 파일은 합계 1,910행이다. 호출 빈도·실제 할당은 측정하지 않았다.
 - 새 첨부 bytes·Git blob 일치 2개, 초판 commit/blob 보존, 새 UI_PERFORMANCE.md·CI_SETUP_GUIDE.md 링크를 포함한 상대 링크, 문서 전용 diff·공백·기존 dirty 보존을 재검증한다. 실제 검사/최종 HEAD Actions 결과와 새 commit SHA는 [PR #4](https://github.com/KangSungKyu/TPLab/pull/4) 본문과 완료 보고에 기록한다.
 - Red/Green·EditMode/PlayMode·컴파일·제품 Console·Player·할당 측정은 미실행이며 문서 전용 작업의 정적/CI 검사를 런타임 검증으로 표시하지 않는다.
+
+
+## 2026-10-12 · 최종 수락과 통합 준비
+
+- 사용자의 직접 메시지 ‘병합 승인’을 확인했다. 승인받은 개정 source tip은 `c30a1e9e158bc60aa640e19e3f04314ce2e0e0b0`, 앞선 초판은 `bbc313a15ed155986aed2d39a857bb8242e06360`이다. 이 수락 기록과 회고 색인의 상태만 별도 커밋으로 추가하고 첨부 두 문서·일반 색인·코드·테스트는 바꾸지 않는다.
+- 개정 source의 [Actions 성공](https://github.com/KangSungKyu/TPLab/actions/runs/38208814843)은 해당 source의 증거다. 수락 기록을 포함한 새 HEAD에서 로컬 규칙 검사·문서 범위/공백·링크·원문/개정 hash 보존·정확한 HEAD Actions를 다시 확인한 뒤 병합한다.
+- 일반 merge로 원본 2개 커밋과 수락 커밋을 보존하고 main의 local/origin/server 일치·candidate tree·조상 관계·기존 dirty6를 검증한다. 승인된 정리 규칙에 따라 대상 tip을 조건 검사해 원격 삭제하고 로컬은 `git branch -d`로만 삭제한다. 실제 merge SHA·삭제 결과는 [PR #4](https://github.com/KangSungKyu/TPLab/pull/4) 본문과 최종 보고에 남긴다.
+- 문서 전용이므로 Unity compile/Console/EditMode/PlayMode/Player·할당 측정은 미실행이다. GC 정책 확정·AGENTS 반영·IMP-04/13 정식 조사·개선 구현·인프라 변경은 이번 병합에 포함하지 않는다.
