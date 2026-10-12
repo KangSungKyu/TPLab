@@ -129,3 +129,5 @@
 - 2026-10-12: [05 PR #1 초안 검토 수정](2026-10-12-05-ci-review-corrections.md) — Windows 기본 인코딩 Red17 실패2/오류2 → Green17/17·회귀45/45, 같은 PR 갱신/main 미병합.
 
 - 2026-10-12: [06 GitHub 리뷰 자동화 최종 수락](2026-10-12-06-ci-review-acceptance.md) — 사용자 main 병합 승인·새 Windows45/45, 실제 통합/branch 정리 결과는 PR #1·Git 이력 참조.
+
+- 2026-10-12: [07 개선 백로그·GC 초안 원문 반영과 개정](2026-10-12-07-docs-backlog.md) — 초판/개정 해시 보존·문서 수락·main 통합 승인 완료, 실제 merge/branch 정리 결과는 PR #4·Git 이력 참조.
