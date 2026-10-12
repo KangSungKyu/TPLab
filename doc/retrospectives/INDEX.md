@@ -125,3 +125,5 @@
 - 2026-10-12: [03 UI 전체 수락·main 통합](2026-10-12-03-ui-main-integration.md) — 사용자 전체 확인·최신소비build2/Player8 통과, main 통합 완료·Phase8/Temp5 정리, 최종track/P7 마감.
 
 - 2026-10-12: [04 GitHub 리뷰 자동화 P1](2026-10-12-04-ci-review-automation.md) — 로컬41/41·초안 원문 보존·CI helper 별도 제안, PR 생성 후 사용자 검토 대기/main 미병합.
+
+- 2026-10-12: [05 PR #1 초안 검토 수정](2026-10-12-05-ci-review-corrections.md) — Windows 기본 인코딩 Red17 실패2/오류2 → Green17/17·회귀45/45, 같은 PR 갱신/main 미병합.

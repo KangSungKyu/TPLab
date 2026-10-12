@@ -1,0 +1,31 @@
+{
+  "startHead": "f6b5fdca61ae72151262e0a50e153bd53c6bc9b0",
+  "baseMain": "0641fb57e4d6fae03fe17b88801c6762d78de84f",
+  "hashesAfterDraftCorrection": {
+    "tools/check_pr_rules.py": "ff26fea4ba35cc60c8c6d4fa3c81067b3b9655e3b05f410c2f82f7fd7334941a",
+    "tools/test_check_pr_rules.py": "a390c856638c5c952b5afb7e2b48eec609bac7dd6429a613c8dc49d2ccbe893d",
+    "AGENTS.md": "99e8a17c98cebbbfd765d3778bdf8fe06e7fcce4f84a53b097cf6af087274d34"
+  },
+  "baselineJsonSha256Unchanged": "4dfa3612d484175334feba97d58a68894e6ab5f3f43312b5dcb3708d1bcfbe78",
+  "testSourceUnchangedRedToGreen": true,
+  "old13TestsPreserved": true,
+  "checkerAndTestsMatchAttachmentBytes": true,
+  "agentsExactParagraphs1And2": true,
+  "agentsFixDiffNumstat": {
+    "added": 2,
+    "deleted": 2
+  },
+  "agentsMainDiffNumstat": {
+    "added": 4,
+    "deleted": 0
+  },
+  "preexistingMainRuleLinesPreserved": true,
+  "remainingOriginalDraftFilesUnchanged": [
+    ".github/workflows/rule-check.yml",
+    ".github/workflows/claude-review.yml",
+    ".github/pull_request_template.md",
+    "CLAUDE.md",
+    "doc/CI_SETUP_GUIDE.md"
+  ],
+  "independentStaticReview": "No blocker; no file/test/Git/API changes by reviewer"
+}

@@ -119,17 +119,20 @@ def analyze(repo, base, head):
         warnings.append(("(테스트 전체)", "단언 수 순감소(근사치): 추가 %d, 제거 %d. 기대값 약화가 없는지 확인" % (assert_added, assert_removed)))
 
     roots = active_meta_roots(repo, base)
-    for status, path, _old in statuses:
+    for status, path, old_path in statuses:
         if status in "ACR" and path.startswith(tuple(r + "/" for r in roots)) and not skipped_for_meta(path):
             if not exists_at(repo, head, path + ".meta"):
                 errors.append((path, ".meta 파일이 없음(Unity 패키지 소비 시 참조가 깨질 수 있음)"))
         if status == "D" and path.startswith(tuple(r + "/" for r in roots)) and not skipped_for_meta(path):
             if exists_at(repo, head, path + ".meta"):
                 errors.append((path, "파일은 삭제됐는데 .meta가 남아 있음"))
+        if status == "R" and old_path and old_path.startswith(tuple(r + "/" for r in roots)) and not skipped_for_meta(old_path):
+            if exists_at(repo, head, old_path + ".meta"):
+                errors.append((old_path, "이름 변경 후 옛 .meta가 남아 있음(새 경로로 옮기거나 삭제)"))
     for _status, path, _old in statuses:
         if path.startswith(PROTECTED_PATHS):
             warnings.append((path, "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"))
-    return errors, warnings, len(patch)
+    return errors, warnings, len({path for _status, path, _old in statuses} | set(patch))
 
 
 def render(errors, warnings, files_changed):
@@ -137,7 +140,7 @@ def render(errors, warnings, files_changed):
              "변경 파일 %d개를 diff 기준으로 검사했습니다. 이 결과는 Unity 테스트 실행 결과가 아닙니다." % files_changed, ""]
     for title, items in (("오류", errors), ("경고", warnings)):
         lines.append("### %s (%d)" % (title, len(items)))
-        lines += ["- `%s` — %s" % item for item in items] if items else ["- 없음"]
+        lines += ["- `%s` - %s" % item for item in items] if items else ["- 없음"]
         lines.append("")
     return "\n".join(lines)
 
@@ -167,4 +170,7 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
+    for _stream in (sys.stdout, sys.stderr):
+        if hasattr(_stream, "reconfigure"):
+            _stream.reconfigure(encoding="utf-8", errors="replace")
     sys.exit(main())

@@ -104,7 +104,7 @@
 - 2026-10-07 사용자는 저장소 public 전환과 외부 제공을 승인했고 참조 의존성의 최소 조건만 유지하도록 요청했다. TPLab 자체 코드/문서는 [MIT](LICENSE), 제3자는 [고지](THIRD_PARTY_NOTICES.md)의 원문 조건을 따른다. 현재/과거 Git 이력의 인증 정보 노출 여부를 공개 전에 확인하고 Cloud/사용자 설정을 보존한다. 실제 artifact 검증이 끝나지 않은 개발 검증본을 최종 Release로 표시하지 않는다.
 - source SHA·version·package hash·실제 결과·tag/Release 대상을 대조한다. 남은 사용자 확인이 있으면 track/main/Release gate를 기다리며, 자동 검증 완료만으로 최종 배포 완료를 선언하지 않는다.
 
-GitHub PR 규칙 검사와 요청 시 Claude 리뷰의 1단계 초안은 [CI_SETUP_GUIDE.md](doc/CI_SETUP_GUIDE.md)를 참조한다. 현재 단위는 작업 브랜치·검증·PR까지만 진행하며, CI 판정 변경과 실제 리뷰 권한은 사용자 확인 전 main에 반영하지 않는다.
+GitHub PR 규칙 검사와 요청 시 Claude 리뷰는 [CI_SETUP_GUIDE.md](doc/CI_SETUP_GUIDE.md)를 참조한다. CI 판정 도구, 워크플로, 리뷰 지침(`CLAUDE.md`)의 변경은 사용자 확인 전에는 main에 반영하지 않는다.
 
 ## Git 작업 시작 전 확인
 
@@ -122,7 +122,7 @@ GitHub PR 규칙 검사와 요청 시 Claude 리뷰의 1단계 초안은 [CI_SET
 - 테스트 결과는 병합할 변경을 포함한 커밋에 대응해야 한다. 과거 결과만으로 통과를 판단하지 않으며, 실패·진행 중·필수 검사 누락·확인 불가·미해결 충돌이 있으면 먼저 해결한다. 이후 코드·설정이 바뀌면 영향을 받는 검증을 다시 수행한다.
 - 병합 직전 원격 상태와 diff를 확인하고 기존 변경을 보존한다. 병합·푸시 후 main의 로컬·원격 커밋 일치와 작업 트리 상태를 확인해 결과를 보고한다. 이 승인은 Cashier 등 다른 저장소에 자동 적용하지 않는다.
 
-CI 판정은 [GitHub 리뷰 자동화 초안](doc/CI_SETUP_GUIDE.md)과 [현재 변경안](doc/validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 함께 검토한다. 워크플로 등록·CI 검사 미실행은 테스트 통과가 아니다. 정확한 대상 SHA의 결과·조회 완전성·실패/진행 상태를 구분하며, CI 도구의 허용 결과만으로 로컬 필수 검증이나 사용자 확인을 대체하지 않는다. 이번 판정 변경 PR은 사용자 확인 전 main에 병합하지 않는다.
+CI 판정은 [GitHub 리뷰 자동화 가이드](doc/CI_SETUP_GUIDE.md)와 [CI 판정 기준](doc/validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 함께 따른다. 워크플로 등록·CI 검사 미실행은 테스트 통과가 아니다. 정확한 대상 SHA의 결과·조회 완전성·실패/진행 상태를 구분하며, CI 도구의 허용 결과만으로 로컬 필수 검증이나 사용자 확인을 대체하지 않는다. CI 판정은 병합 대상 브랜치 tip의 SHA로 한다. fast-forward가 아닌 merge 커밋에는 PR 검사 결과가 없으므로 그 SHA로 판정하지 않는다.
 
 ## 병합 후 작업 브랜치 정리
 

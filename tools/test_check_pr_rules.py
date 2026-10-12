@@ -1,4 +1,6 @@
 """Tests for check_pr_rules.py using throwaway git repositories (no Unity, no network)."""
+import contextlib
+import io
 import subprocess
 import tempfile
 import unittest
@@ -117,6 +119,41 @@ class RuleTests(RepoCase):
         patch = "diff --git x.cs x.cs\n--- x.cs\n+++ x.cs\n@@ -1 +1 @@\n-old\n+++ new\n"
         parsed = rules.parse_patch(patch)
         self.assertEqual(parsed["x.cs"], {"added": ["++ new"], "removed": ["old"]})
+
+    def test_rename_leaving_old_meta_is_error(self):
+        self.git("mv", "Assets/TPLab/Core/Pool.cs", "Assets/TPLab/Core/Renamed.cs")
+        self.write("Assets/TPLab/Core/Renamed.cs.meta", "meta")
+        errors, _ = self.run_rules()
+        self.assertEqual([path for path, _ in errors], ["Assets/TPLab/Core/Pool.cs"])
+        self.assertIn("옛 .meta", errors[0][1])
+
+    def test_rename_with_meta_moved_together_passes(self):
+        self.git("mv", "Assets/TPLab/Core/Pool.cs", "Assets/TPLab/Core/Renamed.cs")
+        self.git("mv", "Assets/TPLab/Core/Pool.cs.meta", "Assets/TPLab/Core/Renamed.cs.meta")
+        errors, warnings = self.run_rules()
+        self.assertEqual((errors, warnings), ([], []))
+
+    def test_pure_rename_is_counted_as_a_changed_file(self):
+        self.git("mv", "Assets/TPLab/Core/Pool.cs", "Assets/TPLab/Core/Renamed.cs")
+        self.git("mv", "Assets/TPLab/Core/Pool.cs.meta", "Assets/TPLab/Core/Renamed.cs.meta")
+        head = self.commit("rename")
+        _, _, changed = rules.analyze(str(self.repo), self.base, head)
+        self.assertGreaterEqual(changed, 2)
+
+    def test_all_output_kinds_are_encodable_for_a_cp949_console(self):
+        self.write(TEST_FILE, BASE_TEST.split("    [Test, Timeout")[0].replace("[Test]", "[Test, Ignore]", 1)
+                   + "    public void C() { Thread.Sleep(5); }\n}\n")
+        self.write("Assets/TPLab/Core/New.cs", "class New {}\n")
+        self.write("Assets/TPLab/Core/Pool.cs", "using System.Linq;\nclass Pool {}\n")
+        self.write("CLAUDE.md", "x\n")
+        head = self.commit("all kinds")
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            rules.main(["--repo", str(self.repo), "--base", self.base, "--head", head])
+        output = buffer.getvalue()
+        for expected in ("끄는 구문", "시간 대기", ".meta 파일이 없음", "System.Linq", "규칙 파일이 변경됨", "테스트 수 순감소"):
+            self.assertIn(expected, output)
+        output.encode("cp949")
 
     def test_main_exit_codes(self):
         self.write(TEST_FILE, BASE_TEST.replace("    [Test]\n", "    [Test, Ignore]\n", 1))
