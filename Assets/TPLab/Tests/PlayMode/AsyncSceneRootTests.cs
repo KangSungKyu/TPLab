@@ -125,6 +125,7 @@ namespace TPLab.Core.Tests
         }
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator CoverAndAllPreparationAndScenePresentationAreAwaited() => CheckPreparation().ToCoroutine();
 
         private async UniTask CheckPreparation()
@@ -155,6 +156,7 @@ namespace TPLab.Core.Tests
         }
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator ReleaseWaitsUnderCoverAndCleansInReverseOrder() => CheckRelease().ToCoroutine();
 
         private async UniTask CheckRelease()
@@ -317,6 +319,7 @@ namespace TPLab.Core.Tests
         }
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator SingletonRegistrationDoesNotAllowEarlySceneProgress() => CheckSingleton().ToCoroutine();
 
         private async UniTask CheckSingleton()

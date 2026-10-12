@@ -109,6 +109,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator CommonInstallerReentryIsRejectedAfterAsynchronousCover() => UniTask.ToCoroutine(async () =>
         {
             var callbacks = _host.AddComponent<SceneTransitionCallbacksProbe>();
@@ -401,6 +402,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator CallerCancellationDoesNotCancelSharedEntry() => UniTask.ToCoroutine(async () =>
         {
             _host.SetActive(true);

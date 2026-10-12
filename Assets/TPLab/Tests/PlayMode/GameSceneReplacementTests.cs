@@ -128,6 +128,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator SingleWaitsForOldGracefulShutdownBeforeNativeLoad() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync(true, LoadSceneMode.Single);
@@ -198,6 +199,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator OwnerCancellationWaitsForLateCandidateThenPreservesOldRoot() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -221,6 +223,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator ShutdownSharesWaitForLateCandidateAndCleansEveryOwnedScene() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -244,6 +247,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator CallerCancellationStopsOnlyItsReplacementWait() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -439,6 +443,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator CompletedOperationAwaiterCanImmediatelyStartAndCancelTheNextOperation() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();

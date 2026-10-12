@@ -223,6 +223,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator PendingSameRemovalSharesResultAfterAuthorityValidationAndCallerCancellation() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -257,6 +258,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator OtherCommandsAreRejectedDuringRemovalWithoutEffects() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -301,6 +303,7 @@ namespace TPLab.Core.Tests
         public IEnumerator PrimarySingleReplacementReleasesWholeTreeBeforeNativeLoad() => UniTask.ToCoroutine(() => ReplaceTreeAsync(LoadSceneMode.Single));
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator OwnerCancellationWaitsForLateAddedCandidateAndPreservesRegisteredTree() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -366,6 +369,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator ShutdownWaitsForLateAddedCandidateAndThenReleasesRegisteredTree() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -456,6 +460,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator OwnerCancellationDuringRemovalWaitsForEntireBegunSubtreeCleanup() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync();
@@ -480,6 +485,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator SingleCancellationDuringDescendantReleaseFinishesGracefulTreeWithoutNativeLoad() => UniTask.ToCoroutine(async () =>
         {
             await CreateEnteredManagerAsync(true);

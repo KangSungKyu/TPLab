@@ -383,6 +383,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator ExplicitSourceChoosesOnlyItsInjectedLoader() => UniTask.ToCoroutine(async () =>
         {
             var build = new DelayedLoader();
@@ -401,6 +402,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator OwnerCancellationWaitsForLateNativeResultAndCleansIt() => UniTask.ToCoroutine(async () =>
         {
             var loader = new DelayedLoader();
@@ -420,6 +422,7 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator CallerCancellationLeavesNativeOwnerAndResultAlive() => UniTask.ToCoroutine(async () =>
         {
             var loader = new DelayedLoader();
@@ -440,9 +443,11 @@ namespace TPLab.Core.Tests
         });
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator WrongSceneResultIsRetainedThenCleanedWithoutReveal() => CheckWrongResult(false).ToCoroutine();
 
         [UnityTest]
+        [Timeout(30000)]
         public IEnumerator WrongTargetResultIsRetainedThenCleanedWithoutReveal() => CheckWrongResult(true).ToCoroutine();
 
         private async UniTask CheckWrongResult(bool wrongTarget)

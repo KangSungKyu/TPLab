@@ -36,7 +36,7 @@
 
 | 순서 | ID | 진행 상태 | 비고 |
 |---|---|---|---|
-| 1 | IMP-04 | 진행 | 1단계 조사·실험 보고 [PR #5](https://github.com/KangSungKyu/TPLab/pull/5) 병합 승인(2026-10-12, [보고](validation/imp-04-survey/README.md)); **사용자 적용 범위 지정 대기**, 적용 없음 |
+| 1 | IMP-04 | 대기 | 읽기 전용 조사 → **사용자가 적용 범위 지정** → 적용 |
 | 2 | IMP-01 | 대기 | Red → 구현 (D-01 = A1) |
 | 3 | IMP-02 | 대기 | IMP-01과 같은 풀 영역이라 이어서 (D-02 = `TryReturn`) |
 | 4 | IMP-05 | 대기 | Red → **버퍼 API 이름·시그니처를 사용자에게 보고·확인** → 구현 |
@@ -79,7 +79,7 @@
 | IMP-01 | PrefabPool 대여 클론 파괴 시 슬롯 누수 | **설계 확정**(D-01 = A1) | Red 테스트 작성 → 구현 |
 | IMP-02 | Dispose 후 Return 계약 | **설계 확정**(D-02 = `TryReturn` 추가) | 테스트 작성 → 구현 |
 | IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
-| IMP-04 | 테스트 타임아웃 도입 | 진행(1단계 보고 병합 승인, 적용 없음) | [보고](validation/imp-04-survey/README.md) 확인·적용 범위/방식/값 사용자 지정 |
+| IMP-04 | 테스트 타임아웃 도입 | **1단계 조사 완료, 범위 확정**(D-05a~c) | 적용 PR(24개 메서드, 30초) |
 | IMP-05 | GameSceneManager 폴링 속성 할당 | **설계 확정**(D-04, D-04b) | Red 테스트 작성 → 구현 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
 | IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
@@ -100,6 +100,9 @@
 | D-03c | 설정 위치 | **확정: `SceneOwnedRoot`/`SingletonSceneRoot` 호스트**(`Configure`, `SceneRootSetup.Attach`, 직렬화 필드) |
 | D-04 | IMP-05/11: GC 최적화 방향 | **확정: 추가 후보 탐색 + 로직 개선 + 가이드라인 초안. LINQ는 "반드시 써야 하는 곳인지" 판단해서 쓴다(가이드라인 6항에 판단 절차 반영)** |
 | D-04b | `OwnedScenes`/`RegisteredScenes`를 캐시할 것인가 | **확정: 캐시하지 않고 버퍼 채우기 API 추가, 기존 프로퍼티는 유지** |
+| D-05a | IMP-04: 적용 범위 | **확정: 게이트 테스트 중 테스트 자체 보호가 없는 PlayMode 24개 메서드**(EditMode `SceneLoaderTests` 2개는 EditMode 실험 전까지 제외, 이미 보호가 있는 테스트는 변경하지 않음) |
+| D-05b | IMP-04: 적용 방식 | **확정: 혼합** - 기존 헬퍼·조건 대기는 그대로 두고 선택한 메서드에만 `[Timeout]` 추가(헬퍼를 `.Timeout()`으로 치환하지 않음) |
+| D-05c | IMP-04: 값 | **확정: 30,000ms**. 60초는 네이티브 다단계 메서드의 실제 소요 시간 측정으로 필요성이 확인될 때만 별도 사용자 결정으로 추가 |
 
 ---
 
@@ -186,10 +189,10 @@
 
 ## IMP-04. 테스트 타임아웃 도입
 
-**상태**: 진행. 2026-10-12 1단계 읽기 전용 조사·임시 실행 실험 완료([보고](validation/imp-04-survey/README.md), main `7d4ff2e`). 2026-10-12 사용자가 [PR #5](https://github.com/KangSungKyu/TPLab/pull/5) 병합을 승인했다. 승인은 1단계 조사 문서에 한정되며 기존 테스트 적용 없음; 적용 범위·방식·값의 사용자 지정 대기를 유지한다.
+**상태**: 준비됨. 먼저 **읽기 전용 조사**만 수행하고 범위를 보고한다.
 
 **증거**
-- `Assets/TPLab/Tests`, `Assets/TPLab/Input/Tests`에서 `[Timeout]`은 0건이다.
+- `Assets/TPLab/Tests`, `Assets/TPLab/Input/Tests`에서 `[Timeout]`은 0건이다. 다만 **1단계 조사에서 확인: Test Framework 1.6.0은 속성이 없어도 기본 180초 제한을 둔다**(설치 소스 기준, 180초 만료 실험은 미실행). 무제한이 아니다. 실제 틈은 `tools/run_unity_tests.py`의 응답 대기 한도(180초)가 프레임워크 결과보다 먼저 닿을 수 있다는 점이고, `[Timeout]`의 목적은 이보다 짧게 빨리 실패시키는 것이다. 조사 보고서: `doc/validation/imp-04-survey/README.md`.
 - 대기 헬퍼 `Wait(Task)`는 `AsyncSceneRootTests.cs:53`에 `private static async UniTask Wait(Task task)`로 정의되어 있다. 다른 파일의 유사 대기 패턴은 조사가 필요하다.
 
 **조사 지시**: (1) 게이트(`UniTaskCompletionSource`)를 기다리는 테스트 목록, (2) 대기 헬퍼의 정의 위치와 타임아웃 유무, (3) Test Framework 1.6.0에서 `[Timeout]`이 `[UnityTest]`에도 실제로 적용되는지(작은 실험으로 확인, 결과를 증거로 남김), (4) 적용 방식 후보(헬퍼 vs 개별 속성)를 정리해 보고한다. 범위는 사용자가 정한 뒤 변경한다.
