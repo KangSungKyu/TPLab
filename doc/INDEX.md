@@ -24,6 +24,8 @@
 | [TPLAB_NAMING.md](TPLAB_NAMING.md) | TPLab 이름·경로·Cloud 설정 확인 | TPLab namespace·assembly·checkout 경로·Cloud 이름과 기록 보존 기준 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
+| [IMPROVEMENT_BACKLOG.md](IMPROVEMENT_BACKLOG.md) | 개선 후보·항목별 조사와 승인 경계 검토 | 검토자 원문·항목별 승인 gate; [현재 코드 대조](retrospectives/2026-10-12-07-docs-backlog.md)를 확인하며 구현은 별도 범위 |
+| [GC_ALLOCATION_GUIDELINE.md](GC_ALLOCATION_GUIDELINE.md) | 할당 경로 분류·비할당 API·측정 기준 검토 | 검토 전 초안; [UI 범위·문서 형식 대조](retrospectives/2026-10-12-07-docs-backlog.md), AGENTS 반영은 별도 확정 |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
