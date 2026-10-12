@@ -21,7 +21,7 @@
 | P4 입력/연출 | codex/game-ui-p4-input | 완료 / 자동65개·문서·회고 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
 | P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 완료 / 자동79개·문서·회고 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
 | P6 설정/root/예제 | codex/game-ui-p6-integration | 완료 / 자동UI86·compile·예제19asset·문서·회고 | Inspector/script 동일경로·Single/Additive·callback 예제 |
-| P7 통합/성능/수락 | codex/game-ui-p7-validation | 자동 검증 완료 / 최종 사용자 확인 대기 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
+| P7 통합/성능/수락 | codex/game-ui-p7-validation | 최신 소비 검증·전체 사용자 수락 완료 / main 통합 중 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
 
 P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 가능하다. P6은 P4/P5, P7은 P6을 선행한다. 문서와 자동 검증은 해당 Phase에서 수행하며 P7까지 미루지 않는다.
 
@@ -87,3 +87,7 @@ P7 담당 갱신: 수명 담당(기존 문맥/모델·추론 유지)은 optional
 2026-10-12 원본Editor 컴파일 재발 후속: 코드가 정상인 UIPresentation.cs와 두 presentation tests의 native-fed compiler 목록 누락을 [표준 asset 재등록](validation/ui-system/compile-registry-20261012/README.md)으로 복구했다. source/meta/GUID·P7입력476·사용자6raw unchanged. 원본Editor24376의 ordinaryRefresh/cleancompile/domainReload/Play 후에도 registry7347·assembly입력13/6/7을 유지했고 현재Compile/Console0, actualUI Edit33/33·Play53/53. [회고](retrospectives/2026-10-12-01-ui-compiler-registration.md). 최초발생계기/Editor재시작재현은확정하지않았으며 기존P7과새86실행은구분한다. 최종사용자UX/main/branch삭제대기는유지한다.
 
 2026-10-12 예제 잔상 수정: 기존 P7 branch/HEAD `bb4372bb17ef9e471e28ff27f835a1ccb4e1581e`에서 사용자 화면의 과거 Status·닫힌 Popup·cover 누적을 재현했다. Camera0인 Overlay 예제에 common-root child SolidColor/cullingMask0 Camera를 추가하자 같은 Play 상태에서 잔상이 사라졌다. Builder+두 Bootstrap scene만 수정했고 Runtime/public 계약 변경은 없다. 원본Editor24376에서 fresh Single/Additive 각각 최초Continue·A/B/C·중간B/C해제·Hub→Main/Ready·camera수명과 실제화면을 확인했다. [증거](validation/ui-system/sample-clear-20261012/README.md)·[회고](retrospectives/2026-10-12-02-ui-sample-frame-clear.md). 사용자5파일 raw/meta 보존, UI 검증용build는5Additive scene으로 돌렸고 원본BuildSettings backup은 유지한다. 현재compile idle/UI등록13/6/7/검증Console0. 새unit tests·Player/performance는미실행이며 기존P7 Player는이scene수정전이다. 최종실제입력/화면비/수락·main/branch삭제 대기는 유지한다. 기존 수명 하위담당은 모델/추론상속 유지로sample/URP/camera수명 읽기검토만 수행했고 부모가 수정·Unity·Git을 소유했다.
+
+2026-10-12 사용자는 잔상 수정에 이어 “전체 UI 항목도 확인 완료”라고 명시했다. 전체 UI 사용자 수락은 완료됐고 후보 `5af64b96b8d7f1793d26465550077ac1a5f8cd25`의 최신 소비 검증 갱신 후 main 통합과 UI 작업 브랜치 정리를 진행한다. [최종 통합 기록](validation/ui-system/integration-20261012/README.md).
+
+최신 후보5af64b96에서 Single/Additive 각각 build1(artifact2)·fresh graphics Player4를 통과했다. 새 합계 build2/artifact4/Player8, exit0·timeout0. 각 sample80/78checks·draw30/min12·inventory7·Continue4·cleanup2와 ManagerStopped/등록·소유0을 확인했다. 기존Runtime/tests는473/476정규화입력 중변경3sample파일외에같으므로 기존624와최근UI86을계승하며새실행으로표시하지않는다. 사용자6raw 원본·InitScene/Build설정 복원 완료. [최종 근거](validation/ui-system/integration-20261012/README.md)와 [통합 회고](retrospectives/2026-10-12-03-ui-main-integration.md).

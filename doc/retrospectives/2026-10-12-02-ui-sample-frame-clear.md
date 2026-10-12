@@ -8,3 +8,5 @@
 - 한계: 새unit tests0·Player builds0·performance0. UI Runtime이 같은 기존86/624와 새Editor command-path 확인을 구분한다. Console을 검증전에 비웠으며 사용자상태에서 관찰한 잘못된명령순서/이미선택된HUD 예외2는 이잔상의원인이 아니다. 실제입력/여러화면비/최종수락 미완료. 기존P7 Players는 camera수정전이라 최신검증본으로 재표시하지 않는다.
 - 보존: 사용자5파일 raw bytes와수정3asset meta unchanged. UI검증을위해 build entry를Single로잠시선택후5Additive씬으로돌렸으며 temporaryraw와최초진단baseline의해시차이를summary에명시했다. 원본EditorBuildSettings backup과InitScene 복원정보는 active manualreview folder에유지하고 buildsettings는stage제외. runInBackground는해당Play에서만true로하고false복원.
 - 종료: Additive 예제를Play로열어두고manual Continue 정책을기본on으로복원했다. 예제수정/증거를UItrack에보존하며 main/branch삭제·Unity/PC종료는수행하지않는다.
+
+2026-10-12 사용자는 잔상 수정에 이어 “전체 UI 항목도 확인 완료”라고 명시했다. HUD·Popup·입력 차단·1천/1만 목록·두 씬 전환 방식·로딩·화면비·포커스 복원의 전체 사용자 수락을 완료로 기록한다. 후보 `5af64b96b8d7f1793d26465550077ac1a5f8cd25`의 최신 소비 검증을 갱신하고 main 통합·해당 UI 브랜치 정리를 진행한다. 기존 실행과 새 실행의 범위는 [최종 통합 기록](../validation/ui-system/integration-20261012/README.md)에 구분한다.

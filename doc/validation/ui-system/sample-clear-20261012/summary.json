@@ -30,5 +30,13 @@
   "freshPerformanceCount": 0,
   "physicalInputAcceptance": false,
   "manualReviewStillActive": true,
-  "mainMerge": false
+  "mainMerge": false,
+  "userConfirmation": {
+    "date": "2026-10-12",
+    "sourceCandidate": "5af64b96b8d7f1793d26465550077ac1a5f8cd25",
+    "textGhostingFixConfirmed": true,
+    "fullUiAcceptanceScope": "Confirmed complete UI checklist by direct user reply",
+    "newExecutionPerformedForConfirmationRecord": false,
+    "fullUiChecklistConfirmed": true
+  }
 }

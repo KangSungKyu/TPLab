@@ -31,11 +31,12 @@
 | [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | P0 계약: 명시 root·borrowed 자산, 즉시 handle/Open await, cleanup·입력 경계 |
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |
 | [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer·예제 authoring 검증 결과 | final source21f89e25·UI86/86·새19asset, 이후 통합 검증은P7 |
-| [UI P7 검증](validation/ui-system/p7/README.md) | 전체 회귀·source consumer·실제 Player·성능·보존 확인 | 원본624/624, native Input·1,000/10,000·Canvas 측정, 최종 sample/사용자 수락 구분 |
+| [UI P7 검증](validation/ui-system/p7/README.md) | P7 source-specific regression·consumer·Player·성능 기록 | 99df25dd/8310a94 evidence는 역사적이며 2026-10-12 사용자 수락 및 최신 candidate와 구분 |
+| [UI 최신 source 통합 검증](validation/ui-system/integration-20261012/README.md) | 5af64b96 Single/Additive consumer 최종 확인 | 최신 빌드2·artifact4·Player8 통과; 사용자 수락 완료, main 통합 진행 중 |
 | [UI compiler 등록 복구](validation/ui-system/compile-registry-20261012/README.md) | 원본Editor CS0246/UIPresentation 등록 누락 재발 확인 | 표준 asset roundtrip·GUID 보존, clean/reload 후 UI86/86·현재Console0, 재시작 미검증 |
-| [UI 예제 잔상 수정](validation/ui-system/sample-clear-20261012/README.md) | 버튼 후 과거 글자/닫힌Popup/cover 잔상 | 배경Camera 누락 수정, 원본Editor 두entry 전환·화면 확인, 최신Player/최종수락 대기 |
+| [UI 예제 잔상 수정](validation/ui-system/sample-clear-20261012/README.md) | 버튼 후 과거 글자/닫힌Popup/cover 잔상 | 배경Camera 수정과 2026-10-12 전체 UI 사용자 수락; 최신 source candidate 검증은 integration record 참조 |
 | [UI_PERFORMANCE.md](UI_PERFORMANCE.md) | Virtual ScrollRect·Canvas 최적화 결과 검토 | 같은1,000 비교·10,000 확장성·600프레임 median/P95/max, GC·N/A·한계 |
-| [UI_ACCEPTANCE.md](UI_ACCEPTANCE.md) | UI track 최종 사용자 실행 확인 | 두Bootstrap·실제 입력·화면비·focus 복원, 확인 전 main/branch 정리 보류 |
+| [UI_ACCEPTANCE.md](UI_ACCEPTANCE.md) | UI checklist의 최종 사용자 수락 기록 | 2026-10-12 전체 수락 완료; main 통합은 별도로 진행 중 |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |

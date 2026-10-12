@@ -121,3 +121,5 @@
 - 2026-10-12: [01 UI compiler 등록 누락 복구](2026-10-12-01-ui-compiler-registration.md) — 원본 컴파일/Console0, UI86/86, 표준 재등록 후 clean compile·reload·Play 유지 확인.
 
 - 2026-10-12: [02 UI 예제 프레임 잔상](2026-10-12-02-ui-sample-frame-clear.md) — 배경 Camera 누락 재현·same-Play 잔상 제거, 두entry 실제Editor 전환 확인·최종수락 대기.
+
+- 2026-10-12: [03 UI 전체 수락·main 통합](2026-10-12-03-ui-main-integration.md) — 사용자 전체 확인·최신소비build2/Player8 통과, main 통합·UI브랜치 정리 진행.

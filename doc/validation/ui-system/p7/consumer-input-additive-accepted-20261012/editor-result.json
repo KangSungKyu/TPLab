@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "sampleSuccess": true,
+    "errors": 0,
+    "warnings": 2,
+    "sampleErrors": 0,
+    "runId": "1b0054abb27045a0be2816c9cdaad7d3",
+    "sourceRevision": "5af64b96b8d7f1793d26465550077ac1a5f8cd25",
+    "projectPath": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-accepted-20261012\\Project",
+    "unityVersion": "6000.3.18f1",
+    "backend": "Mono2x",
+    "target": "StandaloneWindows64",
+    "playerPath": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-accepted-20261012\\Build\\UIConsumer.exe",
+    "result": "Succeeded",
+    "error": "",
+    "samplePlayerPath": "C:\\Users\\PC\\Projects\\TPLab\\Temp\\UIConsumer-input-additive-accepted-20261012\\SampleBuild\\UIContextSample.exe"
+}

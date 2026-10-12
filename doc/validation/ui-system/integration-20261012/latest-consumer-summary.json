@@ -1,0 +1,53 @@
+{
+  "sourceCandidate": "5af64b96b8d7f1793d26465550077ac1a5f8cd25",
+  "success": true,
+  "freshEditorBuildProcesses": 2,
+  "freshBuildArtifacts": 4,
+  "freshGraphicsPlayerProcesses": 8,
+  "allProcessExitCodes": 0,
+  "timedOutProcesses": 0,
+  "samples": [
+    {
+      "success": true,
+      "sourceRevision": "5af64b96b8d7f1793d26465550077ac1a5f8cd25",
+      "sampleEntry": "UIContextBootstrapSingle",
+      "checks": 80,
+      "actualGraphicsFrames": 30,
+      "minDrawCalls": 12,
+      "inventorySnapshots": 7,
+      "manualContinueCount": 4,
+      "shutdownCleanupCount": 2,
+      "normalScenesBeforeParking": 1,
+      "parkingSceneCreated": true,
+      "parkingSceneRetainedUntilQuit": true,
+      "managerStoppedAndOwnedRegisteredScenesZero": true,
+      "physicalInputVerified": false,
+      "visualAcceptanceVerified": false,
+      "resultSha256": "75e10d85103778e704b2dc456693fbea51cc16505ee9543f0bb1395885ad823a",
+      "actualPlayerExecutions": 1
+    },
+    {
+      "success": true,
+      "sourceRevision": "5af64b96b8d7f1793d26465550077ac1a5f8cd25",
+      "sampleEntry": "UIContextBootstrapAdditive",
+      "checks": 78,
+      "actualGraphicsFrames": 30,
+      "minDrawCalls": 12,
+      "inventorySnapshots": 7,
+      "manualContinueCount": 4,
+      "shutdownCleanupCount": 2,
+      "normalScenesBeforeParking": 2,
+      "parkingSceneCreated": false,
+      "parkingSceneRetainedUntilQuit": false,
+      "managerStoppedAndOwnedRegisteredScenesZero": true,
+      "physicalInputVerified": false,
+      "visualAcceptanceVerified": false,
+      "resultSha256": "4a1b29e855618106dad778c21bfbe51a23d09766f945deafede7d31654fd9947",
+      "actualPlayerExecutions": 1
+    }
+  ],
+  "originalUnitTestsReexecuted": 0,
+  "baseNoInputProfileReexecuted": 0,
+  "originalPerformanceInterpretationUnchanged": true,
+  "fullUserAcceptanceConfirmedSeparately": true
+}
