@@ -1,0 +1,33 @@
+# PR 규칙 검사 (1단계: 참고용, 병합을 막지 않는다)
+# - Unity를 실행하지 않는다. diff만 읽는다.
+# - 시크릿을 쓰지 않는다. 읽기 권한만 가진다.
+# - 필수 검사로 지정하지 않는 한 실패해도 병합이 막히지 않는다(브랜치 보호는 2단계).
+name: PR 규칙 검사
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-rules-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  rules:
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check PR rules
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python3 tools/check_pr_rules.py --base "$BASE_SHA" --head "$HEAD_SHA"

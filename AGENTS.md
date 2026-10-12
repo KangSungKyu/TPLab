@@ -104,6 +104,8 @@
 - 2026-10-07 사용자는 저장소 public 전환과 외부 제공을 승인했고 참조 의존성의 최소 조건만 유지하도록 요청했다. TPLab 자체 코드/문서는 [MIT](LICENSE), 제3자는 [고지](THIRD_PARTY_NOTICES.md)의 원문 조건을 따른다. 현재/과거 Git 이력의 인증 정보 노출 여부를 공개 전에 확인하고 Cloud/사용자 설정을 보존한다. 실제 artifact 검증이 끝나지 않은 개발 검증본을 최종 Release로 표시하지 않는다.
 - source SHA·version·package hash·실제 결과·tag/Release 대상을 대조한다. 남은 사용자 확인이 있으면 track/main/Release gate를 기다리며, 자동 검증 완료만으로 최종 배포 완료를 선언하지 않는다.
 
+GitHub PR 규칙 검사와 요청 시 Claude 리뷰의 1단계 초안은 [CI_SETUP_GUIDE.md](doc/CI_SETUP_GUIDE.md)를 참조한다. 현재 단위는 작업 브랜치·검증·PR까지만 진행하며, CI 판정 변경과 실제 리뷰 권한은 사용자 확인 전 main에 반영하지 않는다.
+
 ## Git 작업 시작 전 확인
 
 1. 파일을 수정하기 전에 현재 checkout 경로, 브랜치, HEAD, upstream과 추적·미추적 변경을 확인한다. upstream이 있으면 로컬에서 확인 가능한 ahead/behind 상태도 확인하며, 원격 최신 상태를 확인하지 않았다면 최신이라고 단정하지 않는다.
