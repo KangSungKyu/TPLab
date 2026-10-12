@@ -1,9 +1,21 @@
 # 2026-10-12 · GitHub review automation P1
 
-User authorized copying the supplied ci-draft files and creating a PR only. Base main `0641fb57e4d6fae03fe17b88801c6762d78de84f`, branch `codex/github-review-p1`. Main merge, other branch pushes/deletion, force push, repository settings, app installation and real secrets are outside this unit.
+User authorized file application and a PR only. Base main `0641fb57e4d6fae03fe17b88801c6762d78de84f`, branch `codex/github-review-p1`. Main merge, other branch pushes/deletion, force push, repository settings, app installation and real secrets are outside this unit.
 
-Seven supplied draft files are copied byte-for-byte; [baseline](baseline.json) records their SHA256 and the six preserved user changes. AGENTS only gains document guidance at this stage. Existing behavior rules are preserved. The attachment's CODEX_APPLY_PROMPT.md is not installed in the repository.
+The seven supplied draft files are copied byte-for-byte in commit `b194ebbf090108f4fae1ea0f23b2e64d1ee1d91d`. [Baseline](baseline.json) records their SHA256 and the six preserved user changes. AGENTS gains documentation and CI interpretation paragraphs; all preexisting rule lines remain unchanged. The attachment's CODEX_APPLY_PROMPT.md is not installed in the repository.
 
-PR-rule tests: [initial Windows run](draft-tests.txt):13 executed,12 passed/1 error/skip0 because CP949 stdout cannot encode the report em dash. [UTF-8 environment run](draft-tests-utf8.txt):13/13,fail0/skip0 using the same unmodified files and command with per-process `PYTHONUTF8=1`. This is environment repair, not a new authored Red/Green implementation. Ubuntu GitHub execution and Claude review have not run at this preparation point.
+| Verification | Executed | Failures | Errors | Skip | Evidence |
+|---|---:|---:|---:|---:|---|
+| Draft PR-rule tests, initial Windows CP949 run |13|0|1|0|[initial](draft-tests.txt)|
+| Same draft tests, per-process PYTHONUTF8=1 |13|0|0|0|[UTF-8](draft-tests-utf8.txt)|
+| CI helper Red against old implementation |28|27|1|0|[Red](gate-red.txt), [summary](gate-red.json)|
+| CI helper Green, same unchanged test source |28|0|0|0|[Green](gate-green.txt), [summary](gate-green.json)|
+| Parent combined PR-rule + CI-helper regression |41|0|0|0|[combined](combined-tests.txt)|
 
-Draft issues retained for user review: the guide calls checks advisory while its proposed merge tool blocks failures; CLAUDE.md refers to an absent GC_ALLOCATION_GUIDELINE.md and an optional absent IMPROVEMENT_BACKLOG.md. Read-only Claude tools/token permissions and subscription usage are not established by local Python tests. No nonexistent guideline or permission guarantee is invented. The proposed CI guard will be a separate commit with offline Red/Green evidence and a before/after table.
+Commands run from `tools`: `python -m unittest test_check_pr_rules -v`, `python -m unittest test_check_github_ci -v`, and `python -m unittest test_check_pr_rules test_check_github_ci -v`. UTF-8 is a process environment setting, not a draft edit. Fixing the initial encoding error is not new authored Red/Green implementation. Mock fixtures intentionally print rule errors; the unittest summary is the execution result.
+
+The helper implementation and test hashes are frozen in [gate policy](gate-policy.json). The helper change is a separate commit from the draft. [Before/after proposal](CI_GATE_PROPOSAL.md) defines outcomes, completeness/SHA gates and remaining policy decisions. This is an observation gate; even a pass does not authorize merging this PR.
+
+Original draft issues remain for user review: advisory GitHub workflow versus stricter local helper policy, Windows stdout encoding, [rename leaving an old .meta undetected](draft-rename-probe.json), an absent GC guide and optional absent IMP backlog, and unverified Claude write restrictions/permissions/usage. Original drafts are not corrected under the preservation instruction. Unity compile/EditMode/PlayMode are not run for this Python/workflow-only change; no Unity source, package or project setting is staged.
+
+Final committed-diff rule results are in `pr-rules.txt` and `pr-rules.json` when generated. Live GitHub results must be read after PR creation and reported in the PR body; they are not established by local tests. Claude and guide S1–S5 remain unexecuted until user setup and authorization. App installation, secrets, repository configuration, comments triggering Claude and main integration were not performed.

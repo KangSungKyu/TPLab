@@ -1,0 +1,15 @@
+{
+  "phase": "Red",
+  "command": "python -m unittest -v test_check_github_ci (equivalent unittest runner)",
+  "testsRun": 28,
+  "failures": 27,
+  "errors": 1,
+  "skipped": 0,
+  "success": false,
+  "offline": true,
+  "gitAndHttpMocked": true,
+  "inputs": {
+    "tools\\check_github_ci.py": "b2f9b0329383d6b0b148cb4f7ca826685ee5c6b3f9226ab6e1b06cb82074f902",
+    "tools\\test_check_github_ci.py": "2be83c92a5df837fad1e96c0f666972ca2fb82620632a8f618a1fb69c79d09a9"
+  }
+}
