@@ -1,0 +1,13 @@
+{
+  "originalSourceAndMetaBytesUnchanged": {
+    "Assets/TPLab/UI/Runtime/UIPresentation.cs": true,
+    "Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs": true,
+    "Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs": true
+  },
+  "registeredCounts": {
+    "Runtime": 13,
+    "EditModeTests": 6,
+    "PlayModeTests": 7,
+    "allScripts": 7347
+  }
+}

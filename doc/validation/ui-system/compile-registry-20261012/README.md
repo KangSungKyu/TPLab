@@ -1,0 +1,30 @@
+# 2026-10-12 · Existing Editor compiler registration repair
+
+Status: repaired in original TPLab Editor PID24376 / Unity6000.3.18f1; current compilation/Console errors0. UI Edit33/33 + Play53/53, failed0/skipped0. Source revision `e4a3df6b2bf472f36c09991bf9073b4f727a1bcc` is unchanged. This is an Editor asset-discovery repair, not a public API/code change or final user acceptance.
+
+## Observed failure
+
+[Original Console](console-before.json) contains five CS0246 errors for `UIPresentation` referenced by UIContext/UIHandle. The three existing script assets had valid MonoImporter/MonoScript, GUIDs and asmdef ownership, but were missing from the compiler registry: [before state](registry-before.txt). Actual [rsp](ui-compiler-before.rsp.txt) omitted the helper. Runtime12/13, Edit5/6, Play6/7 were registered. The two presentation test files were omitted too, even though only the runtime helper caused the compiler error.
+
+Earlier P7 used temporary managed `SetAllScripts` union; its evidence explicitly did not claim permanent native repair. Current native/managed discovery was still7344 rather than7347. The initiating cause of this cached state has not been established; C# syntax, namespaces, GUID collision, asmdef constraints, encoding and hidden/reparse files were ruled out in this checkout.
+
+## Limited standard repair
+
+Three owned paths only:
+
+- `Assets/TPLab/UI/Runtime/UIPresentation.cs`
+- `Assets/TPLab/UI/Tests/EditMode/UIContextPresentationTests.cs`
+- `Assets/TPLab/UI/Tests/PlayMode/UIContextPresentationTests.cs`
+
+Each asset used standard `AssetDatabase.MoveAsset` to a unique unused `.cs` path in the same assembly folder, synchronous import, then restore/import in finally. GUIDs were checked before/after and original file/meta bytes stayed identical. [Executed action](repair-move.cs.txt), [result](repair-move.txt), [raw source/meta baseline](owned-before.json). No reflection mutation of `SetAllScripts`, new source classes, namespace changes, package changes, Library deletion, whole-asset reserialization, Editor restart or user-setting edits were used.
+
+The temporary paths no longer exist. No project source/meta diff was introduced. Restoration was observed after the first compile/domain reload, then after ordinary `AssetDatabase.Refresh` and `RequestScriptCompilation(CleanBuildCache)`, and again after PlayMode test execution. [First restored registry](registry-after-move.txt), [clean request](recompile.cs.txt), [after clean](registry-after-clean.txt), [final registry](registry-final.txt). All7347 script paths remain registered; the UI assembly source counts are13/6/7. Saved clean rsp files show all three original names in real compiler inputs.
+
+## Actual validation and limits
+
+- [Edit result](ui-edit.json), [native result](ui-edit.native.json):33/33, failures0/skips0, exact filterTPLab.UI/Editor24376. Includes all four formerly omitted presentation tests.
+- [Play result](ui-play.json), [runner](ui-play-runner.txt):53/53, failures0/skips0, CLI36784 returned0 on the same Editor. Includes all fourteen formerly omitted presentation tests.
+- [Final Console](console-final.json):empty; [Editor status](status-final.txt):ready. [Summary](summary.json) records exact scope and preserved6raw user files. All476 P7 captured source inputs and all three source/meta raw hashes remain unchanged.
+- Tests verify the recovered compiler/test-discovery scope. No new full Core/Input regression, Player build, performance run, physical-input/visual acceptance or Editor restart was performed in this repair unit. Existing P7 evidence retains its original source/date. The UI final [manual acceptance](../../../UI_ACCEPTANCE.md), main merge and branch deletion remain pending.
+
+Do not blindly replay the historical C# snippets: they guard the observed PID and selected three paths. A future recurrence first needs current Editor/project/dirty/source/GUID and actual compiler-input checks. Prefer standard asset operations and preserve existing GUIDs; a managed-only compiler-list injection is insufficient evidence of native restoration.

@@ -117,3 +117,5 @@
 - 2026-10-08: [10 UIContext 설치/root/예제](2026-10-08-10-ui-installation.md) — 자동UI86/compile/신규19asset 검증 완료, P7 대기.
 
 - 2026-10-08: [11 UIContext P7 통합·소비·성능](2026-10-08-11-ui-validation.md) — 원본624 회귀·두entry sample/graphics 성능 자동 검증 완료, 사용자 수락 대기.
+
+- 2026-10-12: [01 UI compiler 등록 누락 복구](2026-10-12-01-ui-compiler-registration.md) — 원본 컴파일/Console0, UI86/86, 표준 재등록 후 clean compile·reload·Play 유지 확인.

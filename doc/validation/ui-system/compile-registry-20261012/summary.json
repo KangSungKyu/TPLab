@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-12",
+  "project": "C:\\Users\\PC\\Projects\\TPLab",
+  "editorPid": 24376,
+  "sourceRevision": "e4a3df6b2bf472f36c09991bf9073b4f727a1bcc",
+  "initialCompilationErrors": 5,
+  "rootCauseBoundary": "3 existing MonoScript assets absent from native-provided compiler input registry; source/GUID/asmdef were valid. Initiating cause not established.",
+  "repair": "Three standard AssetDatabase move/import/restore round trips; no SetAllScripts or source/meta changes.",
+  "registeredPaths": 7347,
+  "assemblySourceFiles": {
+    "TPLab.UI": 13,
+    "TPLab.UI.EditModeTests": 6,
+    "TPLab.UI.PlayModeTests": 7
+  },
+  "survivedStandardRefreshCleanCompileAndDomainReload": true,
+  "survivedUiPlayModeRun": true,
+  "edit": [
+    33,
+    33,
+    0,
+    0
+  ],
+  "play": [
+    53,
+    53,
+    0,
+    0
+  ],
+  "restoredPresentationTestsPassed": 18,
+  "finalConsoleErrors": 0,
+  "sourceAndMetaBytesUnchanged": 3,
+  "protectedFilesRawUnchanged": 6,
+  "mainMergePerformed": false,
+  "userManualAcceptancePending": true,
+  "editorRestartTested": false
+}

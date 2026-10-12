@@ -82,3 +82,6 @@ P7 작업 source 기록: `09bcdb4` 도구 승격 → `7603e52` fixture/설치 AP
 
 
 P7 담당 갱신: 수명 담당(기존 문맥/모델·추론 유지)은 optional UI 테스트1파일의 fixture-owned Addressables locator와 consumer sample teardown driver1파일을 맡았고 정적 freeze 후 부모가 실제624회귀/consumer를 실행했다. native 담당 gpt-6.1-sol/high는 graphics helper와 native 경계를 읽기 리뷰했다. 문서 담당 gpt-6-luna/low는 허용된 사람/AI/예제문서8개를 갱신했다. 같은 source파일/Unity를 동시 수정하지 않았고 동시 하위담당은최대2개다. 부모가 실패진단·최종deep/schema/hash·GUID/링크·회고·Git/track통합을소유한다.
+
+
+2026-10-12 원본Editor 컴파일 재발 후속: 코드가 정상인 UIPresentation.cs와 두 presentation tests의 native-fed compiler 목록 누락을 [표준 asset 재등록](validation/ui-system/compile-registry-20261012/README.md)으로 복구했다. source/meta/GUID·P7입력476·사용자6raw unchanged. 원본Editor24376의 ordinaryRefresh/cleancompile/domainReload/Play 후에도 registry7347·assembly입력13/6/7을 유지했고 현재Compile/Console0, actualUI Edit33/33·Play53/53. [회고](retrospectives/2026-10-12-01-ui-compiler-registration.md). 최초발생계기/Editor재시작재현은확정하지않았으며 기존P7과새86실행은구분한다. 최종사용자UX/main/branch삭제대기는유지한다.
