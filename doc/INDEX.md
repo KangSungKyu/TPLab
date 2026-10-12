@@ -32,7 +32,7 @@
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |
 | [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer·예제 authoring 검증 결과 | final source21f89e25·UI86/86·새19asset, 이후 통합 검증은P7 |
 | [UI P7 검증](validation/ui-system/p7/README.md) | P7 source-specific regression·consumer·Player·성능 기록 | 99df25dd/8310a94 evidence는 역사적이며 2026-10-12 사용자 수락 및 최신 candidate와 구분 |
-| [UI 최신 source 통합 검증](validation/ui-system/integration-20261012/README.md) | 5af64b96 Single/Additive consumer 최종 확인 | 최신 빌드2·artifact4·Player8 통과; 사용자 수락 완료, main 통합 진행 중 |
+| [UI 최신 source 통합 검증](validation/ui-system/integration-20261012/README.md) | 5af64b96 Single/Additive consumer 최종 확인 | 최신 빌드2·artifact4·Player8 통과; 사용자 수락 완료, main 통합 완료 |
 | [UI compiler 등록 복구](validation/ui-system/compile-registry-20261012/README.md) | 원본Editor CS0246/UIPresentation 등록 누락 재발 확인 | 표준 asset roundtrip·GUID 보존, clean/reload 후 UI86/86·현재Console0, 재시작 미검증 |
 | [UI 예제 잔상 수정](validation/ui-system/sample-clear-20261012/README.md) | 버튼 후 과거 글자/닫힌Popup/cover 잔상 | 배경Camera 수정과 2026-10-12 전체 UI 사용자 수락; 최신 source candidate 검증은 integration record 참조 |
 | [UI_PERFORMANCE.md](UI_PERFORMANCE.md) | Virtual ScrollRect·Canvas 최적화 결과 검토 | 같은1,000 비교·10,000 확장성·600프레임 median/P95/max, GC·N/A·한계 |

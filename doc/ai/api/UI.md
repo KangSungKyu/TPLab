@@ -10,7 +10,7 @@ SourceRevision: 99df25dd6b89fd7f3e322c8033b61eb1364f495e (UI runtime unchanged f
 
 ## ImplementationStatus / ValidationStatus / Evidence
 
-ImplementationStatus: Implemented through P6. ValidationStatus: The user confirmed full UI acceptance on 2026-10-12 for the sample behavior and visual checklist. Current source candidate Single/Additive consumer verification passed (2 build processes,4 artifacts,8 Players); main integration is in progress. SourceRevision: `99df25dd6b89fd7f3e322c8033b61eb1364f495e` for UI regression inputs; consumer-only candidate `8310a94bcb674f28bee2c246c4e5eae9d6c83804`.
+ImplementationStatus: Implemented through P6. ValidationStatus: The user confirmed full UI acceptance on 2026-10-12 for the sample behavior and visual checklist. Current source candidate Single/Additive consumer verification passed (2 build processes,4 artifacts,8 Players); main integration is complete. SourceRevision: `99df25dd6b89fd7f3e322c8033b61eb1364f495e` for UI regression inputs; consumer-only candidate `8310a94bcb674f28bee2c246c4e5eae9d6c83804`.
 
 ## Symbol / Signature / Constraints
 

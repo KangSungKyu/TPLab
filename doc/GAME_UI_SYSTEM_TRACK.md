@@ -21,7 +21,7 @@
 | P4 입력/연출 | codex/game-ui-p4-input | 완료 / 자동65개·문서·회고 | 실제 Input System/EventSystem·modal/focus·lease·재전달 |
 | P5 Virtual ScrollRect | codex/game-ui-p5-scroll | 완료 / 자동79개·문서·회고 | 실제1,000/10,000 항목·활성+보관 상한·누적 생성·binding |
 | P6 설정/root/예제 | codex/game-ui-p6-integration | 완료 / 자동UI86·compile·예제19asset·문서·회고 | Inspector/script 동일경로·Single/Additive·callback 예제 |
-| P7 통합/성능/수락 | codex/game-ui-p7-validation | 최신 소비 검증·전체 사용자 수락 완료 / main 통합 중 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
+| P7 통합/성능/수락 | codex/game-ui-p7-validation | 완료 / 최신 소비·전체 사용자 수락·main 반영 | 회귀·소비/Player·동수1,000 성능비교/10,000 확장성·최종 UX |
 
 P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 가능하다. P6은 P4/P5, P7은 P6을 선행한다. 문서와 자동 검증은 해당 Phase에서 수행하며 P7까지 미루지 않는다.
 
@@ -91,3 +91,5 @@ P7 담당 갱신: 수명 담당(기존 문맥/모델·추론 유지)은 optional
 2026-10-12 사용자는 잔상 수정에 이어 “전체 UI 항목도 확인 완료”라고 명시했다. 전체 UI 사용자 수락은 완료됐고 후보 `5af64b96b8d7f1793d26465550077ac1a5f8cd25`의 최신 소비 검증 갱신 후 main 통합과 UI 작업 브랜치 정리를 진행한다. [최종 통합 기록](validation/ui-system/integration-20261012/README.md).
 
 최신 후보5af64b96에서 Single/Additive 각각 build1(artifact2)·fresh graphics Player4를 통과했다. 새 합계 build2/artifact4/Player8, exit0·timeout0. 각 sample80/78checks·draw30/min12·inventory7·Continue4·cleanup2와 ManagerStopped/등록·소유0을 확인했다. 기존Runtime/tests는473/476정규화입력 중변경3sample파일외에같으므로 기존624와최근UI86을계승하며새실행으로표시하지않는다. 사용자6raw 원본·InitScene/Build설정 복원 완료. [최종 근거](validation/ui-system/integration-20261012/README.md)와 [통합 회고](retrospectives/2026-10-12-03-ui-main-integration.md).
+
+Main `7b606586038883d4a38841e76e4c969d116306b1`에 fast-forward·원격일치를 확인했다. Phase branch8개와 consumed Temp5개를 정리했고 최종 문서 commit/main push 후 track·P7 branch를 정리한다. 원본6파일·기존Editor 보존, UI UPM/버전/tag는 추가하지 않았다. [통합·정리 근거](validation/ui-system/integration-20261012/README.md).
