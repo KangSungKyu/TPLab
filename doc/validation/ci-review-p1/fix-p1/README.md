@@ -21,3 +21,7 @@ The SHA sentence is used for PR-result lookup against the source candidate branc
 Independent read-only final review found no blocker or attachment difference. Runtime SDK/Unity/compiler/Console/EditMode/PlayMode/Player validation is not run because this unit changes Python tooling and operational guidance only. Claude execution/App/token/permission verification and guide S1–S5 remain unexecuted. Final entire PR rules and actual final-HEAD GitHub run are recorded in the PR body after committing/pushing.
 
 The copied reviewer diff retains its context-space lines byte-for-byte. A path-specific evidence attribute disables only end-of-line-space checks for that diff artifact; implementation/docs whitespace checks remain enabled.
+
+## Committed PR diff and direct CLI proof
+
+Correction commit `b68bf1f0eaaa3ef777464e5ee996c5aec7ac9203` was checked against main `0641fb57e4d6fae03fe17b88801c6762d78de84f` by direct CLI without either UTF-8 environment variable. CLI stdout is UTF-8 as defined by its entry point; report errors0/warnings7, exit0, changed files47. [Actual output](pr-rules.txt), [identity/result](pr-rules.json). `git diff main...HEAD -- AGENTS.md` confirms additions4/deletions0. Final evidence-only HEAD is checked again before push and its exact Actions result is recorded in PR #1.

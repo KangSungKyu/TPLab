@@ -29,3 +29,9 @@
 - 사용자 PR 검토 전 main 미병합. 이번 작업은 원문 초안 수정 별도 commit과 PR 갱신까지.
 - CI 체크 권한/optional·과거 failed run/GC·IMP 문서 정책은 기존 PR의 미확정 사항 유지. 새로운 framework/의존성 추가 없음.
 - 소비한 작업 Temp 파일만 검증 증거 보존 후 정리; 사용자 첨부·기존 Temp·dirty 보존.
+
+## Git·최종 검증 마감
+
+- 초안 원문 수정 별도 commit `b68bf1f0eaaa3ef777464e5ee996c5aec7ac9203` (`fix: correct original PR rule draft and scope CI guidance`). baseline과 이전 evidence 보존.
+- 실제 `main...HEAD` AGENTS diff 추가4/삭제0. 직접 CLI도 UTF8 환경 변수 없이 오류0/경고7/exit0; 출력 UTF-8 정상. [결과](../validation/ci-review-p1/fix-p1/pr-rules.json).
+- 실행 증거만 보존하는 다음 commit을 포함한 정확 최종HEAD·원격 PR/Actions 결과는 PR #1 본문에 갱신. 작업 branch만 push하며 main 병합/branch 삭제/설정 변경은 수행하지 않는다.
