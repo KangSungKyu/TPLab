@@ -1,0 +1,12 @@
+{
+  "pr": "https://github.com/KangSungKyu/TPLab/pull/1",
+  "number": 1,
+  "state": "open",
+  "draft": false,
+  "head": "0162f7eb39b5d8fc505d05323206bbe4c75ecfc8",
+  "base": "0641fb57e4d6fae03fe17b88801c6762d78de84f",
+  "headBranch": "codex/github-review-p1",
+  "mergeable": true,
+  "mergeableState": "clean",
+  "mainProtected": false
+}
