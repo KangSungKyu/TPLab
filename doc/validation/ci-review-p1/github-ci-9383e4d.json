@@ -1,0 +1,476 @@
+{
+  "repository": "KangSungKyu/TPLab",
+  "requestedCommit": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+  "targetSha": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+  "inspectedCommit": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+  "remoteMain": "0641fb57e4d6fae03fe17b88801c6762d78de84f",
+  "mainProtected": false,
+  "workflowCount": 1,
+  "checkRunCount": 1,
+  "commitStatusCount": 0,
+  "workflowRunCount": 1,
+  "queryIssues": [],
+  "collections": {
+    "workflows": {
+      "totalCount": 1,
+      "receivedCount": 1,
+      "pages": [
+        {
+          "page": 1,
+          "totalCount": 1,
+          "sha": null
+        }
+      ],
+      "complete": true,
+      "errors": []
+    },
+    "checks": {
+      "totalCount": 1,
+      "receivedCount": 1,
+      "pages": [
+        {
+          "page": 1,
+          "totalCount": 1,
+          "sha": null
+        }
+      ],
+      "complete": true,
+      "errors": []
+    },
+    "statuses": {
+      "totalCount": 0,
+      "receivedCount": 0,
+      "pages": [
+        {
+          "page": 1,
+          "totalCount": 0,
+          "sha": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7"
+        }
+      ],
+      "complete": true,
+      "errors": []
+    },
+    "runs": {
+      "totalCount": 1,
+      "receivedCount": 1,
+      "pages": [
+        {
+          "page": 1,
+          "totalCount": 1,
+          "sha": null
+        }
+      ],
+      "complete": true,
+      "errors": []
+    }
+  },
+  "workflows": [
+    {
+      "id": 381708424,
+      "node_id": "W_kwDOU4C4xs4WwGiI",
+      "name": "PR \uaddc\uce59 \uac80\uc0ac",
+      "path": ".github/workflows/rule-check.yml",
+      "state": "active",
+      "created_at": "2026-10-12T11:13:35.000+09:00",
+      "updated_at": "2026-10-12T11:13:35.000+09:00",
+      "url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/workflows/381708424",
+      "html_url": "https://github.com/KangSungKyu/TPLab/blob/main/.github/workflows/rule-check.yml",
+      "badge_url": "https://github.com/KangSungKyu/TPLab/workflows/PR%20%EA%B7%9C%EC%B9%99%20%EA%B2%80%EC%82%AC/badge.svg"
+    }
+  ],
+  "checks": [
+    {
+      "id": 114635440382,
+      "name": "rules",
+      "node_id": "CR_kwDOU4C4xs8AAAAasM4A_g",
+      "head_sha": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+      "external_id": "580db143-2f32-5c08-9e67-0ee03a504bb0",
+      "url": "https://api.github.com/repos/KangSungKyu/TPLab/check-runs/114635440382",
+      "html_url": "https://github.com/KangSungKyu/TPLab/actions/runs/38194948859/job/114635440382",
+      "details_url": "https://github.com/KangSungKyu/TPLab/actions/runs/38194948859/job/114635440382",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-12T02:13:39Z",
+      "completed_at": "2026-10-12T02:13:45Z",
+      "output": {
+        "title": null,
+        "summary": null,
+        "text": null,
+        "annotations_count": 8,
+        "annotations_url": "https://api.github.com/repos/KangSungKyu/TPLab/check-runs/114635440382/annotations"
+      },
+      "check_suite": {
+        "id": 103479814846
+      },
+      "app": {
+        "id": 15368,
+        "client_id": "Iv1.05c79e9ad1f6bdfa",
+        "slug": "github-actions",
+        "node_id": "MDM6QXBwMTUzNjg=",
+        "owner": {
+          "login": "github",
+          "id": 9919,
+          "node_id": "MDEyOk9yZ2FuaXphdGlvbjk5MTk=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/9919?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/github",
+          "html_url": "https://github.com/github",
+          "followers_url": "https://api.github.com/users/github/followers",
+          "following_url": "https://api.github.com/users/github/following{/other_user}",
+          "gists_url": "https://api.github.com/users/github/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/github/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/github/subscriptions",
+          "organizations_url": "https://api.github.com/users/github/orgs",
+          "repos_url": "https://api.github.com/users/github/repos",
+          "events_url": "https://api.github.com/users/github/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/github/received_events",
+          "type": "Organization",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "name": "GitHub Actions",
+        "description": "Automate your workflow from idea to production",
+        "external_url": "https://help.github.com/en/actions",
+        "html_url": "https://github.com/apps/github-actions",
+        "created_at": "2018-07-30T09:30:17Z",
+        "updated_at": "2026-06-18T16:17:48Z",
+        "permissions": {
+          "actions": "write",
+          "administration": "read",
+          "artifact_metadata": "write",
+          "attestations": "write",
+          "checks": "write",
+          "code_quality": "write",
+          "contents": "write",
+          "copilot_requests": "write",
+          "deployments": "write",
+          "discussions": "write",
+          "drives": "write",
+          "issues": "write",
+          "merge_queues": "write",
+          "metadata": "read",
+          "models": "read",
+          "packages": "write",
+          "pages": "write",
+          "pull_requests": "write",
+          "repository_hooks": "write",
+          "repository_projects": "write",
+          "security_events": "write",
+          "statuses": "write",
+          "vulnerability_alerts": "read"
+        },
+        "events": [
+          "branch_protection_rule",
+          "check_run",
+          "check_suite",
+          "create",
+          "delete",
+          "deployment",
+          "deployment_status",
+          "discussion",
+          "discussion_comment",
+          "fork",
+          "gollum",
+          "issues",
+          "issue_comment",
+          "label",
+          "merge_group",
+          "milestone",
+          "page_build",
+          "public",
+          "pull_request",
+          "pull_request_review",
+          "pull_request_review_comment",
+          "push",
+          "registry_package",
+          "release",
+          "repository",
+          "repository_dispatch",
+          "status",
+          "watch",
+          "workflow_dispatch",
+          "workflow_run"
+        ]
+      },
+      "pull_requests": [
+        {
+          "url": "https://api.github.com/repos/KangSungKyu/TPLab/pulls/1",
+          "id": 4824124720,
+          "number": 1,
+          "head": {
+            "ref": "codex/github-review-p1",
+            "sha": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+            "repo": {
+              "id": 1400944838,
+              "url": "https://api.github.com/repos/KangSungKyu/TPLab",
+              "name": "TPLab"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "0641fb57e4d6fae03fe17b88801c6762d78de84f",
+            "repo": {
+              "id": 1400944838,
+              "url": "https://api.github.com/repos/KangSungKyu/TPLab",
+              "name": "TPLab"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "statuses": [],
+  "runs": [
+    {
+      "id": 38194948859,
+      "name": "PR \uaddc\uce59 \uac80\uc0ac",
+      "node_id": "WFR_kwLOU4C4xs8AAAAI5Jiq-w",
+      "head_branch": "codex/github-review-p1",
+      "head_sha": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+      "path": ".github/workflows/rule-check.yml",
+      "display_title": "ci: GitHub \ub9ac\ubdf0 \uc790\ub3d9\ud654 \ucd08\uc548\uacfc \uc815\ud655 SHA \ud310\uc815 \uc81c\uc548",
+      "run_number": 1,
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "workflow_id": 381708424,
+      "check_suite_id": 103479814846,
+      "check_suite_node_id": "CS_kwDOU4C4xs8AAAAYF-Cqvg",
+      "url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/runs/38194948859",
+      "html_url": "https://github.com/KangSungKyu/TPLab/actions/runs/38194948859",
+      "pull_requests": [
+        {
+          "url": "https://api.github.com/repos/KangSungKyu/TPLab/pulls/1",
+          "id": 4824124720,
+          "number": 1,
+          "head": {
+            "ref": "codex/github-review-p1",
+            "sha": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+            "repo": {
+              "id": 1400944838,
+              "url": "https://api.github.com/repos/KangSungKyu/TPLab",
+              "name": "TPLab"
+            }
+          },
+          "base": {
+            "ref": "main",
+            "sha": "0641fb57e4d6fae03fe17b88801c6762d78de84f",
+            "repo": {
+              "id": 1400944838,
+              "url": "https://api.github.com/repos/KangSungKyu/TPLab",
+              "name": "TPLab"
+            }
+          }
+        }
+      ],
+      "created_at": "2026-10-12T02:13:35Z",
+      "updated_at": "2026-10-12T02:13:46Z",
+      "actor": {
+        "login": "KangSungKyu",
+        "id": 26376712,
+        "node_id": "MDQ6VXNlcjI2Mzc2NzEy",
+        "avatar_url": "https://avatars.githubusercontent.com/u/26376712?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/KangSungKyu",
+        "html_url": "https://github.com/KangSungKyu",
+        "followers_url": "https://api.github.com/users/KangSungKyu/followers",
+        "following_url": "https://api.github.com/users/KangSungKyu/following{/other_user}",
+        "gists_url": "https://api.github.com/users/KangSungKyu/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/KangSungKyu/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/KangSungKyu/subscriptions",
+        "organizations_url": "https://api.github.com/users/KangSungKyu/orgs",
+        "repos_url": "https://api.github.com/users/KangSungKyu/repos",
+        "events_url": "https://api.github.com/users/KangSungKyu/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/KangSungKyu/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "run_attempt": 1,
+      "referenced_workflows": [],
+      "run_started_at": "2026-10-12T02:13:35Z",
+      "triggering_actor": {
+        "login": "KangSungKyu",
+        "id": 26376712,
+        "node_id": "MDQ6VXNlcjI2Mzc2NzEy",
+        "avatar_url": "https://avatars.githubusercontent.com/u/26376712?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/KangSungKyu",
+        "html_url": "https://github.com/KangSungKyu",
+        "followers_url": "https://api.github.com/users/KangSungKyu/followers",
+        "following_url": "https://api.github.com/users/KangSungKyu/following{/other_user}",
+        "gists_url": "https://api.github.com/users/KangSungKyu/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/KangSungKyu/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/KangSungKyu/subscriptions",
+        "organizations_url": "https://api.github.com/users/KangSungKyu/orgs",
+        "repos_url": "https://api.github.com/users/KangSungKyu/repos",
+        "events_url": "https://api.github.com/users/KangSungKyu/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/KangSungKyu/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "jobs_url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/runs/38194948859/jobs",
+      "logs_url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/runs/38194948859/logs",
+      "check_suite_url": "https://api.github.com/repos/KangSungKyu/TPLab/check-suites/103479814846",
+      "artifacts_url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/runs/38194948859/artifacts",
+      "cancel_url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/runs/38194948859/cancel",
+      "rerun_url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/runs/38194948859/rerun",
+      "previous_attempt_url": null,
+      "workflow_url": "https://api.github.com/repos/KangSungKyu/TPLab/actions/workflows/381708424",
+      "head_commit": {
+        "id": "9383e4d6ea6e89e777f883049c3ab4e96fa634c7",
+        "tree_id": "12592416968a3263d663d4a5926f0fb46ad22d10",
+        "message": "docs: preserve CI review evidence and remaining verification gates",
+        "timestamp": "2026-10-12T02:11:54Z",
+        "author": {
+          "name": "KangSungKyu",
+          "email": "tjdrb70@gmail.com"
+        },
+        "committer": {
+          "name": "KangSungKyu",
+          "email": "tjdrb70@gmail.com"
+        }
+      },
+      "repository": {
+        "id": 1400944838,
+        "node_id": "R_kgDOU4C4xg",
+        "name": "TPLab",
+        "full_name": "KangSungKyu/TPLab",
+        "private": false,
+        "owner": {
+          "login": "KangSungKyu",
+          "id": 26376712,
+          "node_id": "MDQ6VXNlcjI2Mzc2NzEy",
+          "avatar_url": "https://avatars.githubusercontent.com/u/26376712?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/KangSungKyu",
+          "html_url": "https://github.com/KangSungKyu",
+          "followers_url": "https://api.github.com/users/KangSungKyu/followers",
+          "following_url": "https://api.github.com/users/KangSungKyu/following{/other_user}",
+          "gists_url": "https://api.github.com/users/KangSungKyu/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/KangSungKyu/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/KangSungKyu/subscriptions",
+          "organizations_url": "https://api.github.com/users/KangSungKyu/orgs",
+          "repos_url": "https://api.github.com/users/KangSungKyu/repos",
+          "events_url": "https://api.github.com/users/KangSungKyu/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/KangSungKyu/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "html_url": "https://github.com/KangSungKyu/TPLab",
+        "description": "Reusable Unity core systems: pooling, singleton, resources, data tables, and scene management.",
+        "fork": false,
+        "url": "https://api.github.com/repos/KangSungKyu/TPLab",
+        "forks_url": "https://api.github.com/repos/KangSungKyu/TPLab/forks",
+        "keys_url": "https://api.github.com/repos/KangSungKyu/TPLab/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/KangSungKyu/TPLab/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/KangSungKyu/TPLab/teams",
+        "hooks_url": "https://api.github.com/repos/KangSungKyu/TPLab/hooks",
+        "issue_events_url": "https://api.github.com/repos/KangSungKyu/TPLab/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/KangSungKyu/TPLab/events",
+        "assignees_url": "https://api.github.com/repos/KangSungKyu/TPLab/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/KangSungKyu/TPLab/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/KangSungKyu/TPLab/tags",
+        "blobs_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/KangSungKyu/TPLab/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/KangSungKyu/TPLab/languages",
+        "stargazers_url": "https://api.github.com/repos/KangSungKyu/TPLab/stargazers",
+        "contributors_url": "https://api.github.com/repos/KangSungKyu/TPLab/contributors",
+        "subscribers_url": "https://api.github.com/repos/KangSungKyu/TPLab/subscribers",
+        "subscription_url": "https://api.github.com/repos/KangSungKyu/TPLab/subscription",
+        "commits_url": "https://api.github.com/repos/KangSungKyu/TPLab/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/KangSungKyu/TPLab/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/KangSungKyu/TPLab/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/KangSungKyu/TPLab/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/KangSungKyu/TPLab/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/KangSungKyu/TPLab/merges",
+        "archive_url": "https://api.github.com/repos/KangSungKyu/TPLab/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/KangSungKyu/TPLab/downloads",
+        "issues_url": "https://api.github.com/repos/KangSungKyu/TPLab/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/KangSungKyu/TPLab/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/KangSungKyu/TPLab/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/KangSungKyu/TPLab/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/KangSungKyu/TPLab/labels{/name}",
+        "releases_url": "https://api.github.com/repos/KangSungKyu/TPLab/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/KangSungKyu/TPLab/deployments"
+      },
+      "head_repository": {
+        "id": 1400944838,
+        "node_id": "R_kgDOU4C4xg",
+        "name": "TPLab",
+        "full_name": "KangSungKyu/TPLab",
+        "private": false,
+        "owner": {
+          "login": "KangSungKyu",
+          "id": 26376712,
+          "node_id": "MDQ6VXNlcjI2Mzc2NzEy",
+          "avatar_url": "https://avatars.githubusercontent.com/u/26376712?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/KangSungKyu",
+          "html_url": "https://github.com/KangSungKyu",
+          "followers_url": "https://api.github.com/users/KangSungKyu/followers",
+          "following_url": "https://api.github.com/users/KangSungKyu/following{/other_user}",
+          "gists_url": "https://api.github.com/users/KangSungKyu/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/KangSungKyu/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/KangSungKyu/subscriptions",
+          "organizations_url": "https://api.github.com/users/KangSungKyu/orgs",
+          "repos_url": "https://api.github.com/users/KangSungKyu/repos",
+          "events_url": "https://api.github.com/users/KangSungKyu/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/KangSungKyu/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "html_url": "https://github.com/KangSungKyu/TPLab",
+        "description": "Reusable Unity core systems: pooling, singleton, resources, data tables, and scene management.",
+        "fork": false,
+        "url": "https://api.github.com/repos/KangSungKyu/TPLab",
+        "forks_url": "https://api.github.com/repos/KangSungKyu/TPLab/forks",
+        "keys_url": "https://api.github.com/repos/KangSungKyu/TPLab/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/KangSungKyu/TPLab/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/KangSungKyu/TPLab/teams",
+        "hooks_url": "https://api.github.com/repos/KangSungKyu/TPLab/hooks",
+        "issue_events_url": "https://api.github.com/repos/KangSungKyu/TPLab/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/KangSungKyu/TPLab/events",
+        "assignees_url": "https://api.github.com/repos/KangSungKyu/TPLab/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/KangSungKyu/TPLab/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/KangSungKyu/TPLab/tags",
+        "blobs_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/KangSungKyu/TPLab/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/KangSungKyu/TPLab/languages",
+        "stargazers_url": "https://api.github.com/repos/KangSungKyu/TPLab/stargazers",
+        "contributors_url": "https://api.github.com/repos/KangSungKyu/TPLab/contributors",
+        "subscribers_url": "https://api.github.com/repos/KangSungKyu/TPLab/subscribers",
+        "subscription_url": "https://api.github.com/repos/KangSungKyu/TPLab/subscription",
+        "commits_url": "https://api.github.com/repos/KangSungKyu/TPLab/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/KangSungKyu/TPLab/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/KangSungKyu/TPLab/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/KangSungKyu/TPLab/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/KangSungKyu/TPLab/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/KangSungKyu/TPLab/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/KangSungKyu/TPLab/merges",
+        "archive_url": "https://api.github.com/repos/KangSungKyu/TPLab/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/KangSungKyu/TPLab/downloads",
+        "issues_url": "https://api.github.com/repos/KangSungKyu/TPLab/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/KangSungKyu/TPLab/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/KangSungKyu/TPLab/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/KangSungKyu/TPLab/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/KangSungKyu/TPLab/labels{/name}",
+        "releases_url": "https://api.github.com/repos/KangSungKyu/TPLab/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/KangSungKyu/TPLab/deployments"
+      }
+    }
+  ],
+  "ciConfigured": true,
+  "gateStatus": "passed",
+  "blockingReasons": []
+}
