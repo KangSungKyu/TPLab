@@ -3,7 +3,7 @@
 - BaseRevision: main `d6163084bb2d7dc0420941ad9e35555ef900cab5`. PR #5 merged 및 최신 main을 확인하고 `codex/imp-04-apply`를 생성했다.
 - Scope / Decision: 첨부 요청의 D-05a~c, 정확히24개 PlayMode 게이트 메서드에 `[Timeout(30000)]` 추가. 기존 Wait/Settle/Pending/Complete·조건 대기·본문·assertion은 유지한다.
 - ImplementationStatus: 속성24개 추가 완료. runtime/public API·패키지·설정·runner 변경 없음. UI·Input·EditMode 소스는 변경하지 않았다.
-- ValidationStatus: 전후 같은151개 case 통과, 전체 Edit319/319·Play306/306, 실패/skip0. 최종 PR 사용자 확인 대기; main 병합·다음 IMP 항목은 시작하지 않는다.
+- ValidationStatus: 전후 같은151개 case 통과, 전체 Edit319/319·Play306/306, 실패/skip0. 2026-10-12 사용자가 [PR #6](https://github.com/KangSungKyu/TPLab/pull/6) 병합을 승인했다. D-05a~c의 선택24개 적용은 승인·완료이며 문서 수락 기록을 포함한 최종 tip 검사 후 일반 merge한다.
 - Source evidence: [적용된7개 파일 SHA256·원본 보존](source-preservation.json), [환경](environment.json). 이 보고서의 base SHA를 변경 후 테스트 source SHA로 혼동하지 않는다. 최종 commit/정확한 HEAD Actions는 PR 본문·완료 보고에 기록한다.
 - 선행 근거: [1단계 조사](../imp-04-survey/README.md), [백로그 D-05a~c](../../IMPROVEMENT_BACKLOG.md#결정-기록-사용자가-작성), [문서 지침](../../DOCUMENTATION_GUIDE.md).
 
@@ -99,4 +99,4 @@
 - 첨부의 큐 ‘대기’/IMP-04 절 ‘준비됨’ 등 과거 상태 문구는 원문 보존 지시에 따라 다듬지 않았다. 이번 적용 승인 근거는 D-05a~c와 직접 전달한 적용 프롬프트이며, 실제 작업 상태는 이 검증 문서·색인·[회고](../../retrospectives/2026-10-12-09-imp-04-apply.md)로 보완한다. 1단계 PR #5 수락 기록은 Git/이전 회고에 보존되어 있다.
 - public API/의존성/설정/지원 계약 변화가 없어 XML·사람/AI API 문서는 갱신 대상이 아니다. 배포 사본·버전·tag·runtime 소스는 수정하지 않았다.
 - 미실행: 실제30초 timeout 유발·timeout 후 teardown 동적 검증·EditMode Timeout 적용/실험·CPU blocking 복구·다른 기기·Player/IL2CPP·제품 UX. 최종 정확한 HEAD 규칙 검사/Actions/PR 링크는 PR 본문·완료 보고에 기록한다.
-- 사용자 확인: 적용 결과의 PR 최종 수락/병합 승인. 범위·혼합 방식·30초는 이미 확정되어 다시 승인받지 않는다. 정리 위험의 별도 수정 요청·추가 범위/60초 적용은 이번 PR에 포함하지 않는다. main 병합과 다음 IMP 착수는 최종 승인 전 보류한다.
+- 사용자 수락: 2026-10-12 직접 메시지 `pr#6 병합 승인`으로 선택24개/혼합/30초 적용의 최종 수락을 확인했다. 정리 위험의 별도 수정 요청·추가 범위/60초 적용은 이번 PR에 포함하지 않는다. 실제 최종 tip·merge SHA·브랜치 정리 결과는 PR 본문·완료 보고에 남기며 후속 항목은 별도 단위와 해당 진행 규칙을 따른다.
