@@ -95,6 +95,17 @@ namespace TPLab.Core.Tests
             Assert.That(pool.CountOwned, Is.EqualTo(2));
         }
 
+        [UnityTest]
+        [Timeout(30000)]
+        public IEnumerator RentedCloneDestroyedByConsumerFreesItsSlot()
+        {
+            var pool = CreatePool(1);
+            Assert.That(pool.TryRent(out var clone), Is.True);
+            UnityEngine.Object.Destroy(clone);
+            yield return null;
+            Assert.That(pool.TryRent(out _), Is.True);
+        }
+
         [Test]
         public void ReturnRejectsAnotherPoolsInstanceWithoutChangingIt()
         {

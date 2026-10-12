@@ -8,9 +8,9 @@
 - Return은 원래 풀에서 대여 중인 객체만 받는다. null/비소유 객체는 ArgumentException 계열, 중복 반환은 InvalidOperationException으로 거부한다. 반환은 비활성화 → onReturn → 보관 루트 이동·transform 복원 순서다. 이벤트·속도·드래그·UI·연출 등 소비자 상태는 onReturn에서 정리한다.
 - 콜백 실패 또는 콜백의 즉시 객체 파괴는 해당 객체를 폐기하고 정원을 회복한 뒤 예외를 전달한다. 다른 객체와 원본은 보존한다. 메서드·Unity 수명 콜백에서 풀 변경 재진입은 금지하며 InvalidOperationException으로 거부한다.
 - Dispose는 대여 중·대기 중 객체와 보관 루트를 전부 정리하고 영구 종료한다. 반복 Dispose는 무시한다. 이후 대여·반환은 ObjectDisposedException이다. PlayMode의 Destroy는 프레임 종료 시 완료되며 객체는 먼저 비활성화한다. 종료 시 반환 콜백은 호출하지 않는다. 소비자는 반환하지 못하는 종료 경로의 외부 구독도 직접 정리해야 한다.
-- Unity 메인 스레드 전용이다. 소비자가 복제본을 직접 Destroy하거나 보관 루트를 수정하는 사용은 지원하지 않는다. Addressables·비동기 준비·Singleton·전역 풀 registry·prewarm은 이번 단계에 포함하지 않는다.
+- Unity 메인 스레드 전용이다. 소비자는 복제본을 정상적으로 반환해야 한다. 외부에서 파괴된 복제본은 다음 TryRent의 지연 확인으로 슬롯을 회수하며 파괴된 객체의 Return은 계속 ArgumentNullException이다. 보관 루트 수정은 지원하지 않는다. Addressables·비동기 준비·Singleton·전역 풀 registry·prewarm은 이번 단계에 포함하지 않는다.
 
-Cashier에서 총 소유 정원·수명 소유권·실패 정리의 필요성을 확인했다. 초기 구현은 Unity 기본 풀의 보관 기능을 활용했으나, 일반 C# 클래스 지원과 정책 일관성을 위해 System 컬렉션 기반 제네릭 풀로 전환했다. 현재 runtime은 UnityEngine.Pool에 의존하지 않는다. Cashier 코드와 게임별 상태는 복사하지 않는다. 전환 근거와 최신 검증은 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
+Cashier에서 총 소유 정원·수명 소유권·실패 정리의 필요성을 확인했다. 초기 구현은 Unity 기본 풀의 보관 기능을 활용했으나, 일반 C# 클래스 지원과 정책 일관성을 위해 System 컬렉션 기반 제네릭 풀로 전환했다. 현재 runtime은 UnityEngine.Pool에 의존하지 않는다. Cashier 코드와 게임별 상태는 복사하지 않는다. 전환 근거와 역사적 검증은 [GENERIC_POOL.md](GENERIC_POOL.md)를 따른다.
 
 ```csharp
 using TPLab.Core.Pooling;
@@ -37,6 +37,14 @@ pool.Dispose();
 ```
 
 검증: EditMode는 생성 입력과 실제 prefab asset 보존, PlayMode는 재사용·정원·반환 검증·콜백 실패·재진입·OnEnable 순서·파괴·부모 수명을 확인한다. 시각 UX나 사용자 직접 조작이 필요한 기능은 없다. 다른 Unity 버전·소비 프로젝트·Player 빌드는 이후 단계의 검증 대상이다.
+
+## 외부 파괴와 지연 카운트 (IMP-01)
+
+내부 ObjectPool 생성자의 마지막 선택 매개변수 `Func<GameObject, bool> isAlive`에 Unity fake-null 판정(`instance => instance != null`)을 제공한다. 죽은 대기 객체는 건너뛰고 살아 있는 객체의 LIFO 재사용 순서를 유지한다. 재사용 대상이 없고 정원이 찼을 때만 대여 목록을 확인하여 외부 파괴된 복제본의 슬롯을 회수한다. Unity Destroy 완료 전에는 살아 있다고 판정할 수 있으므로 PlayMode에서는 프레임 종료 이후의 상태가 기준이다. source/parent/storage context 실패는 계속 기존 예외 경로를 따른다.
+
+CountOwned/CountRented/CountInactive는 추적 수를 읽는 비할당 getter이며 외부 파괴를 즉시 반영하지 않는다. 판정·정리 중 변경 재진입은 거부한다. 제거된 복제본은 기존 cleanup을 한 번 시도하며, 검출된 죽은 객체의 cleanup 실패는 나머지를 모두 시도한 뒤 집계한다. 이미 파괴된 Unity 참조의 cleanup은 안전하게 종료한다. Return(destroyed)는 슬롯 회수 API가 아니며 여전히 ArgumentNullException이다. 소비자 구독·외부 자원 정리는 소비자가 소유한다.
+
+PrefabPool 공개 시그니처는 유지된다. ObjectPool 생성자에 마지막 선택 매개변수가 추가되어 기존 소스는 호환되지만 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. [IMP-01 검증 기록](validation/imp-01/README.md)은 source `901d56c582691d55f4aa9698e91be57231328635`의 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309 자동 검증 완료·사용자 수락 대기이며 아래 결과는 이전 구현의 역사적 증거다.
 
 ## 최초 Unity 기본 풀 기반 구현의 실행 증거 (2026-10-02)
 

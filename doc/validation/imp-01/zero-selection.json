@@ -1,0 +1,25 @@
+{
+  "attempt": "Green initial partial class filter",
+  "filter": "TPLab.Core.Tests.PrefabPool",
+  "cliPid": 34204,
+  "connectorFile": "test-results-34204-1791793563780028900.json",
+  "resultAtInvestigation": {
+    "success": true,
+    "message": "All 0 test(s) passed.",
+    "data": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "passes": []
+    }
+  },
+  "driverTranscript": "Traceback (most recent call last):\n  File \"C:\\Users\\PC\\Projects\\TPLab\\tools\\run_unity_tests.py\", line 129, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"C:\\Users\\PC\\Projects\\TPLab\\tools\\run_unity_tests.py\", line 106, in main\n    raise RuntimeError(\"No nonzero result for this invocation: \" + transcript)\nRuntimeError: No nonzero result for this invocation: PlayMode tests running, waiting for results...\nError: unity editor has stopped\n\n",
+  "classification": "No test selected (total=0); not a pass, failure or retry of an executed case. Continue with exact fixture names; preserve this failed selection.",
+  "actualEditorState": {
+    "returnCode": 0,
+    "output": "{ project = C:/Users/PC/Projects/TPLab/Assets, isPlaying = False, isCompiling = False, isUpdating = False, testRunActive = False }\n",
+    "error": ""
+  }
+}

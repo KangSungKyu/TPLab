@@ -36,8 +36,8 @@
 
 | 순서 | ID | 진행 상태 | 비고 |
 |---|---|---|---|
-| 1 | IMP-04 | 대기 | 읽기 전용 조사 → **사용자가 적용 범위 지정** → 적용 |
-| 2 | IMP-01 | 대기 | Red → 구현 (D-01 = A1) |
+| 1 | IMP-04 | 승인·완료 | 승인일 2026-10-12, PR #6 병합 완료; [적용 검증](validation/imp-04-apply/README.md) |
+| 2 | IMP-01 | 승인·완료 | D-01 = A1; 승인일 2026-10-12, PR #7 사용자 병합 승인; [검증 기록](validation/imp-01/README.md), 실제 통합 결과는 PR 참조 |
 | 3 | IMP-02 | 대기 | IMP-01과 같은 풀 영역이라 이어서 (D-02 = `TryReturn`) |
 | 4 | IMP-05 | 대기 | Red → **버퍼 API 이름·시그니처를 사용자에게 보고·확인** → 구현 |
 | 5 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
@@ -76,10 +76,10 @@
 
 | ID | 항목 | 상태 | 우선 작업 |
 |---|---|---|---|
-| IMP-01 | PrefabPool 대여 클론 파괴 시 슬롯 누수 | **설계 확정**(D-01 = A1) | Red 테스트 작성 → 구현 |
+| IMP-01 | PrefabPool 대여 클론 파괴 시 슬롯 누수 | **승인·완료**(D-01 = A1, 승인일 2026-10-12, PR #7) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-01/README.md) |
 | IMP-02 | Dispose 후 Return 계약 | **설계 확정**(D-02 = `TryReturn` 추가) | 테스트 작성 → 구현 |
 | IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
-| IMP-04 | 테스트 타임아웃 도입 | **1단계 조사 완료, 범위 확정**(D-05a~c) | 적용 PR(24개 메서드, 30초) |
+| IMP-04 | 테스트 타임아웃 도입 | **승인·완료**(D-05a~c, 승인일 2026-10-12, PR #6) | 선택24개 메서드·30초 적용 병합 완료; [검증 기록](validation/imp-04-apply/README.md) |
 | IMP-05 | GameSceneManager 폴링 속성 할당 | **설계 확정**(D-04, D-04b) | Red 테스트 작성 → 구현 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
 | IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
@@ -108,7 +108,7 @@
 
 ## IMP-01. PrefabPool: 대여 중 클론이 외부에서 파괴되면 슬롯이 회수되지 않음
 
-**상태**: **설계 확정(D-01 = A1)**. Red 테스트와 구현 모두 진행 가능. A2/B/C는 채택하지 않는다.
+**상태**: **승인·완료(D-01 = A1)**. 승인일 **2026-10-12**, **PR #7 사용자 병합 승인**. 구현·실제 Red/Green과 경계·회귀 검증은 [검증 기록](validation/imp-01/README.md)을 따른다. 실제 main 통합은 PR/Git 이력을 확인하며 A2/B/C는 채택하지 않는다.
 
 **증거**
 - `Assets/TPLab/Core/Pooling/PrefabPool.cs:92-100` `Return`: `instance == null`(파괴된 Unity 객체 포함)이면 `_pool.Return` 전에 `ArgumentNullException`을 던진다.
@@ -189,7 +189,7 @@
 
 ## IMP-04. 테스트 타임아웃 도입
 
-**상태**: 준비됨. 먼저 **읽기 전용 조사**만 수행하고 범위를 보고한다.
+**상태**: **승인·완료**. 승인일 **2026-10-12**, **PR #6 병합 완료**. 선택한 PlayMode24개에 `[Timeout(30000)]` 적용을 완료했다. [조사](validation/imp-04-survey/README.md)와 [적용 검증](validation/imp-04-apply/README.md)을 구분한다.
 
 **증거**
 - `Assets/TPLab/Tests`, `Assets/TPLab/Input/Tests`에서 `[Timeout]`은 0건이다. 다만 **1단계 조사에서 확인: Test Framework 1.6.0은 속성이 없어도 기본 180초 제한을 둔다**(설치 소스 기준, 180초 만료 실험은 미실행). 무제한이 아니다. 실제 틈은 `tools/run_unity_tests.py`의 응답 대기 한도(180초)가 프레임워크 결과보다 먼저 닿을 수 있다는 점이고, `[Timeout]`의 목적은 이보다 짧게 빨리 실패시키는 것이다. 조사 보고서: `doc/validation/imp-04-survey/README.md`.
