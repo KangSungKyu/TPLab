@@ -1,0 +1,40 @@
+{
+  "base": "0641fb57e4d6fae03fe17b88801c6762d78de84f",
+  "head": "ef23b9347fab87a847a43dc81af853d622958e34",
+  "command": "python tools/check_pr_rules.py --base 0641fb57e4d6fae03fe17b88801c6762d78de84f --head ef23b9347fab87a847a43dc81af853d622958e34 --repo .",
+  "exitCode": 0,
+  "errors": [],
+  "warnings": [
+    [
+      ".github/pull_request_template.md",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ],
+    [
+      ".github/workflows/claude-review.yml",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ],
+    [
+      ".github/workflows/rule-check.yml",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ],
+    [
+      "AGENTS.md",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ],
+    [
+      "CLAUDE.md",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ],
+    [
+      "tools/check_github_ci.py",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ],
+    [
+      "tools/check_pr_rules.py",
+      "검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인"
+    ]
+  ],
+  "filesChanged": 26,
+  "errorCount": 0,
+  "warningCount": 7
+}
