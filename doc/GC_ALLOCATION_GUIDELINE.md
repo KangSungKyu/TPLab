@@ -2,6 +2,8 @@
 
 **상태**: 초안. 사용자 검토 전이다. [AGENTS.md](../AGENTS.md)와 충돌하면 AGENTS.md가 우선한다. 대상은 Unity 6000.3, C# 9 범위의 TPLab 코어(`Assets/TPLab/Core`, `Input/Runtime`)다. 근거 항목은 [IMPROVEMENT_BACKLOG.md](IMPROVEMENT_BACKLOG.md)의 IMP-05, IMP-11이다.
 
+**근거 기준**: 코드 위치는 백로그 기준 `de879b9`(v0.0.1)이며, 지정 Core/Input 파일은 main `c1804e17` 기준으로도 변경이 없다(PR #4 대조). **검증 상태**: 코드 읽기 기준이다. 예시 경로의 실제 할당은 측정하지 않았다. **범위 밖**: `Assets/TPLab/UI`는 대상이 아니다. UI 적용은 이 가이드 확정(IMP-12) 뒤 IMP-13에서 정한다.
+
 ## 1. 원칙
 
 - **경로의 호출 빈도로 규칙의 강도를 정한다.** 모든 코드를 할당 없이 쓰지 않는다. 읽기 쉬운 코드가 기본이고, 반복 호출되는 경로만 엄격히 한다.

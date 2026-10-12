@@ -1,5 +1,7 @@
 # TPLab 개선 백로그
 
+**개정 2026-10-12**: PR #4 검토 결과를 반영했다(IMP-07 전제 갱신, 위치 표기 2곳 정정, IMP-13 추가). 코드 위치는 Codex 대조(main `c1804e17`, 지정 Core/Input 파일은 기준 `de879b9` 이후 변경 없음)에 근거한다.
+
 작업자(AI 에이전트)가 개선 작업을 수행할 때 참고하는 문서다. 코드 리뷰에서 도출한 항목을 **한 번에 하나씩** 처리할 수 있게 증거·테스트 스펙·제약을 정리했다.
 
 ## 먼저 읽을 것
@@ -40,7 +42,7 @@
 | 4 | IMP-05 | 대기 | Red → **버퍼 API 이름·시그니처를 사용자에게 보고·확인** → 구현 |
 | 5 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
 
-큐 밖 항목(IMP-06~12)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하다.
+큐 밖 항목(IMP-06~13)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하고, IMP-13은 IMP-12 확정 뒤에 시작한다.
 
 진행 상태 값은 AGENTS.md의 구분을 따른다: **대기 → 진행 → 자동 검증 완료·사용자 확인 대기 → 승인·완료**. 증거가 없으면 상태를 올리지 않는다. 상태 갱신(이 표, 승인일, 보고 링크)은 해당 항목 브랜치의 커밋에 포함한다.
 
@@ -80,10 +82,11 @@
 | IMP-04 | 테스트 타임아웃 도입 | 준비됨(조사 먼저) | 읽기 전용 조사 |
 | IMP-05 | GameSceneManager 폴링 속성 할당 | **설계 확정**(D-04, D-04b) | Red 테스트 작성 → 구현 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
-| IMP-07 | CI 구성 | 제안(승인 필요) | - |
+| IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
 | IMP-08~10 | 후속 리팩터링 | 스펙 없음 | IMP-01~05 이후 |
 | IMP-11 | 할당 감사 후속(P1 전환·이벤트 경로) | 제안 | IMP-05 이후, 측정 먼저 |
 | IMP-12 | GC 가이드라인 확정 및 AGENTS.md 반영 | 초안 작성됨, 사용자 검토 대기 | 검토 |
+| IMP-13 | UI(`Assets/TPLab/UI`) 구조·할당·테스트 점검 | 제안 | IMP-12 확정 뒤, 읽기 전용 점검 먼저 |
 
 ## 결정 기록 (사용자가 작성)
 
@@ -233,15 +236,19 @@
 
 ## IMP-07. CI 구성
 
-**상태**: 제안. 사용자 승인 필요(프로젝트 설정·인프라 변경).
+**상태**: 일부 완료. 남은 범위는 사용자 승인 필요(프로젝트 설정·인프라 변경).
 
-**근거**: `tools/README.md`와 `tools/check_github_ci.py`는 "보호되지 않은 main + CI 미구성"을 전제로 한다. CI를 추가하면 이 도구의 해석과 병합 정책(AGENTS.md "검증 후 병합")에 영향이 있으므로 별도 검토가 필요하다. Unity 라이선스 처리 방식도 정해야 한다. 승인 전에는 아무것도 추가하지 않는다.
+**현재 상태**(개정 시점): `.github/workflows/rule-check.yml`(PR diff 규칙 검사)과 `claude-review.yml`(`@claude` 호출 시 리뷰)이 main에 있고, `tools/check_github_ci.py`는 정확한 SHA의 결과를 판정하도록 바뀌었다([CI_SETUP_GUIDE.md](CI_SETUP_GUIDE.md)). 이 PR 검사는 Unity 테스트를 실행하지 않는다.
+
+**남은 범위**: Unity 테스트 실행 CI(GameCI 등)는 보류 상태다. 라이선스 방식(Personal 활성화 가능 여부)과 InputSystem·UGUI 테스트 포함 여부를 정해야 한다. 이 항목을 시작하면 `check_github_ci.py`의 해석과 병합 정책(AGENTS.md "검증 후 병합")을 함께 검토한다. 승인 전에는 아무것도 추가하지 않는다.
+
+**참고**: `tools/README.md` 14행에 "CI 미구성" 전제의 과거 설명이 남아 있다. 정정은 별도 문서 정리에서 한다.
 
 ---
 
 ## 후속 항목 (아직 스펙 없음, IMP-01~05 이후)
 
-- **IMP-08**: 중복 보일러플레이트 정리. `EnsureMainThread`(`PlayerLoopHelper.IsMainThread` 검사)가 `ResourceManager.cs:236-242`, `DataTableManager.cs:444-450`, `GameSceneManager.cs:1203`, `LoadedScene.cs:68` **4곳**에 중복되어 있고, 취소 토큰 + `IsDisposed` + 드레인 대기 패턴이 반복된다. 공통 헬퍼 도입 여부는 사용자 결정이 필요하다.
+- **IMP-08**: 중복 보일러플레이트 정리. `EnsureMainThread`(`PlayerLoopHelper.IsMainThread` 검사)가 `ResourceManager.cs:236-242`, `DataTableManager.cs:444-450`, `GameSceneManager.cs:1203`, `LoadedScene.cs:66` **4곳**에 중복되어 있고, 취소 토큰 + `IsDisposed` + 드레인 대기 패턴이 반복된다. 공통 헬퍼 도입 여부는 사용자 결정이 필요하다.
 - **IMP-09**: DataTable 파싱의 프레임 분산. `DataTableManager.cs:362-373` 로드 루프와 `:398-412` `ReadSourceAsync`. 소스가 이미 메인 스레드에서 완료되면 `UniTask.SwitchToMainThread()`가 양보 없이 반환되어 여러 테이블이 한 프레임에 파싱될 수 있다(UniTask 동작에 대한 추정, 프로파일링 미수행). 실제 히치를 측정한 뒤 결정한다.
 - **IMP-10**: `GameSceneManager` 분리. 후보: 씬 소유 트리(`OwnedPrimary` 관리) / 정책 평가(`PolicySnapshot`) / 오퍼레이션 실행기. 관련 테스트(약 100개)가 안전망이다. 위 항목들이 끝나고 별도 설계 검토를 거친 뒤에 진행한다.
 
@@ -256,7 +263,7 @@
 | `GameSceneManager.cs:960` `ValidateCommonLifetime` | persistent일 때 호출마다 `GetLoadedScenes()` 배열 생성. 한 전환에서 약 15곳이 호출 | 전환당 다수 | 단계 사이 한 번만 계산해 재사용 가능한지 검토 |
 | `GameSceneManager.cs:979` `ValidatePreparedOwnership` | `Any(람다)`, `ExpectedGameScenes()`, `HashSet` | 전환당 다수 | IMP-05의 비할당 `InventoryMatches` 재사용 |
 | `GameSceneManager.cs:1196` `GetRootHosts` | `GetRootGameObjects()` + 씬 전체 `GetComponentsInChildren<MonoBehaviour>(true)` | 로드당 1회(`:618`) + 정리 시(`:801`) | 할당보다 CPU(씬 크기에 비례). 중첩 root 검출 의미 때문에 바꾸기 전 측정과 사용자 확인 필요 |
-| `Input/Runtime/InputLayerController.cs:307` `CalculateSnapshot`, `:337` `SameState` | 정렬 LINQ, `HashSet`, `List` 2개, `SequenceEqual`(인터페이스 열거) | 레이어 획득·해제마다 | UI 열기/닫기 빈도. 수정한다면 가이드라인 적용 |
+| `Input/Runtime/InputLayerController.cs:308` `CalculateSnapshot`, `:337` `SameState` | 정렬 LINQ, `HashSet`, `List` 2개, `SequenceEqual`(인터페이스 열거) | 레이어 획득·해제마다 | UI 열기/닫기 빈도. 수정한다면 가이드라인 적용 |
 | `ResourceManager.cs:101` | 캐시 적중 경로에서도 `AttachExternalCancellation`을 두 번 거침 | 에셋 요청마다 | 취소 등록 객체 할당 여부는 추정. 측정 필요 |
 
 **확인해서 깨끗하다고 본 곳** (코드 읽기 기준, 측정 아님)
@@ -284,3 +291,15 @@ AGENTS.md의 완료 보고 규칙에 더해 다음을 포함한다.
 - 변경 파일 목록과, 테스트 파일을 변경했는지 여부(수정 단계에서는 없어야 함)
 - 갱신한 XML·사람/AI 문서
 - 미실행 영역과 남은 위험
+
+---
+
+## IMP-13. UI 구조·할당·테스트 점검
+
+**상태**: 제안. **IMP-12(GC 가이드라인 확정) 이후**, 읽기 전용 점검부터 시작한다.
+
+**범위**: `Assets/TPLab/UI`(Runtime, InputSystem, Tests)와 `Samples/UI`. 기존 [UI_PERFORMANCE.md](UI_PERFORMANCE.md) 측정 기록을 기준선으로 삼고 새 측정은 하지 않는다.
+
+**점검 후보**(코드 읽기 기준 추정, 측정 아님): `UIContext`의 호출마다 생성되는 `List`와 `ToArray()`, `GetInvocationList()`, 포커스 계산의 `GetComponentsInChildren<Selectable>()`, 매 프레임 경로인 `VirtualScrollRect.LateUpdate`와 `UIInputSystemAdapter.Update`. `UIContext`(약 1,900줄 규모의 partial 클래스) 분할 필요성. UI 테스트의 타임아웃 보호(IMP-04에서 제외된 범위).
+
+**지시**: 수정하지 않고 위 후보를 호출 빈도와 함께 보고한다. 수정은 보고 후 사용자가 항목을 정해 요청할 때만 한다.
