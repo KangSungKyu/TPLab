@@ -49,7 +49,7 @@ factory의 null·동일 풀 중복 참조 검증이 먼저 수행된다. 소유 
 
 선택 매개변수 추가로 기존 소스 호출은 그대로 컴파일된다. 생성자 CLR 시그니처가 바뀌므로 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. PrefabPool은 Unity fake-null 판정을 제공하며 외부 파괴된 복제본의 슬롯을 같은 지연 경로로 회수한다. 파괴된 복제본의 Return은 계속 ArgumentNullException이다.
 
-IMP-01 구현과 보충 테스트의 실행 결과는 [IMP-01 검증 기록](validation/imp-01/README.md)에 기록한다(source `d7f319c6f18713bb9fba77dd9505fc9dbe26f088`, Green18/24/15·전체Edit334/Play307 모두 통과, 사용자 수락 대기). 아래 2026-10-02 결과는 이전 구현의 역사적 증거다.
+IMP-01 구현과 보충 테스트의 실행 결과는 [IMP-01 검증 기록](validation/imp-01/README.md)에 기록한다(source `901d56c582691d55f4aa9698e91be57231328635`, 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309 모두 통과, 사용자 수락 대기). 아래 2026-10-02 결과는 이전 구현의 역사적 증거다.
 
 ## Unity 기본 풀 검토 결과
 

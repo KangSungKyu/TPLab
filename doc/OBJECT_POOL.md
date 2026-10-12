@@ -44,7 +44,7 @@ pool.Dispose();
 
 CountOwned/CountRented/CountInactive는 추적 수를 읽는 비할당 getter이며 외부 파괴를 즉시 반영하지 않는다. 판정·정리 중 변경 재진입은 거부한다. 제거된 복제본은 기존 cleanup을 한 번 시도하며, 검출된 죽은 객체의 cleanup 실패는 나머지를 모두 시도한 뒤 집계한다. 이미 파괴된 Unity 참조의 cleanup은 안전하게 종료한다. Return(destroyed)는 슬롯 회수 API가 아니며 여전히 ArgumentNullException이다. 소비자 구독·외부 자원 정리는 소비자가 소유한다.
 
-PrefabPool 공개 시그니처는 유지된다. ObjectPool 생성자에 마지막 선택 매개변수가 추가되어 기존 소스는 호환되지만 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. [IMP-01 검증 기록](validation/imp-01/README.md)은 source `d7f319c6f18713bb9fba77dd9505fc9dbe26f088`의 Green18/24/15·전체Edit334/Play307 자동 검증 완료·사용자 수락 대기이며 아래 결과는 이전 구현의 역사적 증거다.
+PrefabPool 공개 시그니처는 유지된다. ObjectPool 생성자에 마지막 선택 매개변수가 추가되어 기존 소스는 호환되지만 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. [IMP-01 검증 기록](validation/imp-01/README.md)은 source `901d56c582691d55f4aa9698e91be57231328635`의 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309 자동 검증 완료·사용자 수락 대기이며 아래 결과는 이전 구현의 역사적 증거다.
 
 ## 최초 Unity 기본 풀 기반 구현의 실행 증거 (2026-10-02)
 
