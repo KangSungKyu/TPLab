@@ -1,0 +1,67 @@
+{
+  "staticFreeze": true,
+  "inputs": {
+    "tools/check_github_ci.py": "65a197e4cc5247f9df5a85d236b933ff80fa2713a3e293558eb6d22044675a9f",
+    "tools/test_check_github_ci.py": "2be83c92a5df837fad1e96c0f666972ca2fb82620632a8f618a1fb69c79d09a9"
+  },
+  "offlineTests": {
+    "red": {
+      "total": 28,
+      "failures": 27,
+      "errors": 1,
+      "skipped": 0
+    },
+    "green": {
+      "total": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "decisionTable": [
+    {
+      "condition": "Configured workflow; exact-SHA observed checks/statuses/runs all completed successfully; unprotected main",
+      "before": "blocked by CI presence",
+      "after": "passed"
+    },
+    {
+      "condition": "No workflows or target results; unprotected main; complete queries",
+      "before": "exit 0; no CI success claimed",
+      "after": "unconfigured; exit 0; not CI success"
+    },
+    {
+      "condition": "Workflow exists but no target checks/statuses/runs",
+      "before": "blocked by CI presence",
+      "after": "blocked for missing target execution"
+    },
+    {
+      "condition": "Protected or unknown main protection",
+      "before": "protected true blocked",
+      "after": "blocked"
+    },
+    {
+      "condition": "Failure/pending/cancelled/timed_out/skipped/neutral/unknown/null result",
+      "before": "blocked by CI presence",
+      "after": "blocked by result"
+    },
+    {
+      "condition": "SHA mismatch/incomplete pages/query error/duplicate IDs",
+      "before": "no exact-identity or collection-completeness guarantee",
+      "after": "blocked with saved evidence"
+    },
+    {
+      "condition": "Older failed workflow run plus newer successful run on same SHA",
+      "before": "blocked by CI presence",
+      "after": "blocked; all returned runs considered"
+    }
+  ],
+  "limitations": [
+    "No required-check catalog; success means all observed exact-SHA results, not discovery of all required jobs.",
+    "No optional/advisory check exemptions; skipped and neutral block.",
+    "Every returned workflow run is included; a historical failure still blocks after a later success.",
+    "HTTP/GitHub behavior has only offline mocked coverage; real API execution is parent-owned."
+  ],
+  "externalApiExecutions": 0,
+  "gitOperations": 0,
+  "unityOperations": 0
+}

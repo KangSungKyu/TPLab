@@ -123,3 +123,9 @@
 - 2026-10-12: [02 UI 예제 프레임 잔상](2026-10-12-02-ui-sample-frame-clear.md) — 배경 Camera 누락 재현·same-Play 잔상 제거, 두entry 실제Editor 전환 확인·최종수락 대기.
 
 - 2026-10-12: [03 UI 전체 수락·main 통합](2026-10-12-03-ui-main-integration.md) — 사용자 전체 확인·최신소비build2/Player8 통과, main 통합 완료·Phase8/Temp5 정리, 최종track/P7 마감.
+
+- 2026-10-12: [04 GitHub 리뷰 자동화 P1](2026-10-12-04-ci-review-automation.md) — 로컬41/41·초안 원문 보존·CI helper 별도 제안, PR 생성 후 사용자 검토 대기/main 미병합.
+
+- 2026-10-12: [05 PR #1 초안 검토 수정](2026-10-12-05-ci-review-corrections.md) — Windows 기본 인코딩 Red17 실패2/오류2 → Green17/17·회귀45/45, 같은 PR 갱신/main 미병합.
+
+- 2026-10-12: [06 GitHub 리뷰 자동화 최종 수락](2026-10-12-06-ci-review-acceptance.md) — 사용자 main 병합 승인·새 Windows45/45, 실제 통합/branch 정리 결과는 PR #1·Git 이력 참조.

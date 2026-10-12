@@ -1,0 +1,33 @@
+test_all_four_collections_are_paginated_without_dropping_records (test_check_github_ci.GitHubGateTests.test_all_four_collections_are_paginated_without_dropping_records) ... ok
+test_cancelled_run_is_blocked (test_check_github_ci.GitHubGateTests.test_cancelled_run_is_blocked) ... ok
+test_changing_total_count_is_incomplete_and_blocked (test_check_github_ci.GitHubGateTests.test_changing_total_count_is_incomplete_and_blocked) ... ok
+test_check_sha_mismatch_is_blocked (test_check_github_ci.GitHubGateTests.test_check_sha_mismatch_is_blocked) ... ok
+test_collection_read_error_is_reported_and_blocked (test_check_github_ci.GitHubGateTests.test_collection_read_error_is_reported_and_blocked) ... ok
+test_combined_status_sha_mismatch_is_blocked (test_check_github_ci.GitHubGateTests.test_combined_status_sha_mismatch_is_blocked) ... ok
+test_commit_sha_mismatch_is_blocked (test_check_github_ci.GitHubGateTests.test_commit_sha_mismatch_is_blocked) ... ok
+test_commit_status_error_is_blocked (test_check_github_ci.GitHubGateTests.test_commit_status_error_is_blocked) ... ok
+test_commit_status_pending_is_blocked (test_check_github_ci.GitHubGateTests.test_commit_status_pending_is_blocked) ... ok
+test_completed_without_conclusion_is_blocked (test_check_github_ci.GitHubGateTests.test_completed_without_conclusion_is_blocked) ... ok
+test_configured_ci_without_target_results_is_blocked (test_check_github_ci.GitHubGateTests.test_configured_ci_without_target_results_is_blocked) ... ok
+test_duplicate_page_does_not_hide_missing_record (test_check_github_ci.GitHubGateTests.test_duplicate_page_does_not_hide_missing_record) ... ok
+test_failure_beyond_first_hundred_checks_is_blocked (test_check_github_ci.GitHubGateTests.test_failure_beyond_first_hundred_checks_is_blocked) ... ok
+test_failure_check_is_blocked (test_check_github_ci.GitHubGateTests.test_failure_check_is_blocked) ... ok
+test_in_progress_check_is_blocked (test_check_github_ci.GitHubGateTests.test_in_progress_check_is_blocked) ... ok
+test_missing_collection_field_is_incomplete_and_blocked (test_check_github_ci.GitHubGateTests.test_missing_collection_field_is_incomplete_and_blocked) ... ok
+test_neutral_check_is_blocked (test_check_github_ci.GitHubGateTests.test_neutral_check_is_blocked) ... ok
+test_no_ci_is_unconfigured_and_not_ci_success (test_check_github_ci.GitHubGateTests.test_no_ci_is_unconfigured_and_not_ci_success) ... ok
+test_old_failure_and_new_success_remain_blocked_conservatively (test_check_github_ci.GitHubGateTests.test_old_failure_and_new_success_remain_blocked_conservatively) ... ok
+test_protected_main_is_blocked_even_with_success (test_check_github_ci.GitHubGateTests.test_protected_main_is_blocked_even_with_success) ... ok
+test_raw_workflow_check_status_and_run_identities_are_preserved (test_check_github_ci.GitHubGateTests.test_raw_workflow_check_status_and_run_identities_are_preserved) ... ok
+test_run_sha_mismatch_is_blocked (test_check_github_ci.GitHubGateTests.test_run_sha_mismatch_is_blocked) ... ok
+test_skipped_check_is_blocked (test_check_github_ci.GitHubGateTests.test_skipped_check_is_blocked) ... ok
+test_successful_exact_sha_checks_do_not_stop_for_workflow_presence (test_check_github_ci.GitHubGateTests.test_successful_exact_sha_checks_do_not_stop_for_workflow_presence) ... ok
+test_timed_out_run_is_blocked (test_check_github_ci.GitHubGateTests.test_timed_out_run_is_blocked) ... ok
+test_truncated_second_page_is_blocked (test_check_github_ci.GitHubGateTests.test_truncated_second_page_is_blocked) ... ok
+test_unknown_main_protection_does_not_auto_clear (test_check_github_ci.GitHubGateTests.test_unknown_main_protection_does_not_auto_clear) ... ok
+test_unknown_result_is_blocked (test_check_github_ci.GitHubGateTests.test_unknown_result_is_blocked) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.393s
+
+OK

@@ -1,0 +1,2 @@
+# Preserve reviewer diff context-space lines as source evidence.
+reviewer/check_pr_rules.diff -text whitespace=-blank-at-eol
