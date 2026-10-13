@@ -1,0 +1,47 @@
+using System;
+using System.Collections;
+using System.IO;
+using System.Reflection;
+using Cysharp.Threading.Tasks;
+using NUnit.Framework;
+using TPLab.Core.Lifecycle;
+using TPLab.Core.SceneManagement;
+using UnityEngine;
+using UnityEngine.TestTools;
+
+namespace TPLab.Core.Tests
+{
+    [PrebuildSetup(typeof(BootstrapSceneTestSetup))]
+    [PostBuildCleanup(typeof(BootstrapSceneTestSetup))]
+    public sealed class Imp05ComponentProbeTests
+    {
+        [UnityTest]
+        [Timeout(30000)]
+        public IEnumerator OptimizedPollingComponentsAreMeasured() => UniTask.ToCoroutine(async () =>
+        {
+            var host = new GameObject("Imp05ComponentCommon");
+            host.SetActive(false);
+            var root = host.AddComponent<SceneOwnedRoot>();
+            root.Configure(Array.Empty<SceneRootInstaller>(), true);
+            host.SetActive(true);
+            var manager = new GameSceneManager(root);
+            try
+            {
+                await manager.EnterFirstSceneAsync("Assets/TPLab/Tests/Fixtures/BootstrapHub.unity");
+                object result = Imp05OptimizedProbe.Run(manager);
+                var jsonType = Type.GetType("Newtonsoft.Json.JsonConvert, Newtonsoft.Json", true);
+                string json = (string)jsonType.GetMethod("SerializeObject", new[] { typeof(object) })
+                    .Invoke(null, new[] { result });
+                File.WriteAllText("Temp/imp-05-implementation/after-components.json", json);
+                Assert.That((bool)result.GetType().GetProperty("completed").GetValue(result), Is.True);
+            }
+            finally
+            {
+                await manager.ShutdownAsync();
+                await root.ShutdownAsync();
+                UnityEngine.Object.Destroy(host);
+                await UniTask.Yield();
+            }
+        });
+    }
+}

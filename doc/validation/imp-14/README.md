@@ -1,6 +1,6 @@
 # IMP-14 · 대조 검증을 내장한 GC 측정 helper
 
-2026-10-13. **Implemented / helper·pool Verified / 사용자 수락 완료·통합 준비**. 전체 회귀는 **Partial: CanProceed Red 1건 유지**다. IMP-05 runtime 구현은 재개하지 않았다. 브랜치 `codex/imp-14-gc-measurement-helper`, 기준 main `9285805bd234d1988019c890e3670945d88bce9d`, 선행 조사 tip `dd8e48742b8e297d199b869f9cc135e0daf9a072`, 검증한 helper/test source revision `1b123d6a77f62e3bc7f75d96a2cb607b403d291a`. 문서 최종 HEAD와 그 Actions는 PR·완료 보고에서 확인한다.
+2026-10-13. **Implemented / helper·pool Verified / 사용자 수락·main 통합 완료**. 전체 회귀는 **Partial: CanProceed Red 1건 유지**다. IMP-05 runtime 구현은 재개하지 않았다. 브랜치 `codex/imp-14-gc-measurement-helper`, 기준 main `9285805bd234d1988019c890e3670945d88bce9d`, 선행 조사 tip `dd8e48742b8e297d199b869f9cc135e0daf9a072`, 검증한 helper/test source revision `1b123d6a77f62e3bc7f75d96a2cb607b403d291a`. 문서 최종 HEAD와 그 Actions는 PR·완료 보고에서 확인한다.
 
 ## 범위와 계약
 
@@ -73,3 +73,5 @@ Positive control allocation was not detected.
 ## 사용자 수락·통합 (2026-10-13)
 
 사용자가 PR #9 병합과 완료 후 IMP-05 재개를 승인했다. 승인 후보는 `e8f45411c5efc9227d7047e564e6976e6db145ef`다. CanProceed2300 events의 알려진 실패1을 유지한 상태의 명시적 승인으로, 전체 회귀가 Green으로 바뀐 것은 아니다. 수락 기록만 추가하고 helper/runtime/test 소스는 그대로 유지했다. 최종 문서 tip의 규칙/Actions를 확인하고 원본 커밋을 보존하는 일반 merge와 해당 브랜치 정리를 진행한다. 실제 merge SHA·정리는 PR/Git 이력과 완료 보고를 따른다. IMP-05의 버퍼 API 이름·시그니처 확인 단계에서 재개한다.
+
+2026-10-13 통합완료: 최종tip90df125의Actions성공후일반merge main3ee358f. 소스/GUID/dirty6와원본tip도달성확인, 해당branch로컬/원격삭제. 실제receipt는 [IMP05 선행통합](../imp-05/implementation/pr9-merge-receipt.json)에보존한다. 이후API확정·IMP05가원래CanProceed Red를0events로해결했지만위IMP14실행원문/통과수는수정하지않는다.

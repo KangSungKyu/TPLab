@@ -133,3 +133,5 @@
 - [0.0.1 첫 Release 검증](validation/distribution-release/README.md): 실제 tag URL·공개 첨부물 bytes·사용자 최종 수락·원본 보호.
 
 - [IMP-14 GC 측정 helper 검증](validation/imp-14/README.md): 호출별대조·Edit/Play N100·worker격리·기존GC4개 교체·IMP-01/02 계측정정, 2026-10-13 PR #9 사용자수락·IMP-05 재개.
+
+- [IMP-05 내부 폴링·버퍼 구현 검증](validation/imp-05/implementation/README.md): PR9 병합기록·API확정·구성별실측·Red/Green·패리티/예외/0event·전체회귀. 2026-10-13 PR #10 사용자 수락·병합 승인 완료; 실제 통합은 PR/Git 이력 참조.
