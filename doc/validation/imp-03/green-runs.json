@@ -1,0 +1,76 @@
+{
+  "PlayMode": {
+    "total": 28,
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.Core.Tests.AsyncSceneRootTests.CancellationDuringReleaseFinishesCleanupBeforeStoppingScene",
+      "TPLab.Core.Tests.AsyncSceneRootTests.CancelledFlowCannotProceedOrRevealAfterLatePreparation",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ConcurrentShutdownWaitersShareTheSameTimeoutFailure",
+      "TPLab.Core.Tests.AsyncSceneRootTests.CoverAndAllPreparationAndScenePresentationAreAwaited",
+      "TPLab.Core.Tests.AsyncSceneRootTests.CoverFailureDoesNotStartSystemsOrScene",
+      "TPLab.Core.Tests.AsyncSceneRootTests.DestructionCancelsWaitersAndLateResultsCannotProceed",
+      "TPLab.Core.Tests.AsyncSceneRootTests.EachReleaseReceivesAnIndependentTimeoutBudget",
+      "TPLab.Core.Tests.AsyncSceneRootTests.LateReleaseFailureAfterTimeoutIsObserved",
+      "TPLab.Core.Tests.AsyncSceneRootTests.NegativeReleaseTimeoutWaitsUntilItsGateCompletes",
+      "TPLab.Core.Tests.AsyncSceneRootTests.OneWaiterCancellationDoesNotCancelSharedPreparation",
+      "TPLab.Core.Tests.AsyncSceneRootTests.OriginalPreparationTimeoutFailureIsNotAShutdownDeadlineFailure",
+      "TPLab.Core.Tests.AsyncSceneRootTests.OriginalReleaseTimeoutFailureRetainsItsIdentity",
+      "TPLab.Core.Tests.AsyncSceneRootTests.PreparationAndReleaseReceiveSeparateTimeoutBudgets",
+      "TPLab.Core.Tests.AsyncSceneRootTests.PreparationAndRollbackFailuresAreBothPreserved",
+      "TPLab.Core.Tests.AsyncSceneRootTests.PreparationFailureRollsBackAndKeepsCover",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ReleaseFailureStillCleansOtherSystemsAndKeepsCover",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ReleaseTimeoutStillReleasesAndUninstallsOtherSystems",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ReleaseWaitsUnderCoverAndCleansInReverseOrder",
+      "TPLab.Core.Tests.AsyncSceneRootTests.RevealCancellationRestoresCoverWithoutCancelledToken",
+      "TPLab.Core.Tests.AsyncSceneRootTests.RevealFailureRestoresCoverBeforeReporting",
+      "TPLab.Core.Tests.AsyncSceneRootTests.SameFlowRejectsOverlappingOperations",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ShutdownCancelsPreparationAndCannotRunItAgain",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ShutdownTimeoutUsesUnscaledTimeWhenTimeScaleIsZero",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ShutdownWithUncooperativePreparationFailsWithTimeoutAndStillCleansUp",
+      "TPLab.Core.Tests.AsyncSceneRootTests.ShutdownWithUncooperativePreparationNeverCompletesWithoutTimeout",
+      "TPLab.Core.Tests.AsyncSceneRootTests.SingletonRegistrationDoesNotAllowEarlySceneProgress",
+      "TPLab.Core.Tests.AsyncSceneRootTests.SingletonReleaseTimeoutStillReleasesAndUninstallsOtherSystems",
+      "TPLab.Core.Tests.AsyncSceneRootTests.SingletonShutdownWithUncooperativePreparationFailsWithTimeoutAndStillCleansUp"
+    ],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.AsyncSceneRootTests",
+      "source": "connector-file",
+      "cliReturnCode": 1
+    }
+  },
+  "EditMode": {
+    "failed": 0,
+    "failures": [],
+    "passed": 16,
+    "passes": [
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.AttachHasOptionalDefaultAndForwardsTimeout(SceneOwned)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.AttachHasOptionalDefaultAndForwardsTimeout(Singleton)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.ConfigureHasOptionalDefaultAndForwardsFiniteValues(SceneOwned)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.ConfigureHasOptionalDefaultAndForwardsFiniteValues(Singleton)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.InvalidTimeoutRejectsAttachBeforeAddingAHost(SceneOwned)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.InvalidTimeoutRejectsAttachBeforeAddingAHost(Singleton)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.InvalidTimeoutRejectsConfigureBeforeChangingExistingSettings(SceneOwned)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.InvalidTimeoutRejectsConfigureBeforeChangingExistingSettings(Singleton)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(SceneOwned,False,True)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(Singleton,False,True)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(SceneOwned,True,True)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(Singleton,True,True)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(SceneOwned,False,False)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(Singleton,False,False)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(SceneOwned,True,False)",
+      "TPLab.Core.Tests.SceneRootShutdownSettingsTests.LegacyAssetsUseDefaultForMissingFieldAndPreserveExplicitZero(Singleton,True,False)"
+    ],
+    "skipped": 0,
+    "total": 16,
+    "execution": {
+      "mode": "EditMode",
+      "filter": "TPLab.Core.Tests.SceneRootShutdownSettingsTests",
+      "source": "cli",
+      "cliReturnCode": 0
+    }
+  }
+}

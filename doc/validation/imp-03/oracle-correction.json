@@ -1,0 +1,9 @@
+{
+  "approvedDate": "2026-10-13",
+  "changedAssertions": 3,
+  "changedPath": "Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs",
+  "beforeSha256": "d6e36a8d5314a047d87c925afb50b7f24b9b033270147272abdaa06b1b03fd12",
+  "afterSha256": "280bf7e72e419a0af1b1a3c40e5786107a23ab5802f5078e962aa706e84d1969",
+  "expectedBehavior": "Preparation get-result throws OperationCanceledException; shutdown cleanup and timing assertions unchanged",
+  "nunitTimeoutTriggeredInOriginalRed": false
+}

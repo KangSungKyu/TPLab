@@ -16,7 +16,7 @@ InitScene 같은 씬의 root GameObject에 소유 방식을 선택하고, 프로
 1. Hierarchy에서 최상위 GameObject를 선택한다. 기존 InitScene controller가 붙은 객체도 선택할 수 있다.
 2. `GameObject > TPLab > Scene Root > Scene Owned` 또는 `Singleton`을 실행한다.
 3. Inspector의 `Installers`에 SceneRootInstaller 구현 컴포넌트를 필요한 순서로 지정한다. 메뉴는 같은 객체에 붙은 installer를 기본 등록한다. 자식 installer는 직접 지정한다.
-4. 필요하면 `Persist Across Scenes`를 켠다. Play 중에는 설정 Inspector를 잠근다.
+4. 필요하면 `Persist Across Scenes`를 켠다. `Shutdown Timeout Seconds`는 기본60초이며 준비 취소 대기와 각 Release에 따로 적용한다. finite0이하는 무제한이다. 유효 범위·실패/늦은 작업 계약은 [Lifecycle API](api/Lifecycle.md#종료-시간-제한)를 따른다. Play 중에는 설정 Inspector를 잠근다.
 
 메뉴는 기존 객체에 host를 추가하며 Undo/Redo를 지원한다. 씬을 자동 저장하거나 기존 controller를 변경하지 않는다. 선택한 객체가 자식·asset이거나 이미 host가 있으면 메뉴가 비활성화된다. 설정 변경은 Play 전에 완료한다. [Unity Undo.AddComponent](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Undo.AddComponent.html)
 

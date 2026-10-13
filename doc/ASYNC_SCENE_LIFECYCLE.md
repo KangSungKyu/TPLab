@@ -36,7 +36,7 @@ ShowCoverAsync, HideCoverAsync, EnterSceneAsync는 각각 `Func<CancellationToke
 - root.ShutdownAsync는 준비 수명 토큰을 취소하고 준비 작업의 협조적 종료를 기다린다. 이어서 모든 설치된 installer의 ReleaseAsync를 역순 실행하며, 하나가 실패해도 나머지를 시도하고 Uninstall까지 수행한다.
 - ReleaseAsync는 비동기 종료·실행 중 작업 정리를 기다린다. Uninstall은 주입된 참조 제거와 최종 Dispose를 수행한다. 두 단계는 부분 준비·실패에도 동작해야 한다.
 - 해제가 시작되면 IsPrepared는 false이고 신규 준비 요청을 거부한다. 같은 ShutdownAsync를 여러 번 호출해도 해제를 중복 실행하지 않는다. 종료 후 root는 재사용하지 않는다.
-- 해제 도중 전환 요청이 취소되어도 정리를 끝낸 뒤 씬 진행을 중단한다. 임의의 timeout이나 강제 작업 중단은 추가하지 않았다.
+- 해제 도중 전환 요청이 취소되어도 정리를 끝낸 뒤 씬 진행을 중단한다. IMP-03은 root 준비 취소 대기와 각 Release에 기본60초의 독립 unscaled timeout을 적용한다. host Inspector/Configure/Attach로 선택하며 finite0이하는 무제한이다. 자체 초과는 타입·단계 TimeoutException으로 집계하고 남은 해제·Uninstall을 시도한다. 원래 preparation 실패는 준비 awaiter 소유이고 원래 Release 오류는 보존한다. 강제 작업 중단 기능은 없으며 [API와 검증 범위](api/Lifecycle.md#종료-시간-제한)를 따른다.
 - Unity OnDestroy/종료 콜백은 await할 수 없다. graceful shutdown이 필요하면 root를 파괴하거나 씬을 unload하기 전에 ShutdownAsync를 await한다. 즉시 파괴 시에는 준비 대기를 취소하고 기존 Uninstall로 긴급 정리한다. 늦게 완료된 준비가 IsPrepared를 다시 올리거나 씬을 진행하지 못한다.
 - installer는 준비 수명 토큰을 존중하고, 해제 뒤의 늦은 작업이 서비스를 건드리지 않도록 자체 정리해야 한다. 자신의 ReleaseAsync에서 같은 root.ShutdownAsync를 await하면 자기 자신을 기다리므로 금지한다.
 - SingletonSceneRoot.Instance의 등록은 객체 수명까지 유지된다. 비동기 종료 후에는 root를 파괴하고, 종료된 서비스에 신규 요청을 보내지 않는다.

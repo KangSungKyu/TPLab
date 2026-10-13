@@ -1,0 +1,6 @@
+{
+  "exit": 0,
+  "stdout": "SceneOwned.Attach:ArgumentOutOfRangeException/hostCount0\nSceneOwned.Configure:ArgumentOutOfRangeException/settingsPreserved\nSingleton.Attach:ArgumentOutOfRangeException/hostCount0\nSingleton.Configure:ArgumentOutOfRangeException/settingsPreserved\n",
+  "stderr": "",
+  "kind": "4 Green-only checks; no independent Red claim; original scene restored"
+}

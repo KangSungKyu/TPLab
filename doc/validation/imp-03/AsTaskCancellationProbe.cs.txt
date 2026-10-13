@@ -1,0 +1,1 @@
+var source = new Cysharp.Threading.Tasks.UniTaskCompletionSource(); var task = Cysharp.Threading.Tasks.UniTaskExtensions.AsTask(source.Task); source.TrySetCanceled(); return "Status=" + task.Status + "|IsCanceled=" + task.IsCanceled + "|Exception=" + task.Exception.Flatten().InnerExceptions[0].GetType().Name;
