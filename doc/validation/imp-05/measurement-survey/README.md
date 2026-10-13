@@ -51,4 +51,4 @@ GC.Alloc 이벤트 수는 이번 양성/음성 대조를 통과한 **후보**다
 
 이번은 **측정 수단 조사만 완료**했다. NUnit0·전체 회귀/Green/Player/IL2CPP/외부 소비/멀티스레드 부하 미실행이다. 조사 문서에 대한 diff·공백·링크·규칙 검사만 수행한다. PR/Actions는 아직 이 조사 branch에 없고 main병합·branch삭제는 하지 않는다. 선택한 측정 도구 없음, API 확정 없음. 사용자 지시에 따라 결과 보고 뒤 멈춘다.
 
-실제 프로브·관측·복원 증거를 이 폴더에 보존한 뒤 이번 Temp/imp-05-measurement 소유 파일만 정리한다. 이전 Temp/imp-05는 고정 테스트/이전재현 재개 자료라 이번 정리에 포함하지 않는다. Unity/PC 종료 지시는 재사용하지 않는다. [회고](../../../retrospectives/2026-10-13-02-gc-measurement-survey.md).
+[메모리 정리](probe-cleanup.json): native recorder는 이미 Dispose됐고, 잔여 임시 assembly1개의 static 양성 배열88개 참조와 결과 buffer를 Clear했다. 임시 assembly type·초기 warmup/storage 배열 틀은 다음 정상 domain reload/Editor 종료까지 남으며, 강제 reload로 사용자 Editor를 건드리지 않았다. 실제 프로브·관측·복원 증거를 이 폴더에 보존한 뒤 이번 Temp/imp-05-measurement 소유 파일8개만 정리했다. 이전 Temp/imp-05는 고정 테스트/이전재현 재개 자료라 이번 정리에 포함하지 않는다. Unity/PC 종료 지시는 재사용하지 않는다. [회고](../../../retrospectives/2026-10-13-02-gc-measurement-survey.md).
