@@ -1,0 +1,59 @@
+{
+  "red-polling-tests": {
+    "total": 13,
+    "passed": 6,
+    "failed": 7,
+    "skipped": 0,
+    "failures": [
+      "TPLab.Core.Tests.GameScenePollingTests.BufferedSnapshotsMatchPropertiesClearAndRemainSnapshots:   Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "TPLab.Core.Tests.GameScenePollingTests.CandidateIsOwnedButNotRegisteredDuringPresentation:   Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "TPLab.Core.Tests.GameScenePollingTests.ExternalUnloadFiltersOwnedButPreservesRegisteredSnapshot:   Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "TPLab.Core.Tests.GameScenePollingTests.NullBuffersThrowArgumentNullException:   Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "TPLab.Core.Tests.GameScenePollingTests.RegisteredReadFailureClearsPartialBufferAndPreservesException:   Required public API: void GameSceneManager.GetRegisteredScenes(List<SceneRegistration>)\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "TPLab.Core.Tests.GameScenePollingTests.WarmedBuffersAndCountAllocateZeroWithSufficientCapacity:   Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "TPLab.Core.Tests.GameScenePollingTests.WorkerCallsFailBeforeChangingBuffers:   Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)\r\n  Expected: not null\r\n  But was:  null\r\n"
+    ],
+    "passes": [
+      "TPLab.Core.Tests.GameScenePollingTests.DerivedReadinessLossPreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.DuplicateExpectedScenesPreserveSetEquality",
+      "TPLab.Core.Tests.GameScenePollingTests.ExternalActiveSceneChangePreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.ForeignLoadedScenePreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.MissingRetainedScenePreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.SnapshotPropertiesContinueToAllocate"
+    ],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameScenePollingTests",
+      "source": "cli",
+      "cliReturnCode": 1,
+      "attempts": [
+        {
+          "cliReturnCode": 1,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "red-can-proceed": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "failures": [
+      "TPLab.Core.Tests.GameSceneEntryTests.CanProceedDoesNotAllocateInReadyState:   Expected: 0\r\n  But was:  2300\r\n"
+    ],
+    "passes": [],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameSceneEntryTests.CanProceedDoesNotAllocateInReadyState",
+      "source": "cli",
+      "cliReturnCode": 1,
+      "attempts": [
+        {
+          "cliReturnCode": 1,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  }
+}

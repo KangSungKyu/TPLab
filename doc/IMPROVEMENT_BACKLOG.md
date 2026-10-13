@@ -44,7 +44,7 @@
 | 2 | IMP-01 | 승인·완료 | D-01 = A1; 승인일 2026-10-12, PR #7 사용자 병합 승인; [검증 기록](validation/imp-01/README.md), 실제 통합 결과는 PR 참조 |
 | 3 | IMP-02 | 승인·완료 | 승인일 2026-10-13, PR #8 사용자 병합 승인; [검증 기록](validation/imp-02/README.md), 실제 통합 결과는 PR 참조 |
 | 4 | IMP-14 | 승인·완료 | 승인일 2026-10-13, PR #9 병합 승인. helper13/13·pool28/28; 알려진 IMP-05 Red1은 후속 단위로 유지 |
-| 5 | IMP-05 | 진행·버퍼 API 확인 대기 | [측정 수단 조사 보고](validation/imp-05/measurement-survey/README.md) 완료. IMP-14에서 측정 테스트 교체 후 CanProceed2300 events Red. runtime 수정 전 버퍼 API 이름·시그니처 확인 단계로 재개 |
+| 5 | IMP-05 | 자동 검증 완료·사용자 승인 대기 | [측정 수단 조사 보고](validation/imp-05/measurement-survey/README.md) 완료. IMP-14에서 측정 테스트 교체 후 CanProceed2300 events Red. 사용자 버퍼 API 확정 후 구현·Red2300→Green0; [구현 증거](validation/imp-05/implementation/README.md) |
 | 6 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
 
 큐 밖 항목(IMP-06~13)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하고, IMP-13은 IMP-12 확정 뒤에 시작한다.
@@ -85,7 +85,7 @@
 | IMP-02 | Dispose 후 Return 계약 | **승인·완료**(D-02 = `TryReturn` 추가, 승인일 2026-10-13, PR #8) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-02/README.md) |
 | IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
 | IMP-04 | 테스트 타임아웃 도입 | **승인·완료**(D-05a~c, 승인일 2026-10-12, PR #6) | 선택24개 메서드·30초 적용 병합 완료; [검증 기록](validation/imp-04-apply/README.md) |
-| IMP-05 | GameSceneManager 폴링 속성 할당 | **진행·버퍼 API 확인 대기**(D-04, D-04b) | 측정 교체로 CanProceed100회2300 events Red 확인, runtime/API 수정 없음; [조사](validation/imp-05/measurement-survey/README.md), 사용자 지시로 구현 중단 |
+| IMP-05 | GameSceneManager 폴링 속성 할당 | **자동 검증 완료·사용자 승인 대기**(D-04, D-04b) | 사용자 API확정, CanProceed2300→0events·새3API·Edit359/Play332 allpass; [구현](validation/imp-05/implementation/README.md); [조사](validation/imp-05/measurement-survey/README.md), 사용자 지시로 구현 중단 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
 | IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
 | IMP-08~10 | 후속 리팩터링 | 스펙 없음 | IMP-01~05 이후 |
@@ -225,9 +225,9 @@
 
 ## IMP-05. GameSceneManager 폴링 속성의 반복 할당
 
-**상태**: **진행·버퍼 API 확인 대기(D-04, D-04b)**. 2026-10-13 static 양성/음성320 관측을 [조사 보고](validation/imp-05/measurement-survey/README.md)에 남겼다. 조사 당시에는 기존4개를 목록만 확인하고 tests/runtime 수정·API 확정 없이 멈췄다. 후속 사용자 지시의 IMP-14에서 기존4개 측정을 교체했고 CanProceed100회2300 events의 실제 Red를 확인했다. runtime·버퍼 API는 변경하지 않았다. 2026-10-13 사용자 PR #9 병합 승인으로 재개했다. 버퍼 API 이름·시그니처는 구현 전에 사용자에게 한 번 보고하고 확인받는다.
+**상태**: **자동 검증 완료·사용자 승인 대기(D-04, D-04b)**. 2026-10-13 static 양성/음성320 관측을 [조사 보고](validation/imp-05/measurement-survey/README.md)에 남겼다. 조사 당시에는 기존4개를 목록만 확인하고 tests/runtime 수정·API 확정 없이 멈췄다. 후속 사용자 지시의 IMP-14에서 기존4개 측정을 교체했고 CanProceed100회2300 events의 실제 Red를 확인했다. IMP-14 단계에서는 runtime·버퍼 API를 변경하지 않았다. 2026-10-13 사용자 PR #9 병합 승인으로 재개했다. 버퍼 API3개는 사용자가 이름·시그니처를 확정했고 null/thread/snapshot/실패buffer 정책·기여도 실측·parity/0event 검증 요구까지 반영했다.
 
-**증거** (`Assets/TPLab/Core/SceneManagement/GameSceneManager.cs`)
+**수정 전 증거** (main `3ee358f`, `Assets/TPLab/Core/SceneManagement/GameSceneManager.cs`)
 - `:69` `OwnedScenes`(LINQ `Select/Where/ToArray`), `:72` `RegisteredScenes`(LINQ `Select/ToArray`)
 - `:78-83` `CanProceed`: `GetRegisteredOwners().All(IsOwnerPrepared)`, `InventoryMatches(ExpectedGameScenes())`
 - `:998-1007` `GetOwners`/`GetRegisteredOwners`는 `yield return` 이터레이터라 호출마다 객체가 생긴다. `:996` `ExpectedGameScenes`(`Concat/Select/ToArray`), `:1120` `InventoryMatches`(`new HashSet<Scene>`), `:1200` `GetLoadedScenes`(`Enumerable.Range` 기반 LINQ). `All(IsOwnerPrepared)`의 메서드 그룹은 C# 9에서 호출마다 델리게이트가 생긴다.
@@ -236,16 +236,18 @@
 **Red 테스트 스펙** — `GameSceneEntryTests`(PlayMode)에 추가
 - 이름: `CanProceedDoesNotAllocateInReadyState`
 - 준비: 기존 테스트의 진입 방식을 재사용해 `State == Ready`까지 진행 (`GameSceneEntryTests.cs:78`의 `new GameSceneManager((MonoBehaviour)_root, _callbacks)` 패턴)
-- 행동: `_ = manager.CanProceed;` 1회 워밍업 후 `GC.GetAllocatedBytesForCurrentThread()` 전후 100회 호출 차이 측정
-- 기대: 차이 0
+- 행동: `_ = manager.CanProceed;` 1회 워밍업 후 대조 내장 `GcAllocationMeasurement.Measure`로100회 호출의 GC.Alloc 이벤트 수 측정(IMP-14 교체본 고정)
+- 기대: 유효 양성/음성 대조와 workload EventCount0
 - 수정 전 예상: 실패. Editor 측정 노이즈로 0이 안정적이지 않으면 임계값을 임의로 정하지 말고 보고한다.
 
 **수정 방향** (의미를 바꾸지 않는다)
-- `CanProceed`: LINQ·이터레이터·`HashSet` 대신 `_primary`/`_derived`(`List<OwnedPrimary>`) 인덱스 루프로 직접 순회한다. `InventoryMatches`는 `SceneManager.sceneCount`와 `GetSceneAt(i)`를 순회하며 기대 집합(`_retainedScenes` + 등록·후보 owner의 씬)에 속하는지 중첩 루프로 확인한다(원래 `SetEquals`와 같이 양방향 포함 검사, `isLoaded`인 씬만 대상). 씬 수가 작아 O(n·m)이 문제되지 않는다. `ExpectedGameScenes()` 배열 생성은 제거한다.
-- `OwnedScenes`/`RegisteredScenes`: **기존 프로퍼티는 유지**(스냅샷 의미, 진단용으로 XML에 "할당 발생" 명시). 할당 없는 대안으로 `int OwnedSceneCount`, `void GetOwnedScenes(List<Scene> buffer)`, `void GetRegisteredScenes(List<SceneRegistration> buffer)` 같은 버퍼 채우기 API를 추가한다(D-04b 확정). 캐시는 하지 않는다. `OwnedScenes`의 `isLoaded` 필터가 코드 밖(Unity)에서 바뀔 수 있어 무효화 조건을 정할 수 없다. 버퍼 메서드는 내부에서 `Clear()` 후 채우고, 채워진 내용은 호출 시점의 스냅샷임을 XML 주석에 명시한다. 이름과 시그니처는 위 제안을 기본으로 하되 구현 전에 사용자에게 보고한다.
+- `CanProceed`: LINQ·이터레이터·`HashSet` 대신 `_primary`/`_derived`(`List<OwnedPrimary>`) 인덱스 루프로 직접 순회한다. `InventoryMatches`는 `SceneManager.sceneCount`와 `GetSceneAt(i)`를 순회하며 기대 집합(`_retainedScenes` + 등록·후보 owner의 씬)에 속하는지 중첩 루프로 확인한다(원래 `SetEquals`와 같이 양방향 포함 검사, `isLoaded`인 씬만 대상). O(n·m) 순회로 할당을 제거한다. CPU 시간은 이번 미측정이며 씬 수가 큰 프로젝트의 비용은 별도 확인한다. `ExpectedGameScenes()` 배열 생성은 제거한다.
+- `OwnedScenes`/`RegisteredScenes`: **기존 프로퍼티는 유지**(스냅샷 의미, 진단용으로 XML에 "할당 발생" 명시). 할당 없는 대안으로 `int OwnedSceneCount`, `void GetOwnedScenes(List<Scene> buffer)`, `void GetRegisteredScenes(List<SceneRegistration> buffer)` 같은 버퍼 채우기 API를 추가한다(D-04b 확정). 캐시는 하지 않는다. `OwnedScenes`의 `isLoaded` 필터가 코드 밖(Unity)에서 바뀔 수 있어 무효화 조건을 정할 수 없다. 버퍼 메서드는 내부에서 `Clear()` 후 채우고, 채워진 내용은 호출 시점의 스냅샷임을 XML 주석에 명시한다. 사용자가 이 이름과 시그니처를 확정했다. 구현 중 변경이 필요하면 멈추고 다시 보고한다.
 - 같은 변경에 기존 `CanProceed` 관련 PlayMode 테스트(`GameSceneEntryTests` 등) 재실행으로 의미 보존을 확인한다.
 
 **제약**: `GameSceneManager`는 1209줄의 큰 클래스다. 이 항목에서 분리·구조 변경을 하지 않는다(IMP-10).
+
+**실제 구현·검증(2026-10-13)**: source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`, [보고](validation/imp-05/implementation/README.md). 사용자3API확정 및 실패버퍼정책(empty/원래예외/검증전불변)을 XML·사람/AI 계약으로 반영했다. 기존 snapshot 속성은 allocating 유지. 본래 컴파일된 경로의100회 기여도: All ILproxy200·Expected700·Inventory1400·전체2300events. 최적화된 준비/union+inventory/arrayinventory/전체는0events. 새API는 충분한capacity1000회0events·parity/버퍼비우기/부분실패/worker/외부unload/retained/active/root준비/중복Set 확인. 신규13case Red6pass/7API부재fail→Green13/13, 기존CanProceed1fail2300→0pass. 기존entry8/replacement36/area27 모두pass, 전체Edit359/359·Play332/332·fail/skip0. Redtest/helper/dirty6 보존, Runtime1file만 변경·클래스분리/패키지추가 없음. Player/IL2CPP·CPU NotRun. 승인 전 main통합·다음IMP03 시작 금지.
 
 ---
 

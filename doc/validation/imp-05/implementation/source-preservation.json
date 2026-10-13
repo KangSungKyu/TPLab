@@ -1,0 +1,21 @@
+{
+  "base": "3ee358f94187a9b09ef9a34a5e14f08e9748ac84",
+  "originalPaths": 557,
+  "unchangedPaths": 556,
+  "approvedRuntimeChanged": [
+    "Assets/TPLab/Core/SceneManagement/GameSceneManager.cs"
+  ],
+  "dirtyPreserved": 6,
+  "frozenTestsAndHelperPaths": 6,
+  "newMetaGuidsUnique": 2,
+  "testedSourceSha256": {
+    "Assets/TPLab/Tests/PlayMode/GameScenePollingTests.cs": "bd9709eebe5fe1f9d9b33f631e4864f68530ecca3f81d309225bf16d3831187c",
+    "Assets/TPLab/Tests/PlayMode/GameScenePollingTests.cs.meta": "09989bbe0c1853cc4df483d53df13bf9dbb74a859bf94393e3ad7be208c8c1bd",
+    "Assets/TPLab/Tests/Fixtures/SceneReadinessFaultProbe.cs": "26a21cc9c0c2d5be9d3be09fd5588c72dd982ddffa58cc7842818def0d3d28ae",
+    "Assets/TPLab/Tests/Fixtures/SceneReadinessFaultProbe.cs.meta": "c747e76aa909771b52fb780a6259266596300ac5ff0f6cfe7bcb94338ef81a86",
+    "Assets/TPLab/Tests/PlayMode/GameSceneEntryTests.cs": "86d0b1e17d3683e8375ad91195aa504b7bec359d66a7b5a4c326908bf24f6e04",
+    "Assets/TPLab/Tests/Fixtures/GcAllocationMeasurement.cs": "b80a6b7fee08e00d60de7cdab7f9f404546fa49e37bc091541f02a31bef1d1ed",
+    "Assets/TPLab/Core/SceneManagement/GameSceneManager.cs": "a6d7f0c60883b70a3463ed0d9de8aadf3ab5216738ac74398120da9fdc855f61"
+  },
+  "temporaryProbeSourcesRemaining": 0
+}

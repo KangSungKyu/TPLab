@@ -143,3 +143,5 @@
 - 2026-10-13: [02 IMP-05 측정 수단 검증](2026-10-13-02-gc-measurement-survey.md) — static 보존 Edit/Play 대조320개·기존GC0 4개 양성대조없음; tests/runtime 수정·API확정없이 보고후중단, 원래씬/547입력/dirty6보존.
 
 - 2026-10-13: [03 IMP-14 GC helper·계측 정정](2026-10-13-03-gc-measurement-helper.md) — helper13/13·pool28/28, 양성100%·음성0/thread격리; 전체359/318(Play fail1=CanProceed2300 events), 2026-10-13 PR #9 병합승인·runtime불변.
+
+- 2026-10-13: [04 IMP-05 폴링 할당 제거](2026-10-13-04-scene-polling-allocation.md) — PR9 승인merge3ee358f 뒤 API확정·typedbuffer3개, CanProceed2300→0events·기여도·전체359/332allpass, 승인대기.

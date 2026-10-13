@@ -1,0 +1,46 @@
+{
+  "before-components-run": {
+    "failed": 0,
+    "failures": [],
+    "passed": 1,
+    "passes": [
+      "TPLab.Core.Tests.Imp05ComponentProbeTests.OriginalPollingComponentsAreMeasured"
+    ],
+    "skipped": 0,
+    "total": 1,
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.Imp05ComponentProbeTests",
+      "source": "cli",
+      "cliReturnCode": 0,
+      "attempts": [
+        {
+          "cliReturnCode": 0,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "after-components-run": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.Core.Tests.Imp05ComponentProbeTests.OptimizedPollingComponentsAreMeasured"
+    ],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.Imp05ComponentProbeTests",
+      "source": "connector-file",
+      "cliReturnCode": 1,
+      "attempts": [
+        {
+          "cliReturnCode": 1,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  }
+}

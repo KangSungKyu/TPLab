@@ -1,0 +1,16 @@
+{
+  "unity": "6000.3.18f1",
+  "play": false,
+  "compile": false,
+  "import": false,
+  "testRun": false,
+  "profilerEnabled": false,
+  "scenes": [
+    {
+      "path": "Assets/Scenes/InitScene.unity",
+      "isActive": true,
+      "isLoaded": true
+    }
+  ],
+  "activeSceneDirty": false
+}

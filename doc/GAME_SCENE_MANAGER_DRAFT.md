@@ -154,3 +154,9 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 - 성공한 Windows Mono 경로를 IL2CPP·다른 플랫폼·원격 Addressables bundle·전체 시각 UX 검증으로 확대하지 않는다. 결과와 미실행 영역은 실제 증거로 기록하고 모든 자동 gate 후 사용자 확인 절차를 하나로 제공한다.
 
 각 단위는 Red→Green→정리, 관련 회귀·컴파일/Console·증거·회고로 종료한다. Phase의 필수 자동 검사가 통과하면 승인된 track 통합을 진행한다. 이번 전체 작업의 main 통합에는 최종 명시적 사용자 확인도 필요하며, 사용자 부재 시 [track의 대기·절전 정책](SCENE_TRANSITION_TRACK.md)을 따른다. 역사적 [Bootstrap 설계 회고](retrospectives/2026-10-06-11-bootstrap-additive-design.md)와 [최초 진입 회고](retrospectives/2026-10-06-12-bootstrap-system.md)는 이전 범위의 기록이며 현재 계약과 구현 상태를 대신하지 않는다. Phase 1 검증은 [callback 증거](validation/scene-transition-contracts/README.md), Phase 2 검증은 [최초 진입 증거](validation/game-scene-entry/README.md)를 따른다.
+
+## IMP-05 후속 구현 (2026-10-13)
+
+source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`. 기존 allocating OwnedScenes/RegisteredScenes snapshot을 유지하고 main-thread OwnedSceneCount/GetOwnedScenes(List<Scene>)/GetRegisteredScenes(List<SceneRegistration>)를 추가했다. caller buffer는 null→thread 검증 뒤 Clear/fill, 채움 실패 시 empty·원래 예외 전파이며 capacity는 복원하지 않는다. 순서/필터·call-time snapshot·capacity 조건은 [사람 API](api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot), [AI API](ai/api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot)가 소유한다.
+
+CanProceed 내부 준비·양방향 씬 inventory만 직접 순회해0events로 전환했다. 클래스 분리·캐시·P1 종료 순회/기타 LINQ·비동기 본문 변경은 하지 않았다. [실제 Red/Green·구성별 기여도·회귀](validation/imp-05/implementation/README.md): Edit359/359·Play332/332, fail/skip0. 새 Player/IL2CPP는 NotRun, 사용자 승인 대기다.

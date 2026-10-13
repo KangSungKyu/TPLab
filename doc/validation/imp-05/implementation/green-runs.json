@@ -1,0 +1,170 @@
+{
+  "green-polling-tests": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.Core.Tests.GameScenePollingTests.BufferedSnapshotsMatchPropertiesClearAndRemainSnapshots",
+      "TPLab.Core.Tests.GameScenePollingTests.CandidateIsOwnedButNotRegisteredDuringPresentation",
+      "TPLab.Core.Tests.GameScenePollingTests.DerivedReadinessLossPreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.DuplicateExpectedScenesPreserveSetEquality",
+      "TPLab.Core.Tests.GameScenePollingTests.ExternalActiveSceneChangePreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.ExternalUnloadFiltersOwnedButPreservesRegisteredSnapshot",
+      "TPLab.Core.Tests.GameScenePollingTests.ForeignLoadedScenePreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.MissingRetainedScenePreventsProceeding",
+      "TPLab.Core.Tests.GameScenePollingTests.NullBuffersThrowArgumentNullException",
+      "TPLab.Core.Tests.GameScenePollingTests.RegisteredReadFailureClearsPartialBufferAndPreservesException",
+      "TPLab.Core.Tests.GameScenePollingTests.SnapshotPropertiesContinueToAllocate",
+      "TPLab.Core.Tests.GameScenePollingTests.WarmedBuffersAndCountAllocateZeroWithSufficientCapacity",
+      "TPLab.Core.Tests.GameScenePollingTests.WorkerCallsFailBeforeChangingBuffers"
+    ],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameScenePollingTests",
+      "source": "connector-file",
+      "cliReturnCode": 1,
+      "attempts": [
+        {
+          "cliReturnCode": 1,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "green-entry-tests": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.Core.Tests.GameSceneEntryTests.CancellationDuringNativeSingleOwnsLateLoadedScene",
+      "TPLab.Core.Tests.GameSceneEntryTests.CanProceedDoesNotAllocateInReadyState",
+      "TPLab.Core.Tests.GameSceneEntryTests.DirectManagerSharesWaitWithoutCancellingItsOwner",
+      "TPLab.Core.Tests.GameSceneEntryTests.ExplicitShutdownCanFinishFailedSingleCleanupAfterExternalSceneIsAvailable",
+      "TPLab.Core.Tests.GameSceneEntryTests.NativeSingleEntryRetainsOnlyPersistentCommonOwner",
+      "TPLab.Core.Tests.GameSceneEntryTests.PersistentAdditiveEntryRetainsBootstrapAndCommonServices",
+      "TPLab.Core.Tests.GameSceneEntryTests.SingleRejectsUnknownLoadedScenesBeforeCover",
+      "TPLab.Core.Tests.GameSceneEntryTests.SingleShutdownReportsLastSceneWithoutCreatingFallback"
+    ],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameSceneEntryTests",
+      "source": "connector-file",
+      "cliReturnCode": 1,
+      "attempts": [
+        {
+          "cliReturnCode": 1,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "green-replacement-tests": {
+    "failed": 0,
+    "failures": [],
+    "passed": 36,
+    "passes": [
+      "TPLab.Core.Tests.GameSceneReplacementTests.AdditivePresentationFinishesBeforeOldRootShutdown",
+      "TPLab.Core.Tests.GameSceneReplacementTests.CallerCancellationStopsOnlyItsReplacementWait",
+      "TPLab.Core.Tests.GameSceneReplacementTests.CallerWaitCancellationDoesNotAuthorizeOrCancelProceed",
+      "TPLab.Core.Tests.GameSceneReplacementTests.CandidateFailurePreservesPreparedOldRootAndKeepsCover",
+      "TPLab.Core.Tests.GameSceneReplacementTests.CompletedOperationAwaiterCanImmediatelyStartAndCancelTheNextOperation",
+      "TPLab.Core.Tests.GameSceneReplacementTests.CoverProgressUiFailureCannotPreventProtectiveCover",
+      "TPLab.Core.Tests.GameSceneReplacementTests.DerivedAddCanUseLoadingButRemovalUsesOnlyCover",
+      "TPLab.Core.Tests.GameSceneReplacementTests.FailedOldUnloadRemainsObservableAfterCandidateCleanupAndExplicitShutdown",
+      "TPLab.Core.Tests.GameSceneReplacementTests.FinalRevealFailureRestoresCoverWithoutRepeatingUiRelease",
+      "TPLab.Core.Tests.GameSceneReplacementTests.ForeignSceneDuringCandidatePresentationIsRetainedAndFaultsBeforeOldShutdown",
+      "TPLab.Core.Tests.GameSceneReplacementTests.LoadingAutoFlowUsesTwoCoversAndReleasesUnderCover",
+      "TPLab.Core.Tests.GameSceneReplacementTests.LoadingFirstEntryPreparesCommonBeforeUiAndEndsReady",
+      "TPLab.Core.Tests.GameSceneReplacementTests.LoadingPreparationAndReleaseFailuresAreBothReported",
+      "TPLab.Core.Tests.GameSceneReplacementTests.LoadingRevealFailureRecoversCoverBeforeUiCleanup",
+      "TPLab.Core.Tests.GameSceneReplacementTests.LoadingUiReleaseFailureIsOnceAndNeverRevealsGameplay",
+      "TPLab.Core.Tests.GameSceneReplacementTests.ManualWaitCancellationRestoresCoverAndCleansOnlyCandidate",
+      "TPLab.Core.Tests.GameSceneReplacementTests.ManualWaitKeepsOldAdditiveRootAndRejectsAnotherCommand",
+      "TPLab.Core.Tests.GameSceneReplacementTests.ManualWaitRechecksOldRootConditionBeforeShutdown",
+      "TPLab.Core.Tests.GameSceneReplacementTests.MovedCandidateIsReleasedWithoutShuttingDownPreparedOldRoot",
+      "TPLab.Core.Tests.GameSceneReplacementTests.NativeProgressFailureStillRetainsAndUnloadsLateResult",
+      "TPLab.Core.Tests.GameSceneReplacementTests.OldReleaseFailureCleansCandidateAndRetainsActualOldOwner",
+      "TPLab.Core.Tests.GameSceneReplacementTests.OverlappingReplacementIsRejectedBeforeEffects",
+      "TPLab.Core.Tests.GameSceneReplacementTests.OwnerCancellationWaitsForLateCandidateThenPreservesOldRoot",
+      "TPLab.Core.Tests.GameSceneReplacementTests.ProgressHookFailureCleansCandidateBeforeReportingFailure",
+      "TPLab.Core.Tests.GameSceneReplacementTests.RevealFailureRestoresCoverAndCleansReplacement",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SecondCoverAwaitRechecksConditionBeforeOldRelease",
+      "TPLab.Core.Tests.GameSceneReplacementTests.ShutdownSharesWaitForLateCandidateAndCleansEveryOwnedScene",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleCandidateFailureKeepsTheLastActualSceneOwnedAndUnprepared",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleLoadingWaitUsesPersistentCallbacksAfterOldRootRelease",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleOldShutdownFailurePreventsNativeLoad",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleRejectsRetainedNormalSceneBeforeCover",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleRejectsUnregisteredSceneBeforeCover",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleWaitCancellationRetainsLastSceneUnpreparedUntilExplicitRecovery",
+      "TPLab.Core.Tests.GameSceneReplacementTests.SingleWaitsForOldGracefulShutdownBeforeNativeLoad",
+      "TPLab.Core.Tests.GameSceneReplacementTests.TwoReplacementsKeepCommonAndSeparateEntryFromTransitionHistory",
+      "TPLab.Core.Tests.GameSceneReplacementTests.UnsupportedProgressKeepsPreparationAndNativeCompletionSeparate"
+    ],
+    "skipped": 0,
+    "total": 36,
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameSceneReplacementTests",
+      "source": "cli",
+      "cliReturnCode": 0,
+      "attempts": [
+        {
+          "cliReturnCode": 0,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "green-area-tests": {
+    "failed": 0,
+    "failures": [],
+    "passed": 27,
+    "passes": [
+      "TPLab.Core.Tests.GameSceneAreaTests.AddCompletionAwaiterCanStartNextAddWithoutChangingFirstCommandScene",
+      "TPLab.Core.Tests.GameSceneAreaTests.AdditiveChildWaitsForPresentationAndRetainsPreparedParent",
+      "TPLab.Core.Tests.GameSceneAreaTests.AncestorRemovesSubtreeChildFirst",
+      "TPLab.Core.Tests.GameSceneAreaTests.DerivedAncestorRemovesItsChildWhileKeepingOwnBranchPrepared",
+      "TPLab.Core.Tests.GameSceneAreaTests.DerivedCanExitItselfWithoutReleasingParent",
+      "TPLab.Core.Tests.GameSceneAreaTests.ExplicitActivationChangesActiveSceneWithoutReplacingPrimary",
+      "TPLab.Core.Tests.GameSceneAreaTests.ExternalActiveChangeDuringAddPresentationFaultsAndRetainsExistingTree",
+      "TPLab.Core.Tests.GameSceneAreaTests.ExternalActiveChangeDuringRemovalIsReportedAfterCleanup",
+      "TPLab.Core.Tests.GameSceneAreaTests.FailedCandidatePreparationNeverRegistersOrReleasesExistingTree",
+      "TPLab.Core.Tests.GameSceneAreaTests.ForeignInventoryDuringRemovalIsReportedWithoutDeletingForeignScene",
+      "TPLab.Core.Tests.GameSceneAreaTests.InvalidParentDuplicateAssetAndPrimaryRemovalAreRejectedBeforeEffects",
+      "TPLab.Core.Tests.GameSceneAreaTests.NestedRegistrationsCopyParentAndPriorityWithoutAutomaticActivation",
+      "TPLab.Core.Tests.GameSceneAreaTests.OtherCommandsAreRejectedDuringRemovalWithoutEffects",
+      "TPLab.Core.Tests.GameSceneAreaTests.OwnerCancellationDuringRemovalWaitsForEntireBegunSubtreeCleanup",
+      "TPLab.Core.Tests.GameSceneAreaTests.OwnerCancellationWaitsForLateAddedCandidateAndPreservesRegisteredTree",
+      "TPLab.Core.Tests.GameSceneAreaTests.PendingSameRemovalSharesResultAfterAuthorityValidationAndCallerCancellation",
+      "TPLab.Core.Tests.GameSceneAreaTests.PrimaryAdditiveReplacementReleasesSubtreeChildFirst",
+      "TPLab.Core.Tests.GameSceneAreaTests.PrimaryRegistrationHasSessionBoundaryAndPreparedSnapshot",
+      "TPLab.Core.Tests.GameSceneAreaTests.PrimarySingleReplacementReleasesWholeTreeBeforeNativeLoad",
+      "TPLab.Core.Tests.GameSceneAreaTests.RegisteredSiblingCannotRemoveAnotherSubtree",
+      "TPLab.Core.Tests.GameSceneAreaTests.RemovalPreservesActiveSiblingOutsideTargetSubtree",
+      "TPLab.Core.Tests.GameSceneAreaTests.RemovalReleaseFailureCleansActualSubtreeAndBlocksFurtherWork",
+      "TPLab.Core.Tests.GameSceneAreaTests.RemovalUnloadFailureKeepsActualRegistrationAndStickyShutdownError",
+      "TPLab.Core.Tests.GameSceneAreaTests.SameRemovalSharesCompletionAfterUnloadWhileRevealIsPending",
+      "TPLab.Core.Tests.GameSceneAreaTests.ShutdownCleansEntireTreeChildFirst",
+      "TPLab.Core.Tests.GameSceneAreaTests.ShutdownWaitsForLateAddedCandidateAndThenReleasesRegisteredTree",
+      "TPLab.Core.Tests.GameSceneAreaTests.SingleCancellationDuringDescendantReleaseFinishesGracefulTreeWithoutNativeLoad"
+    ],
+    "skipped": 0,
+    "total": 27,
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameSceneAreaTests",
+      "source": "cli",
+      "cliReturnCode": 0,
+      "attempts": [
+        {
+          "cliReturnCode": 0,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  }
+}
