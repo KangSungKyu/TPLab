@@ -1,0 +1,175 @@
+using System;
+using System.IO;
+using System.Threading;
+using Newtonsoft.Json;
+using Unity.Profiling;
+using UnityEngine;
+using UnityEngine.Profiling;
+
+public static class Imp05MeasurementProbe
+{
+    public static readonly byte[] WarmPayload = new byte[4096];
+    public static readonly byte[][] RetainedPayloads = new byte[256][];
+    public static object RetainedReference;
+    public static readonly Observation[] Results = new Observation[160];
+    public static int RetainedCount;
+    public static int ResultCount;
+    private static ProfilerRecorder _events;
+    private static ProfilerRecorder _frame;
+    private static int _thread;
+
+    public struct Observation
+    {
+        public string Candidate;
+        public string Unit;
+        public bool Positive;
+        public int Round;
+        public int Iteration;
+        public long Before;
+        public long After;
+        public long Delta;
+        public int Samples;
+        public long EventCount;
+        public long DurationNanoseconds;
+        public bool Available;
+        public int RetainedSlot;
+        public int Thread;
+    }
+
+    private static void Control(bool positive)
+    {
+        if (positive)
+        {
+            var payload = new byte[4096];
+            RetainedPayloads[RetainedCount++] = payload;
+            RetainedReference = payload;
+            payload[0] = 0x5A;
+        }
+        else
+        {
+            RetainedReference = WarmPayload;
+        }
+    }
+
+    private static Observation Measure(int candidate, bool positive, int round, int iteration)
+    {
+        var row = new Observation { Positive=positive, Round=round, Iteration=iteration, Available=true,
+            RetainedSlot=positive ? RetainedCount : -1, Thread=Thread.CurrentThread.ManagedThreadId };
+        if (row.Thread != _thread) throw new InvalidOperationException("Measurement changed thread.");
+        if (candidate == 0)
+        {
+            row.Candidate = "GC.GetAllocatedBytesForCurrentThread";
+            row.Unit = "Bytes";
+            row.Before = GC.GetAllocatedBytesForCurrentThread();
+            Control(positive);
+            row.After = GC.GetAllocatedBytesForCurrentThread();
+            row.Delta = row.After - row.Before;
+        }
+        else if (candidate == 1)
+        {
+            row.Candidate = "ProfilerRecorder GC.Alloc isolated event count";
+            row.Unit = "Allocation events (sample Value is nanoseconds)";
+            row.Available = _events.Valid;
+            if (row.Available)
+            {
+                _events.Reset();
+                _events.Start();
+                Control(positive);
+                _events.Stop();
+                row.Samples = _events.Count;
+                for (int i=0; i<row.Samples; i++)
+                {
+                    var sample = _events.GetSample(i);
+                    row.EventCount += sample.Count;
+                    row.DurationNanoseconds += sample.Value;
+                }
+                row.Delta = row.EventCount;
+            }
+        }
+        else if (candidate == 2)
+        {
+            row.Candidate = "ProfilerRecorder GC Allocated In Frame CurrentValue delta";
+            row.Unit = "Bytes, global frame counter";
+            row.Available = _frame.Valid;
+            if (row.Available)
+            {
+                row.Before = _frame.CurrentValue;
+                Control(positive);
+                row.After = _frame.CurrentValue;
+                row.Delta = row.After - row.Before;
+            }
+        }
+        else
+        {
+            row.Candidate = "Profiler.GetMonoUsedSizeLong retained heap delta";
+            row.Unit = "Live managed heap bytes";
+            row.Before = Profiler.GetMonoUsedSizeLong();
+            Control(positive);
+            row.After = Profiler.GetMonoUsedSizeLong();
+            row.Delta = row.After - row.Before;
+        }
+        GC.KeepAlive(RetainedReference);
+        return row;
+    }
+
+    public static object Run()
+    {
+        _thread = Thread.CurrentThread.ManagedThreadId;
+        bool initialProfilerEnabled = Profiler.enabled;
+        _events = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC.Alloc", 128,
+            ProfilerRecorderOptions.CollectOnlyOnCurrentThread);
+        _events.Stop();
+        _frame = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Allocated In Frame", 1);
+        string eventsUnit = _events.Valid ? _events.UnitType.ToString() : "Unavailable";
+        string frameUnit = _frame.Valid ? _frame.UnitType.ToString() : "Unavailable";
+        try
+        {
+            for (int candidate=0; candidate<4; candidate++)
+            {
+                Measure(candidate, false, -1, -1);
+                Measure(candidate, true, -1, -1);
+                Measure(candidate, false, -1, -1);
+                Measure(candidate, true, -1, -1);
+            }
+            for (int round=0; round<2; round++)
+            {
+                for (int candidate=0; candidate<4; candidate++)
+                {
+                    for (int i=0; i<10; i++)
+                    {
+                        Results[ResultCount++] = Measure(candidate, false, round, i);
+                        Results[ResultCount++] = Measure(candidate, true, round, i);
+                    }
+                }
+            }
+            bool retainedAll = true;
+            for (int i=0; i<RetainedCount; i++)
+            {
+                retainedAll &= RetainedPayloads[i] != null && RetainedPayloads[i].Length==4096 && RetainedPayloads[i][0]==0x5A;
+                for (int j=0; j<i; j++) retainedAll &= !ReferenceEquals(RetainedPayloads[i],RetainedPayloads[j]);
+            }
+            if (ResultCount != 160 || !retainedAll) throw new InvalidOperationException("Probe result/static retention invariant failed.");
+            var result = new { mode=Application.isPlaying ? "PlayMode" : "EditMode", unityVersion=Application.unityVersion,
+                managedRuntime="Mono Unity Editor", rounds=2, iterationsPerRoundPerControl=10, payloadBytes=4096,
+                warmupsPerCandidatePerControl=2, storedObservationCount=ResultCount, retainedPayloadCount=RetainedCount,
+                retainedRequestedPayloadBytes=RetainedCount*4096, staticStorageValidated=retainedAll,
+                profilerEnabledBefore=initialProfilerEnabled, profilerEnabledAfter=Profiler.enabled,
+                gcAllocMetricUnit=eventsUnit, frameMetricUnit=frameUnit, observations=Results };
+            string path="Temp/imp-05-measurement/"+(Application.isPlaying ? "play" : "edit")+"-observations.json";
+            File.WriteAllText(path,JsonConvert.SerializeObject(result,Formatting.Indented));
+            return new { completed=true, mode=Application.isPlaying ? "PlayMode" : "EditMode", observations=ResultCount,
+                retainedPayloads=RetainedCount, staticStorageValidated=retainedAll, gcAllocMetricUnit=eventsUnit, frameMetricUnit=frameUnit };
+        }
+        finally
+        {
+            _events.Dispose();
+            _frame.Dispose();
+            if (Profiler.enabled != initialProfilerEnabled) throw new InvalidOperationException("Profiler state changed unexpectedly.");
+        }
+    }
+}
+
+public static class __CliDynamic
+{
+    public static object Execute() { return Imp05MeasurementProbe.Run(); }
+}

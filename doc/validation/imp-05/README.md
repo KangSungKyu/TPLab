@@ -2,6 +2,10 @@
 
 2026-10-13. **ImplementationStatus: Proposed / ValidationStatus: Partial**. 기준 main `9285805bd234d1988019c890e3670945d88bce9d`, branch `codex/imp-05-scene-polling-gc`. runtime·public API 변경 없음. 예상 Red가 통과해 [백로그 중단 규칙](../../IMPROVEMENT_BACKLOG.md)에 따라 자동 구현을 멈췄다.
 
+## 2026-10-13 측정 수단 조사 후속
+
+사용자는 측정 수단 검증만 승인했고 기존 테스트·runtime 수정/API 확정 없이 보고 후 멈추도록 지정했다. [후속 조사](measurement-survey/README.md)에서 static 보존한 Edit/Play 양성·음성320개를 비교하고 GC0 테스트4개의 양성 대조 부재를 목록으로 확인했다. 아래 초기 Red/일회성 대조 기록은 당시 상태이며, PlayMode 대조·대체 계측의 현재 상태는 후속 보고를 따른다. 조사 완료·사용자 후속 지시 대기이며 구현은 시작하지 않았다.
+
 ## 선행 승인·PR #8 통합
 
 사용자가 IMP-02 PR #8 병합을 승인했다. 승인 후보039d132에서 수락 문서9개만 갱신했고 최종tip `e7fa70eda058ac023725ad2f1e8fe87e1e3a3bca`의 규칙25개/오류0/경고0·상대링크247개/누락0·[exact Actions 성공](https://github.com/KangSungKyu/TPLab/actions/runs/38328195499)을 확인했다. 일반 merge main9285805에 원본tip 도달성을 확인하고 작업 branch를 로컬/원격에서 삭제했다. local/origin/server main 일치·사용자 dirty6 raw hash를 확인했다. [통합 영수증](pr8-merge-receipt.json), [CI 조회 요약](pr8-final-tip-ci-summary.json).
@@ -34,7 +38,7 @@ main checkout 때 tested10 파일의 줄바꿈만 CRLF→LF로 바뀌었다. Git
 
 ## 구현 전 사용자 결정
 
-1. 예상 Red가 통과했으므로 계측 정상성을 먼저 조사할지, IMP-05를 보류할지 결정이 필요하다. 조사 승인 뒤에도 기존 고정 테스트의 계측 변경은 별도 검토하고 runtime 구현을 시작하지 않는다.
+1. 측정 수단만 조사하도록 승인받아 [후속 결과](measurement-survey/README.md)를 보고했다. 기존 고정 테스트의 계측 변경·runtime 구현은 아직 승인/수행하지 않았다. 결과 보고 후 멈추라는 최신 사용자 지시를 따른다.
 2. 계측/Red를 해소한 뒤 백로그가 정한 버퍼 API 이름·시그니처 확인을 받는다. 다음은 **Proposed, 현재 호출할 수 없는 API**다.
 
 ```csharp
