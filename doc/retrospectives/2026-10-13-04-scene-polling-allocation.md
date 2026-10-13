@@ -13,4 +13,4 @@
 
 ### 후속 수락 · 2026-10-13
 
-사용자가 PR #10 병합을 승인했다. 승인 tip `56c101fb282e7f2723ad6a06a253a741ccf47c4e`와 main `3ee358f`를 원격과 대조하고 정확한 승인 tip의 CI success를 확인했다. 동일 작업 브랜치를 재사용해 승인 기록 문서5개만 갱신하며 runtime/테스트/dirty6 보존을 확인한다. 문서 최종 HEAD의 규칙과 Actions를 확인한 뒤 일반 merge·main 동기화·해당 branch 정리를 진행한다. 최종 SHA와 실제 결과는 PR/Git 이력 및 완료 보고에서 확인한다. 다음 IMP-03은 자동 큐를 따르지만 현재 Unity Editor 프로세스가 없어 Red 실행은 아직 하지 못했다. 검증 수치·계측 한계·미실행 범위는 원래대로 보존한다.
+사용자가 PR #10 병합을 승인했다. 승인 tip `56c101fb282e7f2723ad6a06a253a741ccf47c4e`와 main `3ee358f`를 원격과 대조하고 정확한 승인 tip의 CI success를 확인했다. 동일 작업 브랜치를 재사용해 승인 기록 문서5개만 갱신하며 runtime/테스트/dirty6 보존을 확인한다. 문서 최종 HEAD의 규칙과 Actions를 확인한 뒤 일반 merge·main 동기화·해당 branch 정리를 진행한다. 최종 SHA와 실제 결과는 PR/Git 이력 및 완료 보고에서 확인한다. 다음 IMP-03은 자동 큐를 따른다. 초기 혼합 PowerShell 출력에서 Editor 부재로 읽은 판단은 정정했다. 별도 PID 조회에서는 Unity 프로세스가 존재했고 CLI status도 ready를 표시했으나, 고유 응답을 요청한 실제 `unity-cli exec --project <절대 checkout>`가 30초 동안 응답하지 않아 subprocess.TimeoutExpired로 종료됐다. IMP-03은 이 실행 사전 확인에서 중단하며 Red 실행0·runtime/test 변경 없음으로 구분한다. 기존 Editor의 실제 명령 응답이 복구돼야 재개할 수 있다. 검증 수치·계측 한계·미실행 범위는 원래대로 보존한다.
