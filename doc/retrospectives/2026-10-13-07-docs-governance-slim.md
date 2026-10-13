@@ -1,6 +1,6 @@
 # 2026-10-13 · 07 AGENTS·INDEX 영속 규칙 정리
 
-상태: T0 문서 반영·로컬 검사 진행, PR 검토·명시적 병합 승인 대기. 새 작업의 main 병합·강제 푸시·브랜치 삭제·Unity 실행·PC 제어는 수행하지 않는다.
+상태: T0 문서 반영·로컬 검사 완료, [PR #13](https://github.com/KangSungKyu/TPLab/pull/13) 검토·명시적 병합 승인 대기. 새 작업의 main 병합·강제 푸시·브랜치 삭제·Unity 실행·PC 제어는 수행하지 않는다.
 
 ## 요청·기준·실제 Git 작업
 
@@ -8,7 +8,7 @@
 
 선행 [PR #12](https://github.com/KangSungKyu/TPLab/pull/12)는 이번 요청의 병합 승인에 따라 일반 merge로 통합했다. 승인된 head `8183d4cbb1fdce9a4ea324abf49e90d9d87913ae`의 fresh exact-SHA CI는 workflow run1/check1 completed/success·조회 완전성 확인 뒤 병합했으며 merge SHA는 `1ddc87d4116e9151f1b82836d664655d83270ba1`이다. 로컬 main·origin/main·서버 main을 맞춘 뒤 그 tip에서 `codex/docs-governance-slim`을 생성했다. 이전 `codex/docs-guidelines-draft` 브랜치는 이번 요청의 삭제 금지에 따라 유지했다. PR #12의 gate를 새 작업 gate로 재사용하지 않는다.
 
-조사 main `35508bc`와 새 기준 main `1ddc87d`의 AGENTS/INDEX Git blob을 대조해 두 파일 모두 동일함을 확인했다. 아래 ‘이전 행’은 이 기준이다. 새 변경은 문서8개뿐이며 공개 API·동작·테스트·UPM 변경이 없다. 실제 새 commit/PR 및 최종 tip은 Git 이력·최종 보고·PR 검사 탭에서 확인한다.
+조사 main `35508bc`와 새 기준 main `1ddc87d`의 AGENTS/INDEX Git blob을 대조해 두 파일 모두 동일함을 확인했다. 아래 ‘이전 행’은 이 기준이다. 새 변경은 문서8개뿐이며 공개 API·동작·테스트·UPM 변경이 없다. 문서 반영 source는 `b89fc94772d9a101e78c3f0d2701a48e91e2fd6d`로 게시하고 PR #13을 생성했다(open, merged=false). 그 뒤 이 회고의 실제 검사 결과·검사 링크만 보완했다. 최종 tip은 Git 이력·최종 보고·PR 검사 탭에서 확인한다.
 
 - 변경: AGENTS, Scene/UI 두 track, guidelines06/07의 A2 추가, doc/INDEX, 회고 INDEX, 이 회고.
 - 제외: CLAUDE, CI_SETUP_GUIDE, 백로그, GC 가이드, DOCUMENTATION_GUIDE, 나머지 guidelines, 코드·테스트·UPM, 기존 검증 자료.
@@ -186,17 +186,18 @@ PR 본문에도 사용자 요구대로 이3개 bullet의 변경 전후 전문을
 
 ## 검증 증거 · 이 회고가 단일 요약 소유
 
-승인된 문서8개 diff를 대상으로 로컬 정적 검사와 규칙 검사, 그 뒤 새 PR의 최종 exact-SHA Actions를 확인한다. 아래 로컬 정적 결과는 이번 단위 실제 실행이며, PR 규칙·최종 Actions는 실행 후 갱신한다. 원문 대조·링크 검사는 Python 표준 라이브러리로 git show 기준 blob·Path 읽기·SHA256 집계·Markdown의 실제 링크/heading을 검사했다. 원문 코드 블록/inline code는 렌더링 링크가 아니므로 제외한다.
+승인된 문서8개 diff를 대상으로 로컬 정적 검사와 규칙 검사, 그 뒤 새 PR의 최종 exact-SHA Actions를 확인한다. 아래 결과는 이번 단위 실제 실행이다. 보완 후 최종 tip의 로컬 검사·exact-SHA 조회를 다시 수행하고 그 tip의 검사는 PR 검사 탭과 최종 보고에서 확인한다. 기존 게시 SHA의 결과만으로 새 tip을 통과로 판정하지 않는다. 원문 대조·링크 검사는 Python 표준 라이브러리로 git show 기준 blob·Path 읽기·SHA256 집계·Markdown의 실제 링크/heading을 검사했다. 원문 코드 블록/inline code는 렌더링 링크가 아니므로 제외한다.
 
 | 검사 | 실행/근거 | 현재 결과 |
 |---|---|---|
 | 선행 PR12 gate·merge | tools/check_github_ci.py --repository KangSungKyu/TPLab --ref 8183d4cbb1fdce9a4ea324abf49e90d9d87913ae / get_pr_info·merge·git fetch·ff | completed/success·조회 완전성 확인; merge1ddc87d. 새 단위 gate와 별도. |
-| 링크·heading·공백 | 문서8개의 fenced/inline 원문을 제외한 상대 파일·heading/#L 검사; git diff --check <base> -- <문서8개> | 상대 링크406개·heading/#L125개 오류0, 전체 링크414개; 승인 문서 diff 공백 exit0 |
+| 링크·heading·공백 | 문서8개의 fenced/inline 원문을 제외한 상대 파일·heading/#L 검사; git diff --check <base> -- <문서8개> | 상대 링크406개·heading/#L125개 오류0, 승인 문서 diff 공백 exit0 |
 | 이관·범위 보존 | git show 기준 blob 대조, 06/07·track·회고색인 prefix, A2 문장 비교, 제외 추적 파일과 dirty raw SHA256 | track13항목·회고6항목·증거2항목 일치; prefix5개·영속 절·제외2242파일·dirty6 raw hash 보존 |
-| PR 규칙 | tools/check_pr_rules.py --base 1ddc87d4116e9151f1b82836d664655d83270ba1 --head HEAD | 실제 실행 대기. AGENTS 보호 파일 warning은 A1~A3/X 명시 승인에 따른 예상 항목이며 오류와 구분한다. |
-| 최종 Actions | tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <최종 tip> --output Temp/docs-governance-20261013/final-ci.json | 새 PR·최종 SHA gate 대기. 조회 출력은 ignored Temp이며 커밋하지 않는다. |
+| PR 규칙 | tools/check_pr_rules.py --base 1ddc87d4116e9151f1b82836d664655d83270ba1 --head HEAD | 문서 source b89fc94 실제 실행: 오류0·warning1·exit0. warning은 “AGENTS.md — 검사·리뷰·작업 규칙 파일이 변경됨. 사용자가 직접 확인”. A1~A3/X 명시 승인에 따른 예상 항목이며 오류와 구분한다. 최종 tip에도 재실행한다. |
+| 게시 source Actions | tools/check_github_ci.py --repository KangSungKyu/TPLab --ref b89fc94772d9a101e78c3f0d2701a48e91e2fd6d --output Temp/docs-governance-20261013/pr13-initial-ci.json | [run38372076794](https://github.com/KangSungKyu/TPLab/actions/runs/38372076794) completed/success, run1/check1·조회4종 완전·queryIssues0·gate passed. 자동 규칙 검사이며 Unity/Claude 실행과 구분한다. |
+| 최종 HEAD Actions | tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <최종 tip> --output Temp/docs-governance-20261013/final-ci.json | 판정 대상은 [PR #13 검사 탭](https://github.com/KangSungKyu/TPLab/pull/13/checks)의 현재 tip이다. 게시 SHA 이후 회고 보완만 변경됐어도 그 최종 SHA를 별도로 조회한다. 자기 파일의 최종 commit ID는 Git 이력·최종 보고에서 확인한다. 조회 출력은 ignored Temp이며 커밋하지 않는다. |
 
-보존 기준: 허용 기존7개 문서를 제외한 추적2242개 raw SHA256 aggregate `d6dc7abe76b00f384028cb9fc08ab7e3ccfe73f2d362a8df5591e51d2f5f87a2`. 기존 사용자 변경6개(추적5/미추적1)의 raw hash 기준도 확보했다. 코드/테스트/UPM/가이드 제안/기존 validation을 수정·삭제하지 않았음을 이 기준과 최종 diff로 확인한다. 이번 작업과 과거 작업의 Temp 출력은 삭제 금지에 따라 보존한다; 경로는 실행 명령에 기록하며 영속 문서가 Temp 스크립트에 의존하지 않는다.
+보존 기준: 허용 기존7개 문서를 제외한 추적2242개 raw SHA256 aggregate `d6dc7abe76b00f384028cb9fc08ab7e3ccfe73f2d362a8df5591e51d2f5f87a2`. 기존 사용자 변경6개(추적5/미추적1)의 raw hash 기준도 확보했다. 코드/테스트/UPM/가이드 제안/기존 validation을 수정·삭제하지 않았음을 이 기준과 최종 diff로 확인한다. 독립 검토에서도 A1/A2 누락·X 완화·링크 오류가 없음을 확인했다. 이번 작업과 과거 작업의 Temp 출력은 삭제 금지에 따라 보존한다; 경로는 실행 명령에 기록하며 영속 문서가 Temp 스크립트에 의존하지 않는다.
 
 전체 작업 트리의 공백 검사는 기존 사용자 InitScene 변경의 trailing whitespace3개로 exit2였다. 사용자 자산을 수정하지 않고 승인 문서8개만 검사하며 새 회고는 별도 행 공백 검사에 포함한다.
 
@@ -206,4 +207,4 @@ NotRun: Unity EditMode·PlayMode·컴파일·제품 Console·Player/IL2CPP·새 
 
 세부 운영을 이관할 때 문단 단위 삭제만 하면 UI source·대규모 검증 같은 영속 요건이 빠질 수 있다. 문장별 판정과 기준 blob 대조로 보완했고, 증거 소유 변경은 원문과 현재 승인 규칙을 함께 기록해 역사 왜곡을 피했다. 추가 발견은 제안으로만 남기고 실행 범위를 늘리지 않았다.
 
-다음 행동은 새 PR의 사용자 diff 검토와 명시적 병합 승인이다. 그전에는 main1ddc87d와 두 작업 브랜치를 유지한다. 원시 자료 삭제·CLAUDE/상태 문구/역할 변경·누락된 과거 색인 정리는 별도 요청과 범위 결정이 필요하다.
+다음 행동은 PR #13의 사용자 diff 검토와 명시적 병합 승인이다. 그전에는 main1ddc87d와 두 작업 브랜치를 유지한다. 원시 자료 삭제·CLAUDE/상태 문구/역할 변경·누락된 과거 색인 정리는 별도 요청과 범위 결정이 필요하다.
