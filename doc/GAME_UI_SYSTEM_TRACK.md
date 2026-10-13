@@ -93,3 +93,18 @@ P7 담당 갱신: 수명 담당(기존 문맥/모델·추론 유지)은 optional
 최신 후보5af64b96에서 Single/Additive 각각 build1(artifact2)·fresh graphics Player4를 통과했다. 새 합계 build2/artifact4/Player8, exit0·timeout0. 각 sample80/78checks·draw30/min12·inventory7·Continue4·cleanup2와 ManagerStopped/등록·소유0을 확인했다. 기존Runtime/tests는473/476정규화입력 중변경3sample파일외에같으므로 기존624와최근UI86을계승하며새실행으로표시하지않는다. 사용자6raw 원본·InitScene/Build설정 복원 완료. [최종 근거](validation/ui-system/integration-20261012/README.md)와 [통합 회고](retrospectives/2026-10-12-03-ui-main-integration.md).
 
 Main `7b606586038883d4a38841e76e4c969d116306b1`에 fast-forward·원격일치를 확인했다. Phase branch8개와 consumed Temp5개를 정리했고 최종 문서 commit/main push 후 track·P7 branch를 정리한다. 원본6파일·기존Editor 보존, UI UPM/버전/tag는 추가하지 않았다. [통합·정리 근거](validation/ui-system/integration-20261012/README.md).
+
+## 당시 운영 지침(역사적 기록, 2026-10-08–2026-10-12)
+
+완료된 track의 운영 기록이다. 2026-10-13 사용자 A1 승인으로 [기준 AGENTS](https://github.com/KangSungKyu/TPLab/blob/1ddc87d4116e9151f1b82836d664655d83270ba1/AGENTS.md#L90)의 이 절 본문을 옮겼다. **현재 요청의 권한으로 승계하지 않는다.** 현재 영속 규칙은 [AGENTS](../AGENTS.md)와 [가이드](guidelines/README.md)를 따른다.
+
+내용·원문 상대 링크를 그대로 보존하기 위해 아래는 Markdown 원문 블록이다. 블록의 `doc/` 링크는 당시 저장소 루트 기준이며, 이 문서에서 이동할 링크는 [계약](GAME_UI_SYSTEM.md) · [수락](UI_ACCEPTANCE.md)다.
+
+```markdown
+- 사용자 승인된 P0~P7은 [UIContext track](doc/GAME_UI_SYSTEM_TRACK.md), 공용 계약은 [GAME_UI_SYSTEM.md](doc/GAME_UI_SYSTEM.md)를 따른다. 명칭/namespace/assembly는 UIContext/TPLab.UI다. 새 UI source는 Assets/TPLab/UI이고 기존 Core/Input 소스 이동·배포 사본·버전/tag는 자동 포함하지 않는다.
+- UI Runtime은 TPLab.Core·UniTask·uGUI를 사용하되 UnityEditor와 게임 업무 로직을 참조하지 않는다. Core runtime에서 UI 역참조는 금지한다. Input System 연결은 선택 assembly/adapter 경계로 두며 passive Virtual ScrollRect에 Input wrapper를 강제하지 않는다.
+- root별 Context 수명, borrowed ResourceManager/InputManager와 소유 clone/표시 작업/구독·lease를 구분한다. Scene Prepare의 등록/선행 자산 준비와 런타임 표시가 같은 준비·생성 경로를 사용한다. 정상 root 해제에서 UI Shutdown을 await하고 Unity 파괴 fallback도 검증한다.
+- 각 Phase에서 실제 Red→Green·관련 회귀·XML/사람/AI 문서·회고를 수행한 결과만 최신 검증 track에 통합한다. 부모만 Unity/Git/최종 리뷰를 맡으며 테스트 중 source를 동결한다. 기본 하위 agent1개·독립 작업 시 최대2개를 사용하고 모델/추론/허용 파일/상태를 track에 기록한다.
+- Virtual ScrollRect는 필수1,000/10,000 항목에서 기능·총소유/누적 생성 상한을 확인한다. 기본 ScrollRect1,000↔virtual1,000 성능비교와 virtual10,000 확장성 결과를 구분하고 실제 Profiler/Player 결과를 보존한다.
+- 최종 사용자 시각/실제 입력 확인은 P7에 모으며 미확인 시 main 병합·작업 branch 삭제를 보류한다. 이 UI 구현 요청에는 Unity/PC 종료 권한을 추가하지 않는다.
+```
