@@ -1,0 +1,30 @@
+{
+  "baseline": "dd8e48742b8e297d199b869f9cc135e0daf9a072",
+  "main": "9285805bd234d1988019c890e3670945d88bce9d",
+  "originalPaths": 547,
+  "unchangedPaths": 544,
+  "approvedChangedPaths": [
+    "Assets/TPLab/Tests/EditMode/ObjectPoolLivenessTests.cs",
+    "Assets/TPLab/Tests/EditMode/ObjectPoolTryReturnTests.cs",
+    "Assets/TPLab/Tests/PlayMode/GameSceneEntryTests.cs"
+  ],
+  "dirtyPathsPreserved": 6,
+  "redFrozenPathsPreserved": 12,
+  "newMetaGuidsUnique": 5,
+  "runtimePackagesSettingsToolsUnchanged": true,
+  "testedSourceSha256": {
+    "Assets/TPLab/Tests/EditMode/GcAllocationDiagnosticTests.cs": "12274e1f74dec81ce7a141e5f99b84092f181c859e01dff588032bdddaa28000",
+    "Assets/TPLab/Tests/EditMode/GcAllocationDiagnosticTests.cs.meta": "f6c19da3ff0ce94e84b5638315a245c8ca7e8aaf479b8e5532a22ecd55b24e1e",
+    "Assets/TPLab/Tests/EditMode/GcAllocationMeasurementTests.cs": "839db3e0f103a7a209e0df3a89a01ac0df6bbcd258225360b9d1342405cd1f8f",
+    "Assets/TPLab/Tests/EditMode/GcAllocationMeasurementTests.cs.meta": "922398927550ac94c579abf315e5ff344306f533c244ddf130ee9601909ea038",
+    "Assets/TPLab/Tests/EditMode/ObjectPoolLivenessTests.cs": "9ec67437ff8fe821779a13c058ecf7536dc4dee55c37d3ac35f06541568ca79a",
+    "Assets/TPLab/Tests/EditMode/ObjectPoolTryReturnTests.cs": "3644750ed05ee428c26dc600f7879a7f3bf379b06fbeaaf8ca60b925c83a605e",
+    "Assets/TPLab/Tests/Fixtures/GcAllocationControls.cs": "2a3c88edb933e070088644ec0aa1301df9e709de9a997be6f97ee231e2d51eef",
+    "Assets/TPLab/Tests/Fixtures/GcAllocationControls.cs.meta": "567a61be1f69e76dba6957c1c1c10ec50d9b10bf9649baa22c04b307e0aac7c6",
+    "Assets/TPLab/Tests/Fixtures/GcAllocationMeasurement.cs": "b80a6b7fee08e00d60de7cdab7f9f404546fa49e37bc091541f02a31bef1d1ed",
+    "Assets/TPLab/Tests/Fixtures/GcAllocationMeasurement.cs.meta": "9d008b240ca11a5a3a14a398137195a4fc438d58fc67bf87bf0b597084bdb810",
+    "Assets/TPLab/Tests/PlayMode/GameSceneEntryTests.cs": "86d0b1e17d3683e8375ad91195aa504b7bec359d66a7b5a4c326908bf24f6e04",
+    "Assets/TPLab/Tests/PlayMode/GcAllocationMeasurementPlayModeTests.cs": "0d84764b7b5bdac4dccaf0d955d1b2790aaf633996caad6348a381a6e25501eb",
+    "Assets/TPLab/Tests/PlayMode/GcAllocationMeasurementPlayModeTests.cs.meta": "1736c37c76d05bf845743a2d48904da2abf393cc3ef9c9741a3179105e1763e1"
+  }
+}

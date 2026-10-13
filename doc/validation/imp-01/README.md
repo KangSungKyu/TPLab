@@ -1,5 +1,11 @@
 # IMP-01 · 대여 중 외부 파괴의 지연 슬롯 회수
 
+## Editor 계측 한계에 의한 정정 (2026-10-13)
+
+기존 `GC.GetAllocatedBytesForCurrentThread()`의 0바이트/pass 기록은 실행 당시 관측으로 보존한다. 후속 static4KB 양성 대조가 Edit/Play에서0을 보고했으므로, 당시 결과는 이 Editor의 무할당 증거로 사용할 수 없다. 아래의 기존 0바이트 서술은 이 정정의 제한을 받는다. 기존 JSON·소스 hash·로직/기능 검증 결론은 변경하지 않았다.
+
+[IMP-14 측정 교체 검증](../imp-14/README.md)에서 기존 pool GC3개를 호출마다 양성·음성 대조를 검증하는 ProfilerRecorder 현재 스레드 이벤트 계측으로 교체했다. 재사용·정원/Count·죽은 대여 회복·TryReturn 반복을 포함한 각1000회 범위에서 workload **0 events**를 확인했다. 이는 byte 단위 보장이 아니며 factory/callback/Unity 생성·초기확장·Dispose 전체 비용은 포함하지 않는다. D-01=A1 지연 회수와 D-02 TryReturn 계약·로직 결론은 유지한다. Player/IL2CPP는 미검증이다.
+
 2026-10-12. **Implemented / 사용자 수락 완료·통합 준비**. 작업 브랜치 `codex/imp-01-pool-liveness`, 기준 main `a10c3022587a46b0cc3d479a2273c82ec649611f`, 초기 검증 소스 `d7f319c6f18713bb9fba77dd9505fc9dbe26f088`. 최종 문서 commit과 정확한 HEAD Actions 결과는 이 작업 PR과 완료 보고에서 확인한다.
 
 **현재 후보:** 후속 소스 `901d56c582691d55f4aa9698e91be57231328635`, 전체 Edit335/335·Play309/309, 실패·skip0. 초기 실행 자료는 그대로 보존하고, 아래 후속 요청 절에서 최신 경계 비교·회귀·백로그 상태 갱신을 구분한다.

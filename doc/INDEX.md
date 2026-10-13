@@ -131,3 +131,5 @@
 - [배포 최종 사용자 확인](DISTRIBUTION_ACCEPTANCE.md): 실제 패키지/예제·Additive/Single·Continue·화면비/복원 확인, 이후 P4 발행.
 
 - [0.0.1 첫 Release 검증](validation/distribution-release/README.md): 실제 tag URL·공개 첨부물 bytes·사용자 최종 수락·원본 보호.
+
+- [IMP-14 GC 측정 helper 검증](validation/imp-14/README.md): 호출별대조·Edit/Play N100·worker격리·기존GC4개 교체·IMP-01/02 계측정정, IMP-05 선행승인대기.

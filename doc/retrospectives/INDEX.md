@@ -141,3 +141,5 @@
 - 2026-10-13: [01 IMP-05 폴링 계측 확인](2026-10-13-01-imp-05-polling-measurement.md) — PR8 main9285805 통합·양쪽branch정리 후 자동큐; 예상Red pass1/1·유휴4KB양성대조0, runtime변경없음·계측조사결정대기.
 
 - 2026-10-13: [02 IMP-05 측정 수단 검증](2026-10-13-02-gc-measurement-survey.md) — static 보존 Edit/Play 대조320개·기존GC0 4개 양성대조없음; tests/runtime 수정·API확정없이 보고후중단, 원래씬/547입력/dirty6보존.
+
+- 2026-10-13: [03 IMP-14 GC helper·계측 정정](2026-10-13-03-gc-measurement-helper.md) — helper13/13·pool28/28, 양성100%·음성0/thread격리; 전체359/318(Play fail1=CanProceed2300 events), 승인대기·runtime불변.

@@ -1,0 +1,90 @@
+{
+  "before-can-proceed": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "passes": [
+      "TPLab.Core.Tests.GameSceneEntryTests.CanProceedDoesNotAllocateInReadyState"
+    ],
+    "execution": {
+      "mode": "PlayMode",
+      "filter": "TPLab.Core.Tests.GameSceneEntryTests.CanProceedDoesNotAllocateInReadyState",
+      "source": "connector-file",
+      "cliReturnCode": 1,
+      "attempts": [
+        {
+          "cliReturnCode": 1,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "before-dead-loan": {
+    "failed": 0,
+    "failures": [],
+    "passed": 1,
+    "passes": [
+      "TPLab.Core.Tests.ObjectPoolLivenessTests.WarmedDeadLoanRecoveryAddsNoPoolAllocation"
+    ],
+    "skipped": 0,
+    "total": 1,
+    "execution": {
+      "mode": "EditMode",
+      "filter": "TPLab.Core.Tests.ObjectPoolLivenessTests.WarmedDeadLoanRecoveryAddsNoPoolAllocation",
+      "source": "cli",
+      "cliReturnCode": 0,
+      "attempts": [
+        {
+          "cliReturnCode": 0,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "before-reuse": {
+    "failed": 0,
+    "failures": [],
+    "passed": 1,
+    "passes": [
+      "TPLab.Core.Tests.ObjectPoolLivenessTests.WarmedReuseCapacitySweepAndCountGettersAllocateZero"
+    ],
+    "skipped": 0,
+    "total": 1,
+    "execution": {
+      "mode": "EditMode",
+      "filter": "TPLab.Core.Tests.ObjectPoolLivenessTests.WarmedReuseCapacitySweepAndCountGettersAllocateZero",
+      "source": "cli",
+      "cliReturnCode": 0,
+      "attempts": [
+        {
+          "cliReturnCode": 0,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  },
+  "before-try-return": {
+    "failed": 0,
+    "failures": [],
+    "passed": 1,
+    "passes": [
+      "TPLab.Core.Tests.ObjectPoolTryReturnTests.WarmedTryReturnReuseAllocatesZero"
+    ],
+    "skipped": 0,
+    "total": 1,
+    "execution": {
+      "mode": "EditMode",
+      "filter": "TPLab.Core.Tests.ObjectPoolTryReturnTests.WarmedTryReturnReuseAllocatesZero",
+      "source": "cli",
+      "cliReturnCode": 0,
+      "attempts": [
+        {
+          "cliReturnCode": 0,
+          "prestartDiscoveryRejected": false
+        }
+      ]
+    }
+  }
+}

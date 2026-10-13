@@ -1,5 +1,9 @@
 # 로컬 PrefabPool 계약
 
+## Editor 계측 한계에 의한 정정 (2026-10-13)
+
+[IMP-14 검증](validation/imp-14/README.md)에서 기존 GC 테스트3개를 양성·음성 대조 내장 ProfilerRecorder GC.Alloc 현재 스레드 이벤트 측정으로 교체했다. warmed pool 반복 각1000회에서 workload0 events를 확인했다. 기존 Editor counter0B 기록은 양성 대조가 감지되지 않는 계측의 역사적 관측이며 무할당 입증으로 사용하지 않는다. 이벤트 수를 byte 수로 해석하지 않는다. pool runtime·공개 API·D-01 지연 회수·D-02 TryReturn 로직 결론은 유지한다. Player/IL2CPP는 미검증이다.
+
 로컬 GameObject 프리팹 또는 생성 원본의 동기 풀 어댑터다. 공통 정원·소유권·실패 정리는 [제네릭 ObjectPool<T>](GENERIC_POOL.md)에 위임한다. namespace는 TPLab.Core.Pooling, runtime assembly는 TPLab.Core다. 현재 지원·검증 기준은 Unity 6000.3이며, Assets/TPLab/Core 폴더와 .meta를 소비 프로젝트에 함께 가져오는 방식을 사용한다. UPM 배포는 별도 소비 프로젝트 검증 단계에서 결정한다.
 
 - PrefabPool(prefab, capacity, parent, onRent, onReturn)은 원본과 부모를 빌려 사용한다. 원본은 새 객체를 생성하는 동안, 부모는 풀 수명 동안 살아 있어야 한다. 풀은 생성한 모든 복제본과 비활성 보관 루트를 소유한다.

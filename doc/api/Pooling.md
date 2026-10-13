@@ -1,5 +1,9 @@
 # 풀링 API
 
+## Editor 계측 한계에 의한 정정 (2026-10-13)
+
+[IMP-14 검증](../validation/imp-14/README.md)에서 기존 GC 테스트3개를 양성·음성 대조 내장 ProfilerRecorder GC.Alloc 현재 스레드 이벤트 측정으로 교체했다. warmed pool 반복 각1000회에서 workload0 events를 확인했다. 기존 Editor counter0B 기록은 양성 대조가 감지되지 않는 계측의 역사적 관측이며 무할당 입증으로 사용하지 않는다. 이벤트 수를 byte 수로 해석하지 않는다. pool runtime·공개 API·D-01 지연 회수·D-02 TryReturn 로직 결론은 유지한다. Player/IL2CPP는 미검증이다.
+
 `TPLab.Core.Pooling` 네임스페이스는 `TPLab.Core` 어셈블리에 있습니다. 일반 참조 객체용 제한 풀 `ObjectPool<T>`와 Unity `GameObject` 프리팹 복제본용 메인 스레드 풀 `PrefabPool`을 제공합니다. 풀은 생성한 객체를 소유하고, 대여 중인 객체도 용량과 종료 정리에 포함합니다. 소비자는 객체를 빌려 쓰고 정확히 한 번 반환합니다. 풀 소유자가 용량과 초기화·재설정·정리 콜백을 선택합니다.
 
 **SourceRevision:** `2c8c0768c53878dcc9c2d4ed090582092e9dc5e0`
@@ -124,9 +128,9 @@ bool returned = pool.TryReturn(clone);
 
 ## 검증 근거와 한계
 
-- IMP-02: 실제 Red20(public signature 부재) → Green62/62, 전체 Edit348/348·Play316/316, fail/skip0. WarmedTryReturnReuseAllocatesZero는 1000회 strict0바이트를 통과했습니다. [현재 검증 기록](../validation/imp-02/README.md)의 실제 결과·범위·미실행을 확인하세요. 2026-10-13 사용자 수락 완료(PR #8)이며 아래 IMP-01·이전 실행은 이번 Green 증거가 아닙니다.
+- IMP-02: 실제 Red20(public signature 부재) → Green62/62, 전체 Edit348/348·Play316/316, fail/skip0. 당시 WarmedTryReturnReuseAllocatesZero는 1000회 counter0B를 보고했습니다(위 Editor 계측 정정 적용). 현재 유효 대조 기반 측정은 workload0 events입니다. [현재 검증 기록](../validation/imp-02/README.md)의 실제 결과·범위·미실행을 확인하세요. 2026-10-13 사용자 수락 완료(PR #8)이며 아래 IMP-01·이전 실행은 이번 Green 증거가 아닙니다.
 
-- IMP-01: 실제 Red 18개 중 예상 실패1 → Green Prefab18/18·기존generic24/24·보충15/15, 초기 전체 Edit334/334·Play307/307 이후 추가 경계3개를 검증했고, 최종 전체 Edit335/335·Play309/309, fail/skip0. 워밍업 뒤 재사용/정원 점검/죽은 슬롯 회복 두 GC 테스트가 각1,000회 0바이트 조건을 통과했습니다. [IMP-01 검증 기록](../validation/imp-01/README.md)의 범위·raw 결과·한계를 확인하세요. 살아 있는 대여·isAlive 생략은 baseline/현재 모두 PASS, dead inactive는 같은 호출 교체를 baseline FAIL/현재 PASS로 사후 비교했습니다. 공개 Prune은 보류(소비 프로젝트의 즉시 정리 필요에 따라 별도 결정)입니다. 2026-10-12 사용자 수락을 완료했으며 새 소비 프로젝트/Player 검증은 별도입니다. 아래 과거 결과는 현재 변경의 Green 증거가 아닙니다.
+- IMP-01: 실제 Red 18개 중 예상 실패1 → Green Prefab18/18·기존generic24/24·보충15/15, 초기 전체 Edit334/334·Play307/307 이후 추가 경계3개를 검증했고, 최종 전체 Edit335/335·Play309/309, fail/skip0. 워밍업 뒤 재사용/정원 점검/죽은 슬롯 회복 두 GC 테스트는 당시 각1,000회 counter0B를 보고했습니다(위 Editor 계측 정정 적용). 현재 유효 대조 기반 측정은 workload0 events입니다. [IMP-01 검증 기록](../validation/imp-01/README.md)의 범위·raw 결과·한계를 확인하세요. 살아 있는 대여·isAlive 생략은 baseline/현재 모두 PASS, dead inactive는 같은 호출 교체를 baseline FAIL/현재 PASS로 사후 비교했습니다. 공개 Prune은 보류(소비 프로젝트의 즉시 정리 필요에 따라 별도 결정)입니다. 2026-10-12 사용자 수락을 완료했으며 새 소비 프로젝트/Player 검증은 별도입니다. 아래 과거 결과는 현재 변경의 Green 증거가 아닙니다.
 
 - 이전 source revision `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`의 역사적 전체 회귀: [EditMode 258/258](../validation/input-system/p4/full-EditMode.json), [PlayMode 217/217](../validation/input-system/p4/full-PlayMode.json). 전체 실행에는 `ObjectPool<T>`와 `PrefabPool` 검사가 포함됩니다. 실행 환경·범위는 [P4 검증 기록](../validation/input-system/p4/README.md)을 참조하세요.
 - 이전 Input 포함 소비 프로젝트는 별도 Windows Mono Editor/Player에서 성공했습니다. Player의 pool 재사용 관찰은 **generic `ObjectPool<T>`** 경로입니다. [`최종 소비 결과`](../validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json).
