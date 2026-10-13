@@ -29,8 +29,9 @@
 - [현행] 해당 설치 UniTask의 `AsTask` 취소는 **Task.Faulted + OperationCanceledException**, IsCanceled=false였다; 이 변환 경로를 사용하는 현재 root 테스트는 GetResult의 OCE를 검사한다(모든 Task 구현으로 일반화하지 않음). 근거: [IMP-03 README:17–23](../validation/imp-03/README.md#원문-red와-별도-승인-정정), 테스트 `ShutdownWithUncooperativePreparationNeverCompletesWithoutTimeout`와 [AsyncSceneRootTests.cs:629–663](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L629).
 - [현행] 최신 관련 과거 회귀는 IMP-03의 Edit375/375·Play345/345·실패0·skip0, 합720/720이며 단위44개를 중복 합산하지 않는다; 이 기록은 Windows Mono Editor/당시 source의 증거로 Player·IL2CPP·제품 Console0·이번 Unity 실행을 뜻하지 않는다. 근거: [IMP-03 README:63–78·86](../validation/imp-03/README.md#green회귀원본-보존), 기대 Console 로그10개는 같은 문서74행.
 
-## 사용자 결정이 필요한 대안
+## 양성 대조 범위와 미확정 사항
 
-- [제안] 부정형 단언에 통제된 양성 경로를 짝지어 오라클 감도를 확인하는 안을 기본 후보로 둔다; GC에는 기존 호출별 대조를 재사용하고 순서 테스트에는 gate 해제 후 완료를 확인하는 안이 있다; 대안은 계측·순서처럼 오라클 감도 위험이 확인된 테스트에만 양성 대조를 요구하는 안이다. 근거: [IMP-14 README:23–42](../validation/imp-14/README.md#교체-전--실제-red--교체-후), [AsyncSceneRootTests.cs:146–161](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L146), [제안 목록](README.md#제안-목록).
+- [결정됨] **D-H8 — 위험이 확인된 오라클의 양성 대조.** 계측·순서 등 오라클 감도 위험이 확인된 테스트에만 양성 대조를 요구한다; GC는 현행 호출별 대조 helper를 유지하고 순서 테스트는 통제된 gate 해제 후 완료를 확인하는 방식 등으로 해당 위험을 검증한다. 기존 양성 대조 없는 모든 부정형 단언을 일괄 갱신하는 규칙으로 확대하지 않는다. 근거: **사용자 2026-10-13 일괄 승인**, [사용자 결정](README.md#사용자-결정), [IMP-14 README:23–42](../validation/imp-14/README.md#교체-전--실제-red--교체-후), [AsyncSceneRootTests.cs:146–161](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L146).
+- [결정됨] 검토했으나 채택하지 않은 대안: 모든 부정형 단언에 통제된 양성 경로를 일괄 요구하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H8).
 - [제안] 실패 수뿐 아니라 실패 이유·SetUp/TearDown 구분을 검토한 뒤 테스트를 고정하는 안과, 기존 항목별 동결 절차를 유지하는 안을 비교한다; 오라클/fixture 변경은 구현 편의로 실패를 덮지 않고 별도 근거를 남기는 후보 규칙이다. 근거: [IMP-03 README:12–27](../validation/imp-03/README.md#원문-red와-별도-승인-정정), [제안 목록](README.md#제안-목록).
 - [제안] 상태·순서는 gate/유한 조건 대기를 우선하고 시간 자체의 계약만 경과 관찰로 검증하는 안을 후보로 둔다; Timeout 속성은 위험 메서드별 적용과 fixture/assembly 기본 적용의 대안이 있으며 ToCoroutine hang/cleanup은 IMP-04b의 별도 검증 후 결정한다. 근거: [IMP-04 조사 README:268–277](../validation/imp-04-survey/README.md#검증사용자-결정다음-단계), [IMP-04 적용 README:79–101](../validation/imp-04-apply/README.md#timeout-시-기존-정리-경로--정적-검토), [제안 목록](README.md#제안-목록).

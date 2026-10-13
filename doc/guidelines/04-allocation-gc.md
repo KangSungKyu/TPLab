@@ -25,6 +25,8 @@
 | [현행] | [§10:89](../GC_ALLOCATION_GUIDELINE.md#L89) | CanProceed의 해결 전 목록은 낡았다; Owned/Registered snapshot 할당은 의도적으로 유지한 별도 계약이다. 근거: [IMP-05:13,61,65](../validation/imp-05/implementation/README.md#L13). |
 | [현행] | [근거 revision:5](../GC_ALLOCATION_GUIDELINE.md#L5) | 구형 revision·코드읽기 범위이며 최신 IMP-14/05 실행으로 동일하게 검증됐다는 뜻이 아니다. 근거: [IMP-14:3](../validation/imp-14/README.md#L3), [IMP-05:23](../validation/imp-05/implementation/README.md#L23). |
 
-- [제안] IMP-12에서 반복 조회/풀의 조건부0events 계약과 명시적인 allocating snapshot 예외를 구분하는 안이다; 대안은 신규 getter만 엄격히 제한하고 snapshot을 메서드로 추가하는 안이며 기존 API 제거는 D-B와 별도로 결정한다. 근거: [기존 GC §3](../GC_ALLOCATION_GUIDELINE.md#L25), [D-B](README.md#사용자-결정), [현재 API](02-public-api.md#snapshot과-호출자-버퍼).
-- [제안] 현행 대조 helper를 기준으로 계측 환경·양성 payload·N·capacity·events와 보조 bytes를 함께 보고하는 안이다; 대안은 backend별 byte 계측을 양성/음성 검증한 뒤 추가하는 안으로 정확 byte·Player·IL2CPP 또는 작은 할당 감도를 지금 확정하지 않는다. 근거: [helper 결과형](../../Assets/TPLab/Tests/Fixtures/GcAllocationMeasurement.cs#L12), [IMP-14 한계:55](../validation/imp-14/README.md#L55).
+- [결정됨] **D-H8 — 신규 API의 조건부 0 events.** 조건부 0 events 규칙은 신규 API에만 적용하고 기존 snapshot형 API의 할당 예외는 분리해 명시한다; 이 결정으로 기존 pool/CanProceed 테스트·계측 결과를 완화하거나 기존 snapshot API를 제거하지 않는다. 근거: 사용자 2026-10-13 일괄 승인, [사용자 결정](README.md#사용자-결정), [현행 snapshot/buffer](02-public-api.md#snapshot과-호출자-버퍼).
+- [결정됨] 검토했으나 채택하지 않은 대안: 기존 allocating snapshot까지 새 0 events 규칙의 적용 대상으로 삼거나 snapshot 속성을 메서드로 추가·교체하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H8), [기존 GC §3](../GC_ALLOCATION_GUIDELINE.md#L25).
+- [결정됨] **D-H8 — 측정 helper 유지.** 현행 GcAllocationMeasurement를 유지하고 소량 할당 양성 대조 추가는 4단계 검증 인프라 항목으로 남긴다; 정확 byte·작은 할당 감도·Player/IL2CPP를 확인한 것으로 쓰지 않는다. 근거: 사용자 2026-10-13 일괄 승인, [helper 결과형](../../Assets/TPLab/Tests/Fixtures/GcAllocationMeasurement.cs#L12), [IMP-14 한계:55](../validation/imp-14/README.md#L55).
+- [결정됨] 검토했으나 채택하지 않은 대안: 이번 단위에서 backend별 byte 계측을 새로 채택하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H8), [현행 계측 계약](#현재-측정-계약).
 - [현행] 기존 GC_ALLOCATION_GUIDELINE.md를 수정하거나 §11 문구를 AGENTS에 적용하는 작업은 이번 단계에 없다. 근거: [IMP-12 확정 gate:314](../IMPROVEMENT_BACKLOG.md#L314), [이번 범위](README.md#사용자-결정).

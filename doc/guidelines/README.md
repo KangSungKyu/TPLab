@@ -1,7 +1,7 @@
 # 프로그래머 가이드라인 초안
 
 - [현행] 기준 SourceRevision은 main **35508bc1fb8ed7749a292d1f9ae983b45387afd4**이며 PR #11(IMP-03)이 병합된 상태다. 근거: 2026-10-13 git fetch/rev-parse/log와 [PR #11](https://github.com/KangSungKyu/TPLab/pull/11), [IMP-03 요약:3](../validation/imp-03/README.md#L3).
-- [제안] 이 초안은 현재 관행과 그 예외를 서술하며, D-A/B/C 이외의 앞으로의 규칙은 사용자 검토 후 선택한다. 근거: 아래 [사용자 결정](#사용자-결정), 기존 [문서 상태 구분:21](../DOCUMENTATION_GUIDE.md#L21).
+- [제안] 이 초안은 현재 관행과 그 예외를 서술하며, D-A/B/C·D-E~D-G·D-H1~D-H12는 사용자 결정이며 나머지 제안은 검토 후 선택한다. 근거: 아래 [사용자 결정](#사용자-결정), 기존 [문서 상태 구분:21](../DOCUMENTATION_GUIDE.md#L21).
 
 ## 근거와 검증 범위
 
@@ -16,18 +16,34 @@
 | [현행] | [03 비동기·수명](03-async-lifecycle.md) | 취소·timeout·Forget·늦은 실패·소유권 |
 | [현행] | [04 할당·GC](04-allocation-gc.md) | 현행 helper와 GC 초안의 충돌 |
 | [현행] | [05 테스트](05-testing.md) | 현행 분모·대기·오라클·Red와 교훈 |
-| [현행] | [06 문서](06-documentation.md) | 기존 문서 지침과 분류·이력 제안 |
-| [현행] | [07 검증 증거](07-validation-evidence.md) | D-A와 현행 도구의 입력·보고 경계 |
+| [현행] | [06 문서](06-documentation.md) | 4분류·회고 증거 소유·레퍼런스·날짜 이력 |
+| [현행] | [07 검증 증거](07-validation-evidence.md) | 최소 기계 입력 예외·permalink·삭제 순서·미결정 위치 |
+| [현행] | [08 변경 절차](08-change-procedure.md) | T0~T3·공통 gate·14묶음 적용 초안·첫 시범 |
 
 ## 사용자 결정
 
-- [결정됨] 이번 초안의 설계·앞으로의 규칙 선택은 사용자가 맡고, Codex는 현행 관행의 작성·근거 검토를 맡는다. 근거: 사용자 2026-10-13 Phase1 요청의 작성 역할과 아래 D-A/B/C 결정 기록.
+- [결정됨] 이번 초안의 설계·앞으로의 규칙 선택은 사용자가 맡고, Codex는 현행 관행의 작성·근거 검토를 맡는다. 근거: 사용자 2026-10-13 Phase1 요청의 작성 역할과 아래 확정 결정 기록; 단위1b는 선택한 기준을 문서에 반영하며 코드·XML 전체에 구현됐다는 뜻은 아니다.
 
 | 상태 | 결정 ID | 확정 내용과 이번 적용 범위 |
 |---|---|---|
 | [결정됨] | D-A | 원시 실행 산출물은 저장소에 보관하지 않고 요약·판정 근거는 남긴다. 실제 삭제·링크 정리는 삭제 목록을 먼저 제시하는 2단계 별도 PR이다; 이번 PR은 정책 서술만이며 Git 이력 재작성은 하지 않는다. 근거: 사용자 2026-10-13 Phase 1 요청 D-A·삭제 제약, [07 장](07-validation-evidence.md). |
 | [결정됨] | D-B | 기존 공개 CLR 시그니처를 optional 인자 추가로 바꾸지 않고, 새 옵션은 옵션 객체 또는 새 오버로드로 확장한다. 기존 IMP-01/03 API를 이번 PR에서 고치지는 않는다. 근거: 사용자 같은 요청 D-B, [현행 두 사례](02-public-api.md#호환성-호출-가능과-기존-바이너리-결합). |
-| [결정됨] | D-C | 필요하면 GameSceneManager 같은 큰 클래스를 3단계에서 실제 분리한다. 크기 수치·분리 경계는 아직 제안이다. 근거: 사용자 같은 요청 D-C, [현재 분포와 제안](01-code-conventions.md#크기와-책임-분리-판단). |
+| [결정됨] | D-C | 필요하면 GameSceneManager 같은 큰 클래스를 3단계에서 실제 분리한다. 후속 D-H1에 따라 책임·소유권 경계를 기준으로 판단하고1,000행은 설명 신호로 사용한다. 근거: 사용자 같은 요청 D-C, [현재 분포와 제안](01-code-conventions.md#크기와-책임-분리-판단). |
+| [결정됨] | D-E | 변경 하나의 증거 요약은 회고 한 곳, PR은 회고 링크, 새 validation README는 생성하지 않음, 백로그·INDEX는 상태 한 줄과 링크만 유지. 근거: 사용자 2026-10-13 Phase1b D-E, [06](06-documentation.md#문서-4분류와-증거-소유), [07](07-validation-evidence.md#증거-소유와-최소-기계-입력). |
+| [결정됨] | D-F | T0~T3와 상향 규칙을 적용하고 모든 등급에 exact-SHA CI·사용자 병합 승인·dirty 보존·병합 전 사용자 확인을 요구한다. T1은 그 PR에서 새 Red·API 문서 갱신을 하지 않는다. 근거: 사용자 2026-10-13 Phase1b D-F, [08](08-change-procedure.md#위험-등급과-공통-항목). |
+| [결정됨] | D-G | Unity 테스트 CI(IMP-07)는 범위 밖이며 별도 진행한다; 이번 문서에서 설계하지 않는다. 근거: 사용자 2026-10-13 Phase1b D-G, [08](08-change-procedure.md#위험-등급과-공통-항목). |
+| [결정됨] | D-H1 | 책임·소유권 경계로 분리 판단,1,000행 초과는 설명 신호,500행 신호 불채택. 근거: 사용자 2026-10-13 일괄 승인, [01](01-code-conventions.md#크기와-책임-분리-판단). |
+| [결정됨] | D-H2 | 작은 값 snapshot은 readonly struct, null/mutable authoring이 필요하면 class; default·검증 위치는 옵션별 XML에 명시. 근거: 사용자 2026-10-13 일괄 승인, [02](02-public-api.md#옵션-객체와-default-검증-형태를-계약에-맞게-선택). |
+| [결정됨] | D-H3 | 새 옵션 overload는 기존 overload를 통해 같은 실행 경로로 위임하며 새 이름의 API로 구분하는 안은 불채택. 근거: 사용자 2026-10-13 일괄 승인, [02](02-public-api.md#호환성-호출-가능과-기존-바이너리-결합). |
+| [결정됨] | D-H4 | 제거 전 대체·이행 예·소비 호출·제거 버전 기록, 버전 미정 adapter 유지. 근거: 사용자 2026-10-13 일괄 승인, [02](02-public-api.md#obsolete와-xml). |
+| [결정됨] | D-H5 | 현행 늦은 실패 소비 계약을 문서/XML에 명시; callback·코어 원인 보관은 필요 확인 후 별도 IMP. 근거: 사용자 2026-10-13 일괄 승인, [03](03-async-lifecycle.md). |
+| [결정됨] | D-H6 | 프로젝트 hook 작성자가 취소·해제 수명을 준수하며 timeout의 강제 중단 불가를 계약에 명시. 근거: 사용자 2026-10-13 일괄 승인, [03](03-async-lifecycle.md). |
+| [결정됨] | D-H7 | 종료 deadline은 현재 root 단계만 유지하고 다른 native owner로 확대하지 않음. 근거: 사용자 2026-10-13 일괄 승인, [03](03-async-lifecycle.md). |
+| [결정됨] | D-H8 | 신규 API만 조건부0events, 기존 snapshot 예외 분리, 현행 helper 유지·소량 대조는4단계, 오라클 위험 테스트에만 양성 대조. 근거: 사용자 2026-10-13 일괄 승인, [04](04-allocation-gc.md), [05](05-testing.md). |
+| [결정됨] | D-H9 | 문서4분류·레퍼런스 현재 계약/제한·긴 실행 이력 분리·과거 운영 날짜 이력 구분. 근거: 사용자 2026-10-13 일괄 승인, [06](06-documentation.md#문서-4분류와-증거-소유). |
+| [결정됨] | D-H10 | 현행 필수 기계 입력만 예외 보존, 도구 변경 없음, 삭제된 원시 링크는 고정 commit의 읽기용 permalink. 근거: 사용자 2026-10-13 일괄 승인, [07](07-validation-evidence.md#증거-소유와-최소-기계-입력). |
+| [결정됨] | D-H11 | leaf14개 먼저 검토 후 실행 단위별 매핑, 실제 삭제는 목록 제시·사용자 승인 뒤2단계 별도 PR. 근거: 사용자 2026-10-13 일괄 승인, [07](07-validation-evidence.md#삭제와-현행-도구의-충돌). |
+| [결정됨] | D-H12 | EnsureMainThread5곳 통합을3단계 T1 첫 시범으로 채택. 코드 작업 시작은 이번 범위 밖. 근거: 사용자 2026-10-13 일괄 승인, [08](08-change-procedure.md#오래-가는-인용과-첫-적용-시범). |
 
 ## 0.5단계 사실 확인
 
@@ -41,5 +57,25 @@
 
 ## 제안 목록
 
-- [제안] 코드 크기 신호, 옵션의 class/readonly struct·default, API 제거 유예, GC 분류 예외, 테스트 교훈의 확장, 문서4분류와 permalink·최소 증거 보존의 대안은 각 장에서 사용자 선택 대상으로 유지한다. 근거: [01](01-code-conventions.md), [02](02-public-api.md), [04](04-allocation-gc.md), [05](05-testing.md), [06](06-documentation.md), [07](07-validation-evidence.md).
-- [현행] 이 PR은 AGENTS·기존 GC/문서 지침·모든 기존 INDEX·runtime/tests/UPM을 수정하지 않고 검증 자료도 삭제하지 않는다; 회고는 [이번 회고](../retrospectives/2026-10-13-06-programmer-guidelines-draft.md)에 별도 새 문서로만 남긴다. 근거: 이번 Phase1 제외 범위, [회고 지침:51](../../AGENTS.md#L51).
+- [제안] 05의 Red 실패 이유 검토·동결 확장과 IMP-04b 이후 Timeout 적용 방식, 06의 문서 머리말 형식, 07의 과거 재현 입력 확보와 CI 판정 문서 위치, 08의14묶음 적용표와 장기 인용 방식은 사용자 선택 전이다. 기존 템플릿 선행 조건 정정과 [회고의 AGENTS 이관안](../retrospectives/2026-10-13-06-programmer-guidelines-draft.md#agents-이관-제안-적용하지-않음)도 제안으로 유지한다. 근거: [05](05-testing.md), [06](06-documentation.md), [07](07-validation-evidence.md), [08](08-change-procedure.md).
+- [현행] AGENTS:119~121의 자동 병합 문구와 증거/색인의 과거 규칙은 새 D-E/D-F와 대조할 후속 정리 대상이다. 이번 요청에서는 사용자의 결정·제외 범위를 우선하고 AGENTS·INDEX는 수정하지 않는다. 근거: [AGENTS:119](../../AGENTS.md#L119), [07의 충돌 목록](07-validation-evidence.md#삭제와-현행-도구의-충돌).
+- [현행] 이 PR은 AGENTS·기존 GC/문서 지침·모든 기존 INDEX·runtime/tests/UPM을 수정하지 않고 검증 자료도 삭제하지 않는다; 회고는 [이번 회고](../retrospectives/2026-10-13-06-programmer-guidelines-draft.md)에 기존 문서에1b 후속 기록을 추가한다. 근거: 이번 Phase1b 제외 범위, [회고 지침:51](../../AGENTS.md#L51).
+
+
+## 라벨 개수
+
+[현행] 아래는 항목·표 행의 첫 상태 라벨 기준이다. 미채택 판단 기록도 해당 라벨에 포함한다. 08의 적용 칸56개는 모두 [제안]이고 행14개와 별도로 세며, 중복 칸 표식을 장별 항목 수에 다시 더하지 않는다. 근거: 각 장의 실제 문장·표와 이번 정적 집계.
+
+<!-- LABEL_COUNTS_START -->
+| 상태 | 문서 | 현행 | 결정됨 | 제안 |
+|---|---|---:|---:|---:|
+| [현행] | [01-code-conventions.md](01-code-conventions.md) | 14 | 3 | 0 |
+| [현행] | [02-public-api.md](02-public-api.md) | 12 | 7 | 0 |
+| [현행] | [03-async-lifecycle.md](03-async-lifecycle.md) | 14 | 7 | 0 |
+| [현행] | [04-allocation-gc.md](04-allocation-gc.md) | 14 | 4 | 0 |
+| [현행] | [05-testing.md](05-testing.md) | 15 | 2 | 2 |
+| [현행] | [06-documentation.md](06-documentation.md) | 12 | 11 | 2 |
+| [현행] | [07-validation-evidence.md](07-validation-evidence.md) | 12 | 8 | 2 |
+| [현행] | [08-change-procedure.md](08-change-procedure.md) | 8 | 12 | 16 |
+| [현행] | [README.md](README.md) | 30 | 19 | 3 |
+<!-- LABEL_COUNTS_END -->
