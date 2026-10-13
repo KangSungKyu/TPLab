@@ -31,6 +31,6 @@
 
 ## 사용자 결정이 필요한 대안
 
-- [제안] 부정형 단언에 통제된 양성 경로를 짝지어 오라클 감도를 확인하는 안을 기본 후보로 둔다; GC에는 기존 호출별 대조를 재사용하고 순서 테스트에는 gate 해제 후 완료를 확인하는 안이 있다. 근거: [IMP-14 README:23–42](../validation/imp-14/README.md#교체-전--실제-red--교체-후), [AsyncSceneRootTests.cs:146–161](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L146), [제안 목록](README.md#제안-목록).
+- [제안] 부정형 단언에 통제된 양성 경로를 짝지어 오라클 감도를 확인하는 안을 기본 후보로 둔다; GC에는 기존 호출별 대조를 재사용하고 순서 테스트에는 gate 해제 후 완료를 확인하는 안이 있다; 대안은 계측·순서처럼 오라클 감도 위험이 확인된 테스트에만 양성 대조를 요구하는 안이다. 근거: [IMP-14 README:23–42](../validation/imp-14/README.md#교체-전--실제-red--교체-후), [AsyncSceneRootTests.cs:146–161](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L146), [제안 목록](README.md#제안-목록).
 - [제안] 실패 수뿐 아니라 실패 이유·SetUp/TearDown 구분을 검토한 뒤 테스트를 고정하는 안과, 기존 항목별 동결 절차를 유지하는 안을 비교한다; 오라클/fixture 변경은 구현 편의로 실패를 덮지 않고 별도 근거를 남기는 후보 규칙이다. 근거: [IMP-03 README:12–27](../validation/imp-03/README.md#원문-red와-별도-승인-정정), [제안 목록](README.md#제안-목록).
 - [제안] 상태·순서는 gate/유한 조건 대기를 우선하고 시간 자체의 계약만 경과 관찰로 검증하는 안을 후보로 둔다; Timeout 속성은 위험 메서드별 적용과 fixture/assembly 기본 적용의 대안이 있으며 ToCoroutine hang/cleanup은 IMP-04b의 별도 검증 후 결정한다. 근거: [IMP-04 조사 README:268–277](../validation/imp-04-survey/README.md#검증사용자-결정다음-단계), [IMP-04 적용 README:79–101](../validation/imp-04-apply/README.md#timeout-시-기존-정리-경로--정적-검토), [제안 목록](README.md#제안-목록).
