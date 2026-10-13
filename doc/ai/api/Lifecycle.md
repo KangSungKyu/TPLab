@@ -121,4 +121,4 @@ async void Install, active root Configure, installer 선파괴, Release hook에�
 
 ## IMP-03 Evidence
 
-[현재 결과](../../validation/imp-03/README.md): source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, Unity6000.3.18f1/UniTask2.5.11/UTF1.6.0 Windows Mono Editor. root28/28·settings16/16·Edit375/375·Play345/345 fail/skip0. legacy missing→60/explicit0 유지8case. original/corrected Red와 두 승인 정정 분리. 과거 p4 Player와 현재 Editor 검증을 섞지 않음. Current Player/IL2CPP/외부 consumer/UX/CPU/GCbenchmark/late-exception-source추적 NotRun, 사용자 최종 수락 대기.
+[현재 결과](../../validation/imp-03/README.md): source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, Unity6000.3.18f1/UniTask2.5.11/UTF1.6.0 Windows Mono Editor. root28/28·settings16/16·Edit375/375·Play345/345 fail/skip0. legacy missing→60/explicit0 유지8case. original/corrected Red와 두 승인 정정 분리. 과거 p4 Player와 현재 Editor 검증을 섞지 않음. Current Player/IL2CPP/외부 consumer/UX/CPU/GCbenchmark/late-exception-source추적 NotRun. 2026-10-13 [PR #11](https://github.com/KangSungKyu/TPLab/pull/11) 사용자 수락·병합 승인 완료, 실제 통합은 PR/Git 이력 참조.

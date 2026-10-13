@@ -146,4 +146,4 @@
 
 - 2026-10-13: [04 IMP-05 폴링 할당 제거](2026-10-13-04-scene-polling-allocation.md) — PR9 승인merge3ee358f 뒤 API확정·typedbuffer3개, CanProceed2300→0events·기여도·전체359/332allpass, 2026-10-13 PR #10 사용자 수락·병합 승인 완료; 후속 통합 기록 참조.
 
-- 2026-10-13: [05 IMP-03 root 종료 타임아웃](2026-10-13-05-root-shutdown-timeout.md) — 기준15/15·정정 Play Red9와 설정 Red16·두 승인 정정 분리·source5fe5bf5·Green44/44·전체375/345 pass·사용자 승인 대기.
+- 2026-10-13: [05 IMP-03 root 종료 타임아웃](2026-10-13-05-root-shutdown-timeout.md) — 기준15/15·정정 Play Red9와 설정 Red16·두 승인 정정 분리·source5fe5bf5·Green44/44·전체375/345 pass·2026-10-13 PR #11 사용자 수락·병합 승인 완료; 실제 통합 기록 참조.

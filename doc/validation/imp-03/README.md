@@ -1,6 +1,6 @@
 # IMP-03 · root 종료 단계별 타임아웃
 
-2026-10-13. **Implemented / Windows Mono Editor Verified / 사용자 승인 대기**. branch `codex/imp-03-shutdown-timeout`, base main `5725e90b133aa6739c3ef098455815336de00e20`. PR #10 통합 후 사용자가 재개했다. 검증 source `5fe5bf5a41386409775d836e5b3a50a2f516a787`. 최종 문서 HEAD·Actions는 PR/완료 보고에서 확인한다.
+2026-10-13. **Implemented / Windows Mono Editor Verified / 사용자 수락·병합 승인 완료(PR #11)**. branch `codex/imp-03-shutdown-timeout`, base main `5725e90b133aa6739c3ef098455815336de00e20`. PR #10 통합 후 사용자가 재개했다. 검증 source `5fe5bf5a41386409775d836e5b3a50a2f516a787`. 최종 문서 HEAD·Actions는 PR/완료 보고에서 확인한다.
 
 ## 원문 Red와 별도 승인 정정
 
@@ -77,6 +77,10 @@ D-03a~c: 기본60초, Inspector와 Configure/Attach 마지막 optional float, fi
 
 **NotRun:** 이번 Player/IL2CPP·다른 Unity/플랫폼·새 소비 설치/배포·최종 시각 UX·CPU/GC benchmark·late exception IUniTaskSource 소비/GC 시점 추적·동기 blocking preemption. 영원히 끝나지 않는 비협조 Prepare의 CTS는 실제 owner 종료까지 유지된다. 초과 뒤 프로젝트 hook이 자기 자원을 만지는 문제를 코어가 강제 중단해 해결하지 않는다. 준비 자체의 정상 대기에는 timeout을 추가하지 않았다.
 
-[사람 API](../../api/Lifecycle.md#종료-시간-제한)·[AI API](../../ai/api/Lifecycle.md#shutdowntimeout--compatibility)·XML·기능명세·백로그·회고/색인을 같은 단위에서 갱신했다. 이번 IMP-03 사용자 승인 전 main 병합/branch 삭제를 하지 않는다. 큐 밖 IMP는 자동 진행하지 않는다. Git 최종HEAD/Actions/PR은 완료보고를 따른다.
+[사람 API](../../api/Lifecycle.md#종료-시간-제한)·[AI API](../../ai/api/Lifecycle.md#shutdowntimeout--compatibility)·XML·기능명세·백로그·회고/색인을 같은 단위에서 갱신했다. 2026-10-13 사용자가 [PR #11](https://github.com/KangSungKyu/TPLab/pull/11)의 병합을 승인했다. 큐 밖 IMP는 자동 진행하지 않는다. 실제 병합·브랜치 정리는 PR/Git 이력, 최종HEAD/Actions는 완료보고를 따른다.
 
 승인 diff 증거는 unified diff의 빈 문맥 행(prefix 공백1개)을 원문 그대로 보존했다. 일반 코드/문서는 git diff --check를 통과했고 이 두 raw diff에만 형식상 blank-at-eol 예외로 따로 확인했다.
+
+## 사용자 수락 및 통합 gate
+
+2026-10-13 승인한 tip은 `2cf57533b4773248b04a53a212979d70ca98c3c1`이며 [그 HEAD의 Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38344477918)는 workflow1/check1 완료·success, 조회누락/진행/실패0이다. 승인 후 변경은 승인 기록 7개 문서만이다. 검증 source `5fe5bf5a41386409775d836e5b3a50a2f516a787`와 runtime·테스트·설정·tools를 유지하며 문서 diff·공백·상대 링크·규칙 검사 및 최종 문서 tip의 CI를 확인한다. 이 문서 후속 변경에서 Unity 테스트는 새로 실행하지 않는다. 기존 720/720은 동일한 runtime/test source의 Editor 회귀 증거이며 Actions는 Unity 실행 CI가 아니다. 실제 merge SHA와 브랜치 정리 결과는 PR 및 Git 이력에 기록한다.

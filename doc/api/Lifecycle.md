@@ -204,4 +204,4 @@ await flow.ReleaseAndProceedAsync(EnterNextContentAsync, callerToken);
 
 ## IMP-03 현재 검증
 
-Source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, Windows Mono Editor Unity6000.3.18f1/UniTask2.5.11/UTF1.6.0: root28/28·settings16/16, 전체Edit375/375·Play345/345 실패·skip0. 실제 legacy YAML 누락/명시0를 두 host와scene/prefab에서 확인했다. [원문 Red·승인 정정·Green·한계](../validation/imp-03/README.md). 위 p4 Player는 과거 source의 증거이며 이번 Player/IL2CPP·다른 플랫폼·외부 소비·시각 UX·CPU/GC benchmark는 미검증이다. 문서 사용 발췌는 별도 compile/run하지 않았다. 사용자 수락은 자동 검증과 별도 gate다.
+Source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, Windows Mono Editor Unity6000.3.18f1/UniTask2.5.11/UTF1.6.0: root28/28·settings16/16, 전체Edit375/375·Play345/345 실패·skip0. 실제 legacy YAML 누락/명시0를 두 host와scene/prefab에서 확인했다. [원문 Red·승인 정정·Green·한계](../validation/imp-03/README.md). 위 p4 Player는 과거 source의 증거이며 이번 Player/IL2CPP·다른 플랫폼·외부 소비·시각 UX·CPU/GC benchmark는 미검증이다. 문서 사용 발췌는 별도 compile/run하지 않았다. 사용자 수락은 자동 검증과 별도 gate이며 2026-10-13 [PR #11](https://github.com/KangSungKyu/TPLab/pull/11) 병합 승인으로 충족했다. 실제 통합은 PR/Git 이력을 따른다.
