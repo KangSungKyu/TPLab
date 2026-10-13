@@ -24,15 +24,17 @@
 | [TPLAB_NAMING.md](TPLAB_NAMING.md) | TPLab 이름·경로·Cloud 설정 확인 | TPLab namespace·assembly·checkout 경로·Cloud 이름과 기록 보존 기준 |
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
-| [IMPROVEMENT_BACKLOG.md](IMPROVEMENT_BACKLOG.md) | 개선 후보·항목별 조사와 승인 경계 검토 | IMP-01~13 개정본·항목별 승인 gate·CI 일부 완료; IMP-13은 IMP-12 확정 후 별도 요청으로 읽기 전용 점검(새 측정 없음), [초판·개정 대조](retrospectives/2026-10-12-07-docs-backlog.md) |
-| [IMP-04 1단계 조사](validation/imp-04-survey/README.md) | Core/Input 게이트·대기 helper·UTF1.6.0 Timeout 실험 검토 | main7d4ff2e 조사·실험2(예상 실패1)·기존46/46; PR #5 병합 완료, 후속24개/혼합/30초는 적용 검증 참조 |
-| [IMP-04 적용 검증](validation/imp-04-apply/README.md) | 선택 PlayMode24개 Timeout30초·전후 비교·정리 한계 검토 | source base d6163084, 속성24줄; 전후151/151·전체Edit319/Play306, 개별최대0.517초; PR #6 사용자 병합 승인·선택24개 적용 완료, 실제 통합 결과는 PR 참조 |
-| [IMP-01 지연 생존 확인](validation/imp-01/README.md) | 외부 파괴된 대여 정원·optional isAlive·예외정리·비할당 계약 검토 | main a10c302에서 시작; 실제Red17/1 → 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309, baseline 보존PASS/변경FAIL 구분; GC2개 각1000회0바이트·PR #7 사용자 수락/병합 승인 완료, 통합 결과 PR 참조 |
-| [IMP-02 TryReturn 검증](validation/imp-02/README.md) | disposed 우선false·활성 Return 위임·callback/재진입·GC 계약 검토 | main592c435에서 시작; 실제Red20 API부재 → Green62/62·전체Edit348/Play316, 기존Return/Dispose와644개이름 보존·GC1000회0바이트; 2026-10-13 사용자 수락·PR #8 병합 승인 완료 |
-| [IMP-05 폴링 계측 확인](validation/imp-05/README.md) | 예상 Red·GC 양성 대조·버퍼 API 후보 검토 | PR8 통합 후 main9285805에서 시작; 측정 수단 조사320개·GC0 테스트4개 목록 확인, [후속 보고](validation/imp-05/measurement-survey/README.md) 후 중단·기존 tests/runtime 수정 없음 |
-| [GC_ALLOCATION_GUIDELINE.md](GC_ALLOCATION_GUIDELINE.md) | 할당 경로 분류·비할당 API·측정 기준 검토 | 근거 revision·코드 읽기 검증 상태를 명시한 개정 초안; UI는 범위 밖이며 IMP-12/13에서 별도 결정, [개정 기록](retrospectives/2026-10-12-07-docs-backlog.md) |
+| [프로그래머 가이드라인](guidelines/README.md) | 변경 등급·코드/API·수명·GC·테스트·문서·증거 규칙 확인 | 채택한 사용자 결정과 현행 관행·미결정 제안을 구분하는 개발 가이드 입구 |
+| [IMPROVEMENT_BACKLOG.md](IMPROVEMENT_BACKLOG.md) | 개선 후보·항목별 조사와 승인 경계 검토 | IMP-01~14·항목별 승인 gate·CI 일부 완료; 후속 항목은 지정·승인 범위에서 진행, [개정 기록](retrospectives/2026-10-12-07-docs-backlog.md) |
+| [IMP-04 1단계 조사](validation/imp-04-survey/README.md) | Core/Input 게이트·대기 helper·Timeout 조사 검토 | 조사 완료·병합 완료; 당시 적용 대기는 역사적 기록이며 후속 적용 완료 상태는 [적용 요약](validation/imp-04-apply/README.md) 참조 |
+| [IMP-04 적용 검증](validation/imp-04-apply/README.md) | 선택 PlayMode Timeout 보호·전후 비교·정리 한계 검토 | 승인·완료 및 main 통합 완료; 적용 범위·실행 결과·한계는 기존 요약 참조 |
+| [IMP-01 지연 생존 확인](validation/imp-01/README.md) | 외부 파괴된 대여 정원·optional isAlive·예외정리·할당 계약 검토 | 승인·완료 및 main 통합 완료; 과거 GC byte 판정의 [IMP-14 계측 정정](validation/imp-14/README.md)을 함께 확인 |
+| [IMP-02 TryReturn 검증](validation/imp-02/README.md) | disposed 우선false·활성 Return 위임·callback/재진입·GC 계약 검토 | 승인·완료 및 main 통합 완료; 과거 GC byte 판정의 [IMP-14 계측 정정](validation/imp-14/README.md)을 함께 확인 |
+| [IMP-05 폴링 계측 확인](validation/imp-05/README.md) | 초기 예상 Red·GC 양성 대조·버퍼 API 후보 조사 검토 | 초기 계측·[측정 수단 조사](validation/imp-05/measurement-survey/README.md)의 중단은 역사적 기록; IMP-14 후 재개해 [구현 승인·완료](validation/imp-05/implementation/README.md) |
+| [GC_ALLOCATION_GUIDELINE.md](GC_ALLOCATION_GUIDELINE.md) | 할당 경로 분류·비할당 API·측정 기준 검토 | 기존 개정 초안·IMP-12 확정 대기; UI는 범위 밖이며 IMP-12/13에서 별도 결정; [IMP-14 측정 정정](validation/imp-14/README.md)과의 충돌 및 [새 GC 결정](guidelines/04-allocation-gc.md)은 구분 |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
+| [문서 거버넌스 경량화 회고](retrospectives/2026-10-13-07-docs-governance-slim.md) | 이번 T0 문서 정리의 범위·결정·검증 확인 | 승인된 지침·문서 소유와 색인 상태 정리; 실제 검증·판정은 회고 한 곳 참조 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
 | [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext 설계 근거·Phase·대규모 검증 조건 | 설계 기록, HUD·Popup·owner/depth·Canvas·virtual scroll 1,000/10,000 |
 | [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | P0 계약: 명시 root·borrowed 자산, 즉시 handle/Open await, cleanup·입력 경계 |
@@ -40,11 +42,11 @@
 | [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer·예제 authoring 검증 결과 | final source21f89e25·UI86/86·새19asset, 이후 통합 검증은P7 |
 | [UI P7 검증](validation/ui-system/p7/README.md) | P7 source-specific regression·consumer·Player·성능 기록 | 99df25dd/8310a94 evidence는 역사적이며 2026-10-12 사용자 수락 및 최신 candidate와 구분 |
 | [UI 최신 source 통합 검증](validation/ui-system/integration-20261012/README.md) | 5af64b96 Single/Additive consumer 최종 확인 | 최신 빌드2·artifact4·Player8 통과; 사용자 수락 완료, main 통합 완료 |
-| [GitHub 리뷰 자동화 1단계 초안](CI_SETUP_GUIDE.md) | PR diff 규칙 검사·요청 시 Claude 리뷰 | 원문 반영·로컬 검증·PR 준비, main/시크릿/설정 변경은 별도 확인 |
+| [GitHub 리뷰 자동화 1단계 가이드](CI_SETUP_GUIDE.md) | PR diff 규칙 검사·요청 시 Claude 리뷰 | workflow·판정 도구는 main 반영 완료; 가이드의 과거 도입 문구와 [P1 기록](validation/ci-review-p1/README.md)을 구분하며 Unity 테스트 CI는 별도 범위 |
 | [UI compiler 등록 복구](validation/ui-system/compile-registry-20261012/README.md) | 원본Editor CS0246/UIPresentation 등록 누락 재발 확인 | 표준 asset roundtrip·GUID 보존, clean/reload 후 UI86/86·현재Console0, 재시작 미검증 |
 | [UI 예제 잔상 수정](validation/ui-system/sample-clear-20261012/README.md) | 버튼 후 과거 글자/닫힌Popup/cover 잔상 | 배경Camera 수정과 2026-10-12 전체 UI 사용자 수락; 최신 source candidate 검증은 integration record 참조 |
 | [UI_PERFORMANCE.md](UI_PERFORMANCE.md) | Virtual ScrollRect·Canvas 최적화 결과 검토 | 같은1,000 비교·10,000 확장성·600프레임 median/P95/max, GC·N/A·한계 |
-| [UI_ACCEPTANCE.md](UI_ACCEPTANCE.md) | UI checklist의 최종 사용자 수락 기록 | 2026-10-12 전체 수락 완료; main 통합은 별도로 진행 중 |
+| [UI_ACCEPTANCE.md](UI_ACCEPTANCE.md) | UI checklist의 최종 사용자 수락 기록 | 사용자 수락·main 통합 완료; 문서의 과거 진행 문구보다 [통합 완료 기록](validation/ui-system/integration-20261012/README.md)을 확인 |
 | [GENERIC_POOL.md](GENERIC_POOL.md) | 일반 C# pooling·소유권·정원·반환·종료 변경 | ObjectPool<T> 계약, Unity 기본 풀 검토와 제네릭 전환 근거 |
 | [OBJECT_POOL.md](OBJECT_POOL.md) | GameObject prefab pooling·활성화·Transform·파괴 변경 | PrefabPool 어댑터 계약과 최초 구현 기록; 공통 풀은 GENERIC_POOL 참조 |
 | [SINGLETON.md](SINGLETON.md) | 전역 접근·중복 객체·씬/영속 수명·반복 Play 변경 | MonoSingleton 계약·초기화/정리·Domain/Scene Reload 검증 |
@@ -132,8 +134,8 @@
 
 - [0.0.1 첫 Release 검증](validation/distribution-release/README.md): 실제 tag URL·공개 첨부물 bytes·사용자 최종 수락·원본 보호.
 
-- [IMP-14 GC 측정 helper 검증](validation/imp-14/README.md): 호출별대조·Edit/Play N100·worker격리·기존GC4개 교체·IMP-01/02 계측정정, 2026-10-13 PR #9 사용자수락·IMP-05 재개.
+- [IMP-14 GC 측정 helper 검증](validation/imp-14/README.md): 승인·완료 및 main 통합 완료; helper/pool 검증과 당시 전체 회귀의 알려진 IMP-05 Red를 구분하며 계측 정정은 기존 요약 참조.
 
-- [IMP-05 내부 폴링·버퍼 구현 검증](validation/imp-05/implementation/README.md): PR9 병합기록·API확정·구성별실측·Red/Green·패리티/예외/0event·전체회귀. 2026-10-13 PR #10 사용자 수락·병합 승인 완료; 실제 통합은 PR/Git 이력 참조.
+- [IMP-05 내부 폴링·버퍼 구현 검증](validation/imp-05/implementation/README.md): 사용자 API 확정·구현 승인·완료 및 main 통합 완료; 실행·예외·snapshot/버퍼 조건은 기존 요약 참조.
 
-- [IMP-03 종료 단계별 타임아웃](validation/imp-03/README.md): 두 별도 승인 정정·원래/정정 Red 보존·Green44/44·전체375/345 pass·2026-10-13 PR #11 사용자 수락·병합 승인 완료; 실제 통합은 PR/Git 이력 참조.
+- [IMP-03 종료 단계별 타임아웃](validation/imp-03/README.md): 사용자 수락·승인 및 main 통합 완료; 원문 Red·별도 정정·단계별 종료 계약과 미실행 범위는 기존 요약 참조.
