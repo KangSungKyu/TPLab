@@ -65,22 +65,128 @@ namespace TPLab.Core.SceneManagement
         public Scene GameScene { get; private set; }
         /// <summary>Native candidate still owned, including a last Single scene that Unity cannot unload.</summary>
         public Scene LoadedScene => (_candidate ?? _primary)?.Result.Scene ?? default;
-        /// <summary>Read-only snapshot of actual remaining owned scenes, including previous/candidate instances after failure.</summary>
+        /// <summary>Read-only snapshot of actual remaining owned scenes, including previous/candidate instances after failure. Allocates a new snapshot on every call; use OwnedSceneCount/GetOwnedScenes for polling.</summary>
         public IReadOnlyList<Scene> OwnedScenes => GetOwners().Select(owner => owner.Result.Scene)
             .Where(scene => scene.IsValid() && scene.isLoaded).ToArray();
-        /// <summary>Snapshot of successful primary/derived registration, parent metadata and actual root lifetime.</summary>
+        /// <summary>Snapshot of successful primary/derived registration, parent metadata and actual root lifetime. Allocates a new snapshot on every call; use GetRegisteredScenes for polling.</summary>
         public IReadOnlyList<SceneRegistration> RegisteredScenes => GetRegisteredOwners().Select(owner =>
             new SceneRegistration(owner.Result.Scene, owner.Parent != null ? owner.Parent.Result.Scene : default,
                 owner.Role, owner.Priority, IsOwnerPrepared(owner), owner.ShutdownStarted)).ToArray();
+        /// <summary>Current valid, loaded owned scene count, including previous/candidate instances after failure, without allocation.</summary>
+        /// <exception cref="InvalidOperationException">Called outside the Unity main thread.</exception>
+        /// <remarks>Matches OwnedScenes.Count without creating a snapshot; observes external scene unloads on each read.</remarks>
+        public int OwnedSceneCount
+        {
+            get
+            {
+                EnsureMainThread();
+                int count = IsLoadedOwnerScene(_primary) ? 1 : 0;
+                for (int i = 0; i < _derived.Count; i++)
+                {
+                    if (IsLoadedOwnerScene(_derived[i]))
+                    {
+                        count++;
+                    }
+                }
+                if (IsLoadedOwnerScene(_candidate))
+                {
+                    count++;
+                }
+                return count;
+            }
+        }
+
+        /// <summary>Clears and fills a caller-owned snapshot buffer with valid, loaded owned scenes in primary, derived, candidate order.</summary>
+        /// <param name="buffer">Non-null destination; sufficient capacity avoids allocation. Prior contents are replaced after main-thread validation.</param>
+        /// <exception cref="ArgumentNullException">The buffer is null; checked before main-thread validation.</exception>
+        /// <exception cref="InvalidOperationException">Called outside the Unity main thread; buffer contents remain unchanged.</exception>
+        /// <remarks>Reads/Add failures propagate unchanged after clearing partial contents; buffer capacity is not restored. No ownership is transferred.</remarks>
+        public void GetOwnedScenes(List<Scene> buffer)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException(nameof(buffer));
+            }
+            EnsureMainThread();
+            buffer.Clear();
+            try
+            {
+                AddOwnedScene(buffer, _primary);
+                for (int i = 0; i < _derived.Count; i++)
+                {
+                    AddOwnedScene(buffer, _derived[i]);
+                }
+                AddOwnedScene(buffer, _candidate);
+            }
+            catch
+            {
+                buffer.Clear();
+                throw;
+            }
+        }
+
+        /// <summary>Clears and fills a caller-owned snapshot buffer with all registered primary/derived metadata, excluding the candidate.</summary>
+        /// <param name="buffer">Non-null destination; sufficient capacity avoids allocation. Prior contents are replaced after main-thread validation.</param>
+        /// <exception cref="ArgumentNullException">The buffer is null; checked before main-thread validation.</exception>
+        /// <exception cref="InvalidOperationException">Called outside the Unity main thread; buffer contents remain unchanged.</exception>
+        /// <remarks>Registration order and unfiltered scene/root lifetime match RegisteredScenes. Reads/Add failures propagate unchanged after clearing partial contents; capacity is not restored. No ownership is transferred.</remarks>
+        public void GetRegisteredScenes(List<SceneRegistration> buffer)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException(nameof(buffer));
+            }
+            EnsureMainThread();
+            buffer.Clear();
+            try
+            {
+                if (_primary != null)
+                {
+                    buffer.Add(GetRegistration(_primary));
+                }
+                for (int i = 0; i < _derived.Count; i++)
+                {
+                    buffer.Add(GetRegistration(_derived[i]));
+                }
+            }
+            catch
+            {
+                buffer.Clear();
+                throw;
+            }
+        }
+
+        private static bool IsLoadedOwnerScene(OwnedPrimary owner)
+        {
+            if (owner == null)
+            {
+                return false;
+            }
+            var scene = owner.Result.Scene;
+            return scene.IsValid() && scene.isLoaded;
+        }
+
+        private static void AddOwnedScene(List<Scene> buffer, OwnedPrimary owner)
+        {
+            if (IsLoadedOwnerScene(owner))
+            {
+                buffer.Add(owner.Result.Scene);
+            }
+        }
+
+        private static SceneRegistration GetRegistration(OwnedPrimary owner) =>
+            new SceneRegistration(owner.Result.Scene, owner.Parent != null ? owner.Parent.Result.Scene : default,
+                owner.Role, owner.Priority, IsOwnerPrepared(owner), owner.ShutdownStarted);
+
         /// <summary>Actual remaining candidate root readiness, including failure diagnostics.</summary>
         public bool IsGamePrepared => IsOwnerPrepared(_candidate ?? _primary);
         /// <summary>Gameplay may proceed only while common and all registered roots are prepared and active-scene/inventory ownership still matches.</summary>
         public bool CanProceed => State == SceneTransitionState.Ready && _commonHost != null &&
             _commonHost.gameObject.scene == _commonScene && _commonRoot.IsPrepared && IsGamePrepared &&
             GameScene.IsValid() && GameScene.isLoaded &&
-            GetRegisteredOwners().All(IsOwnerPrepared) &&
+            AreRegisteredOwnersPrepared() &&
             SceneManager.GetActiveScene() == _expectedActiveScene && (!_hasCallbacks || _callbacks != null) &&
-            InventoryMatches(ExpectedGameScenes());
+            InventoryMatchesExpectedGameScenes();
 
         /// <summary>
         /// Binds an explicitly installed common host; does not prepare or enter from an installer.
@@ -984,7 +1090,8 @@ namespace TPLab.Core.SceneManagement
             ValidateActiveScene();
             if (GetRegisteredOwners().Any(owner => !owner.ShutdownStarted && !IsOwnerPrepared(owner)))
                 throw new InvalidOperationException("A registered scene lost its prepared ownership.");
-            ValidateInventory(ExpectedGameScenes());
+            if (!InventoryMatchesExpectedGameScenes())
+                throw new InvalidOperationException("Loaded scenes changed outside the scene manager's ownership.");
         }
 
         private void ValidateActiveScene()
@@ -993,7 +1100,75 @@ namespace TPLab.Core.SceneManagement
                 throw new InvalidOperationException("The active scene changed outside the scene manager's ownership.");
         }
 
-        private Scene[] ExpectedGameScenes() => _retainedScenes.Concat(GetOwners().Select(owner => owner.Result.Scene)).ToArray();
+        private bool AreRegisteredOwnersPrepared()
+        {
+            if (_primary != null && !IsOwnerPrepared(_primary))
+            {
+                return false;
+            }
+            for (int i = 0; i < _derived.Count; i++)
+            {
+                if (!IsOwnerPrepared(_derived[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool InventoryMatchesExpectedGameScenes()
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (scene.isLoaded && !IsExpectedGameScene(scene))
+                {
+                    return false;
+                }
+            }
+            for (int i = 0; i < _retainedScenes.Length; i++)
+            {
+                if (!IsLoadedScene(_retainedScenes[i]))
+                {
+                    return false;
+                }
+            }
+            if (_primary != null && !IsLoadedScene(_primary.Result.Scene))
+            {
+                return false;
+            }
+            for (int i = 0; i < _derived.Count; i++)
+            {
+                if (!IsLoadedScene(_derived[i].Result.Scene))
+                {
+                    return false;
+                }
+            }
+            return _candidate == null || IsLoadedScene(_candidate.Result.Scene);
+        }
+
+        private bool IsExpectedGameScene(Scene scene)
+        {
+            for (int i = 0; i < _retainedScenes.Length; i++)
+            {
+                if (_retainedScenes[i] == scene)
+                {
+                    return true;
+                }
+            }
+            if (_primary != null && _primary.Result.Scene == scene)
+            {
+                return true;
+            }
+            for (int i = 0; i < _derived.Count; i++)
+            {
+                if (_derived[i].Result.Scene == scene)
+                {
+                    return true;
+                }
+            }
+            return _candidate != null && _candidate.Result.Scene == scene;
+        }
 
         private IEnumerable<OwnedPrimary> GetOwners()
         {
@@ -1117,7 +1292,51 @@ namespace TPLab.Core.SceneManagement
                 throw new InvalidOperationException("Loaded scenes changed outside the scene manager's ownership.");
         }
 
-        private static bool InventoryMatches(Scene[] expected) => new HashSet<Scene>(GetLoadedScenes()).SetEquals(expected);
+        private static bool InventoryMatches(Scene[] expected)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (!scene.isLoaded)
+                {
+                    continue;
+                }
+                bool found = false;
+                for (int j = 0; j < expected.Length; j++)
+                {
+                    if (expected[j] == scene)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    return false;
+                }
+            }
+            for (int i = 0; i < expected.Length; i++)
+            {
+                if (!IsLoadedScene(expected[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool IsLoadedScene(Scene expected)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (scene.isLoaded && scene == expected)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         private void PublishPhase(SceneTransitionState phase, float? ratio = null, bool notify = true)
         {
