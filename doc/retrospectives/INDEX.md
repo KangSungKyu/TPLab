@@ -136,4 +136,4 @@
 
 - 2026-10-12: [10 IMP-01 지연 생존·슬롯 회수](2026-10-12-10-imp-01-pool-liveness.md) — 실제Red17/1 → 초기Green18/24/15, 후속경계3/3·최종335/309; baseline 사후 비교·백로그 상태6곳 승인수정, GC2개1000회0바이트·PR #7 사용자 수락/병합 승인 완료, 실제 통합 결과 PR 참조.
 
-- 2026-10-12: [11 IMP-02 TryReturn](2026-10-12-11-imp-02-try-return.md) — PR7 main592c435 승인통합 뒤 자동큐; 실제Red20 → Green62/62·전체348/316, 기존Return/Dispose 보존·OnDisable/OnDestroy·GC1000회0바이트; 사용자 확인 대기.
+- 2026-10-12: [11 IMP-02 TryReturn](2026-10-12-11-imp-02-try-return.md) — PR7 main592c435 승인통합 뒤 자동큐; 실제Red20 → Green62/62·전체348/316, 기존Return/Dispose 보존·OnDisable/OnDestroy·GC1000회0바이트; 2026-10-13 사용자 수락·PR #8 병합 승인 완료.

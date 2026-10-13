@@ -1,6 +1,6 @@
 # IMP-02 · 폐기 뒤 반납을 허용하는 TryReturn
 
-2026-10-12. **Implemented / 자동 검증 완료·사용자 확인 대기**. 브랜치 `codex/imp-02-try-return`, 기준 main `592c43515fa67e2ab48f64254726ca210cbdfe2f`, 검증 소스 `2c8c0768c53878dcc9c2d4ed090582092e9dc5e0`. 최종 문서 HEAD·PR·정확한 SHA Actions 결과는 완료 보고와 PR 본문에서 확인한다.
+2026-10-12 자동 검증, 2026-10-13 사용자 수락·병합 승인. **Implemented / 승인·완료**. 브랜치 `codex/imp-02-try-return`, 기준 main `592c43515fa67e2ab48f64254726ca210cbdfe2f`, 검증 소스 `2c8c0768c53878dcc9c2d4ed090582092e9dc5e0`. 최종 문서 HEAD·PR·정확한 SHA Actions 결과는 완료 보고와 PR 본문에서 확인한다.
 
 ## 범위와 선행 승인
 
@@ -76,4 +76,4 @@ XML·[GENERIC_POOL](../../GENERIC_POOL.md)·[OBJECT_POOL](../../OBJECT_POOL.md)�
 
 [회고](../../retrospectives/2026-10-12-11-imp-02-try-return.md)와 두 색인, 백로그의 IMP-02 상태3곳을 갱신했다. D02 설계나 다른 항목 본문을 바꾸지 않았다. source commit과 문서 commit을 같은 PR로 제공하며 source-only 상태를 최종 제공본으로 표시하지 않는다. 최종 HEAD의 로컬 규칙/Actions는 완료 보고·PR에서 확인하고 Actions를 Unity CI로 오인하지 않는다.
 
-이 항목은 **자동 검증 완료·사용자 확인 대기**다. 승인 전 main 병합·작업 branch 삭제·다음 IMP-05 시작을 하지 않는다. 이번 단위에는 Unity/PC 종료·절전 권한이 없다.
+2026-10-13 사용자가 PR #8 병합을 승인했다. 승인 후보는 `039d1323176758ff4297459e1b13e9a9e561877f`이며 source/test 변경 없이 승인 기록만 갱신한다. 최종 문서 tip의 규칙/Actions를 확인한 뒤 일반 merge와 해당 branch 정리를 진행한다. 실제 merge SHA·정리는 PR/Git 이력과 최종 보고를 따른다. 이후 백로그 승인 게이트에 따라 IMP-05를 시작하고, 버퍼 API 이름·시그니처 확인 단계에서는 구현을 멈춘다. 이전 단위의 Unity/PC 종료 지시를 이번 요청에 재사용하지 않는다.
