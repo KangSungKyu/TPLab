@@ -4,7 +4,7 @@
 
 **SourceRevision:** `2c8c0768c53878dcc9c2d4ed090582092e9dc5e0`
 **ImplementationStatus:** Implemented
-**ValidationStatus:** Verified for IMP-02 in Windows Mono Editor — Red20 signature 부재 → Green62/62·전체Edit348/348·Play316/316, fail/skip0; 사용자 수락 대기. [현재 증거](../validation/imp-02/README.md). 다음은 IMP-01의 역사적 결과입니다: 자동 검증 완료·2026-10-12 사용자 수락 완료(PR #7). 이번 소비 프로젝트/Player는 미실행입니다. 이전 실행은 역사적 증거입니다. Unity `6000.3.18f1` / Windows Mono에서 확인했습니다. 기록된 테스트 범위만 근거로 삼으며 모든 Unity 버전, 백엔드, 플랫폼의 지원을 뜻하지 않습니다.
+**ValidationStatus:** Verified for IMP-02 in Windows Mono Editor — Red20 signature 부재 → Green62/62·전체Edit348/348·Play316/316, fail/skip0; 2026-10-13 사용자 수락 완료(PR #8). [현재 증거](../validation/imp-02/README.md). 다음은 IMP-01의 역사적 결과입니다: 자동 검증 완료·2026-10-12 사용자 수락 완료(PR #7). 이번 소비 프로젝트/Player는 미실행입니다. 이전 실행은 역사적 증거입니다. Unity `6000.3.18f1` / Windows Mono에서 확인했습니다. 기록된 테스트 범위만 근거로 삼으며 모든 Unity 버전, 백엔드, 플랫폼의 지원을 뜻하지 않습니다.
 
 ## `ObjectPool<T>`
 
@@ -124,7 +124,7 @@ bool returned = pool.TryReturn(clone);
 
 ## 검증 근거와 한계
 
-- IMP-02: 실제 Red20(public signature 부재) → Green62/62, 전체 Edit348/348·Play316/316, fail/skip0. WarmedTryReturnReuseAllocatesZero는 1000회 strict0바이트를 통과했습니다. [현재 검증 기록](../validation/imp-02/README.md)의 실제 결과·범위·미실행을 확인하세요. 사용자 수락 대기이며 아래 IMP-01·이전 실행은 이번 Green 증거가 아닙니다.
+- IMP-02: 실제 Red20(public signature 부재) → Green62/62, 전체 Edit348/348·Play316/316, fail/skip0. WarmedTryReturnReuseAllocatesZero는 1000회 strict0바이트를 통과했습니다. [현재 검증 기록](../validation/imp-02/README.md)의 실제 결과·범위·미실행을 확인하세요. 2026-10-13 사용자 수락 완료(PR #8)이며 아래 IMP-01·이전 실행은 이번 Green 증거가 아닙니다.
 
 - IMP-01: 실제 Red 18개 중 예상 실패1 → Green Prefab18/18·기존generic24/24·보충15/15, 초기 전체 Edit334/334·Play307/307 이후 추가 경계3개를 검증했고, 최종 전체 Edit335/335·Play309/309, fail/skip0. 워밍업 뒤 재사용/정원 점검/죽은 슬롯 회복 두 GC 테스트가 각1,000회 0바이트 조건을 통과했습니다. [IMP-01 검증 기록](../validation/imp-01/README.md)의 범위·raw 결과·한계를 확인하세요. 살아 있는 대여·isAlive 생략은 baseline/현재 모두 PASS, dead inactive는 같은 호출 교체를 baseline FAIL/현재 PASS로 사후 비교했습니다. 공개 Prune은 보류(소비 프로젝트의 즉시 정리 필요에 따라 별도 결정)입니다. 2026-10-12 사용자 수락을 완료했으며 새 소비 프로젝트/Player 검증은 별도입니다. 아래 과거 결과는 현재 변경의 Green 증거가 아닙니다.
 

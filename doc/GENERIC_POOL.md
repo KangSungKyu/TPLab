@@ -51,7 +51,7 @@ bool returned = pool.TryReturn(item);
 // false: 풀이 이미 종료되었다. true: Return을 정상 완료했다.
 ```
 
-IMP-02 실행 결과는 [검증 기록](validation/imp-02/README.md)에 남긴다(Red20 API부재 확인 → Green62/62·전체Edit348/Play316 자동 검증 완료·사용자 확인 대기). IMP-01과 아래 결과는 해당 실행 당시의 증거이며 IMP-02 Green 증거가 아니다.
+IMP-02 실행 결과는 [검증 기록](validation/imp-02/README.md)에 남긴다(Red20 API부재 확인 → Green62/62·전체Edit348/Play316 자동 검증 완료·2026-10-13 사용자 수락 완료(PR #8)). IMP-01과 아래 결과는 해당 실행 당시의 증거이며 IMP-02 Green 증거가 아니다.
 
 ## 지연 생존 확인 (IMP-01 / D-01=A1)
 

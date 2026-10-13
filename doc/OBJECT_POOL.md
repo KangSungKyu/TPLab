@@ -52,7 +52,7 @@ bool returned = pool.TryReturn(clone);
 // false는 풀이 이미 종료된 경우에만 반환한다.
 ```
 
-IMP-02 실행 결과는 [검증 기록](validation/imp-02/README.md)에 남긴다(Red20 API부재 확인 → Green62/62·전체Edit348/Play316 자동 검증 완료·사용자 확인 대기). 아래 IMP-01·역사적 실행 결과는 IMP-02 Green 증거가 아니다.
+IMP-02 실행 결과는 [검증 기록](validation/imp-02/README.md)에 남긴다(Red20 API부재 확인 → Green62/62·전체Edit348/Play316 자동 검증 완료·2026-10-13 사용자 수락 완료(PR #8)). 아래 IMP-01·역사적 실행 결과는 IMP-02 Green 증거가 아니다.
 
 ## 외부 파괴와 지연 카운트 (IMP-01)
 
