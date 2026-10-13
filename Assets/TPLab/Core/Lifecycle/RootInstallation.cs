@@ -10,9 +10,12 @@ namespace TPLab.Core.Lifecycle
     {
         private readonly ISceneRoot _root;
         private readonly SceneRootInstaller[] _installers;
+        private readonly float _shutdownTimeoutSeconds;
         private int _begun;
         private bool _disposed;
         private bool _stopping;
+        private bool _preparationRunning;
+        private SceneRootInstaller _preparingInstaller;
         private CancellationTokenSource _preparationCancellation;
         private UniTaskCompletionSource _preparation;
         private UniTaskCompletionSource _shutdown;
@@ -35,6 +38,7 @@ namespace TPLab.Core.Lifecycle
             {
                 _preparation = new UniTaskCompletionSource();
                 _preparationCancellation = new CancellationTokenSource();
+                _preparationRunning = true;
                 PrepareOwnedAsync().Forget();
             }
             return _preparation.Task.AttachExternalCancellation(cancellationToken);
@@ -48,6 +52,7 @@ namespace TPLab.Core.Lifecycle
                 foreach (var installer in _installers)
                 {
                     token.ThrowIfCancellationRequested();
+                    _preparingInstaller = installer;
                     await installer.PrepareAsync(_root, token);
                     token.ThrowIfCancellationRequested();
                 }
@@ -71,9 +76,11 @@ namespace TPLab.Core.Lifecycle
             }
             finally
             {
+                _preparingInstaller = null;
+                _preparationRunning = false;
                 if (_disposed)
                 {
-                    _preparationCancellation.Dispose();
+                    DisposePreparationCancellation();
                 }
             }
         }
@@ -98,6 +105,7 @@ namespace TPLab.Core.Lifecycle
         private async UniTask ShutdownOwnedAsync()
         {
             var failures = new List<Exception>();
+            string preparingInstallerName = _preparingInstaller?.GetType().Name ?? nameof(RootInstallation);
             try
             {
                 _preparationCancellation?.Cancel();
@@ -108,20 +116,28 @@ namespace TPLab.Core.Lifecycle
             }
             if (_preparation != null)
             {
-                try
+                var outcome = await WaitForShutdownPhaseAsync(_preparation.Task);
+                if (outcome.TimedOut)
                 {
-                    await _preparation.Task;
+                    failures.Add(CreateShutdownTimeout("Prepare", preparingInstallerName));
                 }
-                catch (Exception)
-                {
-                    // Preparation failure belongs to its awaiters. Cleanup must still run.
-                }
+                // Original preparation failures belong to its awaiters. Cleanup must still run.
             }
             for (int index = _begun - 1; index >= 0 && !_disposed; --index)
             {
                 try
                 {
-                    await _installers[index].ReleaseAsync(_root);
+                    var installer = _installers[index];
+                    string installerName = installer.GetType().Name;
+                    var outcome = await WaitForShutdownPhaseAsync(installer.ReleaseAsync(_root));
+                    if (outcome.TimedOut)
+                    {
+                        failures.Add(CreateShutdownTimeout("Release", installerName));
+                    }
+                    else if (outcome.Failure != null)
+                    {
+                        failures.Add(outcome.Failure);
+                    }
                 }
                 catch (Exception exception)
                 {
@@ -146,7 +162,51 @@ namespace TPLab.Core.Lifecycle
             }
         }
 
-        internal RootInstallation(ISceneRoot root, SceneRootInstaller[] installers)
+        private async UniTask<(bool TimedOut, Exception Failure)> WaitForShutdownPhaseAsync(UniTask operation)
+        {
+            // Capturing the actual operation separates an installer TimeoutException from our deadline.
+            // The capture also observes a non-cooperative operation's completion after the deadline wins.
+            var captured = CaptureFailureAsync(operation);
+            if (_shutdownTimeoutSeconds <= 0)
+            {
+                return (false, await captured);
+            }
+            try
+            {
+                var failure = await captured.Timeout(TimeSpan.FromSeconds(_shutdownTimeoutSeconds),
+                    DelayType.UnscaledDeltaTime, PlayerLoopTiming.Update);
+                return (false, failure);
+            }
+            catch (TimeoutException)
+            {
+                return (true, null);
+            }
+        }
+
+        private static async UniTask<Exception> CaptureFailureAsync(UniTask operation)
+        {
+            try
+            {
+                await operation;
+                return null;
+            }
+            catch (Exception exception)
+            {
+                return exception;
+            }
+        }
+
+        private TimeoutException CreateShutdownTimeout(string phase, string installerName) =>
+            new TimeoutException($"{phase} shutdown timeout after {_shutdownTimeoutSeconds} seconds for installer {installerName}.");
+
+        private void DisposePreparationCancellation()
+        {
+            var cancellation = _preparationCancellation;
+            _preparationCancellation = null;
+            cancellation?.Dispose();
+        }
+
+        internal RootInstallation(ISceneRoot root, SceneRootInstaller[] installers, float shutdownTimeoutSeconds = 60f)
         {
             _root = root;
             ValidateRoot(root.RootObject);
@@ -156,6 +216,29 @@ namespace TPLab.Core.Lifecycle
                 throw new InvalidOperationException("A root must have exactly one scene root host.");
             }
             _installers = CopyInstallers(root.RootObject, installers);
+            ValidateShutdownTimeout(shutdownTimeoutSeconds);
+            _shutdownTimeoutSeconds = shutdownTimeoutSeconds;
+        }
+
+        internal static void ValidateShutdownTimeout(float shutdownTimeoutSeconds)
+        {
+            if (float.IsNaN(shutdownTimeoutSeconds) || float.IsInfinity(shutdownTimeoutSeconds))
+            {
+                throw new ArgumentOutOfRangeException(nameof(shutdownTimeoutSeconds), shutdownTimeoutSeconds,
+                    "The shutdown timeout must be finite; zero or negative values disable the deadline.");
+            }
+            if (shutdownTimeoutSeconds > 0)
+            {
+                try
+                {
+                    _ = TimeSpan.FromSeconds(shutdownTimeoutSeconds);
+                }
+                catch (OverflowException)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(shutdownTimeoutSeconds), shutdownTimeoutSeconds,
+                        "A positive shutdown timeout must fit within TimeSpan.");
+                }
+            }
         }
 
         internal static void ValidateRoot(GameObject root)
@@ -250,9 +333,10 @@ namespace TPLab.Core.Lifecycle
                     failures.Add(exception);
                 }
             }
-            if (_preparation == null || _preparation.Task.Status != UniTaskStatus.Pending)
+            // Cancelling the shared promise does not mean the installer stopped running.
+            if (!_preparationRunning)
             {
-                _preparationCancellation?.Dispose();
+                DisposePreparationCancellation();
             }
             if (failures != null)
             {
