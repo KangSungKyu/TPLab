@@ -12,3 +12,5 @@
 - 다음: 사용자helper승인 이후 IMP-05의 남은 API 확인/구현을 진행한다. 전체회귀 실패1을 해당 단계에서 Green으로 바꾼다. Player/IL2CPP/다른Unity·플랫폼/소비프로젝트/제품UX·비동기중첩helper는 NotRun.
 
 작업별 Temp/imp-14의 원본은 영속증거 보존·최종검사 이후 명시 목록으로 정리한다. 다른 작업 Temp는 건드리지 않는다.
+
+2026-10-13 후속 수락: 사용자 PR #9 병합 승인 및 IMP-05 재개 지시. 승인 후보 e8f4541 이후에는 수락 상태 문서만 갱신한다. helper/test/runtime raw hash 유지, 알려진 CanProceed Red1은 사용자에게 보고된 상태로 병합 승인됐다. 최종 tip CI 확인 뒤 일반 merge·해당 브랜치 정리 후 최신main에서 IMP-05 새 브랜치를 만든다. 버퍼API 확인 gate는 유지한다. Unity/PC 종료 지시는 이번 요청에 없다.
