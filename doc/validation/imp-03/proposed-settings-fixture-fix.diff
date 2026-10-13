@@ -1,0 +1,54 @@
+--- a/Assets/TPLab/Tests/EditMode/SceneRootShutdownSettingsTests.cs
++++ b/Assets/TPLab/Tests/EditMode/SceneRootShutdownSettingsTests.cs
+@@ -13,7 +13,6 @@
+ {
+     public class SceneRootShutdownSettingsTests
+     {
+-        private Scene _previousScene;
+         private Scene _scene;
+         private GameObject _object;
+         private string _assetPath;
+@@ -21,8 +20,10 @@
+         [SetUp]
+         public void SetUp()
+         {
+-            _previousScene = SceneManager.GetActiveScene();
+-            _scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
++            // UTF creates and later restores its bootstrap scene around the EditMode run.
++            Assert.That(TestContext.CurrentContext.Test.FullName,
++                Does.StartWith(GetType().FullName + "."), "Only execute this fixture through the test runner.");
++            _scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+             SceneManager.SetActiveScene(_scene);
+             _object = new GameObject("ShutdownSettingsTestRoot");
+             _object.SetActive(false);
+@@ -37,11 +38,7 @@
+             }
+             if (_scene.IsValid() && _scene.isLoaded)
+             {
+-                EditorSceneManager.CloseScene(_scene, true);
+-            }
+-            if (_previousScene.IsValid() && _previousScene.isLoaded)
+-            {
+-                SceneManager.SetActiveScene(_previousScene);
++                EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects, NewSceneMode.Single);
+             }
+             if (_assetPath != null)
+             {
+@@ -165,7 +162,7 @@
+             else
+             {
+                 Assert.That(EditorSceneManager.SaveScene(_scene, _assetPath), Is.True);
+-                EditorSceneManager.CloseScene(_scene, true);
++                _scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+             }
+             if (missing)
+             {
+@@ -193,7 +190,7 @@
+             }
+             else
+             {
+-                _scene = EditorSceneManager.OpenScene(_assetPath, OpenSceneMode.Additive);
++                _scene = EditorSceneManager.OpenScene(_assetPath, OpenSceneMode.Single);
+                 _object = _scene.GetRootGameObjects()[0];
+                 var loaded = (ISceneRoot)_object.GetComponent(mode == SceneRootMode.SceneOwned ? typeof(SceneOwnedRoot) : typeof(SingletonSceneRoot));
+                 Assert.That(ReadTimeout(loaded), Is.EqualTo(missing ? 60f : 0f));

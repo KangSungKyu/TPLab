@@ -1,0 +1,29 @@
+--- a/Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs
++++ b/Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs
+@@ -458,7 +458,7 @@
+                 }
+                 _first.PrepareGate.TrySetResult();
+                 await Wait(preparation);
+-                Assert.That(preparation.IsCanceled, Is.True);
++                Assert.Throws<OperationCanceledException>(() => preparation.GetAwaiter().GetResult());
+                 await UniTask.NextFrame();
+                 Assert.That(_root.IsPrepared, Is.False);
+                 Assert.That(_second.PrepareCount, Is.Zero);
+@@ -581,7 +581,7 @@
+                 }
+             }
+             await Wait(preparation);
+-            Assert.That(preparation.IsCanceled, Is.True);
++            Assert.Throws<OperationCanceledException>(() => preparation.GetAwaiter().GetResult());
+         }
+ 
+         [UnityTest, Timeout(30000)]
+@@ -660,7 +660,7 @@
+             if (preparing != null)
+             {
+                 await Wait(preparing);
+-                Assert.That(preparing.IsCanceled, Is.True);
++                Assert.Throws<OperationCanceledException>(() => preparing.GetAwaiter().GetResult());
+             }
+         }
+     }

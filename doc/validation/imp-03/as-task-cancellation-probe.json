@@ -1,0 +1,12 @@
+{
+  "exit": 0,
+  "stdout": "Status=Faulted|IsCanceled=False|Exception=OperationCanceledException\n",
+  "stderr": "",
+  "initialRejectedBeforeEditorExecution": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Error: exec blocks async or deferred Unity code by default: found Task; rerun with --allow-async to allow it\n",
+    "kind": "same Editor synchronous cancellation conversion probe"
+  },
+  "kind": "same Editor synchronous cancellation conversion probe"
+}

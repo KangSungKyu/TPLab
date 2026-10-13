@@ -30,6 +30,8 @@
 
 ## 진행 운영 (항목 승인 게이트)
 
+2026-10-13 사용자가 PR #11 병합을 승인했다. IMP-03은 사용자 수락·승인 완료이며 승인한 tip은 `2cf57533b4773248b04a53a212979d70ca98c3c1`다. 수락 기록만 갱신하고 runtime·테스트·공개 계약은 유지한다. 정확한 최종 문서 tip의 규칙/Actions를 확인한 뒤 일반 merge와 해당 브랜치 정리를 진행한다. 실제 결과는 PR/Git 이력으로 확인한다. 자동 진행 큐 6개는 모두 승인·완료이며 큐 밖 IMP-06~13은 자동 시작하지 않는다.
+
 2026-10-13 사용자가 PR #10 병합을 승인했다. IMP-05는 사용자 수락·승인 완료이며, 승인한 tip은 `56c101fb282e7f2723ad6a06a253a741ccf47c4e`다. 아래 수락 기록만 추가하고 runtime·테스트·공개 계약은 유지한다. 실제 main 통합·브랜치 정리 결과는 PR/Git 이력으로 확인한다. 그 뒤 다음 큐 IMP-03은 기존 승인 게이트와 실행 불가 시 중단 규칙을 따른다.
 
 2026-10-13 사용자가 PR #9 병합과 IMP-05 재개를 승인했다. CanProceed의 알려진 Red1을 유지한 채 helper 단위를 병합하는 명시적 승인이다. 새 코드 구현은 IMP-05의 버퍼 API 확인 절차를 따른다.
@@ -47,7 +49,7 @@
 | 3 | IMP-02 | 승인·완료 | 승인일 2026-10-13, PR #8 사용자 병합 승인; [검증 기록](validation/imp-02/README.md), 실제 통합 결과는 PR 참조 |
 | 4 | IMP-14 | 승인·완료 | 승인일 2026-10-13, PR #9 병합 승인. helper13/13·pool28/28; 알려진 IMP-05 Red1은 후속 단위로 유지 |
 | 5 | IMP-05 | 승인·완료(2026-10-13, PR #10) | [측정 수단 조사 보고](validation/imp-05/measurement-survey/README.md) 완료. IMP-14에서 측정 테스트 교체 후 CanProceed2300 events Red. 사용자 버퍼 API 확정 후 구현·Red2300→Green0; [구현 증거](validation/imp-05/implementation/README.md) |
-| 6 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
+| 6 | IMP-03 | 승인·완료(2026-10-13, PR #11) | 단계별 unscaled60/무제한 선택·원래예외/역순정리 유지, 동결44/44·전체375/345 pass·skip0. [증거](validation/imp-03/README.md) |
 
 큐 밖 항목(IMP-06~13)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하고, IMP-13은 IMP-12 확정 뒤에 시작한다.
 
@@ -85,7 +87,7 @@
 |---|---|---|---|
 | IMP-01 | PrefabPool 대여 클론 파괴 시 슬롯 누수 | **승인·완료**(D-01 = A1, 승인일 2026-10-12, PR #7) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-01/README.md) |
 | IMP-02 | Dispose 후 Return 계약 | **승인·완료**(D-02 = `TryReturn` 추가, 승인일 2026-10-13, PR #8) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-02/README.md) |
-| IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
+| IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **승인·완료**(D-03a~c, 승인일 2026-10-13, PR #11) | source `5fe5bf5`·28/28/16/16·전체375/345·fail/skip0; [검증](validation/imp-03/README.md) |
 | IMP-04 | 테스트 타임아웃 도입 | **승인·완료**(D-05a~c, 승인일 2026-10-12, PR #6) | 선택24개 메서드·30초 적용 병합 완료; [검증 기록](validation/imp-04-apply/README.md) |
 | IMP-05 | GameSceneManager 폴링 속성 할당 | **승인·완료**(D-04, D-04b, 승인일 2026-10-13, PR #10) | 사용자 API확정, CanProceed2300→0events·새3API·Edit359/Play332 allpass; [구현](validation/imp-05/implementation/README.md). [조사](validation/imp-05/measurement-survey/README.md) 당시 중단 후 IMP-14 승인으로 구현 재개·완료 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
@@ -169,7 +171,7 @@
 
 ## IMP-03. 토큰을 무시하는 installer가 있으면 ShutdownAsync가 끝나지 않을 수 있음
 
-**상태**: **설계 확정(D-03, D-03a~c)**: 예외 발생 + 설정 가능한 타임아웃(기본 60초), Prepare 대기와 각 `ReleaseAsync` 대기에 모두 적용, 설정은 root 호스트. 구현 가능. 비동기 수명·소유권 위험: **high**.
+**상태**: **승인·완료(D-03, D-03a~c)**. 승인일 **2026-10-13**, **PR #11 사용자 병합 승인**. PR #10 main `5725e90`에서 2026-10-13 재개했다. [원문 Red·두 승인 정정](validation/imp-03/README.md)을 보존한다: 예외 발생 + 설정 가능한 타임아웃(기본 60초), Prepare 대기와 각 `ReleaseAsync` 대기에 모두 적용, 설정은 root 호스트. 구현 가능. 비동기 수명·소유권 위험: **high**.
 
 **증거**
 - `Assets/TPLab/Core/Lifecycle/RootInstallation.cs:81-96` `ShutdownAsync`, `:98-147` `ShutdownOwnedAsync`. `:103`에서 취소를 요청한 뒤 `:113`에서 `await _preparation.Task`를 타임아웃 없이 기다린다. 이어지는 `:120-130`의 `installer.ReleaseAsync(_root)` 대기에도 타임아웃이 없다.
@@ -187,9 +189,12 @@
 - 알려진 위험: 시간 초과 시점에 비협조 `PrepareAsync`가 아직 실행 중일 수 있다. 늦은 완료는 `PrepareOwnedAsync`의 `_disposed || _stopping` 검사로 `IsPrepared`를 바꾸지 못하지만, installer 자신의 코드가 자원을 계속 만질 수 있다. 계약 위반이므로 예외로 보고하고 XML 주석과 문서에 "PrepareAsync는 토큰을 따라야 한다"를 명시한다.
 
 **재현/검증 테스트 스펙** — `AsyncSceneRootTests`에 추가, `[UnityTest]` + `[Timeout(...)]` 필수
-- (1) Red 재현: `ShutdownWithUncooperativePreparationNeverCompletesWithoutTimeout` — 기본값 무제한 상태로는 완료되지 않음을 짧은 관찰 시간 후 확인하고 게이트를 열어 정리한다. 구현 후에는 (2)로 대체한다.
+- (1) 원래 무제한 동작 관찰: `ShutdownWithUncooperativePreparationNeverCompletesWithoutTimeout` — 명시적0초에서 짧은 관찰 동안 미완료를 확인하고 게이트를 열어 정리한다. 새 finite 테스트(2)를 함께 추가하고 이 테스트는0초 경계로 보존해 Red 파일을 바꾸지 않는다.
 - (2) 구현 후: `ShutdownWithUncooperativePreparationFailsWithTimeoutAndStillCleansUp` — `Create()`를 확장해 짧은 타임아웃(약 0.1초)을 구성한다. 준비: `_first.PrepareGate = new UniTaskCompletionSource(); _first.IgnorePrepareCancellation = true;` 행동: `_root.PrepareAsync()` 시작 후 `await Wait(_root.ShutdownAsync().AsTask())`. 기대: 종료가 실패하고 예외 트리에 `TimeoutException`(installer 이름 포함)이 있으며 `_first.UninstallCount == 1`, `_first.ReleaseCount == 1`, `_root.IsPrepared == false`, `_second.PrepareCount == 0`. 마지막에 게이트를 반드시 연다.
 - (3) (D-03b 확정으로 필수) `ReleaseGate`를 열지 않은 installer에서 같은 방식으로 `TimeoutException`이 나오고 다음 installer의 해제와 `Dispose`가 계속되는지 확인한다.
+
+
+**실제 구현·검증(2026-10-13)**: source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, [보고](validation/imp-03/README.md). 원래PlayRed28/18/10은 취소 상태 단언 오류1을 포함하며 별도 승인으로3곳만 예외 검사 정정 후28/19/9를 확인했다. 원래설정Red16건은Setup오류였으므로 유효 API Red가 아니다. 별도 승인으로 씬 생성/재로딩/정리만 정정한 뒤 실제 API·필드부재 Red16건을 확인·재동결했다. 이후 구현 중 test 변경0, Green44/44·전체Edit375/375·Play345/345·fail/skip0. NUnitTimeout30초 만료0. 누락field60/명시0 보존8case, 두 hostfloat.MaxValue mutation전거부Green4검사. finite/TimeSpan범위 검증·기존 preparation 오류 소유/Release 예외identity·actual owner 종료 전 CTS 해제 방지 반영. XML·사람/AI·명세·회고 갱신, dirty6/frozen5/원본554 보존. Player/IL2CPP·외부 소비·CPU/GC NotRun. 2026-10-13 PR #11 사용자 승인으로 main 통합 gate를 충족했다. 실제 병합과 해당 브랜치 정리 결과는 PR/Git 이력에서 확인한다. 자동 진행 큐의 마지막 항목이며 큐 밖 작업은 시작하지 않는다.
 
 **주의**: 이 테스트는 Editor를 멈출 수 있다. `[Timeout]` 없이 실행하지 않는다. 테스트 실행 중에는 소스를 변경하지 않는다(AGENTS.md).
 

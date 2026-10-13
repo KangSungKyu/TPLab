@@ -135,3 +135,5 @@
 - [IMP-14 GC 측정 helper 검증](validation/imp-14/README.md): 호출별대조·Edit/Play N100·worker격리·기존GC4개 교체·IMP-01/02 계측정정, 2026-10-13 PR #9 사용자수락·IMP-05 재개.
 
 - [IMP-05 내부 폴링·버퍼 구현 검증](validation/imp-05/implementation/README.md): PR9 병합기록·API확정·구성별실측·Red/Green·패리티/예외/0event·전체회귀. 2026-10-13 PR #10 사용자 수락·병합 승인 완료; 실제 통합은 PR/Git 이력 참조.
+
+- [IMP-03 종료 단계별 타임아웃](validation/imp-03/README.md): 두 별도 승인 정정·원래/정정 Red 보존·Green44/44·전체375/345 pass·2026-10-13 PR #11 사용자 수락·병합 승인 완료; 실제 통합은 PR/Git 이력 참조.
