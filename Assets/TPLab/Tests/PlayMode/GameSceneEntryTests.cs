@@ -79,14 +79,15 @@ namespace TPLab.Core.Tests
             await _directManager.EnterFirstSceneAsync(Hub);
             Assert.That(_directManager.State, Is.EqualTo(SceneTransitionState.Ready));
             bool canProceed = _directManager.CanProceed;
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 100; i++)
+            var measurement = GcAllocationMeasurement.Measure(() =>
             {
-                canProceed &= _directManager.CanProceed;
-            }
-            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+                for (int i = 0; i < 100; i++)
+                {
+                    canProceed &= _directManager.CanProceed;
+                }
+            });
             Assert.That(canProceed, Is.True);
-            Assert.That(allocated, Is.Zero);
+            Assert.That(measurement.EventCount, Is.Zero);
         });
 
         [UnityTest]

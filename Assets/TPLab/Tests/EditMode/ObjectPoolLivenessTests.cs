@@ -266,16 +266,17 @@ namespace TPLab.Core.Tests
                 next = second;
                 pool.TryRent(out current);
                 bool rented = true;
-                long before = GC.GetAllocatedBytesForCurrentThread();
-                for (int i = 0; i < 1000; i++)
+                var measurement = GcAllocationMeasurement.Measure(() =>
                 {
-                    current.Alive = false;
-                    next = ReferenceEquals(current, first) ? second : first;
-                    next.Alive = true;
-                    rented &= pool.TryRent(out current);
-                }
-                long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-                Assert.That(allocated, Is.Zero);
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        current.Alive = false;
+                        next = ReferenceEquals(current, first) ? second : first;
+                        next.Alive = true;
+                        rented &= pool.TryRent(out current);
+                    }
+                });
+                Assert.That(measurement.EventCount, Is.Zero);
                 Assert.That(rented, Is.True);
                 Assert.That(pool.CountOwned, Is.EqualTo(1));
                 Assert.That(pool.CountRented, Is.EqualTo(1));
@@ -296,17 +297,17 @@ namespace TPLab.Core.Tests
                 long checksum = 0;
                 bool rented = true;
                 bool exhausted = true;
-                GC.GetAllocatedBytesForCurrentThread();
-                long before = GC.GetAllocatedBytesForCurrentThread();
-                for (int i = 0; i < 1000; i++)
+                var measurement = GcAllocationMeasurement.Measure(() =>
                 {
-                    rented &= pool.TryRent(out first);
-                    exhausted &= !pool.TryRent(out _);
-                    checksum += pool.CountOwned + pool.CountRented + pool.CountInactive;
-                    pool.Return(first);
-                }
-                long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-                Assert.That(allocated, Is.Zero);
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        rented &= pool.TryRent(out first);
+                        exhausted &= !pool.TryRent(out _);
+                        checksum += pool.CountOwned + pool.CountRented + pool.CountInactive;
+                        pool.Return(first);
+                    }
+                });
+                Assert.That(measurement.EventCount, Is.Zero);
                 Assert.That(rented && exhausted, Is.True);
                 Assert.That(checksum, Is.EqualTo(4000));
                 Assert.That(second.Alive, Is.True);

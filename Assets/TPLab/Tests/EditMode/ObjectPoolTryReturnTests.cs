@@ -154,14 +154,15 @@ namespace TPLab.Core.Tests
                 pool.TryRent(out var warm);
                 tryReturn(warm);
                 bool returned = true;
-                long before = GC.GetAllocatedBytesForCurrentThread();
-                for (int i = 0; i < 1000; i++)
+                var measurement = GcAllocationMeasurement.Measure(() =>
                 {
-                    pool.TryRent(out var loan);
-                    returned &= tryReturn(loan);
-                }
-                long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-                Assert.That(allocated, Is.Zero);
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        pool.TryRent(out var loan);
+                        returned &= tryReturn(loan);
+                    }
+                });
+                Assert.That(measurement.EventCount, Is.Zero);
                 Assert.That(returned, Is.True);
                 Assert.That(pool.CountInactive, Is.EqualTo(1));
             }
