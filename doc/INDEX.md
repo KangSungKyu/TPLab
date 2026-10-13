@@ -28,6 +28,7 @@
 | [IMP-04 1단계 조사](validation/imp-04-survey/README.md) | Core/Input 게이트·대기 helper·UTF1.6.0 Timeout 실험 검토 | main7d4ff2e 조사·실험2(예상 실패1)·기존46/46; PR #5 병합 완료, 후속24개/혼합/30초는 적용 검증 참조 |
 | [IMP-04 적용 검증](validation/imp-04-apply/README.md) | 선택 PlayMode24개 Timeout30초·전후 비교·정리 한계 검토 | source base d6163084, 속성24줄; 전후151/151·전체Edit319/Play306, 개별최대0.517초; PR #6 사용자 병합 승인·선택24개 적용 완료, 실제 통합 결과는 PR 참조 |
 | [IMP-01 지연 생존 확인](validation/imp-01/README.md) | 외부 파괴된 대여 정원·optional isAlive·예외정리·비할당 계약 검토 | main a10c302에서 시작; 실제Red17/1 → 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309, baseline 보존PASS/변경FAIL 구분; GC2개 각1000회0바이트·PR #7 사용자 수락/병합 승인 완료, 통합 결과 PR 참조 |
+| [IMP-02 TryReturn 검증](validation/imp-02/README.md) | disposed 우선false·활성 Return 위임·callback/재진입·GC 계약 검토 | main592c435에서 시작; 실제Red20 API부재 → Green62/62·전체Edit348/Play316, 기존Return/Dispose와644개이름 보존·GC1000회0바이트; 2026-10-13 사용자 수락·PR #8 병합 승인 완료 |
 | [GC_ALLOCATION_GUIDELINE.md](GC_ALLOCATION_GUIDELINE.md) | 할당 경로 분류·비할당 API·측정 기준 검토 | 근거 revision·코드 읽기 검증 상태를 명시한 개정 초안; UI는 범위 밖이며 IMP-12/13에서 별도 결정, [개정 기록](retrospectives/2026-10-12-07-docs-backlog.md) |
 | [INDEX.md](INDEX.md) | 작업 시작·범위 변경 | 작업별 명세와 검증 자료 선택 |
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |

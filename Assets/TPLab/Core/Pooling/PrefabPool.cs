@@ -99,6 +99,30 @@ namespace TPLab.Core.Pooling
             _pool.Return(instance);
         }
 
+        /// <summary>Returns a borrowed instance through Return, or ignores the request if the pool is already disposed.</summary>
+        /// <param name="instance">Live clone currently borrowed from this pool while open; ignored after disposal.</param>
+        /// <returns>True after successful Return; false only when already disposed, including during disposal cleanup.</returns>
+        /// <exception cref="ArgumentNullException">The open pool receives a null or destroyed clone.</exception>
+        /// <exception cref="ArgumentException">The open pool does not own the instance.</exception>
+        /// <exception cref="InvalidOperationException">Duplicate return, mutation reentry, lost context, or callback destruction while open.</exception>
+        /// <exception cref="AggregateException">Both reset and failed-instance cleanup throw while open.</exception>
+        /// <remarks>
+        /// Disposal takes precedence over input validation: false invokes no callbacks and changes no state.
+        /// Dispose owns cleanup of outstanding loans; this method does not retry that cleanup or destroy foreign instances.
+        /// While open, Return validation, callback errors, failure cleanup, and mutation reentry rules are preserved.
+        /// Calls are synchronous and restricted to the Unity main thread; there is no concurrent-disposal synchronization.
+        /// The wrapper adds no allocation; caller callbacks and cold inactive storage may allocate.
+        /// </remarks>
+        public bool TryReturn(GameObject instance)
+        {
+            if (IsDisposed)
+            {
+                return false;
+            }
+            Return(instance);
+            return true;
+        }
+
         /// <summary>Destroys all owned clones and the storage root, permanently closing this pool.</summary>
         /// <remarks>
         /// Repeated calls are ignored. Clones are deactivated immediately; PlayMode destruction ends this frame.

@@ -172,6 +172,30 @@ namespace TPLab.Core.Pooling
             }
         }
 
+        /// <summary>Returns a borrowed instance through Return, or ignores the request if the pool is already disposed.</summary>
+        /// <param name="instance">Non-null instance currently borrowed from this pool while open; ignored after disposal.</param>
+        /// <returns>True after successful Return; false only when already disposed, including during disposal cleanup.</returns>
+        /// <exception cref="ArgumentNullException">The open pool receives null.</exception>
+        /// <exception cref="ArgumentException">The open pool does not own the instance.</exception>
+        /// <exception cref="InvalidOperationException">The open pool receives a duplicate return or is reentered during mutation.</exception>
+        /// <exception cref="AggregateException">Both reset and failed-instance cleanup throw while open.</exception>
+        /// <remarks>
+        /// Disposal takes precedence over input validation: false invokes no callbacks and changes no state.
+        /// Dispose owns cleanup of outstanding loans; this method does not retry that cleanup or destroy foreign instances.
+        /// While open, Return validation, callback errors, failure cleanup, and mutation reentry rules are preserved.
+        /// Calls are synchronous and single-threaded; there is no concurrent-disposal synchronization.
+        /// The wrapper adds no allocation; caller callbacks and cold inactive storage may allocate.
+        /// </remarks>
+        public bool TryReturn(T instance)
+        {
+            if (IsDisposed)
+            {
+                return false;
+            }
+            Return(instance);
+            return true;
+        }
+
         /// <summary>Permanently closes this pool and attempts cleanup of all borrowed and inactive instances.</summary>
         /// <exception cref="InvalidOperationException">Called during factory, preparation, reset, or discard cleanup.</exception>
         /// <exception cref="AggregateException">One or more cleanup callbacks failed; all callbacks were attempted.</exception>

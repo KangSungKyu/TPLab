@@ -9,7 +9,7 @@
 - `TryRent(out T)`는 대기 객체를 먼저 재사용하고 총 소유 정원 소진에만 false/null을 반환한다. 총 정원에는 대여 중 객체가 포함된다. factory·준비 콜백 오류는 예외로 전달한다.
 - `Return(T)`은 해당 풀에서 대여 중인 객체만 허용한다. null·비소유·중복 반환을 거부한다. 값 Equals/GetHashCode를 재정의하거나 값이 바뀌어도 참조 동일성으로 소유권을 판별한다. 같은 값을 가진 서로 다른 객체는 각각의 슬롯이다.
 - 준비·반환 콜백이 실패하면 해당 객체를 소유 목록에서 제거하고 onDestroy를 호출한다. 다른 객체는 보존하고 정원을 회복한다. onDestroy도 실패하면 원래 오류와 정리 오류를 AggregateException으로 함께 전달한다. 정리 완료를 보장할 수 없는 외부 자원은 정리 콜백이 재시도·보고 정책을 소유한다.
-- `Dispose()`는 먼저 영구 종료와 카운트 0을 확정하고 대여·대기 객체의 정리를 모두 시도한다. 일부 정리 콜백이 실패해도 나머지를 수행한 뒤 AggregateException으로 모은다. 반복 Dispose는 무시하며 실패한 정리를 다시 호출하지 않는다. 종료 후 대여·반환은 ObjectDisposedException이다. 종료 시 반환 콜백은 호출하지 않는다.
+- `Dispose()`는 먼저 영구 종료와 카운트 0을 확정하고 대여·대기 객체의 정리를 모두 시도한다. 일부 정리 콜백이 실패해도 나머지를 수행한 뒤 AggregateException으로 모은다. 반복 Dispose는 무시하며 실패한 정리를 다시 호출하지 않는다. 종료 후 TryRent와 Return은 ObjectDisposedException이다. TryReturn은 false를 반환한다. 종료 시 반환 콜백은 호출하지 않는다.
 - 단일 스레드에서 사용한다. factory·생존 판정·준비·반환·실패 정리 도중 풀 변경 재진입은 거부한다. 동시 접근의 lock·자동 반환 lease·prewarm·전역 registry는 추가하지 않았다.
 - 일반 클래스의 자원 정리는 onDestroy에서 명시한다. IDisposable을 자동 호출하지 않으며, managed 객체만 사용하면 콜백 없이 소유 참조를 해제한다. 제네릭 풀 자체는 Unity를 참조하지 않으며, 선택한 isAlive 정책 외에는 파괴 판정·SetActive·Transform을 처리하지 않는다. Unity 객체에는 적절한 콜백을 제공하거나 PrefabPool을 사용한다.
 - 대기 보관은 Stack<T>, 소유 상태는 참조 비교 Dictionary<T, bool> 하나로 관리한다. Unity 기본 풀의 내부 카운터와 별도 소유 카운터를 이중 관리하지 않는다.
@@ -37,6 +37,22 @@ using (var pool = new ObjectPool<List<int>>(
 }
 ```
 
+## 종료 뒤 반납 시도 (IMP-02 / D-02=(b))
+
+`public bool TryReturn(T instance)`는 종료 경합이 있는 소비자 정리용 동기 API다. 이미 IsDisposed이면 null·비소유 객체를 포함하여 입력을 검사하지 않고 false를 반환한다. 콜백·파괴·카운트 변경은 없으며, 외부 자원의 Dispose 정리를 다시 시도하지 않는다. Dispose가 소유 객체 정리의 책임자이고 foreign 객체나 소비자 구독의 정리 책임까지 맡지 않는다.
+
+열린 풀에서는 기존 Return(instance)을 그대로 호출하고 성공하면 true다. null·foreign·duplicate·재진입·반환 콜백 오류와 실패 정리는 Return과 동일하며 false로 숨기지 않는다. Dispose는 콜백 전에 IsDisposed를 설정하므로 Dispose cleanup 중 TryReturn도 false다. 열린 풀의 factory/predicate/rent/return/실패 정리 콜백에서 변경 재진입하면 기존 InvalidOperationException이다. Return 자체는 종료 후 계속 ObjectDisposedException이다.
+
+단일 스레드 순차 호출 전제이며 동시 Dispose와의 동기화·비동기 API를 추가하지 않는다. P0 정상 경로의 wrapper는 할당하지 않으며, 워밍업 후 반환 저장과 호출자 콜백의 할당 조건은 Return과 같다. 기존 시그니처는 유지하고 선택 API만 추가한다. 다음 발췌는 설명용이며 **NotRun**이다.
+
+```csharp
+// 소비자의 정리 시점에 소유자가 풀을 이미 종료했을 수 있다.
+bool returned = pool.TryReturn(item);
+// false: 풀이 이미 종료되었다. true: Return을 정상 완료했다.
+```
+
+IMP-02 실행 결과는 [검증 기록](validation/imp-02/README.md)에 남긴다(Red20 API부재 확인 → Green62/62·전체Edit348/Play316 자동 검증 완료·2026-10-13 사용자 수락 완료(PR #8)). IMP-01과 아래 결과는 해당 실행 당시의 증거이며 IMP-02 Green 증거가 아니다.
+
 ## 지연 생존 확인 (IMP-01 / D-01=A1)
 
 `isAlive`가 null이면 기존 판정 없는 정책을 유지하며 생존 확인용 scratch도 만들지 않는다. 설정하면 생성자에서 capacity 크기의 재사용 scratch를 준비한다. `TryRent`는 대기 Stack의 Peek을 판정하고 죽은 객체를 제거하여 살아 있는 객체의 LIFO 순서를 보존한다. 재사용 객체가 없고 총 소유 수가 정원에 도달했을 때만 대여 목록 전체를 판정한다. 죽은 슬롯을 회수한 뒤 필요하면 새 객체를 생성한다. 정상 재사용에서는 대여 목록을 순회하지 않는다.
@@ -47,9 +63,9 @@ CountOwned/CountRented/CountInactive getter는 판정·정리·할당을 하지 
 
 factory의 null·동일 풀 중복 참조 검증이 먼저 수행된다. 소유 등록 후 새 결과를 predicate로 판정하며, 죽은 결과 또는 predicate 예외는 기존 소유 실패 정리 경로로 폐기된다. onRent는 실행하지 않는다. cleanup도 실패하면 원래 오류와 정리 오류를 집계한다. Return/Dispose 검증·예외 우선순위는 유지한다.
 
-선택 매개변수 추가로 기존 소스 호출은 그대로 컴파일된다. 생성자 CLR 시그니처가 바뀌므로 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. PrefabPool은 Unity fake-null 판정을 제공하며 외부 파괴된 복제본의 슬롯을 같은 지연 경로로 회수한다. 파괴된 복제본의 Return은 계속 ArgumentNullException이다.
+선택 매개변수 추가로 기존 소스 호출은 그대로 컴파일된다. 생성자 CLR 시그니처가 바뀌므로 미리 컴파일한 소비 어셈블리는 재빌드해야 한다. PrefabPool은 Unity fake-null 판정을 제공하며 외부 파괴된 복제본의 슬롯을 같은 지연 경로로 회수한다. 열린 풀에서 파괴된 복제본의 Return은 계속 ArgumentNullException이다.
 
-IMP-01 구현과 보충 테스트의 실행 결과는 [IMP-01 검증 기록](validation/imp-01/README.md)에 기록한다(source `901d56c582691d55f4aa9698e91be57231328635`, 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309 모두 통과, 사용자 수락 대기). 아래 2026-10-02 결과는 이전 구현의 역사적 증거다.
+IMP-01 구현과 보충 테스트의 실행 결과는 [IMP-01 검증 기록](validation/imp-01/README.md)에 기록한다(source `901d56c582691d55f4aa9698e91be57231328635`, 초기Green18/24/15·후속경계3/3·최종전체Edit335/Play309 모두 통과, 2026-10-12 사용자 수락 완료(PR #7)). 아래 2026-10-02 결과는 이전 구현의 역사적 증거다.
 
 ## Unity 기본 풀 검토 결과
 
