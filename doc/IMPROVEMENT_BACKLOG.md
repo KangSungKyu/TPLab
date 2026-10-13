@@ -39,7 +39,7 @@
 | 1 | IMP-04 | 승인·완료 | 승인일 2026-10-12, PR #6 병합 완료; [적용 검증](validation/imp-04-apply/README.md) |
 | 2 | IMP-01 | 승인·완료 | D-01 = A1; 승인일 2026-10-12, PR #7 사용자 병합 승인; [검증 기록](validation/imp-01/README.md), 실제 통합 결과는 PR 참조 |
 | 3 | IMP-02 | 승인·완료 | 승인일 2026-10-13, PR #8 사용자 병합 승인; [검증 기록](validation/imp-02/README.md), 실제 통합 결과는 PR 참조 |
-| 4 | IMP-05 | 대기 | Red → **버퍼 API 이름·시그니처를 사용자에게 보고·확인** → 구현 |
+| 4 | IMP-05 | 진행 | 예상 Red가 pass1/1; GC 양성 대조0 → 계측 조사 사용자 결정 대기; [중간 보고](validation/imp-05/README.md). 버퍼 API 확인·구현은 이후 |
 | 5 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
 
 큐 밖 항목(IMP-06~13)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하고, IMP-13은 IMP-12 확정 뒤에 시작한다.
@@ -80,7 +80,7 @@
 | IMP-02 | Dispose 후 Return 계약 | **승인·완료**(D-02 = `TryReturn` 추가, 승인일 2026-10-13, PR #8) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-02/README.md) |
 | IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
 | IMP-04 | 테스트 타임아웃 도입 | **승인·완료**(D-05a~c, 승인일 2026-10-12, PR #6) | 선택24개 메서드·30초 적용 병합 완료; [검증 기록](validation/imp-04-apply/README.md) |
-| IMP-05 | GameSceneManager 폴링 속성 할당 | **설계 확정**(D-04, D-04b) | Red 테스트 작성 → 구현 |
+| IMP-05 | GameSceneManager 폴링 속성 할당 | **진행·계측 확인 대기**(D-04, D-04b) | 예상 Red 미확립; [중간 보고](validation/imp-05/README.md), runtime 변경 없음 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
 | IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
 | IMP-08~10 | 후속 리팩터링 | 스펙 없음 | IMP-01~05 이후 |
@@ -203,7 +203,7 @@
 
 ## IMP-05. GameSceneManager 폴링 속성의 반복 할당
 
-**상태**: **설계 확정(D-04, D-04b)**. 테스트와 구현 모두 진행 가능. 버퍼 API의 이름·시그니처는 구현 전에 사용자에게 한 번 보고하고 확인받는다.
+**상태**: **진행·계측 확인 대기(D-04, D-04b)**. 2026-10-13 예상 Red가 pass1/1이며 유휴 Editor의 4KB 양성 대조도0이라 자동 구현을 중단했다. [중간 보고](validation/imp-05/README.md). 버퍼 API의 이름·시그니처는 계측/Red를 해소한 뒤 구현 전에 사용자에게 한 번 보고하고 확인받는다.
 
 **증거** (`Assets/TPLab/Core/SceneManagement/GameSceneManager.cs`)
 - `:69` `OwnedScenes`(LINQ `Select/Where/ToArray`), `:72` `RegisteredScenes`(LINQ `Select/ToArray`)

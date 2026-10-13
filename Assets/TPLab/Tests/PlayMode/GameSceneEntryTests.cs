@@ -72,6 +72,25 @@ namespace TPLab.Core.Tests
 
         [UnityTest]
         [Timeout(30000)]
+        public IEnumerator CanProceedDoesNotAllocateInReadyState() => UniTask.ToCoroutine(async () =>
+        {
+            CreateBootstrap(LoadSceneMode.Additive);
+            _directManager = new GameSceneManager((MonoBehaviour)_root, _callbacks);
+            await _directManager.EnterFirstSceneAsync(Hub);
+            Assert.That(_directManager.State, Is.EqualTo(SceneTransitionState.Ready));
+            bool canProceed = _directManager.CanProceed;
+            long before = GC.GetAllocatedBytesForCurrentThread();
+            for (int i = 0; i < 100; i++)
+            {
+                canProceed &= _directManager.CanProceed;
+            }
+            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+            Assert.That(canProceed, Is.True);
+            Assert.That(allocated, Is.Zero);
+        });
+
+        [UnityTest]
+        [Timeout(30000)]
         public IEnumerator DirectManagerSharesWaitWithoutCancellingItsOwner() => UniTask.ToCoroutine(async () =>
         {
             CreateBootstrap(LoadSceneMode.Additive);

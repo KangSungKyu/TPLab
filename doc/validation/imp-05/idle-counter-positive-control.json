@@ -1,0 +1,12 @@
+{
+  "experiment": "One synchronous Unity CLI C# invocation in the same Editor after the test",
+  "state": "EditMode idle, not the PlayMode test window",
+  "positiveControlRequestedBytes": 4096,
+  "allocatedCounterBefore": 0,
+  "allocatedCounterAfter": 0,
+  "observedDeltaBytes": 0,
+  "keptAlive": true,
+  "unityVersion": "6000.3.18f1",
+  "interpretation": "This idle-Editor observation did not detect the intentional allocation. It does not establish that CanProceed is allocation-free or that every PlayMode measurement is unsupported.",
+  "source": "long before = GC.GetAllocatedBytesForCurrentThread(); var allocationControl = new byte[4096]; long after = GC.GetAllocatedBytesForCurrentThread(); GC.KeepAlive(allocationControl); return new { positiveControlRequestedBytes = allocationControl.Length, allocatedCounterBefore = before, allocatedCounterAfter = after, observedDeltaBytes = after - before, unityVersion = Application.unityVersion, playing = EditorApplication.isPlaying };"
+}
