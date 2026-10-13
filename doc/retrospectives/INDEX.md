@@ -144,4 +144,4 @@
 
 - 2026-10-13: [03 IMP-14 GC helper·계측 정정](2026-10-13-03-gc-measurement-helper.md) — helper13/13·pool28/28, 양성100%·음성0/thread격리; 전체359/318(Play fail1=CanProceed2300 events), 2026-10-13 PR #9 병합승인·runtime불변.
 
-- 2026-10-13: [04 IMP-05 폴링 할당 제거](2026-10-13-04-scene-polling-allocation.md) — PR9 승인merge3ee358f 뒤 API확정·typedbuffer3개, CanProceed2300→0events·기여도·전체359/332allpass, 승인대기.
+- 2026-10-13: [04 IMP-05 폴링 할당 제거](2026-10-13-04-scene-polling-allocation.md) — PR9 승인merge3ee358f 뒤 API확정·typedbuffer3개, CanProceed2300→0events·기여도·전체359/332allpass, 2026-10-13 PR #10 사용자 수락·병합 승인 완료; 후속 통합 기록 참조.

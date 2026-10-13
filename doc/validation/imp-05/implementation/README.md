@@ -1,6 +1,6 @@
 # IMP-05 · 씬 폴링 할당 제거와 호출자 버퍼
 
-2026-10-13. **Implemented / Windows Mono Editor Verified / 사용자 승인 대기**. branch `codex/imp-05-scene-polling`, base main `3ee358f94187a9b09ef9a34a5e14f08e9748ac84`, 검증한 source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`. 최종 문서 HEAD·그 Actions는 작업 PR/완료 보고에서 확인한다.
+2026-10-13. **Implemented / Windows Mono Editor Verified / 사용자 수락·병합 승인 완료**. branch `codex/imp-05-scene-polling`, base main `3ee358f94187a9b09ef9a34a5e14f08e9748ac84`, 검증한 source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`. 최종 문서 HEAD·그 Actions는 작업 PR/완료 보고에서 확인한다.
 
 ## 선행 승인·공개 계약
 
@@ -70,6 +70,10 @@ All은 private 타입 때문에 실제 getter의 GetRegisteredOwners→ldnull→
 
 Green polling·entry와afterprobe CLI가 domainreload로1을반환했지만동일PID의fresh Connector 결과를복구했고exact nonzero case는모두pass였다. 실제실패case를retry하거나다른Editor/과거suite로대체하지않았다. 전체회귀691/691·skip0은 이번 source의결과다.
 
-runtime/XML·사람/AI API·기능명세·백로그·회고/색인을같은단위에서갱신한다. 최종HEAD 규칙/Actions와PR은완료보고에연결하며GitHub Actions는Unity CI가아니다. 새source와기존pending변경을섞지않았다. main자동병합/브랜치삭제/다음IMP03시작은사용자승인을기다린다.
+runtime/XML·사람/AI API·기능명세·백로그·회고/색인을같은단위에서갱신한다. 최종HEAD 규칙/Actions와PR은완료보고에연결하며GitHub Actions는Unity CI가아니다. 새source와기존pending변경을섞지않았다. 2026-10-13 사용자가 PR #10 병합을 승인했다. 실제 통합 뒤 다음 큐 IMP-03은 기존 gate와 실행 불가 시 중단 규칙을 따른다.
 
 **NotRun:** 이번 Player/IL2CPP·다른Unity/플랫폼·새소비설치/Release·제품시각/UX·CPUbenchmark·buffer Add OOM주입·root getter에서재진입하는비정상사용. 과거Player결과로이번변경을입증하지않는다. 프로젝트Root getter자체의할당과현재Editor 계측 한계는 [helper검증](../../imp-14/README.md)을따른다.
+
+## 사용자 수락 · 2026-10-13
+
+사용자가 PR #10 병합을 승인했다. 승인 대상 tip은 `56c101fb282e7f2723ad6a06a253a741ccf47c4e`이며 [그 Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38335940767)의 완료·success를 다시 확인했다. 이 후속 변경은 승인 상태·회고·색인 문서5개뿐이다. 검증 source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`, runtime·테스트·기존 dirty6는 유지하며 문서 최종 HEAD의 규칙/Actions 뒤 일반 merge로 원본 이력을 보존한다. 실제 merge SHA와 branch 정리는 PR/Git 이력 및 완료 보고에서 확인한다. 이 수락으로 Player/IL2CPP·CPU 등 NotRun이 통과로 바뀌지는 않는다.

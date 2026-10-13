@@ -30,6 +30,8 @@
 
 ## 진행 운영 (항목 승인 게이트)
 
+2026-10-13 사용자가 PR #10 병합을 승인했다. IMP-05는 사용자 수락·승인 완료이며, 승인한 tip은 `56c101fb282e7f2723ad6a06a253a741ccf47c4e`다. 아래 수락 기록만 추가하고 runtime·테스트·공개 계약은 유지한다. 실제 main 통합·브랜치 정리 결과는 PR/Git 이력으로 확인한다. 그 뒤 다음 큐 IMP-03은 기존 승인 게이트와 실행 불가 시 중단 규칙을 따른다.
+
 2026-10-13 사용자가 PR #9 병합과 IMP-05 재개를 승인했다. CanProceed의 알려진 Red1을 유지한 채 helper 단위를 병합하는 명시적 승인이다. 새 코드 구현은 IMP-05의 버퍼 API 확인 절차를 따른다.
 
 2026-10-13 사용자 후속 지시로 **IMP-14를 IMP-05보다 먼저** 수행한다. IMP-05 조사 tip `dd8e487`을 의존 기준으로 helper 전용 브랜치를 만들고, 해당 단위 승인 전 GameSceneManager runtime·버퍼 API 구현/확정은 하지 않는다. 기존4개 GC 테스트의 교체는 이번 지시로 허용됐으며 교체본은 helper Red 이전에 고정한다. 정확한 계측으로 CanProceed의 실제 할당이 드러나면 그 테스트는 IMP-05 Red로 남기고 Ignore/임계값 완화/런타임 수정으로 숨기지 않는다. helper/pool Green과 전체 회귀의 알려진 Red를 구분해 보고하며 main 자동 병합은 하지 않는다.
@@ -44,7 +46,7 @@
 | 2 | IMP-01 | 승인·완료 | D-01 = A1; 승인일 2026-10-12, PR #7 사용자 병합 승인; [검증 기록](validation/imp-01/README.md), 실제 통합 결과는 PR 참조 |
 | 3 | IMP-02 | 승인·완료 | 승인일 2026-10-13, PR #8 사용자 병합 승인; [검증 기록](validation/imp-02/README.md), 실제 통합 결과는 PR 참조 |
 | 4 | IMP-14 | 승인·완료 | 승인일 2026-10-13, PR #9 병합 승인. helper13/13·pool28/28; 알려진 IMP-05 Red1은 후속 단위로 유지 |
-| 5 | IMP-05 | 자동 검증 완료·사용자 승인 대기 | [측정 수단 조사 보고](validation/imp-05/measurement-survey/README.md) 완료. IMP-14에서 측정 테스트 교체 후 CanProceed2300 events Red. 사용자 버퍼 API 확정 후 구현·Red2300→Green0; [구현 증거](validation/imp-05/implementation/README.md) |
+| 5 | IMP-05 | 승인·완료(2026-10-13, PR #10) | [측정 수단 조사 보고](validation/imp-05/measurement-survey/README.md) 완료. IMP-14에서 측정 테스트 교체 후 CanProceed2300 events Red. 사용자 버퍼 API 확정 후 구현·Red2300→Green0; [구현 증거](validation/imp-05/implementation/README.md) |
 | 6 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
 
 큐 밖 항목(IMP-06~13)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하고, IMP-13은 IMP-12 확정 뒤에 시작한다.
@@ -85,7 +87,7 @@
 | IMP-02 | Dispose 후 Return 계약 | **승인·완료**(D-02 = `TryReturn` 추가, 승인일 2026-10-13, PR #8) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-02/README.md) |
 | IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
 | IMP-04 | 테스트 타임아웃 도입 | **승인·완료**(D-05a~c, 승인일 2026-10-12, PR #6) | 선택24개 메서드·30초 적용 병합 완료; [검증 기록](validation/imp-04-apply/README.md) |
-| IMP-05 | GameSceneManager 폴링 속성 할당 | **자동 검증 완료·사용자 승인 대기**(D-04, D-04b) | 사용자 API확정, CanProceed2300→0events·새3API·Edit359/Play332 allpass; [구현](validation/imp-05/implementation/README.md); [조사](validation/imp-05/measurement-survey/README.md), 사용자 지시로 구현 중단 |
+| IMP-05 | GameSceneManager 폴링 속성 할당 | **승인·완료**(D-04, D-04b, 승인일 2026-10-13, PR #10) | 사용자 API확정, CanProceed2300→0events·새3API·Edit359/Play332 allpass; [구현](validation/imp-05/implementation/README.md). [조사](validation/imp-05/measurement-survey/README.md) 당시 중단 후 IMP-14 승인으로 구현 재개·완료 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
 | IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
 | IMP-08~10 | 후속 리팩터링 | 스펙 없음 | IMP-01~05 이후 |
@@ -225,7 +227,7 @@
 
 ## IMP-05. GameSceneManager 폴링 속성의 반복 할당
 
-**상태**: **자동 검증 완료·사용자 승인 대기(D-04, D-04b)**. 2026-10-13 static 양성/음성320 관측을 [조사 보고](validation/imp-05/measurement-survey/README.md)에 남겼다. 조사 당시에는 기존4개를 목록만 확인하고 tests/runtime 수정·API 확정 없이 멈췄다. 후속 사용자 지시의 IMP-14에서 기존4개 측정을 교체했고 CanProceed100회2300 events의 실제 Red를 확인했다. IMP-14 단계에서는 runtime·버퍼 API를 변경하지 않았다. 2026-10-13 사용자 PR #9 병합 승인으로 재개했다. 버퍼 API3개는 사용자가 이름·시그니처를 확정했고 null/thread/snapshot/실패buffer 정책·기여도 실측·parity/0event 검증 요구까지 반영했다.
+**상태**: **승인·완료(D-04, D-04b)**. 승인일 **2026-10-13**, **PR #10 사용자 병합 승인**. 승인한 tip과 최종 수락 문서의 검사 결과·실제 통합은 PR/Git 이력에서 확인한다. 2026-10-13 static 양성/음성320 관측을 [조사 보고](validation/imp-05/measurement-survey/README.md)에 남겼다. 조사 당시에는 기존4개를 목록만 확인하고 tests/runtime 수정·API 확정 없이 멈췄다. 후속 사용자 지시의 IMP-14에서 기존4개 측정을 교체했고 CanProceed100회2300 events의 실제 Red를 확인했다. IMP-14 단계에서는 runtime·버퍼 API를 변경하지 않았다. 2026-10-13 사용자 PR #9 병합 승인으로 재개했다. 버퍼 API3개는 사용자가 이름·시그니처를 확정했고 null/thread/snapshot/실패buffer 정책·기여도 실측·parity/0event 검증 요구까지 반영했다.
 
 **수정 전 증거** (main `3ee358f`, `Assets/TPLab/Core/SceneManagement/GameSceneManager.cs`)
 - `:69` `OwnedScenes`(LINQ `Select/Where/ToArray`), `:72` `RegisteredScenes`(LINQ `Select/ToArray`)
@@ -247,7 +249,7 @@
 
 **제약**: `GameSceneManager`는 1209줄의 큰 클래스다. 이 항목에서 분리·구조 변경을 하지 않는다(IMP-10).
 
-**실제 구현·검증(2026-10-13)**: source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`, [보고](validation/imp-05/implementation/README.md). 사용자3API확정 및 실패버퍼정책(empty/원래예외/검증전불변)을 XML·사람/AI 계약으로 반영했다. 기존 snapshot 속성은 allocating 유지. 본래 컴파일된 경로의100회 기여도: All ILproxy200·Expected700·Inventory1400·전체2300events. 최적화된 준비/union+inventory/arrayinventory/전체는0events. 새API는 충분한capacity1000회0events·parity/버퍼비우기/부분실패/worker/외부unload/retained/active/root준비/중복Set 확인. 신규13case Red6pass/7API부재fail→Green13/13, 기존CanProceed1fail2300→0pass. 기존entry8/replacement36/area27 모두pass, 전체Edit359/359·Play332/332·fail/skip0. Redtest/helper/dirty6 보존, Runtime1file만 변경·클래스분리/패키지추가 없음. Player/IL2CPP·CPU NotRun. 승인 전 main통합·다음IMP03 시작 금지.
+**실제 구현·검증(2026-10-13)**: source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`, [보고](validation/imp-05/implementation/README.md). 사용자3API확정 및 실패버퍼정책(empty/원래예외/검증전불변)을 XML·사람/AI 계약으로 반영했다. 기존 snapshot 속성은 allocating 유지. 본래 컴파일된 경로의100회 기여도: All ILproxy200·Expected700·Inventory1400·전체2300events. 최적화된 준비/union+inventory/arrayinventory/전체는0events. 새API는 충분한capacity1000회0events·parity/버퍼비우기/부분실패/worker/외부unload/retained/active/root준비/중복Set 확인. 신규13case Red6pass/7API부재fail→Green13/13, 기존CanProceed1fail2300→0pass. 기존entry8/replacement36/area27 모두pass, 전체Edit359/359·Play332/332·fail/skip0. Redtest/helper/dirty6 보존, Runtime1file만 변경·클래스분리/패키지추가 없음. Player/IL2CPP·CPU NotRun. 2026-10-13 PR #10 사용자 승인으로 main 통합 gate를 충족했다. 실제 병합 뒤 IMP-03을 다음 큐로 진행하되 실행 불가 등 중단 규칙을 지킨다.
 
 ---
 
