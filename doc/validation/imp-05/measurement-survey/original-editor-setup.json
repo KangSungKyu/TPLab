@@ -1,0 +1,13 @@
+{
+  "scenes": [
+    {
+      "path": "Assets/Scenes/InitScene.unity",
+      "isLoaded": true,
+      "isActive": true,
+      "isSubScene": false
+    }
+  ],
+  "profilerEnabled": false,
+  "enterPlayModeOptionsEnabled": false,
+  "enterPlayModeOptions": 0
+}

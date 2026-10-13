@@ -1,0 +1,16 @@
+{
+  "restored": true,
+  "playing": false,
+  "compiling": false,
+  "updating": false,
+  "scenes": [
+    {
+      "path": "Assets/Scenes/InitScene.unity",
+      "isLoaded": true,
+      "isActive": true,
+      "isSubScene": false
+    }
+  ],
+  "profilerEnabled": false,
+  "dirtyScenes": 0
+}

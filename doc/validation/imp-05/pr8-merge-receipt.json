@@ -1,0 +1,29 @@
+{
+  "acceptedTip": "039d1323176758ff4297459e1b13e9a9e561877f",
+  "finalTip": "e7fa70eda058ac023725ad2f1e8fe87e1e3a3bca",
+  "main": "9285805bd234d1988019c890e3670945d88bce9d",
+  "approvalDate": "2026-10-13",
+  "pr": "https://github.com/KangSungKyu/TPLab/pull/8",
+  "merged": true,
+  "mergeMethod": "merge",
+  "ciUrl": "https://github.com/KangSungKyu/TPLab/actions/runs/38328195499",
+  "branchDeletedLocalAndRemote": true,
+  "approvalOnlyDocumentFiles": 9,
+  "checkoutChangedOnlyNewlines": true,
+  "tested10CanonicalContentPreserved": true,
+  "dirty6RawHashesPreserved": true,
+  "finalWorktreeDirtyPathsUnchanged": true,
+  "checkoutNormalizedNewlinesOfTestedFiles": [
+    "Assets/TPLab/Core/Pooling/ObjectPool.cs",
+    "Assets/TPLab/Core/Pooling/PrefabPool.cs",
+    "Assets/TPLab/Tests/Fixtures/TryReturnTestApi.cs",
+    "Assets/TPLab/Tests/Fixtures/TryReturnTestApi.cs.meta",
+    "Assets/TPLab/Tests/Fixtures/PoolReturnLifecycleProbe.cs",
+    "Assets/TPLab/Tests/Fixtures/PoolReturnLifecycleProbe.cs.meta",
+    "Assets/TPLab/Tests/EditMode/ObjectPoolTryReturnTests.cs",
+    "Assets/TPLab/Tests/EditMode/ObjectPoolTryReturnTests.cs.meta",
+    "Assets/TPLab/Tests/PlayMode/PrefabPoolTryReturnTests.cs",
+    "Assets/TPLab/Tests/PlayMode/PrefabPoolTryReturnTests.cs.meta"
+  ],
+  "testedRawBytesChangedOnlyByCheckoutNewlines": true
+}

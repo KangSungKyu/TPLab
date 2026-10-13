@@ -30,6 +30,10 @@
 
 ## 진행 운영 (항목 승인 게이트)
 
+2026-10-13 사용자가 PR #9 병합과 IMP-05 재개를 승인했다. CanProceed의 알려진 Red1을 유지한 채 helper 단위를 병합하는 명시적 승인이다. 새 코드 구현은 IMP-05의 버퍼 API 확인 절차를 따른다.
+
+2026-10-13 사용자 후속 지시로 **IMP-14를 IMP-05보다 먼저** 수행한다. IMP-05 조사 tip `dd8e487`을 의존 기준으로 helper 전용 브랜치를 만들고, 해당 단위 승인 전 GameSceneManager runtime·버퍼 API 구현/확정은 하지 않는다. 기존4개 GC 테스트의 교체는 이번 지시로 허용됐으며 교체본은 helper Red 이전에 고정한다. 정확한 계측으로 CanProceed의 실제 할당이 드러나면 그 테스트는 IMP-05 Red로 남기고 Ignore/임계값 완화/런타임 수정으로 숨기지 않는다. helper/pool Green과 전체 회귀의 알려진 Red를 구분해 보고하며 main 자동 병합은 하지 않는다.
+
 항목은 **한 번에 하나씩** 진행한다. 한 항목이 끝나면 사용자가 확인하고, 사용자의 **명시적 승인 이후에만** 다음 항목을 자동으로 시작한다. 승인 뒤에는 별도의 "시작" 지시를 기다리지 않는다.
 
 ### 진행 큐 (이 순서로 자동 진행)
@@ -39,8 +43,9 @@
 | 1 | IMP-04 | 승인·완료 | 승인일 2026-10-12, PR #6 병합 완료; [적용 검증](validation/imp-04-apply/README.md) |
 | 2 | IMP-01 | 승인·완료 | D-01 = A1; 승인일 2026-10-12, PR #7 사용자 병합 승인; [검증 기록](validation/imp-01/README.md), 실제 통합 결과는 PR 참조 |
 | 3 | IMP-02 | 승인·완료 | 승인일 2026-10-13, PR #8 사용자 병합 승인; [검증 기록](validation/imp-02/README.md), 실제 통합 결과는 PR 참조 |
-| 4 | IMP-05 | 대기 | Red → **버퍼 API 이름·시그니처를 사용자에게 보고·확인** → 구현 |
-| 5 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
+| 4 | IMP-14 | 승인·완료 | 승인일 2026-10-13, PR #9 병합 승인. helper13/13·pool28/28; 알려진 IMP-05 Red1은 후속 단위로 유지 |
+| 5 | IMP-05 | 진행·버퍼 API 확인 대기 | [측정 수단 조사 보고](validation/imp-05/measurement-survey/README.md) 완료. IMP-14에서 측정 테스트 교체 후 CanProceed2300 events Red. runtime 수정 전 버퍼 API 이름·시그니처 확인 단계로 재개 |
+| 6 | IMP-03 | 대기 | 비동기 수명 위험 high. IMP-04의 타임아웃 보호가 적용된 뒤 Red → 구현 (D-03) |
 
 큐 밖 항목(IMP-06~13)은 자동 진행하지 않는다. 사용자가 항목을 지정해 요청할 때만 시작한다. IMP-11은 측정 결과에 따른 사용자 결정, IMP-12는 사용자 검토가 필요하고, IMP-13은 IMP-12 확정 뒤에 시작한다.
 
@@ -80,13 +85,14 @@
 | IMP-02 | Dispose 후 Return 계약 | **승인·완료**(D-02 = `TryReturn` 추가, 승인일 2026-10-13, PR #8) | 사용자 수락·병합 승인 완료; [검증 기록](validation/imp-02/README.md) |
 | IMP-03 | 비협조 installer + ShutdownAsync 무한 대기 | **설계 확정**(D-03a~c 모두 확정) | Red 재현 테스트(타임아웃 필수) → 구현 |
 | IMP-04 | 테스트 타임아웃 도입 | **승인·완료**(D-05a~c, 승인일 2026-10-12, PR #6) | 선택24개 메서드·30초 적용 병합 완료; [검증 기록](validation/imp-04-apply/README.md) |
-| IMP-05 | GameSceneManager 폴링 속성 할당 | **설계 확정**(D-04, D-04b) | Red 테스트 작성 → 구현 |
+| IMP-05 | GameSceneManager 폴링 속성 할당 | **진행·버퍼 API 확인 대기**(D-04, D-04b) | 측정 교체로 CanProceed100회2300 events Red 확인, runtime/API 수정 없음; [조사](validation/imp-05/measurement-survey/README.md), 사용자 지시로 구현 중단 |
 | IMP-06 | `Thread.Sleep` 시간 의존 테스트 | 제안(낮음) | - |
 | IMP-07 | CI 구성 | 일부 완료(PR 규칙 검사, `@claude` 리뷰). Unity 테스트 CI는 보류 | 범위 재정의 |
 | IMP-08~10 | 후속 리팩터링 | 스펙 없음 | IMP-01~05 이후 |
 | IMP-11 | 할당 감사 후속(P1 전환·이벤트 경로) | 제안 | IMP-05 이후, 측정 먼저 |
 | IMP-12 | GC 가이드라인 확정 및 AGENTS.md 반영 | 초안 작성됨, 사용자 검토 대기 | 검토 |
 | IMP-13 | UI(`Assets/TPLab/UI`) 구조·할당·테스트 점검 | 제안 | IMP-12 확정 뒤, 읽기 전용 점검 먼저 |
+| IMP-14 | 테스트 GC 측정 helper와 계측 정정 | **승인·완료**(2026-10-13, PR #9) | helper13/13·pool28/28, Edit359/359·Play318/319(IMP-05 Red1), [검증](validation/imp-14/README.md); runtime/API 구현 없음 |
 
 ## 결정 기록 (사용자가 작성)
 
@@ -201,9 +207,25 @@
 
 ---
 
+## IMP-14. 대조 검증을 내장한 테스트 GC 측정 helper
+
+**상태**: 승인·완료(2026-10-13, PR #9). 2026-10-13 사용자가 IMP-05의 선행 단위로 지정했다. 기준 조사 [측정 수단 검증](validation/imp-05/measurement-survey/README.md). 이 항목의 사용자 승인 뒤에만 IMP-05를 재개한다.
+
+**범위/완료 조건**
+1. 기존 Core.TestFixtures assembly에 동기 Action용 테스트 helper를 둔다. ProfilerRecorder의 GC.Alloc sample.Count 합계를 1순위로 사용하고 CollectOnlyOnCurrentThread를 명시해 실제 worker 할당 격리를 확인한다. sample.Value의 TimeNanoseconds를 byte로 해석하지 않는다. GC Allocated In Frame CurrentValue 차이는 전역 진단값만 제공한다. runtime에 helper 의존성을 넣거나 새 패키지를 추가하지 않는다.
+2. helper 호출마다 같은 recorder의 독립 window에서 음성 대조0과 static 보존 4KB 양성 대조>0을 확인한 후 workload를 측정한다. 미지원/양성미검출/음성오염/기록용량초과는 assertion failure이며 Skip·fallback0으로 숨기지 않는다. 동기 callback 예외를 보존하고 recorder/static 보존 참조를 정리한다.
+3. 기존 GC 테스트4개를 교체한다: ObjectPoolLivenessTests의 두 warmed 메서드, ObjectPoolTryReturnTests.WarmedTryReturnReuseAllocatesZero, GameSceneEntryTests.CanProceedDoesNotAllocateInReadyState. 기존 loop 횟수(풀1000/씬100), warmup·동작 assertion은 유지한다. 교체 전후와 실제 helper Red/Green을 기록한다.
+4. Edit/Play 반복 N=100 이상의 helper 양성/음성 검출·현재스레드 격리를 보고한다. 양성100% 감지·음성0 목표와 실제실행/실패/skip을 구분한다.
+5. IMP-01·02 검증 보고·Pooling 사람/AI API와 기능문서에 **Editor 계측 한계에 의한 정정**을 붙인다. 이전 raw JSON·로직/수명/예외 계약 결론은 보존하고 byte0 관측을 무할당 입증으로 사용하지 않는다. 새 증거는 event 수이며 Player/IL2CPP는 미검증이다.
+6. helper 단위의 승인 전 IMP-05 runtime·버퍼 API를 구현/확정하지 않는다. CanProceed가 실제 Red면 유지·보고하고 해당 단위로 넘긴다. helper 승인과 전체 IMP-05 완료는 별도 gate다.
+
+**실제 검증(2026-10-13)**: [보고/증거](validation/imp-14/README.md). 기존counter4개 교체 전 pass4 → 양성대조를 넣은 실제Red4fail → event계측 교체 후 pool3pass·CanProceed2300 events fail. 신규 helper13개는 Red2pass/11fail → Green13/13. Edit/Play 각각 양성100/100·음성0/100, worker4KB는 current-thread0events. 전체Edit359/359·Play318/319, fail1·skip0. 원래 loop/기능 단언·runtime·dirty6 보존. IMP-01/02 논리 결론은 유지하고 계측 문서만 정정했다. Player/IL2CPP NotRun. CanProceed는 IMP-05 Red로 남겨 이 단위 승인 전 고치지 않는다.
+
+---
+
 ## IMP-05. GameSceneManager 폴링 속성의 반복 할당
 
-**상태**: **설계 확정(D-04, D-04b)**. 테스트와 구현 모두 진행 가능. 버퍼 API의 이름·시그니처는 구현 전에 사용자에게 한 번 보고하고 확인받는다.
+**상태**: **진행·버퍼 API 확인 대기(D-04, D-04b)**. 2026-10-13 static 양성/음성320 관측을 [조사 보고](validation/imp-05/measurement-survey/README.md)에 남겼다. 조사 당시에는 기존4개를 목록만 확인하고 tests/runtime 수정·API 확정 없이 멈췄다. 후속 사용자 지시의 IMP-14에서 기존4개 측정을 교체했고 CanProceed100회2300 events의 실제 Red를 확인했다. runtime·버퍼 API는 변경하지 않았다. 2026-10-13 사용자 PR #9 병합 승인으로 재개했다. 버퍼 API 이름·시그니처는 구현 전에 사용자에게 한 번 보고하고 확인받는다.
 
 **증거** (`Assets/TPLab/Core/SceneManagement/GameSceneManager.cs`)
 - `:69` `OwnedScenes`(LINQ `Select/Where/ToArray`), `:72` `RegisteredScenes`(LINQ `Select/ToArray`)

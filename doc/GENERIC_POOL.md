@@ -1,5 +1,9 @@
 # 제네릭 ObjectPool 계약과 Unity 기본 풀 검토
 
+## Editor 계측 한계에 의한 정정 (2026-10-13)
+
+[IMP-14 검증](validation/imp-14/README.md)에서 기존 GC 테스트3개를 양성·음성 대조 내장 ProfilerRecorder GC.Alloc 현재 스레드 이벤트 측정으로 교체했다. warmed pool 반복 각1000회에서 workload0 events를 확인했다. 기존 Editor counter0B 기록은 양성 대조가 감지되지 않는 계측의 역사적 관측이며 무할당 입증으로 사용하지 않는다. 이벤트 수를 byte 수로 해석하지 않는다. pool runtime·공개 API·D-01 지연 회수·D-02 TryReturn 로직 결론은 유지한다. Player/IL2CPP는 미검증이다.
+
 `TPLab.Core.Pooling.ObjectPool<T>`는 `where T : class`인 일반 C# 클래스와 Unity 참조 타입에 사용할 수 있다. 구현 파일은 System API만 사용한다. 동일 assembly의 `PrefabPool`은 GameObject 생성·활성화·Transform·파괴를 맡는 어댑터다. 프리팹 호출자는 기존 API를 유지하고 일반 클래스는 ObjectPool<T>를 직접 사용한다.
 
 ## 사용 계약

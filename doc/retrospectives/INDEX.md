@@ -137,3 +137,9 @@
 - 2026-10-12: [10 IMP-01 지연 생존·슬롯 회수](2026-10-12-10-imp-01-pool-liveness.md) — 실제Red17/1 → 초기Green18/24/15, 후속경계3/3·최종335/309; baseline 사후 비교·백로그 상태6곳 승인수정, GC2개1000회0바이트·PR #7 사용자 수락/병합 승인 완료, 실제 통합 결과 PR 참조.
 
 - 2026-10-12: [11 IMP-02 TryReturn](2026-10-12-11-imp-02-try-return.md) — PR7 main592c435 승인통합 뒤 자동큐; 실제Red20 → Green62/62·전체348/316, 기존Return/Dispose 보존·OnDisable/OnDestroy·GC1000회0바이트; 2026-10-13 사용자 수락·PR #8 병합 승인 완료.
+
+- 2026-10-13: [01 IMP-05 폴링 계측 확인](2026-10-13-01-imp-05-polling-measurement.md) — PR8 main9285805 통합·양쪽branch정리 후 자동큐; 예상Red pass1/1·유휴4KB양성대조0, runtime변경없음·계측조사결정대기.
+
+- 2026-10-13: [02 IMP-05 측정 수단 검증](2026-10-13-02-gc-measurement-survey.md) — static 보존 Edit/Play 대조320개·기존GC0 4개 양성대조없음; tests/runtime 수정·API확정없이 보고후중단, 원래씬/547입력/dirty6보존.
+
+- 2026-10-13: [03 IMP-14 GC helper·계측 정정](2026-10-13-03-gc-measurement-helper.md) — helper13/13·pool28/28, 양성100%·음성0/thread격리; 전체359/318(Play fail1=CanProceed2300 events), 2026-10-13 PR #9 병합승인·runtime불변.
