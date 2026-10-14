@@ -92,3 +92,5 @@ T0 검증·결정 기록이다. 기준 main은 `a3c4e00d4af950e4e482c2774d912b70
 기존 읽기 감사 담당 `/root/factcheck_upm`을 gpt-6.1-sol/medium 기존 설정으로 재사용해 독립 nonvalidation 조사를 맡겼다. 해당 담당은 고정 main의 Git/rg 조회만 수행하며 저장소를 수정하지 않는다. 부모는 이 PR의 범위/링크/검증·Git 작업을 소유한다. 추가 파일 생성은 이 회고와 [회고 색인](INDEX.md)의 한 행뿐이다. 일회성 조회 출력은 이번 작업의 Temp 폴더에 두고 필요한 요약을 여기 남긴 뒤 작업 파일만 정리한다.
 
 미실행: Unity Edit/Play·컴파일·제품 Console·Player/IL2CPP·독립 Claude workflow·main 병합·브랜치 삭제. 런타임·테스트·API 변경 없는 T0 원시 자료 정리다. 다른 문서의 낡은 상태·이전 실행/GC 수치·verifier 경로/hash·기존 6개 링크 오류는 발견 사항으로만 남기고 고치지 않았다. 다음 삭제 단위는 사용자가 정한다.
+
+검증 커밋 `6bbeccbd06032e18259344015c1819298382c87c`에서 PR 규칙 검사 오류 0·경고 0·exit 0을 확인했다. [Actions 실행](https://github.com/KangSungKyu/TPLab/actions/runs/38499038816) 1개/check 1개는 completed/success였고 모든 collection complete, queryIssues/blockingReasons 0이었다. 결과를 보완한 최종 문서 tip도 같은 exact-SHA gate로 다시 확인하며 그 SHA는 완료 보고/PR에서 대조한다. PR #16은 open이며 main 병합은 하지 않았다.
