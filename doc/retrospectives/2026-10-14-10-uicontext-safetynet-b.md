@@ -139,4 +139,10 @@ H6: UIContext는 취소 후 core wait/owned native state를 끝내도 프로젝�
 
 Console 별도 관찰: 최종 전체 suite 뒤 error/warning14개 중10개는 기존 Singleton/Resource/SceneRoot 테스트의 예상 exception 로그이며4개는 기존 InputSystemUiScopeGuardSafetyNetTests의 UI/Point(Value)·UI/Click(Button) 설정 warning이다. 이번 신규 UI fixture 기원 로그0, compile CS 오류0이다. 전체 제품 Console이 비었다고 주장하지 않는다. 해당 기존 warning과 설정은 범위 밖 발견으로 보존하고 수정하지 않는다. 전체 working-tree 공백 검사는 기존 dirty InitScene.unity:164·276·398의 m_Name 뒤 공백3건을 보고했다; 기준선 raw hash와 같음을 확인했으며 작업 diff 공백 검사와 구분하고 수정하지 않는다.
 
-최종 링크·공백·규칙 검사와 exact-SHA CI metadata는 아래 후속 기록으로 추가한다.
+## 검사·commit metadata
+
+검증 source commit은 `5f31328f31a96534a212c49a9c8e6fe24a9e55ab`다. 위 기준 main과 동결 cs/meta 조합과 대응한다. source SHA의 [Actions run 38538153057](https://github.com/KangSungKyu/TPLab/actions/runs/38538153057)는 completed/success이며 exact SHA·모든 조회 collection complete·queryIssues0·blockingReasons0·checks/runs 각1개 success를 확인했다. PR은 [#24](https://github.com/KangSungKyu/TPLab/pull/24), non-draft/open이며 병합하지 않았다.
+
+링크/anchor 기준선은 Markdown244·local links1935·anchor470·기존 오류6개였고, 신규 회고/INDEX 추가 뒤 Markdown245·links1941·anchor474·기존 오류6개로 동일하며 새 오류0이다(오류 객체 목록 동일 비교). 작업 commit diff 공백 검사0, check_pr_rules는 변경6파일·오류0·경고0이다. dirty InitScene의 기존 공백3개는 작업 diff에 포함하지 않는다. 원문 failures6개는 JSON decode 후 원시 결과와 완전 동일함을 확인했다.
+
+동결 hash는 Editor worktree의 raw bytes 기준이다. 신규 meta2개의 CRLF가 Git text/eol=lf에 따라 blob에서는 LF로 정규화되며 GUID/내용과 테스트 source는 동일함을 대조했다. 이 metadata 후속 commit은 본 회고만 갱신하고 테스트·runtime·fixture를 바꾸지 않는다. 따라서 실행 source와 후속 doc commit metadata를 구분한다. 최신 tip의 exact-SHA Actions는 그 tip으로 별도 조회하며 위 source 검사를 최종 tip 검사로 대신하지 않는다.
