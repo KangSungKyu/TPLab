@@ -89,6 +89,13 @@ runtime 원본 GameSceneManager.cs SHA256은 `8526e10477d54b7de9a9891fde0b538b46
 
 | 변형 | 단일 함수 변경 | mutant 결과 | 실패 사례 | 실제 실패 이유 | 원복 후 |
 |---|---|---|---|---|---|
+| M1 | all manager worker guards disabled (internal static void EnsureMainThread()) | 3/17 통과·14 실패 | worker13개 전부; constructor1 | Enter/Try는 UnityException, Wait/Replace/Add/Remove는 다른 preflight 메시지, Cancel은 거부 예외 없음. Shutdown은 native IsValidInternal 스레드 오류 로그, constructor는 host 검증 메시지. | 17/17·실패/skip0 |
+| M2 | BeginRequest entry guard removed (private Operation BeginRequest() | 12/17 통과·5 실패 | worker EnterTarget / ReplaceTarget / AddTarget / Remove / TryRequest | EnterTarget/TryRequest는 UnityException, ReplaceTarget/AddTarget/Remove는 준비·권한 오류 메시지. | 17/17·실패/skip0 |
+| M3 | constructor host validation moved before worker guard (public GameSceneManager() | 16/17 통과·1 실패 | Constructor_WorkerRejectsBeforeHostValidation | 정확한 thread 메시지 대신 Select a SceneOwnedRoot or SingletonSceneRoot. host 검증 메시지. | 17/17·실패/skip0 |
+| M4 | GetOwnedScenes worker guard moved ahead of null validation (public void GetOwnedScenes() | 16/17 통과·1 실패 | NullBuffers_WorkerUsesArgumentNullPriority(Owned) | Owned: ArgumentNullException 대신 InvalidOperationException. | 17/17·실패/skip0 |
+| M5 | GetRegisteredScenes worker guard moved ahead of null validation (public void GetRegisteredScenes() | 16/17 통과·1 실패 | NullBuffers_WorkerUsesArgumentNullPriority(Registered) | Registered: ArgumentNullException 대신 InvalidOperationException. | 17/17·실패/skip0 |
+| M6 | WaitForEntry rejection message changed (public UniTask WaitForEntryAsync() | 16/17 통과·1 실패 | WaitWithoutHistory_PreservesExactRejectionAndIdleState | 이력 없는 Wait: 정확한 entry 메시지 대신 Mutated first entry rejection. | 17/17·실패/skip0 |
+| M7 | WaitForTransition rejection also mutates owner state (public UniTask WaitForTransitionAsync() | 1/17 통과·16 실패 | Cancel pending 제외16개, WaitWithoutHistory 포함 | Wait 조회가 owner를 바꿈: Expected Idle / But was Stopped. CaptureEffects의 Wait 조회 때문에 Cancel pending 제외16개가 상태 불변 단언에서 실패. | 17/17·실패/skip0 |
 | M8 | Shutdown worker rejection message changed without native effects (public UniTask ShutdownAsync()         {) | 16/17 통과·1 실패 | CommandOverloads_WorkerRejectsBeforeEffects(Shutdown) | Shutdown: thread 메시지 대신 Mutated shutdown worker rejection. native 호출·로그 없이 직접 메시지 단언에서 실패. | 17/17·실패/skip0 |
 
 모든17case가 적어도 한 변형에서 실제 실패했다. 8회×17=136 mutant 실행은 통과96·의도된 실패40·skip0이다. 각 원복 뒤 targeted17/17를 확인했다. M1 Shutdown은 worker에서 native 접근이 진행되어 `IsValidInternal can only be called from the main thread.` unhandled log로 실패했으므로, 이를 순수 메시지 단언의 증거로 과장하지 않았다. M8은 native를 호출하지 않고 Shutdown case의 직접 메시지 단언을 실패시켜 별도 민감도를 확인했다. Timeout으로 끊긴 실패는 없으며 Editor·후속 targeted·전체 회귀 복구를 실제 확인했다.
