@@ -87,7 +87,7 @@ using (var pool = new ObjectPool<List<int>>(
 
 P2의 targeted 36/36과 그 이전 Core 252/252·224/224는 역사적 결과다. 현재 P4 전체 회귀와 두 모드 build/Player 및 Input 포함 consumer smoke는 성공했다. 2026-10-07 사용자의 PlayMode 확인으로 최종 사용자 gate를 완료했다. 개별 해상도·장치별 확인 결과는 제공되지 않았다. [최종 통합](doc/validation/scene-loading/integration/README.md)에 따라 main에 반영한다.
 
-P1/P2 및 P3 targeted UI 검증은 당시 단계별 결과로 보존되어 있다: [P2/P1 EditMode](doc/validation/ui-system/p2/final-edit.json) · [P2/P1 PlayMode](doc/validation/ui-system/p2/final-play.json) · [P3 기록](doc/validation/ui-system/p3/README.md). 이전 CLI timeout은 결과 없는 transport 거절이며 통과/실패 수에 포함하지 않았다 ([기록](doc/validation/ui-system/p2/transport-rejected.json)). 현재 P7 검증과 남은 수락 gate는 위 [P7 기록](doc/validation/ui-system/p7/README.md)에서 확인한다.
+P1/P2 및 P3 targeted UI 검증은 당시 단계별 결과로 보존되어 있다: [P2/P1 EditMode](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/final-edit.json) · [P2/P1 PlayMode](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/final-play.json) · [P3 기록](doc/validation/ui-system/p3/README.md). 이전 CLI timeout은 결과 없는 transport 거절이며 통과/실패 수에 포함하지 않았다 ([기록](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/transport-rejected.json)). 현재 P7 검증과 남은 수락 gate는 위 [P7 기록](doc/validation/ui-system/p7/README.md)에서 확인한다.
 
 다른 Unity 버전·플랫폼·IL2CPP, 물리 게임패드/touch의 개별 UX, 모든 abrupt 종료 조합은 미검증이다. CI는 현재 미구성이며 자동 CI 통과로 표현하지 않는다. 변경 시 [문서 갱신 지침](doc/DOCUMENTATION_GUIDE.md)에 따라 XML 주석과 사람/AI 문서를 같은 작업에서 갱신한다. 업그레이드 전에는 소비 프로젝트에서 가져오기·compile·예제 실행을 다시 확인한다. 기존 Text/Resource schema는 core에서 제거되어 프로젝트 템플릿으로만 제공한다.
 

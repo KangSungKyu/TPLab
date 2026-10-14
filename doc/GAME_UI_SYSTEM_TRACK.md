@@ -5,7 +5,7 @@
 ## 기준과 보호
 
 - 원격 main 및 로컬 main 기준 8ce768d96f79ed8328143bebc31e77f060f51205를 확인했다. 검토된 설계 문서5개만 codex/game-ui-design에서 852ee960a22791404f179441f8e789f1fee335bf로 기록하고 codex/game-ui-track → codex/game-ui-p0-contracts를 생성했다.
-- 사용자 변경6개는 [보호 해시](validation/ui-system/p0/protected-inputs.json)의 raw bytes를 보존하고 수정/stage에서 제외한다. 이 작업의 소스는 Assets/TPLab/UI이며 기존 Core/Input 소스 이동·package 재편·upm 사본·버전/tag/Release는 범위에 자동 포함하지 않는다.
+- 사용자 변경6개는 [보호 해시](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p0/protected-inputs.json)의 raw bytes를 보존하고 수정/stage에서 제외한다. 이 작업의 소스는 Assets/TPLab/UI이며 기존 Core/Input 소스 이동·package 재편·upm 사본·버전/tag/Release는 범위에 자동 포함하지 않는다.
 - 원본 TPLab Editor PID24376, Unity6000.3.18f1, Connector0.4.1에서 ready·컴파일/업데이트/Play false·InitScene dirty false·Console 오류0을 확인했다. 다른 Editor로 원본 테스트를 대체하지 않는다.
 - 부모가 계약·테스트 실행·리뷰·Git·Unity를 맡는다. 테스트 중 모든 source를 동결한다. 각 Phase는 최신 검증 track tip에서 시작해 완료 gate·회고 후 원본 commit을 보존해 track에 통합한다.
 - 최종 시각/실제 입력 수락 전 main 병합·branch 삭제를 하지 않는다. 이 요청에는 Unity/PC 종료가 없다.
@@ -35,11 +35,11 @@ P0~P4는 순차이며 P5는 P0 계약/P2 재사용 경계 이후 독립 진행 �
 
 ## 현재 증거와 남은 gate
 
-P0는 실제 dependency·[Editor 관찰](validation/ui-system/p0/editor-state.json)과 문서 검증 단위다. Unity 테스트/Player/Profiler 실행0건이며 동작 검증 통과가 아니다. 구현 후 실제 nonzero Red/Green·필요 회귀, 컴파일/제품 Console, source 입력 hash를 Phase별로 기록한다. 최종 사용자 확인은 HUD·A-B-C/자식 종료·실제 입력·1,000/10,000 스크롤·가림막/로딩·화면비·Single/Additive를 묶어 제공한다.
+P0는 실제 dependency·[Editor 관찰](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p0/editor-state.json)과 문서 검증 단위다. Unity 테스트/Player/Profiler 실행0건이며 동작 검증 통과가 아니다. 구현 후 실제 nonzero Red/Green·필요 회귀, 컴파일/제품 Console, source 입력 hash를 Phase별로 기록한다. 최종 사용자 확인은 HUD·A-B-C/자식 종료·실제 입력·1,000/10,000 스크롤·가림막/로딩·화면비·Single/Additive를 묶어 제공한다.
 
 P0 cb82fb427e443f55f72568488bad7869a7510dbe를 track에 fast-forward 통합하고 같은 tip에서 P1 branch를 생성했다. main은8ce768d를 유지한다. P1은 Runtime의UIContext/Handle/정의/요청/hook·enum·root파괴fallback과 Edit9/Play6 실패테스트를 먼저 준비한다. 테스트 수는 예정이며 실제 실행/결과가 아니고, 직접 prefab의 작은 clone은 수명 관측에만 사용한다. provider/공유준비/보관은 P2, Canvas/HUD/depth는 P3, 실제입력은 P4 범위다.
 
-P1 [실제 Red](validation/ui-system/p1/README.md)는 컴파일 오류0 후 Edit9실패/Play6실패·skip0을 같은 Editor에서 확인했다. [Red source 입력](validation/ui-system/p1/red-inputs/test-inputs.json)364개와 보호6개 unchanged를 기록했다. P1 구현 당시 native 파괴 감지를 검토했으며 설치 UniTask의 GameObject destroy token/awake monitor를 재사용했다. 비활성 root 회귀1개는 Green에 추가해 실행했고 별도 Red라고 주장하지 않는다.
+P1 [실제 Red](validation/ui-system/p1/README.md)는 컴파일 오류0 후 Edit9실패/Play6실패·skip0을 같은 Editor에서 확인했다. [Red source 입력](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p1/red-inputs/test-inputs.json)364개와 보호6개 unchanged를 기록했다. P1 구현 당시 native 파괴 감지를 검토했으며 설치 UniTask의 GameObject destroy token/awake monitor를 재사용했다. 비활성 root 회귀1개는 Green에 추가해 실행했고 별도 Red라고 주장하지 않는다.
 
 P1 source545c342f80061c66ede2fc7f168cfc1c2cb13cee: [최종 근거](validation/ui-system/p1/README.md)의 Refactor Edit9/9+Play9/9 및 기존SceneRoot10/10 실패0/skip0. 종료callback시점·다른popup조합 실제Red2개와보정을포함한다. [회고05](retrospectives/2026-10-08-05-ui-lifecycle.md)를기록했고 문서·증거·회고를 같은 단위로 기록하고 track에 통합한다. 다음 P2는 검증된 P1 tip에서 시작한다. 소비/Player/Profiler/최종UX는P7대기다.
 

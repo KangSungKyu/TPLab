@@ -12,7 +12,7 @@
 
 ## 실행 상태
 
-실제 Red: [Edit](red-edit.json) total5/passed0/failed5/skip0, [Play](red-play.json) total7/passed0/failed7/skip0. 원본 Editor PID24376, CLI5288/1784. 모든 실패가 P1의 Asset providers and reuse require P2 NotSupportedException으로 발생했고 컴파일 오류0이다. [Red 입력](red-inputs/test-inputs.json)368개·[보호 파일](red-inputs/preserved-inputs.json)6개 unchanged를 보존했다.
+실제 Red: [Edit](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/red-edit.json) total5/passed0/failed5/skip0, [Play](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/red-play.json) total7/passed0/failed7/skip0. 원본 Editor PID24376, CLI5288/1784. 모든 실패가 P1의 Asset providers and reuse require P2 NotSupportedException으로 발생했고 컴파일 오류0이다. [Red 입력](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/red-inputs/test-inputs.json)368개·[보호 파일](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/red-inputs/preserved-inputs.json)6개 unchanged를 보존했다.
 
 ## Green과 회귀
 
@@ -20,14 +20,14 @@ SourceRevision: `cea4268b82e0f119e0d4dbc8c788b7632d21f3ee`. 새 public signature
 
 | 실제 실행 | total | passed | failed | skipped | CLI PID |
 |---|---:|---:|---:|---:|---:|
-| [UI EditMode 전체](final-edit.json) | 14 | 14 | 0 | 0 | 17548 |
-| [UI PlayMode 전체](final-play.json) | 16 | 16 | 0 | 0 | 28744 |
+| [UI EditMode 전체](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/final-edit.json) | 14 | 14 | 0 | 0 | 17548 |
+| [UI PlayMode 전체](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/final-play.json) | 16 | 16 | 0 | 0 | 28744 |
 
-동일 원본 Editor PID24376에서 새 P2 Edit5/Play7과 기존 P1 Edit9/Play9를 포함한30개가 통과했다. 컴파일 오류0, 테스트 이후 제품 Console 오류0. [정확한 입력](test-inputs.json)368개·보호6파일 unchanged다. Refactor 리뷰에서 public asset Prepare와 inactive clone의 data hook을 구분했고 추가 구조/동작 변경은 필요하지 않았다.
+동일 원본 Editor PID24376에서 새 P2 Edit5/Play7과 기존 P1 Edit9/Play9를 포함한30개가 통과했다. 컴파일 오류0, 테스트 이후 제품 Console 오류0. [정확한 입력](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/test-inputs.json)368개·보호6파일 unchanged다. Refactor 리뷰에서 public asset Prepare와 inactive clone의 data hook을 구분했고 추가 구조/동작 변경은 필요하지 않았다.
 
 ## 연결 장애 기록
 
-최초 Green 시도 CLI20724는 cannot connect to Unity 시간 초과로 nonzero 결과가 없었다. 이를 실패 테스트/통과/Red로 집계하지 않고 [별도 기록](transport-rejected.json)했다. 직접 health, 같은 project/PID, native TestRunner IsRunActive=false, compile/play=false 및 main-thread 읽기 응답으로 연결 복구를 확인했다. Editor 재시작·source 변경 없이 새 invocation에서 위30개를 실행했고 CLI20724의 결과로 대체하지 않았다.
+최초 Green 시도 CLI20724는 cannot connect to Unity 시간 초과로 nonzero 결과가 없었다. 이를 실패 테스트/통과/Red로 집계하지 않고 [별도 기록](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p2/transport-rejected.json)했다. 직접 health, 같은 project/PID, native TestRunner IsRunActive=false, compile/play=false 및 main-thread 읽기 응답으로 연결 복구를 확인했다. Editor 재시작·source 변경 없이 새 invocation에서 위30개를 실행했고 CLI20724의 결과로 대체하지 않았다.
 
 ## 검증 한계
 
