@@ -181,7 +181,7 @@ UPM 배포 사본의 `Documentation~/api/Pooling.md:102`와 `Documentation~/ai/a
 
 `git diff --check <base> <HEAD>`와 `C:\Python314\python.exe tools/check_pr_rules.py --base <base> --head <HEAD>`, 최종 exact-SHA Actions 결과는 아래 완료 상태에 기록한다. 사용자 dirty의 기존 공백 문제를 전체 diff 검사에 섞지 않는다.
 
-완료 상태: 최종 커밋·규칙·Actions 확인 대기. PR은 open으로 유지한다. 실행 증거 요약은 이 회고에 두고 PR/색인은 상태와 이 문서 링크만 남긴다.
+완료 상태: 변경 source commit `3102f417f526578f6ebc2e5884b8e73c882c258c`에서 `check_pr_rules` 오류 0·경고 0, scoped 공백 오류 0, exact-SHA [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38505462682) run 1/check 1 completed/success, 조회 collection 전부 complete·queryIssues/blockingReasons 0을 확인했다. Claude 수동 리뷰 워크플로는 미실행이다. 독립 읽기 전용 diff 검토에서도 핵심 누락·잘못된 주장을 발견하지 못했다. 이 완료 문장 갱신 뒤 최종 tip의 규칙·링크·exact-SHA gate를 다시 확인한다. 최종 commit/검사 metadata는 [PR #18 Checks](https://github.com/KangSungKyu/TPLab/pull/18/checks)에 대응하며 위 검증 source와 구별한다. PR은 open으로 유지하고 병합하지 않는다. 실행 증거 요약은 이 회고에 두고 PR/색인은 상태와 이 문서 링크만 남긴다.
 
 ## 삭제 파일 전체 목록
 
