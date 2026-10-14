@@ -17,7 +17,7 @@
 
 ## 검증과 한계
 
-- [정적 검사](../validation/bootstrap-additive-design.json): 문서 상대 링크/anchor·색인·diff/공백·허용 범위와 작업 전 사용자 자산 hash 보존.
+- [정적 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/bootstrap-additive-design.json): 문서 상대 링크/anchor·색인·diff/공백·허용 범위와 작업 전 사용자 자산 hash 보존.
 - 테스트 실행 0건, 실패/skip 집계 해당 없음. 문서만 변경하여 Unity 테스트·컴파일·Console·실행·Player 검증은 미실행이며 과거 테스트 통과를 이번 실행으로 쓰지 않았다.
 - InitScene, DefaultVolumeProfile, Mobile_RPAsset의 기존 변경과 미추적 SceneTemplateSettings는 보존하고 커밋에서 제외했다.
 

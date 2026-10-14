@@ -6,8 +6,8 @@
 
 | 단계 | 브랜치 | source tip | 상태 | 증거 |
 |---|---|---|---|---|
-| 1 진행률 | codex/scene-loading-p1-progress | 8f3bfde | 완료 / main 반영·phase branch 정리 | [P1](validation/scene-loading/p1) |
-| 2 표시 순서·3 진행 대기 | codex/scene-loading-p2-flow | 07273a4 | 완료 / main 반영·phase branch 정리 | [P2](validation/scene-loading/p2) |
+| 1 진행률 | codex/scene-loading-p1-progress | 8f3bfde | 완료 / main 반영·phase branch 정리 | [P1](https://github.com/KangSungKyu/TPLab/tree/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/p1) |
+| 2 표시 순서·3 진행 대기 | codex/scene-loading-p2-flow | 07273a4 | 완료 / main 반영·phase branch 정리 | [P2](https://github.com/KangSungKyu/TPLab/tree/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/p2) |
 | 4 예제·통합 검증 | codex/scene-loading-p4-sample | 18d479b | 완료 / 사용자 PlayMode 확인·main 반영·phase branch 정리 | [P4](validation/scene-loading/p4/README.md) |
 
 | 담당 | 모델/추론 | 범위·이유 | 상태 |
@@ -28,4 +28,4 @@ P4 Red UI8/8fail, fixture/module 원인 수정 후11/11. Ready 표시 Red1 재�
 
 ## 최종 통합 기록
 
-2026-10-07 사용자 PlayMode 확인을 반영한 `930ddeccc35d3fe5ecb8e4c81b91a20f70fca356`을 main/origin에 fast-forward 반영하고 일치를 확인했다. phase3개는 각 서버 tip SHA를 재확인한 뒤 조건부 삭제하고 로컬 `-d`로 정리했다. [실제 phase 삭제 결과](validation/scene-loading/integration/phase-cleanup.json)에 원본tip·main 보존·로컬/원격 제거를 기록한다. 이 후속 마감 문서도 동일 track에서 main에 fast-forward 반영한 뒤 track만 최종 정리한다. 최종 main/track 삭제tip SHA는 마지막 통합 commit과 최종 보고에서 확인한다. 실행 source는 동일317개이며 사용자 dirty4·보호 raw7을 보존한다.
+2026-10-07 사용자 PlayMode 확인을 반영한 `930ddeccc35d3fe5ecb8e4c81b91a20f70fca356`을 main/origin에 fast-forward 반영하고 일치를 확인했다. phase3개는 각 서버 tip SHA를 재확인한 뒤 조건부 삭제하고 로컬 `-d`로 정리했다. [실제 phase 삭제 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/integration/phase-cleanup.json)에 원본tip·main 보존·로컬/원격 제거를 기록한다. 이 후속 마감 문서도 동일 track에서 main에 fast-forward 반영한 뒤 track만 최종 정리한다. 최종 main/track 삭제tip SHA는 마지막 통합 commit과 최종 보고에서 확인한다. 실행 source는 동일317개이며 사용자 dirty4·보호 raw7을 보존한다.

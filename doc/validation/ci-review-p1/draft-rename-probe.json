@@ -1,9 +1,0 @@
-{
-  "probe": "Rename source with new meta while old source meta remains",
-  "oldMetaExists": true,
-  "nameStatus": "R100\tAssets/TPLab/Core/Pool.cs\tAssets/TPLab/Core/Renamed.cs\nA\tAssets/TPLab/Core/Renamed.cs.meta",
-  "reportedErrors": [],
-  "reportedWarnings": [],
-  "expectedOrphanDetected": false,
-  "draftModified": false
-}

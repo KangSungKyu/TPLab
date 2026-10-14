@@ -90,13 +90,13 @@ Unity `ObjectPool<T>`도 일반 C# 클래스를 지원한다. 기본 풀의 정�
 ## 검증 증거 (2026-10-02)
 
 - TPLab Editor Unity 6000.3.18f1, Connector 0.4.1, PID 42616을 사용했다. 기존 미추적 ProjectSettings/SceneTemplateSettings.json은 보존했고 패키지·프로젝트 설정·기존 씬·Cashier는 수정하지 않았다.
-- Unity 기본 API 재현: [7/7 통과](validation/generic-pool/unity-contract.json). 관찰 자체를 검증하는 테스트이며 문제가 수정됐다는 의미가 아니다.
-- TDD Red: API stub에서 새 일반 클래스 테스트 [24건 모두 실패](validation/generic-pool/red-generic.json), skip 0.
-- Green 전체 EditMode: [38/38 통과](validation/generic-pool/green-edit.json) = 제네릭 24 + Unity API 재현 7 + 기존 프리팹 6 + Addressables 기존 테스트 1. 실패·skip 0.
-- 기존 프리팹 회귀 전체 PlayMode: [17/17 통과](validation/generic-pool/green-play.json), 실패·skip 0. CLI는 domain reload 구간에 editor stopped를 보고했지만 동일 Editor는 살아 있었고 실행은 완료됐다. run ID `28588-1790911711368444900`의 저장 결과를 복구했으며 테스트를 재실행하지 않았다. [복구 경로·시각](validation/generic-pool/play-recovery.json).
-- Editor 컴파일 완료, 최종 상태 ready, [Console 오류 0건](validation/generic-pool/console-errors.json).
-- Unity 참조가 없는 별도 .NET 10 프로그램: 실제 ObjectPool.cs를 링크하여 컴파일하고 [검사 6건 통과](validation/generic-pool/dotnet-probe.txt). 임시 프로젝트와 저장된 검증 프로젝트에서 각각 1회 실행하여 재현성을 확인했다. [검증 코드](validation/generic-pool/dotnet-probe/Program.cs), [프로젝트](validation/generic-pool/dotnet-probe/PoolProbe.csproj). .NET SDK는 설치된 10.0.401을 사용했다. 다른 대상 프레임워크·Unity 버전·Unity Player 빌드는 미실행이다.
-- [검증 입력 SHA-256](validation/generic-pool/test-input-sha256.json)을 남겼다. runtime과 테스트 소스에 대한 검증 후 변경은 없으며 위 결과와 같은 작업 커밋에 포함한다.
+- Unity 기본 API 재현: [7/7 통과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/unity-contract.json). 관찰 자체를 검증하는 테스트이며 문제가 수정됐다는 의미가 아니다.
+- TDD Red: API stub에서 새 일반 클래스 테스트 [24건 모두 실패](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/red-generic.json), skip 0.
+- Green 전체 EditMode: [38/38 통과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/green-edit.json) = 제네릭 24 + Unity API 재현 7 + 기존 프리팹 6 + Addressables 기존 테스트 1. 실패·skip 0.
+- 기존 프리팹 회귀 전체 PlayMode: [17/17 통과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/green-play.json), 실패·skip 0. CLI는 domain reload 구간에 editor stopped를 보고했지만 동일 Editor는 살아 있었고 실행은 완료됐다. run ID `28588-1790911711368444900`의 저장 결과를 복구했으며 테스트를 재실행하지 않았다. [복구 경로·시각](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/play-recovery.json).
+- Editor 컴파일 완료, 최종 상태 ready, [Console 오류 0건](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/console-errors.json).
+- Unity 참조가 없는 별도 .NET 10 프로그램: 실제 ObjectPool.cs를 링크하여 컴파일하고 [검사 6건 통과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/dotnet-probe.txt). 임시 프로젝트와 저장된 검증 프로젝트에서 각각 1회 실행하여 재현성을 확인했다. [검증 코드](validation/generic-pool/dotnet-probe/Program.cs), [프로젝트](validation/generic-pool/dotnet-probe/PoolProbe.csproj). .NET SDK는 설치된 10.0.401을 사용했다. 다른 대상 프레임워크·Unity 버전·Unity Player 빌드는 미실행이다.
+- [검증 입력 SHA-256](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/generic-pool/test-input-sha256.json)을 남겼다. runtime과 테스트 소스에 대한 검증 후 변경은 없으며 위 결과와 같은 작업 커밋에 포함한다.
 - 사용자 직접 조작이 필요한 항목은 없다. 별도 Unity 소비 프로젝트의 가져오기·컴파일·Player 검증은 후속 단계이며 .NET 확인으로 대체하지 않는다. 원본 CLI 출력과 .NET 빌드 생성물은 버전 관리에서 제외한 Temp/GenericPooling에 있다.
 
 저장된 .NET 검증은 저장소 루트에서 `dotnet run --project doc/validation/generic-pool/dotnet-probe/PoolProbe.csproj --artifacts-path Temp/GenericPooling/SavedProbeBuild`로 재실행한다. 빌드 생성물도 Temp에 둔다.

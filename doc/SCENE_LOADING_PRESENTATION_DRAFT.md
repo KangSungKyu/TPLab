@@ -92,7 +92,7 @@ flowchart TD
 | 단계 | 범위 | 상태 / 증거 |
 |---|---|---|
 | 1 진행률 | stage snapshot·선택적 loader progress, 기존 호출 호환 | 구현. P1 결과는 [track](SCENE_LOADING_TRACK.md) 참조 |
-| 2 표시 흐름·3 진행 대기 | 선택적 callback, 두 번의 cover, 자동/수동 wait, 실패 복구와 모드별 정책 | 구현. final targeted Play36/36; core Edit252/252·Play224/224는 최종 경계 추가 전; [evidence](validation/scene-loading/p2/) |
+| 2 표시 흐름·3 진행 대기 | 선택적 callback, 두 번의 cover, 자동/수동 wait, 실패 복구와 모드별 정책 | 구현. final targeted Play36/36; core Edit252/252·Play224/224는 최종 경계 추가 전; [evidence](https://github.com/KangSungKyu/TPLab/tree/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/p2) |
 | 4 통합 예제 | 프로젝트 팁/bar/button UI·입력 연결·Player | 구현 및 자동 검증 완료: Edit271/271·Play253/253, Windows Mono Additive/Single build와 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. 사용자 PlayMode 확인 완료; 개별 장치/해상도 coverage 미기록 |
 
 현재 P4 전체 회귀는 Edit271/271·Play253/253(실패0·skip0), Additive/Single Windows Mono build·Player는 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공했다([P4 evidence](validation/scene-loading/p4/README.md)). P2 targeted 36/36 및 이전 Core 252/224 수치는 과거 단계 결과다. 자동 검증 완료는 최종 visual UX 사용자 확인을 대신하지 않으며 물리 장치·원격 Addressables content/download·IL2CPP는 미검증이다.

@@ -6,10 +6,10 @@
 
 | 검사 | 실행 / 통과 / 실패 / skip | 증거 |
 |---|---|---|
-| Core 타입 제외 Red와 기존 표준 계약 | 22 / 18 / 4 / 0 | [JSON](red.json) · [터미널](red.txt) |
-| 분리 후 표준 계약 Green | 22 / 22 / 0 / 0 | [JSON](green.json) · [터미널](green.txt) |
-| 최종 전체 EditMode | 114 / 114 / 0 / 0 | [JSON](full-EditMode.json) |
-| 최종 전체 PlayMode | 87 / 87 / 0 / 0 | [JSON](full-PlayMode.json) |
+| Core 타입 제외 Red와 기존 표준 계약 | 22 / 18 / 4 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/red.json) · [터미널](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/red.txt) |
+| 분리 후 표준 계약 Green | 22 / 22 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/green.json) · [터미널](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/green.txt) |
+| 최종 전체 EditMode | 114 / 114 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/full-EditMode.json) |
+| 최종 전체 PlayMode | 87 / 87 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/full-PlayMode.json) |
 
 추가한 4건은 core assembly에 네 가지 구체 스키마/테이블 타입이 존재하지 않아야 한다는 공개 경계 검사다. 변경 전 실제 실패를 실행하고 분리 후 통과했다. 전체 EditMode에는 외부 Addressables DocExample RequiredTest 1건이 포함된다. Player/소비 프로젝트 결과로 확대하지 않는다.
 
@@ -20,9 +20,9 @@
 - 예시 소스는 `Assets/MyLab/Tests/Fixtures/DataTableTemplates.cs`, namespace는 MyLab.Examples.DataTables다. 기존 TestFixtures assembly에서 컴파일하고 표준 CSV 매핑/조회·FK·binding·factory·비동기·native CSV/root 테스트가 실제 예시를 사용한다.
 - manager/snapshot/codec/CsvDataTable 구현과 assembly 설정·패키지는 바꾸지 않았다. Core의 DataRow.cs에서 구체 4타입을 제거하고 기존 테스트 5파일에는 예시 namespace 참조를 추가했다. 기존 DataRow.cs meta/GUID는 보존하고 새 템플릿 meta만 생성했다.
 - Text 빈 문자열·Resource 공백 key 정책은 예시 검증으로 유지했다. runtime manager의 필수 스키마/정책이 아니다.
-- exact MyLab Editor PID 23176, Unity 6000.3.18f1/Connector 0.4.1. [컴파일](compile-after.txt), [Editor 상태](status-after.txt), [예상 실패 경로 로그](console-before-clear.json), Console을 비운 뒤 정상 [오류·경고 0](console-after.json)을 기록했다.
-- [입력 hash](test-inputs.json)는 최종 C#·asmdef·manifest/lock·Unity 버전을 UTF-8 BOM 제외·CRLF→LF로 정규화한 SHA-256이다. 최종 실행 뒤 코드 입력은 변경하지 않았다. 결과 JSON은 같은 실행의 터미널 출력에서 추출했다.
-- [정적 검사](static-checks.json)는 문서·상대 링크·색인, asset/meta·GUID, 범위·공백·기존 사용자 파일 hash와 변경하지 않은 baseline 입력을 확인한다. 기존 InitScene·SceneTemplateSettings 변경은 보존했다.
+- exact MyLab Editor PID 23176, Unity 6000.3.18f1/Connector 0.4.1. [컴파일](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/compile-after.txt), [Editor 상태](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/status-after.txt), [예상 실패 경로 로그](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/console-before-clear.json), Console을 비운 뒤 정상 [오류·경고 0](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/console-after.json)을 기록했다.
+- [입력 hash](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/test-inputs.json)는 최종 C#·asmdef·manifest/lock·Unity 버전을 UTF-8 BOM 제외·CRLF→LF로 정규화한 SHA-256이다. 최종 실행 뒤 코드 입력은 변경하지 않았다. 결과 JSON은 같은 실행의 터미널 출력에서 추출했다.
+- [정적 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-table-templates/static-checks.json)는 문서·상대 링크·색인, asset/meta·GUID, 범위·공백·기존 사용자 파일 hash와 변경하지 않은 baseline 입력을 확인한다. 기존 InitScene·SceneTemplateSettings 변경은 보존했다.
 
 ## 재현과 완료 경계
 

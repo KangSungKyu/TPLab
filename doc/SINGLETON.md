@@ -42,10 +42,10 @@ unity-cli --project C:\Users\PC\Projects\TPLab exec 'TPLab.Core.Tests.SingletonR
 ## 검증 (2026-10-02)
 
 - 동일 TPLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616.
-- TDD Red: stub의 PlayMode 14건 중 통과 2, 실패 12, skip 0. [실행 결과](validation/singleton/red-play.json)
-- Green 전체 EditMode: 38/38, 실패·skip 0. [실행 결과](validation/singleton/green-edit.json)
-- Green 전체 PlayMode: 31/31 = 기존 프리팹 17 + Singleton 14, 실패·skip 0. 초기화 공개 순서, 중복·타입 독립성, 비활성화, 소유자 파괴·재생성, 초기화·정리 예외, 재진입, 씬 해제, 영속성·부모 계층 보존을 확인했다. [실행 결과](validation/singleton/green-play.json)
-- 반복 Play 자동 검사: 10/10, 옵션·씬 복원 완료. [실행 결과](validation/singleton/reload-check.json)
-- Editor 컴파일 완료, 최종 상태 ready. 실패 경로에서 `LogAssert.Expect`로 검증한 [예외 로그 6건](validation/singleton/expected-test-exceptions.json)을 보존했다. 예상 밖 오류는 없었고, 확인 후 Console을 비운 상태의 [오류는 0건](validation/singleton/console-errors.json)이다. 초기 실패 검사와 실행기 문제의 로그는 Temp/Singleton에 별도 기록했다.
-- [입력 SHA-256](validation/singleton/test-input-sha256.json)과 실행 환경·결과 복구 경로는 [검증 기록](validation/singleton/execution.json)에 있다. 검증한 runtime·테스트 소스와 함께 커밋한다.
+- TDD Red: stub의 PlayMode 14건 중 통과 2, 실패 12, skip 0. [실행 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/red-play.json)
+- Green 전체 EditMode: 38/38, 실패·skip 0. [실행 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/green-edit.json)
+- Green 전체 PlayMode: 31/31 = 기존 프리팹 17 + Singleton 14, 실패·skip 0. 초기화 공개 순서, 중복·타입 독립성, 비활성화, 소유자 파괴·재생성, 초기화·정리 예외, 재진입, 씬 해제, 영속성·부모 계층 보존을 확인했다. [실행 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/green-play.json)
+- 반복 Play 자동 검사: 10/10, 옵션·씬 복원 완료. [실행 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/reload-check.json)
+- Editor 컴파일 완료, 최종 상태 ready. 실패 경로에서 `LogAssert.Expect`로 검증한 [예외 로그 6건](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/expected-test-exceptions.json)을 보존했다. 예상 밖 오류는 없었고, 확인 후 Console을 비운 상태의 [오류는 0건](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/console-errors.json)이다. 초기 실패 검사와 실행기 문제의 로그는 Temp/Singleton에 별도 기록했다.
+- [입력 SHA-256](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/test-input-sha256.json)과 실행 환경·결과 복구 경로는 [검증 기록](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/singleton/execution.json)에 있다. 검증한 runtime·테스트 소스와 함께 커밋한다.
 - 사용자 직접 확인이 필요한 항목은 없다. Player 빌드·IL2CPP·다른 Unity 버전·소비 프로젝트 가져오기는 후속 단계이며 이번 통과로 주장하지 않는다. 기존 미추적 `ProjectSettings/SceneTemplateSettings.json`은 보존하고 변경에 포함하지 않았다.

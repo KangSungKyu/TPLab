@@ -69,10 +69,10 @@ IMP-01에서 PrefabPool 공개 시그니처는 유지되었으며 IMP-02는 TryR
 ## 최초 Unity 기본 풀 기반 구현의 실행 증거 (2026-10-02)
 
 - 정확한 TPLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616. 새 Editor를 실행하지 않았다.
-- Red: 최소 API stub에서 EditMode 6건 중 통과 1·실패 5·skip 0, PlayMode 17건 중 통과 0·실패 17·skip 0을 실제 실행했다. [EditMode 결과](validation/object-pool/red-edit.json), [PlayMode 결과](validation/object-pool/red-play.json).
-- Green: 최종 구현에서 전체 EditMode 통과 7/7(공용 풀 6건 + Addressables 패키지의 기존 테스트 1건), 전체 PlayMode 통과 17/17. 두 실행 모두 실패 0·skip 0이다. [EditMode 결과](validation/object-pool/green-edit.json), [PlayMode 결과](validation/object-pool/green-play.json).
-- 테스트에 사용한 최종 C#·asmdef·manifest/lock의 [SHA-256 목록](validation/object-pool/test-input-sha256.json)을 남겼다. 이 파일과 테스트 결과는 동일한 작업 커밋에 포함한다.
-- Editor 컴파일 완료, 최종 상태 ready, Console error 조회 0건을 확인했다. [Console 결과](validation/object-pool/console-errors.json). 원본 CLI 출력은 버전 관리에서 제외한 Temp/ObjectPool에 있다.
+- Red: 최소 API stub에서 EditMode 6건 중 통과 1·실패 5·skip 0, PlayMode 17건 중 통과 0·실패 17·skip 0을 실제 실행했다. [EditMode 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/object-pool/red-edit.json), [PlayMode 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/object-pool/red-play.json).
+- Green: 최종 구현에서 전체 EditMode 통과 7/7(공용 풀 6건 + Addressables 패키지의 기존 테스트 1건), 전체 PlayMode 통과 17/17. 두 실행 모두 실패 0·skip 0이다. [EditMode 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/object-pool/green-edit.json), [PlayMode 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/object-pool/green-play.json).
+- 테스트에 사용한 최종 C#·asmdef·manifest/lock의 [SHA-256 목록](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/object-pool/test-input-sha256.json)을 남겼다. 이 파일과 테스트 결과는 동일한 작업 커밋에 포함한다.
+- Editor 컴파일 완료, 최종 상태 ready, Console error 조회 0건을 확인했다. [Console 결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/object-pool/console-errors.json). 원본 CLI 출력은 버전 관리에서 제외한 Temp/ObjectPool에 있다.
 - EditMode 종료 직후 PlayMode 호출 1건은 "no Unity instances running"으로 실행 전에 종료됐다. 동일 Editor의 ready를 다시 확인한 뒤 PlayMode를 실행했으며, 위 17/17은 실제 실행 결과다.
 - 자동 테스트 종료 후 생성된 ProjectSettings/SceneTemplateSettings.json은 변경 범위 밖의 미추적 파일로 보존했다. 프로젝트 설정·의존성·기존 씬·Cashier는 수정하지 않았다.
 - 직접 확인이 필요한 항목은 없으며, 원격 CI 구성은 아직 별도 구축하지 않았다. 다른 Unity 버전·별도 소비 프로젝트·Player 빌드는 미실행이며 전체 배포 호환성 완료를 주장하지 않는다.
