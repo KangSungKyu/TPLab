@@ -66,7 +66,7 @@ verifier 실패를 통과로 기록하지 않는다. 17개 exit code는 모두 1
 
 ## Git gate와 미실행
 
-공백·변경 범위·원문/hash 보존을 확인하고 `tools/check_pr_rules.py --base d9c2f8896a21081063179f791aabc78d5399e96c --head <최종 tip>`을 실행한다. 최종 Actions는 `tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <최종 tip> --output Temp/validation-prune-batch1-20261014/final-ci.json`로 exact-SHA·조회 완전성·completed/success를 판정한다. [브랜치 Actions 실행](https://github.com/KangSungKyu/TPLab/actions?query=branch%3Acodex%2Fvalidation-prune-batch1)의 최종 tip 결과와 완료 보고를 함께 대조한다. 회고 자신을 포함하는 최종 SHA 및 실제 병합 SHA는 Git·PR 이력/완료 보고에서 확인한다. PR 본문에는 삭제 목록·이력 보존과 이 회고 링크를 둔다.
+공백·변경 범위·원문/hash 보존을 확인했다. 검증 커밋 `1daddaabdaf17b20a440e07290011da7b347d475`에서 PR 규칙 검사 오류 0·경고 0·exit 0, exact-SHA [Actions 실행](https://github.com/KangSungKyu/TPLab/actions/runs/38497151565) 1개와 check 1개 completed/success를 실제 확인했다. 모든 collection 조회는 complete이고 queryIssues/blockingReasons는 비어 있었다. 이 회고의 결과 보완 이후 최종 tip도 같은 gate로 다시 조회한다.  `tools/check_pr_rules.py --base d9c2f8896a21081063179f791aabc78d5399e96c --head <최종 tip>`을 실행한다. 최종 Actions는 `tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <최종 tip> --output Temp/validation-prune-batch1-20261014/final-ci.json`로 exact-SHA·조회 완전성·completed/success를 판정한다. [브랜치 Actions 실행](https://github.com/KangSungKyu/TPLab/actions?query=branch%3Acodex%2Fvalidation-prune-batch1)의 최종 tip 결과와 완료 보고를 함께 대조한다. 회고 자신을 포함하는 최종 SHA 및 실제 병합 SHA는 Git·PR 이력/완료 보고에서 확인한다. PR 본문에는 삭제 목록·이력 보존과 이 회고 링크를 둔다.
 
 사용자의 조건부 승인으로 모든 gate가 맞을 때만 병합 전 채팅 보고 후 원본 commit을 보존하는 일반 merge를 진행한다. 강제 푸시·이력 재작성·브랜치 삭제는 하지 않는다. 작업 전의 dirty 6개는 통합 후에도 재확인한다.
 
