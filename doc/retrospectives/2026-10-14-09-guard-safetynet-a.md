@@ -320,8 +320,9 @@ C:/Python314/python.exe tools/run_unity_tests.py --project C:/Users/PC/Projects/
 
 T2 테스트 전용이며 public runtime 계약·XML·사람/AI API 갱신은 비적용이다. 최초 실패/정정·원인 분리와 이번 repeat/변형을 이 회고 한 곳에 보존한다. PR 본문과 색인은 링크/상태만 둔다.
 
-- 검증 source commit: commit 후 기록.
-- check_pr_rules·공백·링크: commit 전/후 확인.
-- exact-SHA Actions: PR 개설 후 source와 최종 tip을 구분해 확인.
+- 검증 source commit: `d0aa3c6b5eebaa61123fc9ac98832f71aa4db486`. 위 runtime base+정정 후 동결 test10 hash와 동일한 source를 포함한다.
+- source commit의 check_pr_rules: 변경12파일, 오류0·경고0. commit diff 공백0. Markdown244·local link1935·anchor470 검사, 기존 오류6 유지·새 문서 오류0.
+- 검증 source exact-SHA Actions: [38531769690](https://github.com/KangSungKyu/TPLab/actions/runs/38531769690) success. target/inspected SHA 동일, queryIssues/blockingReasons0, collections 전부 complete/errors0, 해당 SHA runs/checks 모두 completed/success.
+- [PR #23](https://github.com/KangSungKyu/TPLab/pull/23)은 open/non-draft, main base `1dffd1e7ce286ced9dac6823ef8864dc3ee3f029`. 이 metadata를 기록하는 후속 commit은 문서만 바꾸며 source hash를 유지한다. 최종 tip의 exact-SHA gate는 이 source gate와 구분해 PR checks 및 완료 채팅에서 보고한다. 병합하지 않는다.
 - Player/IL2CPP·추가 GC 계측·visual UX·consumer는 미실행이다.
 - 이 단계의 일회성 raw/도구는 작업 소유 Temp에만 두고 필요한 요약을 이 회고에 남긴 뒤 실행/참조 종료·실제 경로·명시 목록 확인 후 정리한다.
