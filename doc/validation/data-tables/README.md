@@ -6,14 +6,14 @@
 
 | 단계 | 실행 / 통과 / 실패 / skip | 증거 |
 |---|---|---|
-| CSV·snapshot 계약 Red | 19 / 0 / 19 / 0 | [JSON](red-edit.json), [XML](red-edit.xml): 미구현 API의 실제 실패 |
-| 기본 계약 Green | 19 / 19 / 0 / 0 | [JSON](green-edit.json), [XML](green-edit.xml) |
-| 미사용 열 검증 Red | 20 / 19 / 1 / 0 | [JSON](unused-column-red.json), [XML](unused-column-red.xml): 읽지 않은 열의 인용 오류를 공개함 |
-| 미사용 열 검증 Green | 20 / 20 / 0 / 0 | [JSON](unused-column-green.json), [XML](unused-column-green.xml) |
-| 비동기 계약 | 8 / 8 / 0 / 0 | [JSON](async-green.json), [XML](async-green.xml) |
-| 자산/root 연결·자산 회귀 | 18 / 18 / 0 / 0 | [JSON](resource-integration-green.json), [XML](resource-integration-green.xml) |
-| 최종 전체 EditMode | 61 / 61 / 0 / 0 | [JSON](full-EditMode.json), [XML](full-EditMode.xml) |
-| 최종 전체 PlayMode | 82 / 82 / 0 / 0 | [JSON](full-PlayMode.json), [XML](full-PlayMode.xml) |
+| CSV·snapshot 계약 Red | 19 / 0 / 19 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/red-edit.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/red-edit.xml): 미구현 API의 실제 실패 |
+| 기본 계약 Green | 19 / 19 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/green-edit.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/green-edit.xml) |
+| 미사용 열 검증 Red | 20 / 19 / 1 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/unused-column-red.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/unused-column-red.xml): 읽지 않은 열의 인용 오류를 공개함 |
+| 미사용 열 검증 Green | 20 / 20 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/unused-column-green.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/unused-column-green.xml) |
+| 비동기 계약 | 8 / 8 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/async-green.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/async-green.xml) |
+| 자산/root 연결·자산 회귀 | 18 / 18 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/resource-integration-green.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/resource-integration-green.xml) |
+| 최종 전체 EditMode | 61 / 61 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/full-EditMode.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/full-EditMode.xml) |
+| 최종 전체 PlayMode | 82 / 82 / 0 / 0 | [JSON](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/full-PlayMode.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/full-PlayMode.xml) |
 
 신규 테스트는 EditMode 20건, 비동기 PlayMode 8건, 기존 ResourceManager fixture의 데이터 root 연결 2건이다. EditMode 전체에는 설치된 Addressables DocExample RequiredTest 1건이 포함되며 MyLab 자체 테스트로 세지 않는다. 구현 전에 CSV 계약 19건의 실패를 실제 실행했다. 비동기·root 추가 검사는 이미 구현된 수명 계약을 확인한 검사이며 별도 Red로 주장하지 않는다.
 
@@ -35,9 +35,9 @@
 
 ## 컴파일·Console·정적 확인
 
-MyLab의 기존 Editor PID 42616, Unity 6000.3.18f1, Connector 0.4.1을 사용한다. [Editor 상태](status-after.txt), [컴파일](compile-after.txt), [예상 실패 경로 로그](expected-test-errors.json), Console을 비운 뒤 정상 Editor [오류 0건](console-after.json)을 분리해 저장한다. Test Runner의 LogAssert도 예상하지 않은 오류를 검사한다.
+MyLab의 기존 Editor PID 42616, Unity 6000.3.18f1, Connector 0.4.1을 사용한다. [Editor 상태](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/status-after.txt), [컴파일](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/compile-after.txt), [예상 실패 경로 로그](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/expected-test-errors.json), Console을 비운 뒤 정상 Editor [오류 0건](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/console-after.json)을 분리해 저장한다. Test Runner의 LogAssert도 예상하지 않은 오류를 검사한다.
 
-[정적 검사](static-checks.json)는 새 asset/meta 짝·GUID 중복·문서 링크/색인·변경 범위·사용자 변경 hash를 기록한다. [입력 hash](test-inputs.json)는 최종 실행의 MyLab C#·asmdef·manifest/lock·Unity 버전 텍스트를 UTF-8 BOM 제외·CRLF→LF로 정규화한 SHA-256이다. 최종 전체 실행 이후 코드·assembly·패키지·설정은 변경하지 않는다. JSON은 같은 실행의 최신 완료 TestResults.xml에서 추출한다.
+[정적 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/static-checks.json)는 새 asset/meta 짝·GUID 중복·문서 링크/색인·변경 범위·사용자 변경 hash를 기록한다. [입력 hash](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/data-tables/test-inputs.json)는 최종 실행의 MyLab C#·asmdef·manifest/lock·Unity 버전 텍스트를 UTF-8 BOM 제외·CRLF→LF로 정규화한 SHA-256이다. 최종 전체 실행 이후 코드·assembly·패키지·설정은 변경하지 않는다. JSON은 같은 실행의 최신 완료 TestResults.xml에서 추출한다.
 
 ## 완료 경계
 

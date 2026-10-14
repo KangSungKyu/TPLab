@@ -17,7 +17,7 @@
 
 최초 Red의 1건은 passive DTO 계약이 이미 구현되어 통과했다. FirstEntry source path 경계 1건과 일부 취소 토큰 assertion의 별도 사전 Red는 미실행이다. reveal Red의 최초 접수는 CLI discovery에서 실행 전에 실패하여 결과가 없었고 통과로 세지 않았다. runner의 project 인자를 기존 status 조회와 같은 절대 forward-slash 형태로 통일한 뒤 실제 Red 1건을 확인했다. 원인이 path 표기였다고 확정하지 않는다. 실제 테스트 실패를 자동 재실행하지 않는다.
 
-[최종 입력](test-inputs.json) 217개와 [보존 파일](preserved-inputs.json) 5개의 raw bytes를 확인했다. 컴파일 완료, [원래 Editor ready](final-status.txt), [기존 실패 경로의 예상 로그](expected-test-console.json) 10건 보존 후 [Console 오류·경고 0](final-console.json)을 확인했다. runtime 읽기 리뷰에서 추가 결함을 찾지 못했다. Inspector/정의 사전 gate·성공 Player·소비 프로젝트·시각/input UX는 후속 Phase이며 main 통합과 브랜치 삭제는 사용자 확인까지 보류한다.
+[최종 입력](test-inputs.json) 217개와 [보존 파일](preserved-inputs.json) 5개의 raw bytes를 확인했다. 컴파일 완료, [원래 Editor ready](final-status.txt), [기존 실패 경로의 예상 로그](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-definitions/expected-test-console.json) 10건 보존 후 [Console 오류·경고 0](final-console.json)을 확인했다. runtime 읽기 리뷰에서 추가 결함을 찾지 못했다. Inspector/정의 사전 gate·성공 Player·소비 프로젝트·시각/input UX는 후속 Phase이며 main 통합과 브랜치 삭제는 사용자 확인까지 보류한다.
 
 ```powershell
 python tools/run_unity_tests.py --project C:/Users/PC/Projects/MyLab --mode PlayMode --filter MyLab.Core.Tests.SceneTransitionPolicyTests --output Temp/MyCheck/policy.json

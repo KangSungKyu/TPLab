@@ -33,5 +33,5 @@
 ## Git·최종 검증 마감
 
 - 초안 원문 수정 별도 commit `b68bf1f0eaaa3ef777464e5ee996c5aec7ac9203` (`fix: correct original PR rule draft and scope CI guidance`). baseline과 이전 evidence 보존.
-- 실제 `main...HEAD` AGENTS diff 추가4/삭제0. 직접 CLI도 UTF8 환경 변수 없이 오류0/경고7/exit0; 출력 UTF-8 정상. [결과](../validation/ci-review-p1/fix-p1/pr-rules.json).
+- 실제 `main...HEAD` AGENTS diff 추가4/삭제0. 직접 CLI도 UTF8 환경 변수 없이 오류0/경고7/exit0; 출력 UTF-8 정상. [결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/ci-review-p1/fix-p1/pr-rules.json).
 - 실행 증거만 보존하는 다음 commit을 포함한 정확 최종HEAD·원격 PR/Actions 결과는 PR #1 본문에 갱신. 작업 branch만 push하며 main 병합/branch 삭제/설정 변경은 수행하지 않는다.

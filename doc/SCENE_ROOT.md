@@ -50,10 +50,10 @@ rootObject.SetActive(true);
 ## 검증 (2026-10-02)
 
 - 동일 TPLab Editor: Unity 6000.3.18f1, Connector 0.4.1, PID 42616.
-- 실제 Red: PlayMode 신규 10개 모두 실패, Editor 신규 3개 모두 실패. [runtime](validation/scene-root/red-play.json), [Editor](validation/scene-root/red-editor.json)
-- 전체 Green: EditMode 41/41, PlayMode 41/41, 실패·skip 0. [EditMode](validation/scene-root/green-edit.json), [PlayMode](validation/scene-root/green-play.json)
+- 실제 Red: PlayMode 신규 10개 모두 실패, Editor 신규 3개 모두 실패. [runtime](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/red-play.json), [Editor](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/red-editor.json)
+- 전체 Green: EditMode 41/41, PlayMode 41/41, 실패·skip 0. [EditMode](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/green-edit.json), [PlayMode](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/green-play.json)
 - Editor의 두 메뉴·기존 컴포넌트 보존·순서/영속 설정 직렬화·Undo/Redo와 runtime의 순서·부분 실패·중복 소유·설정 제한·씬 해제/영속성을 자동 검증했다.
-- 반복 Play 자동 검사 10/10: 두 root의 주입 복구·정리 횟수를 네 가지 Domain/Scene Reload 조합에서 확인했다. 원래 씬·옵션을 복원했다. [결과](validation/scene-root/reload-check.json)
-- Editor 컴파일 완료, 상태 ready. LogAssert로 확인한 예상 예외 8건을 [보존](validation/scene-root/expected-test-exceptions.json)했고 최종 Console 오류는 [0건](validation/scene-root/console-errors.json)이다.
-- 반복 Play·컴파일·Console의 최종 근거는 [실행 기록](validation/scene-root/execution.json)에 남긴다. NUnit 테스트 건수와 반복 Play 검사는 별도 집계한다.
+- 반복 Play 자동 검사 10/10: 두 root의 주입 복구·정리 횟수를 네 가지 Domain/Scene Reload 조합에서 확인했다. 원래 씬·옵션을 복원했다. [결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/reload-check.json)
+- Editor 컴파일 완료, 상태 ready. LogAssert로 확인한 예상 예외 8건을 [보존](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/expected-test-exceptions.json)했고 최종 Console 오류는 [0건](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/console-errors.json)이다.
+- 반복 Play·컴파일·Console의 최종 근거는 [실행 기록](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-root/execution.json)에 남긴다. NUnit 테스트 건수와 반복 Play 검사는 별도 집계한다.
 - 사용자 직접 실행 확인이 필요한 항목은 없다. 소비 프로젝트 가져오기·Player 빌드·다른 Unity 버전은 미검증이다. 기존 `ProjectSettings/SceneTemplateSettings.json`은 보존하고 포함하지 않는다.

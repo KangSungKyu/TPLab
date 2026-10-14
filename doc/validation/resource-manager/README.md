@@ -6,14 +6,14 @@
 
 | 단계 | 실행 / 통과 / 실패 / skip | 증거 |
 |---|---|---|
-| 자산 API Red | 8 / 0 / 8 / 0 | [red.json](red.json): 미구현 API·입력 검증 실패 |
-| 자산 API Green | 8 / 8 / 0 / 0 | [asset-green.json](asset-green.json) |
-| installer Red | 13 / 10 / 3 / 0 | [installer-red.json](installer-red.json): 누락된 주입·준비 계약 |
-| installer Green | 13 / 13 / 0 / 0 | [installer-green.json](installer-green.json) |
-| 스레드 경계 Red | 1 / 0 / 1 / 0 | [thread-red.json](thread-red.json): worker Dispose가 상태를 변경함; 실제 CLI 출력 기록 |
-| 기능별 Green | 16 / 16 / 0 / 0 | [targeted-green.json](targeted-green.json), [XML](targeted-green.xml) |
-| 최종 전체 EditMode | 41 / 41 / 0 / 0 | [full-EditMode.json](full-EditMode.json), [XML](full-EditMode.xml) |
-| 최종 전체 PlayMode | 72 / 72 / 0 / 0 | [full-PlayMode.json](full-PlayMode.json), [XML](full-PlayMode.xml) |
+| 자산 API Red | 8 / 0 / 8 / 0 | [red.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/red.json): 미구현 API·입력 검증 실패 |
+| 자산 API Green | 8 / 8 / 0 / 0 | [asset-green.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/asset-green.json) |
+| installer Red | 13 / 10 / 3 / 0 | [installer-red.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/installer-red.json): 누락된 주입·준비 계약 |
+| installer Green | 13 / 13 / 0 / 0 | [installer-green.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/installer-green.json) |
+| 스레드 경계 Red | 1 / 0 / 1 / 0 | [thread-red.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/thread-red.json): worker Dispose가 상태를 변경함; 실제 CLI 출력 기록 |
+| 기능별 Green | 16 / 16 / 0 / 0 | [targeted-green.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/targeted-green.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/targeted-green.xml) |
+| 최종 전체 EditMode | 41 / 41 / 0 / 0 | [full-EditMode.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/full-EditMode.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/full-EditMode.xml) |
+| 최종 전체 PlayMode | 72 / 72 / 0 / 0 | [full-PlayMode.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/full-PlayMode.json), [XML](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/full-PlayMode.xml) |
 
 최종 PlayMode 72건에는 기존 56건과 새 ResourceManager 16건이 포함된다. EditMode 41건 중 1건은 설치된 Addressables DocExample의 RequiredTest이며 MyLab 자체 테스트로 세지 않는다. 최종 전체 실행은 ResourceManager가 native catalog를 직접 초기화하도록 강화한 fixture를 포함한다.
 
@@ -34,12 +34,12 @@ native Addressables 초기화·ResourceProvider·ResourceLocator·AsyncOperation
 
 ## 컴파일·Console·정적 확인
 
-- MyLab 기존 Editor PID 42616 / Unity 6000.3.18f1 / Connector 0.4.1 사용: [status-after.txt](status-after.txt).
-- Editor 컴파일 완료: [compile-after.txt](compile-after.txt). 별도 Player 빌드 증거가 아니다.
-- 예상된 실패 경로 로그는 [expected-test-errors.json](expected-test-errors.json), [full-expected-test-errors.json](full-expected-test-errors.json)에 분리했다. Test Runner의 LogAssert도 예상하지 않은 로그를 검사했다. Console을 비운 후 컴파일·정상 Editor 상태의 오류 0건: [console-after.json](console-after.json).
-- 새 asset/meta 5쌍, MyLab GUID 중복 0, runtime의 UnityEditor/UI 의존 없음, package/settings 변경 없음. [static-checks.json](static-checks.json).
+- MyLab 기존 Editor PID 42616 / Unity 6000.3.18f1 / Connector 0.4.1 사용: [status-after.txt](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/status-after.txt).
+- Editor 컴파일 완료: [compile-after.txt](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/compile-after.txt). 별도 Player 빌드 증거가 아니다.
+- 예상된 실패 경로 로그는 [expected-test-errors.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/expected-test-errors.json), [full-expected-test-errors.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/full-expected-test-errors.json)에 분리했다. Test Runner의 LogAssert도 예상하지 않은 로그를 검사했다. Console을 비운 후 컴파일·정상 Editor 상태의 오류 0건: [console-after.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/console-after.json).
+- 새 asset/meta 5쌍, MyLab GUID 중복 0, runtime의 UnityEditor/UI 의존 없음, package/settings 변경 없음. [static-checks.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/static-checks.json).
 - 보존한 InitScene SHA-256: `12C5C4095B1806434C0D7758B7F91CDD830BFB5C78F1F7E25E331038F823B045`.
-- [test-inputs.json](test-inputs.json)은 최종 검증 코드·asmdef·manifest/lock·Unity 버전의 SHA-256이다. UTF-8 BOM 제외·CRLF를 LF로 정규화한 텍스트를 해시하여 Git checkout 줄바꿈에 독립적이다.
+- [test-inputs.json](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/resource-manager/test-inputs.json)은 최종 검증 코드·asmdef·manifest/lock·Unity 버전의 SHA-256이다. UTF-8 BOM 제외·CRLF를 LF로 정규화한 텍스트를 해시하여 Git checkout 줄바꿈에 독립적이다.
 
 ## 완료 경계
 

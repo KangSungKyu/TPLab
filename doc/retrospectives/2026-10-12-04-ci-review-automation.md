@@ -37,6 +37,6 @@
 ## 2026-10-12 PR 마감
 
 - `codex/github-review-p1`만 푸시했고 [PR #1](https://github.com/KangSungKyu/TPLab/pull/1)을 생성·작업에 연결. main SHA 보존, 다른 branch push/삭제 없음.
-- 정확 head `9383e4d6ea6e89e777f883049c3ab4e96fa634c7`의 [실제 PR 규칙 검사](https://github.com/KangSungKyu/TPLab/actions/runs/38194948859) 성공. 변경 규칙 경고7개·GitHub runner migration notice1개, 오류 annotation0. 새 helper의 실제 API 조회 complete/PASSED·exit0. [원문 근거](../validation/ci-review-p1/github-ci-9383e4d.json).
+- 정확 head `9383e4d6ea6e89e777f883049c3ab4e96fa634c7`의 [실제 PR 규칙 검사](https://github.com/KangSungKyu/TPLab/actions/runs/38194948859) 성공. 변경 규칙 경고7개·GitHub runner migration notice1개, 오류 annotation0. 새 helper의 실제 API 조회 complete/PASSED·exit0. [원문 근거](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/ci-review-p1/github-ci-9383e4d.json).
 - 원격 근거·회고만 추가하는 후속 커밋의 최종 head와 Actions 결과는 PR 본문에 갱신. 기존 실행을 후속 코드 변경의 증거로 전용하지 않는다.
 - Claude 실제 실행은 미실행. 사용자 App/OAuth 설정·병합 승인·가이드 S1–S5 확인을 기다린다. 작업 완료 후 이번 Temp/ci-review-p1의 소비 완료 파일만 정리한다.

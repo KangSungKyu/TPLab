@@ -133,7 +133,7 @@ bool returned = pool.TryReturn(clone);
 - IMP-01: 실제 Red 18개 중 예상 실패1 → Green Prefab18/18·기존generic24/24·보충15/15, 초기 전체 Edit334/334·Play307/307 이후 추가 경계3개를 검증했고, 최종 전체 Edit335/335·Play309/309, fail/skip0. 워밍업 뒤 재사용/정원 점검/죽은 슬롯 회복 두 GC 테스트는 당시 각1,000회 counter0B를 보고했습니다(위 Editor 계측 정정 적용). 현재 유효 대조 기반 측정은 workload0 events입니다. [IMP-01 검증 기록](../validation/imp-01/README.md)의 범위·raw 결과·한계를 확인하세요. 살아 있는 대여·isAlive 생략은 baseline/현재 모두 PASS, dead inactive는 같은 호출 교체를 baseline FAIL/현재 PASS로 사후 비교했습니다. 공개 Prune은 보류(소비 프로젝트의 즉시 정리 필요에 따라 별도 결정)입니다. 2026-10-12 사용자 수락을 완료했으며 새 소비 프로젝트/Player 검증은 별도입니다. 아래 과거 결과는 현재 변경의 Green 증거가 아닙니다.
 
 - 이전 source revision `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`의 역사적 전체 회귀: [EditMode 258/258](../validation/input-system/p4/full-EditMode.json), [PlayMode 217/217](../validation/input-system/p4/full-PlayMode.json). 전체 실행에는 `ObjectPool<T>`와 `PrefabPool` 검사가 포함됩니다. 실행 환경·범위는 [P4 검증 기록](../validation/input-system/p4/README.md)을 참조하세요.
-- 이전 Input 포함 소비 프로젝트는 별도 Windows Mono Editor/Player에서 성공했습니다. Player의 pool 재사용 관찰은 **generic `ObjectPool<T>`** 경로입니다. [`최종 소비 결과`](../validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json).
+- 이전 Input 포함 소비 프로젝트는 별도 Windows Mono Editor/Player에서 성공했습니다. Player의 pool 재사용 관찰은 **generic `ObjectPool<T>`** 경로입니다. [`최종 소비 결과`](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/input-system/p4/consumer-included-final/core-consumer-20261007T033305Z-23128.json).
 - 이전 focused `object-pool/green-*.json` 자료는 과거 증거이며 현행 `PrefabPool` 결과로 사용하지 않습니다.
 - 이 근거는 Unity `6000.3.18f1` / Windows Mono 범위이며, 다른 버전·backend·플랫폼의 호환성을 입증하지 않습니다.
 

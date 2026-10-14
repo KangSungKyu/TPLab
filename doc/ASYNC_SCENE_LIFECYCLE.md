@@ -55,7 +55,7 @@ ShowCoverAsync, HideCoverAsync, EnterSceneAsync는 각각 `Func<CancellationToke
 
 실제 Red/Green, 전체 테스트, 반복 Play, 컴파일·Console 및 보존 파일 해시는 `doc/validation/async-scene/`에 기록한다. 테스트는 연출 callback의 완료 순서와 상태를 검사하며 실제 화면의 페이드·입력 UX를 확인한 증거는 아니다. 실제 UI 연출, 다른 프로젝트 가져오기와 Player 빌드는 후속 통합 단계다.
 
-- 실제 Red: 신규 12건 실패, reveal 복구 추가 검사 2건 실패. [초기](validation/async-scene/red-play.json), [복구](validation/async-scene/red-reveal.json)
-- Green 전체: EditMode 41/41, PlayMode 56/56, 실패·skip 0. [EditMode](validation/async-scene/green-edit.json), [PlayMode](validation/async-scene/green-play.json)
-- 반복 Play 10/10: 두 root의 준비·해제와 원래 씬·옵션 복원 확인. [결과](validation/async-scene/reload-check.json)
-- 컴파일 완료·상태 ready·최종 Console 오류 0건. 실패 경로의 예상 예외 8건 보존. [실행·복구·보존 기록](validation/async-scene/execution.json)
+- 실제 Red: 신규 12건 실패, reveal 복구 추가 검사 2건 실패. [초기](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/async-scene/red-play.json), [복구](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/async-scene/red-reveal.json)
+- Green 전체: EditMode 41/41, PlayMode 56/56, 실패·skip 0. [EditMode](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/async-scene/green-edit.json), [PlayMode](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/async-scene/green-play.json)
+- 반복 Play 10/10: 두 root의 준비·해제와 원래 씬·옵션 복원 확인. [결과](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/async-scene/reload-check.json)
+- 컴파일 완료·상태 ready·최종 Console 오류 0건. 실패 경로의 예상 예외 8건 보존. [실행·복구·보존 기록](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/async-scene/execution.json)

@@ -8,17 +8,17 @@
 
 ## 실제 실행
 
-- [최초 EditMode](red-edit.json): 271개 중 pass269/fail2/skip0. SceneTransitionEditorTests TearDown의 File.WriteAllBytes에서 Win32 IO 1224가 발생했다. 실패를 성공으로 대체하지 않는다.
+- [최초 EditMode](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/tplab-naming/red-edit.json): 271개 중 pass269/fail2/skip0. SceneTransitionEditorTests TearDown의 File.WriteAllBytes에서 Win32 IO 1224가 발생했다. 실패를 성공으로 대체하지 않는다.
 - Unity가 내부 캐시한 파일 핸들을 해제하도록 테스트·예제의 Build Settings 복원 직전에 AssetDatabase.ReleaseCachedFileHandles를 추가했다. 테스트는 복원 bytes 일치도 확인한다. [Unity 공식 API](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AssetDatabase.ReleaseCachedFileHandles.html)는 자산 수정 시 파일 공유 오류를 방지하기 위한 API다.
 - [수정 후 EditMode](full-edit.json): pass271/fail0/skip0. 원래 Editor PID23120, Unity6000.3.18f1, Connector0.4.1.
 - [PlayMode](full-play.json): pass253/fail0/skip0. 동일 원래 Editor에서 실행했다.
-- 실제 Windows Mono 예제 빌드: [Additive](../scene-loading/tplab-naming-build-additive.json)·[Single](../scene-loading/tplab-naming-build-single.json), 각각 errors0/warnings0. 씬 setup·backend·Build Settings 복원 성공.
-- 실제 Player: [Additive](../scene-loading/tplab-naming-player-additive/scene-player-additive-20261007T064834Z-31168.json)·[Single](../scene-loading/tplab-naming-player-single/scene-player-single-20261007T064926Z-26268.json), 각각 completedChecks12/12·exit0. 새 `-tplab-*` 인수로 native 전환·로딩·해제 smoke를 확인했다.
-- 독립 최소 소비 프로젝트: [Core만](../scene-loading/tplab-naming-consumer-core/core-consumer-20261007T064913Z-19632.json)·[Core+Input](../scene-loading/tplab-naming-consumer-input/core-consumer-20261007T064538Z-36104.json), 각각 Editor build1회와 Player1회 성공(actualRuns2). 게임별 코드 없이 동일 Unity6000.3.18f1·Mono에서 가져오기·실행을 확인한다. 소비 로그는 각 폴더의 preserved-logs.json이 영속 경로를 기록한다.
-- [Native 씬 검사](native-scenes.json): 사용자 InitScene과 예제6개 각각 root1/누락스크립트0, loaded old MyLab assembly0, productName TPLab.
-- [정적 이름/GUID 검사](rename-static.json): metadata180개 raw bytes 유지, GUID180개 중복0, assembly11개 새 이름, 문서104개 링크 확인. [source 입력](test-inputs.json)317개와 [보호 입력](preserved-inputs.json)7개 검증. [빌드 자동 변경 복원](build-settings-restoration.json)은 명시한 설정7개만 원복하고 새 프로젝트 이름을 유지한다.
+- 실제 Windows Mono 예제 빌드: [Additive](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/tplab-naming-build-additive.json)·[Single](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/tplab-naming-build-single.json), 각각 errors0/warnings0. 씬 setup·backend·Build Settings 복원 성공.
+- 실제 Player: [Additive](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/tplab-naming-player-additive/scene-player-additive-20261007T064834Z-31168.json)·[Single](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/tplab-naming-player-single/scene-player-single-20261007T064926Z-26268.json), 각각 completedChecks12/12·exit0. 새 `-tplab-*` 인수로 native 전환·로딩·해제 smoke를 확인했다.
+- 독립 최소 소비 프로젝트: [Core만](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/tplab-naming-consumer-core/core-consumer-20261007T064913Z-19632.json)·[Core+Input](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-loading/tplab-naming-consumer-input/core-consumer-20261007T064538Z-36104.json), 각각 Editor build1회와 Player1회 성공(actualRuns2). 게임별 코드 없이 동일 Unity6000.3.18f1·Mono에서 가져오기·실행을 확인한다. 소비 로그는 각 폴더의 preserved-logs.json이 영속 경로를 기록한다.
+- [Native 씬 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/tplab-naming/native-scenes.json): 사용자 InitScene과 예제6개 각각 root1/누락스크립트0, loaded old MyLab assembly0, productName TPLab.
+- [정적 이름/GUID 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/tplab-naming/rename-static.json): metadata180개 raw bytes 유지, GUID180개 중복0, assembly11개 새 이름, 문서104개 링크 확인. [source 입력](test-inputs.json)317개와 [보호 입력](preserved-inputs.json)7개 검증. [빌드 자동 변경 복원](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/tplab-naming/build-settings-restoration.json)은 명시한 설정7개만 원복하고 새 프로젝트 이름을 유지한다.
 - run_core_consumer·run_scene_player·capture_validation_inputs self-check 각각1회 통과. 최초 Player 인수의 output 경로가 allowlist 밖이라 실행 전 거부1회였으며 실제 Player 실행0건이었다. 올바른 Temp/GameScenesTrack 경로의 새 실행을 사용한다.
-- [최종 Console](final-console.json)은 오류·경고0, [원래 Editor](final-status.txt) ready/PID23120. [소스 GitHub 검사](source-ci.json)는 main 비보호·workflow/check/status/run0으로 CI 미구성을 확인했으며 CI 성공이라고 표현하지 않는다.
+- [최종 Console](final-console.json)은 오류·경고0, [원래 Editor](final-status.txt) ready/PID23120. [소스 GitHub 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/tplab-naming/source-ci.json)는 main 비보호·workflow/check/status/run0으로 CI 미구성을 확인했으며 CI 성공이라고 표현하지 않는다.
 
 ## 보호와 한계
 
@@ -28,4 +28,4 @@
 
 ## Git 마감
 
-최종 문서·증거 `9ae5c15355132b80384541e9371b53e109439805`의 exact GitHub 검사는 [integration-ci](integration-ci.json)에 보존한다. main 비보호·CI 미구성이다. 이 commit은 main에 fast-forward push됐고 서버 일치를 확인했다. 추가 소스 변경 없이 이 마감 문서만 통합한 뒤 승인된 작업 브랜치 정리를 수행한다. 상세 완료 기록은 [회고](../../retrospectives/2026-10-07-13-tplab-naming.md)와 Git 이력을 따른다.
+최종 문서·증거 `9ae5c15355132b80384541e9371b53e109439805`의 exact GitHub 검사는 [integration-ci](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/tplab-naming/integration-ci.json)에 보존한다. main 비보호·CI 미구성이다. 이 commit은 main에 fast-forward push됐고 서버 일치를 확인했다. 추가 소스 변경 없이 이 마감 문서만 통합한 뒤 승인된 작업 브랜치 정리를 수행한다. 상세 완료 기록은 [회고](../../retrospectives/2026-10-07-13-tplab-naming.md)와 Git 이력을 따른다.

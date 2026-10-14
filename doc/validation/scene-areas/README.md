@@ -15,9 +15,9 @@
 
 27건은 실제 Red 18건, Green 보완 경계 8건, 리뷰 후 추가 Red 1건이다. 추가 8건의 별도 사전 Red는 미실행이다. 대상 unload 뒤 비동기 reveal 동안에도 보존된 제거 작업 record로 self/생존 ancestor 권한을 확인하여 같은 완료를 공유한다. sibling/default requester는 거부한다. Add 결과는 작업별 실제 Scene을 저장하여 다음 동기 awaiter의 명령과 분리한다. 제거되는 active subtree는 가장 가까운 생존 부모를 선택하며, subtree 밖 active sibling은 유지한다. 실패한 unload는 성공으로 바꾸거나 자동 재시도하지 않는다.
 
-[최종 입력](test-inputs.json) 199개와 [보존 파일](preserved-inputs.json) 5개의 raw bytes를 확인했다. 컴파일 완료, [Editor ready](final-status.txt), [예상 테스트 로그](expected-test-console.json) 10건 보존 후 [Console 오류·경고 0](final-console.json)을 확인했다. 최종 전체 Play는 해당 CLI PID의 fresh Connector 결과로 보존했다. 테스트 build scene 목록은 기존 setup의 raw snapshot/복원을 재사용한다.
+[최종 입력](test-inputs.json) 199개와 [보존 파일](preserved-inputs.json) 5개의 raw bytes를 확인했다. 컴파일 완료, [Editor ready](final-status.txt), [예상 테스트 로그](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-areas/expected-test-console.json) 10건 보존 후 [Console 오류·경고 0](final-console.json)을 확인했다. 최종 전체 Play는 해당 CLI PID의 fresh Connector 결과로 보존했다. 테스트 build scene 목록은 기존 setup의 raw snapshot/복원을 재사용한다.
 
-최초 전체 Edit 시도는 CLI discovery에서 실행 전에 거부되어 결과가 없었으며 통과로 세지 않았다. [도구 검사](driver-checks.json)는 그 실패와 self-check Red/Green을 기록한다. runner는 정확한 실행 전 discovery 오류에만 동일 Editor PID를 다시 확인하고 한 번 더 접수한다. 실제 테스트 실패·모호한 결과를 재실행하지 않는다. 이후 실제 전체 Edit 213건이 통과했다.
+최초 전체 Edit 시도는 CLI discovery에서 실행 전에 거부되어 결과가 없었으며 통과로 세지 않았다. [도구 검사](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-areas/driver-checks.json)는 그 실패와 self-check Red/Green을 기록한다. runner는 정확한 실행 전 discovery 오류에만 동일 Editor PID를 다시 확인하고 한 번 더 접수한다. 실제 테스트 실패·모호한 결과를 재실행하지 않는다. 이후 실제 전체 Edit 213건이 통과했다.
 
 정의/조건·Inspector·성공 Player·소비 프로젝트·실제 UI는 후속 Phase다. main 통합과 브랜치 삭제는 최종 명시적 사용자 확인까지 보류한다.
 
