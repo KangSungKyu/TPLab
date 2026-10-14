@@ -115,4 +115,6 @@ M2 임시 도구의 최초 preflight는 thread/mutation 문자열이 EnsureComma
 
 ## 최종 검사 기록
 
-공백·링크·규칙·exact-SHA Actions는 PR 게시 단계에서 결과를 보완한다. source(위 기준 runtime+동결 test)와 최종 commit metadata를 구분하며 이후 runtime/test 변경이 있으면 해당 검증을 다시 실행한다.
+구현/검증 source commit은 `14e16fc06df71cc160bee1c10268a91d6aa57cb6`다. `tools/check_pr_rules.py --base 73a12f6ac4c4bd9f45db6ca9d14f94cbc8fc4e67 --head <tip>` 결과 오류0·경고0, `git diff --check <base> <tip>` 공백0이다. Markdown241개·local link1992개·anchor447개에서 기존 오류6개를 확인했고 새 회고/INDEX 오류0이다. 보호 파일 warning도 없다.
+
+source의 [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38514071190)는 exact SHA completed/success다. targetSha=inspectedCommit, remoteMain=위 base, 조회 collection 모두 complete·errors0, queryIssues/blockingReasons0, run1/check1 completed/success를 확인했다. 이 문단 보완은 문서 metadata만 바꾸며 runtime·동결 test는 동일하다. 최종 tip도 같은 도구로 새로 exact-SHA 판정하며 최종 SHA·Actions run은 [PR #21 Checks](https://github.com/KangSungKyu/TPLab/pull/21/checks)와 채팅 완료 보고에 대응시킨다. 이후 runtime/test 변경이 있으면 해당 검증을 다시 실행한다. PR #21은 open·미병합 상태로 둔다. PR 본문·INDEX에는 증거 수치를 복제하지 않는다.
