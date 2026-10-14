@@ -149,7 +149,7 @@ skip은 `test_symlink_output_rejected`의 `OS does not permit directory symlinks
 
 `git diff --check <base> <HEAD>`·`tools/check_pr_rules.py --base <base> --head <HEAD>`·최종HEAD exact-SHA Actions는아래완료상태에기록한다. 사용자dirty의기존공백문제는승인diff검사에섞지않는다.
 
-완료 상태: 최종 커밋·배포 도구 전후 비교·규칙·Actions 확인 대기. PR은 open으로 유지한다. 증거 요약은 회고 한 곳에 두고 PR/색인은 상태와 링크만 남긴다.
+완료 상태: 변경source commit `72e7324c9a01f689bcde286ddb3247120b638940`에서 배포19통과·소비13통과/1skip·self-check PASS의전후case결과동일, 규칙오류0·경고0·scoped공백오류0, exact-SHA [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38512164363) run1/check1 completed/success·모든collectioncomplete·queryIssues/blockingReasons0을확인했다. 독립diff감사에서도핵심누락·잘못된주장0이었다. 이완료문장갱신뒤최종tip의링크·규칙·exact-SHA gate를다시확인한다. 최종metadata는 [PR #20 Checks](https://github.com/KangSungKyu/TPLab/pull/20/checks)에대응하며위검증source와구별한다. PR은open으로유지하고병합하지않는다. 증거요약은회고한곳에두고PR/색인은상태와링크만남긴다.
 
 ## 삭제 파일 전체 목록
 
