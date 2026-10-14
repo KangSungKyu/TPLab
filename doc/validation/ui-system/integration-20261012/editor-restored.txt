@@ -1,1 +1,0 @@
-{"pid":24376,"playing":false,"compiling":false,"updating":false,"scene":"Assets/Scenes/InitScene.unity","dirty":false,"reviewKey":"","startScene":"","buildScenes":[{"path":"Assets/Scenes/SampleScene.unity","enabled":false}]}

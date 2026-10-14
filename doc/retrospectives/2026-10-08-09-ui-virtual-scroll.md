@@ -17,10 +17,10 @@
 
 ## Validation and limits
 
-- Red: EditMode 7/7 failed and PlayMode 7/7 failed, skip0; failures came from `NotImplementedException` in signature stubs. [Red Edit](../validation/ui-system/p5/red-edit.json) | [Red Play](../validation/ui-system/p5/red-play.json).
-- First Green on original Editor PID 24376: EditMode 31/31 and PlayMode 48/48, failed0/skip0. [First Green Edit](../validation/ui-system/p5/first-green-edit.json) | [First Green Play](../validation/ui-system/p5/first-green-play.json).
+- Red: EditMode 7/7 failed and PlayMode 7/7 failed, skip0; failures came from `NotImplementedException` in signature stubs. [Red Edit](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p5/red-edit.json) | [Red Play](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p5/red-play.json).
+- First Green on original Editor PID 24376: EditMode 31/31 and PlayMode 48/48, failed0/skip0. [First Green Edit](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p5/first-green-edit.json) | [First Green Play](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p5/first-green-play.json).
 - Final focused UI79 passed EditMode 31/31 and PlayMode 48/48, failed0/skip0; product Console was empty. [Final Edit](../validation/ui-system/p5/final-edit.json) | [Final Play](../validation/ui-system/p5/final-play.json). Edit runId `7984bff4b98d43e0b8aba050ba85b45e`; Play connector run `34780-1791455587583642700` recovered the completed result after CLI timeout, with no rerun.
-- Final input snapshot verified 406 entries: 405 non-protected source matches and six protected files unchanged. [Source match](../validation/ui-system/p5/source-commit-match.json).
+- Final input snapshot verified 406 entries: 405 non-protected source matches and six protected files unchanged. [Source match](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p5/source-commit-match.json).
 - Fourteen P5 tests cover native ScrollRect extent/window/index-to-Text mapping, counts 0/1/100/1000/10000, scrollbar and synthetic drag/inertia, shrink/restore, resize, disable/destroy, partial bind failure, and delayed stale-generation completion. Synthetic PointerEventData is not physical-device or Input System UX evidence.
 - Warmed fixed-viewport counter stability demonstrates bounded ownership/reuse only. P7 consumer install, graphics Player, native-versus-virtual 1000-row performance, separate 10000-row scalability, Profiler measurement, Canvas composition, broad UX, and user acceptance remain NotRun.
 

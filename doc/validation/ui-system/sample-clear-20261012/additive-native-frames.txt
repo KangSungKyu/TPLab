@@ -1,1 +1,0 @@
-{"playing":true,"background":true,"frame":122}

@@ -1,1 +1,0 @@
-{"originalBackground":false,"temporaryBackground":true,"frame":1}

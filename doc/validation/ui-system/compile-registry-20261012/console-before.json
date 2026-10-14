@@ -1,7 +1,0 @@
-[
-  "Assets\\TPLab\\UI\\Runtime\\UIContext.cs(896,17): error CS0246: The type or namespace name 'UIPresentation' could not be found (are you missing a using directive or an assembly reference?)\n",
-  "Assets\\TPLab\\UI\\Runtime\\UIHandle.cs(31,18): error CS0246: The type or namespace name 'UIPresentation' could not be found (are you missing a using directive or an assembly reference?)\n",
-  "Assets\\TPLab\\UI\\Runtime\\UIContext.cs(941,57): error CS0246: The type or namespace name 'UIPresentation' could not be found (are you missing a using directive or an assembly reference?)\n",
-  "Assets\\TPLab\\UI\\Runtime\\UIContext.cs(1224,71): error CS0246: The type or namespace name 'UIPresentation' could not be found (are you missing a using directive or an assembly reference?)\n",
-  "Assets\\TPLab\\UI\\Runtime\\UIContext.cs(35,45): error CS0246: The type or namespace name 'UIPresentation' could not be found (are you missing a using directive or an assembly reference?)\n"
-]

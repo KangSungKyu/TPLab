@@ -34,10 +34,10 @@
 
 | 삭제 전 출처 | 원문 값 | 삭제 후 상태 |
 |---|---|---|
-| [p5/red-edit-prestart.json:4](https://github.com/KangSungKyu/TPLab/blob/d9c2f8896a21081063179f791aabc78d5399e96c/doc/validation/ui-system/p5/red-edit-prestart.json#L4) | `sourceSnapshot = "red-inputs/test-inputs.json"` | 원문 파일을 유지하며 끊긴 출처 문자열로 남는다. |
-| [p7/first-consumer-diagnosis.json:9](https://github.com/KangSungKyu/TPLab/blob/d9c2f8896a21081063179f791aabc78d5399e96c/doc/validation/ui-system/p7/first-consumer-diagnosis.json#L9) | `preservedFailure = "consumer-base-a/smoke-result.json"` | 원문 파일을 유지하며 끊긴 출처 문자열로 남는다. |
+| [p5/red-edit-prestart.json:4](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p5/red-edit-prestart.json#L4) | `sourceSnapshot = "red-inputs/test-inputs.json"` | 원문 파일을 유지하며 끊긴 출처 문자열로 남는다. |
+| [p7/first-consumer-diagnosis.json:9](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p7/first-consumer-diagnosis.json#L9) | `preservedFailure = "consumer-base-a/smoke-result.json"` | 원문 파일을 유지하며 끊긴 출처 문자열로 남는다. |
 | [p7/sample-additive-b/process.json:16](https://github.com/KangSungKyu/TPLab/blob/d9c2f8896a21081063179f791aabc78d5399e96c/doc/validation/ui-system/p7/sample-additive-b/process.json#L16) | `buildEvidence = "doc\\validation\\ui-system\\p7\\consumer-input-additive-b"` | 출처 파일 자체도 승인된 51파일에 포함돼 함께 삭제됐다. 문자열 수정 없이 Git 이력에 남는다. |
-| [p7/sample-single-a/process.json:16](https://github.com/KangSungKyu/TPLab/blob/d9c2f8896a21081063179f791aabc78d5399e96c/doc/validation/ui-system/p7/sample-single-a/process.json#L16) | `buildEvidence = "doc\\validation\\ui-system\\p7\\consumer-input-single-a"` | 원문 파일을 유지하며 끊긴 출처 문자열로 남는다. |
+| [p7/sample-single-a/process.json:16](https://github.com/KangSungKyu/TPLab/blob/5b08d90e3976d6f9faa16d68895ab663ad6a0133/doc/validation/ui-system/p7/sample-single-a/process.json#L16) | `buildEvidence = "doc\\validation\\ui-system\\p7\\consumer-input-single-a"` | 원문 파일을 유지하며 끊긴 출처 문자열로 남는다. |
 
 즉 알려진 4건 중 현 checkout에 남는 끊긴 문자열은 3건이다. 삭제된 JSON 안의 1건도 원문 이력으로 열람할 수 있다. 이것은 사용자가 명시적으로 허용한 과거 출처 정보이며 작동하는 현재 로컬 입력으로 표시하지 않는다.
 
