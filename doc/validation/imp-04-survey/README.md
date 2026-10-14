@@ -260,7 +260,7 @@ native-only `SceneLoaderPlayModeTests` 14개는 explicit TCS 62개에 포함하�
 | `TPLab.Core.Tests.ResourceManagerTests` | 20/20/0/0 | 7.785239 |
 | 합계 | 46/46/0/0 | 각 필터별 측정이며 suite 합산 성능 점수 아님 |
 
-보조 과거 자료(현재 실행 확인의 대체 아님): de879b9/2026-10-08/Unity6000.3.18f1 Windows Mono의 [Edit286 XML](../distribution-candidate/final2-EditMode.xml)은 최대 case `NestedDerivedConditionUnionIsVisitedSafelyAndNeverEvaluated` 0.643471초, suite14.5581651초. [Play253 XML](../distribution-candidate/final2-PlayMode.xml)은 최대 case `TimeoutIncludesReleaseWait` 0.505106초, suite2.8085409초. 현재 case별 시간은 미수집이며 Editor/기기/플랫폼에 일반화하지 않는다.
+보조 과거 자료(현재 실행 확인의 대체 아님): de879b9/2026-10-08/Unity6000.3.18f1 Windows Mono의 [Edit286 XML](https://github.com/KangSungKyu/TPLab/blob/73a12f6ac4c4bd9f45db6ca9d14f94cbc8fc4e67/doc/validation/distribution-candidate/final2-EditMode.xml)은 최대 case `NestedDerivedConditionUnionIsVisitedSafelyAndNeverEvaluated` 0.643471초, suite14.5581651초. [Play253 XML](https://github.com/KangSungKyu/TPLab/blob/73a12f6ac4c4bd9f45db6ca9d14f94cbc8fc4e67/doc/validation/distribution-candidate/final2-PlayMode.xml)은 최대 case `TimeoutIncludesReleaseWait` 0.505106초, suite2.8085409초. 현재 case별 시간은 미수집이며 Editor/기기/플랫폼에 일반화하지 않는다.
 
 | 적용 방식 | 장점 | 제약/검증할 부분 |
 |---|---|---|
