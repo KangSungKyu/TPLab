@@ -208,3 +208,44 @@ NotRun: Unity EditMode·PlayMode·컴파일·제품 Console·Player/IL2CPP·새 
 세부 운영을 이관할 때 문단 단위 삭제만 하면 UI source·대규모 검증 같은 영속 요건이 빠질 수 있다. 문장별 판정과 기준 blob 대조로 보완했고, 증거 소유 변경은 원문과 현재 승인 규칙을 함께 기록해 역사 왜곡을 피했다. 추가 발견은 제안으로만 남기고 실행 범위를 늘리지 않았다.
 
 다음 행동은 PR #13의 사용자 diff 검토와 명시적 병합 승인이다. 그전에는 main1ddc87d와 두 작업 브랜치를 유지한다. 원시 자료 삭제·CLAUDE/상태 문구/역할 변경·누락된 과거 색인 정리는 별도 요청과 범위 결정이 필요하다.
+
+
+## 보호 파일 정렬 후속 — 2026-10-13
+
+사용자18:02 명시 승인으로 A를 완료했다. PR #13 HEAD8b8ac87·base1ddc87d·그 SHA의 Actions completed/success를 새로 조회해 모두 일치한 뒤 일반 merge했다. 병합/main SHA는 `17eb28b1f538001900f34ffd3d310016aace7ffa`이며 로컬·원격 main 일치를 확인했다. `codex/docs-governance-slim`은 원본 tip 도달성·worktree 확인·원격 SHA 조건 뒤 로컬/원격에서 삭제했다. dirty6와 A 범위 밖 추적2242개 raw hash를 보존했다. 이전 전체파일 raw 비교는 병합 문서의 checkout 줄끝까지 포함했으므로 이를 범위 밖 파일 hash와 Git tree 일치로 구분해 확인했다; 사용자 파일을 정정하지 않았다.
+
+B는 이 main에서 `codex/protected-docs-align`을 생성한 T0 문서 후속이다. AGENTS의 승인 표현·역할 도입부와 CLAUDE 검토5만 수정하고 이 회고에 짧게 덧붙였다. 새 회고·색인 행을 만들지 않았다. AGENTS의 인접 확정 범위/요청 확대 금지·권한 확인은 그대로다. 역할 도입부에 별도 사용자 권한 조건은 없었으며 새 문장이 설계/범위를 사용자에게 명시한다. [결정됨]/[제안]·가이드 원문·등급표는 변경하지 않고 AGENTS에 등급표를 복제하지 않았다. 다른 낡은 문구·이전 회고 본문은 수정하지 않았다.
+
+B1 변경 전 → 후 전문:
+
+```markdown
+- 모든 변경 등급의 main 병합은 사용자의 명시적 승인 뒤에만 진행한다. 2026-10-13 사용자 승인(블록 X)에 따라 2026-10-02의 추가 확인 없는 병합 승인을 대체하며, [D-F 변경 절차](doc/guidelines/08-change-procedure.md)의 병합 전 사용자 확인을 생략하지 않는다.
+```
+
+```markdown
+- 모든 변경 등급의 main 병합은 사용자의 명시적 승인 뒤에만 진행한다. 2026-10-13 사용자 승인에 따라 2026-10-02의 추가 확인 없는 병합 승인을 대체하며, [D-F 변경 절차](doc/guidelines/08-change-procedure.md)의 병합 전 사용자 확인을 생략하지 않는다.
+```
+
+B2 변경 전 → 후 전문:
+
+```markdown
+5. **문서**: XML 주석과 `doc/api`, `doc/ai/api`가 같은 PR에서 갱신됐는가. 새 `.cs`에 `.meta`가 있는가.
+```
+
+```markdown
+5. **문서**: T2/T3 계약 변경은 XML 주석과 `doc/api`, `doc/ai/api`가 같은 PR에서 갱신됐는가. T1은 동작·공개 계약 불변과 어긋난 인용만 확인하며 신규 Red·API 문서 갱신을 요구하지 않는다. 새 `.cs`에 `.meta`가 있는가.
+```
+
+B3 변경 전 → 후 전문:
+
+```markdown
+- 이 세션은 Unity 공용 코어 아키텍처 프로그래머다. 요구사항·호출 흐름 분석, API·상태 소유권·수명 설계, 구현 범위 결정, 테스트 설계와 결과 리뷰를 책임진다.
+```
+
+```markdown
+- 사용자가 설계·범위를 결정하고 Codex는 구현·검증·문서화를 수행하며 독립 검토자가 결과·증거를 검토한다.
+```
+
+실행: 문서3개 링크·공백·범위/원문 보존 대조, `tools/check_pr_rules.py --base 17eb28b1f538001900f34ffd3d310016aace7ffa --head <B tip>`, `tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <B 최종 tip> --output Temp/protected-docs-align-20261013/final-ci.json`를 수행하고 결과를 여기 보완한다. 보호 파일2개의 예상 warning은 사용자 B 승인 범위이며 오류와 구분한다. 기존 읽기 검토 담당 `/root/factcheck_upm`을 재사용했고 파일 쓰기·Git/Unity 조작은 부모가 맡는다. 로컬 대조 실제 결과: 문서3개 상대 링크77·anchor62 오류0, scoped diff 공백 exit0, 정확한 B1/B3 및 항목5 변환·기존 회고 prefix·가이드 상태/등급표 보호·범위 밖2247개와 dirty6 raw hash 보존. 독립 읽기 감사 수정 요구0. 규칙 검사 source `2cdf30ffe63b752a5a0433db4a332529e83bfbfc`의 실제 결과는 오류0·예상 warning2·exit0이며 최종 tip에도 다시 검사한다. Actions는 [이 브랜치의 실행](https://github.com/KangSungKyu/TPLab/actions?query=branch%3Acodex%2Fprotected-docs-align)의 현재 최종 tip을 exact-SHA로 조회해 판정하고 최종 보고에서 그 SHA·결과를 확인한다. 회고 자신의 최종 commit ID는 Git 이력·최종 보고에서 확인하는 기존 기준을 따른다.
+
+미실행: Unity Edit/Play·컴파일·제품 Console·Player/IL2CPP·독립 Claude workflow·외부 링크 HTTP 조회. T0 문서만 변경해 Unity 실행 대상이 없다. B의 main 병합·브랜치 삭제는 하지 않으며 사용자 확인을 위해 PR을 open으로 유지한다. 검토/보고 완료 후 이번 요청대로 절전한다.
