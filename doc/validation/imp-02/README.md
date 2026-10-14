@@ -10,7 +10,7 @@
 
 ## 범위와 선행 승인
 
-[백로그](../../IMPROVEMENT_BACKLOG.md)의 D-02=(b)만 구현했다. 사용자 PR #7 병합 승인과 큐의 승인 뒤 자동 진행 규칙(33/55행)에 따라 새 main에서 시작했다. PR #7은 최종 문서 tip `71b3b0416d125e31300a3d90da9ab181e7ebaeea`의 exact Actions 성공 후 일반 merge로 main `592c43515fa67e2ab48f64254726ca210cbdfe2f`에 통합됐고 로컬·원격 branch가 삭제됐다. [통합 증거](pr7-merge-receipt.json)에 승인 후보·최종tip·main·Actions URL을 구분했다.
+[백로그](../../IMPROVEMENT_BACKLOG.md)의 D-02=(b)만 구현했다. 사용자 PR #7 병합 승인과 큐의 승인 뒤 자동 진행 규칙(33/55행)에 따라 새 main에서 시작했다. PR #7은 최종 문서 tip `71b3b0416d125e31300a3d90da9ab181e7ebaeea`의 exact Actions 성공 후 일반 merge로 main `592c43515fa67e2ab48f64254726ca210cbdfe2f`에 통합됐고 로컬·원격 branch가 삭제됐다. [통합 증거](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/pr7-merge-receipt.json)에 승인 후보·최종tip·main·Actions URL을 구분했다.
 
 ObjectPool/PrefabPool에 다음 API만 추가했다. 기존 Return/Dispose 시그니처·본문과 기존 테스트는 변경하지 않았다. 새 패키지·설정·배포 사본·Prune·IMP-03/05 등 다른 기능은 추가하지 않았다.
 
@@ -46,7 +46,7 @@ public bool TryReturn(GameObject instance)
 | 회귀 | 전체 EditMode | 348 | 348 | 0 | 0 |
 | 회귀 | 전체 PlayMode | 316 | 316 | 0 | 0 |
 
-[실제 Red](red-runs.json)의 실패20개는 모두 Required public API assertion에 해당하며 원문 예시는 다음과 같다.
+[실제 Red](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/red-runs.json)의 실패20개는 모두 Required public API assertion에 해당하며 원문 예시는 다음과 같다.
 
 ```text
 Required public API: bool ObjectPool`1.TryReturn(Item)
@@ -60,7 +60,7 @@ Required public API: bool PrefabPool.TryReturn(GameObject)
   But was:  null
 ```
 
-실제 전체 테스트명·원문·실행시각·PID·runId·CLI 반환값은 [Red](red-runs.json), [Green](green-runs.json), [전체 회귀](regression-runs.json)에 보존한다. source/meta8개를 Red 이전에 hash 고정했고 구현 단계에서 수정하지 않았다. 기존 Return 테스트 파일도 원문 hash가 동일하다. 이후 core2와 합친 tested10개를 Green/전체 실행 동안 동결했다.
+실제 전체 테스트명·원문·실행시각·PID·runId·CLI 반환값은 [Red](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/red-runs.json), [Green](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/green-runs.json), [전체 회귀](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/regression-runs.json)에 보존한다. source/meta8개를 Red 이전에 hash 고정했고 구현 단계에서 수정하지 않았다. 기존 Return 테스트 파일도 원문 hash가 동일하다. 이후 core2와 합친 tested10개를 Green/전체 실행 동안 동결했다.
 
 Generic13case는 정상 반환/reset1회·Count/재사용, disposed loan/null/foreign false와 기존 Return 예외, active null/foreign/duplicate, Dispose의 모든 cleanup 계속, reset+cleanup AggregateException/정원 회복, return/rent/predicate 재진입, GC를 검증한다. Prefab7case는 활성 정상 반환/비활성/reset/재사용, 오용 검증, 다음 프레임의 destroyed late-loan false, 실제 **OnDisable/OnDestroy**의 TryReturn false·다른 cleanup 계속, rent 재진입, reset 실패 폐기, destroyed parent의 context-before-null 우선순위를 검증한다.
 
@@ -72,9 +72,9 @@ Green Edit13 실행 전 CLI가 instance를 찾지 못한 시도가1회 있었다
 
 `WarmedTryReturnReuseAllocatesZero`는 delegate 바인딩과 storage warmup 뒤 **1000회 TryRent/TryReturn에서 GC.GetAllocatedBytesForCurrentThread 차이0바이트** assertion을 집중·전체 EditMode에서 통과했다. 임계값 변경 없음. pool bookkeeping 범위이며 최초 storage 확장·caller callback/factory·Unity Instantiate·Dispose 전체 비용은 측정하지 않았다. CPU 비용 불변이나 다른 backend의 GC0을 입증하지 않는다.
 
-[환경/Console](environment.json): 새 두 method 로드와 compile/import 종료를 확인했다. 실행 뒤 Play/compile/import/TestRun false. 제품 Console의 예상예외10건은 기존 LogAssert(싱글턴6/provider2/root2)와 대조했고 추가 미예상/CS 오류는 관찰되지 않았다. Console을 비우거나 로그0으로 표시하지 않는다.
+[환경/Console](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/environment.json): 새 두 method 로드와 compile/import 종료를 확인했다. 실행 뒤 Play/compile/import/TestRun false. 제품 Console의 예상예외10건은 기존 LogAssert(싱글턴6/provider2/root2)와 대조했고 추가 미예상/CS 오류는 관찰되지 않았다. Console을 비우거나 로그0으로 표시하지 않는다.
 
-[입력 보존](source-preservation.json): original510개 중 core2를 제외한508개·dirty6·고정Red8·tested10 raw hash가 동일하다. 기존 Return/Dispose body4개 동일, 신규meta4개 GUID유일, 기존GUID/사용자settings/자산보존·임시test scene잔여0을 확인했다. canonical Git blob hash와 raw 파일 hash를 구분한다.
+[입력 보존](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-02/source-preservation.json): original510개 중 core2를 제외한508개·dirty6·고정Red8·tested10 raw hash가 동일하다. 기존 Return/Dispose body4개 동일, 신규meta4개 GUID유일, 기존GUID/사용자settings/자산보존·임시test scene잔여0을 확인했다. canonical Git blob hash와 raw 파일 hash를 구분한다.
 
 ## 문서·사용자 gate와 미실행
 

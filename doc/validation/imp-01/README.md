@@ -32,12 +32,12 @@
 
 | 단계 | 대상 | total | pass | fail | skip | 증거 |
 |---|---|---:|---:|---:|---:|---|
-| Red | PrefabPoolTests | 18 | 17 | 1 | 0 | [Red](red-results.json) |
-| Green | PrefabPoolTests | 18 | 18 | 0 | 0 | [집중 실행](green-runs.json) |
-| Green | 기존 ObjectPoolTests | 24 | 24 | 0 | 0 | [집중 실행](green-runs.json) |
-| Green | ObjectPoolLivenessTests | 15 | 15 | 0 | 0 | [집중 실행](green-runs.json) |
-| 회귀 | 전체 EditMode | 334 | 334 | 0 | 0 | [회귀](regression-runs.json) |
-| 회귀 | 전체 PlayMode | 307 | 307 | 0 | 0 | [회귀](regression-runs.json) |
+| Red | PrefabPoolTests | 18 | 17 | 1 | 0 | [Red](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/red-results.json) |
+| Green | PrefabPoolTests | 18 | 18 | 0 | 0 | [집중 실행](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/green-runs.json) |
+| Green | 기존 ObjectPoolTests | 24 | 24 | 0 | 0 | [집중 실행](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/green-runs.json) |
+| Green | ObjectPoolLivenessTests | 15 | 15 | 0 | 0 | [집중 실행](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/green-runs.json) |
+| 회귀 | 전체 EditMode | 334 | 334 | 0 | 0 | [회귀](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/regression-runs.json) |
+| 회귀 | 전체 PlayMode | 307 | 307 | 0 | 0 | [회귀](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/regression-runs.json) |
 
 실제 Red는 `TPLab.Core.Tests.PrefabPoolTests.RentedCloneDestroyedByConsumerFreesItsSlot` 한 건만 실패했고, 원문 메시지는 다음과 같아 예상된 슬롯 고정과 일치했다.
 
@@ -56,9 +56,9 @@ TPLab.Core.Tests.PrefabPoolTests.RentedCloneDestroyedByConsumerFreesItsSlot:   E
 
 이 수치는 측정한 풀 내부 bookkeeping 범위다. Unity clone 생성, 소비자 predicate·callback·factory 할당, 초기 scratch 메모리, CPU 비용까지 0이라는 뜻은 아니다. 정상 재사용에도 생존 predicate 호출 비용은 있다. Player/IL2CPP/다른 플랫폼에서의 GC·성능 수치는 이번에 측정하지 않았다.
 
-[환경·제품 Console](environment.json): reflection으로 새 코드 로드를 확인했고, 실행 후 Play/compile/import/TestRun은 모두 false다. Console의 예외10건은 기존 LogAssert 기대값(싱글턴6·provider2·root2)과 대조했다. compiler CS 오류·추가 미예상 오류는 관찰되지 않았다. Console을 비우지 않았으며 'Console 로그0'으로 보고하지 않는다.
+[환경·제품 Console](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/environment.json): reflection으로 새 코드 로드를 확인했고, 실행 후 Play/compile/import/TestRun은 모두 false다. Console의 예외10건은 기존 LogAssert 기대값(싱글턴6·provider2·root2)과 대조했다. compiler CS 오류·추가 미예상 오류는 관찰되지 않았다. Console을 비우지 않았으며 'Console 로그0'으로 보고하지 않는다.
 
-[입력 보존](source-preservation.json): 원본 추적 입력504개 중 수정한 기존 source3개를 제외한501개 및 기존 dirty6의 raw SHA256을 확인했다. 새 meta GUID는 유일하다. 고정한 Red와 Green 이후 핵심5파일의 raw hash도 동일하다. Git의 LF 정규화로 raw hash가 blob hash와 다른 파일은 두 hash를 별도 보존한다. 기존 Return/Dispose 본문 동일성과 ObjectPool의 Unity 비의존을 확인했다. Unity test 임시 씬 잔여는 없다. 기존 사용자 씬의 trailing whitespace는 이번 stage/검사 범위 밖이며 원문을 보존했다.
+[입력 보존](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/source-preservation.json): 원본 추적 입력504개 중 수정한 기존 source3개를 제외한501개 및 기존 dirty6의 raw SHA256을 확인했다. 새 meta GUID는 유일하다. 고정한 Red와 Green 이후 핵심5파일의 raw hash도 동일하다. Git의 LF 정규화로 raw hash가 blob hash와 다른 파일은 두 hash를 별도 보존한다. 기존 Return/Dispose 본문 동일성과 ObjectPool의 Unity 비의존을 확인했다. Unity test 임시 씬 잔여는 없다. 기존 사용자 씬의 trailing whitespace는 이번 stage/검사 범위 밖이며 원문을 보존했다.
 
 초기 후보 `6e16dc491814c255a037dfca759a7a543a696076`에서는 백로그 원문32772바이트를 보존했다. 이후 2026-10-12의 명시 요청에 따라 상태6곳을 갱신했다. 현재 파일 전체가 원문 바이트와 동일하다고 주장하지 않는다. 설계 D-01과 다른 항목의 본문은 유지하며 원문은 위 초기 commit에서 확인할 수 있다.
 
@@ -83,13 +83,13 @@ TPLab.Core.Tests.PrefabPoolTests.RentedCloneDestroyedByConsumerFreesItsSlot:   E
 | ObjectPool.CountRented | 29 | 31 | main은 백로그와 일치; getter 동작 유지 |
 | ObjectPool 정원 검사 | 86 | 92 | main은 백로그와 일치; 지연 점검 추가 |
 
-정확한 파일·행과 hash는 [후속 보존](followup-preservation.json)에 남겼다. 첫 rented-clone Red는 위의 실제 사전 실행 증거를 사용한다. 실패 메시지 `Expected: True / But was: False`, CreatePool(1)·UnityTest·Timeout30000과 이후 파일 SHA 고정은 그대로다.
+정확한 파일·행과 hash는 [후속 보존](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/followup-preservation.json)에 남겼다. 첫 rented-clone Red는 위의 실제 사전 실행 증거를 사용한다. 실패 메시지 `Expected: True / But was: False`, CreatePool(1)·UnityTest·Timeout30000과 이후 파일 SHA 고정은 그대로다.
 
 ### 경계별 기준 구현 → 현재 구현
 
 추가 경계3개를 먼저 작성하고 `.cs`·`.meta` hash를 고정했다. 기존 Red 파일의 private CreatePool을 공유하려면 그 frozen 파일을 바꿔야 하므로, 별도 작은 fixture에서 source 생성/종료만 준비했다. 기대값·Ignore·timeout은 baseline 비교 뒤 수정하지 않았다.
 
-이미 구현한 뒤 보완하는 작업이므로 **사후 baseline 비교**다. 같은 Editor에서 `git show main`의 ObjectPool/PrefabPool을 namespace만 변경한 임시 복제본으로 실행했다. 임시 테스트는 고정한 경계 테스트의 namespace와 using만 바꿨다. 원문 body·hash·변경 범위는 [복제 근거](baseline-clone-provenance.json)에 보존한다. 새 패키지나 다른 Editor를 사용하지 않았다. 원래 checkout을 main으로 rollback하거나 source·dirty·Red 파일을 바꾸지 않았다.
+이미 구현한 뒤 보완하는 작업이므로 **사후 baseline 비교**다. 같은 Editor에서 `git show main`의 ObjectPool/PrefabPool을 namespace만 변경한 임시 복제본으로 실행했다. 임시 테스트는 고정한 경계 테스트의 namespace와 using만 바꿨다. 원문 body·hash·변경 범위는 [복제 근거](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/baseline-clone-provenance.json)에 보존한다. 새 패키지나 다른 Editor를 사용하지 않았다. 원래 checkout을 main으로 rollback하거나 source·dirty·Red 파일을 바꾸지 않았다.
 
 | 경계 | baseline 결과 | 현재 Green | 의미 |
 |---|---|---|---|
@@ -105,17 +105,17 @@ TPLab.Core.Tests.Imp01Baseline.PrefabPoolLivenessBoundaryTests.DestroyedInactive
 
 (a)/(c)는 기존부터 맞는 보존 계약이므로 인위적인 Red 실패를 만들지 않았다. 각각 baseline PASS → 적용 PASS로 보고하며, (b)는 실행된 baseline FAIL → 적용 PASS다. 세 case를 모두 구현 전 Red라고 기록하지 않는다. 임시 baseline `.cs`/`.meta`8개를 명시 경로로 제거하고 refresh·reflection으로 실제 assembly에서도 사라진 것을 확인한 뒤 현재 Green을 실행했다.
 
-[baseline 실행](baseline-boundary-runs.json): Play2(pass1/fail1/skip0)·Edit1(pass1/fail0/skip0). [현재 Green](boundary-green-runs.json): Play경계2/2·Edit생략1/1·기존 Prefab18/18, 실패·skip0.
+[baseline 실행](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/baseline-boundary-runs.json): Play2(pass1/fail1/skip0)·Edit1(pass1/fail0/skip0). [현재 Green](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/boundary-green-runs.json): Play경계2/2·Edit생략1/1·기존 Prefab18/18, 실패·skip0.
 
 요청한 기존5개는 Prefab18 실제 pass 이름에서 각각 확인했다: RentHookDestroyingInstanceIsReportedAndCapacityRecovered, ReturnHookDestroyingInstanceIsReportedAndCapacityRecovered, DestroyedParentRejectsOperationsButStillAllowsDisposal, ReturnRejectsNull, DisposedPoolRejectsRentAndReturn. 각 이름은 위 JSON의 passes에 있고 원래 파일은 변경하지 않았다.
 
 ### 미실행 호출·최종 회귀·상태
 
-Green 첫 호출에서 부모가 클래스명 일부 `TPLab.Core.Tests.PrefabPool`을 filter로 지정하여 **total0**이 선택됐다. CLI 연결 종료 뒤 driver가 nonzero-result 검증에서 실패했다. [0건 선택 기록](zero-selection.json)에 CLI34204의 해당 결과와 transcript를 보존했다. 실행0건은 통과·case 실패로 세지 않는다. 설치된 Connector의 testNames/groupNames 필터를 확인하고 정확한 fixture 이름으로 별도 실행했다. 실행된 실패 case를 다시 시도하거나 다른 suite의 결과로 성공을 대신하지 않았다. 기존 보충15개를 구현 전 Red로 실행했다는 주장도 하지 않는다.
+Green 첫 호출에서 부모가 클래스명 일부 `TPLab.Core.Tests.PrefabPool`을 filter로 지정하여 **total0**이 선택됐다. CLI 연결 종료 뒤 driver가 nonzero-result 검증에서 실패했다. [0건 선택 기록](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/zero-selection.json)에 CLI34204의 해당 결과와 transcript를 보존했다. 실행0건은 통과·case 실패로 세지 않는다. 설치된 Connector의 testNames/groupNames 필터를 확인하고 정확한 fixture 이름으로 별도 실행했다. 실행된 실패 case를 다시 시도하거나 다른 suite의 결과로 성공을 대신하지 않았다. 기존 보충15개를 구현 전 Red로 실행했다는 주장도 하지 않는다.
 
-[최종 전체 회귀](followup-regression-runs.json)는 코드/테스트9개를 고정하고 mandatory runner로 수행한 Edit335/335·Play309/309, fail/skip0이다. 이전641개 pass 이름을 모두 보존하고 신규 경계3개만 추가됐음을 대조했다. 임시 baseline 이름은 최종 실행에 없다. 기존 generic24개·liveness15개와 GC 두 테스트의 strict0바이트·각1000회 측정도 최종 EditMode pass에 포함된다. 임계값을 바꾸지 않았다. CPU 증가까지0 또는 factory/Unity Instantiate 비용0이라고 주장하지 않는다.
+[최종 전체 회귀](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/followup-regression-runs.json)는 코드/테스트9개를 고정하고 mandatory runner로 수행한 Edit335/335·Play309/309, fail/skip0이다. 이전641개 pass 이름을 모두 보존하고 신규 경계3개만 추가됐음을 대조했다. 임시 baseline 이름은 최종 실행에 없다. 기존 generic24개·liveness15개와 GC 두 테스트의 strict0바이트·각1000회 측정도 최종 EditMode pass에 포함된다. 임계값을 바꾸지 않았다. CPU 증가까지0 또는 factory/Unity Instantiate 비용0이라고 주장하지 않는다.
 
-[최종 환경](followup-environment.json): 동일 Editor24376, Unity6000.3.18f1/UTF1.6.0/CLI0.4.1, Windows Mono. source reload·optional ctor 확인, Play/compile/import/TestRun false. Console 예상예외10개를 기존 기대값과 대조했고 추가 미예상/CS 오류는 관찰되지 않았다.
+[최종 환경](https://github.com/KangSungKyu/TPLab/blob/a3c4e00d4af950e4e482c2774d912b70b512dba7/doc/validation/imp-01/followup-environment.json): 동일 Editor24376, Unity6000.3.18f1/UTF1.6.0/CLI0.4.1, Windows Mono. source reload·optional ctor 확인, Play/compile/import/TestRun false. Console 예상예외10개를 기존 기대값과 대조했고 추가 미예상/CS 오류는 관찰되지 않았다.
 
 런타임 후속 변경은 ObjectPool.CountOwned·PrefabPool.CountRented XML 두 줄뿐이다. 기존 메서드 body·공개 API·할당 정책은 변하지 않았다. 사람/AI API와 기능 문서의 current revision·검증 상태를 갱신했다. source9 및 frozen Red/경계 파일·기존dirty6은 hash로 확인했다. 새metaGUID유일·기존meta/GUID보존·임시 test scene 잔여0을 확인했다.
 
@@ -128,3 +128,5 @@ Player/소비 패키지 설치/IL2CPP/다른 Unity버전·플랫폼/시각UX/문
 ## 2026-10-12 PR #7 최종 수락
 
 사용자의 `pr#7 병합 승인`으로 후보 `b9f25bf2c9454153002c5a9f57df9651413762b8`를 수락했다. core/test/meta9개와 dirty6의 해시를 다시 대조했고 최종335/309 실행 증거와 동일하다. 이번 승인 기록은 문서7개만 수정하며 코드·테스트·설정 변경이 없어 Unity 회귀를 반복하지 않는다. 최종 branch tip에 규칙 검사와 정확한 HEAD Actions를 다시 확인한 뒤 원본 commit을 보존하는 일반 merge를 진행한다. 실제 main SHA·브랜치 삭제 결과는 PR #7/최종 보고가 소유한다. 대기/병합 금지 표기는 당시 후속 요청 단계의 기록이며 이번 새 승인이 통합을 허용한다. 백로그 큐에 따라 승인된 IMP-01 통합·정리 후 IMP-02만 별도 브랜치로 시작한다. 공개 Prune은 계속 보류다.
+
+IMP-01·02의 원시 자료 링크는 삭제 전 main의 고정 commit permalink다. 과거 열람용이며 로컬 입력 복원·재검증 능력을 뜻하지 않는다.
