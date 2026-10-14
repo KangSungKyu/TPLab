@@ -4,12 +4,12 @@
 - Scope: `Assets/TPLab/Tests`, `Assets/TPLab/Input/Tests`. UI 테스트는 아래 위치/개수 참고만 포함한다.
 - ImplementationStatus: 조사·작은 실험 완료, 기존 테스트 적용 없음. IMP-04 전체는 진행 중이며 적용 범위 지정 대기다.
 - ValidationStatus: 현재 Editor의 임시 PlayMode 실험 2개와 기존 테스트 46개 실행 확인. 전체 회귀·EditMode 실험·Player·타 플랫폼은 NotRun.
-- Environment: Unity 6000.3.18f1, Test Framework 1.6.0, resolved NUnit package 2.0.5 / DLL assembly 3.5.0.0, CLI/Connector 0.4.1, Windows Editor PID 24376. [실행 환경/소스 hash](environment.json).
+- Environment: Unity 6000.3.18f1, Test Framework 1.6.0, resolved NUnit package 2.0.5 / DLL assembly 3.5.0.0, CLI/Connector 0.4.1, Windows Editor PID 24376. [실행 환경/소스 hash](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/environment.json).
 - 근거: [백로그 IMP-04](../../IMPROVEMENT_BACKLOG.md#imp-04-테스트-타임아웃-도입), [작업 규칙](../../../AGENTS.md), [문서화 지침](../../DOCUMENTATION_GUIDE.md).
 
 ## 1. 게이트 대기 목록과 집계
 
-명시적인 테스트/fixture `UniTaskCompletionSource`를 사용하는 공개 테스트 메서드는 **62개**, 생성 소스 지점은 **68개/10파일**이다. Input 테스트의 TCS 생성은 0개이고, `System.Threading.Tasks.TaskCompletionSource` 생성은 지정 범위에서 0개다. 메서드 수, 생성식 수, 실제 실행 case 수를 구분한다. 공유 helper/fixture 한 생성식을 여러 테스트가 사용하므로 이 숫자는 runtime 객체 수가 아니다. [기계 판독 가능한 명단/위치](inventory.json).
+명시적인 테스트/fixture `UniTaskCompletionSource`를 사용하는 공개 테스트 메서드는 **62개**, 생성 소스 지점은 **68개/10파일**이다. Input 테스트의 TCS 생성은 0개이고, `System.Threading.Tasks.TaskCompletionSource` 생성은 지정 범위에서 0개다. 메서드 수, 생성식 수, 실제 실행 case 수를 구분한다. 공유 helper/fixture 한 생성식을 여러 테스트가 사용하므로 이 숫자는 runtime 객체 수가 아니다. [기계 판독 가능한 명단/위치](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/inventory.json).
 
 | 그룹 | 공개 게이트 테스트 메서드 | 생성 소스 지점 |
 |---|---:|---:|
@@ -241,7 +241,7 @@ native-only `SceneLoaderPlayModeTests` 14개는 explicit TCS 62개에 포함하�
 | 실패 원문 | `Timeout value of 250 ms was exceeded. If this is intended, increase the timeout value using a TimeoutAttribute.` |
 | 실제 실행 수 | total2 / passed1 / failed1 / skipped0 — 실패1은 의도한 timeout 관측 |
 | 정확한 invocation | runId `43892-1791785196399221700`, CLI PID43892, 접수 재시도0 |
-| 증거 | [실제 결과](timeout-experiment.json), [프로토콜·임시 제거 metadata](experiment-meta.json) |
+| 증거 | [실제 결과](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/timeout-experiment.json), [프로토콜·임시 제거 metadata](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/experiment-meta.json) |
 
 이 결과는 현재 **PlayMode에서 프레임을 양보하는 IEnumerator**에 `[Timeout]`이 적용된다는 확인이다. EditMode, async Task `[Test]`, 클래스/assembly 수준 속성, CPU 무한 루프·메인 스레드 blocking 강제 중단·타 플랫폼에는 확대하지 않는다. Timeout은 underlying UniTask/owner의 취소나 cleanup 완료를 자동 보장하지 않는다.
 
@@ -251,7 +251,7 @@ native-only `SceneLoaderPlayModeTests` 14개는 explicit TCS 62개에 포함하�
 
 ## 4. 정상 실행시간과 적용 후보
 
-현재 unchanged 테스트 3개 필터를 같은 Editor에서 순차 실행했다. [원시 결과/시간 metadata](normal-runs.json). 아래 시간은 **각 필터 전체 driver wall-clock**이며 ready 확인, Console, IPC, domain reload, 실행·결과 회수를 포함한다. 개별 test duration, 평균 또는 case 최대값으로 나누어 해석하지 않는다. CLI0.4.1 RunTests.cs:110–119는 이름/실패 메시지를 모으고 duration을 JSON에 보존하지 않는다.
+현재 unchanged 테스트 3개 필터를 같은 Editor에서 순차 실행했다. [원시 결과/시간 metadata](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/normal-runs.json). 아래 시간은 **각 필터 전체 driver wall-clock**이며 ready 확인, Console, IPC, domain reload, 실행·결과 회수를 포함한다. 개별 test duration, 평균 또는 case 최대값으로 나누어 해석하지 않는다. CLI0.4.1 RunTests.cs:110–119는 이름/실패 메시지를 모으고 duration을 JSON에 보존하지 않는다.
 
 | 현재 필터 | total/passed/failed/skipped | driver wall seconds |
 |---|---|---:|
@@ -296,8 +296,8 @@ native-only `SceneLoaderPlayModeTests` 14개는 explicit TCS 62개에 포함하�
 
 ## 검증·사용자 결정·다음 단계
 
-- 실험2개(의도한 failure1), 현재 기존46/46, 실패/skip0. 원본 테스트/fixture158개와 기존 dirty6 raw hash는 [보존 증거](preserved-inputs.json)로 대조했다. 영구 코드/테스트·패키지·설정 변경 없음. 임시 source/meta 제거·소스 diff0을 확인했다.
-- 최종 Editor/Console 확인은 [종료 상태 증거](post-editor-state.json)에 기록한다. ResourceManager의 의도한 provider 실패 로그 2개와 컴파일 오류를 구분하며 Console 전체가 0이라고 보고하지 않는다.
+- 실험2개(의도한 failure1), 현재 기존46/46, 실패/skip0. 원본 테스트/fixture158개와 기존 dirty6 raw hash는 [보존 증거](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/preserved-inputs.json)로 대조했다. 영구 코드/테스트·패키지·설정 변경 없음. 임시 source/meta 제거·소스 diff0을 확인했다.
+- 최종 Editor/Console 확인은 [종료 상태 증거](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/post-editor-state.json)에 기록한다. ResourceManager의 의도한 provider 실패 로그 2개와 컴파일 오류를 구분하며 Console 전체가 0이라고 보고하지 않는다.
 - 현지 전체 EditMode/PlayMode 회귀·EditMode 실험·case별 새 duration·Player·최종 제품 UX·IL2CPP/다른 기기는 미실행이다. 선택46개 결과를 전체 회귀로 확대하지 않는다.
 - 최종 문서 HEAD 규칙 검사/Actions와 PR 링크는 PR 본문·완료 보고에 기록한다. source 기준은 위 main이며 문서 자체 최종 SHA를 실행 source로 혼동하지 않는다.
 - 필요한 사용자 결정: (a) explicit62개/추가 provider·continuation·native·Input 중 적용할 정확한 메서드 범위, (b) helper/개별 속성/혼합 방식, (c) 그룹별 timeout 값. 권장 혼합·30초/필요한 native60초는 제안이다. UI는 제외한다.

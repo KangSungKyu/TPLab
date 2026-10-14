@@ -8,7 +8,7 @@
 
 ## 선행 승인·PR #8 통합
 
-사용자가 IMP-02 PR #8 병합을 승인했다. 승인 후보039d132에서 수락 문서9개만 갱신했고 최종tip `e7fa70eda058ac023725ad2f1e8fe87e1e3a3bca`의 규칙25개/오류0/경고0·상대링크247개/누락0·[exact Actions 성공](https://github.com/KangSungKyu/TPLab/actions/runs/38328195499)을 확인했다. 일반 merge main9285805에 원본tip 도달성을 확인하고 작업 branch를 로컬/원격에서 삭제했다. local/origin/server main 일치·사용자 dirty6 raw hash를 확인했다. [통합 영수증](pr8-merge-receipt.json), [CI 조회 요약](pr8-final-tip-ci-summary.json).
+사용자가 IMP-02 PR #8 병합을 승인했다. 승인 후보039d132에서 수락 문서9개만 갱신했고 최종tip `e7fa70eda058ac023725ad2f1e8fe87e1e3a3bca`의 규칙25개/오류0/경고0·상대링크247개/누락0·[exact Actions 성공](https://github.com/KangSungKyu/TPLab/actions/runs/38328195499)을 확인했다. 일반 merge main9285805에 원본tip 도달성을 확인하고 작업 branch를 로컬/원격에서 삭제했다. local/origin/server main 일치·사용자 dirty6 raw hash를 확인했다. [통합 영수증](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/pr8-merge-receipt.json), [CI 조회 요약](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/pr8-final-tip-ci-summary.json).
 
 main checkout 때 tested10 파일의 줄바꿈만 CRLF→LF로 바뀌었다. Git blob/정규화 내용과 기존 검증 소스는 동일하다. raw hash 보존과 동일하게 표현하지 않는다. 최종 작업 트리는 기존 dirty6만 남겼고 이 normalization은 통합 영수증에 구분했다. PR 본문의 상세 실행 정보 갱신은 자동 승인 검토가 공개 위험으로 거부해, 로컬 경로·프로세스 정보가 없는 변경/검증 요약으로 갱신했다.
 
@@ -28,13 +28,13 @@ main checkout 때 tested10 파일의 줄바꿈만 CRLF→LF로 바뀌었다. Git
 
 기존 CreateBootstrap(Additive)·direct manager·EnterFirstSceneAsync(Hub)·기존 TearDown을 재사용했다. `[UnityTest]`, `[Timeout(30000)]`인 CanProceedDoesNotAllocateInReadyState 하나를 추가했다. Ready 확인 후 getter1회 워밍업, 같은 스레드에서100회 호출 전후 GC.GetAllocatedBytesForCurrentThread 차이를 strict0으로 확인한다. 측정 구간에는 await/로그/assertion이 없다. 이후 canProceed==true와 allocated==0을 단언한다.
 
-`tools/run_unity_tests.py`로 정확한 새 메서드를 실행했다. **total1/pass1/fail0/skip0**이며 실제 통과 이름도 일치한다. 이는 **예상 Red 미확립**이고 Green·최적화 완료가 아니다. [실행 결과](unexpected-red-result.json). 테스트 hash를 추가 직후 고정했고 실행 뒤에도 동일하다.
+`tools/run_unity_tests.py`로 정확한 새 메서드를 실행했다. **total1/pass1/fail0/skip0**이며 실제 통과 이름도 일치한다. 이는 **예상 Red 미확립**이고 Green·최적화 완료가 아니다. [실행 결과](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/unexpected-red-result.json). 테스트 hash를 추가 직후 고정했고 실행 뒤에도 동일하다.
 
-직후 같은 Editor의 **유휴 EditMode**에서 `new byte[4096]`·GC.KeepAlive를 양성 대조로 실행했지만 before0/after0/delta0이었다. [실험과 코드](idle-counter-positive-control.json). 이 계측은 의도한 배열 할당을 감지하지 못했으므로 getter의 실제 할당0 증거로 해석할 수 없다. PlayMode 내 양성 대조와 ProfilerRecorder 등 대체 계측은 아직 실행하지 않았다. 모든 backend에서 해당 API가 지원되지 않는다고 확정하지 않는다.
+직후 같은 Editor의 **유휴 EditMode**에서 `new byte[4096]`·GC.KeepAlive를 양성 대조로 실행했지만 before0/after0/delta0이었다. [실험과 코드](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/idle-counter-positive-control.json). 이 계측은 의도한 배열 할당을 감지하지 못했으므로 getter의 실제 할당0 증거로 해석할 수 없다. PlayMode 내 양성 대조와 ProfilerRecorder 등 대체 계측은 아직 실행하지 않았다. 모든 backend에서 해당 API가 지원되지 않는다고 확정하지 않는다.
 
 도메인 reload 중 첫 driver는 Console 연결 확인에서 실행 전 중단했다(테스트 시작0건). 같은 Editor의 ready/compile/import/play/testRun 상태와 실제 메서드 로드를 확인한 뒤 실제 테스트1회를 실행했다. 실패 case 재실행0건. 일회성 상태 조회의 잘못된 UTF 메서드 이름과 미지원 CLI refresh 명령도 각각 도구 단계에서 실패했고 테스트 실패로 세지 않았다. 설치된 UTF의 internal IsRunActive를 reflection으로 조회하고 AssetDatabase.Refresh로 반영했다.
 
-[입력 보존](source-preservation.json): 기존 tracked518개 중 신규 테스트를 추가한 기존 파일1개 외517개 raw hash 동일, dirty6 보존, Core/Input runtime 변경0. 실행 뒤 play/compile/import/testRun false·dirty scene0, 제품 Console error0을 관찰했다. Console을 비우지 않았다.
+[입력 보존](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/source-preservation.json): 기존 tracked518개 중 신규 테스트를 추가한 기존 파일1개 외517개 raw hash 동일, dirty6 보존, Core/Input runtime 변경0. 실행 뒤 play/compile/import/testRun false·dirty scene0, 제품 Console error0을 관찰했다. Console을 비우지 않았다.
 
 ## 구현 전 사용자 결정
 

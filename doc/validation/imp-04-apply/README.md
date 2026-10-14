@@ -4,12 +4,12 @@
 - Scope / Decision: 첨부 요청의 D-05a~c, 정확히24개 PlayMode 게이트 메서드에 `[Timeout(30000)]` 추가. 기존 Wait/Settle/Pending/Complete·조건 대기·본문·assertion은 유지한다.
 - ImplementationStatus: 속성24개 추가 완료. runtime/public API·패키지·설정·runner 변경 없음. UI·Input·EditMode 소스는 변경하지 않았다.
 - ValidationStatus: 전후 같은151개 case 통과, 전체 Edit319/319·Play306/306, 실패/skip0. 2026-10-12 사용자가 [PR #6](https://github.com/KangSungKyu/TPLab/pull/6) 병합을 승인했다. D-05a~c의 선택24개 적용은 승인·완료이며 문서 수락 기록을 포함한 최종 tip 검사 후 일반 merge한다.
-- Source evidence: [적용된7개 파일 SHA256·원본 보존](source-preservation.json), [환경](environment.json). 이 보고서의 base SHA를 변경 후 테스트 source SHA로 혼동하지 않는다. 최종 commit/정확한 HEAD Actions는 PR 본문·완료 보고에 기록한다.
+- Source evidence: [적용된7개 파일 SHA256·원본 보존](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/source-preservation.json), [환경](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/environment.json). 이 보고서의 base SHA를 변경 후 테스트 source SHA로 혼동하지 않는다. 최종 commit/정확한 HEAD Actions는 PR 본문·완료 보고에 기록한다.
 - 선행 근거: [1단계 조사](../imp-04-survey/README.md), [백로그 D-05a~c](../../IMPROVEMENT_BACKLOG.md#결정-기록-사용자가-작성), [문서 지침](../../DOCUMENTATION_GUIDE.md).
 
 ## 메서드 종류·적용 목록
 
-24개 모두 공개 `IEnumerator [UnityTest]`이며 메서드 선언 자체의 async, `[Test]`, `[TestCase]`, 기존 `[Timeout]`은 없다. async lambda를 coroutine으로 반환하는19개, async helper를 coroutine으로 반환하는5개를 구분했다. lambda/helper의 async와 공개 테스트 메서드의 반환형을 혼동하지 않는다. **제외 목록0개**. [정확한 심볼·전후 행·속성](target-inventory.json).
+24개 모두 공개 `IEnumerator [UnityTest]`이며 메서드 선언 자체의 async, `[Test]`, `[TestCase]`, 기존 `[Timeout]`은 없다. async lambda를 coroutine으로 반환하는19개, async helper를 coroutine으로 반환하는5개를 구분했다. lambda/helper의 async와 공개 테스트 메서드의 반환형을 혼동하지 않는다. **제외 목록0개**. [정확한 심볼·전후 행·속성](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/target-inventory.json).
 
 아래 파일은 `Assets/TPLab/Tests/PlayMode/<Class>.cs`이다. 선언 행은 기준main → 적용 source 순서, 별도 Timeout 속성은 적용 선언 행의 바로 앞이다. 종류/기존 특수 속성을 모두 대조했다. 시간은 변경 후 해당 필터의 실제 UTF case duration이다.
 
@@ -42,7 +42,7 @@
 
 ## 전후 실행·시간 근거
 
-사용자 요청에 따라 이번 테스트 보호 추가의 Red/Green은 **변경 전후 동일 필터 결과 비교**로 대체했다. 실패 재현/동작 수정 TDD Red→Green으로 표시하지 않는다. `tools/run_unity_tests.py --project <실제 TPLab 절대경로> --mode PlayMode --filter TPLab.Core.Tests.<Class> --output Temp/<이번 작업>/<결과>.json`을 동일한 기존 Editor PID24376에서 실행했다. [원시 전후 결과·타임스탬프·invocation](comparison-runs.json).
+사용자 요청에 따라 이번 테스트 보호 추가의 Red/Green은 **변경 전후 동일 필터 결과 비교**로 대체했다. 실패 재현/동작 수정 TDD Red→Green으로 표시하지 않는다. `tools/run_unity_tests.py --project <실제 TPLab 절대경로> --mode PlayMode --filter TPLab.Core.Tests.<Class> --output Temp/<이번 작업>/<결과>.json`을 동일한 기존 Editor PID24376에서 실행했다. [원시 전후 결과·타임스탬프·invocation](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/comparison-runs.json).
 
 | 클래스 필터 | before total/pass/fail/skip | after total/pass/fail/skip | before driver 초 | after driver 초 |
 |---|---|---|---:|---:|
@@ -61,18 +61,18 @@
 
 관측한 대상 최대값은 `SceneLoaderPlayModeTests.ExplicitSourceChoosesOnlyItsInjectedLoader` **0.5173133초**이다. 30초는 약58배이며 **30초 근접 목록0개**다. AsyncSceneRoot 필터 전체 driver는 약29초지만 해당3개 case는 각각 약0.007~0.009초다. 이 차이에는 ready·Console·IPC·domain reload·결과 회수가 포함되므로 필터29초를 개별 테스트의 제한 근접으로 판단하지 않는다. 다른 기기/플랫폼의 최악값은 측정하지 않았다. 60초로 변경하거나 대상 외 속성을 추가하지 않았다.
 
-[실제 compiled 속성 확인](compiled-attributes.json): 파일 수정 직후 기존 assembly의 count0을 확인했고 표준 AssetDatabase.Refresh 뒤 compile/import idle에서24개 모두 ctor argument30000으로 로드된 것을 확인했다. 소스만 편집한 상태로 변경 후 결과를 수집하지 않았다. timeout 만료 재실험은 이번 요청대로 수행하지 않았으며 [1단계 실제250ms PlayMode 실험](../imp-04-survey/timeout-experiment.json)과 구분한다.
+[실제 compiled 속성 확인](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/compiled-attributes.json): 파일 수정 직후 기존 assembly의 count0을 확인했고 표준 AssetDatabase.Refresh 뒤 compile/import idle에서24개 모두 ctor argument30000으로 로드된 것을 확인했다. 소스만 편집한 상태로 변경 후 결과를 수집하지 않았다. timeout 만료 재실험은 이번 요청대로 수행하지 않았으며 [1단계 실제250ms PlayMode 실험](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-survey/timeout-experiment.json)과 구분한다.
 
 ## 전체 회귀·Editor/Console
 
-백로그의 전체 회귀 gate에 따라 source를 동결한 뒤 같은 도구에서 필터 없이 실행했다. UI 소스 적용은 범위 밖이며 전체 회귀 실행은 소스 변경으로 취급하지 않는다. [원시 전체 결과](regression-runs.json).
+백로그의 전체 회귀 gate에 따라 source를 동결한 뒤 같은 도구에서 필터 없이 실행했다. UI 소스 적용은 범위 밖이며 전체 회귀 실행은 소스 변경으로 취급하지 않는다. [원시 전체 결과](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/regression-runs.json).
 
 | 실제 전체 실행 | total/pass/fail/skip | driver wall 초 |
 |---|---|---:|
 | EditMode | 319/319/0/0 | 68.534399 |
 | PlayMode | 306/306/0/0 | 21.050150 |
 
-[최종 Editor/Console](post-editor-state.json): Play/compile/import/testRun false, compiler error0. Console에는 기존 singleton 실패 주입6개·provider 실패2개·root 실패2개, **합계10개의 기대 로그**가 남았다. MonoSingletonTests:119/135/147–148/169/207, ResourceManagerTests:212/499, SceneRootTests:116/137의 기존 LogAssert와 대조했다. Console을 clear하지 않았고 Console 전체0이라고 보고하지 않는다.
+[최종 Editor/Console](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-04-apply/post-editor-state.json): Play/compile/import/testRun false, compiler error0. Console에는 기존 singleton 실패 주입6개·provider 실패2개·root 실패2개, **합계10개의 기대 로그**가 남았다. MonoSingletonTests:119/135/147–148/169/207, ResourceManagerTests:212/499, SceneRootTests:116/137의 기존 LogAssert와 대조했다. Console을 clear하지 않았고 Console 전체0이라고 보고하지 않는다.
 
 ## Timeout 시 기존 정리 경로 · 정적 검토
 
