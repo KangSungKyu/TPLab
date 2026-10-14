@@ -163,3 +163,5 @@
 - 2026-10-14: [06 배포 원시 자료 삭제](2026-10-14-06-validation-prune-distribution.md) — T0 원시 정리·permalink 전환; 검증 및 통합 상태는 회고/PR 참조.
 
 - 2026-10-14: [07 UIContext 특성화 안전망 A](2026-10-14-07-uicontext-safetynet-a.md) — T2 테스트 전용·검증 완료·PR 제공; 결과와 통합 상태는 회고/PR 참조.
+
+- 2026-10-14: [08 GameSceneManager 특성화 안전망 A](2026-10-14-08-gamescene-safetynet-a.md) — T2 테스트 전용·자동 검증 완료·병합 승인 대기; 결과는 회고/PR 참조.
