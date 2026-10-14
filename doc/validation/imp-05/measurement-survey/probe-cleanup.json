@@ -1,8 +1,0 @@
-{
-  "remainingInMemoryProbeAssemblyTypes": 1,
-  "releasedStaticPositivePayloadReferences": 88,
-  "nativeRecordersAlreadyDisposed": true,
-  "staticResultBuffersCleared": true,
-  "forcedDomainReload": false,
-  "assemblyUnloadBoundary": "Next normal domain reload or Editor exit; static warmup/storage shells remain until then."
-}

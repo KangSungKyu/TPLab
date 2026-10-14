@@ -4,7 +4,7 @@
 
 ## 원문 Red와 별도 승인 정정
 
-기존 Unity6000.3.18f1 / UTF1.6.0 / UniTask2.5.11 / CLI·Connector0.4.1 Windows Mono Editor에서 mandatory `tools/run_unity_tests.py`로 실행했다. [이름·수·실패 원문](red-runs.json).
+기존 Unity6000.3.18f1 / UTF1.6.0 / UniTask2.5.11 / CLI·Connector0.4.1 Windows Mono Editor에서 mandatory `tools/run_unity_tests.py`로 실행했다. [이름·수·실패 원문](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/red-runs.json).
 
 | 실행 | total | pass | fail | skip | 의미 |
 |---|---:|---:|---:|---:|---|
@@ -14,7 +14,7 @@
 | 최초 설정 Red | 16 | 0 | 16 | 0 | 모두 SetUp 오류; API Red로 쓰지 않음 |
 | fixture 정정 후 설정 Red | 16 | 0 | 16 | 0 | API/serialized field 부재·YAML field수0, driver19.443초 |
 
-첫 정정: 제가 새 helper3곳에 IsCanceled=true를 잘못 기대했다. 설치 UniTask.AsTask는 취소도 Task.FromException/SetException으로 변환한다. 사용자가 **단언3곳만 GetResult의 OperationCanceledException 검사로 정정**하도록 승인했다. 기존 정리·상태·순서·대기는 유지했다. [기록](oracle-correction.json), [diff](proposed-test-oracle-fix.diff), [실제 Editor 변환](as-task-cancellation-probe.json), [probe source](AsTaskCancellationProbe.cs.txt).
+첫 정정: 제가 새 helper3곳에 IsCanceled=true를 잘못 기대했다. 설치 UniTask.AsTask는 취소도 Task.FromException/SetException으로 변환한다. 사용자가 **단언3곳만 GetResult의 OperationCanceledException 검사로 정정**하도록 승인했다. 기존 정리·상태·순서·대기는 유지했다. [기록](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/oracle-correction.json), [diff](proposed-test-oracle-fix.diff), [실제 Editor 변환](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/as-task-cancellation-probe.json), [probe source](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/AsTaskCancellationProbe.cs.txt).
 
 ```text
 Status=Faulted|IsCanceled=False|Exception=OperationCanceledException
@@ -22,7 +22,7 @@ Status=Faulted|IsCanceled=False|Exception=OperationCanceledException
 
 Task 키워드로 CLI가 사전 차단한 첫 요청은 실행 증거가 아니다. allow-async 요청에서 위 변환을 확인했으며 프로젝트 작업을 시작하지 않았다.
 
-둘째 정정: 설정16건 수만 확인했고 뒤늦게 원문이 SetUp 오류임을 발견했다. runtime 구현을 중단했으며 당시 runtime/XML 변경0이었다. UTF1.6.0 TaskList/CreateBootstrapSceneTask는 원래 scene setup을 저장한 뒤 EditMode에 미저장 DefaultGameObjects Single bootstrap을 만든다. 여기서 NewScene(Additive)가 거부됐다. 사용자가 **씬 생성·재로딩·정리만 정정, 단언 유지**를 별도로 승인했다. fixture는 runner context 검사 후 Single 임시 씬을 사용하며 자기 파일만 저장·재로딩·삭제한다. UTF RestoreSceneSetupTask가 원래 씬을 복원한다. 기존16case·모든 계약 단언은 그대로다. [기록](fixture-correction.json), [diff](proposed-settings-fixture-fix.diff). 정정 후 Setup/TearDown 실패0·Imp03LegacyRoot 씬/prefab/meta 잔여0이었다.
+둘째 정정: 설정16건 수만 확인했고 뒤늦게 원문이 SetUp 오류임을 발견했다. runtime 구현을 중단했으며 당시 runtime/XML 변경0이었다. UTF1.6.0 TaskList/CreateBootstrapSceneTask는 원래 scene setup을 저장한 뒤 EditMode에 미저장 DefaultGameObjects Single bootstrap을 만든다. 여기서 NewScene(Additive)가 거부됐다. 사용자가 **씬 생성·재로딩·정리만 정정, 단언 유지**를 별도로 승인했다. fixture는 runner context 검사 후 Single 임시 씬을 사용하며 자기 파일만 저장·재로딩·삭제한다. UTF RestoreSceneSetupTask가 원래 씬을 복원한다. 기존16case·모든 계약 단언은 그대로다. [기록](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/fixture-correction.json), [diff](proposed-settings-fixture-fix.diff). 정정 후 Setup/TearDown 실패0·Imp03LegacyRoot 씬/prefab/meta 잔여0이었다.
 
 각 승인을 받은 뒤에만 정정했고 최종 test/fixture5개 hash를 **구현 전에 재동결**했다. 원래 잘못된 실패를 유효 Red로 덮어쓰지 않는다.
 
@@ -60,18 +60,18 @@ D-03a~c: 기본60초, Inspector와 Configure/Attach 마지막 optional float, fi
 
 | 실행 | total | pass | fail | skip | 증거 |
 |---|---:|---:|---:|---:|---|
-| 동결 AsyncSceneRootTests | 28 | 28 | 0 | 0 | [Green](green-runs.json) |
-| 동결 설정/legacy asset | 16 | 16 | 0 | 0 | [Green](green-runs.json) |
-| 전체 EditMode | 375 | 375 | 0 | 0 | [회귀](regression-runs.json) |
-| 전체 PlayMode | 345 | 345 | 0 | 0 | [회귀](regression-runs.json) |
+| 동결 AsyncSceneRootTests | 28 | 28 | 0 | 0 | [Green](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/green-runs.json) |
+| 동결 설정/legacy asset | 16 | 16 | 0 | 0 | [Green](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/green-runs.json) |
+| 전체 EditMode | 375 | 375 | 0 | 0 | [회귀](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/regression-runs.json) |
+| 전체 PlayMode | 345 | 345 | 0 | 0 | [회귀](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/regression-runs.json) |
 
 총720/720·skip0이며 단위44개는 전체 회귀와 중복 집계하지 않는다. Green root driver7.518초·settings4.534초, 전체Edit20.152초·Play13.988초다. Green root CLI는 domain reload로1을 반환했지만 동일 invocation의 fresh Connector 결과28/28을 driver가 복구했다. 실제 실패 테스트를 재실행하거나 다른 Editor·과거 suite로 대체하지 않았다.
 
-두 host×scene/prefab에서 실제 YAML 필드 제거·재import 뒤 누락값60초, 명시적0은0초를 확인했다(8case). 사용자 씬/prefab을 재직렬화하지 않고 테스트가 생성한 fixture만 썼다. 신규 timeout field는 기존 DrawDefaultInspector로 표시되므로 Editor UI 소스는 변경하지 않았다. 극단 양수 float.MaxValue는 두 host의 Attach/Configure에서 mutation 전 AORE를 확인한 [추가 Green4검사](max-value-probe.json)이며 독립 Red 실행으로 주장하지 않는다. [probe source](MaxValueProbe.cs.txt); 실행 후 original active scene/count를 복원했다.
+두 host×scene/prefab에서 실제 YAML 필드 제거·재import 뒤 누락값60초, 명시적0은0초를 확인했다(8case). 사용자 씬/prefab을 재직렬화하지 않고 테스트가 생성한 fixture만 썼다. 신규 timeout field는 기존 DrawDefaultInspector로 표시되므로 Editor UI 소스는 변경하지 않았다. 극단 양수 float.MaxValue는 두 host의 Attach/Configure에서 mutation 전 AORE를 확인한 [추가 Green4검사](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/max-value-probe.json)이며 독립 Red 실행으로 주장하지 않는다. [probe source](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/MaxValueProbe.cs.txt); 실행 후 original active scene/count를 복원했다.
 
-[보존](source-preservation.json): base561 tracked source/assets/settings/tools 중 승인된 runtime/XML6 + 기존 async test1만 변경, 나머지554 raw hash 동일. dirty6·최종 frozen5·검증 source11 hash 일치. 새 Editor test/meta2는 고유 GUID이며 임시 legacy scene/prefab/meta0이다. 사용자 승인 전 동결 예외2건과 구현 중 test 변경0을 구분한다.
+[보존](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/source-preservation.json): base561 tracked source/assets/settings/tools 중 승인된 runtime/XML6 + 기존 async test1만 변경, 나머지554 raw hash 동일. dirty6·최종 frozen5·검증 source11 hash 일치. 새 Editor test/meta2는 고유 GUID이며 임시 legacy scene/prefab/meta0이다. 사용자 승인 전 동결 예외2건과 구현 중 test 변경0을 구분한다.
 
-[환경](environment.json): InitScene active, loaded1, dirty=false, playing/compiling/updating=false, timeScale1, profiler=false. [Console](console.json)10건은 기존 singleton6/provider2/root2 LogAssert와 오류 첫줄별로 일치한다. Console을 지우거나 product 오류0이라고 표시하지 않았다.
+[환경](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/environment.json): InitScene active, loaded1, dirty=false, playing/compiling/updating=false, timeScale1, profiler=false. [Console](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-03/console.json)10건은 기존 singleton6/provider2/root2 LogAssert와 오류 첫줄별로 일치한다. Console을 지우거나 product 오류0이라고 표시하지 않았다.
 
 정적 리뷰는 실제 준비종료 flag/CTS 지연 해제, original failure capture, 독립 timer/원래예외 identity, 역순 해제/공유 shutdown, host mutation 전 validation과 XML signature를 확인했다. 전체 배열·게임 씬/입력/UI 소스·패키지·asmdef·프로젝트 설정·기존 fixture는 변경하지 않았다. RootInstallation 생성자와 concrete host Configure/Attach optional 설정, private serialized field 외 ISceneRoot 시그니처는 유지했다.
 
@@ -84,3 +84,5 @@ D-03a~c: 기본60초, Inspector와 Configure/Attach 마지막 optional float, fi
 ## 사용자 수락 및 통합 gate
 
 2026-10-13 승인한 tip은 `2cf57533b4773248b04a53a212979d70ca98c3c1`이며 [그 HEAD의 Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38344477918)는 workflow1/check1 완료·success, 조회누락/진행/실패0이다. 승인 후 변경은 승인 기록 7개 문서만이다. 검증 source `5fe5bf5a41386409775d836e5b3a50a2f516a787`와 runtime·테스트·설정·tools를 유지하며 문서 diff·공백·상대 링크·규칙 검사 및 최종 문서 tip의 CI를 확인한다. 이 문서 후속 변경에서 Unity 테스트는 새로 실행하지 않는다. 기존 720/720은 동일한 runtime/test source의 Editor 회귀 증거이며 Actions는 Unity 실행 CI가 아니다. 실제 merge SHA와 브랜치 정리 결과는 PR 및 Git 이력에 기록한다.
+
+IMP-03・IMP-04（조사/적용）・IMP-05（조사/구현）・IMP-14의 원시 자료 링크는 삭제 전 main의 고정 commit permalink다. 과거 열람용이며 로컬 입력 복원·재검증 능력을 뜻하지 않는다.

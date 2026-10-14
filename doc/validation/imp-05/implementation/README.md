@@ -4,7 +4,7 @@
 
 ## 선행 승인·공개 계약
 
-사용자 PR #9 병합/완료후 재개 지시를 따랐다. [receipt](pr9-merge-receipt.json): 승인후 수락문서5개만 추가한 최종tip90df125의 Actions 성공 확인 → 일반merge main3ee358f → 로컬/origin/server 일치·원본tip 도달성 확인 → 해당helper branch를 exact remote SHA lease/로컬-d로 삭제. old 조사branch는 삭제하지 않았다. 신규meta5의 Git checkout CRLF→LF 정규화만 있었고 source13 canonical 내용/GUID·dirty6는 보존했다. 이번 IMP-05는 최신 main에서 새 브랜치를 만들었다.
+사용자 PR #9 병합/완료후 재개 지시를 따랐다. [receipt](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/pr9-merge-receipt.json): 승인후 수락문서5개만 추가한 최종tip90df125의 Actions 성공 확인 → 일반merge main3ee358f → 로컬/origin/server 일치·원본tip 도달성 확인 → 해당helper branch를 exact remote SHA lease/로컬-d로 삭제. old 조사branch는 삭제하지 않았다. 신규meta5의 Git checkout CRLF→LF 정규화만 있었고 source13 canonical 내용/GUID·dirty6는 보존했다. 이번 IMP-05는 최신 main에서 새 브랜치를 만들었다.
 
 버퍼 API의 사전 확인 절차를 요청했고 사용자가 다음3개를 그대로 확정했다: `int OwnedSceneCount { get; }`, `void GetOwnedScenes(List<Scene> buffer)`, `void GetRegisteredScenes(List<SceneRegistration> buffer)`. 이름·형식 변경 없이 구현했다. [runtime/XML](../../../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs), [사람 API](../../../api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot), [AI API](../../../ai/api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot).
 
@@ -24,14 +24,14 @@ Unity6000.3.18f1 / UTF1.6.0 / CLI·Connector0.4.1 / Windows Mono Editor의 기�
 
 | 단계 | 대상 | total | pass | fail | skip | 증거 |
 |---|---|---:|---:|---:|---:|---|
-| Red | 새 GameScenePollingTests | 13 | 6 | 7 | 0 | [Red](red-runs.json) |
-| Red | 기존 CanProceed allocation | 1 | 0 | 1 | 0 | [Red](red-runs.json) |
-| Green | 새 API/의미·allocation | 13 | 13 | 0 | 0 | [Green](green-runs.json) |
-| Green | 기존 entry(CanProceed 포함) | 8 | 8 | 0 | 0 | [Green](green-runs.json) |
-| Green | 기존 replacement | 36 | 36 | 0 | 0 | [Green](green-runs.json) |
-| Green | 기존 derived areas | 27 | 27 | 0 | 0 | [Green](green-runs.json) |
-| 회귀 | 전체 EditMode | 359 | 359 | 0 | 0 | [회귀](regression-runs.json) |
-| 회귀 | 전체 PlayMode | 332 | 332 | 0 | 0 | [회귀](regression-runs.json) |
+| Red | 새 GameScenePollingTests | 13 | 6 | 7 | 0 | [Red](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/red-runs.json) |
+| Red | 기존 CanProceed allocation | 1 | 0 | 1 | 0 | [Red](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/red-runs.json) |
+| Green | 새 API/의미·allocation | 13 | 13 | 0 | 0 | [Green](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/green-runs.json) |
+| Green | 기존 entry(CanProceed 포함) | 8 | 8 | 0 | 0 | [Green](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/green-runs.json) |
+| Green | 기존 replacement | 36 | 36 | 0 | 0 | [Green](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/green-runs.json) |
+| Green | 기존 derived areas | 27 | 27 | 0 | 0 | [Green](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/green-runs.json) |
+| 회귀 | 전체 EditMode | 359 | 359 | 0 | 0 | [회귀](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/regression-runs.json) |
+| 회귀 | 전체 PlayMode | 332 | 332 | 0 | 0 | [회귀](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/regression-runs.json) |
 
 ```text
 Required public API: void GameSceneManager.GetOwnedScenes(List<Scene>)
@@ -50,7 +50,7 @@ API부재7개는 typed reflection binding으로 존재/void signature를 검사�
 
 ## 구성별 기여도 실측
 
-[이전](before-components.json), [이후](after-components.json), [probe 실행](probe-runs.json), [before source](ComponentProbe.cs.txt), [after source](OptimizedProbe.cs.txt), [drivers](ComponentProbeTests.cs.txt)/[after driver](OptimizedProbeTests.cs.txt). 독립 Ready primary-only Graph에서 각100회, binding/Emit/기대array생성/warm-up/assert/serialization은 window밖. 결과·payload는static에 보존하고 helper 각호출 양성1·음성0을 확인했다. 같은 기존 Editor PlayMode에서 temporary fixture를 mandatory runner로 실행했으며 실행 후 owned source/meta4개씩 제거했다. 임시코드는 Assets나병합source에 남지 않고 증거 .cs.txt만 보존한다.
+[이전](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/before-components.json), [이후](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/after-components.json), [probe 실행](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/probe-runs.json), [before source](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/ComponentProbe.cs.txt), [after source](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/OptimizedProbe.cs.txt), [drivers](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/ComponentProbeTests.cs.txt)/[after driver](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/OptimizedProbeTests.cs.txt). 독립 Ready primary-only Graph에서 각100회, binding/Emit/기대array생성/warm-up/assert/serialization은 window밖. 결과·payload는static에 보존하고 helper 각호출 양성1·음성0을 확인했다. 같은 기존 Editor PlayMode에서 temporary fixture를 mandatory runner로 실행했으며 실행 후 owned source/meta4개씩 제거했다. 임시코드는 Assets나병합source에 남지 않고 증거 .cs.txt만 보존한다.
 
 | 경로(100회) | 전 events | 후 events | 전/후 전역 frame bytes(보조) |
 |---|---:|---:|---:|
@@ -66,7 +66,7 @@ All은 private 타입 때문에 실제 getter의 GetRegisteredOwners→ldnull→
 
 ## 보존·Console·문서·남은 gate
 
-[보존](source-preservation.json): main557 source/assets/settings/tools 중Runtime1개만변경, 나머지556 rawhash동일. 사용자dirty6·frozen6·testedsource7동일, 신규meta2GUID유일, 임시probeAssets잔여0. [환경](environment.json): 원래InitScene active/loaded/dirty=false, Play/compile/import/TestRun=false, Profiler.enabled=false. [제품Console](console.json)10개는singleton6/provider2/root2의기존LogAssert와대조했고추가미예상/CS오류는관찰하지않았다. 처음stack문자열로집계하면서root 예외의MonoSingleton base stack을중복분류했으므로오류첫줄별로다시검증했다;Console을비우거나오류0으로표시하지않는다.
+[보존](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/source-preservation.json): main557 source/assets/settings/tools 중Runtime1개만변경, 나머지556 rawhash동일. 사용자dirty6·frozen6·testedsource7동일, 신규meta2GUID유일, 임시probeAssets잔여0. [환경](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/environment.json): 원래InitScene active/loaded/dirty=false, Play/compile/import/TestRun=false, Profiler.enabled=false. [제품Console](https://github.com/KangSungKyu/TPLab/blob/db05c252f0e8bce7c9fc67b2faf944bbd00d601d/doc/validation/imp-05/implementation/console.json)10개는singleton6/provider2/root2의기존LogAssert와대조했고추가미예상/CS오류는관찰하지않았다. 처음stack문자열로집계하면서root 예외의MonoSingleton base stack을중복분류했으므로오류첫줄별로다시검증했다;Console을비우거나오류0으로표시하지않는다.
 
 Green polling·entry와afterprobe CLI가 domainreload로1을반환했지만동일PID의fresh Connector 결과를복구했고exact nonzero case는모두pass였다. 실제실패case를retry하거나다른Editor/과거suite로대체하지않았다. 전체회귀691/691·skip0은 이번 source의결과다.
 

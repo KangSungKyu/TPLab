@@ -1,9 +1,0 @@
-{
-  "method": "Int64 GetAllocatedBytesForCurrentThread()",
-  "declaringAssembly": "mscorlib",
-  "implementationFlags": "InternalCall",
-  "ilHex": null,
-  "monoRuntimePresent": true,
-  "unityVersion": "6000.3.18f1",
-  "platform": "WindowsEditor"
-}
