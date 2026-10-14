@@ -120,4 +120,8 @@ worker는 **background Thread.Join(3000)**, async completion은 **100 yield 또�
 
 ## PR/최종 검사
 
-공백·링크·규칙·source Actions는 PR 게시 단계에서 보완한다. source runtime+동결 test와 최종 commit metadata를 구분한다. 최종 tip의 exact-SHA Actions는 별도 새 조회하며 PR 본문·INDEX에 위 증거 수치를 중복하지 않는다.
+검증 source commit은 `69dcd426a912c85ff6fc048c5882f63c98fb605d`다. runtime과 동결 test는 위 baseline/원복 이후 동일하다. `tools/check_pr_rules.py --base f54554a6c7ff1b06e73dcc3258d8b4170d26ddfa --head <tip>`는 변경4파일·오류0·경고0(보호 파일 warning 없음), `git diff --check <base> <tip>` 공백0이다. Markdown243개·local link1914·anchor451에서 기존 오류6건과 새 회고/INDEX 오류0을 확인했다.
+
+source [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38518038693)는 exact-SHA completed/success다. targetSha=inspectedCommit, remoteMain=base, 조회 collection 모두 complete·errors0, queryIssues/blockingReasons0, run1/check1을 확인했다. 최종 검증 기록 보완은 회고 metadata만 바꾸며 runtime·test는 동일하다. 최종 tip도 새로 exact-SHA 판정하고 SHA/run은 [PR #22 Checks](https://github.com/KangSungKyu/TPLab/pull/22/checks)와 완료 채팅에 대응한다. PR #22는 open·미병합으로 유지하며 main 승인·브랜치 정리를 이번에 하지 않는다.
+
+독립 재검토에서 최초 회고 표가 마지막M8만 기록된 문서 누락을 발견했다. 원시8개 JSON에서 행을 재구성한 추가 문서 커밋으로 M1–M8각1행·숫자/이유 일치를 확인했고 기존 이력과 테스트를 다시 쓰지 않았다. 이는 테스트 정상본/기대값/fixture 실패 정정이 아니다. 최종 독립 검토의 잔여 문제는 없었다.
