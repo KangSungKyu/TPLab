@@ -1,6 +1,6 @@
 # TPLab 배포 규격과 dev-build track
 
-2026-10-08. Status: **P4 / 0.0.1 정식 공개·발행 검증 완료**, PipelineImplementation: **P1/P2/P3/P4Implemented**, PackageValidation: **Passed/UserConfirmed**. 태그 `v0.0.1`의 고정 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`다. [정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1), [P4 증거](validation/distribution-release/README.md), [사용자 최종 확인](DISTRIBUTION_ACCEPTANCE.md)을 따른다. 브랜치4개/worktree2개 정리는 [완료 기록](validation/distribution-release/branch-cleanup.json)을 따른다. 사용자 요청에 따른 장치 종료는 별도 일회성 운영 기록이다.
+2026-10-08. Status: **P4 / 0.0.1 정식 공개·발행 검증 완료**, PipelineImplementation: **P1/P2/P3/P4Implemented**, PackageValidation: **Passed/UserConfirmed**. 태그 `v0.0.1`의 고정 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`다. [정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1), [P4 증거](validation/distribution-release/README.md), [사용자 최종 확인](DISTRIBUTION_ACCEPTANCE.md)을 따른다. 브랜치4개/worktree2개 정리는 [완료 기록](https://github.com/KangSungKyu/TPLab/blob/73a12f6ac4c4bd9f45db6ca9d14f94cbc8fc4e67/doc/validation/distribution-release/branch-cleanup.json)을 따른다. 사용자 요청에 따른 장치 종료는 별도 일회성 운영 기록이다.
 
 최초 설계 기준 main은 `993a0617b8b5253175d9a225432f0aa642d19d3d`, Git URL·예제 분류·차기 범위 보완 기준은 `36e8ffbb0833293474da43396481895e5d8108d0`다. 기존 코어 기능·이름 변경 검증은 선행 기록이며 실제 배포물 설치 통과를 대신하지 않는다. P0는 규격·운영 설계, P1은 패키징, P2는 실제 설치까지 완료했다. 개발 원본은 Assets에 유지한다. 현재 P3는 후보 회귀·최종 확인이며 main/tag/Release 발행은 P4다.
 
