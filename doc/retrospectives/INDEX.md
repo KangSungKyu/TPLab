@@ -171,3 +171,5 @@
 - 2026-10-14: [10 UIContext 특성화 안전망 B](2026-10-14-10-uicontext-safetynet-b.md) — T2 테스트 전용·반복 회귀 및 변형 검증 완료·PR 제공 및 병합 승인 대기; 증거는 회고 참조.
 
 - 2026-10-15: [01 GameSceneManager 특성화 안전망 B](2026-10-15-01-gamescene-safetynet-b.md) — T2 테스트 전용·승인 정정 및 변형·반복 회귀 완료; 증거와 통합 상태는 회고/PR 참조.
+
+- 2026-10-15: [04 문서 링크 정정과 verifier 원인 분류](2026-10-15-04-docs-link-verifier.md) — T0 링크 정정·verifier 해결은 도구 정책 결정 대기; 검증·중단 사유는 회고/PR 참조.

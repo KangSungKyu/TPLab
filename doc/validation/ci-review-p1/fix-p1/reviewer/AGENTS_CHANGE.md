@@ -6,11 +6,11 @@
 
 현재:
 
-> GitHub PR 규칙 검사와 요청 시 Claude 리뷰의 1단계 초안은 [CI_SETUP_GUIDE.md](doc/CI_SETUP_GUIDE.md)를 참조한다. 현재 단위는 작업 브랜치·검증·PR까지만 진행하며, CI 판정 변경과 실제 리뷰 권한은 사용자 확인 전 main에 반영하지 않는다.
+> GitHub PR 규칙 검사와 요청 시 Claude 리뷰의 1단계 초안은 [CI_SETUP_GUIDE.md](../../../../../doc/CI_SETUP_GUIDE.md)를 참조한다. 현재 단위는 작업 브랜치·검증·PR까지만 진행하며, CI 판정 변경과 실제 리뷰 권한은 사용자 확인 전 main에 반영하지 않는다.
 
 변경:
 
-> GitHub PR 규칙 검사와 요청 시 Claude 리뷰는 [CI_SETUP_GUIDE.md](doc/CI_SETUP_GUIDE.md)를 참조한다. CI 판정 도구, 워크플로, 리뷰 지침(`CLAUDE.md`)의 변경은 사용자 확인 전에는 main에 반영하지 않는다.
+> GitHub PR 규칙 검사와 요청 시 Claude 리뷰는 [CI_SETUP_GUIDE.md](../../../../../doc/CI_SETUP_GUIDE.md)를 참조한다. CI 판정 도구, 워크플로, 리뷰 지침(`CLAUDE.md`)의 변경은 사용자 확인 전에는 main에 반영하지 않는다.
 
 이유: "현재 단위"는 병합 후 가리키는 대상이 없어진다. 뒤 문장은 상시 규칙으로 남겨도 의미가 같다.
 
@@ -18,11 +18,11 @@
 
 현재:
 
-> CI 판정은 [GitHub 리뷰 자동화 초안](doc/CI_SETUP_GUIDE.md)과 [현재 변경안](doc/validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 함께 검토한다. 워크플로 등록·CI 검사 미실행은 테스트 통과가 아니다. 정확한 대상 SHA의 결과·조회 완전성·실패/진행 상태를 구분하며, CI 도구의 허용 결과만으로 로컬 필수 검증이나 사용자 확인을 대체하지 않는다. 이번 판정 변경 PR은 사용자 확인 전 main에 병합하지 않는다.
+> CI 판정은 [GitHub 리뷰 자동화 초안](../../../../../doc/CI_SETUP_GUIDE.md)과 [현재 변경안](../../../../../doc/validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 함께 검토한다. 워크플로 등록·CI 검사 미실행은 테스트 통과가 아니다. 정확한 대상 SHA의 결과·조회 완전성·실패/진행 상태를 구분하며, CI 도구의 허용 결과만으로 로컬 필수 검증이나 사용자 확인을 대체하지 않는다. 이번 판정 변경 PR은 사용자 확인 전 main에 병합하지 않는다.
 
 변경:
 
-> CI 판정은 [GitHub 리뷰 자동화 가이드](doc/CI_SETUP_GUIDE.md)와 [CI 판정 기준](doc/validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 함께 따른다. 워크플로 등록·CI 검사 미실행은 테스트 통과가 아니다. 정확한 대상 SHA의 결과·조회 완전성·실패/진행 상태를 구분하며, CI 도구의 허용 결과만으로 로컬 필수 검증이나 사용자 확인을 대체하지 않는다. CI 판정은 병합 대상 브랜치 tip의 SHA로 한다. fast-forward가 아닌 merge 커밋에는 PR 검사 결과가 없으므로 그 SHA로 판정하지 않는다.
+> CI 판정은 [GitHub 리뷰 자동화 가이드](../../../../../doc/CI_SETUP_GUIDE.md)와 [CI 판정 기준](../../../../../doc/validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 함께 따른다. 워크플로 등록·CI 검사 미실행은 테스트 통과가 아니다. 정확한 대상 SHA의 결과·조회 완전성·실패/진행 상태를 구분하며, CI 도구의 허용 결과만으로 로컬 필수 검증이나 사용자 확인을 대체하지 않는다. CI 판정은 병합 대상 브랜치 tip의 SHA로 한다. fast-forward가 아닌 merge 커밋에는 PR 검사 결과가 없으므로 그 SHA로 판정하지 않는다.
 
 이유:
 - "초안"과 "현재 변경안"은 병합 후에는 "가이드"와 "판정 기준"이다.
