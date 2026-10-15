@@ -1,5 +1,7 @@
 # 제네릭 데이터 조회 구현
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 2026-10-06. 기준 `main / 9d79dacb3eb3347dee29d7a6241700de1f7d3e8b`, 문서 branch `docs/generic-data-table-ready`. 최초 문서는 구현 준비였다. 이후 사용자의 구현 요청에 따라 main/7cd8955에서 codex/generic-data-tables를 생성해 아래 4단계를 구현했다. 현재 [검증 결과](validation/generic-data-tables/README.md)와 [최종 회고](retrospectives/2026-10-06-06-generic-data-table-validation.md)를 따른다. 이 문서는 작업 순서·수정 경계·완료 조건을 소유한다. 조회/idx 계약은 [idx 명세](DATA_TABLE_IDX_DRAFT.md), DTO/CSV/테이블 binding 계약은 [매핑 명세](DATA_TABLE_MAPPING_DRAFT.md)가 소유하며 중복 정의하지 않는다.
 
 2026-10-06 후속 변경: Text/Resource 구체 DTO·테이블을 runtime core에서 제거하고 [예시 템플릿](templates/data-tables/README.md)으로 남겼다. 아래 TextRow/ResourceKeyRow는 프로젝트 예시 타입이다. 현재 [분리 검증](validation/data-table-templates/README.md), [후속 회고](retrospectives/2026-10-06-07-data-table-templates.md)를 함께 확인한다.

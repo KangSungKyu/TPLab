@@ -1,5 +1,7 @@
 # GameSceneManager 통합 track 운영
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 작성일: 2026-10-06. GameSceneManager 후속 구현을 하나의 순차 통합 track에서 운영한다. API·행동 계약은 [GAME_SCENE_MANAGER_DRAFT.md](GAME_SCENE_MANAGER_DRAFT.md)가 소유한다. 이 문서는 작업 배정, 단계 상태·증거, 통합과 종료 gate만 관리한다. 상태는 실제 변경과 현재 checkout의 검증 증거에 맞춰 갱신한다.
 
 ## 브랜치와 순서

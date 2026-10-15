@@ -1,5 +1,7 @@
 # Scene loading presentation: final user acceptance
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 이 절차는 자동 테스트 이후 **마지막 한 번의 실제 UI 확인**에 사용한다. 코어의 자동 검증 결과나 [synthetic InputSystem/sample tests](../Assets/TPLab/Tests/PlayMode/LoadingSampleTests.cs)는 사람의 화면 확인과 실제 키보드·게임패드·pointer 조작을 대신하지 않는다. 아직 완료되지 않은 항목은 PASS로 적지 않는다. 실행 결과 수와 source revision은 [scene-loading track](SCENE_LOADING_TRACK.md)에서 관리한다.
 
 ## 준비와 설정

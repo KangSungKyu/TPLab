@@ -159,4 +159,4 @@ Phase 3은 먼저 코드 요청으로 씬 전환을 검증하고, Phase 4에서 
 
 source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`. 기존 allocating OwnedScenes/RegisteredScenes snapshot을 유지하고 main-thread OwnedSceneCount/GetOwnedScenes(List<Scene>)/GetRegisteredScenes(List<SceneRegistration>)를 추가했다. caller buffer는 null→thread 검증 뒤 Clear/fill, 채움 실패 시 empty·원래 예외 전파이며 capacity는 복원하지 않는다. 순서/필터·call-time snapshot·capacity 조건은 [사람 API](api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot), [AI API](ai/api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot)가 소유한다.
 
-CanProceed 내부 준비·양방향 씬 inventory만 직접 순회해0events로 전환했다. 클래스 분리·캐시·P1 종료 순회/기타 LINQ·비동기 본문 변경은 하지 않았다. [실제 Red/Green·구성별 기여도·회귀](validation/imp-05/implementation/README.md): Edit359/359·Play332/332, fail/skip0. 새 Player/IL2CPP는 NotRun, 사용자 승인 대기다.
+CanProceed 내부 준비·양방향 씬 inventory만 직접 순회해0events로 전환했다. 클래스 분리·캐시·P1 종료 순회/기타 LINQ·비동기 본문 변경은 하지 않았다. [실제 Red/Green·구성별 기여도·회귀](validation/imp-05/implementation/README.md): Edit359/359·Play332/332, fail/skip0. 새 Player/IL2CPP는 NotRun이다. IMP-05는 사용자 승인 후 [PR #10](https://github.com/KangSungKyu/TPLab/pull/10)으로 main 병합 완료했으며 이 문단의 실행 수치는 당시 검증 기록이다.
