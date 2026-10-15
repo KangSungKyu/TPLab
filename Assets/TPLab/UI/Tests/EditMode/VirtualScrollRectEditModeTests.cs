@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace TPLab.UI.Tests
 {
-    /// <summary>Draft contract tests. These should fail against the signature-only P5 stub.</summary>
+    /// <summary>Contract tests for the implemented VirtualScrollRect; all 7 cases run in the full EditMode suite.</summary>
     public sealed class VirtualScrollRectEditModeTests
     {
         private GameObject _root;

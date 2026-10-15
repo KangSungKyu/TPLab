@@ -46,7 +46,10 @@ namespace TPLab.UI
     {
         /// <summary>Destroy the owned clone after each display.</summary>
         DestroyOnClose,
-        /// <summary>Keep a reset inactive clone until its owning context ends.</summary>
+        /// <summary>
+        /// Keep the owned clone until its context ends. DeactivateView caches it inactive; renderer-only Reuse
+        /// keeps it active with owned rendering, raycasters, and the visibility mask blocked.
+        /// </summary>
         Reuse
     }
 
@@ -55,7 +58,7 @@ namespace TPLab.UI
     {
         /// <summary>Deactivate the view GameObject; this alone does not cancel arbitrary asynchronous work.</summary>
         DeactivateView,
-        /// <summary>Disable only a dedicated view Canvas or a whole registered host's rendering.</summary>
+        /// <summary>Keep the clone active while disabling its dedicated root Canvas and captured raycasters under the owned visibility mask.</summary>
         DisableCanvasRendering
     }
 }
