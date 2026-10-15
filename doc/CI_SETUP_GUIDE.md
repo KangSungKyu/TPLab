@@ -1,6 +1,6 @@
 # TPLab GitHub 리뷰 자동화 도입 가이드 (1단계)
 
-**상태**: 초안. 아직 저장소에 반영되지 않았다. 이 문서의 파일은 모두 `ci-draft/`의 초안이며, 반영은 Codex가 작업 브랜치에서 하고 병합은 사용자의 최종 확인 후에 한다.
+**상태**: 저장소 반영 완료. [PR 규칙 검사 workflow](../.github/workflows/rule-check.yml)와 [요청 시 Claude 리뷰 workflow](../.github/workflows/claude-review.yml), [규칙 검사](../tools/check_pr_rules.py)·[exact-SHA CI 판정 도구](../tools/check_github_ci.py)가 main에 있다. 아래 초기 도입 순서와 기존 CI 충돌 설명은 당시 기록이며 현재 판정은 [CI 판정 기준](validation/ci-review-p1/CI_GATE_PROPOSAL.md)을 따른다. Unity 테스트 CI는 이 workflow에 포함되지 않는다.
 
 ## 1. 목표와 범위
 

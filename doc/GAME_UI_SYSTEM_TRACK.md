@@ -1,5 +1,7 @@
 # UIContext 구현 track
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 2026-10-08. 사용자는 [UI 설계](GAME_UI_SYSTEM_DRAFT.md)의 P0~P7 구현 진행을 요청했다. 명칭은 UIContext, 첫 범위는 HUD·modal/modeless Popup·Canvas host·독립 Virtual ScrollRect다.
 
 ## 기준과 보호
