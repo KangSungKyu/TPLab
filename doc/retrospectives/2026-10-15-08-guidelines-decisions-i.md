@@ -140,3 +140,5 @@ D-F(08:16)의 모든 등급 사용자 승인·exact-SHA CI·dirty 보존·병합
 문서·범위 정적 검사: 변경 후254 Markdown·상대 링크2016·anchor485·오류0(전후 새 오류0), 고정 SHA 증거 링크58개 blob/anchor 오류0. 라벨 표는 별도 재계산과 전부 일치하며 56칸 내용 불변이다. stage된19개 변경 파일은 Markdown뿐이고 AGENTS:118의 링크 대상 한 곳 외 변경0, runtime·기존 테스트·asmdef·tools·workflow·upm 변경0이다. 사용자 dirty10개와 허용 범위 밖 전체 추적 파일 raw hash가 동일하다. `git diff --cached --check` 오류0이다. 기존 사용자 dirty의 공백은 이번 PR 검사·수정 범위에서 제외했다.
 
 커밋 후 `check_pr_rules.py`와 최종 tip exact-SHA Actions는 동일 base로 확인한다. 결과를 테스트 통과와 혼동하지 않는다. [이 작업 브랜치의 Actions](https://github.com/KangSungKyu/TPLab/actions?query=branch%3Acodex%2Fguidelines-decisions-i)에서 해당 SHA를 확인할 수 있으며 판정은 최종 완료 보고와 구분한다. PR은 open으로 유지하고 사용자 명시적 병합 승인을 기다린다.
+
+문서 source commit은 `50cfbbbb7f1e5e72cfb7fb3c4284bfbacb210b12`다. 해당 변경19파일의 `check_pr_rules`는 오류0·예상 보호 파일 경고1(AGENTS 링크 한 곳), 공백 검사 오류0이다. [source Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38697155607)는 completed/success였고 checks/statuses/runs/workflows 전 페이지 조회가 완전했으며 SHA가 일치했다. 이 검사 요약만 후속 commit으로 추가하고, 내용이 포함된 최종 tip도 같은 exact-SHA 도구로 재확인해 PR #32와 완료 보고에서 제시한다. 새 source 변경·테스트 실행·main 병합은 없다.
