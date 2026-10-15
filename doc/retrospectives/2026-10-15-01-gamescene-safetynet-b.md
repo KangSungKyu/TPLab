@@ -195,3 +195,11 @@ Temp는 source/정정 전 cs/patch·runtime backup·실행 JSON/driver·임시 �
 ## 정적 검사·제품 Console
 
 전체 PlayMode 뒤 Console error 조회10건은 모두 기존 테스트의 기대 로그와 정확한 수가 일치했다. MonoSingletonTests:119/135/147/148/169/207의 init2·shutdown2·초기화 중 파괴1·root 제약1, ResourceManagerTests:212/499의 provider failure2, SceneRootTests:116/137의 install/uninstall failure 각1이다. 신규 Scene-B 로그는0이고 모든 case의 LogAssert.NoUnexpectedReceived가 유지됐다. Console을 지우거나 error=[]로 보고하지 않았다. compile error CS 로그0.
+
+## PR 제공·정적 검사 기록
+
+커밋 `1f81a6743e200ecc0b2895d30638a82d75b37c46`에 동결 테스트와 회고·INDEX4파일을 담아 [PR #25](https://github.com/KangSungKyu/TPLab/pull/25)를 non-draft/open으로 제공했다. 이 source SHA의 [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38663451270)는 completed/success이며 check1·run1, 4개 collection 조회 complete=true/errors=[], queryIssues/blockingReasons=[]와 SHA 일치를 확인했다. 이 workflow는 PR diff 규칙 검사이며 Unity 실행은 위 기존 Editor의 실제 실행 증거다.
+
+로컬 `tools/check_pr_rules.py --base 9062f72b0bca5db75b5e61f5ffd0be817d28fd02 --head HEAD`: 4파일·오류0·경고0. 커밋 diff 공백 오류0; 회고/INDEX 로컬 링크91·anchor3 검사 오류0. 신규 GUID는 Assets/upm의 .meta 검색에서1곳뿐이다. 기존1199파일 bytes와 dirty6 bytes 보존, 기존 추적 차이는 INDEX1곳만 확인했다. 원본 runtime/public signature·기존 테스트·assembly·패키지/UPM 변경0이다. 모든 변형은 의도한 assertion 실패이며 Timeout으로 끊긴 실행0이다.
+
+이 문서 제공 metadata를 추가한 최종 commit은 테스트/원본 runtime bytes를 바꾸지 않으며, 그 최종 HEAD exact-SHA Actions도 다시 확인해 최종 채팅에 보고한다. main은 로컬/원격/서버 모두 기준 SHA 그대로이며 PR 병합은 하지 않는다. 실행 출력은 실패 원문·실행 식별자·수치·source hash·한계를 이 회고에 보존한 뒤 이번 작업 Temp 명시 목록만 정리한다.
