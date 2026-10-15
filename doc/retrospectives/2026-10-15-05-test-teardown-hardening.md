@@ -64,3 +64,11 @@ C:/Python314/python.exe tools/run_unity_tests.py --project C:/Users/PC/Projects/
 ## 배운 점과 후속 경계
 
 Dispose 호출이나 고정 프레임 대기만으로 native/owner 종료 완료를 대신하지 않는다. 테스트의 기존 실패 관찰은 유지하면서 공개 shutdown completion을 기다리고, LogAssert는 UTF가 log scope를 연 iterator에서 실행한다. worker 상한은 대기 성공 단언과 정리까지 함께 두어 hang을 명확한 실패로 바꾼다. 이번 8회에서 새 문제는 없었으며 UI API·배포·추가 안전망 후보는 별도 사용자 범위 결정 뒤에만 진행한다.
+
+## 검사 확정
+
+테스트 변경이 들어 있는 source commit은 `1b5b9953ec26f33a78f7212b1b1c8f83ccbfceed`다. 그 뒤 이 검사 요약만 더하며 동결한 9개 C# 파일은 바꾸지 않는다. 전후 8회 case 이름 집합 동일·증감0, 신규 source0, 기존 dirty6과 허용 범위 밖 파일 raw hash 동일을 확인했다.
+
+변경 후 Markdown250개·상대 링크2024개·anchor503개를 검사해 링크/anchor 오류0, 새 오류0이었다. 외부 HTTP1025개는 조회하지 않았다. `git diff --check`를 이번 11개 파일/커밋에 적용해 오류0, `tools/check_pr_rules.py --base a09e25b41b4b2c937c48e5df659f33c61a5c3928 --head HEAD`는 변경11개·오류0·경고0이었다. 보호 파일 warning도 없다. 최종 문서 tip에도 같은 검사를 재적용하고, exact-SHA Actions 결과와 PR은 최종 보고에서 확인한다.
+
+원본 JSON/XML·timing·보존 hash·링크 집계는 작업 소유 `Temp/test-teardown-hardening-20261015/`에 있다. 전후 비교 재검토를 위해 해당 결과와 조사 스크립트는 이번 작업에서 보존하며, PR 수락 뒤 다른 작업이 참조하지 않을 때 이 작업의 명시 목록만 별도 정리한다. 과거 다른 Temp와 기존 캐시는 건드리지 않았다.
