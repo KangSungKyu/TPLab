@@ -23,4 +23,4 @@ Primary references: [GitHub check run state/conclusion](https://docs.github.com/
 
 ## 2026-10-12 follow-up
 
-The earlier known draft issues describe the initial import. With explicit user approval, Windows report encoding and old-meta rename detection are corrected in [the review follow-up](fix-p1/README.md). The original baseline hashes remain intact. CI-helper behavior/table are unchanged. PR result lookup targets the candidate source branch tip; validating an eventual merge result remains a separate obligation under existing AGENTS rules.
+The earlier known draft issues describe the initial import. With explicit user approval, Windows report encoding and old-meta rename detection are corrected in [the review follow-up](validation/ci-review-p1/fix-p1/README.md). The original baseline hashes remain intact. CI-helper behavior/table are unchanged. PR result lookup targets the candidate source branch tip; validating an eventual merge result remains a separate obligation under existing AGENTS rules.
