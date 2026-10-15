@@ -115,17 +115,33 @@ namespace TPLab.Core.Tests
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            if (_rootObject != null) UnityEngine.Object.Destroy(_rootObject);
-            yield return null;
-            _resources?.Dispose();
-            _provider?.CompletePending();
-            yield return null;
-            yield return null;
-            Addressables.RemoveResourceLocator(_locator);
-            Addressables.ResourceManager.ResourceProviders.Remove(_provider);
-            UnityEngine.Object.Destroy(_asset);
-            if (_prefab != null) UnityEngine.Object.Destroy(_prefab);
-            yield return null;
+            yield return UniTask.ToCoroutine(async () =>
+            {
+                if (_rootObject != null)
+                {
+                    var root = _rootObject.GetComponent<ISceneRoot>();
+                    if (root != null)
+                    {
+                        var shutdown = root.ShutdownAsync().AsTask();
+                        await Complete(shutdown);
+                        await shutdown;
+                    }
+                    UnityEngine.Object.Destroy(_rootObject);
+                }
+                await UniTask.NextFrame();
+                Task drain = _resources?.ShutdownAsync().AsTask();
+                _provider?.CompletePending();
+                if (drain != null)
+                {
+                    await Settle(drain);
+                    await drain;
+                }
+                Addressables.RemoveResourceLocator(_locator);
+                Addressables.ResourceManager.ResourceProviders.Remove(_provider);
+                UnityEngine.Object.Destroy(_asset);
+                if (_prefab != null) UnityEngine.Object.Destroy(_prefab);
+                await UniTask.NextFrame();
+            });
             LogAssert.NoUnexpectedReceived();
         }
 

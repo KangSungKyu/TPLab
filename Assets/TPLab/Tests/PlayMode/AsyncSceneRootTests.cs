@@ -39,15 +39,34 @@ namespace TPLab.Core.Tests
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            _first?.PrepareGate?.TrySetCanceled();
-            _second?.PrepareGate?.TrySetCanceled();
-            _first?.ReleaseGate?.TrySetResult();
-            _second?.ReleaseGate?.TrySetResult();
-            if (_object != null)
+            yield return UniTask.ToCoroutine(async () =>
             {
-                UnityEngine.Object.Destroy(_object);
-            }
-            yield return null;
+                bool wasReady = _root?.IsReady ?? false;
+                _first?.PrepareGate?.TrySetCanceled();
+                _second?.PrepareGate?.TrySetCanceled();
+                _first?.ReleaseGate?.TrySetResult();
+                _second?.ReleaseGate?.TrySetResult();
+                try
+                {
+                    if (_root != null)
+                    {
+                        await _root.ShutdownAsync();
+                    }
+                }
+                catch (AggregateException) when (!wasReady)
+                {
+                    // Already-closed roots retain the shutdown failure asserted by the test.
+                }
+                finally
+                {
+                    if (_object != null)
+                    {
+                        UnityEngine.Object.Destroy(_object);
+                    }
+                    await UniTask.NextFrame();
+                }
+            });
+            LogAssert.NoUnexpectedReceived();
         }
 
         private static UniTask Mark(string value)

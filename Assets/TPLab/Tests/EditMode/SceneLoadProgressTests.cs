@@ -106,7 +106,7 @@ namespace TPLab.Core.Tests
             int calls = 0;
             using (var observer = new SceneLoadProgressObserver(_ => ++calls))
             {
-                Exception failure = Task.Run(() =>
+                var worker = Task.Run(() =>
                 {
                     try
                     {
@@ -117,7 +117,9 @@ namespace TPLab.Core.Tests
                     {
                         return error;
                     }
-                }).GetAwaiter().GetResult();
+                });
+                Assert.That(worker.Wait(3000), Is.True, "Progress observer worker did not finish within 3000ms.");
+                Exception failure = worker.GetAwaiter().GetResult();
                 Assert.That(failure, Is.TypeOf<InvalidOperationException>());
                 Assert.That(calls, Is.Zero);
                 Assert.That(observer.Failure, Is.Null);

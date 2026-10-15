@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace TPLab.UI.Tests
 {
-    /// <summary>Draft integration tests using a real ScrollRect and LegacyRuntime Text Graphic; not executed. Drag uses synthetic PointerEventData dispatched through ExecuteEvents, not physical/Input System coverage.</summary>
+    /// <summary>PlayMode integration tests using a real ScrollRect and LegacyRuntime Text Graphic; executed by the full PlayMode suite. Drag uses synthetic PointerEventData dispatched through ExecuteEvents, not physical/Input System coverage.</summary>
     public sealed class VirtualScrollRectPlayModeTests
     {
         private Fixture _fixture;

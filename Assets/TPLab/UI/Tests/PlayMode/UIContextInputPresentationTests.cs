@@ -54,25 +54,32 @@ namespace TPLab.UI.Tests
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            foreach (var gate in _gates)
+            yield return UniTask.ToCoroutine(async () =>
             {
-                gate.TrySetResult();
-            }
-            try
-            {
-                _context?.Dispose();
-            }
-            catch (Exception)
-            {
-                // Expected errors are asserted before native fixture teardown.
-            }
-            for (int index = _objects.Count - 1; index >= 0; --index)
-            {
-                UnityEngine.Object.Destroy(_objects[index]);
-            }
-            _gates.Clear();
-            _objects.Clear();
-            yield return null;
+                foreach (var gate in _gates)
+                {
+                    gate.TrySetResult();
+                }
+                try
+                {
+                    if (_context != null)
+                    {
+                        await _context.ShutdownAsync();
+                    }
+                }
+                catch (Exception)
+                {
+                    // Expected errors are asserted before native fixture teardown.
+                }
+                for (int index = _objects.Count - 1; index >= 0; --index)
+                {
+                    UnityEngine.Object.Destroy(_objects[index]);
+                }
+                _gates.Clear();
+                _objects.Clear();
+                await UniTask.NextFrame();
+            });
+            LogAssert.NoUnexpectedReceived();
         }
 
         private GameObject Own(string name, params Type[] components)
