@@ -400,3 +400,7 @@ C:/Python314/python.exe -B tools/check_github_ci.py --repository KangSungKyu/TPL
 ## 최종 커밋 검증
 
 문서/anchor 검사는 Markdown255개·상대 링크2082개·anchor476개·오류0이다. 신규 링크 오류0, 기존 제목 변경0이다. 범위 감사에서 이번 후속 변경은 허용된 Markdown59개뿐이며44개 머리말의 본문·과거 회고6개의 표시 문장·다른 가이드의 규칙 내용을 보존했다. Temp 라벨 감사의 첫 정규식이 CHECKLIST의 두 번째 열 라벨을 놓친 것은 검사기만 보정해 재실행했으며, 원본 문서·라벨 표는 추가로 바꾸지 않았다. 공백·규칙·exact-SHA Actions는 실제 커밋 뒤 다시 조회해 아래에 확정한다. PR #33은 open으로 유지하며 사용자 승인 전 병합하지 않는다.
+
+문서 보완 source commit은 `b6bb49d8c8f098b62c4e5e66f9b10417fd0caf45`다. 실제 커밋의 규칙 검사 **오류0·경고0**(보호 파일 경고 없음), 공백 검사0, 링크/anchor0을 확인했다. [source exact-SHA Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38703638370)는 completed/success이며 check1/run1·SHA 일치와 workflows/checks/statuses/runs 조회 완전성을 확인했다. 실행 중 첫 조회는 in_progress였으므로 성공으로 처리하지 않았고 완료 후 다시 확인했다. 이 검사 요약만 추가한 최종 HEAD도 exact-SHA로 재확인해 PR/채팅 보고에 연결한다.
+
+임시 원시 출력·검사기·before/after 목록은 PR #33 사용자 검토의 추적용으로 위 Temp 작업 폴더에 유지한다. 사용자가 수락하고 더 이상 실행·조사 참조가 없으면 이 작업 소유 명시 목록만 제거하며 다른 작업 Temp와 사용자 파일은 건드리지 않는다.
