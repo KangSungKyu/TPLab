@@ -29,7 +29,7 @@
 
 ## 다음 작업
 
-- PR 본문의 [판정 변경 표](../validation/ci-review-p1/CI_GATE_PROPOSAL.md)를 사용자 검토 후에만 main 반영. 이번 작업에서는 병합·branch 삭제 금지.
+- PR 본문의 [판정 변경 표](../CI_GATE_PROPOSAL.md)를 사용자 검토 후에만 main 반영. 이번 작업에서는 병합·branch 삭제 금지.
 - 원문 가이드는 초안 상태 문구와 advisory 정책을 유지. local helper가 실패를 차단하는 기준과의 차이, 재시도 이전 실패 run 처리, optional/skipped 체크 정책은 후속 결정 대상.
 - 사용자가 Claude App·OAuth secret을 직접 설정한 후 가이드 S1–S5를 별도 실행. read-only·사용량을 검증 전 보장하지 않는다. 토큰은 채팅·문서에 남기지 않는다.
 - 작업별 Temp helper/PR body는 필요한 증거 보존 후 소유 경로만 정리. 사용자 첨부/zip과 기존 Temp는 보존.

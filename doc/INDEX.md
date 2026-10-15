@@ -25,6 +25,7 @@
 | [README.md](../README.md) | 프로젝트 진입·환경 복원 | 목표·구현 기능·설치 의존성·검증 명령 |
 | [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md) | 외부 제공용 사람/AI README·API 작성 또는 공용 계약 변경 | 네 문서의 역할·경로·공통 사실·필수 계약·동시 갱신·제공본 검증 기준 |
 | [프로그래머 가이드라인](guidelines/README.md) | 변경 등급·코드/API·수명·GC·테스트·문서·증거 규칙 확인 | 채택한 사용자 결정과 현행 관행·미결정 제안을 구분하는 개발 가이드 입구 |
+| [작업 체크리스트](guidelines/CHECKLIST.md) | 작업 시작·완료 | 결정됨·현행 규칙의 요약과 장별 원문 링크 |
 | [IMPROVEMENT_BACKLOG.md](IMPROVEMENT_BACKLOG.md) | 개선 후보·항목별 조사와 승인 경계 검토 | IMP-01~14·항목별 승인 gate·CI 일부 완료; 후속 항목은 지정·승인 범위에서 진행, [개정 기록](retrospectives/2026-10-12-07-docs-backlog.md) |
 | [IMP-04 1단계 조사](validation/imp-04-survey/README.md) | Core/Input 게이트·대기 helper·Timeout 조사 검토 | 조사 완료·병합 완료; 당시 적용 대기는 역사적 기록이며 후속 적용 완료 상태는 [적용 요약](validation/imp-04-apply/README.md) 참조 |
 | [IMP-04 적용 검증](validation/imp-04-apply/README.md) | 선택 PlayMode Timeout 보호·전후 비교·정리 한계 검토 | 승인·완료 및 main 통합 완료; 적용 범위·실행 결과·한계는 기존 요약 참조 |
@@ -43,6 +44,7 @@
 | [UI P7 검증](validation/ui-system/p7/README.md) | P7 source-specific regression·consumer·Player·성능 기록 | 99df25dd/8310a94 evidence는 역사적이며 2026-10-12 사용자 수락 및 최신 candidate와 구분 |
 | [UI 최신 source 통합 검증](validation/ui-system/integration-20261012/README.md) | 5af64b96 Single/Additive consumer 최종 확인 | 최신 빌드2·artifact4·Player8 통과; 사용자 수락 완료, main 통합 완료 |
 | [GitHub 리뷰 자동화 1단계 가이드](CI_SETUP_GUIDE.md) | PR diff 규칙 검사·요청 시 Claude 리뷰 | workflow·판정 도구는 main 반영 완료; 가이드의 과거 도입 문구와 [P1 기록](validation/ci-review-p1/README.md)을 구분하며 Unity 테스트 CI는 별도 범위 |
+| [CI 판정 기준](CI_GATE_PROPOSAL.md) | exact-SHA CI 판정·조회 완전성 확인 | CI_SETUP_GUIDE의 운영 안내와 함께 읽는 판정 기준; 기존 내용 유지·위치만 이동 |
 | [UI compiler 등록 복구](validation/ui-system/compile-registry-20261012/README.md) | 원본Editor CS0246/UIPresentation 등록 누락 재발 확인 | 표준 asset roundtrip·GUID 보존, clean/reload 후 UI86/86·현재Console0, 재시작 미검증 |
 | [UI 예제 잔상 수정](validation/ui-system/sample-clear-20261012/README.md) | 버튼 후 과거 글자/닫힌Popup/cover 잔상 | 배경Camera 수정과 2026-10-12 전체 UI 사용자 수락; 최신 source candidate 검증은 integration record 참조 |
 | [UI_PERFORMANCE.md](UI_PERFORMANCE.md) | Virtual ScrollRect·Canvas 최적화 결과 검토 | 같은1,000 비교·10,000 확장성·600프레임 median/P95/max, GC·N/A·한계 |

@@ -1,13 +1,13 @@
-# 07 · 검증 증거 초안
+# 07 · 검증 증거
 
-[현행] SourceRevision은 main35508bc이고 새 확인은 코드 읽기·Git 조회다. 아래 Mono Editor 수치는 기존 source의 실행 기록이며 이번 Unity/Player 실행은 0회다. 근거: [공통 범위](README.md#근거와-검증-범위), [문서 전용 검증:74](../DOCUMENTATION_GUIDE.md#L74).
+[현행] SourceRevision: main `af084e0d0027c4098fad08c336ccb0753e1c7862`. 갱신일: 2026-10-15. 현재 지침·인용을 읽기/Git 조회로 대조했으며 Unity·테스트·Player 실행은 0회다. 기존 실행·집계 수치는 각 기록의 당시 source 기준이며 이번 재실행·재집계로 보지 않는다. [공통 근거와 검증 범위](README.md#근거와-검증-범위).
 
 ## 무엇을 확인했는지 구분하는 현행
 
-- [현행] 코드 읽기는 실행 완료 증거가 아니며 source·환경·명령·test 이름·total/pass/fail/skip와 한계를 구분해 보고하는 현행 규칙이 있다. 근거: [AGENTS:38,39](../../AGENTS.md#L38), [백로그 보고:323](../IMPROVEMENT_BACKLOG.md#L323).
-- [현행] IMP-03은 오라클·fixture 오류와 별도 승인 정정·재동결을 기록한 뒤44/44·전체Edit375/Play345를 남겼다; 처음의 잘못된 실패를 의도한 Red로 바꾸어 쓰지 않았다. 근거: [요약:7,17,25,27,65](../validation/imp-03/README.md#L7).
-- [현행] exact-SHA 판정은 대상 SHA·조회 완전성·완료/success를 검사하며 CI 존재와 Unity 통과는 별개다. 근거: [CI 도구:1,72](../../tools/check_github_ci.py#L1), [AGENTS:125](../../AGENTS.md#L125).
-- [현행] 현재 IMP-14/05/03은 Windows Mono Editor 중심이고 Player/IL2CPP는 미검증이다. 과거0.0.1 Mono Player 실행은 다른 source의 최신 계약 검증을 대신하지 않는다. 근거: [IMP-05:75](../validation/imp-05/implementation/README.md#L75), [IMP-03:74](../validation/imp-03/README.md#L74), [과거 Release:5,11](../validation/distribution-release/README.md#L5).
+- [현행] 코드 읽기는 실행 완료 증거가 아니며 source·환경·명령·test 이름·total/pass/fail/skip와 한계를 구분해 보고하는 현행 규칙이 있다. 근거: [AGENTS:42,43](../../AGENTS.md#L42), [백로그 보고:323](../IMPROVEMENT_BACKLOG.md#L323).
+- [현행] IMP-03은 오라클·fixture 오류와 별도 승인 정정·재동결을 기록한 뒤44/44·전체Edit375/Play345를 남겼다; 처음의 잘못된 실패를 의도한 Red로 바꾸어 쓰지 않았다. 근거: [요약:7,17,25,27,65](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L7).
+- [현행] exact-SHA 판정은 대상 SHA·조회 완전성·완료/success를 검사하며 CI 존재와 Unity 통과는 별개다. 근거: [CI 도구:1,72](../../tools/check_github_ci.py#L1), [AGENTS:118](../../AGENTS.md#L118).
+- [현행] 현재 IMP-14/05/03은 Windows Mono Editor 중심이고 Player/IL2CPP는 미검증이다. 과거0.0.1 Mono Player 실행은 다른 source의 최신 계약 검증을 대신하지 않는다. 근거: [IMP-05:75](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-05/implementation/README.md#L75), [IMP-03:74](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L74), [과거 Release:5,11](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/distribution-release/README.md#L5).
 
 ## 증거 소유와 최소 기계 입력
 
@@ -16,19 +16,19 @@
 - [결정됨] **D-A·D-H10 — 원시와 예외.** 원시 산출물 비보관 원칙에서 현행 도구가 요구하는 최소 기계 입력만 예외로 보존한다. 아래 실제 입력 목록이 기준이며 “나중에 필요할 수 있음”을 이유로 모든 JSON·로그를 예외로 묶지 않는다. 도구는 이번에 수정하지 않는다. 근거: 사용자 2026-10-13 일괄 승인(D-H10), [필수 입력 읽기:31,37,42,60,61](../../tools/verify_validation.py#L31).
 - [결정됨] 검토했으나 채택하지 않은 대안: 필수 기계 입력 예외 없이 요약만 남기도록 도구를 이번에 변경하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H10).
 - [현행] verify_validation.py는 checks.json, checks.results가 이름을 정한 결과 JSON, test-inputs.json, preserved-inputs.json, final-console.json, final-status.txt를 읽는다. exact-SHA 도구의 --output JSON은 조회 출력이고 커밋된 validation JSON을 필수 입력으로 읽지는 않는다. 근거: [verify_validation:31](../../tools/verify_validation.py#L31), [CI 조회 출력:163,178](../../tools/check_github_ci.py#L163).
-- [제안] 필수 입력이 없는 과거 실행의 재현을 같은 source·환경의 새 실행으로 남길지, 원본을 별도 제공 위치에서 확보할지는 사용자 결정 대상이다. 원본 해시의 기록과 bytes의 재검사 가능은 다르다. 근거: [bytes 확인:23,37](../../tools/verify_validation.py#L23), [환경 한계:22](../DOCUMENTATION_GUIDE.md#L22).
+- [결정됨] **D-I5 — 입력 없는 과거 실행.** 필수 입력이 없는 과거 실행은 새 실행 없이 기록만 유지하며 현재 소스로 재검증하지 않는다. 검증기 17건의 역사적 기준선 유지 결정과 같다. 원본 해시 기록과 bytes 재검사 가능은 구분한다. 근거: 사용자 결정 2026-10-15(D-I5), [17건 역사적 기준선 결정](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/retrospectives/2026-10-15-04-docs-link-verifier.md).
 
 ## CI 판정 문서의 라벨 정정
 
-- [현행] CI_GATE_PROPOSAL.md는 AGENTS.md:125가 판정 기준으로 링크한다. 이전 보존 제약은 조사 요청에서 온 것이며 사용자 확정 결정으로 올린 라벨이 잘못됐다; D-A·D-H10은 이 파일의 위치를 확정하지 않는다. 근거: [실제 참조:125](../../AGENTS.md#L125), 사용자 2026-10-13 Phase1b의 정정 요청.
-- [제안] [CI_GATE_PROPOSAL.md](../validation/ci-review-p1/CI_GATE_PROPOSAL.md)의 보존·현재 위치 유지와 doc/ 아래 이동·참조 갱신 중 선택은 사용자 결정 대상이다. 이번에 이동·삭제하지 않는다. 근거: 위 참조와 Phase1b의 미결정 목록.
+- [현행] CI_GATE_PROPOSAL.md는 [AGENTS:118](../../AGENTS.md#L118)이 판정 기준으로 링크한다. 2026-10-13 보존 라벨 정정은 당시 기록이며, 현 위치는 아래 D-I4의 사용자 결정으로 확정한다. 근거: 실제 AGENTS 링크와 사용자 결정 2026-10-15(D-I4).
+- [결정됨] **D-I4 — 위치 확정.** [CI_GATE_PROPOSAL.md](../CI_GATE_PROPOSAL.md)를 doc/로 이동한다. AGENTS의 승인된 링크 한 곳과 문서 링크 대상·이동 파일 자신의 상대 링크만 갱신하며 판정 내용·도구·workflow는 바꾸지 않는다. 근거: 사용자 결정 2026-10-15(D-I4), [06 위치 결정](06-documentation.md#기존-자료와-배포-사본).
 
 ## 삭제와 현행 도구의 충돌
 
 | 상태 | 현재 요구/위치 | 새 결정과의 관계 |
 |---|---|---|
-| [현행] | [AGENTS:60](../../AGENTS.md#L60) | 증거 보존 문구는 D-E의 회고 소유·최소 입력 예외와 대조할 후속 정리 대상이다. 근거: [사용자 결정](README.md#사용자-결정). |
-| [현행] | [AGENTS:70](../../AGENTS.md#L70) | 과거 원문 보존 문구와 D-A 삭제 방향은 충돌한다; 이번에 AGENTS를 수정하지 않는다. 근거: 같은 결정·이번 제외 범위. |
+| [현행] | [AGENTS:61](../../AGENTS.md#L61) | 증거 요약은 회고 한 곳과 최소 기계 입력 예외를 따르도록 이관 완료됐다. 근거: 실제 임시 파일·증거 지침과 [증거 상세](#증거-분류와-원문-보존-상세--2026-10-13-이관). |
+| [현행] | [AGENTS:71](../../AGENTS.md#L71) | 기존 기록은 삭제 단계 별도 승인 전까지 보존하는 문구로 정렬됐다. 이번 요청은 원시 자료 삭제를 포함하지 않는다. 근거: 실제 이름·경로 유지 지침. |
 | [현행] | [verify_validation:23,31](../../tools/verify_validation.py#L23) | 삭제된 과거 원본은 같은 로컬 입력 검사를 다시 수행할 수 없다. |
 | [현행] | [consumer 입력:222,230](../../tools/run_core_consumer.py#L222) | 독립 tools 템플릿 입력이므로 동일 validation blob만으로 대체 필요성이 성립하지 않는다. 근거: [조회 정정](README.md#05단계-사실-확인). |
 | [현행] | [Editor check:246](../../Assets/TPLab/Validation/Editor/DataTableImportEditorCheck.cs#L246) | 향후 실행은 기존 validation 폴더·JSON을 다시 만든다; 삭제만으로 새 출력 경로·정책이 구현되지는 않는다. |
@@ -40,7 +40,7 @@
 
 ## 증거 분류와 원문 보존 상세 — 2026-10-13 이관
 
-[결정됨] 사용자 A2 승인에 따라 AGENTS 54·60·70행의 상세를 이관한다. 위 SourceRevision의 후속 정리 예고는 당시 기록이다. 현재 적용은 D-E와 아래 보존 경계를 함께 따른다. [회고 상세](06-documentation.md#단위-작업-회고-상세--2026-10-13-이관)가 형식·순번·인계를 소유한다.
+[결정됨] 사용자 A2 승인에 따라 AGENTS 54·60·70행의 상세를 이관한다. 이관 당시의 후속 정리 예고는 역사적 기록이다. 현재 적용은 D-E와 아래 보존 경계를 함께 따른다. [회고 상세](06-documentation.md#단위-작업-회고-상세--2026-10-13-이관)가 형식·순번·인계를 소유한다.
 
 - [결정됨] 확정·제안·미확정, 구현 완료·초안·검증 대기를 구분한다. 실행한 테스트의 수·실패·skip와 실행하지 않은 검사를 구분하고, 미실행은 통과로 기록하지 않는다. 컴파일·제품 Console·실행·Player의 확인 범위를 분리하며 source·환경·명령과 한계를 회고에 남긴다.
 - [결정됨] 기존 명세·코드·검증 자료는 링크로 참조한다. 대화 전문·전체 로그·비밀값을 복제하지 않으며 영속 API·작업 규칙의 본문 소유권을 바꾸지 않는다. 과거 통과·승인·완료는 현재 검증이나 새로운 권한을 대신하지 않는다.
