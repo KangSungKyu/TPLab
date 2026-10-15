@@ -67,3 +67,9 @@ Player/IL2CPP, 실제 설치/패키지 재생성, 새 consumer 빌드, 물리 �
 예전 pending 문장을 현재 상태로 읽지 않도록 날짜와 근거를 연결하되, 과거 source별 검증 수치와 이미 완료를 정확히 적은 위치는 보존했다. 같은 상태 사실이 여러 레퍼런스에 남으면 한 곳의 최신화만으로는 모순이 사라지지 않는다는 점을 확인했다.
 
 원본 JSON/XML·timing·주석 전용 diff 증명·hash·링크 검사 결과는 Temp/ui-docs-status-20261015/에 보존한다. PR 검토와 전후 비교에 필요한 동안 보존하고 수락 뒤 다른 작업 참조가 없을 때 이 작업 소유 목록만 정리한다. 이전 Temp 자료는 수정하거나 삭제하지 않았다.
+
+## 검사 확정
+
+변경을 담은 source commit은 `626716da37f0a2e5a8294c72a57adf4ef9e8212b`다. 이후 이 검사 기록만 보완하며, 실제 회귀에서 사용한 C# 3파일의 raw hash를 그대로 유지한다. 이 source commit에 `tools/check_pr_rules.py --base b20f8ca1a12dc77eccbf7cca7fc5eb7da008e553 --head HEAD --repo C:/Users/PC/Projects/TPLab`를 실행해 변경9개·오류0·경고0을 확인했다. 보호 파일 warning도 없다.
+
+추적 Markdown251개·상대 링크2058개·anchor532개를 읽기 전용 검사해 링크/anchor 오류0, 새 오류0이었다. 외부 HTTP1026개는 조회하지 않았다. 전후 문장 표 안의 상대 링크 원문은 실제 링크로 재해석하지 않도록 코드 인용했다. 허용 9파일의 `git diff --check`는 오류0이다. 최종 문서 tip에도 링크/공백/규칙 검사를 다시 적용하며, PR 최종 HEAD의 exact-SHA Actions 결과는 완료 보고에서 별도로 확인한다.
