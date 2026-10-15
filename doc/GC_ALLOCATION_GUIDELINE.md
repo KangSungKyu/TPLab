@@ -1,4 +1,9 @@
 # GC 할당 작성 가이드라인 (초안)
+유형: 가이드
+현재 상태: 초안. 사용자 검토 전이다.
+기준 source: de879b9 (v0.0.1); c1804e17 (PR #4 대조)
+갱신일: 2026-10-12
+계약 링크: 본 문서
 
 **상태**: 초안. 사용자 검토 전이다. [AGENTS.md](../AGENTS.md)와 충돌하면 AGENTS.md가 우선한다. 대상은 Unity 6000.3, C# 9 범위의 TPLab 코어(`Assets/TPLab/Core`, `Input/Runtime`)다. 근거 항목은 [IMPROVEMENT_BACKLOG.md](IMPROVEMENT_BACKLOG.md)의 IMP-05, IMP-11이다.
 

@@ -1,4 +1,9 @@
 # 씬 루트 선택과 명시적 주입
+유형: 레퍼런스
+현재 상태: 본문 참조
+기준 source: 미표기(본문 근거 링크 참조)
+갱신일: 2026-10-13
+계약 링크: 본 문서
 
 InitScene 같은 씬의 root GameObject에 소유 방식을 선택하고, 프로젝트별 installer가 일반 C# 서비스 생성·참조 주입·해제를 수행한다. [ResourceManagerInstaller](RESOURCE_MANAGER.md#sceneroot에서-선택하여-사용)로 자산 소유자를 연결할 수 있다. manager마다 Singleton을 상속하거나 자동 검색하는 규칙은 없다.
 

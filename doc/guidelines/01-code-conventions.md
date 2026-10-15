@@ -4,7 +4,7 @@
 
 ## 이름과 assembly 경계
 
-- [현행] PascalCase 타입/메서드, camelCase 인자, `_camelCase` private 필드, `I` 인터페이스, `Async` 비동기 이름은 지침과 대표 구현에 나타난다; 모든 심볼의 자동 적합성 검사 결과는 아니다. [AGENTS:16](../../AGENTS.md#L16), [ObjectPool:18](../../Assets/TPLab/Core/Pooling/ObjectPool.cs#L18), [ISceneRoot](../../Assets/TPLab/Core/Lifecycle/ISceneRoot.cs#L8), [RebindAsync:109](../../Assets/TPLab/Input/Runtime/InputRebindingController.cs#L109).
+- [현행] PascalCase 타입/메서드, camelCase 인자, `_camelCase` private 필드, `I` 인터페이스, `Async` 비동기 이름은 지침과 대표 구현에 나타난다; 모든 심볼의 자동 적합성 검사 결과는 아니다. [AGENTS:16](../../AGENTS.md#c과-unity-기준), [ObjectPool:18](../../Assets/TPLab/Core/Pooling/ObjectPool.cs#L18), [ISceneRoot](../../Assets/TPLab/Core/Lifecycle/ISceneRoot.cs#L8), [RebindAsync:109](../../Assets/TPLab/Input/Runtime/InputRebindingController.cs#L109).
 - [현행] assembly는 Core, Core.Input, UI, UI.InputSystem, Core.Editor로 분리된다. Core는 UI/InputSystem을 참조하지 않고, Input은 InputSystem, UI는 Core/UniTask/uGUI, UI.InputSystem은 UI/Core.Input/InputSystem을 참조하며 Editor는 Editor 플랫폼 한정이다. [Core asmdef](../../Assets/TPLab/Core/TPLab.Core.asmdef#L1), [Input asmdef](../../Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef#L1), [UI asmdef](../../Assets/TPLab/UI/Runtime/TPLab.UI.asmdef#L1), [adapter asmdef](../../Assets/TPLab/UI/InputSystem/Runtime/TPLab.UI.InputSystem.asmdef#L1), [Editor asmdef](../../Assets/TPLab/Editor/TPLab.Core.Editor.asmdef#L1).
 
 ## 한 파일의 공개 타입: 현재 예외

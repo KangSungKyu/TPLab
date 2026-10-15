@@ -1,4 +1,9 @@
 # CI gate proposal · PR review required
+유형: 가이드
+현재 상태: [현행 CI 판정 기준](../AGENTS.md#검증-후-병합)
+기준 source: 미표기(본문 근거 링크 참조)
+갱신일: 2026-10-12
+계약 링크: 본 문서
 
 The gate is a separate change from the seven unchanged supplied drafts. Main keeps its current behavior until this PR is explicitly accepted. A zero exit code clears only this CI inspection boundary, not local tests, human acceptance, PR permission or authorization to merge.
 

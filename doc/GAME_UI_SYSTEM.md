@@ -1,4 +1,9 @@
 # UIContext 계약
+유형: 레퍼런스
+현재 상태: [본문 상태](#p7-source별-증거-및-현재-통합-상태)
+기준 source: 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 runtime); 99df25dd6b89fd7f3e322c8033b61eb1364f495e (final regression snapshot)
+갱신일: 2026-10-15
+계약 링크: 본 문서
 
 2026-10-08 P0. 구현 승인된 첫 범위의 계약이다. 동작 구현/검증 상태는 [track](GAME_UI_SYSTEM_TRACK.md)에서 확인한다. 0.0.1 배포 API에 포함하지 않는다. 설계 근거는 [초안](GAME_UI_SYSTEM_DRAFT.md)이다.
 

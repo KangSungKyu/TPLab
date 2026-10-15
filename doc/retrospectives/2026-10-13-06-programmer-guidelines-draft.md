@@ -14,9 +14,9 @@
 
 ## AGENTS 이관 제안: 적용하지 않음
 
-- [제안] 80~88(GameSceneManager),90~97(UIContext)의 완료 track·배정·단계별 통합·당시 PC 종료 운영은 기존 track의 역사적 기록으로 모으고 AGENTS에는 해당 단위의 현재 지침 링크만 두는 안이다. 개인 종료 지시는 다른 요청에 자동 승계하지 않는다. 근거: [AGENTS](../../AGENTS.md#L80), [Scene track](../SCENE_TRANSITION_TRACK.md), [UI track](../GAME_UI_SYSTEM_TRACK.md).
-- [제안] 49~56의 회고 세부 형식은 문서 장,60~64와70의 증거 분류·원문 보존 충돌은 증거 장으로 옮길 수 있는 상세 후보다. 기존 임시 파일/GUID/사용자 자산 보호 자체는 AGENTS에 남긴다. 근거: [AGENTS:49](../../AGENTS.md#L49), [06](../guidelines/06-documentation.md), [07](../guidelines/07-validation-evidence.md).
-- [제안] AGENTS에 남길 영속 규칙은 사용자 권한/역할·범위와 dirty 보호, C#/assembly/소유권의 짧은 핵심, SOLID·TDD/실행0과 미검증 구분, 승인 없는 패키지·재직렬화·이력 변경 금지, Git 시작 전 판단·exact-SHA gate·사용자 수락·승인 후 해당 branch 정리다. 상세 공개 API/async/GC 기준의 채택 여부는 사용자 검토 전이므로 이 제안으로 규범을 교체하지 않는다. 근거: [AGENTS:5,14,23,33,74,109,117,125,127](../../AGENTS.md#L5), [초안 결정/제안](../guidelines/README.md#사용자-결정).
+- [제안] 80~88(GameSceneManager),90~97(UIContext)의 완료 track·배정·단계별 통합·당시 PC 종료 운영은 기존 track의 역사적 기록으로 모으고 AGENTS에는 해당 단위의 현재 지침 링크만 두는 안이다. 개인 종료 지시는 다른 요청에 자동 승계하지 않는다. 근거: [AGENTS](../../AGENTS.md#참조와-변경-경계), [Scene track](../SCENE_TRANSITION_TRACK.md), [UI track](../GAME_UI_SYSTEM_TRACK.md).
+- [제안] 49~56의 회고 세부 형식은 문서 장,60~64와70의 증거 분류·원문 보존 충돌은 증거 장으로 옮길 수 있는 상세 후보다. 기존 임시 파일/GUID/사용자 자산 보호 자체는 AGENTS에 남긴다. 근거: [AGENTS:49](../../AGENTS.md#사람ai용-외부-제공-문서), [06](../guidelines/06-documentation.md), [07](../guidelines/07-validation-evidence.md).
+- [제안] AGENTS에 남길 영속 규칙은 사용자 권한/역할·범위와 dirty 보호, C#/assembly/소유권의 짧은 핵심, SOLID·TDD/실행0과 미검증 구분, 승인 없는 패키지·재직렬화·이력 변경 금지, Git 시작 전 판단·exact-SHA gate·사용자 수락·승인 후 해당 branch 정리다. 상세 공개 API/async/GC 기준의 채택 여부는 사용자 검토 전이므로 이 제안으로 규범을 교체하지 않는다. 근거: [AGENTS:5,14,23,33,74,109,117,125,127](../../AGENTS.md#목적과-역할), [초안 결정/제안](../guidelines/README.md#사용자-결정).
 
 ## Phase1 당시 다음 선택 · 2026-10-13
 
@@ -33,7 +33,7 @@
 - 분담: 기존 /root/factcheck_upm(gpt-6.1-sol/medium)은01/02, /root/factcheck_forget(gpt-6.1-sol/high)은03/05를 수정하고 부모는04/06/07/08/README/이 회고를 담당했다. 두 에이전트는 부모 문서의 독립 읽기 검토를 추가 담당한다. 같은 파일 동시 수정·Unity 조작은 없다.
 - 교훈: 승인된 등급 정의와14묶음의 적용 칸은 별개다. [제안]인56칸으로 D-F 공통 항목을 완화하지 않는다. D-H8은 기존 계측/테스트 의미를 완화하지 않으며 새 helper·소량 대조를 구현한 것도 아니다.
 - 실행 명령: 내부 링크/Markdown anchor/행 범위/공백과 문장 라벨의 인메모리 Python 검사, `git diff --check`, `python tools/check_pr_rules.py --base 35508bc1fb8ed7749a292d1f9ae983b45387afd4 --head <검사HEAD>`, `python tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <최종HEAD> --output <작업별임시출력>`. 원시 조회 출력은 Git에 추가하지 않는다.
-- Actions: [PR #12 checks](https://github.com/KangSungKyu/TPLab/pull/12/checks)는 최종HEAD와 연결되는 기계 증거다. 정확한 HEAD/완료·success/조회 완전성을 도구로 확인해 최종 채팅에 보고한다; workflow 존재를 성공으로 기록하지 않는다. 회고를 포함하는 최종commit 식별은 [AGENTS:53](../../AGENTS.md#L53)의 Git 이력/완료 보고 방식과 구분한다.
+- Actions: [PR #12 checks](https://github.com/KangSungKyu/TPLab/pull/12/checks)는 최종HEAD와 연결되는 기계 증거다. 정확한 HEAD/완료·success/조회 완전성을 도구로 확인해 최종 채팅에 보고한다; workflow 존재를 성공으로 기록하지 않는다. 회고를 포함하는 최종commit 식별은 [AGENTS:53](../../AGENTS.md#사람ai용-외부-제공-문서)의 Git 이력/완료 보고 방식과 구분한다.
 - 미실행/후속: Unity·Player·IL2CPP·예제 실행·실제 리팩터링·Unity CI는 미실행. 근거를 검사하기 전 완료로 쓰지 않고 실제 검사 수치·한계는 아래 결과에 기록한다. 병합·강제 푸시·branch 삭제·기존 증거 삭제는 하지 않는다.
 
 <!-- PHASE1B_VALIDATION_START -->

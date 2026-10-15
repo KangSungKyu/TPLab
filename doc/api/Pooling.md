@@ -1,4 +1,9 @@
 # 풀링 API
+유형: 레퍼런스
+현재 상태: 본문 참조
+기준 source: 2c8c0768c53878dcc9c2d4ed090582092e9dc5e0
+갱신일: 2026-10-13
+계약 링크: [계약 원문](../../Assets/TPLab/Core/Pooling/ObjectPool.cs)
 
 ## Editor 계측 한계에 의한 정정 (2026-10-13)
 

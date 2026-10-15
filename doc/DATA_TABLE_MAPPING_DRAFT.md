@@ -1,4 +1,9 @@
 # DTO·테이블·인터페이스 매핑 계약
+유형: 레퍼런스
+현재 상태: 2026-10-06 generic 범위 구현 완료.
+기준 source: TPLab main / b8c2c91; Cashier total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0
+갱신일: 2026-10-07
+계약 링크: 본 문서
 
 2026-10-02. 최초 상태: 검토 초안. 2026-10-06 generic 범위 구현 완료. 기준은 TPLab `main / b8c2c91`과 Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`이다. 아래 API와 예제는 현재 구현 계약이며 [DataTableManager](DATA_TABLE_MANAGER.md)와 [검증 증거](validation/generic-data-tables/README.md)를 함께 확인한다.
 

@@ -1,4 +1,9 @@
 # MonoSingleton 계약
+유형: 레퍼런스
+현재 상태: 본문 참조
+기준 source: 미표기(본문 근거 링크 참조)
+갱신일: 2026-10-07
+계약 링크: 본 문서
 
 `TPLab.Core.Lifecycle.MonoSingleton<T>`는 Unity 메인 스레드에서 명시적으로 생성한 컴포넌트 하나를 등록한다. 모든 manager가 상속해야 하는 기반은 아니다. Cashier의 등록·정리 hook을 참고하고 초기화 실패, 중복 제거 범위와 반복 Play 수명을 보완했다. Cashier 코드·패키지는 복사하지 않았다.
 

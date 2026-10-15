@@ -1,4 +1,9 @@
 # Editor
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented
+기준 source: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
+갱신일: 2026-10-08
+계약 링크: [계약 원문](../../api/Editor.md)
 
 Module: Editor
 Namespace: TPLab.Core.Editor.DataTables; TPLab.Core.Editor.Bootstrap

@@ -1,4 +1,9 @@
 # 리소스 관리 API
+유형: 레퍼런스
+현재 상태: Implemented
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](../../Assets/TPLab/Core/ResourceManagement/ResourceManager.cs)
 
 `TPLab.Core.ResourceManagement` 네임스페이스는 `TPLab.Core` 어셈블리에 있습니다. 이 모듈은 서로 다른 두 소유권 경로를 제공합니다.
 

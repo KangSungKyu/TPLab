@@ -29,11 +29,11 @@ D-I6의 적용 표는 14행·56칸이다. 각 칸의 상태 라벨을 제외한 
 
 | 반영 | 직접 읽은 근거 |
 |---|---|
-| 정상본 통과 → 단일 변이 실패 → 원복 재통과·이름/수·반복 | [UI-A:79–104](2026-10-14-07-uicontext-safetynet-a.md#L79) |
-| fixture 정정 후 변이 재실행 | [Guard-A:267–317](2026-10-14-09-guard-safetynet-a.md#L267) |
-| InputTestFixture 구성 Setup/finally TearDown·복원 후 LogAssert | [Guard-A:220–228](2026-10-14-09-guard-safetynet-a.md#L220) |
-| No log scope 원문·동기 시작의 원인·iterator 마지막 단언 | [Guard-A:67–91](2026-10-14-09-guard-safetynet-a.md#L67), [종료 대기 보강:25–29,66](2026-10-15-05-test-teardown-hardening.md#L25) |
-| 신규 제외 기준선·그룹별 단독 포함·오염 격리 | [Guard-A:180–218](2026-10-14-09-guard-safetynet-a.md#L180) |
+| 정상본 통과 → 단일 변이 실패 → 원복 재통과·이름/수·반복 | [UI-A:79–104](2026-10-14-07-uicontext-safetynet-a.md#환경실행-명령기준선) |
+| fixture 정정 후 변이 재실행 | [Guard-A:267–317](2026-10-14-09-guard-safetynet-a.md#pr-제공-단계-반복-회귀와-정정-후-fixture-기준-변형2026-10-14) |
+| InputTestFixture 구성 Setup/finally TearDown·복원 후 LogAssert | [Guard-A:220–228](2026-10-14-09-guard-safetynet-a.md#신규-ui-fixture-격리-정정만) |
+| No log scope 원문·동기 시작의 원인·iterator 마지막 단언 | [Guard-A:67–91](2026-10-14-09-guard-safetynet-a.md#정상본-실패조건부-승인-정정-이력), [종료 대기 보강:25–29,66](2026-10-15-05-test-teardown-hardening.md#변경과-이유) |
+| 신규 제외 기준선·그룹별 단독 포함·오염 격리 | [Guard-A:180–218](2026-10-14-09-guard-safetynet-a.md#신규-파일-제외와-단독-포함-실험) |
 
 가이드의 이 증거 인용은 위 main에 고정한 commit SHA permalink로 썼다. 과거 실험 결과를 이번 실행으로 재서술하지 않았다. EventSystem만 사용하는 기존 fixture의 참조 제약은 종료 대기 회고:29에 남아 있으며 이번 PR은 fixture·assembly를 고치지 않는다.
 

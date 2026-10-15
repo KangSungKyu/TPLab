@@ -4,10 +4,10 @@
 
 ## 호환성: 호출 가능과 기존 바이너리 결합
 
-- [현행] IMP-01은 ObjectPool 생성자 마지막에 optional `isAlive`를 더했다: 기존 소스 호출은 호환되지만 CLR 생성자 시그니처가 바뀌어 미리 컴파일된 소비 어셈블리는 재빌드가 필요하다. [생성자:49](../../Assets/TPLab/Core/Pooling/ObjectPool.cs#L49), [IMP-01:25](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-01/README.md#L25), [사람 API:51](../api/Pooling.md#L51).
-- [현행] IMP-03은 concrete root의 Configure와 Attach에 optional `shutdownTimeoutSeconds = 60f`를 더했다; 기존 소스에서 생략하면 새60초 정책을 사용하며 reflection/delegate의 정확한 시그니처와 기존 소비 어셈블리는 재바인딩/재빌드가 필요하다. 따라서 이번 현행 두 사례는 아래 D-B를 이미 만족한 사례가 아니다. [Configure:46](../../Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs#L46), [Attach:28](../../Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs#L28), [Lifecycle API:100](../api/Lifecycle.md#L100).
+- [현행] IMP-01은 ObjectPool 생성자 마지막에 optional `isAlive`를 더했다: 기존 소스 호출은 호환되지만 CLR 생성자 시그니처가 바뀌어 미리 컴파일된 소비 어셈블리는 재빌드가 필요하다. [생성자:49](../../Assets/TPLab/Core/Pooling/ObjectPool.cs#L49), [IMP-01:25](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-01/README.md#L25), [사람 API:51](../api/Pooling.md#objectpoolt).
+- [현행] IMP-03은 concrete root의 Configure와 Attach에 optional `shutdownTimeoutSeconds = 60f`를 더했다; 기존 소스에서 생략하면 새60초 정책을 사용하며 reflection/delegate의 정확한 시그니처와 기존 소비 어셈블리는 재바인딩/재빌드가 필요하다. 따라서 이번 현행 두 사례는 아래 D-B를 이미 만족한 사례가 아니다. [Configure:46](../../Assets/TPLab/Core/Lifecycle/SceneOwnedRoot.cs#L46), [Attach:28](../../Assets/TPLab/Core/Lifecycle/SceneRootSetup.cs#L28), [Lifecycle API:100](../api/Lifecycle.md#종료-시간-제한).
 - [결정됨] D-B: 앞으로 옵션을 추가할 때 기존 공개 CLR 시그니처를 유지하고 옵션 객체 또는 새 오버로드로 확장한다; IMP-01/03의 기존 API를 이번 문서 PR에서 바꾸라는 결정은 아니다. [사용자 결정 D-B](README.md#사용자-결정).
-- [결정됨] D-H3: 옵션을 받는 새 오버로드는 기존 오버로드를 통해 같은 실행 경로로 위임한다. 근거: 사용자 2026-10-13 일괄 승인, [사용자 결정](README.md#사용자-결정), [IMP-01 호환성 사례:25](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-01/README.md#L25), [Lifecycle:100](../api/Lifecycle.md#L100).
+- [결정됨] D-H3: 옵션을 받는 새 오버로드는 기존 오버로드를 통해 같은 실행 경로로 위임한다. 근거: 사용자 2026-10-13 일괄 승인, [사용자 결정](README.md#사용자-결정), [IMP-01 호환성 사례:25](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-01/README.md#L25), [Lifecycle:100](../api/Lifecycle.md#종료-시간-제한).
 - [결정됨] 검토했으나 채택하지 않은 대안: 새 이름의 API로 구분하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H3), [사용자 결정](README.md#사용자-결정).
 
 ## 옵션 객체와 default 검증: 형태를 계약에 맞게 선택
@@ -20,14 +20,14 @@
 
 ## snapshot과 호출자 버퍼
 
-- [현행] IMP-05는 기존 `OwnedScenes`/`RegisteredScenes` 할당 snapshot 속성을 유지하고 `OwnedSceneCount`, `GetOwnedScenes(List<Scene>)`, `GetRegisteredScenes(List<SceneRegistration>)`를 추가했다; 매번 새 목록을 요구하는 진단과 반복 관찰의 버퍼 재사용을 구분한다. [기존 속성:69](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L69), [추가 API:78](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L78), [API 정리:350](../api/SceneManagement.md#L350).
-- [현행] 버퍼는 caller 소유이고 manager가 저장하지 않는다: null→thread 검증 후 Clear/fill, fill 실패는 부분 내용을 Clear하고 예외를 전파하며 thread 검증 실패는 기존 내용을 보존한다. 복사된 membership/registration 값은 다음 호출까지 유지되지만 Scene native 수명은 변할 수 있다; 소유권 이전이 아니다. [구현:104](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L104), [계약:360](../api/SceneManagement.md#L360), [수명:362](../api/SceneManagement.md#L362).
-- [현행] 충분한 capacity와 warm-up 조건에서1000회 workload0events가 과거 검증에 기록되어 있다; List 확장/프로젝트 getter 비용·CPU·다른 backend까지 무할당/성능 보장이 확장되지는 않는다. [측정 조건:364](../api/SceneManagement.md#L364), [관찰 한계:368](../api/SceneManagement.md#L368).
+- [현행] IMP-05는 기존 `OwnedScenes`/`RegisteredScenes` 할당 snapshot 속성을 유지하고 `OwnedSceneCount`, `GetOwnedScenes(List<Scene>)`, `GetRegisteredScenes(List<SceneRegistration>)`를 추가했다; 매번 새 목록을 요구하는 진단과 반복 관찰의 버퍼 재사용을 구분한다. [기존 속성:69](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L69), [추가 API:78](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L78), [API 정리:350](../api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot).
+- [현행] 버퍼는 caller 소유이고 manager가 저장하지 않는다: null→thread 검증 후 Clear/fill, fill 실패는 부분 내용을 Clear하고 예외를 전파하며 thread 검증 실패는 기존 내용을 보존한다. 복사된 membership/registration 값은 다음 호출까지 유지되지만 Scene native 수명은 변할 수 있다; 소유권 이전이 아니다. [구현:104](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L104), [계약:360](../api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot), [수명:362](../api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot).
+- [현행] 충분한 capacity와 warm-up 조건에서1000회 workload0events가 과거 검증에 기록되어 있다; List 확장/프로젝트 getter 비용·CPU·다른 backend까지 무할당/성능 보장이 확장되지는 않는다. [측정 조건:364](../api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot), [관찰 한계:368](../api/SceneManagement.md#imp-05-폴링과-호출자-버퍼-snapshot).
 
 ## Obsolete와 XML
 
 - [현행] 위 개발 Runtime 범위의 Obsolete 선언은 BootstrapCallbacks 한 타입이며, warning형 속성과 ConfigureGameAsync→ConfigureSceneAsync 호환 adapter를 유지한다; 제거 일정이나 버전별 유예기간을 이 코드에서 확인할 수는 없다. [속성·adapter:9](../../Assets/TPLab/Core/SceneManagement/BootstrapCallbacks.cs#L9).
 - [결정됨] D-H4: 공개 API를 제거하기 전에 대체 API·이행 예·소비 호출 확인·제거 버전 결정을 기록한다. 기존 호환 adapter(BootstrapCallbacks 등)는 제거 버전이 정해질 때까지 유지하고 임의로 제거 날짜를 부여하지 않는다. 근거: 사용자 2026-10-13 일괄 승인, [사용자 결정](README.md#사용자-결정), [보존된 호환 hook:17](../../Assets/TPLab/Core/SceneManagement/BootstrapCallbacks.cs#L17).
 - [결정됨] 검토했으나 채택하지 않은 대안: 제거 버전 결정과 무관하게 기존 adapter를 계속 유지하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H4), [사용자 결정](README.md#사용자-결정).
-- [현행] AGENTS는 공개 계약의 XML 책임/입출력/소유권/오류를 요구하고 DOCUMENTATION_GUIDE는 public 선언/XML을 구현·테스트와 대조하도록 한다; 실제 표현은 ObjectPool의 param/exception과 Request의 summary처럼 서로 다르므로 모든 공개 멤버에 같은 태그가 완비됐다고 주장하지 않는다. [AGENTS:19](../../AGENTS.md#L19), [문서 규칙:18](../DOCUMENTATION_GUIDE.md#L18), [ObjectPool:45](../../Assets/TPLab/Core/Pooling/ObjectPool.cs#L45), [Request:29](../../Assets/TPLab/Core/SceneManagement/SceneTransitionRequest.cs#L29).
-- [현행] public API·default·소유권·취소·오류가 바뀌면 XML과 관련 사람/AI 문서를 같은 단위에서 갱신한다는 문서 규칙이 있다; 이 초안은 그 규칙을 대체하지 않는다. [DOCUMENTATION_GUIDE:73](../DOCUMENTATION_GUIDE.md#L73).
+- [현행] AGENTS는 공개 계약의 XML 책임/입출력/소유권/오류를 요구하고 DOCUMENTATION_GUIDE는 public 선언/XML을 구현·테스트와 대조하도록 한다; 실제 표현은 ObjectPool의 param/exception과 Request의 summary처럼 서로 다르므로 모든 공개 멤버에 같은 태그가 완비됐다고 주장하지 않는다. [AGENTS:19](../../AGENTS.md#c과-unity-기준), [문서 규칙:18](../DOCUMENTATION_GUIDE.md#공통-사실과-상태), [ObjectPool:45](../../Assets/TPLab/Core/Pooling/ObjectPool.cs#L45), [Request:29](../../Assets/TPLab/Core/SceneManagement/SceneTransitionRequest.cs#L29).
+- [현행] public API·default·소유권·취소·오류가 바뀌면 XML과 관련 사람/AI 문서를 같은 단위에서 갱신한다는 문서 규칙이 있다; 이 초안은 그 규칙을 대체하지 않는다. [DOCUMENTATION_GUIDE:73](../DOCUMENTATION_GUIDE.md#갱신과-검증).

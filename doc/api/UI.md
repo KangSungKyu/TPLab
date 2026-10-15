@@ -1,4 +1,9 @@
 # UIContext API
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented through P6.
+기준 source: 99df25dd6b89fd7f3e322c8033b61eb1364f495e (final regression inputs); 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 runtime)
+갱신일: 2026-10-15
+계약 링크: [계약 원문](../GAME_UI_SYSTEM.md)
 
 TPLab.UI provides a root-owned lifecycle for HUD and Popup displays from direct or provider-keyed prefab sources. ImplementationStatus: Implemented through P6. ValidationStatus: The user confirmed full UI acceptance on 2026-10-12 for the sample behavior and visual checklist. Current source candidate Single/Additive consumer verification passed (2 build processes,4 artifacts,8 Players); main integration is complete. SourceRevision: `99df25dd6b89fd7f3e322c8033b61eb1364f495e` for final regression inputs; runtime UI implementation is unchanged from P6 source `21f89e2580f08be3903724efa0a42e5ad0567c83`.
 

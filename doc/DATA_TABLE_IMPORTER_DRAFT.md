@@ -1,4 +1,9 @@
 # 데이터 테이블 Editor importer 계약
+유형: 레퍼런스
+현재 상태: 상태: CSV 1차 구현·TPLab 검증.
+기준 source: main/19b5770
+갱신일: 2026-10-08
+계약 링크: 본 문서
 
 2026-10-06. 상태: CSV 1차 구현·TPLab 검증. 구현 기준 `main/19b5770`, 작업 `codex/data-table-importer`. 기존 초안의 경로를 유지하며 현재 동작을 이 문서에서 관리한다. [실행 증거](validation/data-table-importer/README.md), [회고](retrospectives/2026-10-06-10-data-table-importer.md)를 함께 확인한다.
 
