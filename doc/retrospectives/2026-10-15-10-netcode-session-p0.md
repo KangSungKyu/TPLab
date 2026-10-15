@@ -109,3 +109,5 @@ verifier 기준선은16개 checks 폴더와 Bootstrap1개의17실패다. 전/후
 임시 범위 감사의 최초 raw 비교는 branch checkout 시 CRLF→LF가 된 clean 문서2개(Bootstrap 계약·이전09회고)를 발견했다. 이전 raw hash를 CRLF 재구성으로 대조하고 Git blob 내용/diff0을 확인해 줄바꿈 정규화로 분류했다. 사용자 dirty10개는 raw bytes가 그대로다. 색인 감사도 추가 행 앞의 빈 줄을 기존 문장 변경으로 잘못 세던 검사식만 보정했다. 전역 `git diff --check`가 지적한 사용자 dirty InitScene의 기존 공백3곳은 수정하지 않고 이 PR의4문서/커밋 diff로 검사 범위를 한정한다. 이 일들은 Unity/테스트 실행 실패가 아니다.
 
 공백·규칙 검사와 Actions는 실제 커밋 후 exact-SHA로 아래에 확정한다. PR 본문에는 이 회고 링크만 두며 main 병합은 보류한다.
+
+문서 source commit은 `22edd6777e89609c1bb92074de1eecd2a5aa45aa`다. 커밋된4파일의 규칙 검사 **오류0·경고0**, 공백0, 링크/anchor0을 확인했다. [source exact-SHA Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38706501057)는 completed/success이며 check1/run1·대상 SHA 일치와 전체 조회 완전성을 확인했다. 이 결과 기록만 추가한 최종 HEAD도 exact-SHA로 다시 확인해 PR/채팅 보고에 연결한다. [PR #34](https://github.com/KangSungKyu/TPLab/pull/34)은 open으로 유지하며 이번 요청에서는 병합하지 않는다.
