@@ -1,6 +1,11 @@
 # 2026-10-15 · 04 · 문서 링크 정정과 verifier 원인 분류
 
-**중단 항목: verifier17건의 해결.** 기존 도구는 현재 checkout을 과거 source·보호 입력 hash와 비교한다. 오래된 경로만 현재 이름으로 바꿔도 hash 불일치가 남아 문서·checks 데이터 정정만으로 유효한 통과를 만들 수 없다. 사용자 규칙에 따라 도구·판정 로직 수정과 과거 기대 hash 덮어쓰기를 하지 않고 결정 대기로 멈춘다.
+**2026-10-15 사용자 결정: 17건은 과거 실행의 증거 보존 목적이므로 현재 소스로 재검증하지 않고 역사적 기준선으로 유지**.
+
+- 선택지2(과거 source별 재검증 도구 추가) 미채택: 증거 보존 목적에 새 도구·환경 복원까지 요구할 필요가 없어 범위를 확대하지 않는다.
+- 선택지3(기존 검사 제거·요약 문서 검증 대체) 미채택: 원래 검사와 증거의 의미를 바꾸므로 그대로 보존한다.
+
+아래의 “사용자 결정 대기”·“중단” 표현은 이 결정 전 조사 이력이며 현재 상태가 아니다. 기존 원인·수치·입력·기대 hash와 미실행 기록은 보존한다.
 
 T0 문서 전용이다. 기준 main/source는 `e661a79e3e487c46fb185190d5bc9e0ad8391375`, branch는 `codex/docs-link-verifier`다. 링크6건 수정과 읽기 전용 원인 조사·회고·PR까지만 수행한다. 작업1·2와 별도 PR이며 병합하지 않는다.
 
@@ -95,3 +100,7 @@ target를 역변환하면 기준 main의 원문 bytes와 같음을 확인했다.
 실제 변경 후 Markdown247개·상대 링크1953개·anchor481개를 검사했다. 링크 오류6→0·anchor 오류0→0이며 새 오류0이다. verifier17회의 exit/stdout/stderr는 기준선과 완전히 같아 기존17실패 유지·새 실패0이다. 허용 문서 밖 기존1201파일과 dirty6, 필수 기계 입력165개의 raw hash가 동일했다. 도구·CI·checks 데이터와 runtime·테스트·asmdef·UPM은 변경하지 않았다. verifier 해결은 위 정책 결정 대기로 중단한다.
 
 [PR #28](https://github.com/KangSungKyu/TPLab/pull/28)을 non-draft/open으로 제공했다. 최초 문서 commit 04d5387cbac149701c79605dcbaaeab6cb390068의 [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38676353550)는 completed/success, check1·run1이며 모든 collection complete=true/errors=[], queryIssues/blockingReasons=[]였다. 로컬 규칙 검사3파일 오류0·경고0과 commit diff 공백0을 확인했다. 이 제공 기록만 추가한 최종 HEAD도 exact-SHA로 다시 확인해 최종 보고한다. Actions 성공은 문서 diff 규칙 검사 성공이며 verifier17건 해결이나 Unity 실행을 의미하지 않는다. 병합은 하지 않는다.
+
+## 2026-10-15 사용자 결정 반영
+
+동일 PR의 후속 문서 보완이다. 회고 상단에 기준선 유지 결정을 확정하고 미채택 대안의 이유를 기록했다. 기존 도구 안내에 한 줄 연결하며 새 문서는 만들지 않는다. PR #26·#27 병합 뒤 main을 일반 merge해 회고 INDEX의 세 행을 보존했고, 요청한 추가 내용은 이 회고와 tools/README.md 두 문서뿐이다. 도구·workflow·checks 데이터·기대 hash·runtime·테스트·asmdef·UPM은 변경하지 않는다. verifier17건은 새 현재 소스 검증 통과로 해석하지 않으며 추가 재검증 대상으로 삼지 않는다. 이번 보완은 문서 링크·공백·규칙·최종 HEAD exact-SHA Actions만 확인하고 PR #28을 open으로 유지한다. Unity·Player/IL2CPP·GC 계측은 미실행이다.
