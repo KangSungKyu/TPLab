@@ -2,6 +2,8 @@
 
 2026-10-08 P0. 구현 승인된 첫 범위의 계약이다. 동작 구현/검증 상태는 [track](GAME_UI_SYSTEM_TRACK.md)에서 확인한다. 0.0.1 배포 API에 포함하지 않는다. 설계 근거는 [초안](GAME_UI_SYSTEM_DRAFT.md)이다.
 
+2026-10-15 사용자 결정: **합의한 UI 시스템 소스 개발은 마감**했다. 배포와 선택 개선은 [후속 작업](CORE_PLAN.md#ui-소스-개발-마감과-후속-작업-2026-10-15)이며 마감의 선행 조건이 아니다. 이 결정은 새 UI 패키지 발행·미검증 플랫폼 지원·추가 개선 실행을 승인하지 않는다. [마감 기록](retrospectives/2026-10-15-07-ui-source-close.md)을 따른다.
+
 ## 모듈과 수명
 
 - namespace/assembly는 TPLab.UI, source는 Assets/TPLab/UI다. UIContext는 해당 root의 상태를 소유하며 별도 필수 UIManager/Singleton/공개 Factory를 제공하지 않는다.
