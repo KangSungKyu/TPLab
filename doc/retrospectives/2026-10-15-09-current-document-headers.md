@@ -195,3 +195,5 @@ C:/Python314/python.exe -B tools/check_github_ci.py --repository KangSungKyu/TPL
 변경 후 Markdown255개·상대 링크2124개·anchor508개·오류0이다. 기존 heading anchor 변경0·새 링크 오류0, 기존 줄 링크 보정4곳과 새 상태 link23개 원문 행 일치를 확인했다. Label 표의 독립 재계산이 전부 일치했다. 적용31문서의 본문 bytes·제외/보류25문서·보호 hash836경로·기존 dirty10개를 보존했다. 허용 문서는 머리말31개+가이드2개+회고/색인2개의35개이며 그 밖의 추적 파일 bytes 변경0이다. 가이드 예외를 제외한 각 적용 diff는 정확히5줄 추가다.
 
 verifier는 전후17실패·새 실패0이며 full exit/stdout/stderr가 동일하다. 규칙/공백은 실제 커밋으로 확인하고 최종 tip의 exact-SHA Actions를 [작업 브랜치 Actions](https://github.com/KangSungKyu/TPLab/actions?query=branch%3Acodex%2Fdocs-current-headers)에서 대조한다. 결과는 PR과 최종 보고로 연결하며 PR은 사용자 승인 전 open으로 유지한다.
+
+문서 source commit은 `45b82a988be73c41f90d7e59a07150cd98304b1e`다. 실제 커밋35파일의 규칙 검사 오류0·경고0, 공백 검사 오류0, 링크/anchor 오류0을 확인했다. [source Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38700195094)는 completed/success이고 check1/run1, workflows/checks/statuses/runs 조회 완전성 및 SHA 일치를 확인했다. 이 검사 요약만 추가한 최종 tip도 exact-SHA로 다시 확인하고 PR #33·최종 보고에 연결한다. 문서 머리말·본문·검증 입력은 이 증거 기록 단계에서 바꾸지 않았다. 후속 main 병합은 하지 않는다.
