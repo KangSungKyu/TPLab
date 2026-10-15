@@ -212,6 +212,8 @@ namespace TPLab.UI
             }
         }
         /// <summary>Records metadata without loading or creating an instance, including from a display hook.</summary>
+        /// <param name="definition">Non-null metadata selecting one live direct prefab or explicit provider key.</param>
+        /// <exception cref="ArgumentNullException">The definition is null.</exception>
         /// <exception cref="ArgumentException">ID/source/policy metadata is invalid or duplicated.</exception>
         /// <exception cref="InvalidOperationException">A key needs a configured provider, or the thread/mutation boundary is invalid.</exception>
         /// <exception cref="ObjectDisposedException">The owner is terminating.</exception>
@@ -262,8 +264,10 @@ namespace TPLab.UI
         /// Owner termination cancels waiters and prevents late publication without disposing the asset/provider.
         /// Display hooks may prepare independent definitions; cleanup/native reentry is rejected.
         /// </remarks>
+        /// <exception cref="ArgumentException">The definition ID is blank or not registered.</exception>
         /// <exception cref="OperationCanceledException">The caller or owner ended its wait.</exception>
-        /// <exception cref="InvalidOperationException">The provider returns no live prefab or the mutation boundary is invalid.</exception>
+        /// <exception cref="InvalidOperationException">The prefab is unavailable, or the thread, mutation boundary, or context fault prevents preparation.</exception>
+        /// <exception cref="ObjectDisposedException">The owner is terminating or its root was destroyed.</exception>
         public UniTask PrepareAsync(string definitionId, CancellationToken cancellationToken = default)
         {
             EnsureCommand();
