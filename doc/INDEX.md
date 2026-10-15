@@ -37,7 +37,7 @@
 | [문서 거버넌스 경량화 회고](retrospectives/2026-10-13-07-docs-governance-slim.md) | 이번 T0 문서 정리의 범위·결정·검증 확인 | 승인된 지침·문서 소유와 색인 상태 정리; 실제 검증·판정은 회고 한 곳 참조 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
 | [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext 설계 근거·Phase·대규모 검증 조건 | 설계 기록, HUD·Popup·owner/depth·Canvas·virtual scroll 1,000/10,000 |
-| [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | P0 계약: 명시 root·borrowed 자산, 즉시 handle/Open await, cleanup·입력 경계 |
+| [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | 소스 개발 마감(2026-10-15); 배포와 선택 개선은 [후속 작업](CORE_PLAN.md#ui-소스-개발-마감과-후속-작업-2026-10-15) |
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |
 | [UI P6 검증](validation/ui-system/p6/README.md) | Settings/root installer·예제 authoring 검증 결과 | final source21f89e25·UI86/86·새19asset, 이후 통합 검증은P7 |
 | [UI P7 검증](validation/ui-system/p7/README.md) | P7 source-specific regression·consumer·Player·성능 기록 | 99df25dd/8310a94 evidence는 역사적이며 2026-10-12 사용자 수락 및 최신 candidate와 구분 |

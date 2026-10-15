@@ -142,7 +142,24 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 
 GameUISystem 검토에서 채택한 명칭은 `UIContext`이며 현재 `Assets/TPLab/UI`에 구현했다. root별 HUD·modal/modeless Popup·parent/depth·Canvas host·선택 native Input adapter·고정 높이 세로 Virtual ScrollRect·settings/installer를 제공한다. UI prefab·레이아웃·데이터 통신·게임 연출은 프로젝트 소유다. 기존 Core/Input/씬 callback과0.0.1 배포 사본은 보존했다.
 
-P7 자동 검증은 완료했다: 원본 source99df25d에서 Edit318/318·Play306/306, 최종 consumer source8310a94에서 Single/Additive 각4 graphics Players 통과. 두 source의 원본 Assets/Packages/ProjectVersion 테스트 입력은 같고 최종 Tools sample 종료 fixture만 다르다. 대규모 성능과 경계는 [P7 증거](validation/ui-system/p7/README.md)·[성능 보고서](UI_PERFORMANCE.md)를 따른다. 최종 [실제 입력/시각 확인](UI_ACCEPTANCE.md) 전 main/branch 정리는 대기한다. UI 패키지 배포와 Core 외부 의존성 재편은 별도 후속이다. 아래는 단계별 당시 결정 기록이다.
+P7 자동 검증은 완료했다: 원본 source99df25d에서 Edit318/318·Play306/306, 최종 consumer source8310a94에서 Single/Additive 각4 graphics Players 통과. 두 source의 원본 Assets/Packages/ProjectVersion 테스트 입력은 같고 최종 Tools sample 종료 fixture만 다르다. 대규모 성능과 경계는 [P7 증거](validation/ui-system/p7/README.md)·[성능 보고서](UI_PERFORMANCE.md)를 따른다. 전체 [UI 사용자 수락](UI_ACCEPTANCE.md)과 main 통합은 2026-10-12 완료됐다([통합 기록](retrospectives/2026-10-12-03-ui-main-integration.md)). 위 수치는 당시 source의 기록이며 이후 소스 검증을 대신하지 않는다. UI 패키지 배포와 Core 외부 의존성 재편은 별도 후속이다. 아래는 단계별 당시 결정 기록이다.
+
+### UI 소스 개발 마감과 후속 작업 (2026-10-15)
+
+사용자가 합의한 UI 시스템 소스 개발을 마감하고 **배포와 선택 개선은 후속 작업**으로 남기기로 결정했다. root별 HUD·Popup·Modal 입력/포커스·표시 순서·수명, 선택 Input System adapter, 세로·고정 높이 한 열 VirtualScrollRect, 설정/설치 컴포넌트와 예제가 마감 범위다. 마감은 새 릴리스·버전 결정이나 미검증 영역의 지원 보장을 뜻하지 않는다. 결정과 검증 경계는 [마감 회고](retrospectives/2026-10-15-07-ui-source-close.md)에 둔다.
+
+| 후속 항목 | 상태와 시작 조건 |
+|---|---|
+| UI 정식 배포 | 나중에 진행한다. package 경계·버전, 배포 도구 매핑·검토 후 upm 재생성, 실제 Git URL/tarball 소비·Player 검증과 릴리스 기록은 별도 사용자 범위 결정 뒤 수행한다. 현재 0.0.1 UI 미포함 상태는 유지한다. |
+| 추가 안전망 | Input adapter의 Bind/재연결/정리, VirtualScroll 재설정/실패 정리, Presentation 부분 실패 등 기존 조사 후보는 선택 사항이다. 새 결함이 확인되거나 관련 변경이 필요할 때 별도 범위를 정한다. |
+| UI 할당 조사·최적화 | [IMP-13](IMPROVEMENT_BACKLOG.md#imp-13-ui-구조할당테스트-점검)은 제안 상태로 남긴다. 백로그의 IMP-12 선행 결정과 읽기 전용 조사 우선 절차를 유지하며 자동 실행하지 않는다. |
+| 플랫폼·성능 범위 확대 | Player/IL2CPP·다른 기기/해상도·장시간 안정성·overdraw/batch 원인 분석은 필요할 때 별도 검증한다. 기존 Windows Mono/source별 결과를 확장 보장으로 쓰지 않는다. |
+| 목록 기능 확장 | 가변 높이·가로·grid·pagination은 현행 계약의 미구현 잔여가 아니라 요구가 생겼을 때 검토할 선택 확장이다. |
+| 소규모 테스트 정리 | 과거 stub용 NotImplementedException catch 등은 실행 코드 변경이므로 별도 요청에서 다룬다. |
+
+대형 클래스 분리와 EnsureMainThread 통합은 [D-C/D-H12](guidelines/README.md#사용자-결정)에 따라 수행하지 않기로 한 결정을 유지한다. 위 후속 목록에 추가한 사실만으로 구현·패키지 추가·배포를 시작하지 않는다.
+
+### 당시 UI 설계·구현 기록
 
 2026-10-08 GameUISystem 설계 검토: [초안](GAME_UI_SYSTEM_DRAFT.md)에 uGUI Canvas/Panel 기반 popup과 Virtual ScrollRect를 제안했다. 기본 lazy 준비·닫기 후 인스턴스 정리, 명시적 공용/scene 등록과 선택적 재사용을 권장하며 현행 ResourceManager는 자산을 개별 해제하지 않는 제한을 기록한다. namespace/package·입력 연동·가상화 첫 범위는 사용자 검토 전 제안이고 UI 구현·의존성 분리는 아직 수행하지 않았다.
 
