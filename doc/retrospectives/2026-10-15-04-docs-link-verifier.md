@@ -93,3 +93,5 @@ target를 역변환하면 기준 main의 원문 bytes와 같음을 확인했다.
 ## 문서 검사 확정
 
 실제 변경 후 Markdown247개·상대 링크1953개·anchor481개를 검사했다. 링크 오류6→0·anchor 오류0→0이며 새 오류0이다. verifier17회의 exit/stdout/stderr는 기준선과 완전히 같아 기존17실패 유지·새 실패0이다. 허용 문서 밖 기존1201파일과 dirty6, 필수 기계 입력165개의 raw hash가 동일했다. 도구·CI·checks 데이터와 runtime·테스트·asmdef·UPM은 변경하지 않았다. verifier 해결은 위 정책 결정 대기로 중단한다.
+
+[PR #28](https://github.com/KangSungKyu/TPLab/pull/28)을 non-draft/open으로 제공했다. 최초 문서 commit 04d5387cbac149701c79605dcbaaeab6cb390068의 [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38676353550)는 completed/success, check1·run1이며 모든 collection complete=true/errors=[], queryIssues/blockingReasons=[]였다. 로컬 규칙 검사3파일 오류0·경고0과 commit diff 공백0을 확인했다. 이 제공 기록만 추가한 최종 HEAD도 exact-SHA로 다시 확인해 최종 보고한다. Actions 성공은 문서 diff 규칙 검사 성공이며 verifier17건 해결이나 Unity 실행을 의미하지 않는다. 병합은 하지 않는다.
