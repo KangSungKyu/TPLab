@@ -1,4 +1,9 @@
 # Lifecycle: AI API reference
+유형: 레퍼런스
+현재 상태: [본문 상태](#L14)
+기준 source: 5fe5bf5a41386409775d836e5b3a50a2f516a787
+갱신일: 2026-10-13
+계약 링크: [계약 원문](../../api/Lifecycle.md)
 
 | Field | Value |
 |---|---|

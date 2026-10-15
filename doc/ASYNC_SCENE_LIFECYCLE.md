@@ -1,4 +1,9 @@
 # 비동기 씬 준비·해제와 가림막 콜백
+유형: 레퍼런스
+현재 상태: [본문 상태](#L8)
+기준 source: 미표기(본문 근거 링크 참조)
+갱신일: 2026-10-14
+계약 링크: [계약 원문](api/SceneManagement.md)
 
 SceneOwnedRoot와 SingletonSceneRoot 모두 같은 비동기 계약을 사용한다. 주입된 서비스의 준비가 끝나야 씬 진행 콜백을 실행하며, UI 연출은 소비 프로젝트가 제공한다. [ResourceManager](RESOURCE_MANAGER.md)의 초기화·필수 자산 로드·종료를 installer로 연결할 수 있다. GameSceneManager의 최초 Single/Additive 진입·연속 교체·중첩 구역·조건은 구현되어 있으며 [현재 API](api/SceneManagement.md)를 따른다.
 

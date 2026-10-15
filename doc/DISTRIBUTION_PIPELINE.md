@@ -1,4 +1,9 @@
 # TPLab 배포 규격과 dev-build track
+유형: 가이드
+현재 상태: [본문 상태](#L8)
+기준 source: de879b9396ddae0523bd3ab86939b679b383dd92 (v0.0.1)
+갱신일: 2026-10-14
+계약 링크: 본문 참조
 
 2026-10-08. Status: **P4 / 0.0.1 정식 공개·발행 검증 완료**, PipelineImplementation: **P1/P2/P3/P4Implemented**, PackageValidation: **Passed/UserConfirmed**. 태그 `v0.0.1`의 고정 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`다. [정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1), [P4 증거](validation/distribution-release/README.md), [사용자 최종 확인](DISTRIBUTION_ACCEPTANCE.md)을 따른다. 브랜치4개/worktree2개 정리는 [완료 기록](https://github.com/KangSungKyu/TPLab/blob/73a12f6ac4c4bd9f45db6ca9d14f94cbc8fc4e67/doc/validation/distribution-release/branch-cleanup.json)을 따른다. 사용자 요청에 따른 장치 종료는 별도 일회성 운영 기록이다.
 

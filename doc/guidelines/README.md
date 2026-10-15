@@ -59,7 +59,7 @@
 
 - [현행] 0.5단계에서 `35508bc1fb8ed7749a292d1f9ae983b45387afd4`의 git ls-tree/cat-file/count-objects/verify-pack로 validation **1,310파일·54,121,607bytes(51.614MiB)**, 원시 후보 **1,216파일·52,534,371bytes**, Markdown **51파일·309,565bytes**를 확인했다; .git 일반 파일 합은 약7.5MB, size-pack은4.95MiB였다. 이는 Git 전송량 또는 재작성 후 회수량 측정이 아니다. 근거: 2026-10-13 0.5단계 조회 보고와 [검증 자료 요약 문서 위치](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md).
 - [현행] 같은 조회의 scroll-benchmark.json6개는 모두 다른 blob이고, 원시만 제거해도 내부 요약50개, 전체 제거면 외부 Markdown112개에서 링크가 깨지는 것으로 집계했다; 직접 경로 참조가 없는 leaf14개(4,102,323bytes)는 내용 불필요 판정이 아니다. 근거: 같은 조회 보고, 대표 [P7 참조:38](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/ui-system/p7/README.md#L38), [당시 정정 후보 INDEX:135](https://github.com/KangSungKyu/TPLab/blob/35508bc1fb8ed7749a292d1f9ae983b45387afd4/doc/INDEX.md#L135).
-- [현행] 생성기 projection 비교에서 Core만 코드9·문서6의 **15파일**이 다르고 Input/Editor는 일치했다; 갱신 절차는 존재한다. 근거: 같은 조회 보고, [생성기:146,154,232](../../tools/build_distribution.py#L146), [절차:123](../DISTRIBUTION_PIPELINE.md#L123).
+- [현행] 생성기 projection 비교에서 Core만 코드9·문서6의 **15파일**이 다르고 Input/Editor는 일치했다; 갱신 절차는 존재한다. 근거: 같은 조회 보고, [생성기:146,154,232](../../tools/build_distribution.py#L146), [절차:128](../DISTRIBUTION_PIPELINE.md#L128).
 - [현행] manifest 템플릿은 validation의 manifest와 같은 blob이지만, consumer는 독립 경로 tools/core-consumer/templates/manifest.json.in을 읽는다; 동일 내용 공유만으로 validation 경로 의존이나 대체 필요성이 성립하지 않는다. 근거: 같은 조회의 공유 blob75b2248a45451dbd0f77840c80d3ccdfe00227a4와 [직접 입력 경로:222,230](../../tools/run_core_consumer.py#L222).
 - [결정됨] **D-I8 — 템플릿 선행 조건 정정.** 2단계의 “템플릿 대체” 선행 조건은 실제 입력 경로·blob 보존 확인으로 정정한다. 같은 blob이라는 이유만으로 입력 대체 필요성이 성립하지 않으며 이번에는 템플릿을 바꾸지 않는다. 근거: 사용자 결정 2026-10-15(D-I8), 위 독립 consumer 입력 경로.
 - [현행] 2026-10-13 조사 당시 INDEX의 낡은 범위·GC 수치·중단·UI 통합 표기는 후속 정리 대상이었다. 당시 근거는 [조사 시점 INDEX:27](https://github.com/KangSungKyu/TPLab/blob/35508bc1fb8ed7749a292d1f9ae983b45387afd4/doc/INDEX.md#L27)와 [후속 완료 행:135](https://github.com/KangSungKyu/TPLab/blob/35508bc1fb8ed7749a292d1f9ae983b45387afd4/doc/INDEX.md#L135)이며 현재 상태와 구분한다.
@@ -68,7 +68,7 @@
 ## 제안 목록
 
 - [제안] Timeout 구체 기본값·적용 범위는 IMP-04b 실험 후 결정한다. 기본값 적용·메서드 우선순위·ToCoroutine hang 중단은 미확인이다. [05의 D-I2](05-testing.md#양성-대조-범위와-미확정-사항).
-- [제안] D-I3의 기존 현행 문서 머리말 일괄 통일은 후속 T0 PR이다. 이번에는 형식만 정의하며 회고·validation 원문은 제외한다. [06의 D-I3](06-documentation.md#문서-4분류와-증거-소유).
+- [현행] D-I3 머리말 후속 적용은 이번 분류의 적용 범위에서 완료했다. 원문 보존·수정 금지 인용 때문에 제외한 문서와 판단 보류는 [적용 회고](../retrospectives/2026-10-15-09-current-document-headers.md)에서 구분한다. [06의 D-I3](06-documentation.md#문서-4분류와-증거-소유).
 - [현행] 과거 회고의 AGENTS 이관 제안은 당시 제안 기록이며 새 권한이 아니다. 현재 지침은 [AGENTS 단위 작업 회고](../../AGENTS.md#단위-작업-회고)와 이 가이드의 채택 결정을 따른다.
 - [현행] 현재 [AGENTS:112–118](../../AGENTS.md#L112)은 모든 등급에서 사용자 명시 승인 대기와 exact-SHA gate를 요구한다. 과거 자동 병합 승인은 2026-10-13 승인으로 대체돼 D-F와 충돌하지 않는다. 이번 AGENTS 변경은 CI 문서 링크 한 곳뿐이다. [D-F](08-change-procedure.md#위험-등급과-공통-항목).
 - [현행] 이번 T0는 D-I 결정·05 교훈·CI 문서 이동·인용/라벨·체크리스트와 색인만 정리한다. AGENTS는 승인된 CI 링크 한 곳만 바꾸며 코드·테스트·tools·workflow·UPM과 기존 사용자 변경을 보존한다. 새 증거 요약은 [이번 회고](../retrospectives/2026-10-15-08-guidelines-decisions-i.md) 한 곳에 둔다.
@@ -86,9 +86,9 @@
 | [현행] | [03-async-lifecycle.md](03-async-lifecycle.md) | 14 | 7 | 0 |
 | [현행] | [04-allocation-gc.md](04-allocation-gc.md) | 14 | 4 | 0 |
 | [현행] | [05-testing.md](05-testing.md) | 19 | 4 | 1 |
-| [현행] | [06-documentation.md](06-documentation.md) | 12 | 21 | 1 |
+| [현행] | [06-documentation.md](06-documentation.md) | 13 | 21 | 0 |
 | [현행] | [07-validation-evidence.md](07-validation-evidence.md) | 12 | 15 | 0 |
 | [현행] | [08-change-procedure.md](08-change-procedure.md) | 8 | 28 | 0 |
 | [현행] | [CHECKLIST.md](CHECKLIST.md) | 4 | 10 | 0 |
-| [현행] | [README.md](README.md) | 24 | 28 | 2 |
+| [현행] | [README.md](README.md) | 25 | 28 | 1 |
 <!-- LABEL_COUNTS_END -->

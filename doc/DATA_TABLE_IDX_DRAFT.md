@@ -1,4 +1,9 @@
 # uint idx 생성·추출·PK/FK 계약
+유형: 레퍼런스
+현재 상태: [본문 상태](#L8)
+기준 source: TPLab main / a7804a8; Cashier total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](DATA_TABLE_MAPPING_DRAFT.md)
 
 2026-10-02. 기준 TPLab `main / a7804a8`, Cashier `total_merge / 8b093946a5ffa85864bea734ce6eeab6ccea41a0`. 최초 상태는 미구현 초안이었다. 2026-10-06 준비한 generic 범위를 구현했으며 [실행 증거](validation/generic-data-tables/README.md)로 확인한다. 기본 제공 테이블의 uint index key, 생성·추출 클래스 등록, PK/FK 탐색 요구는 사용자 지시로 확정이다. 아래 API·인코딩·오류 정책은 이번 구현의 계약이다. [DTO·테이블 매핑 계약](DATA_TABLE_MAPPING_DRAFT.md)과 연결하며 [manager 계약](DATA_TABLE_MANAGER.md)과 함께 적용한다.
 

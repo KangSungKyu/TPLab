@@ -1,4 +1,9 @@
 # Input
+유형: 레퍼런스
+현재 상태: [본문 상태](#L12)
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](../INPUT_SYSTEM_DRAFT.md)
 
 Unity Input System 전용 wrapper다. 원본 action asset을 복제하고, layer lease로 map 활성 상태를 관리하며 native interactive rebinding과 override JSON을 제공한다. 프로젝트는 action asset, layer 구성, 저장 위치와 설정/UI를 소유한다. legacy `UnityEngine.Input` adapter는 제공하지 않는다.
 

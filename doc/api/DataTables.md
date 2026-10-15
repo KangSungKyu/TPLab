@@ -1,4 +1,9 @@
 # DataTables
+유형: 레퍼런스
+현재 상태: [본문 상태](#L12)
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](../DATA_TABLE_MANAGER.md)
 
 CSV를 프로젝트 DTO로 읽고 모든 테이블·FK 검증이 성공한 snapshot만 공개한다. 기본 경로는 `uint idx`이며, 별도 PK를 쓰는 수동 경로도 제공한다. Text/Resource는 코어 기본 테이블이 아닌 [프로젝트 템플릿](../templates/data-tables/README.md)이다.
 

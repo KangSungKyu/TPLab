@@ -1,4 +1,9 @@
 # ResourceManager 계약
+유형: 레퍼런스
+현재 상태: 본문 참조
+기준 source: 미표기(본문 근거 링크 참조)
+갱신일: 2026-10-07
+계약 링크: [계약 원문](SCENE_ROOT.md)
 
 2026-10-02. `TPLab.Core.ResourceManagement.ResourceManager`는 상속이 필요 없는 일반 C# 소유자다. Addressables 2.9.1·UniTask 2.5.11을 사용하며 게임별 key, CSV schema, UI를 참조하지 않는다.
 

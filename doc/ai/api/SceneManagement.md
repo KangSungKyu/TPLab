@@ -1,4 +1,9 @@
 # SceneManagement: AI API reference
+유형: 레퍼런스
+현재 상태: [본문 상태](#L14)
+기준 source: 0cc919b6c497f348deae3e6ae4dffb33f21c8482
+갱신일: 2026-10-13
+계약 링크: [계약 원문](../../GAME_SCENE_MANAGER_DRAFT.md)
 
 | Field | Value |
 |---|---|

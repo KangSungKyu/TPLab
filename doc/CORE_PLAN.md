@@ -1,4 +1,9 @@
 # 공용 코어 1차 검토안
+유형: 결정 기록
+현재 상태: [본문 상태](#L8)
+기준 source: 미표기(본문 근거 링크 참조)
+갱신일: 2026-10-15
+계약 링크: [계약 원문](GENERIC_POOL.md)
 
 작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool은 [제네릭 계약](GENERIC_POOL.md)과 [프리팹 어댑터 계약](OBJECT_POOL.md), Singleton은 [수명 계약](SINGLETON.md), 씬 루트의 소유 방식·참조 주입은 [SceneRoot 계약](SCENE_ROOT.md)으로 확정했다. 나머지 시스템의 구현·이식 방향은 검토 제안이다.
 

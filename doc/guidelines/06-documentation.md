@@ -37,8 +37,8 @@
 계약 링크: 해당 계약 원문 링크
 ```
 
-- [제안] D-I3 머리말의 기존 현행 문서 일괄 적용은 후속 T0 PR에서 수행한다. 이번 요청은 형식 정의까지만 승인했으며 회고·validation 원문에는 적용하지 않는다. 근거: 사용자 결정 2026-10-15(D-I3)의 적용 범위.
-- [현행] DRAFT 파일명에도 현재 구현 계약을 담은 Input/DataTable 문서와 설계 이력으로 남은 UI 문서가 있다. 과거 운영 문장은 날짜가 붙은 역사적 기록과 현재 계약을 구분한다. 근거: [Input:3](../INPUT_SYSTEM_DRAFT.md#L3), [Mapping:3](../DATA_TABLE_MAPPING_DRAFT.md#L3), [UI 설계 기록:5](../GAME_UI_SYSTEM_DRAFT.md#L5).
+- [현행] D-I3 머리말 후속 적용은 이번 분류의 적용 범위에서 완료했다. 제외·보류 문서와 본문 값 산정·보존 범위는 [적용 회고](../retrospectives/2026-10-15-09-current-document-headers.md)를 따른다. 근거: 사용자 2026-10-15 후속 요청; 기존 결정의 승인 범위만 적용했다.
+- [현행] DRAFT 파일명에도 현재 구현 계약을 담은 Input/DataTable 문서와 설계 이력으로 남은 UI 문서가 있다. 과거 운영 문장은 날짜가 붙은 역사적 기록과 현재 계약을 구분한다. 근거: [Input:8](../INPUT_SYSTEM_DRAFT.md#L8), [Mapping:8](../DATA_TABLE_MAPPING_DRAFT.md#L8), [UI 설계 기록:5](../GAME_UI_SYSTEM_DRAFT.md#L5).
 
 ## 기존 자료와 배포 사본
 
@@ -47,7 +47,7 @@
 - [결정됨] **D-I4 — CI 판정 문서 위치.** [CI_GATE_PROPOSAL.md](../CI_GATE_PROPOSAL.md)를 doc/로 이동하고 현재·과거 문서의 링크 대상과 이동 파일 자신의 상대 링크만 보정한다. 판정 본문은 유지하며 AGENTS는 승인된 링크 한 곳만 수정한다. 근거: 사용자 결정 2026-10-15(D-I4), [07 위치 결정](07-validation-evidence.md#ci-판정-문서의-라벨-정정).
 - [결정됨] **D-H10 — 과거 원시 링크.** 삭제된 자료를 가리키는 링크는 해당 자료가 존재하는 고정 commit의 permalink로 대체한다. permalink는 과거 읽기용 링크이며 로컬 입력 복원·재검증 능력을 제공한 것으로 쓰지 않는다. 근거: 사용자 2026-10-13 일괄 승인, [현행 파일 읽기:23,31](../../tools/verify_validation.py#L23).
 - [결정됨] 검토했으나 채택하지 않은 대안: 고정 permalink 대신 원시 링크를 없애고 source·명령·해시만 남기거나 별도 제공 위치를 기본안으로 쓰는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H10).
-- [현행] UPM 갱신 절차는 존재하며 0.5단계 당시 Core 15파일은 개발본과 달랐다; 문서 링크/prefix projection 변환은 정상이다. 이 PR은 배포 사본을 고치지 않는다. 근거: [절차:123](../DISTRIBUTION_PIPELINE.md#L123), [변환:154](../../tools/build_distribution.py#L154), [0.5단계 비교](README.md#05단계-사실-확인).
+- [현행] UPM 갱신 절차는 존재하며 0.5단계 당시 Core 15파일은 개발본과 달랐다; 문서 링크/prefix projection 변환은 정상이다. 이 PR은 배포 사본을 고치지 않는다. 근거: [절차:128](../DISTRIBUTION_PIPELINE.md#L128), [변환:154](../../tools/build_distribution.py#L154), [0.5단계 비교](README.md#05단계-사실-확인).
 
 ## 단위 작업 회고 상세 — 2026-10-13 이관
 
