@@ -2,8 +2,8 @@
 유형: 레퍼런스
 현재 상태: 본문 참조
 기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0 (original seven modules); 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 UI runtime); 99df25dd6b89fd7f3e322c8033b61eb1364f495e (P7 regression snapshot)
-갱신일: 2026-10-14
-계약 링크: [계약 원문](UI.md)
+갱신일: 2026-10-08
+계약 링크: 본문 참조
 
 2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../../TPLAB_NAMING.md)에서 현재 이름·경로 규칙과 검증 기록을 확인한다.
 

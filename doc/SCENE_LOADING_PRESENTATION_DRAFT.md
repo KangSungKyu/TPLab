@@ -1,9 +1,9 @@
 # 씬 전환 진행률·로딩 화면·진행 대기 계약
 유형: 레퍼런스
-현재 상태: [본문 상태](#L8)
+현재 상태: progress snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기와 프로젝트 소유 sample UI가 구현됐다.
 기준 source: 미표기(본문 근거 링크 참조)
-갱신일: 2026-10-14
-계약 링크: [계약 원문](api/SceneManagement.md)
+갱신일: 2026-10-07
+계약 링크: 본 문서
 
 2026-10-07. 사용자 요청을 반영한 계약 및 구현 현황이다. progress snapshot, 선택적 UI callback 흐름, 자동/수동 진행 대기와 프로젝트 소유 sample UI가 구현됐다. 별도 Unity 로딩 씬은 만들지 않는다. 현재 P4 결과는 [검증 기록](validation/scene-loading/p4/README.md)에 둔다. 2026-10-07 사용자의 로딩 UI PlayMode 확인으로 최종 사용자 gate를 완료했다. 개별 모드·해상도·장치별 결과는 제공되지 않았다.
 

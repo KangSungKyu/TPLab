@@ -1,9 +1,9 @@
 # Unity Input System wrapper 계약과 사용
 유형: 레퍼런스
-현재 상태: [본문 상태](#L8)
+현재 상태: 아래 API·기본 동작을 구현했다.
 기준 source: 미표기(본문 근거 링크 참조)
 갱신일: 2026-10-07
-계약 링크: [계약 원문](api/Input.md)
+계약 링크: 본 문서
 
 작성일: 2026-10-07. **Input System 전용 지원은 사용자 확정 정책**이다. 아래 API·기본 동작을 구현했다. 단계1~4의 집중/전체 회귀·reload·소비 프로젝트/Windows Player 자동 검증을 완료했으며 [구현 track](INPUT_SYSTEM_TRACK.md)과 [최종 사용자 확인](INPUT_SYSTEM_ACCEPTANCE.md)을 따른다.
 

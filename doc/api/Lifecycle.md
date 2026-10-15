@@ -1,4 +1,9 @@
 # Lifecycle API
+유형: 레퍼런스
+현재 상태: `Implemented` / `Partial`
+기준 source: 5fe5bf5a41386409775d836e5b3a50a2f516a787
+갱신일: 2026-10-13
+계약 링크: [계약 원문](../SCENE_ROOT.md)
 
 씬의 서비스 생성·주입·비동기 준비·종료를 하나의 명시적 root 수명으로 묶는다. `SceneOwnedRoot`는 참조로 접근하고 `SingletonSceneRoot`는 같은 계약에 전역 접근을 추가한다. Singleton 선택과 씬 간 영속화는 독립적이다. 게임 진행·입력·씬 로드는 프로젝트 또는 [SceneManagement](SceneManagement.md)가 담당한다.
 

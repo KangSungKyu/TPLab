@@ -1,4 +1,9 @@
 # SceneManagement API
+유형: 레퍼런스
+현재 상태: `Implemented` / `Partial`
+기준 source: 0cc919b6c497f348deae3e6ae4dffb33f21c8482
+갱신일: 2026-10-13
+계약 링크: [계약 원문](../GAME_SCENE_MANAGER_DRAFT.md)
 
 `GameSceneManager`는 명시적으로 선택한 Build Scene/Addressable 씬의 로드 결과와 root 수명을 소유한다. 공용 root·표시 callback은 대여하고, 최초 진입·주 씬 교체·파생 씬 tree의 준비와 종료를 관리한다. `BootstrapSystem`은 첫 진입 설정과 자동 시작을 연결하는 선택적 MonoBehaviour다. 게임 진행은 성공한 await와 현재 `CanProceed`, 프로젝트의 입력 차단 정책을 함께 확인해 허용한다.
 

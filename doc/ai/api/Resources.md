@@ -1,6 +1,6 @@
 # Resource Management
 유형: 레퍼런스
-현재 상태: [본문 상태](#L12)
+현재 상태: Implemented / Partial.
 기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
 갱신일: 2026-10-07
 계약 링크: [계약 원문](../../../Assets/TPLab/Core/ResourceManagement/ResourceManager.cs)

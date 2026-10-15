@@ -4,9 +4,9 @@
 
 ## 무엇을 확인했는지 구분하는 현행
 
-- [현행] 코드 읽기는 실행 완료 증거가 아니며 source·환경·명령·test 이름·total/pass/fail/skip와 한계를 구분해 보고하는 현행 규칙이 있다. 근거: [AGENTS:42,43](../../AGENTS.md#L42), [백로그 보고:323](../IMPROVEMENT_BACKLOG.md#L323).
+- [현행] 코드 읽기는 실행 완료 증거가 아니며 source·환경·명령·test 이름·total/pass/fail/skip와 한계를 구분해 보고하는 현행 규칙이 있다. 근거: [AGENTS:42,43](../../AGENTS.md#tdd와-완료-기준), [백로그 보고:323](../IMPROVEMENT_BACKLOG.md#항목별-완료-보고-형식).
 - [현행] IMP-03은 오라클·fixture 오류와 별도 승인 정정·재동결을 기록한 뒤44/44·전체Edit375/Play345를 남겼다; 처음의 잘못된 실패를 의도한 Red로 바꾸어 쓰지 않았다. 근거: [요약:7,17,25,27,65](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L7).
-- [현행] exact-SHA 판정은 대상 SHA·조회 완전성·완료/success를 검사하며 CI 존재와 Unity 통과는 별개다. 근거: [CI 도구:1,72](../../tools/check_github_ci.py#L1), [AGENTS:118](../../AGENTS.md#L118).
+- [현행] exact-SHA 판정은 대상 SHA·조회 완전성·완료/success를 검사하며 CI 존재와 Unity 통과는 별개다. 근거: [CI 도구:1,72](../../tools/check_github_ci.py#L1), [AGENTS:118](../../AGENTS.md#검증-후-병합).
 - [현행] 현재 IMP-14/05/03은 Windows Mono Editor 중심이고 Player/IL2CPP는 미검증이다. 과거0.0.1 Mono Player 실행은 다른 source의 최신 계약 검증을 대신하지 않는다. 근거: [IMP-05:75](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-05/implementation/README.md#L75), [IMP-03:74](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L74), [과거 Release:5,11](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/distribution-release/README.md#L5).
 
 ## 증거 소유와 최소 기계 입력
@@ -20,15 +20,15 @@
 
 ## CI 판정 문서의 라벨 정정
 
-- [현행] CI_GATE_PROPOSAL.md는 [AGENTS:118](../../AGENTS.md#L118)이 판정 기준으로 링크한다. 2026-10-13 보존 라벨 정정은 당시 기록이며, 현 위치는 아래 D-I4의 사용자 결정으로 확정한다. 근거: 실제 AGENTS 링크와 사용자 결정 2026-10-15(D-I4).
+- [현행] CI_GATE_PROPOSAL.md는 [AGENTS:118](../../AGENTS.md#검증-후-병합)이 판정 기준으로 링크한다. 2026-10-13 보존 라벨 정정은 당시 기록이며, 현 위치는 아래 D-I4의 사용자 결정으로 확정한다. 근거: 실제 AGENTS 링크와 사용자 결정 2026-10-15(D-I4).
 - [결정됨] **D-I4 — 위치 확정.** [CI_GATE_PROPOSAL.md](../CI_GATE_PROPOSAL.md)를 doc/로 이동한다. AGENTS의 승인된 링크 한 곳과 문서 링크 대상·이동 파일 자신의 상대 링크만 갱신하며 판정 내용·도구·workflow는 바꾸지 않는다. 근거: 사용자 결정 2026-10-15(D-I4), [06 위치 결정](06-documentation.md#기존-자료와-배포-사본).
 
 ## 삭제와 현행 도구의 충돌
 
 | 상태 | 현재 요구/위치 | 새 결정과의 관계 |
 |---|---|---|
-| [현행] | [AGENTS:61](../../AGENTS.md#L61) | 증거 요약은 회고 한 곳과 최소 기계 입력 예외를 따르도록 이관 완료됐다. 근거: 실제 임시 파일·증거 지침과 [증거 상세](#증거-분류와-원문-보존-상세--2026-10-13-이관). |
-| [현행] | [AGENTS:71](../../AGENTS.md#L71) | 기존 기록은 삭제 단계 별도 승인 전까지 보존하는 문구로 정렬됐다. 이번 요청은 원시 자료 삭제를 포함하지 않는다. 근거: 실제 이름·경로 유지 지침. |
+| [현행] | [AGENTS:61](../../AGENTS.md#임시-파일과-재사용-도구) | 증거 요약은 회고 한 곳과 최소 기계 입력 예외를 따르도록 이관 완료됐다. 근거: 실제 임시 파일·증거 지침과 [증거 상세](#증거-분류와-원문-보존-상세--2026-10-13-이관). |
+| [현행] | [AGENTS:71](../../AGENTS.md#이름경로-유지) | 기존 기록은 삭제 단계 별도 승인 전까지 보존하는 문구로 정렬됐다. 이번 요청은 원시 자료 삭제를 포함하지 않는다. 근거: 실제 이름·경로 유지 지침. |
 | [현행] | [verify_validation:23,31](../../tools/verify_validation.py#L23) | 삭제된 과거 원본은 같은 로컬 입력 검사를 다시 수행할 수 없다. |
 | [현행] | [consumer 입력:222,230](../../tools/run_core_consumer.py#L222) | 독립 tools 템플릿 입력이므로 동일 validation blob만으로 대체 필요성이 성립하지 않는다. 근거: [조회 정정](README.md#05단계-사실-확인). |
 | [현행] | [Editor check:246](../../Assets/TPLab/Validation/Editor/DataTableImportEditorCheck.cs#L246) | 향후 실행은 기존 validation 폴더·JSON을 다시 만든다; 삭제만으로 새 출력 경로·정책이 구현되지는 않는다. |

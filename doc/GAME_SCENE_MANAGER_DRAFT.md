@@ -1,4 +1,9 @@
 # GameSceneManager 계약과 단계별 구현
+유형: 레퍼런스
+현재 상태: 최초 진입·Bootstrap 위임·명시적 로더·주 씬 교체·파생 구역 수명 tree·전환 정의·root 조건·Editor 사전 검사를 구현했다.
+기준 source: 0cc919b6c497f348deae3e6ae4dffb33f21c8482 (IMP-05 source)
+갱신일: 2026-10-15
+계약 링크: 본 문서
 
 2026-10-07 현재 계약. 최초 진입·Bootstrap 위임·명시적 로더·주 씬 교체·파생 구역 수명 tree·전환 정의·root 조건·Editor 사전 검사를 구현했다. Single/Additive 및 공용 영속 수명 선택을 제공하며 기본 권장은 Bootstrap 유지 + Additive다. [사람용 현재 API](api/SceneManagement.md)와 [최종 회귀](validation/input-system/p4/README.md)를 함께 확인한다. 진행률·팁·자동/버튼 진행 대기는 [별도 미구현 초안](SCENE_LOADING_PRESENTATION_DRAFT.md)이다. 선행 계약은 [SceneRoot](SCENE_ROOT.md), [비동기 수명](ASYNC_SCENE_LIFECYCLE.md), [자산 소유권](RESOURCE_MANAGER.md)이다.
 

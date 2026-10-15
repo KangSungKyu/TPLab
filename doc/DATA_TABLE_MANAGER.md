@@ -3,7 +3,7 @@
 현재 상태: 본문 참조
 기준 source: 미표기(본문 근거 링크 참조)
 갱신일: 2026-10-07
-계약 링크: [계약 원문](DATA_TABLE_MAPPING_DRAFT.md)
+계약 링크: 본 문서
 
 2026-10-02. `TPLab.Core.DataTables`의 일반 C# 소유자다. Singleton 상속과 게임별 enum·ID 구간·CSV DTO·검색 규칙을 강제하지 않는다. [검증 기록](validation/data-tables/README.md)에서 현재 실행 범위와 증거를 확인한다.
 

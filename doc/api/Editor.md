@@ -1,9 +1,9 @@
 # Editor
 유형: 레퍼런스
-현재 상태: [본문 상태](#L12)
+현재 상태: ImplementationStatus: Implemented; ValidationStatus: Partial.
 기준 source: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
 갱신일: 2026-10-08
-계약 링크: [계약 원문](../DATA_TABLE_IMPORTER_DRAFT.md)
+계약 링크: 본문 참조
 
 Editor 도구는 Bootstrap/씬 전환 설정을 사전 검사하고 CSV와 명시적 JSON schema로 프로젝트 DTO·테이블 C# 소스를 생성/검증한다. runtime 데이터를 Editor에서 자동 등록하거나 공개하지 않는다.
 
