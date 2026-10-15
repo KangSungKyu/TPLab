@@ -44,3 +44,5 @@ CI workflow 존재·내용은 확인했지만 Claude 인증 시크릿 설정이�
 ## 문서 검사 확정
 
 변경 후 Markdown247개·상대 링크1979개·anchor477개를 검사했다. 전후 기존 링크 오류6건·anchor 오류0건이 같고 새 오류0이다. verifier17회의 exit/stdout/stderr가 기준선과 같아 새 실패0이다. 허용 문서 밖 기존1188파일과 사용자 dirty6의 raw hash가 동일했다. 표시는12개에 각1줄이며 승인한 상태5곳 외 본문 정정0을 원문 역비교로 확인했다.
+
+[PR #27](https://github.com/KangSungKyu/TPLab/pull/27)을 non-draft/open으로 제공했다. 최초 문서 commit 91524bb3412e27526996265d6fceb753350de472의 [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38675998339)는 completed/success, check1·run1이며 모든 collection complete=true/errors=[], queryIssues/blockingReasons=[]였다. 로컬 규칙 검사16파일 오류0·경고0과 commit diff 공백0을 확인했다. 이 제공 기록만 추가한 최종 HEAD도 exact-SHA로 다시 확인해 최종 보고한다. main 병합은 하지 않는다.
