@@ -76,3 +76,5 @@ verifier는 작업 전에 fresh17회(16 checks+Bootstrap1)를 실행해 원래 �
 실측 링크/anchor 검사는 Markdown258개·상대 링크2113개·anchor491개·오류0이다. 작업 전 검사(문서 저장 전)의257/2104/484/0과 비교해 새 오류0이다. verifier17실패→17실패의 전체 exit/stdout/stderr 원문이 동일하고 보호 입력836경로·설치 소스11개·사용자 dirty10개의 hash/존재 상태를 보존했다. 머리말·결정8행의 근거와 기존 확정3문장·B절/S1~S4 미확정 상태·색인 지정 행 검사를 통과했다. 실제 커밋의 공백·규칙·exact-SHA Actions 결과는 아래에 확정한다. PR은 open으로 제공하고 사용자 승인 전 병합하지 않는다. 다음에는 S1~S4와 P1 선행 의존성 반영의 별도 승인 범위를 정해야 한다. 이번 결정 반영이 구현/설치 승인이라는 뜻은 아니다.
 
 검토·보완 재개에 필요한 원문/해시/검사기는 위 Temp 작업 폴더에 유지한다. 사용자 수락 후 더 이상 실행/조사 참조가 없으면 이 작업 소유 명시 목록만 정리하고 다른 Temp와 사용자 파일은 보존한다.
+
+문서 source commit은 `3fb5ae3b60b508aff62f233a5b5c9be29c0772dd`다. 실제 커밋4파일의 규칙 검사 **오류0·경고0**, 공백0, 링크/anchor0을 확인했다. [source exact-SHA Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38710076218)는 completed/success이며 check1/run1·SHA 일치와 전체 조회 완전성을 확인했다. 이 검사 기록만 추가한 최종 HEAD도 exact-SHA로 다시 확인해 [PR #35](https://github.com/KangSungKyu/TPLab/pull/35)와 채팅 보고에 연결한다. PR은 open·미병합으로 유지한다.
