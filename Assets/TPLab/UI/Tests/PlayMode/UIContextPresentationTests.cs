@@ -34,34 +34,38 @@ namespace TPLab.UI.Tests.PlayMode
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            foreach (var load in _loads)
+            yield return UniTask.ToCoroutine(async () =>
             {
-                load.TrySetResult(_source);
-            }
-            foreach (var gate in _gates)
-            {
-                gate.TrySetResult();
-            }
-            foreach (var context in _contexts)
-            {
-                try
+                foreach (var load in _loads)
                 {
-                    context.Dispose();
+                    load.TrySetResult(_source);
                 }
-                catch (Exception)
+                foreach (var gate in _gates)
                 {
-                    // Expected callback failures are observed by tests; native fixture cleanup remains required.
+                    gate.TrySetResult();
                 }
-            }
-            for (int index = _objects.Count - 1; index >= 0; --index)
-            {
-                UnityEngine.Object.Destroy(_objects[index]);
-            }
-            _loads.Clear();
-            _gates.Clear();
-            _contexts.Clear();
-            _objects.Clear();
-            yield return null;
+                foreach (var context in _contexts)
+                {
+                    try
+                    {
+                        await context.ShutdownAsync();
+                    }
+                    catch (Exception)
+                    {
+                        // Expected callback failures are observed by tests; native fixture cleanup remains required.
+                    }
+                }
+                for (int index = _objects.Count - 1; index >= 0; --index)
+                {
+                    UnityEngine.Object.Destroy(_objects[index]);
+                }
+                _loads.Clear();
+                _gates.Clear();
+                _contexts.Clear();
+                _objects.Clear();
+                await UniTask.NextFrame();
+            });
+            LogAssert.NoUnexpectedReceived();
         }
 
         private GameObject Own(string name, params Type[] components)

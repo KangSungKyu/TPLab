@@ -189,9 +189,10 @@ namespace TPLab.Core.Tests
             }
             finally
             {
-                release?.Join();
+                bool joined = release == null || release.Join(3000);
                 reader?.Dispose();
                 if (Directory.Exists(folder)) Directory.Delete(folder, true);
+                Assert.That(joined, Is.True, "Manifest release worker did not join within 3000ms.");
             }
         }
 

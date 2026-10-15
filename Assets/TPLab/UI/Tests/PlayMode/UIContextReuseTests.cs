@@ -30,28 +30,35 @@ namespace TPLab.UI.Tests
         [UnityTearDown]
         public IEnumerator TearDown()
         {
-            foreach (var load in _loads)
+            yield return UniTask.ToCoroutine(async () =>
             {
-                load.TrySetResult(_source);
-            }
-            _loads.Clear();
-            foreach (var gate in _gates)
-            {
-                gate.TrySetResult();
-            }
-            _gates.Clear();
-            try
-            {
-                _context?.Dispose();
-            }
-            catch (Exception)
-            {
-                // Expected completion errors belong to the test; preserve native fixture teardown.
-            }
-            UnityEngine.Object.Destroy(_root);
-            UnityEngine.Object.Destroy(_source);
-            _context = null;
-            yield return null;
+                foreach (var load in _loads)
+                {
+                    load.TrySetResult(_source);
+                }
+                _loads.Clear();
+                foreach (var gate in _gates)
+                {
+                    gate.TrySetResult();
+                }
+                _gates.Clear();
+                try
+                {
+                    if (_context != null)
+                    {
+                        await _context.ShutdownAsync();
+                    }
+                }
+                catch (Exception)
+                {
+                    // Expected completion errors belong to the test; preserve native fixture teardown.
+                }
+                UnityEngine.Object.Destroy(_root);
+                UnityEngine.Object.Destroy(_source);
+                _context = null;
+                await UniTask.NextFrame();
+            });
+            LogAssert.NoUnexpectedReceived();
         }
 
         private UIContext CreateReuse()
