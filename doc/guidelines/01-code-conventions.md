@@ -28,7 +28,7 @@
 ## 크기와 책임 분리 판단
 
 - [현행] 같은56파일의 Git blob `splitlines()` 중앙값은 **75.5행**이며 큰 파일은 GameSceneManager1428, UIContext1297, VirtualScrollRect768, InputRebindingController731행이다; 주석/빈 행 포함 파일 행수이며 클래스별 실 코드행 수는 아니다. UIContext는 별도 partial 파일613행도 있다. [Manager](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L26), [UIContext](../../Assets/TPLab/UI/Runtime/UIContext.cs#L1), [Scroll](../../Assets/TPLab/UI/Runtime/VirtualScrollRect.cs#L1), [Rebinding](../../Assets/TPLab/Input/Runtime/InputRebindingController.cs#L84), [partial](../../Assets/TPLab/UI/Runtime/UIContext.Input.cs#L1).
-- [결정됨] D-C: 큰 클래스의 실제 분리를 3단계에서 허용한다; 이번 단계는 기준 초안이다. [사용자 결정](README.md#사용자-결정).
+- [결정됨] D-C — 2026-10-15 변경: 3단계에서는 대형 클래스를 실제 분리하지 않고 안전망 57 case를 산출물로 확정한다. 조건 평가 약91줄·Core 스레드 검사 본문 합계 약24줄의 통합 이득이 작고 큰 전환·해제 흐름의 조합 보호는 충분하지 않아 기존 분리 계획을 대체한다. 반복 수정으로 특정 부분의 읽는 비용이 커지거나 새 기능이 한 책임에 크게 붙을 때 다시 검토한다. 크기만으로 분리하지 않는 D-H1은 유지한다. [사용자 결정](README.md#사용자-결정), [안전망과 한계](../retrospectives/2026-10-15-02-phase3-close.md#안전망-지도).
 - [결정됨] D-H1: 클래스 분리는 책임·소유권 경계를 기준으로 판단한다. **1,000행 초과는 분리 규칙이 아니라 설명이 필요한 신호**로만 사용한다. 근거: 사용자 2026-10-13 일괄 승인, [사용자 결정](README.md#사용자-결정), [Manager 실행 경계:310](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L310), [정리 경계:855](../../Assets/TPLab/Core/SceneManagement/GameSceneManager.cs#L855).
 - [결정됨] 검토했으나 채택하지 않은 대안: 500행 초과를 검토 신호로 사용하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H1), [사용자 결정](README.md#사용자-결정).
 
