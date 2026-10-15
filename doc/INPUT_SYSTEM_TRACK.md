@@ -1,5 +1,7 @@
 # Input System wrapper 구현 track
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 2026-10-07. 사용자 요청: 입력 wrapper부터 구현한다. [입력 계약](INPUT_SYSTEM_DRAFT.md)의 layer/소유권 → 리바인딩 → root/UI 연결 → 통합 순서이며 [로딩 UI 확장](SCENE_LOADING_PRESENTATION_DRAFT.md)은 제외한다.
 
 ## 기준과 보호
@@ -44,4 +46,4 @@
 
 2026-10-07 후속 문서 단위: [사람·AI용 README/API 작성 지침](DOCUMENTATION_GUIDE.md)을 별도 `codex/documentation-guidelines`의 `439cd5f`에서 통합·push했다. 지침과 연결 문서만 변경했고 실제 네 문서 전체 생성은 후속 범위다. 입력 source/검증 결과와 사용자 수락 대기는 유지한다.
 
-Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 단계1 `119dde0`, 단계2 `16daccd`, 단계3 `3b0adaa`, 단계4 source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`를 fast-forward로 통합하고 track/Phase4개를 원격에 push했다. 로컬/원격 main은 기준 `ce290878da51c653eaa219aecc45e6bf61ac755a`다. [정확한 source CI 정책](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/input-system/p4/source-ci-policy.json)은 workflow/check/status/run0, main 무보호·CI 미구성이며 CI 성공은 아니다. [최종 실제 키 설정·팝업·장치 확인](INPUT_SYSTEM_ACCEPTANCE.md)은 한 번에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.
+과거 운영 기록(2026-10-07 통합 전): 입력·공개 API 문서는 사용자 수락 후 main 통합을 완료했으며, 해당 commit은 현재 main의 ancestor다. 다음 문장들은 당시 track 운영 조건으로 현재 병합·삭제·PC 제어 권한을 부여하지 않는다. Phase 자동 검증·부모 리뷰·회고 뒤 track에 통합한다. 단계1 `119dde0`, 단계2 `16daccd`, 단계3 `3b0adaa`, 단계4 source `9305b5dd0f730636f431fd5d19a1c9102fdc3bed`를 fast-forward로 통합하고 track/Phase4개를 원격에 push했다. 로컬/원격 main은 기준 `ce290878da51c653eaa219aecc45e6bf61ac755a`다. [정확한 source CI 정책](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/input-system/p4/source-ci-policy.json)은 workflow/check/status/run0, main 무보호·CI 미구성이며 CI 성공은 아니다. [최종 실제 키 설정·팝업·장치 확인](INPUT_SYSTEM_ACCEPTANCE.md)은 한 번에 모으며 사용자 최종 확인 전 main 병합과 track/Phase 삭제는 보류한다. 문서/준비 commit을 runtime 완료 증거로 쓰지 않는다. PC 종료·절전은 이번 요청에 없으며 수행하지 않는다.

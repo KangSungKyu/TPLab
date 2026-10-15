@@ -1,5 +1,7 @@
 # GameSceneManager 최종 사용자 확인
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 P6 자동 검증은 완료했다. 원래 TPLab Editor의 전체 EditMode240/240·PlayMode201/201(실패0·skip0), Windows Player Additive/Single 각10관찰, Reload4×2와 동일 Unity 소비 프로젝트 빌드/11관찰을 확인했다. 정확한 범위·실패 기록·Console·입력 hash는 [P6 검증 기록](validation/scene-integration/README.md)에 있다. 2026-10-07 사용자가 아래 Unity 실행 항목까지 확인 완료했다고 명시했다. 현재 상태는 **사용자 확인 완료**다. [수락 기록](https://github.com/KangSungKyu/TPLab/blob/4704dc0387d5e22ad8eae745386dcc8a03e78680/doc/validation/scene-integration/final-integration/acceptance.json)을 보존하고 기존 승인에 따라 main 통합·작업 브랜치 정리를 진행한다.
 
 ## 실행 준비
@@ -31,6 +33,8 @@ Play를 멈춘 뒤 `TPLab > Scene Transitions > Open Single`을 선택하고 다
 Play를 멈추고 `TPLab > Scene Transitions > Restore Original Setup`을 실행한다. 자동 복구가 이미 끝났으면 이 명령은 추가 변경 없이 반환한다. 원래 scene setup과 Build Settings가 돌아왔는지 확인하고 작업 전 사용자의 Unity 변경 4개가 보존된 상태인지 확인한다.
 
 ## 기록과 통합 대기
+
+현재 확인(2026-10-15): 사용자 확인 후 Scene track의 main 통합은 완료됐고, 통합 commit은 현재 main의 ancestor다. [완료 기록](SCENE_TRANSITION_TRACK.md)을 따른다. 아래는 2026-10-07 통합 전의 과거 운영 조건이며 병합 대기·브랜치 삭제·PC 종료 지시를 현재 요청의 권한으로 승계하지 않는다.
 
 한 번의 최종 확인에서 Additive, Single, 조건 거부, 중첩 제거, 실패 cover, 입력, 화면비, 원래 설정 복구를 각각 `절차 / 기대 결과 / 실제 결과 / 통과·실패·미실행`으로 기록한다. 자동 smoke·Player build·Console 결과를 시각 확인으로 대신하지 않는다. UI를 실제 확인하지 못한 항목은 미검증으로 남긴다.
 

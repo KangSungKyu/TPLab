@@ -1,5 +1,7 @@
 # Game UI System 설계 검토 초안
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 2026-10-08. 설계 검토 기록이다. 사용자가 후속으로 P0~P7 구현 진행을 승인했다. 현재 적용 계약은 [UIContext 계약](GAME_UI_SYSTEM.md), 실제 구현/검증·통합 상태는 [track](GAME_UI_SYSTEM_TRACK.md)에서 확인한다. 이 설계 기록의 제안과 0.0.1 배포 API를 혼동하지 않는다.
 
 사용자가 적은 `tplap.uisystem`은 저장소 이름에 맞춰 TPLab UI 모듈로 해석했다. P0에서 namespace/assembly `TPLab.UI`를 채택했다. 향후 설치 단위 `com.tplab.ui`와 배포 버전은 별도 범위다. 다음 버전 번호도 미정이다. 선행 계획은 [CORE_PLAN](CORE_PLAN.md#다음-버전-계획-2026-10-07)이다.

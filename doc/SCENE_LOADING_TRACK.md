@@ -1,5 +1,7 @@
 # Scene loading presentation track
 
+과거 기록(2026-10-15 표시): 당시 설계·운영·수락·검증의 기록이며, 현재 계약·작업 권한·최신 검증을 대신하지 않는다.
+
 2026-10-07. 기준 main `32e6cac1e80c95ec38033f95310f7ac2459e095f`. `codex/scene-loading-track`에서 아래 phase를 순서대로 fast-forward 통합했다. SourceRevision `18d479bf07fe8479a22187ec7357024e9979d096`; 문서·검증 증거를 포함하는 최종 track tip은 Git 이력에서 확인한다. 2026-10-07 사용자의 로딩 UI PlayMode 확인으로 최종 gate를 완료했다. [최종 통합](validation/scene-loading/integration/README.md)에 따라 main 반영·이번 branch 정리를 진행한다.
 
 계약: [현재 설계](SCENE_LOADING_PRESENTATION_DRAFT.md). 기존 가림막과 Single/Additive 소유권을 보존하며 UI는 프로젝트 callback 소유다. 별도 로딩 Unity 씬을 만들지 않는다.
