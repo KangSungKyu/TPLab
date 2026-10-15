@@ -31,3 +31,9 @@
 ## 미완료와 다음 경계
 
 UI 소스 개발 마감은 사용자 결정으로 확정했으나 이 문서 PR의 main 병합은 별도 승인 전까지 하지 않는다. 배포·선택 개선은 후속 상태로만 남긴다. Netcode는 공식 문서를 읽어 채팅으로 설명하며 TPLab runtime 변경과 설치는 수행하지 않는다. UI 마감 결정이 검증하지 않은 환경의 보장이나 모든 결함의 부재를 뜻하지 않는다.
+
+## 검사 확정
+
+마감 결정과 문서 변경을 담은 source commit은 `1626450c9940518cc41473aaeac48d1982aee7f2`다. 이 commit에 `tools/check_pr_rules.py --base 493f36447029e57d2b423195cbb00180f0381fe8 --head HEAD --repo C:/Users/PC/Projects/TPLab`를 실행해 변경6개·오류0·경고0을 확인했다. 허용된 Markdown 6파일 외 변경0, 기존 dirty 6개 raw hash 동일, 코드·테스트·upm·tools·workflow 변경0이다.
+
+변경 후 Markdown252개·상대 링크2073개·anchor539개에서 오류0, 새 오류0이었다. 외부 HTTP1027개는 조회하지 않았다. 허용 파일/커밋 공백 검사도 오류0이다. 이후 이 검사 요약만 보완하며 최종 HEAD에도 링크·공백·규칙 검사와 exact-SHA Actions를 확인해 완료 보고에 남긴다. 새 Unity 실행은 하지 않는다.
