@@ -82,8 +82,15 @@ Timeout은 underlying 작업 취소·finally·정리 완료를 보장하지 않�
 
 D-I2 사용자 결정과 적용 사실은 [05](../guidelines/05-testing.md#양성-대조-범위와-미확정-사항)·[README](../guidelines/README.md#사용자-결정)·[CHECKLIST](../guidelines/CHECKLIST.md)에 반영한다. 기존 가이드의 역사적 source·선언 집계는 유지한다. 라벨 집계의 fence·집계표를 제외하고 각 문장/표 행의 첫 라벨만 세어 README 표를 갱신했다.
 
-최종 검사·Actions는 확인한 source와 실제 결과를 이 절에 추가한다. 이 회고 자체를 포함하는 최종 commit ID는 PR commit 이력과 완료 보고에서 확인하며 이전 SHA의 CI를 최종 SHA 검사로 대체하지 않는다.
+아래 검사·Actions는 확인한 source와 실제 결과를 구분해 보존한다. 이 회고 자체를 포함하는 최종 commit ID는 PR commit 이력과 완료 보고에서 확인하며 이전 SHA의 CI를 최종 SHA 검사로 대체하지 않는다.
 
 링크/anchor 검사: 변경 전267문서·local2197/anchor499 → 변경 후268문서·local2217/anchor502, 오류0→0. HTTP 전체 검사는 미실행이다. 일반 verifier16개와 Bootstrap verifier1개는 전후 **17→17 역사적 실패**이며 exit code·stdout·stderr 원문이 각각 동일했다. 최초 verifier 호출의 누락된 `--evidence` 인자 오류는 실행 대상 판정으로 세지 않고 올바른16개 경로와 별도Bootstrap으로 확인했다. 도구·checks·기대 해시는 변경하지 않는다.
 
 가이드 라벨 집계(현행/결정됨/제안)는05가19/4/1→21/4/0, README가25/28/1→27/28/0이며 다른 장은 동일하다. 작업 소유 임시11개 `.cs/.meta`와 UTF 임시 씬은 최종 Assets에 남지 않았고, 기존 baseline 파일 중 변경은 승인된 가이드3개·회고INDEX뿐이다. 나머지1,296파일과 사용자dirty12개는 byte동일, runtime·기존 테스트·asmdef·package·UPM·tools·workflow 변경0이다. 최종refresh compile완료, Editor3428 idle, error Console조회 `[]`를 확인했으나 별도의 제품씬 UX검증은 미실행이다. 문서작성 임시 스크립트의 기본인코딩(cp949) 읽기 오류는 UTF-8로 정정했으며 테스트 결과·기존 파일은 바꾸지 않았다.
+
+### PR #42 CI와 최종 검토
+
+- 설정 구현 commit `572aa9f61e72f743965a17eacab17a223b70ab9b`에 대해 `python -B tools/check_pr_rules.py --base 6ec859a2112a3cdffc238caf248235aeade3b2e9 --head 572aa9f61e72f743965a17eacab17a223b70ab9b` 실행: 변경25파일, 오류0·경고0. 보호 파일 변경0, `git diff --check <base> <head>` 통과. checkout 전체의 기존 사용자 InitScene trailing whitespace는 정리하지 않았다.
+- 같은 exact SHA의 [PR 규칙 Actions run 38869129649](https://github.com/KangSungKyu/TPLab/actions/runs/38869129649)는 completed/success, `tools/check_github_ci.py`는 조회 누락·차단 사유 없이 PASS였다. Actions는 Unity 테스트를 실행한 것이 아니다. 이후 변경은 이 CI 증거와 회고INDEX의 과거 결정 대기 표현 보완뿐이며 설정·실행 코드·테스트는 동일하다.
+- [PR #42](https://github.com/KangSungKyu/TPLab/pull/42)는 open으로 유지한다. 위 실제 CI 링크는 구현 commit에 대응하며 문서 보완 후 최종 tip의 검사 결과를 대신하지 않는다. 최종 tip 식별과 재검사 결과는 [PR commit 이력](https://github.com/KangSungKyu/TPLab/pull/42/commits)·[Checks](https://github.com/KangSungKyu/TPLab/pull/42/checks) 및 완료 보고에 대응시킨다.
+- 독립 최종 검토에서 회귀6회차의 JSON/XML·동일 이름 집합, 외부 Addressables1건 분모, 기존141개Timeout, dirty12개, 신규Assets20개와 임시 파일 잔존0을 재확인했다. 남아 있던 회고INDEX06의 “값·적용 범위는 사용자 결정 대기”는 당시 실험 상태와 이번07의 결정·적용 링크로 현행화했다. runtime나 기존 테스트 보완은 없었다.
