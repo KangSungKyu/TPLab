@@ -163,4 +163,4 @@ public API 추가에 맞춰 Runtime XML, 사람/AI Netcode API, 각 README/색�
 | 보완 후 전체 PlayMode | 413/413 | 0/0 | review-final-play.json |
 | 같은 source 전체 PlayMode 반복 | 413/413 | 0/0 | review-final-play-repeat.json |
 
-기존534/407 이름 집합 모두 유지, Play 신규6만 증가, 반복 이름·결과 동일. 실행 환경·명령 형식은 위와 같고 신규 filter는 `TPLab.Netcode.Tests.SessionReviewRegressionTests`다. Green targeted의 첫 CLI는 실행 전 discovery 거부였고 runner의 다음 fresh 실행에서6건이 통과했다(실제 실패 재시도로 감추지 않음). compile refresh 성공; runtime 실행문 수정 뒤 전체 회귀를 했으며 마지막 XML 주석 정정 뒤 refresh·Play 반복도 통과했다. 검증 source는 후속 metadata commit에서 적는다. 직접 보호836경로·역사적 verifier17원문·dirty8 hash·신규 동결hash 동일, 링크 오류0. 실제 GC/Player/다중 프로세스는 여전히 이 P3 증거 범위 밖이다.
+기존534/407 이름 집합 모두 유지, Play 신규6만 증가, 반복 이름·결과 동일. 실행 환경·명령 형식은 위와 같고 신규 filter는 `TPLab.Netcode.Tests.SessionReviewRegressionTests`다. Green targeted의 첫 CLI는 실행 전 discovery 거부였고 runner의 다음 fresh 실행에서6건이 통과했다(실제 실패 재시도로 감추지 않음). compile refresh 성공; runtime 실행문 수정 뒤 전체 회귀를 했으며 마지막 XML 주석 정정 뒤 refresh·Play 반복도 통과했다. 보완 검증 source는 `ea8123c0079cb1ddeb05ff5e8d526f6cf6588d98`이며 이후 metadata commit은 runtime/test를 바꾸지 않는다. 직접 보호836경로·역사적 verifier17원문·dirty8 hash·신규 동결hash 동일, 링크 오류0. 실제 GC/Player/다중 프로세스는 여전히 이 P3 증거 범위 밖이다.
