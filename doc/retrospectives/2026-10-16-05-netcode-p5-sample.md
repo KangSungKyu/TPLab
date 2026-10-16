@@ -249,3 +249,5 @@ observer 포함 Windows Mono build 82.555초, observer 없는 최종 수락용 b
 링크/anchor, 공백, PR 규칙, 역사적 verifier17건·보호836경로의 동일성은 최종 문서까지 반영해 재확인한다. 규칙의 LINQ2경고는 이전 builder P2/View wiring P2·Start P1이며 이번 보완에 새 LINQ 없음. exact-SHA gate에서 이전 e5a09d4의 Claude skipped 실행을 성공으로 간주하지 않았고, 최종 새 HEAD를 별도로 검사한다. CI/최종 통합은 PR Checks와 완료 보고에 남긴다.
 
 실행하지 않은 범위는 IL2CPP·다른 플랫폼·GC 계측·WAN/Relay·실제 인증·UPM 설치/배포다. 새 물리 입력 수락을 실행했다고 주장하지 않는다. 안전 종료가 지연되어 다시 RecoveryFault가 되는 sample 분기는 코드 리뷰 범위이며 공용 wrapper의 기존 수명 테스트와 구분한다. 이 회고 이후 병합은 사용자의 2026-10-16 명시 승인과 최종 gate에 따른다. PC 종료/절전은 이번 요청에 포함하지 않는다.
+
+최종 보존 재대조: verifier17건의 returncode/stdout/stderr는 최초 P5와 동일하다. 보호 선언836경로 중5개(ProjectSettings/EditorBuildSettings.asset, ProjectSettings/ProjectSettings.asset, ProjectSettings/UnityConnectSettings.asset, Assets/Settings/PC_RPAsset.asset, Assets/Settings/UniversalRenderPipelineGlobalSettings.asset)는 사용자 수락 실행/설정 조정 뒤 최초 P5 기준과 달라졌다. 이5개는 이번 재개 시작 dirty hash와 모두 동일하며 나머지831개도 동일하다. 최초 P5 hash와836개가 모두 동일하다는 주장은 하지 않는다. 이번 작업의 사용자 입력12개는 시작 대비 전부 보존됐다. 링크/anchor266문서·2193상대링크·496anchor 오류0, 외부1106개 미조회. PR 규칙 오류0/기존 LINQ경고2, 공백 오류0.
