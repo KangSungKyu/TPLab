@@ -19,8 +19,14 @@ namespace TPLab.Core.Lifecycle
         /// Returns the owner, which installs on activation and releases on destruction.
         /// Throws before mutation for invalid inputs, active runtime roots, or an existing host.
         /// </summary>
+        /// <param name="root">Inactive runtime scene-root object.</param>
+        /// <param name="mode">Selected scene-owned or singleton host.</param>
+        /// <param name="installers">Ordered owned installers, or null for none.</param>
+        /// <param name="persistAcrossScenes">Whether the root survives scene changes.</param>
+        /// <param name="shutdownTimeoutSeconds">Independent unscaled deadlines for preparation cancellation and each release; finite zero/negative values wait without a deadline.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The timeout is non-finite or a positive value cannot be represented by TimeSpan. No host is added.</exception>
         public static ISceneRoot Attach(GameObject root, SceneRootMode mode, SceneRootInstaller[] installers = null,
-            bool persistAcrossScenes = false)
+            bool persistAcrossScenes = false, float shutdownTimeoutSeconds = 60f)
         {
             RootInstallation.ValidateRoot(root);
             if (mode != SceneRootMode.SceneOwned && mode != SceneRootMode.Singleton)
@@ -36,14 +42,15 @@ namespace TPLab.Core.Lifecycle
                 throw new InvalidOperationException("The GameObject already has a scene root host.");
             }
             var copy = RootInstallation.CopyInstallers(root, installers);
+            RootInstallation.ValidateShutdownTimeout(shutdownTimeoutSeconds);
             if (mode == SceneRootMode.Singleton)
             {
                 var host = root.AddComponent<SingletonSceneRoot>();
-                host.Configure(copy, persistAcrossScenes);
+                host.Configure(copy, persistAcrossScenes, shutdownTimeoutSeconds);
                 return host;
             }
             var sceneHost = root.AddComponent<SceneOwnedRoot>();
-            sceneHost.Configure(copy, persistAcrossScenes);
+            sceneHost.Configure(copy, persistAcrossScenes, shutdownTimeoutSeconds);
             return sceneHost;
         }
     }

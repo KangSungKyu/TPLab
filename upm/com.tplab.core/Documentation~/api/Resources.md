@@ -1,6 +1,11 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # 리소스 관리 API
+유형: 레퍼런스
+현재 상태: Implemented
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](../../Runtime/ResourceManagement/ResourceManager.cs)
 
 `TPLab.Core.ResourceManagement` 네임스페이스는 `TPLab.Core` 어셈블리에 있습니다. 이 모듈은 서로 다른 두 소유권 경로를 제공합니다.
 
@@ -11,7 +16,7 @@ Addressables 설정, catalog/runtime data, 에셋 주소는 소비 프로젝트�
 
 **SourceRevision:** `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`
 **ImplementationStatus:** Implemented
-**ValidationStatus:** Partial — 현재 P4 전체 회귀와 Windows Mono 소비 Player smoke를 확인했습니다. 실제 소비 프로젝트 Addressables catalog/content 및 원격 다운로드는 검증하지 않았습니다. IL2CPP와 다른 플랫폼도 미실행입니다. [P4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-loading/p4/README.md).
+**ValidationStatus:** Partial — 현재 P4 전체 회귀와 Windows Mono 소비 Player smoke를 확인했습니다. 실제 소비 프로젝트 Addressables catalog/content 및 원격 다운로드는 검증하지 않았습니다. IL2CPP와 다른 플랫폼도 미실행입니다. [P4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-loading/p4/README.md).
 
 확인한 프로젝트 의존성은 UniTask `2.5.11`, Addressables `2.9.1`이며 어셈블리 참조는 `UniTask`, `UniTask.Addressables`, `Unity.Addressables`, `Unity.ResourceManager`입니다. 이는 조사한 프로젝트 버전이며 일반적인 호환성 보장을 뜻하지 않습니다.
 
@@ -129,7 +134,7 @@ Addressables 씬은 소비 프로젝트 catalog에 설정한 뒤 `SceneTarget.Ad
 
 ## 검증 근거와 한계
 
-- 현재 전체 회귀: EditMode 271/271, PlayMode 253/253, 실패0·skip0. Input 포함 consumer Editor build 1회와 Player run 1회가 성공했으며, ResourceManager smoke의 확인 범위는 빈 manager 종료다. [P4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-loading/p4/README.md).
+- 현재 전체 회귀: EditMode 271/271, PlayMode 253/253, 실패0·skip0. Input 포함 consumer Editor build 1회와 Player run 1회가 성공했으며, ResourceManager smoke의 확인 범위는 빈 manager 종료다. [P4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-loading/p4/README.md).
 - 이 근거는 Unity `6000.3.18f1` / Windows Mono만 입증합니다. 실제 소비 프로젝트 Addressables catalog/content 또는 원격 다운로드는 검증하지 않았고, IL2CPP·다른 플랫폼도 미실행입니다.
 
 구현: [`ResourceManager.cs`](../../Runtime/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../Runtime/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../Runtime/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../Runtime/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../Runtime/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../Runtime/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../Runtime/ResourceManagement/LoadedScene.cs).

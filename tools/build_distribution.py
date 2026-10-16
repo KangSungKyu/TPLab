@@ -25,6 +25,19 @@ PACKAGES = {
         'modules': ('Input',), 'dependencies': {'com.tplab.core': None, 'com.cysharp.unitask': '2.5.11', 'com.unity.inputsystem': '1.19.0'}},
     'com.tplab.editor': {'title': 'TPLab Editor', 'roots': {'Assets/TPLab/Editor': 'Editor'},
         'modules': ('Editor',), 'dependencies': {'com.tplab.core': None, 'com.cysharp.unitask': '2.5.11', 'com.unity.addressables': '2.9.1', 'com.unity.nuget.newtonsoft-json': '3.2.2'}},
+    'com.tplab.ui': {'title': 'TPLab UI', 'roots': {'Assets/TPLab/UI/Runtime': 'Runtime'},
+        'modules': ('UI',), 'description': 'UIContext runtime with uGUI.',
+        'dependencies': {'com.tplab.core': None, 'com.cysharp.unitask': '2.5.11', 'com.unity.ugui': '2.0.0'}},
+    'com.tplab.ui.inputsystem': {'title': 'TPLab UI Input System Adapter',
+        'roots': {'Assets/TPLab/UI/InputSystem/Runtime': 'Runtime', 'Assets/TPLab/Samples/UI': 'Samples~/UI'},
+        'modules': ('UI',), 'description': 'Optional UI Input System adapter and UI sample.',
+        'dependencies': {'com.tplab.ui': None, 'com.tplab.input': None,
+            'com.cysharp.unitask': '2.5.11', 'com.unity.inputsystem': '1.19.0', 'com.unity.ugui': '2.0.0'}},
+    'com.tplab.netcode': {'title': 'TPLab Netcode',
+        'roots': {'Assets/TPLab/Netcode/Runtime': 'Runtime', 'Assets/TPLab/Samples/Netcode': 'Samples~/Netcode'},
+        'modules': ('Netcode',), 'description': 'TPLab network session protocols and optional sample.',
+        'dependencies': {'com.unity.netcode.gameobjects': '2.13.3',
+            'com.cysharp.unitask': '2.5.11', 'com.unity.collections': '2.6.6'}},
 }
 LINK = re.compile(r'(\[[^\]]+\]\()([^)]+)(\))')
 
@@ -146,8 +159,15 @@ def package_tree(package_id, config, inputs, version):
     for prefix, target in config['roots'].items():
         for path in inputs:
             if path == prefix + '.meta' or path.startswith(prefix + '/'):
+                parts = PurePosixPath(path).parts
+                sample_root = prefix.startswith('Assets/TPLab/Samples/')
+                relative_parts = parts[len(PurePosixPath(prefix).parts):]
+                if sample_root and any(part in ('Tests', 'Tests.meta') for part in relative_parts):
+                    continue
                 out = target + path[len(prefix):]; files[out] = inputs[path]
                 provenance.append({'source': path, 'target': out, 'sha256': digest(inputs[path])})
+                if path.endswith('.md') and prefix.startswith('Assets/TPLab/Samples/'):
+                    files[out] = convert_links(inputs[path].decode('utf-8-sig'), path, out, mapping, version).encode('utf-8')
     if 'Runtime/ThirdParty/CsvHelper' in config['roots'].values():
         guid = digest(b'com.tplab.core/Runtime/ThirdParty')[:32]
         files['Runtime/ThirdParty.meta'] = ('fileFormatVersion: 2\nguid: ' + guid + '\nfolderAsset: yes\nDefaultImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n').encode('utf-8')
@@ -166,11 +186,15 @@ def package_tree(package_id, config, inputs, version):
             provenance.append({'source': source, 'target': target, 'sha256': digest(inputs[source])})
     dependencies = {key: value or version for key, value in config['dependencies'].items()}
     package_manifest = {'name': package_id, 'version': version, 'displayName': config['title'],
-        'unity': '6000.3', 'unityRelease': '18f1', 'description': 'Shared Unity core: ' + ', '.join(config['modules']), 'license': 'MIT', 'dependencies': dependencies}
-    if package_id == 'com.tplab.core':
-        package_manifest['samples'] = [{'displayName': 'Core Pooling', 'description': 'Core-only class pooling and owner cleanup.', 'path': 'Samples~/CorePooling'}]
-    elif package_id == 'com.tplab.input':
-        package_manifest['samples'] = [{'displayName': 'Scene Transitions', 'description': 'Project-owned scene/input/loading UI. Requires Input System 1.19.0 and uGUI 2.0.0 in the consumer.', 'path': 'Samples~/SceneTransitions'}]
+        'unity': '6000.3', 'unityRelease': '18f1', 'description': config.get('description', 'Shared Unity core: ' + ', '.join(config['modules'])), 'license': 'MIT', 'dependencies': dependencies}
+    samples = {
+        'com.tplab.core': [{'displayName': 'Core Pooling', 'description': 'Core-only class pooling and owner cleanup.', 'path': 'Samples~/CorePooling'}],
+        'com.tplab.input': [{'displayName': 'Scene Transitions', 'description': 'Project-owned scene/input/loading UI. Requires uGUI 2.0.0 in the consumer.', 'path': 'Samples~/SceneTransitions'}],
+        'com.tplab.ui.inputsystem': [{'displayName': 'UI Context', 'description': 'Project-owned HUD, popup, virtual list and input sample.', 'path': 'Samples~/UI'}],
+        'com.tplab.netcode': [{'displayName': 'Netcode Session', 'description': 'Project-owned session example. Requires Input System 1.19.0 and uGUI 2.0.0 in the consumer.', 'path': 'Samples~/Netcode'}],
+    }
+    if package_id in samples:
+        package_manifest['samples'] = samples[package_id]
     files['package.json'] = json_bytes(package_manifest)
     for source in ('LICENSE', 'THIRD_PARTY_NOTICES.md', 'doc/licenses/UniTask-LICENSE.txt'):
         provenance.append({'source': source, 'target': mapping[source], 'sha256': digest(inputs[source])})
@@ -181,15 +205,26 @@ def package_tree(package_id, config, inputs, version):
     install = ('## Install\n\nSupply dependencies in consumer Packages/manifest.json; Git dependencies cannot be declared in package.json.\n\n'
         '- UniTask 2.5.11: `' + UNITASK + '`\n- Package dependencies: `' + json.dumps(dependencies, sort_keys=True) + '`\n'
         '- Git URL after release: `' + REPOSITORY + '.git?path=/upm/' + package_id + '#v' + version + '`\n'
-        '- Tarball: `' + package_id + '-' + version + '.tgz`; explicitly supply Core before Input/Editor.\n\n'
+        '- Tarball: `' + package_id + '-' + version + '.tgz`; supply any listed TPLab package dependencies from the same version.\n\n'
         'Tag and installation are not verified by this packager. Do not install alongside Assets source copies of the same assemblies/GUIDs.\n\n')
+    sample_notes = {
+        'com.tplab.core': 'Core Pooling has no additional package dependency.',
+        'com.tplab.input': 'Scene Transitions sample additionally requires `com.unity.ugui: 2.0.0`; Input System 1.19.0 is already a package dependency.',
+        'com.tplab.ui.inputsystem': 'UI Context sample uses package dependencies `com.tplab.ui: ' + version + '`, `com.tplab.input: ' + version + '`, `com.cysharp.unitask: 2.5.11`, `com.unity.inputsystem: 1.19.0`, and `com.unity.ugui: 2.0.0`; no extra dependency is needed.',
+        'com.tplab.netcode': 'Netcode Session sample additionally requires `com.unity.inputsystem: 1.19.0` and `com.unity.ugui: 2.0.0`; package dependencies are `com.unity.netcode.gameobjects: 2.13.3`, `com.cysharp.unitask: 2.5.11`, and `com.unity.collections: 2.6.6`.',
+    }
     files['README.md'] = (header + install + '[Human API](Documentation~/api/README.md) · [AI guide](Documentation~/ai/README.md) · [License](LICENSE.md) · [Third-party notices](Third%20Party%20Notices.md)\n\n'
         'Confirmed source environment: Unity 6000.3.18f1, Windows Mono. Other versions/platforms/IL2CPP are unverified.\n'
-        'Optional samples: Package Manager > selected TPLab package > Samples > Import. Core Pooling needs Core only. Scene Transitions also needs consumer uGUI 2.0.0 and Input System 1.19.0; after import run TPLab > Scene Transitions > Build Sample Assets explicitly before Play. Editor package has no sample. Import into a fresh project to avoid duplicate script GUIDs.\n').encode('utf-8')
+        'Optional samples: Package Manager > selected TPLab package > Samples > Import. ' + sample_notes.get(package_id, 'This package has no sample.') + ' ' +
+        ('After import, run TPLab > Scene Transitions > Build Sample Assets explicitly before Play. ' if package_id == 'com.tplab.input' else '') +
+        'Import into a fresh project to avoid duplicate script GUIDs.\n').encode('utf-8')
     files['Documentation~/ai/README.md'] = (header + '[Human README](../../README.md) · [AI API](api/README.md) · [Human API](../api/README.md)\n\n'
         'RequiredSequence: resolve explicit dependencies; choose owner/root; configure project DTO/action assets/callbacks; await preparation; use APIs; release leases/subscriptions; terminate the owner.\n\n'
         'Follow module ownership, threading, cancellation and failure contracts. Project UI/schema/save policy remains project-owned. Historical evidence is not installation validation.\n').encode('utf-8')
-    files['CHANGELOG.md'] = ('# Changelog\n\n## ' + version + '\n\nPackaging candidate with optional Core/Input samples, human/AI API and original notices. Current artifact installation and release validation are reported separately.\n').encode('utf-8')
+    files['CHANGELOG.md'] = ('# Changelog\n\n## ' + version + '\n\nPackaging candidate with optional module samples, human/AI API and original notices. Current artifact installation and release validation are reported separately.\n').encode('utf-8')
+    for name in ('package.json', 'README.md', 'CHANGELOG.md', 'LICENSE.md', 'Third Party Notices.md'):
+        guid = digest((package_id + '/' + name).encode('utf-8'))[:32]
+        files[name + '.meta'] = ('fileFormatVersion: 2\nguid: ' + guid + '\n').encode('utf-8')
     validate_tree(files)
     return files, provenance, dependencies
 
@@ -254,7 +289,7 @@ def build(source, revision, version, run_id, output, prepare=False):
         'gates': {'packaging': 'Verified', 'installation': 'NotRun', 'player': 'NotRun', 'samples': 'NotRun', 'release': 'NotRun'}}
     (artifacts / 'distribution-manifest.json').write_bytes(json_bytes(report))
     (artifacts / 'SHA256SUMS.txt').write_text(''.join(p['sha256'] + '  ' + p['filename'] + '\n' for p in packages), encoding='utf-8', newline='\n')
-    (artifacts / 'INSTALL.md').write_text('# Installation candidate\n\nVersion ' + version + '. Installation NotRun. Supply explicit UniTask/Core and selected Unity dependencies; follow each package README. Optional Core/Input samples require explicit Package Manager import; Input scene sample also requires uGUI 2.0.0. Follow package README before Play.\n', encoding='utf-8', newline='\n')
+    (artifacts / 'INSTALL.md').write_text('# Installation candidate\n\nVersion ' + version + '. Installation NotRun. Choose only the package(s) needed and follow each package README for its dependencies. Netcode is standalone and does not require Core. Samples are optional and require explicit Package Manager import; follow the selected sample README before Play.\n', encoding='utf-8', newline='\n')
     (artifacts / 'VALIDATION.md').write_text('# Validation\n\nSourceRevision: ' + revision + '\n\nPackage links, GUIDs, DLL/license and archive format checked. UPM resolve, compile, Player, sample import and tag/Release validation: NotRun. publishable: false.\n', encoding='utf-8', newline='\n')
     if git(root, 'rev-parse', 'HEAD').decode().strip() != revision or git(root, 'status', '--porcelain', '--untracked-files=all'):
         raise ValueError('Source changed during build; discard this run')

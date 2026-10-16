@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d4258da901441ab0f6fcd47f9c98a5, type: 3}
+  m_Name: SceneUI
+  m_EditorClassIdentifier: TPLab.UI::TPLab.UI.Installation.UIContextSettings
+  _definitions:
+  - _id: scene-hud
+    _prefab: {fileID: 8191699899373519314, guid: a157db8dfe772af40a456c8de6a0211c, type: 3}
+    _assetKey: 
+    _role: 0
+    _hostId: sample
+    _inputMode: 0
+    _retention: 0
+    _hideStrategy: 0
+  _firstHudDefinitionId: scene-hud
+  _preloadDefinitionIds: []

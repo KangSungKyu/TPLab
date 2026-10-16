@@ -1,16 +1,21 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Input
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/INPUT_SYSTEM_DRAFT.md)
 
 Module: Input
 Namespace: TPLab.Core.Input
 Assembly: TPLab.Core.Input
 SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
 SourcePath: [Input/Runtime](../../../Runtime)
-HumanContract: [Input](../../api/Input.md), [상세 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/INPUT_SYSTEM_DRAFT.md)
+HumanContract: [Input](../../api/Input.md), [상세 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/INPUT_SYSTEM_DRAFT.md)
 ImplementationStatus: Implemented
 ValidationStatus: Partial
-Evidence: [자동 회귀/consumer/Player](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md); 2026-10-07 사용자 입력 확인 완료. 물리 게임패드/touch 개별 증거 없음.
+Evidence: [자동 회귀/consumer/Player](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md); 2026-10-07 사용자 입력 확인 완료. 물리 게임패드/touch 개별 증거 없음.
 
 Symbol / Signature / Constraints:
 
@@ -89,6 +94,6 @@ Configuration: optional control path/group; JSON action/binding schema/known GUI
 ExtensionPoints: Validator replaces default same-map/group identical path conflict rule; IsReleased for continuous controls, buttons always release-wait. UI adapter belongs to Samples/project, not core.
 RequiredSequence: installer Configure before install → root-owned clone/preparation BlockAll → project registers/acquires desired layers → await root Prepare → CompletePreparation → use → root shutdown. standalone owner follows Lifecycle above.
 ForbiddenUsage: use legacy input API; Enable/Disable/override/destroy borrowed Actions directly; use binding index for persistence; assume BlockAll blocks another asset/direct polling; release all modal/transition blocks after rebind; claim memory sample JSON saves files; Dispose borrowed installer.Input; add speculative InputUser multiplayer.
-Example: [human excerpt](../../api/Input.md) NotRun/project placeholders; [sample UI](../../../Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs) and [consumer](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/tools/core-consumer/templates/ConsumerSmoke.cs) have recorded execution.
+Example: [human excerpt](../../api/Input.md) NotRun/project placeholders; [sample UI](../../../Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs) and [consumer](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/tools/core-consumer/templates/ConsumerSmoke.cs) have recorded execution.
 Compatibility: optional separate assembly, Core-only consumer has no Unity.InputSystem dependency.
 Limitations: native Input System only; no device-specific settings UX/file storage/InputUser routing/semantic alias resolver. forced commit+rollback failure and physical gamepad/touch were not executed.

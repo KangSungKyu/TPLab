@@ -1,16 +1,21 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # DataTables
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_MANAGER.md)
 
 Module: DataTables
 Namespace: TPLab.Core.DataTables
 Assembly: TPLab.Core
 SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
 SourcePath: [Core/DataTables](../../../Runtime/DataTables)
-HumanContract: [DataTables](../../api/DataTables.md), [상세 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_MANAGER.md)
+HumanContract: [DataTables](../../api/DataTables.md), [상세 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_MANAGER.md)
 ImplementationStatus: Implemented
 ValidationStatus: Partial
-Evidence: [Unity6000.3.18f1/Windows Mono 회귀·consumer](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md)
+Evidence: [Unity6000.3.18f1/Windows Mono 회귀·consumer](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md)
 
 Symbol / Signature / Constraints: public 선언 발췌. public constructor 없는 결과/controller는 owner로부터 받는다.
 
@@ -84,6 +89,6 @@ Configuration: names ordinal unique, dataType unique/nonzero, one router. bindin
 ExtensionPoints: project custom parts/codec (optional localType); protected ConfigureMapping(CsvContext), ValidateRow(TRow), ValidateTable(IReadOnlyDictionary<uint,TRow>); AddValidator for complex relations.
 RequiredSequence: new manager → router/tables/bindings/FK/validators → await LoadAsync → Get<T>/TryGet<T> or snapshot.GetTable → Dispose.
 ForbiddenUsage: dynamic Get; infer return type from uint; invent builtin Text/Resource; regenerate CSV idx at load; use internal StandardTable/object fields; retain/advance/dispose CsvReader in readRow; treat manual table as idx-routed.
-Example: [human excerpt](../../api/DataTables.md) is NotRun with project placeholders. [ConsumerSmoke.cs](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/tools/core-consumer/templates/ConsumerSmoke.cs) has recorded consumer execution.
+Example: [human excerpt](../../api/DataTables.md) is NotRun with project placeholders. [ConsumerSmoke.cs](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/tools/core-consumer/templates/ConsumerSmoke.cs) has recorded consumer execution.
 Compatibility: existing arbitrary-PK Register/GetTable path retained; concrete Text/Resource moved to templates, not core defaults.
 Limitations: no file storage, ID reservation, row mutation system, automatic project type discovery, JSON-row loader or dynamic lookup.

@@ -1,6 +1,6 @@
 # TPLab Core
 
-PackageVersion: 0.0.1. Package installation/Player validation: **NotRun**.
+PackageVersion: 0.0.2. Package installation/Player validation: **NotRun**.
 
 [Human README](../../README.md) · [AI API](api/README.md) · [Human API](../api/README.md)
 

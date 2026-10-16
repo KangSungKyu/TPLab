@@ -2,7 +2,7 @@
 유형: 레퍼런스
 현재 상태: [본문 상태](#implementationstatus--validationstatus--evidence)
 기준 source: 99df25dd6b89fd7f3e322c8033b61eb1364f495e (UI regression); 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 runtime)
-갱신일: 2026-10-15
+갱신일: 2026-10-16
 계약 링크: [계약 원문](../../GAME_UI_SYSTEM.md)
 
 ## Module / Namespace / Assembly
@@ -163,3 +163,7 @@ RequiredSequence: configure providers/hosts and resource/input owners -> project
 ForbiddenUsage: reconfigure installed UI; resolve global EventSystem/ResourceManager; dispose borrowed sources/services; release independent input/preparation/transition leases; claim source-preload creates UI clones; use asset edits as live registration updates; infer user acceptance from unit tests.
 
 2026-10-12 sample-only rendering correction: `UIContextSampleBuilder.CreateBootstrap` and both serialized Bootstrap scenes include a common-root child Camera (`SolidColor`, opaque full viewport, `cullingMask=0`, depth -100). It clears stale frame pixels in this camera-free Overlay demo and follows the existing Single/Additive owner lifetime. This is a sample rendering dependency, not a UIContext API or automatic camera provisioning contract. [Current proof](../../validation/ui-system/sample-clear-20261012/README.md); recorded P7 Players predate this scene change.
+
+## 0.0.2 package boundary
+
+`com.tplab.ui` contains the existing `TPLab.UI` runtime and requires Core 0.0.2, UniTask 2.5.11 and uGUI 2.0.0. Input System is optional: `com.tplab.ui.inputsystem` contains the existing adapter and depends on UI/Input 0.0.2 plus UniTask/Input System/uGUI. The UI sample belongs to the adapter package because it uses native Input System. Namespace, assembly names, public contracts and GUIDs are preserved. Current packaging/install/release status is in the [distribution contract](../../DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate); historical source validation above is not artifact validation.

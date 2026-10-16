@@ -204,3 +204,5 @@
 - 2026-10-16: [06 IMP-04b Timeout 실험](2026-10-16-06-imp-04b-timeout-experiment.md) — 당시 실험 완료; 후속 값·범위 결정과 적용은 [07 회고](2026-10-16-07-imp-04b-timeout-default.md) 참조.
 
 - 2026-10-16: [07 IMP-04b 기본 Timeout 적용](2026-10-16-07-imp-04b-timeout-default.md) — 테스트 assembly 기본 30초 적용·기존 대기 보존·자동 검증 완료; 병합 승인 대기.
+
+- 2026-10-16: [08 0.0.2 UI·Netcode 배포 준비](2026-10-16-08-distribution-002.md) — 기존 구조 유지·선택 UI/Input 연동·Netcode package; 검증과 미실행은 회고 참조.

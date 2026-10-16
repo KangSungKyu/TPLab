@@ -1,12 +1,17 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Resource Management
+유형: 레퍼런스
+현재 상태: Implemented / Partial.
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](../../../Runtime/ResourceManagement/ResourceManager.cs)
 
 **Module / Namespace / Assembly:** Resources / `TPLab.Core.ResourceManagement` / `TPLab.Core`
 
 **SourceRevision / SourcePath / HumanContract:** `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [`ResourceManager.cs`](../../../Runtime/ResourceManagement/ResourceManager.cs), [`ResourceManagerInstaller.cs`](../../../Runtime/ResourceManagement/ResourceManagerInstaller.cs), [`SceneTarget.cs`](../../../Runtime/ResourceManagement/SceneTarget.cs), [`ISceneLoader.cs`](../../../Runtime/ResourceManagement/ISceneLoader.cs), [`NativeSceneLoader.cs`](../../../Runtime/ResourceManagement/NativeSceneLoader.cs), [`AddressableSceneLoader.cs`](../../../Runtime/ResourceManagement/AddressableSceneLoader.cs), [`LoadedScene.cs`](../../../Runtime/ResourceManagement/LoadedScene.cs); [`Resources.md`](../../api/Resources.md).
 
-**ImplementationStatus / ValidationStatus / Evidence:** Implemented / Partial. 현재 P4의 Unity `6000.3.18f1` Windows Mono 전체 회귀는 Edit271/271, Play253/253(실패0·skip0); Additive/Single build·Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공: [P4 기록](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-loading/p4/README.md). ResourceManager smoke는 빈 manager 종료만 확인. 실제 consumer Addressables catalog/content와 원격 다운로드, IL2CPP·다른 플랫폼은 검증하지 않음.
+**ImplementationStatus / ValidationStatus / Evidence:** Implemented / Partial. 현재 P4의 Unity `6000.3.18f1` Windows Mono 전체 회귀는 Edit271/271, Play253/253(실패0·skip0); Additive/Single build·Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회 성공: [P4 기록](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-loading/p4/README.md). ResourceManager smoke는 빈 manager 종료만 확인. 실제 consumer Addressables catalog/content와 원격 다운로드, IL2CPP·다른 플랫폼은 검증하지 않음.
 
 **Symbol / Signature / Constraints:**
 

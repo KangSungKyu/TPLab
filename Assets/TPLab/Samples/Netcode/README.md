@@ -9,7 +9,7 @@
 
 하나의 고정 씬에서 Host와 두 Client가 프로젝트 준비 callback을 완료하고, 서버의 시작 승인을 받은 뒤에만 로컬 gameplay UI를 여는 예제다. 프로젝트 소유 로비·가림막·준비·release·복원 callback을 wrapper에 연결하는 위치를 보여준다. 실제 인증, 매칭, Relay, 게임 오브젝트 복제, 팀 구성과 공유 씬 전환은 포함하지 않는다. 예제의 Interact 카운터는 각 Player의 로컬 관찰값이며 동기화된 게임 상태가 아니다.
 
-개발 소스와 NGO 2.13.3/Transport 2.7.3, UniTask, uGUI, Input System이 필요하다. TPLab Netcode runtime을 별도로 가져와야 하며 아직 배포 UPM에 포함된 예제가 아니다. Core/UI/Input 기존 assembly나 GameSceneManager를 변경하지 않는다.
+개발 소스와 NGO 2.13.3/Transport 2.7.3, UniTask, uGUI, Input System이 필요하다. 0.0.2에서는 `com.tplab.netcode`의 선택 Samples로 제공한다. Sample Import 전에 Input System 1.19.0과 uGUI 2.0.0을 소비 프로젝트에 명시한다. 설치·Player 검증과 Release 발행은 [배포 gate](../../../../doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)를 따른다. Core/UI/Input 기존 assembly나 GameSceneManager를 변경하지 않는다.
 
 ## 실행 준비
 

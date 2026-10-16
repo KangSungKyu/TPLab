@@ -1,13 +1,18 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Input
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented; ValidationStatus: Partial.
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/INPUT_SYSTEM_DRAFT.md)
 
 Unity Input System 전용 wrapper다. 원본 action asset을 복제하고, layer lease로 map 활성 상태를 관리하며 native interactive rebinding과 override JSON을 제공한다. 프로젝트는 action asset, layer 구성, 저장 위치와 설정/UI를 소유한다. legacy `UnityEngine.Input` adapter는 제공하지 않는다.
 
 - Namespace: `TPLab.Core.Input`; Assembly: `TPLab.Core.Input`
 - SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [소스](../../Runtime)
-- ImplementationStatus: Implemented; ValidationStatus: Partial. Input System 1.19.0 / Unity6000.3.18f1 / Windows Mono [자동 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md)과 사용자 입력 수락 완료를 구분한다. 물리 게임패드·touch의 개별 실행 증거는 없다.
-- 의존성: Core, UniTask, Unity.InputSystem. [상세 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/INPUT_SYSTEM_DRAFT.md).
+- ImplementationStatus: Implemented; ValidationStatus: Partial. Input System 1.19.0 / Unity6000.3.18f1 / Windows Mono [자동 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md)과 사용자 입력 수락 완료를 구분한다. 물리 게임패드·touch의 개별 실행 증거는 없다.
+- 의존성: Core, UniTask, Unity.InputSystem. [상세 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/INPUT_SYSTEM_DRAFT.md).
 
 선언 발췌:
 
@@ -103,4 +108,4 @@ finally
 }
 ```
 
-취소 token 예외는 프로젝트 호출자에게 전달된다. `Rejected/Cancelled/TimedOut`은 정상 결과로 UI에 표시할 수 있다. 실행 확인된 [sample UI adapter](../../Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs)와 [소비 smoke](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/tools/core-consumer/templates/ConsumerSmoke.cs)는 별도 예제다. UI module을 runtime clone에 연결하고 lease/구독을 UI 수명에 맞춰 해제한다. UI는 코어 소유가 아니다. InputUser 멀티플레이, 파일 저장, 설정 화면, 물리 장치별 UX는 제공 범위에 포함하지 않는다.
+취소 token 예외는 프로젝트 호출자에게 전달된다. `Rejected/Cancelled/TimedOut`은 정상 결과로 UI에 표시할 수 있다. 실행 확인된 [sample UI adapter](../../Samples~/SceneTransitions/Runtime/InputSystemUiScope.cs)와 [소비 smoke](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/tools/core-consumer/templates/ConsumerSmoke.cs)는 별도 예제다. UI module을 runtime clone에 연결하고 lease/구독을 UI 수명에 맞춰 해제한다. UI는 코어 소유가 아니다. InputUser 멀티플레이, 파일 저장, 설정 화면, 물리 장치별 UX는 제공 범위에 포함하지 않는다.

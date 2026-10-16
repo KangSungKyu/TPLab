@@ -147,3 +147,5 @@
 - [IMP-05 내부 폴링·버퍼 구현 검증](validation/imp-05/implementation/README.md): 사용자 API 확정·구현 승인·완료 및 main 통합 완료; 실행·예외·snapshot/버퍼 조건은 기존 요약 참조.
 
 - [IMP-03 종료 단계별 타임아웃](validation/imp-03/README.md): 사용자 수락·승인 및 main 통합 완료; 원문 Red·별도 정정·단계별 종료 계약과 미실행 범위는 기존 요약 참조.
+
+| [0.0.2 UI·Netcode 배포 준비](retrospectives/2026-10-16-08-distribution-002.md) | 기존 구조 유지·선택 package 검증 | 의존성·실행/미실행·PR 상태는 회고와 [배포 계약](DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate) 참조 |

@@ -1,0 +1,16 @@
+{
+    "name": "TPLab.Netcode.Samples.Editor",
+    "rootNamespace": "TPLab.Samples.Netcode.Editor",
+    "references": [
+        "TPLab.Netcode.Samples",
+        "TPLab.Netcode",
+        "Unity.Netcode.Runtime",
+        "Unity.Netcode.Editor",
+        "UniTask",
+        "UnityEngine.UI",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}
