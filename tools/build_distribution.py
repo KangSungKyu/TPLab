@@ -222,6 +222,9 @@ def package_tree(package_id, config, inputs, version):
         'RequiredSequence: resolve explicit dependencies; choose owner/root; configure project DTO/action assets/callbacks; await preparation; use APIs; release leases/subscriptions; terminate the owner.\n\n'
         'Follow module ownership, threading, cancellation and failure contracts. Project UI/schema/save policy remains project-owned. Historical evidence is not installation validation.\n').encode('utf-8')
     files['CHANGELOG.md'] = ('# Changelog\n\n## ' + version + '\n\nPackaging candidate with optional module samples, human/AI API and original notices. Current artifact installation and release validation are reported separately.\n').encode('utf-8')
+    for name in ('package.json', 'README.md', 'CHANGELOG.md', 'LICENSE.md', 'Third Party Notices.md'):
+        guid = digest((package_id + '/' + name).encode('utf-8'))[:32]
+        files[name + '.meta'] = ('fileFormatVersion: 2\nguid: ' + guid + '\n').encode('utf-8')
     validate_tree(files)
     return files, provenance, dependencies
 

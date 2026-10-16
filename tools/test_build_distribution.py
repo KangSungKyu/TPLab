@@ -218,6 +218,20 @@ class DistributionTests(unittest.TestCase):
         self.assertIn('Netcode is standalone and does not require Core', install)
         self.assertNotIn('Supply explicit UniTask/Core', install)
 
+    def test_generated_visible_package_files_have_stable_unique_meta(self):
+        self.build('metas-a'); self.build('metas-b')
+        guids = set()
+        for package_id in builder.PACKAGES:
+            first = self.root / 'tplab/metas-a/packages' / package_id
+            second = self.root / 'tplab/metas-b/packages' / package_id
+            for name in ('package.json', 'README.md', 'CHANGELOG.md', 'LICENSE.md', 'Third Party Notices.md'):
+                meta = first / (name + '.meta')
+                self.assertTrue(meta.is_file(), package_id + '/' + name)
+                self.assertEqual(meta.read_bytes(), (second / (name + '.meta')).read_bytes())
+                guid = next(line.removeprefix('guid: ') for line in meta.read_text().splitlines() if line.startswith('guid: '))
+                self.assertNotIn(guid, guids)
+                guids.add(guid)
+
     def test_same_input_reproducible_despite_run(self):
         self.build('one'); self.build('two')
         for a in (self.root / 'tplab/one/artifacts').glob('*.tgz'):
