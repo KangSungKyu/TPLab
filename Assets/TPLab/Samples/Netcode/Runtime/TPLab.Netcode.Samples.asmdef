@@ -1,0 +1,11 @@
+{
+    "name": "TPLab.Netcode.Samples",
+    "rootNamespace": "TPLab.Samples.Netcode",
+    "references": [
+        "TPLab.Netcode",
+        "Unity.Netcode.Runtime",
+        "UniTask",
+        "UnityEngine.UI",
+        "Unity.InputSystem"
+    ]
+}

@@ -199,3 +199,4 @@
 - 2026-10-16: [03 Netcode P3 adapter/callback](2026-10-16-03-netcode-p3-adapter.md) — P3 개발 구현·승인된 입력 정정·Red/Green·회귀; 검증·미실행·통합 상태는 회고/PR 참조.
 
 - 2026-10-16: [04 Netcode P4 다중 프로세스](2026-10-16-04-netcode-p4-multiprocess.md) — Windows Mono loopback 검증·하네스 정정·한계; P5/사용자 수락·배포는 후속.
+| 2026-10-16 | Netcode P5 고정 씬 예제·수락 | 사용자 수락 완료(2026-10-16)·검토 보완 재검증 후 PR #40 병합 승인 | [05-netcode-p5-sample](2026-10-16-05-netcode-p5-sample.md) |
