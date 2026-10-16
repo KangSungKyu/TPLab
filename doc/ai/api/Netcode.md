@@ -100,7 +100,7 @@ The first failure remains stable. Additional protection/release/shutdown/restore
 
 ## Configuration / ExtensionPoints
 
-Runtime asmdef references TPLab.Core, Unity.Netcode.Runtime, UniTask and Unity.Collections. Project gameplay can use NGO NetworkObject/RPC/NetworkVariable directly. No UI/Input dependency or dependency on a concrete authentication, lobby or Relay provider is introduced.
+Runtime asmdef references Unity.Netcode.Runtime, UniTask and Unity.Collections. Project gameplay can use NGO NetworkObject/RPC/NetworkVariable directly. No UI/Input dependency or dependency on a concrete authentication, lobby or Relay provider is introduced.
 
 IAdmissionVerifier is mandatory for Host startup, synchronous and nonblocking. Host pre-verification and remote admission both reject synchronous commands reentering the same context before owner/native effects. AdmissionRequest contains trusted server identity, copied opaque proof, actual native ClientId/generation, UTC authentication sample and remaining monotonic preparation seconds. Host uses the same verifier once before StartHost and reuses that attempt's result for native local approval. Accepted participant identity still needs frozen-roster and one-to-one mapping checks. Reject(None), unknown rejection codes, null decisions and blank accepted IDs are invalid results. Rejected remote/duplicate requests do not replace healthy mappings or abort the existing healthy Host. Proof consumption/reissue and authentication are project responsibilities; duplicate rejection does not roll consumption back.
 

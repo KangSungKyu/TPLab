@@ -215,7 +215,14 @@ def create_project(plan, output, unity_version):
 
 
 def _equal_payload(expected, actual, relative, resolved, mode):
-    text = PurePosixPath(relative).suffix in {".cs", ".asmdef", ".md", ".meta", ".asset", ".unity", ".txt", ".json", ".inputactions"}
+    suffix = PurePosixPath(relative).suffix
+    text = suffix in {".cs", ".asmdef", ".md", ".meta", ".asset", ".unity", ".prefab", ".txt", ".json", ".inputactions"}
+    if text and suffix in {".asset", ".unity", ".prefab"}:
+        # Unity also supports binary serialization; only verified YAML receives Git's EOL exception.
+        try:
+            text = all(b"\0" not in raw and raw.decode("utf-8-sig").startswith("%YAML ") for raw in (expected, actual))
+        except UnicodeDecodeError:
+            text = False
     git_eol_match = mode == "git" and text and expected.replace(b"\r\n", b"\n") == actual.replace(b"\r\n", b"\n")
     metadata_match = relative == "package.json" and core.installed_manifest_matches(expected, actual, resolved.name, mode)
     return expected == actual or git_eol_match or metadata_match

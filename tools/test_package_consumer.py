@@ -304,5 +304,62 @@ class PackageConsumerReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             c.verify_installation(project, plan, report)
 
+class PackageConsumerPrefabEolTests(unittest.TestCase):
+    setUp = PackageConsumerTests.setUp
+    repack = PackageConsumerTests.repack
+    write_manifest = PackageConsumerTests.write_manifest
+    plan = PackageConsumerTests.plan
+    install = PackageConsumerTests.install
+
+    def test_git_installed_prefab_accepts_only_crlf_checkout_difference(self):
+        name = "com.tplab.ui.inputsystem"
+        relative = "Samples~/Demo/Cell.prefab"
+        self.files[name][relative] = b"%YAML 1.1\n--- !u!1 &1\nGameObject:\n  m_Name: Cell\n"
+        self.repack(name)
+        self.write_manifest()
+        plan = self.plan(("ui.inputsystem",), mode="git")
+        project, report = self.install(plan)
+        resolved = Path(next(item for item in report["installedPackages"] if item["name"] == name)["resolvedPath"])
+        (resolved / relative).write_bytes(self.files[name][relative].replace(b"\n", b"\r\n"))
+        self.assertEqual(4, len(c.verify_installation(project, plan, report)))
+
+    def test_git_unity_yaml_line_endings_are_symmetric_for_all_three_extensions(self):
+        lf = b"%YAML 1.1\n--- !u!1 &1\nGameObject:\n  m_Name: Cell\n"
+        crlf = lf.replace(b"\n", b"\r\n")
+        for extension in (".prefab", ".asset", ".unity"):
+            with self.subTest(extension=extension):
+                self.assertTrue(c._equal_payload(lf, crlf, "Samples~/Demo/Cell" + extension, self.root, "git"))
+                self.assertTrue(c._equal_payload(crlf, lf, "Samples~/Demo/Cell" + extension, self.root, "git"))
+
+    def test_binary_unity_serialization_never_receives_eol_exception(self):
+        for extension in (".prefab", ".asset", ".unity"):
+            for binary in (b"binary\x00\r\npayload", b"%YAML 1.1\r\nvalue: \x00\r\n"):
+                with self.subTest(extension=extension, binary=binary):
+                    self.assertFalse(c._equal_payload(binary, binary.replace(b"\r\n", b"\n"), "Cell" + extension, self.root, "git"))
+
+    def test_invalid_utf8_unity_yaml_never_receives_eol_exception(self):
+        binary = b"%YAML 1.1\r\nvalue: \xff\r\n"
+        for extension in (".prefab", ".asset", ".unity"):
+            with self.subTest(extension=extension):
+                self.assertFalse(c._equal_payload(binary, binary.replace(b"\r\n", b"\n"), "Cell" + extension, self.root, "git"))
+
+    def test_prefab_content_mutation_or_lone_cr_is_rejected(self):
+        original = b"%YAML 1.1\nGameObject:\n  m_Name: Cell\n"
+        for changed in (original.replace(b"Cell", b"Tampered").replace(b"\n", b"\r\n"), original.replace(b"\n", b"\r")):
+            with self.subTest(changed=changed):
+                self.assertFalse(c._equal_payload(original, changed, "Cell.prefab", self.root, "git"))
+
+    def test_tarball_unity_yaml_keeps_exact_byte_requirement(self):
+        original = b"%YAML 1.1\nGameObject:\n"
+        for extension in (".prefab", ".asset", ".unity"):
+            with self.subTest(extension=extension):
+                self.assertFalse(c._equal_payload(original, original.replace(b"\n", b"\r\n"), "Cell" + extension, self.root, "tarball"))
+
+    def test_exact_binary_unity_payload_is_still_accepted(self):
+        binary = b"binary\x00\r\n\xff"
+        for extension in (".prefab", ".asset", ".unity", ".dll"):
+            with self.subTest(extension=extension):
+                self.assertTrue(c._equal_payload(binary, binary, "Cell" + extension, self.root, "git"))
+
 if __name__ == "__main__":
     unittest.main()
