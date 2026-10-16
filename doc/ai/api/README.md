@@ -2,7 +2,7 @@
 유형: 레퍼런스
 현재 상태: 본문 참조
 기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0 (original seven modules); 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 UI runtime); 99df25dd6b89fd7f3e322c8033b61eb1364f495e (P7 regression snapshot)
-갱신일: 2026-10-08
+갱신일: 2026-10-16
 계약 링크: 본문 참조
 
 2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../../TPLAB_NAMING.md)에서 현재 이름·경로 규칙과 검증 기록을 확인한다.
@@ -19,6 +19,7 @@ SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0 remains the reference f
 | Input | [Input](Input.md) | [Human](../../api/Input.md) |
 | Editor | [Editor](Editor.md) | [Human](../../api/Editor.md) |
 | UIContext (P1-P6 implemented; focused validation partial) | [UI](UI.md) | [Human](../../api/UI.md) |
+| Netcode (internal P2; public wrapper unavailable) | [Netcode](Netcode.md) | [Human](../../api/Netcode.md) |
 
 항목 이름: Module/Namespace/Assembly, SourceRevision/SourcePath/HumanContract, ImplementationStatus/ValidationStatus/Evidence, Symbol/Signature/Constraints, Inputs/Outputs/Errors, Ownership/Lifecycle/Threading, Concurrency/Cancellation/FailureCleanup, Configuration/ExtensionPoints, RequiredSequence/ForbiddenUsage, Example/Compatibility/Limitations.
 

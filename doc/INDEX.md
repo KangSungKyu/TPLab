@@ -42,7 +42,7 @@
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
 | [문서 거버넌스 경량화 회고](retrospectives/2026-10-13-07-docs-governance-slim.md) | 이번 T0 문서 정리의 범위·결정·검증 확인 | 승인된 지침·문서 소유와 색인 상태 정리; 실제 검증·판정은 회고 한 곳 참조 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
-| [NETCODE_SESSION_DRAFT.md](NETCODE_SESSION_DRAFT.md) | NGO 세션 wrapper 계약과 P1 기반 확인 | true 권장·false 프로젝트 선택·GSM 역할 분리·P1 native 관찰; wrapper 구현 없음, [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md) |
+| [NETCODE_SESSION_DRAFT.md](NETCODE_SESSION_DRAFT.md) | NGO 세션 wrapper 계약과 프로토콜 구현 | P2 internal 프로토콜 구현; 실제 wrapper는 P3. [사람 API 상태](api/Netcode.md)·[AI](ai/api/Netcode.md)·[P2 회고](retrospectives/2026-10-16-02-netcode-p2-protocol.md) |
 | [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext 설계 근거·Phase·대규모 검증 조건 | 설계 기록, HUD·Popup·owner/depth·Canvas·virtual scroll 1,000/10,000 |
 | [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | 소스 개발 마감(2026-10-15); 배포와 선택 개선은 [후속 작업](CORE_PLAN.md#ui-소스-개발-마감과-후속-작업-2026-10-15) |
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |

@@ -193,3 +193,5 @@
 - 2026-10-15: [11 Netcode P0 결정과 검증기 주입](2026-10-15-11-netcode-admission-decisions.md) — T0 문서 전용·D-N1~D-N8 반영; 세부 제안·S1~S4와 검증은 회고/계약 참조.
 
 - 2026-10-16: [01 Netcode P1 기반 확인](2026-10-16-01-netcode-p1-verification.md) — 승인 의존성·true/false native 실험·역할 분리·실패 경로 제한; 검증/미실행/통합 상태는 회고·PR 참조.
+
+- 2026-10-16: [02 Netcode P2 프로토콜](2026-10-16-02-netcode-p2-protocol.md) — internal 상태기계·Red/Green·직렬화/세대/준비 경계; 검증과 미실행은 회고 참조.
