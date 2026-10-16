@@ -95,3 +95,11 @@ python tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <exact40SHA
 검증 수치는 이 회고 한 곳에 둔다. 링크/anchor·공백·규칙 검사, 과거 verifier17건의 exit/stdout/stderr 동일 여부, 보호836경로의 존재/해시 보존, 허용7파일·기존 dirty 보존을 검사한다. 최종 커밋·Actions·PR은 Git 이력/PR 검사와 최종 보고로 식별한다. 이 새 PR은 사용자 병합 승인 전 open으로 유지한다.
 
 미실행: 실제 검증기/로비·암호학적 replay, wrapper 상태기계/adapter·씬 root 통합, P4 다중 프로세스/원격 네트워크·단절·복원, in-scene NetworkObject 동기화, IL2CPP/다른 플랫폼, GC/실제 성능 계측, UPM 설치·배포. P1의 native 확인을 구현/서비스 보안/전체 호환성 검증으로 확대하지 않는다. 다음 결정은 S3 상한 값과 고정 씬 설정의 적용 조건이며, P2 이후 구현은 별도 승인이다.
+
+## 최종 정적 검사
+
+검증 source 커밋은 `35f63b58c52a0bac655ecd9d2ec10229f216b3e0`이다. 전체 테스트·하네스 실행 당시의 C#/의존성 bytes와 같은 상태를 커밋했으며, 이후 변경은 이 회고의 검사 기록뿐이다. 이 source의 [Actions](https://github.com/KangSungKyu/TPLab/actions/runs/38831375040)는 exact-SHA/조회 완전성 gate 통과로 확인했다. 새 최종 문서 tip도 별도 exact-SHA 조회하며 결과는 PR 검사와 최종 보고에서 식별한다.
+
+실측 링크/anchor 검사는 Markdown259개·상대 링크2,117개·anchor492개·오류0이다(HTTP는 미조회). `check_pr_rules` 오류0·경고0, 공백 오류0이며 보호 파일 변경은 없다. 원래 verifier17건은17→17 실패로 exit/stdout/stderr 전체가 동일하고 보호836경로의 존재/해시가 같다. 허용7파일만 커밋했으며 제품 C#/기존 테스트/asmdef/tools/workflow/upm diff0이다. 원래 dirty10개의 bytes는 모두 유지됐고, 그중 승인된 package 입력2개만 커밋해 나머지8개는 그대로 남겼다.
+
+문서 줄바꿈 일괄 정규화 시도는 자동 승인 검토가 범위 밖 변경 위험으로 실행 전에 거부했다. 정규화는 생략하고 읽기 전용 감사를 수행했으며 Git의 CRLF→LF 안내를 검사 오류와 구분했다. 불필요한 정규화 승인을 새로 요구하거나 우회 실행하지 않았다.
