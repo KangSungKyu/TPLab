@@ -133,6 +133,12 @@ Timeout value of 400 ms was exceeded. If this is intended, increase the timeout 
 
 ## 문서 검증·Git
 
-최종 변경은 이 회고와 회고 INDEX 한 항목뿐이다. 링크/anchor·공백·PR 규칙 검사 및 정확한 최종 HEAD의 Actions 결과는 최종 보고와 PR에서 확인한다. 영구 코드·테스트 변경이 없어 실험용 테스트를 repository의 새 안전망 개수에 포함하지 않는다.
+최종 변경은 이 회고와 회고 INDEX 한 항목뿐이다. 링크/anchor·공백·PR 규칙 검사 결과와 확인한 Actions 증거는 아래에 보존한다. 이 회고를 포함하는 최종 문서 commit 자체의 ID는 Git 이력과 최종 보고에서 확인한다. 영구 코드·테스트 변경이 없어 실험용 테스트를 repository의 새 안전망 개수에 포함하지 않는다.
 
 독립 검토는 JSON/XML/관찰 기록 64건과 최초 실패를 대조해 수치 일치·예상 밖 실패 0·복구 회귀·보존을 확인했다. 링크/anchor 검사는 267문서·local links2,197개·anchors499개에서 오류0이다. 전체 checkout의 공백 검사에서는 기존 사용자 `Assets/Scenes/InitScene.unity` 변경에 trailing whitespace3곳이 있었으며 이번 작업 소유가 아니므로 보존했다. PR 대상 문서만의 공백 검사와 규칙 검사는 별도로 판정한다.
+
+### 2026-10-16 병합 전 CI 증거 보완
+
+- 최초 확인한 정확한 SHA는 `89d1bb555aca7f68ee0a818ec15383b63220cf93`이며 [PR 규칙 검사 run 38866512474](https://github.com/KangSungKyu/TPLab/actions/runs/38866512474)는 `completed/success`였다. 당시 exact-SHA 조회는 PASS였고 Unity 실행을 의미하지 않는다.
+- 이후 같은 SHA의 자동 리뷰 댓글 이벤트로 [Claude run 38866785328](https://github.com/KangSungKyu/TPLab/actions/runs/38866785328)이 생성되어 `completed/skipped`가 됐다. `@claude` 조건 불충족이며 리뷰가 실행된 것은 아니다. 병합 전 재조회는 이 결과 때문에 BLOCKED였고 해당 상태로 병합하지 않았다. 이를 성공이나 승인된 예외로 바꾸지 않는다.
+- 자동 리뷰가 지적한 회고의 CI 링크 누락을 이 추가 기록으로 보완한다. 실험 결과·권장안·코드·테스트는 바꾸지 않는다. 보완 commit의 CI는 이전 SHA 결과로 대체하지 않고 다시 조회하며, 이 회고의 최종 commit 식별은 [PR #41 commit 이력](https://github.com/KangSungKyu/TPLab/pull/41/commits)에서 확인한다.
