@@ -42,7 +42,7 @@
 | [회고 색인](retrospectives/INDEX.md) | 단위 작업 시작·재개·종료·인계 | 결정 근거·검증 한계·남은 작업의 기록과 작성 형식 |
 | [문서 거버넌스 경량화 회고](retrospectives/2026-10-13-07-docs-governance-slim.md) | 이번 T0 문서 정리의 범위·결정·검증 확인 | 승인된 지침·문서 소유와 색인 상태 정리; 실제 검증·판정은 회고 한 곳 참조 |
 | [CORE_PLAN.md](CORE_PLAN.md) | 새 단계·설계·패키지·Cashier 참조 검토 | 공용 코어 범위·채택 판단·단계 진행·차기 의존성 분리 검토/GameUISystem 계획 |
-| [NETCODE_SESSION_DRAFT.md](NETCODE_SESSION_DRAFT.md) | NGO 세션 wrapper 계약과 프로토콜 구현 | P4 Windows Mono 다중 프로세스 검증; P5 예제·수락과 배포는 후속. [사람 API](api/Netcode.md)·[AI](ai/api/Netcode.md)·[P4 회고](retrospectives/2026-10-16-04-netcode-p4-multiprocess.md) |
+| [NETCODE_SESSION_DRAFT.md](NETCODE_SESSION_DRAFT.md) | NGO 세션 wrapper 계약과 고정 씬 예제 | P5 예제 자동 검증 완료·사용자 수락 대기; UPM 후속. [사람 API](api/Netcode.md)·[AI](ai/api/Netcode.md)·[예제 사용법](../Assets/TPLab/Samples/Netcode/README.md)·[P5 회고](retrospectives/2026-10-16-05-netcode-p5-sample.md); [P4 기록](retrospectives/2026-10-16-04-netcode-p4-multiprocess.md)은 당시 범위 보존 |
 | [GAME_UI_SYSTEM_DRAFT.md](GAME_UI_SYSTEM_DRAFT.md) | UIContext 설계 근거·Phase·대규모 검증 조건 | 설계 기록, HUD·Popup·owner/depth·Canvas·virtual scroll 1,000/10,000 |
 | [GAME_UI_SYSTEM.md](GAME_UI_SYSTEM.md) | UIContext 구현·public API·수명 검토 | 소스 개발 마감(2026-10-15); 배포와 선택 개선은 [후속 작업](CORE_PLAN.md#ui-소스-개발-마감과-후속-작업-2026-10-15) |
 | [GAME_UI_SYSTEM_TRACK.md](GAME_UI_SYSTEM_TRACK.md) | UI Phase 구현·검증·통합 상태 | P0~P7·보호 입력·담당·실제 gate·최종 사용자 확인 |
