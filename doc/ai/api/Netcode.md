@@ -1,16 +1,16 @@
 # Netcode protocol integration reference
 유형: 레퍼런스
-현재 상태: P3 public wrapper and NGO adapter implemented; validation and acceptance remain scoped
-기준 source: ea8123c0079cb1ddeb05ff5e8d526f6cf6588d98
+현재 상태: P4 Windows Mono multi-process verification; P5 samples and acceptance pending
+기준 source: 9e85cbb89802231a20424c4b73af4609875da670
 갱신일: 2026-10-16
 계약 링크: [Netcode session contract](../../NETCODE_SESSION_DRAFT.md)
 
 - Module / Namespace / Assembly: Netcode / `TPLab.Netcode` / `TPLab.Netcode`.
-- SourceRevision: ea8123c0079cb1ddeb05ff5e8d526f6cf6588d98; runtime/test content matches the validated P3 source.
+- SourceRevision: 9e85cbb89802231a20424c4b73af4609875da670; P4 built this merged P3 runtime without modifying production source or tests.
 - SourcePath: [contracts](../../../Assets/TPLab/Netcode/Runtime/NetworkSessionContracts.cs), [context](../../../Assets/TPLab/Netcode/Runtime/NetworkSessionContext.cs), [internal adapter](../../../Assets/TPLab/Netcode/Runtime/SessionStartCoordinator.cs).
 - HumanContract: [Human API](../../api/Netcode.md), [session contract](../../NETCODE_SESSION_DRAFT.md).
 - ImplementationStatus: public Host/client wrapper, project callback lifecycle, NGO adapter and internal protocol. Dedicated-server startup, distributed authority, GameSceneManager integration and UPM distribution are excluded.
-- ValidationStatus: Partial. Evidence: [P3 retrospective](../../retrospectives/2026-10-16-03-netcode-p3-adapter.md). Do not copy test counts here or substitute P1 native observations for P3 wrapper validation.
+- ValidationStatus: Partial. Evidence: [P3 retrospective](../../retrospectives/2026-10-16-03-netcode-p3-adapter.md) and [P4 multi-process retrospective](../../retrospectives/2026-10-16-04-netcode-p4-multiprocess.md). Keep execution counts and failure history in their owning retrospective; P1 native observations do not substitute for wrapper validation.
 
 ## Symbol / Signature / Constraints
 
@@ -122,4 +122,4 @@ Do not expose/call internal SessionStartCoordinator, codec or P2 types through r
 
 [Human usage excerpt](../../api/Netcode.md#씬-경계와-사용-발췌) uses explicitly supplied project variables, without numeric defaults. It is a non-runnable documentation excerpt; a runnable consumer sample is P5 and NotRun.
 
-GameSceneManager is not extended. Its local scene inventory/ownership and NGO network scene synchronization must not both own/transition the same native scene. Ownership transfer and actual project root integration remain future work. P3 same-process true Additive is a safely isolated smoke, not full scene-object integration. Separate-process wrapper true Single remains P4 NotRun; earlier native Player observations do not close this gate. P4 failure scenarios, actual verifier/lobby/WAN/many clients, IL2CPP/other platforms, GC/performance and UPM installation/distribution remain bounded by the retrospective. The module is development source, not an added released UPM artifact.
+GameSceneManager is not extended. Its local scene inventory/ownership and NGO network scene synchronization must not both own/transition the same native scene. Ownership transfer and actual project root integration remain future work. P4 used independent Windows Mono Players with one Host and two clients: true Single/Additive initial scene and in-scene object synchronization before project readiness, plus the false path. See the P4 retrospective for the exact modes exercised for preparation failure, departure, Host loss, recovery retry and invalid controls. One gameplay callback per peer is an application observation, not a count of wire Start transmissions. Actual authentication/lobby, WAN/large populations, all failure combinations, IL2CPP/other platforms, GC/performance, P5 consumer samples and UPM installation/distribution remain unverified. The module is development source, not an added released UPM artifact.
