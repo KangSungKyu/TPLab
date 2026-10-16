@@ -1,6 +1,6 @@
 # TPLab 배포 규격과 dev-build track
 유형: 가이드
-현재 상태: 0.0.2 UI·Netcode 패키징 준비; 0.0.1 발행 완료
+현재 상태: 0.0.2 자동 검증 완료·설치본 사용자 수락 대기; 0.0.1 발행 완료
 기준 source: 0.0.2 준비 기준 dee0b7dc677cf86bbdc8d9ddf4f6e880adcc9e64; 0.0.1 de879b9396ddae0523bd3ab86939b679b383dd92
 갱신일: 2026-10-16
 계약 링크: 본 문서
@@ -32,6 +32,17 @@ Git URL과 tarball은 같은 exact source에서 생성한다. 소비 프로젝�
 | 최종 발행 | 위 gate와 사용자 main 병합 승인 이후 검증 source의 v0.0.2 tag·Release·첨부물 검증; v0.0.1 변경 없음 |
 
 현재 작업의 실행 결과·실패·미실행·검토 상태는 [0.0.2 회고](retrospectives/2026-10-16-08-distribution-002.md)에만 모은다. 설치/컴파일 성공은 Player·샘플 실행이나 최종 발행 성공을 뜻하지 않는다.
+
+### 0.0.2 최종 사용자 확인
+
+자동 검증 후 안내하는 실제 Git/tarball 소비 프로젝트를 Unity 6000.3.18f1로 연다. 원본 개발 프로젝트를 사용하지 않는다.
+
+1. Package Manager의 선택 package와 0.0.2 버전, 중복 assembly/GUID·컴파일 오류가 없는지 확인한다. 기본 UI와 Netcode 단독의 선택 의존성은 위 표를 따른다.
+2. UI 예제를 import했다면 전체 UI 폴더를 기존 대상이 없는 `Assets/TPLab/Samples/UI`로 Unity Project 창에서 이동한다. 선택 Bootstrap와 Hub/Main/Area/Nested를 Build Settings에 등록한다. HUD 교체, A/B/C 중간 popup 종료, 하위 입력 차단/복원, 1천/1만 목록, Additive/Single, 로딩/수동 Continue, 화면비를 확인한다. 준비된 소비 프로젝트가 이 배치를 끝냈다면 다시 import하거나 이동하지 않는다.
+3. Netcode 예제는 실제 import된 `Scenes/NetcodeSessionSample.unity`를 사용한다. Host와 두 Client에서 전원 준비 전 gameplay 차단, 준비 실패/이탈 사유, 복원 실패의 보호 상태, Retry Restore, 안전 종료를 확인한다. 원격 인증이나 공유 씬 전환 지원을 뜻하지 않는다.
+4. 기존 Core pooling/Input 씬 전환 예제와 Editor importer는 선택 설치에 맞게 확인한다. 종료 뒤 본인 프로젝트의 씬/입력/Build Settings가 의도대로 남는지 확인한다.
+
+최종 확인과 명시적 병합 승인 뒤에만 main 통합·v0.0.2 태그·Release를 진행한다. 현재 source 수락 기록을 새로운 설치본의 사용자 확인으로 자동 승계하지 않는다.
 
 ## 0.0.1 발행과 설계 이력
 
