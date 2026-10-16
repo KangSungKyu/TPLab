@@ -1,7 +1,7 @@
 # Netcode 세션 모듈
 유형: 레퍼런스
 현재 상태: P3 public 세션 API·NGO 어댑터 구현; 검증·수락 범위는 회고 참조
-기준 source: P3 작업 source(검증 기준은 회고 참조)
+기준 source: de8328039ca0c4f137c43bf09464137fa85a10af
 갱신일: 2026-10-16
 계약 링크: [Netcode 세션 계약](../NETCODE_SESSION_DRAFT.md)
 

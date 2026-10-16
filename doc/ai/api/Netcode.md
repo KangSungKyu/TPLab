@@ -1,12 +1,12 @@
 # Netcode protocol integration reference
 유형: 레퍼런스
 현재 상태: P3 public wrapper and NGO adapter implemented; validation and acceptance remain scoped
-기준 source: P3 작업 source(검증 기준은 회고 참조)
+기준 source: de8328039ca0c4f137c43bf09464137fa85a10af
 갱신일: 2026-10-16
 계약 링크: [Netcode session contract](../../NETCODE_SESSION_DRAFT.md)
 
 - Module / Namespace / Assembly: Netcode / `TPLab.Netcode` / `TPLab.Netcode`.
-- SourceRevision: P3 working source; the evidence identifies the validated revision.
+- SourceRevision: de8328039ca0c4f137c43bf09464137fa85a10af; runtime/test content matches the validated P3 source.
 - SourcePath: [contracts](../../../Assets/TPLab/Netcode/Runtime/NetworkSessionContracts.cs), [context](../../../Assets/TPLab/Netcode/Runtime/NetworkSessionContext.cs), [internal adapter](../../../Assets/TPLab/Netcode/Runtime/SessionStartCoordinator.cs).
 - HumanContract: [Human API](../../api/Netcode.md), [session contract](../../NETCODE_SESSION_DRAFT.md).
 - ImplementationStatus: public Host/client wrapper, project callback lifecycle, NGO adapter and internal protocol. Dedicated-server startup, distributed authority, GameSceneManager integration and UPM distribution are excluded.

@@ -1,7 +1,7 @@
 # Netcode 세션 wrapper 계약과 개발 상태
 유형: 레퍼런스
 현재 상태: P3 NGO adapter/callback 개발 구현; P4 다중 프로세스·P5 예제/수락 대기
-기준 source: P3 작업 source(검증 기준은 회고 참조); NGO 2.13.3 / Unity Transport 2.7.3
+기준 source: de8328039ca0c4f137c43bf09464137fa85a10af; NGO 2.13.3 / Unity Transport 2.7.3
 갱신일: 2026-10-16
 계약 링크: 본 문서
 

@@ -109,18 +109,18 @@ false Host/client 실제 loopback과 true Host·safe Additive pair를 실행했�
 
 ## 문서·범위·최종 검사
 
-public API 추가에 맞춰 Runtime XML, 사람/AI Netcode API, 각 README/색인, NETCODE_SESSION_DRAFT의 현행 구현을 갱신했다. 새 패키지·버전·UPM 사본은 생성하지 않았다. Runtime assembly의 기존 UniTask/Unity.Collections 참조와 PlayMode assembly 추가는 이번 P3 사용자 승인 범위다. source revision은 최종 코드 commit으로 연결하고 이후 문서 commit과의 runtime/test hash 동일성을 확인한다.
+public API 추가에 맞춰 Runtime XML, 사람/AI Netcode API, 각 README/색인, NETCODE_SESSION_DRAFT의 현행 구현을 갱신했다. 새 패키지·버전·UPM 사본은 생성하지 않았다. Runtime assembly의 기존 UniTask/Unity.Collections 참조와 PlayMode assembly 추가는 이번 P3 사용자 승인 범위다. 검증 source는 `de8328039ca0c4f137c43bf09464137fa85a10af`다. 테스트 실행 뒤 EOF 공백만 정리한 것이며 실행문은 동일하다. 이후 문서 commit은 runtime/test를 바꾸지 않는다. 작업 branch의 main 대비 범위는33파일이다.
 
-작업 시작 dirty8파일의 bytes/hash와 상태를 보존했다. 기존 tracked P2/runtime/test, Core/UI/Input, Packages, ProjectSettings, tools/workflow/UPM/AGENTS/CLAUDE 변경0을 작업 전 hash와 대조한다(원래 사용자 dirty는 비교 기준으로만 보존). 테스트 동결hash, 전체 이름 집합, 직접 보호 입력836경로와 verifier17건 역사적 실패 원문의 전후 동일성을 확인한다. 최종 링크·공백·규칙/Actions 결과는 아래 gate에 기록한다.
+작업 시작 dirty8파일의 bytes/hash와 상태를 보존했다. 기존 tracked P2/runtime/test, Core/UI/Input, Packages, ProjectSettings, tools/workflow/UPM/AGENTS/CLAUDE 변경0을 작업 전 hash와 대조했다(원래 사용자 dirty는 비교 기준으로만 보존). 테스트 동결hash, 전체 이름 집합, 직접 보호 입력836경로와 verifier17건 역사적 실패 원문의 전후 동일성을 확인했다. 최종 링크·공백·규칙/Actions 결과는 아래 gate에 기록한다.
 
 | Gate | 결과 |
 |---|---|
 | 컴파일 / Unity 회귀 | refresh 성공; 위 표의 최종 전체 EditMode/PlayMode·반복 통과 |
 | API/XML/문서 | 실제 public 시그니처·취소/복원/소유권·필수 입력과 미실행 정합 검토 |
-| 링크 / 공백 / PR 규칙 | 링크/anchor 오류0, scoped 공백 오류0. commit 대상 규칙 검사는 다음 gate에서 확인 |
+| 링크 / 공백 / PR 규칙 | 링크/anchor 오류0, scoped 공백 오류0, check_pr_rules 오류0·경고2(동기 callback budget 검사 Thread.Sleep). 보호 파일 경고0 |
 | 역사적 verifier / 보호 입력 | 17→17 실패 원문 동일, 836경로 hash 동일, 신규 실패0 |
-| exact-SHA Actions | PR 생성 후 확인; 이전 P2 SHA/예외를 재사용하지 않음 |
-| 병합 | 미실행, 사용자 승인 대기 |
+| exact-SHA Actions | source `de8328039ca0c4f137c43bf09464137fa85a10af`의 [규칙 검사 run38849894747](https://github.com/KangSungKyu/TPLab/actions/runs/38849894747) success, exact-SHA helper passed·조회 누락0. 문서 metadata 후속 HEAD는 PR 최종 보고에서 별도 확인 |
+| 병합 | [PR #38](https://github.com/KangSungKyu/TPLab/pull/38) open·미병합. 사용자 승인 대기 |
 
 독립 검토의 fixture 주의: NativeAdapterTests.Cleanup은 native stop을 유한 관찰한 뒤 시험 소유 manager를 정리한다. stop 관찰 실패 경로에서도 시험 소유 객체를 파괴한 뒤 실패 단언하는 fallback이 있다. 이는 stop 확인 전 파괴가 가능하므로 모든 실패 경로에서 native 정리 완료가 보장된다는 근거로 쓰지 않는다. 이번 Green/반복에서는 stop 단언을 모두 통과했다. frozen fixture를 이번 case7 승인 범위 밖으로 정정하지 않았고, 향후 실패 시 로그/잔여 상태 격리 조사 대상으로 남긴다. 제품 context의 manager 파괴 동작은 없다.
 
