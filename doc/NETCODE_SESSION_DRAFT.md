@@ -1,17 +1,17 @@
-# Netcode 세션 wrapper P0 계약 초안
+# Netcode 세션 wrapper 계약과 개발 상태
 유형: 레퍼런스
-현재 상태: P2 내부 프로토콜 구현; NGO wrapper 미구현, true 기본 권장·false 프로젝트 선택
-기준 source: TPLab P2 source d374cb3fc88629b300245f959f07825558f7f355; NGO 2.13.3 / Unity Transport 2.7.3
+현재 상태: P3 NGO adapter/callback 개발 구현; P4 다중 프로세스·P5 예제/수락 대기
+기준 source: P3 작업 source(검증 기준은 회고 참조); NGO 2.13.3 / Unity Transport 2.7.3
 갱신일: 2026-10-16
 계약 링크: 본 문서
 
 ## 0. 사실 확인과 근거 범위
 
-[현행] PR #34의 P0 초안과 PR #35의 D-N1~D-N8 기록에 2026-10-16 사용자 결정 S1·S2·S4 및 S3 결정 시점, D-N8의 true 기본 권장·false 프로젝트 선택 방향을 반영했다. 2026-10-16에 PR #36 병합과 P2 프로토콜 구현, 개발 assembly2개 추가가 승인됐다. P3 NGO 어댑터·callback 구현과 UPM 배포는 후속이다. 아래 0절의 설치·dirty 조사는 PR #35 당시 기록이다. P1 실행 상태와 한계는 [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md)에 구분한다. 세부 public API·정책 값은 결정 표 범위 밖에서 [제안]/미확인으로 남긴다.
+[현행] PR #34의 P0 초안과 PR #35의 D-N1~D-N8 기록에 2026-10-16 사용자 결정 S1·S2·S4 및 S3 결정 시점, D-N8의 true 기본 권장·false 프로젝트 선택 방향을 반영했다. 2026-10-16에 PR #36 병합과 P2 프로토콜 구현, 개발 assembly2개 추가가 승인됐다. 이후 PR #37 병합과 P3 NGO 어댑터·callback 구현이 승인됐다. 현재 구현은 아래 P3 절에 두며 P4/P5와 UPM 배포는 후속이다. 아래 0절의 설치·dirty 조사는 PR #35 당시 기록이다. P1 실행 상태와 한계는 [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md)에 구분한다. P3에서 구현한 public API와 프로젝트 필수 입력은 [현행]으로 구분하고 미구현 대안·운영 값은 [제안]/미확인으로 남긴다.
 
 | 상태 | 확인 대상 | 읽어서 확인한 사실·한계 |
 |---|---|---|
-| [현행] | main의 `Packages/manifest.json` | `com.unity.multiplayer.center: 1.0.1`은 있지만 NGO/UTP 항목은 없다. 기준은 위 main SHA의 Git blob이다. |
+| [현행] | main의 `Packages/manifest.json` | `com.unity.multiplayer.center: 1.0.1`은 있지만 NGO/UTP 항목은 없다. PR #35 작성 당시 main의 Git blob 조사이며 현재 manifest 상태가 아니다. NGO/Transport 의존성 입력은 이후 PR #36으로 반영됐다. |
 | [현행] | 작업 폴더 manifest·lock·PackageCache | NGO는 manifest/lock/cache 모두 **2.13.3**. UTP는 manifest 직접 항목 없이 lock/cache의 **2.7.3**이다. NGO package.json의 UTP 의존 선언 **2.6.0**과 실제 해석 버전을 구분한다. |
 | [현행] | NGO 직접 의존 선언 | `com.unity.transport: 2.6.0`, `com.unity.nuget.mono-cecil: 1.11.4`. lock의 실제 버전은 각각2.7.3·1.11.6이다. |
 | [현행] | UTP 직접 의존 선언 | Collections2.2.1·Burst1.8.24·Mathematics1.3.2. lock의 실제 버전은 Collections2.6.6·Burst1.8.29·Mathematics1.3.3이다. |
@@ -54,7 +54,7 @@
 
 [제안] NetworkManager의 start/stop·승인 callback·프로토콜 handler를 이 context가 독점 사용하도록 사전에 합의한다. 주입 객체의 수명 소유자는 프로젝트이며 context는 자기 구독과 세션 종료를 책임진다. 다른 시스템과 callback을 무조건 +=/교체하지 않는다(N1). 수명/명시적 주입의 기존 예는 [Input 계약](INPUT_SYSTEM_DRAFT.md#책임과-최소-구성), [Input assembly](../Assets/TPLab/Input/Runtime/TPLab.Core.Input.asmdef), [SceneRoot 계약](SCENE_ROOT.md)이다.
 
-[제안] 독점 범위는 세션 명령·입장 승인·wrapper 자신의 준비/시작 protocol handler다. 프로젝트 gameplay는 NGO의 NetworkObject/RPC/NetworkVariable을 직접 사용한다. handler 이름/등록 영역의 충돌 검사, 사용권 획득·반환과 시작 전 설정 검증의 구체 API는 미확정이다. wrapper가 NetworkManager의 모든 기능을 대신 제공하거나 프로젝트 설정을 암묵적으로 덮어쓰지 않는다.
+[현행] 독점 범위는 세션 명령·입장 승인·wrapper의 준비/시작 protocol handler다. 프로젝트 gameplay는 NGO의 NetworkObject/RPC/NetworkVariable을 직접 사용한다. StartAsync가 설정을 검증하고 manager 사용권을 획득하며 Lobby/Closed에서 반환한다. 예약 handler `TPLab.Netcode.Session.v1`은 NGO 공개 조회 수단이 없어 외부 충돌 부재까지 검증하지 않는다. RecoveryFault에서는 manager 사용권을 유지한다.
 
 ## 2. 식별자와 정상 흐름
 
@@ -113,7 +113,7 @@
 
 ### P2 내부 프로토콜 구현
 
-[현행] 2026-10-16 사용자 구현 승인과 별도 assembly 승인에 따라 [Runtime](../Assets/TPLab/Netcode/Runtime)에 내부 순수 상태기계를 구현했다. `TPLab.Netcode`는 Core·Unity.Netcode.Runtime을 참조하는 하나의 개발 assembly다. 순수 타입도 이 assembly 안에 있으며 NGO 미설치용 별도 assembly가 아니다. `TPLab.Netcode.EditModeTests`만 friend로 열었다. 모든 runtime 타입은 internal이고 소비 프로젝트용 public API는 아직 없다. 실제 검증은 [P2 회고](retrospectives/2026-10-16-02-netcode-p2-protocol.md), 외부 사용 상태는 [사람](api/Netcode.md)/[AI](ai/api/Netcode.md) 안내를 따른다.
+[현행] 2026-10-16 사용자 구현 승인과 별도 assembly 승인에 따라 [Runtime](../Assets/TPLab/Netcode/Runtime)에 내부 순수 상태기계를 구현했다. `TPLab.Netcode`는 Core·Unity.Netcode.Runtime을 참조하는 하나의 개발 assembly다. 순수 타입도 이 assembly 안에 있으며 NGO 미설치용 별도 assembly가 아니다. P2 당시에는 `TPLab.Netcode.EditModeTests`만 friend로 열었고 runtime 타입은 모두 internal이었다. P3가 public wrapper와 PlayMode friend를 추가했으며 아래 순수 프로토콜 타입은 internal을 유지한다. 실제 검증은 [P2 회고](retrospectives/2026-10-16-02-netcode-p2-protocol.md), 외부 사용 상태는 [사람](api/Netcode.md)/[AI](ai/api/Netcode.md) 안내를 따른다.
 
 | 내부 구성 | 소유하는 상태·입력 | 책임의 끝 |
 |---|---|---|
@@ -126,13 +126,37 @@
 
 [현행] `TryAuthorizeStart`는 서버 로컬 준비와 명단 전원의 admitted/connected/Ready를 한 직렬화 지점에서 확인한 뒤 sequence1을 한 번 발행한다. Client는 지정 서버 ID+세대, 전체 맥락, localReady와 양수 sequence를 확인해 한 번 수락한다. 동일/다른 sequence의 후속 승인과 terminal 이후 늦은 입력은 모두 무효과다. 승인 뒤 이탈은 준비 실패로 되돌리지 않으며 이후 gameplay 정책은 후속이다. 준비 이전에 도착한 시작 신호는 보관하지 않는다. adapter는 localReady 기록 후 Ready를 송신해야 한다.
 
-[현행] `startedAt`, `budget`, `now`는 같은 로컬 단조 clock의 표본(초)이다. budget은 호출자가 반드시 지정하며 유한 양수·표현 가능한 미래 deadline만 허용한다. pending 입력에서 NaN/무한/역행 시각은 상태 변경 전에 거부하고, `now >= startedAt + budget`이면 그 입력보다 만료가 우선한다. 새 입장/부분 Ready로 budget을 늘리지 않는다. terminal 입력은 시각을 포함해 무시한다. 서버·클라이언트의 clock을 같은 원점으로 가정하지 않는다. server freeze부터의 전체 budget을 실제 client의 로컬 deadline에 전달하는 수단은 P3에서 연결하며 P2가 분산 clock 동기화를 구현하지 않는다.
+[현행] `startedAt`, `budget`, `now`는 같은 로컬 단조 clock의 표본(초)이다. budget은 호출자가 반드시 지정하며 유한 양수·표현 가능한 미래 deadline만 허용한다. pending 입력에서 NaN/무한/역행 시각은 상태 변경 전에 거부하고, `now >= startedAt + budget`이면 그 입력보다 만료가 우선한다. 새 입장/부분 Ready로 budget을 늘리지 않는다. terminal 입력은 시각을 포함해 무시한다. 서버·클라이언트의 clock을 같은 원점으로 가정하지 않는다. P3는 Welcome의 서버 잔여 budget으로 client의 기존 로컬 deadline을 줄이며 P2가 분산 clock 동기화를 구현하지 않는다.
 
-[현행] 역할별 호출은 adapter/소유자가 직렬화해야 한다. 순수 상태기계에 Unity 메인 스레드 검사·lock·callback·비동기 대기는 없다. caller의 대기 취소는 이 상태의 Cancel 입력으로 전달하지 않는다. 상태 Aborted는 무효화 결과이며 정리 완료가 아니다. 종료·복원 오류의 추가 집계와 안전한 재시도 출구는 D절의 P3 구현 항목이다. 재시도는 새로운 Attempt 맥락과 새 protocol 객체로 시작한다.
+[현행] 역할별 호출은 adapter/소유자가 직렬화해야 한다. 순수 상태기계에 Unity 메인 스레드 검사·lock·callback·비동기 대기는 없다. caller의 대기 취소는 이 상태의 Cancel 입력으로 전달하지 않는다. 상태 Aborted는 무효화 결과이며 정리 완료가 아니다. 종료·복원 오류의 추가 집계와 안전한 재시도 출구는 아래 P3/D절과 public Context가 담당한다. 새 세션 시작은 새로운 Attempt 맥락과 새 protocol 객체로 시작한다.
+
+### P3 NGO 어댑터와 callback 구현
+
+[현행] [NetworkSessionContext](../Assets/TPLab/Netcode/Runtime/NetworkSessionContext.cs)와 [공개 계약](../Assets/TPLab/Netcode/Runtime/NetworkSessionContracts.cs)을 개발 source에 제공한다. `SessionStartCoordinator`와 `SessionWireCodec`, P2 프로토콜은 internal이다. `TPLab.Netcode`는 승인된 Core·NGO·UniTask·Unity.Collections를 참조하며 Netcode PlayMode 테스트 assembly1개가 추가됐다. 기존 Core/UI/Input/UPM 참조나 package 입력은 바꾸지 않았다. [사람 API](api/Netcode.md), [AI API](ai/api/Netcode.md), 실행·미실행은 [P3 회고](retrospectives/2026-10-16-03-netcode-p3-adapter.md)를 따른다.
+
+| 경계 | 구현 계약 |
+|---|---|
+| 공개 진입 | 명시적으로 빌린 manager + 프로젝트 callback + 필수 options + Host verifier. `StartAsync`는 한 context에서 한 attempt만 허용 |
+| 시작 전 | 활성 top-level idle manager, transport, client/server 모드, ConnectionApproval=true, 비어 있는 approval callback 검사. Singleton 탐색/프로젝트 GameObject 파괴 없음 |
+| 프로젝트 설정 | EnableSceneManagement는 프로젝트 값 그대로. true 권장/false 선택. Host는 초기 Single/Additive 모드를 request에 명시. 전용 서버 StartServer API 없음 |
+| 입장 | 프로젝트의 동기 검증기, 전체 envelope 상한·구조·맥락 검사 후 실제 sender와 검증된 ID/세대 연결. Host는 StartHost 전 검증1회 후 로컬 callback에 같은 결과 재사용 |
+| 준비 | Protect 완료 → endpoint 시작 → native 연결/초기 동기화 완료 → Prepare 완료 → localReady 기록 → Ready 송신/전원 barrier → 서버 승인 → 동기 StartGameplay |
+| native 준비 | Host는 자기 connected 사실을 사용하며 자기 SynchronizeComplete를 기다리지 않음. true client는 connected + local synchronization + Welcome을 모두 요구. false client는 connected + Welcome 이후 프로젝트 Prepare가 씬 준비를 책임짐 |
+| 대기 | 전체 envelope 상한과 준비/정리/복원 budget을 프로젝트가 모두 지정. 숫자 기본값 없음. 동기 hook도 호출 전 deadline을 잡고 완료 후 초과 확인; 강제 중단 아님 |
+| 명령 취소 | caller token은 그 대기만 취소. owner Shutdown이 소유 attempt를 중단. Start 재호출은 재대기 API가 아님 |
+| 실패 정리 | 첫 실패 보존 → 무효화/취소 → 보호 완료 → best-effort abort와 native shutdown → 실제 prepare 종료 후 release → 역할별 stop events + role/listening/shutdown flags 관찰. 실패 전파는 분산 원자성 보장이 아님 |
+| 복원 | 정리 성공 후 RestoreLobbyAsync. 최초 실패와 추가 복원/정리 오류를 분리. 동일 SessionId/AttemptId key로 명시 RetryLobbyRestoreAsync. 이전 hook이 남아 있으면 병렬 복원·새 owner 금지 |
+| 안전 종료 | Running의 정상 Shutdown은 자동 로비 복원 없이 Closed. pending restore는 RecoveryFault를 유지하고 실제 완료 뒤 Shutdown 재호출로 Closed 가능. lease는 Lobby/Closed에서만 반환 |
+| 시작 승인 이후 실패 | 일부 peer가 이미 시작했을 수 있으므로 송신/StartGameplay 실패는 자동 복원을 주장하지 않고 보호·정리 후 RecoveryFault. 프로젝트의 명시적 복원/안전 출구 필요 |
+| 스레드·재진입 | public Context는 Unity main thread. callback의 동기 실행 중 명령 재진입 거부. hook이 첫 await 뒤 자기 session 완료를 기다리는 순환은 지원하지 않음 |
+
+[현행] `TPLab.Netcode.Session.v1` Named message 이름은 wrapper 전용으로 예약한다. NGO 공개 API에는 기존 이름 등록 조회가 없으므로 다른 소유자의 충돌을 모두 사전 검출한다고 보장하지 않는다. 사용하는 동안 승인 callback, connection data, wrapper channel과 native 세션 명령을 다른 코드가 교체하지 않아야 한다. 종료 후 자신의 handler/approval과 차용 connection data를 정리·복원한다. 프로젝트는 일반 gameplay RPC/NetworkVariable/NetworkObject를 직접 사용한다.
+
+[현행] P3의 false peer 및 true Host/safe Additive peer 테스트는 동일 Editor 프로세스 관찰이다. safe Additive fixture는 TestRunner 씬을 제외하므로 실제 게임 씬 객체 동기화·true Single 별도 프로세스 wrapper 증거가 아니다. 인증 서비스·실제 증명 재사용 방지·Relay·P4 다중 프로세스·P5 예제·Player/IL2CPP·GC·UPM 설치는 별도 미검증이다. GameSceneManager와 같은 씬 이중 소유를 허용하거나 공유 씬 통합을 완료한 구현이 아니다.
 
 ## B. 입장 검증 접점과 신뢰 경계
 
-[현행] B1~B8은 D-N2의 프로젝트 검증기 주입과 S1의 동기 우선·S2의 replay 책임 분담·S4의 Host 사전 검증 방향을 구체화한다. wrapper는 증명 형식이나 인증 발급 서비스를 선택하지 않는다. 검증기 이름·입출력 public 타입·상세 실패 코드·payload 상한 값 등 채택 방향 밖의 계약은 [제안]/미확인이다. 방향 결정은 wrapper 구현 완료를 뜻하지 않는다.
+[현행] B1~B8은 D-N2의 프로젝트 검증기 주입과 S1의 동기 우선·S2의 replay 책임 분담·S4의 Host 사전 검증 방향을 구체화한다. wrapper는 증명 형식이나 인증 발급 서비스를 선택하지 않는다. P3의 `IAdmissionVerifier`/`AdmissionRequest`/`AdmissionDecision`과 정규화 코드가 현행 개발 API다. 전체 payload 상한은 S3에 따라 프로젝트 필수 입력이며 증명 내용·운영 값은 프로젝트가 정한다. 비동기 Pending 대안은 미구현이다.
 
 [현행] N1~N3의 `NetworkConfig.ConnectionApproval=true`, `ConnectionData`, `ConnectionApprovalCallback`은 기존 NGO 접점이다. Payload는 client가 보낸 바이트이고, callback의 ClientNetworkId는 N3의 `NetworkContext.SenderId`에서 전달된다. config hash/ClientId 자체는 로비 계정 소유권 증명이 아니다. N1의 callback은 단일 등록이며 등록만 하고 ConnectionApproval을 켜지 않으면 승인 기능이 활성화되지 않는다. N7의 named message/RPC sender를 Ready 등의 실제 발신자 mapping에 사용할 접점도 존재한다. 아래의 wrapper 동작은 이 NGO API가 이미 제공하는 기능이라는 뜻이 아니다.
 
@@ -140,29 +164,29 @@
 
 | 상태·책임 | 프로젝트 검증기·인증 기반 | wrapper |
 |---|---|---|
-| [제안] 발급·진위·계정/좌석 | 증명 발급·진위/만료 검증, 인증된 계정과 로비 좌석의 연결 확인 | 증명 내부를 해석하지 않고 검증된 LobbyParticipantId를 받음 |
-| [제안] 입력 외곽 검사 | wrapper 검사를 통과한 불투명 증명을 자기 규격으로 검증 | 검증기 호출 전에 전체 payload 바이트 상한·wrapper 외곽 프로토콜 버전·구조 검사. 증명 형식을 지정하는 검사가 아님 |
-| [제안] 세션·명단 정합 | 전달받은 신뢰된 Session/Attempt/RosterRevision 맥락에 증명 binding을 확인 | 서버의 현재 Attempt/RosterRevision과 일치하는 요청인지 검사하고 검증기가 돌려준 ID를 확정 명단과 대조 |
-| [제안] replay·중복 | 증명 nonce/일회성 소비·재사용 방지·재발급 정책 | 같은 Attempt에서 같은 ID의 살아 있는 접속1개 제한과 보류 예약 충돌 검사. 증명 replay 검증을 대체하지 않음 |
-| [제안] 실제 발신자 mapping | NGO 객체를 직접 변경하지 않고 검증 결과만 반환 | 실제 NGO ClientId+접속 세대와 검증된 ID를 일대일로 연결. payload의 자기 주장 ClientId로 연결하지 않음 |
-| [제안] 응답·진단 | 거부 결과 또는 서버 관찰용 실패 원인 전달 | 승인/거부 NGO 응답 구성, 코드 정규화, 원격에는 정규화 코드만 전달하고 서버 결과/진단에 원인 보존 |
+| [현행] 발급·진위·계정/좌석 | 증명 발급·진위/만료 검증, 인증된 계정과 로비 좌석의 연결 확인 | 증명 내부를 해석하지 않고 검증된 LobbyParticipantId를 받음 |
+| [현행] 입력 외곽 검사 | wrapper 검사를 통과한 불투명 증명을 자기 규격으로 검증 | 검증기 호출 전에 전체 payload 바이트 상한·wrapper 외곽 프로토콜 버전·구조 검사. 증명 형식을 지정하는 검사가 아님 |
+| [현행] 세션·명단 정합 | 전달받은 신뢰된 Session/Attempt/RosterRevision 맥락에 증명 binding을 확인 | 서버의 현재 Attempt/RosterRevision과 일치하는 요청인지 검사하고 검증기가 돌려준 ID를 확정 명단과 대조 |
+| [현행] replay·중복 | 증명 nonce/일회성 소비·재사용 방지·재발급 정책 | 같은 Attempt에서 같은 ID의 살아 있는 접속1개 제한과 보류 예약 충돌 검사. 증명 replay 검증을 대체하지 않음 |
+| [현행] 실제 발신자 mapping | NGO 객체를 직접 변경하지 않고 검증 결과만 반환 | 실제 NGO ClientId+접속 세대와 검증된 ID를 일대일로 연결. payload의 자기 주장 ClientId로 연결하지 않음 |
+| [현행] 응답·진단 | 거부 결과 또는 서버 관찰용 실패 원인 전달 | 승인/거부 NGO 응답 구성, 코드 정규화, 원격에는 정규화 코드만 전달하고 서버 결과/진단에 원인 보존 |
 
-[제안] wrapper의 외곽 payload는 버전·세대 맥락과 프로젝트 증명 바이트를 구분한다. 서명/ticket 포맷을 검사기에서 강제하지 않는다. N3는 NGO callback 전에 byte[]를 역직렬화하므로 wrapper 상한이 그 이전의 NGO 할당·모든 transport 입력까지 제한한다는 보장은 하지 않는다. 입력 상한과 검증기 호출 순서는 wrapper의 제안 계약이며 값은 S3다.
+[현행] wrapper의 외곽 payload는 버전·세대 맥락과 프로젝트 증명 바이트를 구분한다. 서명/ticket 포맷을 검사기에서 강제하지 않는다. N3는 NGO callback 전에 byte[]를 역직렬화하므로 wrapper 상한이 그 이전의 NGO 할당·모든 transport 입력까지 제한한다는 보장은 하지 않는다. 입력 상한과 검증기 호출 순서는 P3 계약이며 S3 상한은 프로젝트 필수 입력이다.
 
-[제안] 검증 전 보류 작업은 실제 sender/ConnectionGeneration으로 식별한다. 검증되지 않은 자기 주장 참가자 ID만으로 좌석을 선점하지 않는다. 검증된 ID를 받은 뒤 같은 Attempt의 살아 있는 mapping/검증된 예약과 충돌하는지 확인하고, 중복 검사와 mapping 공개를 한 직렬화 지점에서 처리한다.
+[현행] 검증 전 보류 작업은 실제 sender/ConnectionGeneration으로 식별한다. 검증되지 않은 자기 주장 참가자 ID만으로 좌석을 선점하지 않는다. 검증된 ID를 받은 뒤 같은 Attempt의 살아 있는 mapping/검증된 예약과 충돌하는지 확인하고, 중복 검사와 mapping 공개를 한 직렬화 지점에서 처리한다.
 
-### B2. 검증기 입출력 후보와 A1 연결
+### B2. 검증기 입출력과 A1 연결
 
-[제안] 이름은 가칭 `IAdmissionVerifier`/`AdmissionValidationContext`이며 실제 public API·CLR 시그니처가 아니다. A1의 순수 상태기계와 함께 시험할 수 있도록 NGO 타입을 입출력에 노출하지 않는 안을 추천한다. NGO ClientId는 원시 값으로 받고 NetworkManager·ConnectionApprovalResponse·FastBufferReader를 검증기에 넘기지 않는다. 이 방향이 NGO 미설치 컴파일을 위한 별도 assembly 생성을 뜻하지 않는다(D-N1).
+[현행] `IAdmissionVerifier.Verify(AdmissionRequest)`는 `AdmissionDecision`을 반환하는 동기 public 계약이다. 입출력은 NGO 객체 타입을 노출하지 않는 값/증명 snapshot이다. NGO ClientId는 원시 값으로 받고 NetworkManager·ConnectionApprovalResponse·FastBufferReader를 검증기에 넘기지 않는다. 이 방향이 NGO 미설치 컴파일을 위한 별도 assembly 생성을 뜻하지 않는다(D-N1).
 
-| 상태·방향 | 최소 값 후보 | 출처·소유권·확인 |
+| 상태·방향 | 최소 값 | 출처·소유권·확인 |
 |---|---|---|
-| [제안] 입력 | 읽기 전용 불투명 증명 바이트 | wrapper가 외곽 검사 뒤 제공. 구체 뷰 타입/복사 시점 미확정; 비동기 보관 시 필요한 snapshot의 수명은 구현 전에 확정 |
-| [제안] 입력 | SessionId, AttemptId, RosterRevision | 서버의 현재 맥락. client가 주장한 값을 신뢰 값으로 대체하지 않음 |
-| [제안] 입력 | 실제 NGO ClientId의 원시 값, ConnectionGeneration | 접속 상관관계용이며 그 자체로 인증 증명이 아님 |
-| [제안] 입력 | 검증 기준 시각의 서버 제공 값, 남은 검증 budget | 클라이언트 시계 사용 금지. 시간 단위·UTC/monotonic 구분·주입 clock 규격은 미확정; 인증 만료와 session deadline을 혼동하지 않음 |
-| [제안] 승인 출력 | 검증된 LobbyParticipantId | 비어 있거나 명단 밖 ID·현재 접속과 모순된 결과는 wrapper가 잘못된 결과로 거부. 이 출력만으로 Ready가 되지 않음 |
-| [제안] 거부 출력 | wrapper가 정의할 정규화 거부 코드 | 임의 원격 표시 문자열을 전달하지 않음. 코드 집합·결과 타입은 미확정 |
+| [현행] 입력 | 읽기 전용 불투명 증명 바이트 | wrapper가 외곽 검사 뒤 제공. ReadOnlyMemory<byte>로 전달하며 envelope decode/request 생성에서 복사; 검증기는 동기 계약 |
+| [현행] 입력 | SessionId, AttemptId, RosterRevision | 서버의 현재 맥락. client가 주장한 값을 신뢰 값으로 대체하지 않음 |
+| [현행] 입력 | 실제 NGO ClientId의 원시 값, ConnectionGeneration | 접속 상관관계용이며 그 자체로 인증 증명이 아님 |
+| [현행] 입력 | 검증 기준 시각의 서버 제공 값, 남은 검증 budget | 클라이언트 시계 사용 금지. ServerUtcNow는 DateTimeOffset, RemainingSeconds는 로컬 단조 deadline 잔여 초; 인증 만료와 session deadline을 혼동하지 않음 |
+| [현행] 승인 출력 | 검증된 LobbyParticipantId 개념의 string ParticipantId | 빈 ID는 InvalidVerifierResult, 명단 밖 ID는 UnknownParticipant로 거부. 이 출력만으로 Ready가 되지 않음 |
+| [현행] 거부 출력 | AdmissionRejectionCode의 정규화 거부 코드 | 임의 원격 표시 문자열을 전달하지 않음. AdmissionDecision/AdmissionRejectionCode이며 원문 예외는 서버 로컬 AdmissionRejection.Cause에만 보존 |
 
 ### B3. 동기와 비동기 Pending
 
@@ -175,22 +199,22 @@
 
 [제안] 비동기를 허용하면 완료 시 서버의 Attempt·RosterRevision·ClientId+ConnectionGeneration·해당 보류 예약·owner 수명·유효 기한을 모두 다시 검사한다. 정상이면 승인/거부 필드 확정 뒤 Pending=false를 반영한다. 만료/단절/이전 시도의 늦은 결과는 승인·mapping·Ready를 복원하지 못하고, 해당 요청의 예약/관측 자원만 정리한다. 동명이인 새 접속의 예약을 옛 작업이 해제하지 않게 세대를 대조한다. owner의 취소 요청과 실제 검증 작업 종료도 구분한다.
 
-[제안] 검증기 budget은 세션 전체 budget과 실제 NGO 연결 승인 한계 안에서 설정한다. 값과 기한 관찰 방법은 P1 미확인이다. 동기 blocking hook을 deadline이 강제 중단하지 못하므로 초과 검출/거부와 실행 중단 보장을 구분한다. 비동기 작업이 취소에 협조하지 않으면 늦은 결과를 폐기하되 실제 작업 해제는 검증기 작성자의 책임이다.
+[현행] 동기 검증기는 남은 전체 준비 budget 안에서 끝나야 하며 호출 전·후 시각을 검사한다. NGO 자체 승인 한계는 별도다. blocking 검증기를 강제로 중단하지 못하므로 초과 검출/거부와 실행 중단 보장을 구분한다. [제안] 향후 비동기 검증을 추가한다면 취소·늦은 결과·실제 작업 해제를 별도로 설계한다.
 
 ### B4. 검증기 실패와 호출 맥락
 
-| 상태·실패 | 해당 접속 처리 제안 | 세션·진단 |
+| 상태·실패 | 해당 접속 처리 | 세션·진단 |
 |---|---|---|
-| [제안] 검증기 예외 | VerifierFailed 같은 정규화 코드로 거부 | 예외 객체/원인을 서버 결과·진단에 보존; 원격 Reason에 원문·stack·증명 바이트를 넣지 않음 |
-| [제안] 기한 초과·지나친 지연 | VerificationDeadlineExceeded 같은 코드로 거부 | 늦은 성공은 미채택. 동기 hook 강제 중단은 보장하지 않음 |
-| [제안] 잘못된 결과 | 빈 ID·명단 밖 ID·현재 맥락에 맞지 않는 승인/알 수 없는 코드는 InvalidVerifierResult 같은 코드로 거부 | 정규화 실패 사유와 서버 원인을 보존하고 상태를 승인으로 공개하지 않음 |
-| [제안] 중복 접속·이미 사용 중인 좌석 | 새 접속만 거부, 기존 살아 있는 mapping/Ready 무변경 | 새 요청의 예약만 정리하며 기존 정상 멤버를 교체하지 않음 |
+| [현행] 검증기 예외 | VerifierFailed 정규화 코드로 거부 | 예외 객체/원인을 서버 결과·진단에 보존; 원격 Reason에 원문·stack·증명 바이트를 넣지 않음 |
+| [현행] 기한 초과·지나친 지연 | VerificationDeadlineExceeded 코드로 거부 | 늦은 성공은 미채택. 동기 hook 강제 중단은 보장하지 않음 |
+| [현행] 잘못된 결과 | 빈 ID/null decision/알 수 없는 코드는 InvalidVerifierResult, 명단 밖 ID는 UnknownParticipant로 거부 | 정규화 실패 사유와 서버 원인을 보존하고 상태를 승인으로 공개하지 않음 |
+| [현행] 중복 접속·이미 사용 중인 좌석 | 새 접속만 거부, 기존 살아 있는 mapping/Ready 무변경 | 새 요청의 예약만 정리하며 기존 정상 멤버를 교체하지 않음 |
 
-[제안] 코드 이름은 가칭이다. 검증기 오류·지연·잘못된 결과만으로 전체 세션을 즉시 중단하지 않는다. 승인 전 해당 접속을 거부하고 확정 명단은 유지한다. 필요한 멤버가 끝내 입장하지 못해 **전체 budget이 만료**되면 D-N5에 따라 세션을 중단하는 별도 사건이다. 이미 승인된 확정 멤버가 이후 이탈하는 기존 실패/복원 흐름도 별개다. Host 사전 검증 실패는 StartHost 요청을 거부하는 경로이며 아직 시작하지 않은 세션을 실행 중인 세션의 중단으로 보고하지 않는다.
+[현행] 코드 이름은 AdmissionRejectionCode의 현행 이름이다. 검증기 오류·지연·잘못된 결과만으로 전체 세션을 즉시 중단하지 않는다. 승인 전 해당 접속을 거부하고 확정 명단은 유지한다. 필요한 멤버가 끝내 입장하지 못해 **전체 budget이 만료**되면 D-N5에 따라 세션을 중단하는 별도 사건이다. 이미 승인된 확정 멤버가 이후 이탈하는 기존 실패/복원 흐름도 별개다. Host 사전 검증 실패는 StartHost 요청을 거부하는 경로이며 아직 시작하지 않은 세션을 실행 중인 세션의 중단으로 보고하지 않는다.
 
 [현행] 읽은 N3의 `ApproveConnection`과 N4의 `HostServerInitialize`는 각각 현재 호출 스택에서 callback을 직접 호출한다. 이 함수들 자체에는 Unity 메인 스레드 검사가 없다. **미확인:** 가능한 모든 transport/접속 경로의 callback이 항상 메인 스레드라는 보장과 현재 프로젝트에서의 실제 호출 스레드. 이 정적 근거만으로 확정하지 않는다.
 
-[제안] wrapper의 명령·NGO 응답/mapping 상태 반영은 Unity 메인 스레드로 한정하고 P1에서 callback 맥락을 확인한다. 검증기가 NGO/native 객체를 조작하지 않게 입력을 값으로 제공한다. 비동기 작업의 완료 위치를 메인 스레드라고 가정하지 않고, 상태 반영 전에 주 스레드·owner·세대를 확인한다. 검증기 자체의 허용 실행 스레드/재진입 규격은 S1과 실제 P1 관찰 후 확정한다.
+[현행] wrapper의 명령·NGO 응답/mapping은 Unity 메인 스레드로 제한하고 검증기를 동기·비차단으로 호출한다. project hook의 비동기 완료는 주 스레드로 돌아와 owner 상태에 반영한다. 검증기는 native 조작·context 재진입을 하지 않는다. 실제 프로젝트 인증 서비스와 모든 transport 경로의 호출 맥락 보장은 이 검증으로 확대하지 않는다.
 
 ### B5. replay 책임의 경계
 
@@ -202,7 +226,7 @@
 | [결정됨] 같은 Attempt의 같은 참가자 중복 접속 (S2) | wrapper | 살아 있는 승인 mapping1개와 미완료 예약 충돌을 제한. 재접속 허용 시 새 증명이 필요한지는 프로젝트 검증기 정책 |
 | [제안] 늦은 승인·이전 접속의 응답 | wrapper | 실제 sender·접속 세대·owner를 대조해 상태 반영을 폐기. 증명 자체의 전역 replay 검증은 아님 |
 
-[결정됨] S2는 프로젝트의 증명 replay 검증과 wrapper의 같은 Attempt 내 살아 있는 mapping/예약 중복 제한으로 분담한다. 근거: 사용자 결정 2026-10-16. [제안] 검증기 입출력·재발급의 상세 API는 미확정이다. 프로젝트는 검증 성공 후 wrapper의 중복 검사에서 거부될 때 소비된 증명의 재발급/실패 정책도 정의한다. wrapper는 증명 소비를 암묵적으로 되돌리거나 같은 증명을 재사용 가능하다고 보고하지 않는다. 원자적 검증/소비 보장은 검증기 구현이 제공한다.
+[결정됨] S2는 프로젝트의 증명 replay 검증과 wrapper의 같은 Attempt 내 살아 있는 mapping/예약 중복 제한으로 분담한다. 근거: 사용자 결정 2026-10-16. [현행] 검증기 입출력은 P3 API이며 재발급 방식은 프로젝트 계약이다. 프로젝트는 검증 성공 후 wrapper의 중복 검사에서 거부될 때 소비된 증명의 재발급/실패 정책도 정의한다. wrapper는 증명 소비를 암묵적으로 되돌리거나 같은 증명을 재사용 가능하다고 보고하지 않는다. 원자적 검증/소비 보장은 검증기 구현이 제공한다.
 
 ### B6. Host 로컬 플레이어 경로
 
@@ -210,10 +234,10 @@
 
 | 상태·안 | 시작 전 검증 | 한계·추천 |
 |---|---|---|
-| [결정됨] 같은 프로젝트 검증기 사전 호출(S4) | StartHost 전에 같은 Session/Attempt/Roster 맥락으로 검증기를 호출하고 로컬 ID를 확인 | 성공 결과는 해당 Host 시작 시도에만 재사용해 증명을 이중 소비하지 않음. 구체 결과 타입·저장 수명은 P1/P3에서 검증. 근거: 사용자 결정 2026-10-16 |
+| [결정됨] 같은 프로젝트 검증기 사전 호출(S4) | StartHost 전에 같은 Session/Attempt/Roster 맥락으로 검증기를 호출하고 로컬 ID를 확인 | 성공 결과는 해당 Host 시작 시도에만 재사용해 증명을 이중 소비하지 않음. P3 AdmissionDecision을 해당 시작 시도에만 캐시. 근거: 사용자 결정 2026-10-16 |
 | [제안] 비채택 대안: 별도 로컬 신뢰 경로 | 프로젝트가 인증한 로컬 참가자를 별도 callback으로 제공하고 wrapper가 명단/중복/세대를 검사 | 원격과 정책이 달라질 수 있어 신뢰 근거·실패 규칙을 따로 정의해야 함. Host라는 이유만으로 무검증 승인하는 안은 아님 |
 
-[제안] 잘못된 Host ID·검증 실패·만료는 endpoint 시작 전에 거부한다. 임시 검증 결과는 같은 시작 시도에만 유효하며 새 Attempt에 넘기지 않는다. 실제 NGO 로컬 ID 연결·승인 callback 재진입·중복 소비 없는 결과 수명은 P1/P3 확인 항목이고 S4 방향 결정만으로 public API를 확정하지 않는다.
+[현행] 잘못된 Host ID·검증 실패·만료는 endpoint 시작 전에 거부한다. Host 사전 검증 성공 결과는 같은 시작 시도에서 NGO 로컬 승인 callback에 재사용하고 새 Attempt에 넘기지 않는다. P3 동일 Editor 검증 범위와 실제 프로젝트 인증·P4 미실행은 회고에서 구분한다.
 
 ### B7. 프로젝트 제공 요건
 
@@ -221,7 +245,7 @@
 - [제안] 증명 발급·전달 경로의 보안, 계정↔좌석 진위, 재사용 방지·만료·재발급·관측 가능성은 프로젝트 책임이다. wrapper의 NGO 승인 callback이 이를 자동 제공하지 않는다.
 - [제안] server 로그/결과의 원인 보존과 원격 정규화 코드 매핑을 정의하고 proof/비밀을 원격 거부 문자열에 노출하지 않는다. 실제 원격 Reason 수신이 불가능하면 로컬 단절/원격 사유 미확인으로 구분한다.
 - [제안] 로비가 없는 초기 개발용 단순 verifier 예제는 P5 후보로 둔다. 운영 인증 예제나 실제 발급 시스템으로 표시하지 않으며 이번 PR은 예제를 구현하지 않는다.
-- 미확인: 프로젝트의 실제 검증기·인증/발급 서비스·별도 로비 사유 채널, 실제 증명과 envelope의 상한·보안 구성, 최종 API와 모든 callback 경로. P1은 로컬 loopback의 native 접속·합성 payload·handler·종료 경로를 관찰했으며 실제 인증 서비스나 wrapper 구현을 검증하지 않았다.
+- 미확인: 프로젝트의 실제 검증기·인증/발급 서비스·별도 로비 사유 채널, 실제 증명과 envelope의 상한·보안 구성, 실제 인증 서비스와 모든 native callback 경로. P1은 로컬 loopback의 native 접속·합성 payload·handler·종료 경로를 관찰했으며 실제 인증 서비스나 wrapper 구현을 검증하지 않았다.
 
 ### B8. P0 이후 하위 결정과 남은 값
 
@@ -229,8 +253,8 @@
 |---|---|---|
 | S1 [결정됨] 동기/비동기 | 짧은 동기 검증 우선 | 네트워크 I/O를 동기로 막지 않음. 비동기 지원은 실제 요구 확인 뒤 별도 결정. 근거: 사용자 결정 2026-10-16 |
 | S2 [결정됨] replay 경계 | 프로젝트가 증명 replay 검증, wrapper가 같은 Attempt의 살아 있는 mapping/예약 중복 제한 | 증명 소비·만료·재발급은 프로젝트 책임. wrapper의 중복 제한은 인증/교차 시도 replay 검증을 대신하지 않음. 근거: 사용자 결정 2026-10-16 |
-| S3 [결정됨] 결정 시점 / 값 미확정 | P1 측정 후 전체 입장 payload 상한 확정 | 1KiB는 [제안] 실험 후보이며 NGO 보장값/기본값 아님. 실제 증명·외곽 envelope가 없는 합성 payload 측정과 구분. 근거: 사용자 결정 2026-10-16 |
-| S4 [결정됨] Host 경로 | StartHost 전 같은 프로젝트 검증기 호출 | 성공 결과는 해당 시도에만 재사용해 이중 소비 방지. 실제 NGO 경로·결과 수명은 P1/P3 확인. 근거: 사용자 결정 2026-10-16 |
+| S3 [결정됨] 프로젝트 필수 지정 | 전체 admission envelope 바이트 상한을 프로젝트가 필수 지정, 기본값 없음 | P1 합성 payload 관찰만으로 운영 상한을 정하지 않는다. NetworkSessionOptions.MaxAdmissionPayloadBytes에 반영. 근거: 사용자 결정 2026-10-16 |
+| S4 [결정됨] Host 경로 | StartHost 전 같은 프로젝트 검증기 호출 | 성공 결과는 해당 시도에만 재사용해 이중 소비 방지. P3에서 같은 시도 캐시와 로컬 승인 경로를 구현. 근거: 사용자 결정 2026-10-16 |
 
 [현행] 2026-10-16 사용자가 검토한 의존성 입력 반영과 P1 검증을 승인했다. manifest의 NGO2.13.3 한 항목, lock의 NGO2.13.3·UTP2.7.3 추가 및 기존 Mono Cecil1.11.6의 depth3→1만 이 단위에 포함한다. 기존 패키지 버전 변경·별도 UTP 직접 의존 추가·다른 dirty 자산 반영은 없다. P1의 temporary 하네스는 제품 wrapper·새 영속 assembly가 아니다.
 
@@ -238,8 +262,8 @@
 
 [현행] [build_distribution.py::PACKAGES](../tools/build_distribution.py)는 `com.tplab.core/input/editor` 3개만 정의하며 `upm/`의 실제 디렉터리도 같다. UI source는 존재하지만 배포 패키지 경계는 아직 포함되지 않았다. [UI 소스 마감](retrospectives/2026-10-15-07-ui-source-close.md)은 배포를 후속으로 남겼다. 이 초안이 패키지/버전/CHANGELOG를 만들지 않는다.
 
-- [제안] `com.tplab.netcode`와 `TPLab.Netcode`는 선택 모듈 후보다. 업무 모듈 의존은 Core와 NGO에 한정하고 UI/Input에 NGO 의존을 넣지 않는다. 프로젝트가 설정한 NetworkManager/NetworkTransport를 받아 UTP 설정을 공용 wrapper가 반드시 소유하도록 강제하지 않는다.
-- [제안] 기존 공용 async 규칙대로 UniTask를 공개/내부 async에서 직접 쓰면 `UniTask` assembly 참조도 명시적으로 필요하다. “Core와 NGO만”은 업무 모듈 경계이며 실제 asmdef 항목이 딱2개라는 확정이 아니다. **미확인:** 정확한 최종 참조/패키지 의존 표. P1 직전에는 개발 소스 assembly의 참조를 별도 승인·컴파일 검증 대상으로 삼고, UPM 패키지 구성/의존성 확정은 D-N3에 따라 P5 뒤로 둔다. UnityTransport 타입을 직접 사용하게 되면 UTP 참조가 추가로 필요하므로 프로젝트 설정 경계 유지와 비교해 다시 승인받는다.
+- [현행] 개발 assembly는 `TPLab.Netcode`다. [제안] `com.tplab.netcode` UPM 분리는 후속 배포 후보다. 업무 모듈 의존은 Core와 NGO에 한정하고 UI/Input에 NGO 의존을 넣지 않는다. 프로젝트가 설정한 NetworkManager/NetworkTransport를 받아 UTP 설정을 공용 wrapper가 반드시 소유하도록 강제하지 않는다.
+- [현행] P3 Runtime asmdef는 TPLab.Core·Unity.Netcode.Runtime·UniTask·Unity.Collections를 직접 참조한다. UniTask/Collections와 PlayMode 테스트 assembly는 사용자 별도 승인 후 추가했다. UI/Input 역참조는 없다. UnityTransport 클래스 자체는 NGO Runtime 소속이며 Unity.Networking.Transport API 직접 참조와 구분한다. **미확인:** 최종 UPM 패키지 경계·배포 의존성 표. D-N3에 따라 P5 이후 결정한다.
 - [제안] 릴리스 시 package.json의 Core·NGO·필요한 UniTask/직접 UTP 버전, 제3자 고지, 문서 projection, 소비 프로젝트 manifest와 lock을 확인해야 한다. 개발 package 설치 검증이 artifact 설치 검증을 대신하지 않는다.
 - [제안] D-N3/D-N6을 적용한 진행 세부: **P0 결정 반영 → 검토한 NGO 개발 의존성 입력의 별도 승인·반영 → P1 → P2 → P3 → P4 → P5 → 맨 마지막에 UI와 함께 UPM 패키지·배포**다. 순서의 방향은 D-N3로 정해졌으며 세부 gate는 아래 표의 제안이다. P1~P5를 끝내기 전 TPLab 배포 패키지 구성·버전·packager 작업은 하지 않는다. 개발용 NGO 의존성 반영과 소스 assembly 검증을 UPM 배포물 구성으로 혼동하지 않는다. `build_distribution.py`/tests/upm 변경은 마지막 릴리스 작업의 별도 범위다.
 - [현행] D-N6의 개발 의존성 단위는 사용자 2026-10-16 승인에 따라 검토한 manifest/lock 항목만 반영한다. PR #35에서는 이 입력을 변경하지 않았다. 설치본의 transitive 선언·실제 해석 버전과 package 원문 고지는 P1 회고에서 구분하며, 나머지 dirty를 커밋하지 않는다.
@@ -251,24 +275,22 @@
 | 상태 | 사건·조건 | 다음 상태·허용 동작 |
 |---|---|---|
 | [제안] Connecting/Preparing/ReadyBarrier | 취소·실패·확정 멤버 이탈·기한 초과 | Aborting: attempt 무효화, 준비 취소, 사유 통지 시도, 세션 종료 관찰 |
-| [제안] Aborting | 소유 정리·NGO 로컬 종료 완료 | RestoringLobby: 같은 failure record로 프로젝트 복원 callback 1회 |
+| [현행] Aborting | 정리 성공·시작 승인 전 실패이며 보호/게임 gate 실패가 아님 | RestoringLobby: 같은 failure record로 프로젝트 복원 callback 1회. 정상 Running 종료는 Closed, 승인 후 실패·보호/게임 gate 실패는 자동 복원하지 않음 |
 | [제안] Aborting | 종료 관찰 실패/상한 초과·미완료 hook 잔존 | RecoveryFault: 보호 화면 유지, endpoint 재시작·새 attempt 금지, 상태 관찰·진단·앱 종료만 허용 |
 | [제안] RestoringLobby | 복원 callback 성공 | Lobby: 실패 사유 표시, 새 명단·새 attempt·필요 시 새 root로 시작 가능 |
 | [제안] RestoringLobby | 복원 callback 실패 | RecoveryFault: 최초 실패/복원 실패 둘 다 반환·표시, 자동 성공/무한 재시도 없음 |
-| [제안] RecoveryFault | native 종료·이전 hook 종료가 확인되고 명시적 복원 재시도 요청 | RestoringLobby: 복원만 재시도; 옛 세션/Ready를 되살리지 않음 |
+| [현행] RecoveryFault | 정리 성공, 미완료 restore/진행 중 retry 없음, 명시적 복원 재시도 요청 | RestoringLobby: 복원만 재시도; 옛 세션/Ready를 되살리지 않음 |
 | [제안] RecoveryFault | callback이 비협조적으로 아직 실행 중 | 병렬 복원 재호출 금지; 보호 화면·프로젝트의 대체 안전 화면/앱 종료 안내 유지 |
 | [제안] 모든 오류 상태 | 앱 종료/재시작 선택 | 프로세스 종료는 프로젝트/사용자 책임; wrapper가 임의 종료하지 않음 |
 
-[제안] D-N4의 **정리 완료 후 명시적 로비 복원 재시도 + 안전한 종료 출구**를 구체화한다. 후보 API 이름 `RetryLobbyRestoreAsync`와 복원 callback의 멱등 key·취소·부분 복원 책임은 여전히 미확정이다. 대안은 (1) 재시도 없이 앱 재시작만 허용: 계약은 작지만 UX 비용 큼, (2) 자동 재시도: 일시 장애에 편하나 중복 자원·무한 대기 위험. 재시도가 구현되어 있다고 표현하지 않는다. 같은 root의 Prepare 재시도 금지와 “프로젝트 복원 callback의 재호출”을 혼동하지 않는다.
+[현행] D-N4의 **정리 완료 후 명시적 로비 복원 재시도 + 안전한 종료 출구**를 `RetryLobbyRestoreAsync`와 `ShutdownAsync`로 제공한다. 복원 callback의 멱등 key는 같은 SessionId/AttemptId이고 부분 복원 자원은 프로젝트가 소유한다. 대안은 (1) 재시도 없이 앱 재시작만 허용: 계약은 작지만 UX 비용 큼, (2) 자동 재시도: 일시 장애에 편하나 중복 자원·무한 대기 위험. 비협조 hook의 실제 종료 전에는 재시도/안전 종료를 성공으로 보고하지 않는다. 같은 root의 Prepare 재시도 금지와 “프로젝트 복원 callback의 재호출”을 혼동하지 않는다.
 
 ## E. 대기 상한과 취소의 서로 다른 수명
 
-- [제안] D-N5로 정한 전체 budget·확정 명단 유지의 구체화: 전체 전원 준비 deadline은 서버가 RosterFrozen을 수락한 시점부터 StartAuthorized 직전까지의 **접속·인증·로컬 준비를 포함한 한 budget**으로 둔다. 서버의 단조 증가/unscaled clock으로 판정하고 client 시계나 Time.timeScale로 결정하지 않는다. 지연된 한 명 때문에 budget을 자동 갱신하거나 명단을 줄이지 않는다. 만료하면 전체 attempt 중단·복원이다.
+- [제안] D-N5로 정한 전체 budget·확정 명단 유지의 구체화: 전체 전원 준비 deadline은 StartAsync가 요청을 수락한 시점부터 시작 승인 관찰까지의 **보호·접속·인증·로컬 준비를 포함한 한 budget**으로 둔다. 서버의 단조 증가/unscaled clock으로 판정하고 client 시계나 Time.timeScale로 결정하지 않는다. 지연된 한 명 때문에 budget을 자동 갱신하거나 명단을 줄이지 않는다. 만료하면 전체 attempt 중단·복원이다.
 - [제안] 초기 실험 후보는 **60초**이며 기본값 확정이 아니다. 대상 게임/네트워크에서의 적합성은 **미확인**이고 P1/P4 측정 후 정한다. NGO의 연결 승인10초(N2), transport timeout, root shutdown의 단계별60초는 서로 다른 정책이다.
 - [현행] [03 작업과 대기자의 수명](guidelines/03-async-lifecycle.md#작업과-대기자의-수명)과 [D-H6/D-H7](guidelines/03-async-lifecycle.md#확정된-수명-규칙)은 caller 대기 취소와 owner 종료, hook의 취소/해제 책임, root 단계별 deadline의 범위를 구분한다. root 정책을 NGO 종료 완료 보장으로 자동 확대하지 않는다.
-- [제안] 관측 caller의 cancellation은 그 호출의 대기만 취소한다. 소유자의 중단 요청은 별도 명시적 동작으로 서버가 수락하고 attempt를 끝낸다. client가 로컬 대기를 취소했다는 이유만으로 전역 세션을 몰래 종료하지 않는다. owner Shutdown/실제 이탈은 별도 세션 사건이다.
-- [제안] 종료/복원 관찰에도 별도 유한 budget을 두되 구체 값은 미확정이다. Timeout은 대기 실패와 보호 상태 진입을 뜻하고 NGO native/hook/메인 스레드 blocking의 강제 중단을 뜻하지 않는다. 늦은 결과는 attempt/owner 세대가 맞는지 확인해 상태·gameplay를 되살리지 않는다. hook 작성자가 자신이 시작한 작업을 취소·release하고 종료된 서비스에 접근하지 않게 관리한다.
-- [현행] [05 Timeout 방침](guidelines/05-testing.md#양성-대조-범위와-미확정-사항)의 D-I2/IMP-04b는 테스트 timeout 적용 범위/기본값 실험이다. 세션의 runtime deadline과 별개이며 실험 전 hang 중단 보장을 쓰지 않는다. P2/P3 테스트는 gate·유한 조건 대기·양성 경로로 상태를 검증하고 timeout 자체를 성공 오라클로 삼지 않는다.
+- [현행] 각 public 메서드의 cancellation은 그 호출의 대기만 취소한다. ShutdownAsync는 로컬 owner 작업의 명시적 취소·정리이며 서버 승인 응답을 기다리지 않는다. 원격 사유 통지는 best effort이고 별도 P4 검증 대상이다. caller 대기 취소·owner Shutdown·실제 단절은 서로 다른 사건이다.
 
 ## F. NGO 종료 완료 관찰
 
@@ -276,19 +298,19 @@
 
 [현행] `ShutdownInternal`은 connection/transport 정리(N8), `IsListening=false`, shutdown flag 정리·local role 초기화 뒤 역할별 `OnClientStopped(bool)`/`OnServerStopped(bool)`를 호출한다. Host는 둘 다 호출되는 경로가 있다. 이 bool은 Host 역할 정보이며 성공/실패 결과가 아니다. `ShutdownInProgress=false`만으로는 아직 시작하지 않은 객체도 참이므로 종료 성공으로 세면 안 된다. `OnStopped`는 internal이므로 wrapper의 완료 관찰 API로 쓰지 않는다.
 
-[제안] P1 어댑터는 **요청 전에** 역할별 공개 stop 이벤트를 구독하고, 해당 start 세대의 예상 이벤트와 로컬 `!IsListening && !ShutdownInProgress && !IsServer && !IsClient`를 함께 확인한다. start 실패/이미 정지 상태는 별도 경로로 판정한다. 성공 시 자기 handler를 해제하며 중복 종료는 같은 작업 결과를 공유하도록 한다. 이벤트 중 throw·재진입 start를 하지 않는 관찰 handler를 쓴다. 외부 소유자의 같은 NetworkManager 재시작/파괴는 독점 사용 계약 위반 또는 별도 긴급 종료 경로로 보고한다.
+[현행] P3 어댑터는 **요청 전에** 역할별 공개 stop 이벤트를 구독하고, 해당 start 세대의 예상 이벤트와 로컬 `!IsListening && !ShutdownInProgress && !IsServer && !IsClient`를 함께 확인한다. start 실패/이미 정지 상태는 별도 경로로 판정한다. 성공 시 자기 handler를 해제하며 중복 종료는 같은 작업 결과를 공유하도록 한다. 이벤트 중 throw·재진입 start를 하지 않는 관찰 handler를 쓴다. 외부 소유자의 같은 NetworkManager 재시작/파괴는 독점 사용 계약 위반 또는 별도 긴급 종료 경로로 보고한다.
 
-[현행] P1은 명시적으로 생성·참조한 NGO/UTP의 정상 Host/client 종료, 같은 manager의 재시작, stop 이벤트와 역할 상태, 객체 파괴를 Editor/Windows Mono Player에서 관찰했다. 실행 조건·수치·원문은 P1 회고에 둔다. Transport가 없는 시작 실패에서는 역할 상태가 남고 정상 shutdown 관찰을 완료하지 못했으므로, 단순 role flag나 start 반환값만으로 모든 비정상 정리를 보장하지 않는다. [제안] P3 어댑터는 native 시작 전에 필수 설정을 검증하고, 정리 관찰 실패를 오류 상태로 보존한다. 이 제한은 NGO 수정이나 모든 native 실패의 복구 보장을 승인하지 않는다. P1은 로컬 NGO 종료 관찰이며 모든 원격 프로세스의 종료·로비 복원 완료가 아니다. 원격 통지/복원은 P4에서 별도로 검증한다.
+[현행] P1은 명시적으로 생성·참조한 NGO/UTP의 정상 Host/client 종료, 같은 manager의 재시작, stop 이벤트와 역할 상태, 객체 파괴를 Editor/Windows Mono Player에서 관찰했다. 실행 조건·수치·원문은 P1 회고에 둔다. Transport가 없는 시작 실패에서는 역할 상태가 남고 정상 shutdown 관찰을 완료하지 못했으므로, 단순 role flag나 start 반환값만으로 모든 비정상 정리를 보장하지 않는다. [현행] P3 어댑터는 native 시작 전에 필수 설정을 검증하고, 정리 관찰 실패를 오류 상태로 보존한다. 이 제한은 NGO 수정이나 모든 native 실패의 복구 보장을 승인하지 않는다. P1은 로컬 NGO 종료 관찰이며 모든 원격 프로세스의 종료·로비 복원 완료가 아니다. 원격 통지/복원은 P4에서 별도로 검증한다.
 
 ## P0–P5 진행 단계와 gate
 
 | 상태·phase | 목적·예정 범위 | 완료 조건·미실행 경계 |
 |---|---|---|
-| [현행] P0 계약 기록 | D-N1~D-N8 반영·검증기 주입 세부 후보 정리 | 방향·S1/S2/S4 반영. S3 값·public API·P1 미확인은 별도이며 wrapper 구현 승인은 아님 |
+| [현행] P0 계약 기록 | D-N1~D-N8 반영·검증기 주입 세부 후보 정리 | 당시 방향·S1/S2/S4 결정 반영이며 그 자체는 구현 승인이 아님. 이후 별도 P3 승인으로 public API·S3 필수 입력을 구현 |
 | [현행] P1 기반 확인(사용자 실행 승인 2026-10-16) | 승인 의존성·컴파일, 명시 참조 Host/client·승인·Named message·종료·합성 payload·종전 false 후보·동일 프로세스 다중 instance 관찰 | Editor/Windows Mono Player 기본 경로 확인과 무효 Transport 시작 제한을 회고에 기록. false 관찰은 당시 빈 고정 씬 조건의 증거로 보존한다. 당시 미확인이던 별도 프로세스 native 관찰은 다음 행에서 보완한다. 실제 인증·IL2CPP·wrapper 구현과 S3 값은 여전히 미확인 |
 | [현행] P1 true 추가 검증(2026-10-16) | 별도 Windows Mono Player Host/client의 초기 Single/Additive 동기화·in-scene NetworkObject, Additive 로드/해제·Single 전환·client 권한 거부·정상 종료 | native 관찰 완료. 실행 수·객체 ID 대조·정리·한계는 [추가 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md#2026-10-16-후속--true-권장과-native-씬-검증)에 보존한다. GameSceneManager 통합·wrapper Ready/복원·P4 실패 시나리오 검증은 아님 |
 | [현행] P2 프로토콜 | internal 순수 server/client 전이, 명단·attempt·Ready·단일 start/abort·deadline/최초 실패 | NGO 객체 없는 EditMode Red→Green; [P2 계약](#p2-내부-프로토콜-구현)과 회고의 검증/미실행 참조. wire encoding·실제 adapter/복원은 P3 |
-| [제안] P3 어댑터·callback | NetworkSessionContext/SessionStartCoordinator, NGO sender mapping·준비/복원 callback·owner 수명·stop 관찰 | 설치 소스와 실제 NGO 경로 targeted 테스트, 전체 회귀·정리 완료/로그 관찰, 정상 코드 실패 시 중단/원인 분리 |
+| [현행] P3 어댑터·callback | NetworkSessionContext/SessionStartCoordinator, NGO sender mapping·준비/복원 callback·owner 수명·stop 관찰 | [P3 계약](#p3-ngo-어댑터와-callback-구현)·[회고](retrospectives/2026-10-16-03-netcode-p3-adapter.md)의 실행 범위 참조. 같은 Editor 관찰과 P4/P5 미실행을 구분 |
 | [제안] P4 다중 peer | 별도 프로세스 Host+clients, 전원 준비, 위조·중복·중도 이탈·느린 peer·server 손실·복원 실패 | 각 프로세스 결과와 서버 승인 횟수/세대/실패 전달을 대조. 단일 프로세스 통과로 대체하지 않음 |
 | [제안] P5 예제·수락 | 고정 씬·프로젝트 로비/보호 화면 callback 예제, 사용자 검토, 사람/AI API·XML 확정 | 예제와 사용자 수락. 공유 씬 전환/Relay·인증 provider/팀 매칭은 별도 후속; UPM 패키지·배포는 P1~P5 뒤 UI와 함께 맨 마지막(D-N3) |
 
@@ -296,19 +318,19 @@
 
 ## 미확인 항목과 사용자 결정
 
-미확인 목록: (U1) IL2CPP·다른 플랫폼(현재 Editor/Windows Mono Player의 기본 경로는 P1 관찰), (U2) 향후 wrapper fixture 격리(동일 프로세스 native 다중 manager는 P1 관찰), (U3) 프로젝트의 실제 검증기·발급/인증 기반·별도 사유 채널, (U4) 실제 증명/envelope 상한과 보안 구성(S3; 합성 payload 실험만 수행), (U5) 개발용 assembly 최종 참조·후속 UPM 의존성, (U6) 복원 callback 멱등 key/API 이름·부분 실패·완료 관찰, (U7) 전체 deadline 값·종료/복원 budget, (U8) 모든 비정상 시작/종료의 복구 범위(정상 stop·파괴는 P1 관찰, 무효 Transport는 제한 확인), (U9) 프로젝트가 선택할 초기 Single/Additive 모드와 GameSceneManager inventory/소유권 통합이다. true의 native 초기 동기화·씬 객체·로드 모드는 별도 Windows Mono Player P1에서 관찰했지만 실제 프로젝트 씬·wrapper 준비/복원 통합은 미검증이다. 종전 false의 빈 고정 씬 실험은 그 당시 조건으로 보존한다. B절의 모든 callback 스레드·검증기 입출력 수명·재진입 계약도 P3에서 더 검증해야 한다.
+미확인 목록: (U1) P3 wrapper Player/IL2CPP·다른 플랫폼, (U2) P4 별도 프로세스 wrapper 실패/위조/이탈·복원 전파, (U3) 프로젝트의 실제 검증기·발급/인증 기반·별도 사유 채널, (U4) 프로젝트별 실제 envelope 상한과 보안 구성(S3 필수 입력), (U5) 최종 UPM 경계·의존성·소비 설치, (U6) 실제 프로젝트 복원 callback의 멱등성/부분 실패, (U7) 프로젝트 준비/종료/복원 budget 값, (U8) 모든 비정상 native 시작/종료의 복구 범위, (U9) 실제 프로젝트 초기 Single/Additive 선택과 GameSceneManager inventory/소유권 통합이다. P1 native Player 관찰과 P3 동일 Editor 개발 검증은 다른 증거다. public API와 SessionId/AttemptId 복원 key는 P3에 구현됐지만 프로젝트 동작까지 검증한 것은 아니다.
 
 ### 사용자 결정 D-N1~D-N8
 
 | ID·상태 | 반영한 결정 | 단서·근거 |
 |---|---|---|
 | D-N1 [결정됨] 상태기계 분리 | A1 = 내부 순수 상태기계 + 얇은 NGO 어댑터 | NGO 미설치 컴파일을 위한 별도 assembly는 이번 결정 밖이며 별도 승인. 근거: 사용자 결정 2026-10-15 |
-| D-N2 [결정됨] 입장 검증 | 프로젝트가 검증기를 주입한다. wrapper는 서명/일회용 ticket 등 증명 형식을 정하지 않는다. | B절의 입출력/API는 제안이며 S1/S2/S4 방향은 2026-10-16 별도 결정. 근거: 사용자 결정 2026-10-15 |
+| D-N2 [결정됨] 입장 검증 | 프로젝트가 검증기를 주입한다. wrapper는 서명/일회용 ticket 등 증명 형식을 정하지 않는다. | B절의 입출력은 P3 개발 API로 구체화했고 S1/S2/S4 방향은 2026-10-16 별도 결정. 근거: 사용자 결정 2026-10-15 |
 | D-N3 [결정됨] 개발·배포 순서 | Netcode wrapper P1~P5 개발을 먼저 마치고 UPM 패키지·배포는 맨 마지막에 UI와 함께 진행 | 그 전에 TPLab 배포 패키지 구성·버전·packager 작업을 하지 않음. 근거: 사용자 결정 2026-10-15 |
-| D-N4 [결정됨] 복원 출구 | 정리 완료 후 명시적 복원 재시도 + 안전한 종료 출구 | RetryLobbyRestoreAsync 이름과 복원 callback 멱등 key는 여전히 미확정. 근거: 사용자 결정 2026-10-15 |
+| D-N4 [결정됨] 복원 출구 | 정리 완료 후 명시적 복원 재시도 + 안전한 종료 출구 | P3 개발 API는 RetryLobbyRestoreAsync, 복원 멱등 key는 SessionId/AttemptId다. 근거: 사용자 결정 2026-10-15 |
 | D-N5 [결정됨] deadline 방향 | 전체 budget + 확정 명단 유지; 개별 연장·일부 제외 안 함 | 60초는 실험 후보이며 종료·복원 budget 값도 미확정. 근거: 사용자 결정 2026-10-15 |
 | D-N6 [결정됨] 의존성 반영 | 검토한 package 입력만 별도 승인 단위로 반영; dirty 전체 커밋 안 함 | PR #35에서 manifest/lock 변경0; 2026-10-16에 검토한 NGO/Transport 의존성과 P1 검증 승인. 근거: 사용자 결정 2026-10-15 |
-| D-N7 [결정됨] 준비 메시지 방향 | Named message 후보로 진행 | 실제 sender 검증·등록/해지는 P1/P3 확인, public API 미확정. 근거: 사용자 결정 2026-10-15 |
+| D-N7 [결정됨] 준비 메시지 방향 | Named message 후보로 진행 | P3에서 실제 sender 검증·등록/해지와 public wrapper를 구현. 다중 프로세스 실패 전파는 P4. 근거: 사용자 결정 2026-10-15 |
 | D-N8 [결정됨] 초기 동기화 정책·검증 방향 | `EnableSceneManagement=true` 기본 권장, `false`는 프로젝트 선택과 씬 동기화 책임 아래 허용; true P1 추가 검증 | 2026-10-15의 false 후보 검증 방향을 2026-10-16 사용자 결정으로 갱신. 종전 false 관찰은 역사적 조건으로 보존한다. GameSceneManager 역할 분리·1차 미확장, 같은 씬 이중 소유 금지; inventory/소유권 이관과 공유 씬 통합은 후속. native true의 별도 Windows Mono Player 관찰 완료; 실제 프로젝트·wrapper 통합은 후속 |
 
-[현행] [하위 결정 S1~S4](#b8-p0-이후-하위-결정과-남은-값) 중 S1/S2/S4 방향과 S3 결정 시점을 반영했다. S3 값·public API·복원 멱등 key·시간 값은 미확정이다. 2026-10-16 승인 범위의 의존성 반영·P1 검증·P2 내부 구현을 진행했다. P3 이후 구현과 마지막 UPM 배포는 별도 승인 범위다. 단계별 실행 결과와 미실행은 각 P1/P2 회고에 둔다.
+[현행] [S1~S4](#b8-p0-이후-하위-결정과-남은-값)를 반영한 P3 개발 API가 구현됐다. S3는 프로젝트 필수 입력/기본값 없음이며 준비·정리·복원 시간 값도 프로젝트가 명시한다. P4/P5와 마지막 UPM 배포는 후속이다. 단계별 실행 결과·중단/정정 이력·미실행은 각 P1/P2/P3 회고에 둔다.

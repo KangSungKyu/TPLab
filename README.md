@@ -91,6 +91,10 @@ P1/P2 및 P3 targeted UI 검증은 당시 단계별 결과로 보존되어 있�
 
 다른 Unity 버전·플랫폼·IL2CPP, 물리 게임패드/touch의 개별 UX, 모든 abrupt 종료 조합은 미검증이다. CI는 현재 미구성이며 자동 CI 통과로 표현하지 않는다. 변경 시 [문서 갱신 지침](doc/DOCUMENTATION_GUIDE.md)에 따라 XML 주석과 사람/AI 문서를 같은 작업에서 갱신한다. 업그레이드 전에는 소비 프로젝트에서 가져오기·compile·예제 실행을 다시 확인한다. 기존 Text/Resource schema는 core에서 제거되어 프로젝트 템플릿으로만 제공한다.
 
+## Netcode 개발 상태
+
+Netcode는 별도 [개발 source API](doc/api/Netcode.md)로 Host/client 세션·입장 검증기·전원 준비·종료/복원 callback을 제공한다. 프로젝트가 NetworkManager 설정과 증명·로비·UI를 소유하고 payload/시간 상한을 명시한다. P4 다중 프로세스 wrapper 검증과 P5 예제·수락, UPM 배포는 후속이며 0.0.1 패키지에는 포함되지 않는다.
+
 ## 라이선스
 
 TPLab 자체 코드·문서는 [MIT License](LICENSE)로 제공하며 외부 프로젝트 사용·수정·재배포를 허용한다. [제3자 고지](THIRD_PARTY_NOTICES.md)의 라이선스/저작권 원문은 별도로 유지한다. TPLab의 MIT는 제3자 구성 요소를 재허가하지 않는다. [UniTask](doc/licenses/UniTask-LICENSE.txt), [CsvHelper](Assets/Plugins/CsvHelper/LICENSE.txt), 개발 도구 [Unity CLI](doc/licenses/UnityCli-LICENSE.txt)를 함께 확인한다. Unity package의 배포 조건은 설치한 해당 package의 LICENSE를 따른다. 이 문서 작성은 외부 제공본 배포 완료를 뜻하지 않는다.
