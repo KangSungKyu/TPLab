@@ -19,7 +19,7 @@ SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0 remains the reference f
 | Input | [Input](Input.md) | [Human](../../api/Input.md) |
 | Editor | [Editor](Editor.md) | [Human](../../api/Editor.md) |
 | UIContext (P1-P6 implemented; focused validation partial) | [UI](UI.md) | [Human](../../api/UI.md) |
-| Netcode (internal P2; public wrapper unavailable) | [Netcode](Netcode.md) | [Human](../../api/Netcode.md) |
+| Netcode (P3 public wrapper; development source) | [Netcode](Netcode.md) | [Human](../../api/Netcode.md) |
 
 항목 이름: Module/Namespace/Assembly, SourceRevision/SourcePath/HumanContract, ImplementationStatus/ValidationStatus/Evidence, Symbol/Signature/Constraints, Inputs/Outputs/Errors, Ownership/Lifecycle/Threading, Concurrency/Cancellation/FailureCleanup, Configuration/ExtensionPoints, RequiredSequence/ForbiddenUsage, Example/Compatibility/Limitations.
 

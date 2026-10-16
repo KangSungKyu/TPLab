@@ -1,0 +1,13 @@
+{
+  "name": "TPLab.Netcode.PlayModeTests",
+  "rootNamespace": "TPLab.Netcode.Tests",
+  "references": [
+    "TPLab.Netcode",
+    "Unity.Netcode.Runtime",
+    "UniTask",
+    "Unity.Collections"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
