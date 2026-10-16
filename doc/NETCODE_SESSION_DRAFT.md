@@ -1,7 +1,7 @@
 # Netcode 세션 wrapper P0 계약 초안
 유형: 레퍼런스
 현재 상태: P2 내부 프로토콜 구현; NGO wrapper 미구현, true 기본 권장·false 프로젝트 선택
-기준 source: P2 작업 트리; 기준 main 67fe237edfc82afb7b45d5580d6551ab3b325c20; NGO 2.13.3 / Unity Transport 2.7.3
+기준 source: TPLab P2 source d374cb3fc88629b300245f959f07825558f7f355; NGO 2.13.3 / Unity Transport 2.7.3
 갱신일: 2026-10-16
 계약 링크: 본 문서
 

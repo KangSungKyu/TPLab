@@ -87,6 +87,8 @@ GC 경로는 읽기 기준으로 생성/명단 복사/실패 객체는 P2(초기
 
 ## 최종 정적·보존 확인
 
+검증된 source commit은 `d374cb3fc88629b300245f959f07825558f7f355`이다. 후속 커밋은 source SHA·검증 기록을 문서에 고정하며 Runtime/test는 이 source와 동일하다. `check_pr_rules.py`는28파일에서 오류0·경고0, 작업 diff 공백 오류0이다. 최종 HEAD exact-SHA Actions는 PR의 해당 SHA 검사와 완료 보고로 대응한다.
+
 실제 로드된 TPLab.Netcode assembly의 GetExportedTypes 결과는0이다. Editor PID3428은 컴파일/Play가 종료됐고 활성 씬은 InitScene, 미저장 씬0, 최종 error Console은 빈 배열이었다. 제품 사용/다중 peer 시나리오 실행을 주장하지 않는다.
 
 승인된 새 Assets20파일(폴더 meta 포함 meta12개)과 문서8개만 이번 변경이다. 기존 runtime/test/assembly/package 입력/tools/workflow/upm/AGENTS/CLAUDE 변경0, dirty8개 원본 bytes 일치, meta 누락0·새 GUID 중복0을 확인했다. 전체 이름 집합은 Edit 기존398개+신규62개, Play 기존379개 그대로다.

@@ -1,7 +1,7 @@
 # Netcode 세션 모듈
 유형: 레퍼런스
 현재 상태: P2 internal 프로토콜 구현; 소비 프로젝트용 public API 없음
-기준 source: P2 작업 트리; 기준 main 67fe237edfc82afb7b45d5580d6551ab3b325c20
+기준 source: TPLab P2 source d374cb3fc88629b300245f959f07825558f7f355
 갱신일: 2026-10-16
 계약 링크: [Netcode 세션 계약](../NETCODE_SESSION_DRAFT.md)
 

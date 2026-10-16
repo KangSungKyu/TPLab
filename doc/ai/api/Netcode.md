@@ -1,7 +1,7 @@
 # Netcode protocol integration reference
 유형: 레퍼런스
 현재 상태: Internal P2 implementation; public wrapper API unavailable
-기준 source: P2 작업 트리; 기준 main 67fe237edfc82afb7b45d5580d6551ab3b325c20
+기준 source: TPLab P2 source d374cb3fc88629b300245f959f07825558f7f355
 갱신일: 2026-10-16
 계약 링크: [Netcode session contract](../../NETCODE_SESSION_DRAFT.md)
 
