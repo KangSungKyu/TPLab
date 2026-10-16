@@ -24,6 +24,13 @@ CsvHelper의 두 라이선스는 대안이며 원래의 선택권을 유지한�
 
 ## 개발 전용 구성
 
+Netcode P1용으로 승인한 개발 의존성은 다음과 같다. 구현 소스는 공식 Package Manager로 설치하며 TPLab 배포물에 복사하지 않는다. 아래 고지는 설치 package의 `LICENSE.md` 원문을 읽은 결과이며 UPM 패키지·배포 검증은 후속이다.
+
+| 구성 요소 | 설치 버전 | 설치 원문의 고지 |
+|---|---|---|
+| Netcode for GameObjects | 2.13.3 | Unity Companion License (Unity-dependent projects); copyright © 2024 Unity Technologies |
+| Unity Transport | 2.7.3 | Unity Companion License (Unity-dependent projects); copyright © 2023 Unity Technologies |
+
 Unity CLI/Connector 0.4.1의 [MIT 원문](doc/licenses/UnityCli-LICENSE.txt)은 Copyright (c) 2025 DevBookOfArray이며 [고정 원본](https://github.com/youngwoocho02/unity-cli/tree/07c62fd29f1e6d29d8f9a504b968bedbbd47ddc8)을 사용한다. Connector 구현은 manifest 참조로 설치하고 TPLab 소비 runtime package에 동봉하지 않는다. Unity Test Framework·IDE·URP 등 개발 프로젝트 package는 각각의 설치 원문 조건을 따르며 소비 코어의 필수 의존성으로 전파하지 않는다.
 
 새 패키지/플러그인을 채택하거나 제3자 소스를 수정·동봉하면 해당 원본·버전·변경 표시·라이선스·NOTICE를 같은 작업에서 갱신한다. 외부 의존성에 원문보다 강한 추가 제한을 붙이지 않고, 필요한 원문 조건을 삭제해서도 안 된다. 실제 TPLab UPM 산출물은 아직 발행되지 않았다.
