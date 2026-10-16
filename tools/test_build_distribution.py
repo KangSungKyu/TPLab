@@ -26,9 +26,15 @@ class DistributionTests(unittest.TestCase):
         cls.template = Path(cls.base.name) / 'template'
         cls.template.mkdir()
         roots = ('Assets/TPLab/Core', 'Assets/TPLab/Input/Runtime', 'Assets/TPLab/Editor',
-                 'Assets/TPLab/Samples/Core/CorePooling', 'Assets/TPLab/Samples/Input/SceneTransitions', 'Assets/Plugins/CsvHelper', 'doc/api', 'doc/ai/api', 'doc/licenses')
+                 'Assets/TPLab/UI/Runtime', 'Assets/TPLab/UI/InputSystem/Runtime', 'Assets/TPLab/Netcode/Runtime',
+                 'Assets/TPLab/Samples/Core/CorePooling', 'Assets/TPLab/Samples/Input/SceneTransitions',
+                 'Assets/TPLab/Samples/UI', 'Assets/TPLab/Samples/Netcode', 'Assets/Plugins/CsvHelper',
+                 'doc/api', 'doc/ai/api', 'doc/licenses')
         exact = {'Assets/TPLab/Core.meta', 'Assets/TPLab/Input/Runtime.meta',
-                 'Assets/TPLab/Editor.meta', 'Assets/Plugins/CsvHelper.meta', 'Assets/TPLab/Samples/Core/CorePooling.meta', 'Assets/TPLab/Samples/Input/SceneTransitions.meta',
+                 'Assets/TPLab/Editor.meta', 'Assets/TPLab/UI/Runtime.meta', 'Assets/TPLab/UI/InputSystem/Runtime.meta',
+                 'Assets/TPLab/Netcode/Runtime.meta', 'Assets/Plugins/CsvHelper.meta',
+                 'Assets/TPLab/Samples/Core/CorePooling.meta', 'Assets/TPLab/Samples/Input/SceneTransitions.meta',
+                 'Assets/TPLab/Samples/UI.meta', 'Assets/TPLab/Samples/Netcode.meta',
                  'LICENSE', 'THIRD_PARTY_NOTICES.md', 'ProjectSettings/ProjectVersion.txt', '.gitattributes'}
         for path in git(ROOT, 'ls-files').splitlines():
             if path in exact or any(path.startswith(prefix + '/') for prefix in roots):
@@ -59,7 +65,7 @@ class DistributionTests(unittest.TestCase):
         self.revision = git(self.root, 'rev-parse', 'HEAD')
 
     def build(self, run='first', prepare=True, **changes):
-        args = dict(source=self.root, revision=self.revision, version='0.0.1', run_id=run,
+        args = dict(source=self.root, revision=self.revision, version='0.0.2', run_id=run,
                     output=self.root / 'tplab' / run, prepare=prepare)
         args.update(changes)
         return builder.build(**args)
@@ -79,18 +85,103 @@ class DistributionTests(unittest.TestCase):
         root = self.root / 'tplab/first/packages'
         core = json.loads((root / 'com.tplab.core/package.json').read_text())
         inp = json.loads((root / 'com.tplab.input/package.json').read_text())
+        ui_input = json.loads((root / 'com.tplab.ui.inputsystem/package.json').read_text())
+        netcode = json.loads((root / 'com.tplab.netcode/package.json').read_text())
         self.assertEqual('Samples~/CorePooling', core['samples'][0]['path'])
         self.assertEqual('Samples~/SceneTransitions', inp['samples'][0]['path'])
         self.assertNotIn('com.unity.inputsystem', core['dependencies'])
         self.assertNotIn('com.unity.ugui', core['dependencies'])
         self.assertTrue((root / 'com.tplab.input/Samples~/SceneTransitions/Settings/SampleInput.inputactions').is_file())
         self.assertFalse((root / 'com.tplab.editor/Samples~').exists())
+        self.assertEqual('Samples~/UI', ui_input['samples'][0]['path'])
+        self.assertEqual('Samples~/Netcode', netcode['samples'][0]['path'])
+        self.assertIn('com.unity.ugui: 2.0.0', (root / 'com.tplab.input/README.md').read_text())
+        self.assertIn('com.unity.inputsystem: 1.19.0', (root / 'com.tplab.netcode/README.md').read_text())
+        self.assertIn('com.unity.ugui: 2.0.0', (root / 'com.tplab.netcode/README.md').read_text())
+
+    def test_production_editor_validation_sources_are_preserved(self):
+        self.build()
+        source = self.root / 'Assets/TPLab/Editor/Bootstrap/BootstrapEditorValidation.cs'
+        package = self.root / 'tplab/first/packages/com.tplab.editor/Editor/Bootstrap/BootstrapEditorValidation.cs'
+        self.assertTrue(source.is_file())
+        self.assertTrue(package.is_file(), 'production Editor Validation source was filtered from package')
+        self.assertEqual(source.read_bytes(), package.read_bytes())
+        self.assertEqual((self.root / (str(source.relative_to(self.root)) + '.meta')).read_bytes(),
+                         (self.root / 'tplab/first/packages/com.tplab.editor/Editor/Bootstrap/BootstrapEditorValidation.cs.meta').read_bytes())
+
+    def test_ui_and_netcode_packages_keep_optional_dependencies_separate(self):
+        self.build()
+        root = self.root / 'tplab/first/packages'
+        expected = {
+            'com.tplab.ui': {'com.tplab.core': '0.0.2', 'com.cysharp.unitask': '2.5.11', 'com.unity.ugui': '2.0.0'},
+            'com.tplab.ui.inputsystem': {'com.tplab.ui': '0.0.2', 'com.tplab.input': '0.0.2',
+                'com.cysharp.unitask': '2.5.11', 'com.unity.inputsystem': '1.19.0', 'com.unity.ugui': '2.0.0'},
+            'com.tplab.netcode': {'com.unity.netcode.gameobjects': '2.13.3', 'com.cysharp.unitask': '2.5.11',
+                'com.unity.collections': '2.6.6'},
+        }
+        for package_id, dependencies in expected.items():
+            with self.subTest(package=package_id):
+                manifest = json.loads((root / package_id / 'package.json').read_text())
+                self.assertEqual('0.0.2', manifest['version'])
+                self.assertEqual(dependencies, manifest['dependencies'])
+                self.assertTrue((root / package_id / 'Documentation~/api/UI.md' if package_id.startswith('com.tplab.ui')
+                                 else root / package_id / 'Documentation~/api/Netcode.md').is_file())
+                self.assertTrue((root / package_id / 'Documentation~/ai/api/UI.md' if package_id.startswith('com.tplab.ui')
+                                 else root / package_id / 'Documentation~/ai/api/Netcode.md').is_file())
+        self.assertNotIn('com.tplab.core', expected['com.tplab.netcode'])
+        self.assertNotIn('com.unity.inputsystem', json.loads((root / 'com.tplab.ui/package.json').read_text())['dependencies'])
+        self.assertNotIn('com.unity.ugui', json.loads((root / 'com.tplab.core/package.json').read_text())['dependencies'])
+        self.assertIn('Unity uGUI', (root / 'com.tplab.ui/Third Party Notices.md').read_text(encoding='utf-8'))
+        netcode_notices = (root / 'com.tplab.netcode/Third Party Notices.md').read_text(encoding='utf-8')
+        self.assertIn('Netcode for GameObjects', netcode_notices)
+        self.assertIn('Unity Collections', netcode_notices)
+
+    def test_new_samples_map_asmdefs_and_externalize_repository_links(self):
+        self.build()
+        root = self.root / 'tplab/first/packages'
+        ui_adapter = root / 'com.tplab.ui.inputsystem'
+        netcode = root / 'com.tplab.netcode'
+        self.assertTrue((ui_adapter / 'Runtime/UIInputSystemAdapter.cs').is_file())
+        self.assertTrue((ui_adapter / 'Samples~/UI/Editor/UIContextSampleBuilder.cs').is_file())
+        ui_editor = json.loads((ui_adapter / 'Samples~/UI/Editor/TPLab.UISamples.OptionalInput.Editor.asmdef').read_text())
+        self.assertIn('TPLab.UI.InputSystem', ui_editor['references'])
+        self.assertIn('TPLab.Core.Input', ui_editor['references'])
+        self.assertTrue((netcode / 'Samples~/Netcode/Editor/NetcodeSessionSampleBuilder.cs').is_file())
+        netcode_editor = json.loads((netcode / 'Samples~/Netcode/Editor/TPLab.Netcode.Samples.Editor.asmdef').read_text())
+        self.assertIn('Unity.Netcode.Editor', netcode_editor['references'])
+        for package in (ui_adapter, netcode):
+            readme = (package / 'Samples~' / ('UI' if package == ui_adapter else 'Netcode') / 'README.md').read_text(encoding='utf-8')
+            self.assertNotIn('../../../../doc/', readme)
+            self.assertIn('https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/', readme)
+            sample_tree = package / 'Samples~'
+            self.assertFalse(any(part in ('Tests', 'Tests.meta') for path in sample_tree.rglob('*')
+                                 for part in path.relative_to(sample_tree).parts))
+        netcode_asmdef = json.loads((netcode / 'Runtime/TPLab.Netcode.asmdef').read_text())
+        self.assertNotIn('TPLab.Core', netcode_asmdef['references'])
+        self.assertTrue((netcode / 'Runtime/AssemblyInfo.cs').is_file())
+        manifest = json.loads((self.root / 'tplab/first/artifacts/distribution-manifest.json').read_text())
+        sample_sources = {'com.tplab.ui.inputsystem': 'Assets/TPLab/Samples/UI/README.md',
+                          'com.tplab.netcode': 'Assets/TPLab/Samples/Netcode/README.md'}
+        for package_id, source in sample_sources.items():
+            record = next(item for item in manifest['sourceMapping']
+                          if item['package'] == package_id and item['source'] == source)
+            self.assertEqual(hashlib.sha256((self.root / source).read_bytes()).hexdigest(), record['sha256'])
+
+    def test_all_six_packages_are_recorded_as_0_0_2(self):
+        self.build()
+        manifest = json.loads((self.root / 'tplab/first/artifacts/distribution-manifest.json').read_text())
+        expected = {'com.tplab.core', 'com.tplab.input', 'com.tplab.editor', 'com.tplab.ui',
+                    'com.tplab.ui.inputsystem', 'com.tplab.netcode'}
+        self.assertEqual(expected, {item['id'] for item in manifest['packages']})
+        self.assertTrue(all(item['version'] == '0.0.2' for item in manifest['packages']))
+        sums = (self.root / 'tplab/first/artifacts/SHA256SUMS.txt').read_text()
+        self.assertEqual(expected, {line.split('  ', 1)[1].removesuffix('-0.0.2.tgz') for line in sums.splitlines()})
 
     def test_packages_docs_licenses_payload(self):
         self.build()
         folder = self.root / 'tplab/first'
         manifest = json.loads((folder / 'artifacts/distribution-manifest.json').read_text())
-        self.assertEqual(3, len(manifest['packages']))
+        self.assertEqual(6, len(manifest['packages']))
         self.assertFalse(manifest['publishable'])
         self.assertEqual(self.revision, manifest['sourceRevision'])
         for package in manifest['packages']:
@@ -103,6 +194,10 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual(b'\x00' * 4, archive.read_bytes()[4:8])
             for src, dst in builder.PACKAGES[package['id']]['roots'].items():
                 self.assertEqual((self.root / (src + '.meta')).read_bytes(), (tree / (dst + '.meta')).read_bytes())
+            samples = tree / 'Samples~'
+            if samples.exists():
+                self.assertFalse(any(part in ('Tests', 'Tests.meta') for path in samples.rglob('*')
+                                     for part in path.relative_to(samples).parts))
             with tarfile.open(archive) as tar:
                 for member in tar.getmembers():
                     self.assertTrue(member.name.startswith('package/'))
@@ -118,6 +213,10 @@ class DistributionTests(unittest.TestCase):
         self.assertTrue((core / 'Documentation~/ai/api/Pooling.md').is_file())
         self.assertFalse((core / 'Documentation~/api/Input.md').exists())
         self.assertNotIn('Temp/', (core / 'README.md').read_text(encoding='utf-8'))
+        install = (folder / 'artifacts/INSTALL.md').read_text(encoding='utf-8')
+        self.assertIn('Version 0.0.2', install)
+        self.assertIn('Netcode is standalone and does not require Core', install)
+        self.assertNotIn('Supply explicit UniTask/Core', install)
 
     def test_same_input_reproducible_despite_run(self):
         self.build('one'); self.build('two')

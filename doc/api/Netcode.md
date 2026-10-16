@@ -9,7 +9,7 @@
 
 | 구분 | 책임·근거 |
 |---|---|
-| Namespace / assembly | `TPLab.Netcode` / `TPLab.Netcode`; 직접 참조는 TPLab.Core·Unity.Netcode.Runtime·UniTask·Unity.Collections |
+| Namespace / assembly | `TPLab.Netcode` / `TPLab.Netcode`; 직접 참조는 Unity.Netcode.Runtime·UniTask·Unity.Collections; 0.0.2 준비에서 사용되지 않는 Core 참조 제거 |
 | Public 계약 | [NetworkSessionContracts.cs](../../Assets/TPLab/Netcode/Runtime/NetworkSessionContracts.cs), [NetworkSessionContext.cs](../../Assets/TPLab/Netcode/Runtime/NetworkSessionContext.cs) |
 | 내부 어댑터 | [SessionStartCoordinator.cs](../../Assets/TPLab/Netcode/Runtime/SessionStartCoordinator.cs); 소비자가 직접 호출하지 않음 |
 | 프로젝트 소유 | manager/GameObject·transport·주소·prefab·인증/증명·실제 씬/root·UI/input·gameplay 동기화 |
@@ -135,3 +135,7 @@ Client는 같은 identity와 프로젝트 proof로 NetworkSessionRequest.Client(
 Named handler 이름 `TPLab.Netcode.Session.v1`은 예약 영역이다. NGO는 공개 등록 조회 API 없이 같은 이름을 덮어쓸 수 있으므로 외부 코드의 충돌 부재까지 자동 검증하지 않는다. 사용 중 직접 Start/Shutdown·approval 교체·예약 handler 등록·ConnectionData/씬 정책 변경을 하지 않는다. wrapper는 native stop 확인 후 자기 handler와 아직 자기 값인 차용 필드만 정리한다.
 
 P3 true Additive의 같은 프로세스 검증은 당시의 격리된 smoke다. P4는 별도 Windows Mono Player의 Host+2 clients에서 true Single/Additive 초기 씬·in-scene 객체 동기화 후 준비/시작과 false 경로를 확인했다. 준비 실패·이탈·Host 손실·복원 재시도·잘못된 세대 메시지의 실제 실행 모드와 한계는 P4 회고를 따른다. 게임 시작 callback 1회 관찰은 wire Start 송신 횟수 계측이 아니다. IL2CPP/다른 플랫폼·실제 인증/로비·WAN/대규모 인원·모든 실패 조합·GC/성능·GameSceneManager 통합·UPM 설치/배포는 미검증이다. P5의 화면·입력·직접 조작에 대한 사용자 수락은 2026-10-16 완료됐다. 검토 보완 source와 재검증·통합 상태는 P5 회고를 따른다. [AI API](../ai/api/Netcode.md)와 [전체 계약](../NETCODE_SESSION_DRAFT.md)을 함께 확인한다.
+
+## 0.0.2 package boundary
+
+`com.tplab.netcode` packages the existing `TPLab.Netcode` assembly without a Core/UI/Input dependency. Required packages are NGO 2.13.3, UniTask 2.5.11 and Collections 2.6.6; NGO supplies its transport dependencies. Optional Samples use uGUI 2.0.0 and Input System 1.19.0. Public types and lifecycle contracts are unchanged. Artifact installation, Player verification and release status are separate gates in the [distribution contract](../DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate).
