@@ -1,12 +1,13 @@
 # 프로그래머 가이드라인
 
-- [현행] 기준 SourceRevision은 main **af084e0d0027c4098fad08c336ccb0753e1c7862**이다. 갱신일: 2026-10-15. 현재 지침·인용을 Git과 본문으로 대조했으며 아래 과거 집계·실행은 해당 source의 기록이다. [빠른 체크리스트](CHECKLIST.md), [근거와 검증 범위](#근거와-검증-범위).
+- [현행] 기준 SourceRevision은 main **af084e0d0027c4098fad08c336ccb0753e1c7862**이다. 기존 근거 갱신일: 2026-10-15. 당시 지침·인용을 Git과 본문으로 대조했으며 아래 과거 집계·실행은 해당 source의 기록이다. [빠른 체크리스트](CHECKLIST.md), [근거와 검증 범위](#근거와-검증-범위).
 - [현행] 이 문서는 현행 기준 가이드다. D-A/B/C·D-E~D-G·D-H1~D-H12·D-I1~D-I8은 사용자 결정이며, 남은 제안·미확인 범위는 [제안 목록](#제안-목록)에서 구분한다. [사용자 결정](#사용자-결정).
+- [현행] 2026-10-16 D-I2 후속: 기본 30초·테스트 assembly 적용 결정을 반영했다. 이번 변경의 기준 source·실행 증거는 [적용 회고](../retrospectives/2026-10-16-07-imp-04b-timeout-default.md), 정책은 [05 D-I2](05-testing.md#양성-대조-범위와-미확정-사항)를 따른다. 다른 장의 기존 source·역사적 수치를 이번에 재검증한 것으로 보지 않는다.
 
 ## 근거와 검증 범위
 
 - [현행] 각 항목은 코드·현재 문서의 사실인 **[현행]**, 사용자가 확정한 **[결정됨]**, 미확정인 **[제안]**으로 구분한다. 2026-10-15 라벨 변경의 근거는 아래 D-I1~D-I8의 사용자 결정이다. [상태 구분](../DOCUMENTATION_GUIDE.md#공통-사실과-상태).
-- [현행] 이번 증거 수준은 **코드 읽기·Git 조회/집계**이며 Unity·테스트·Player 실행은 **0회**다; 장에서 인용한 실행 수치는 해당 source의 기존 요약 기록이다. 근거: [문서 전용 검증:74](../DOCUMENTATION_GUIDE.md#갱신과-검증), [IMP-03 실행 source/한계:3,74](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L3).
+- [현행] 2026-10-15 가이드 작성 당시 증거 수준은 **코드 읽기·Git 조회/집계**이며 Unity·테스트·Player 실행은 **0회**다; 장에서 인용한 실행 수치는 해당 source의 기존 요약 기록이다. 근거: [문서 전용 검증:74](../DOCUMENTATION_GUIDE.md#갱신과-검증), [IMP-03 실행 source/한계:3,74](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L3).
 - [현행] 코드 인용은 위 SourceRevision의 실제 심볼·경로를 확인하고 줄 번호는 보조로 쓴다. 기존 수치의 재실행·재집계는 하지 않았으며 0.5/1.5단계 수치는 2026-10-13 당시 source의 측정 기록이다. 외부 UPM 0.0.1 사본과 개발본 일치를 가정하지 않는다. [D-I7](08-change-procedure.md#오래-가는-인용과-첫-적용-시범), [0.5단계 사실 확인](#05단계-사실-확인).
 
 | 상태 | 장 | 읽는 목적 |
@@ -47,7 +48,7 @@
 | [결정됨] | D-H12 | 2026-10-15 변경: EnsureMainThread 5곳 통합 T1 시범은 실행하지 않음. 메시지·검사 순서·assembly 경계·보호 공백 조사로 T2로 정정한 뒤 통합하지 않기로 결정했다. 2026-10-13의 시범 채택을 대체하며 통합 완료를 뜻하지 않는다. [종료 회고](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/retrospectives/2026-10-15-02-phase3-close.md), [08](08-change-procedure.md#오래-가는-인용과-첫-적용-시범). |
 
 | [결정됨] | D-I1 | Red/특성화 실패 이유·SetUp/TearDown을 검토한 뒤 동결하며 오라클/fixture 정정 근거를 분리한다. 근거: 사용자 결정 2026-10-15(D-I1), 05장. |
-| [결정됨] | D-I2 | Timeout은 기본값 + 메서드별 차등. 구체 값·적용 범위는 IMP-04b 실험 뒤 결정하며 실험 전에는 미확인이다. 근거: 사용자 결정 2026-10-15(D-I2), 05장. |
+| [결정됨] | D-I2 | 테스트 assembly 기본 30초, 더 긴 시간이 필요한 테스트만 method별 조정. 기존 취소·정리·유한 대기·명시 Timeout 유지. 근거: 사용자 결정 2026-10-15(D-I2), IMP-04b 후 사용자 결정 2026-10-16, [05장](05-testing.md#양성-대조-범위와-미확정-사항). |
 | [결정됨] | D-I3 | 현행 상태 문서만 공통 머리말을 사용하고 회고·validation은 제외한다. 형식만 정의하며 일괄 통일은 후속 T0 PR이다. 근거: 사용자 결정 2026-10-15(D-I3), 06장. |
 | [결정됨] | D-I4 | CI_GATE_PROPOSAL.md를 doc/로 이동하고 승인된 AGENTS 링크 한 곳·문서 링크·자체 상대 링크만 보정한다. 근거: 사용자 결정 2026-10-15(D-I4), 06/07장. |
 | [결정됨] | D-I5 | 필수 입력이 없는 과거 실행은 새 실행 없이 기록만 유지한다. 검증기 17건의 역사적 기준선 결정과 같다. 근거: 사용자 결정 2026-10-15(D-I5), 07장. |
@@ -67,11 +68,11 @@
 
 ## 제안 목록
 
-- [제안] Timeout 구체 기본값·적용 범위는 IMP-04b 실험 후 결정한다. 기본값 적용·메서드 우선순위·ToCoroutine hang 중단은 미확인이다. [05의 D-I2](05-testing.md#양성-대조-범위와-미확정-사항).
+- [현행] IMP-04b 후 기본값·범위 결정과 적용을 완료했다. 테스트 assembly 기본 30초와 기존 소유 작업의 취소·정리 보존을 구분한다. [05 D-I2](05-testing.md#양성-대조-범위와-미확정-사항), [적용 회고](../retrospectives/2026-10-16-07-imp-04b-timeout-default.md).
 - [현행] D-I3 머리말 후속 적용과 사용자 결정 2026-10-15 후속 보완을 완료했다. 최종 분류·기계 검사·값 근거와 과거 제안 이력은 [적용 회고](../retrospectives/2026-10-15-09-current-document-headers.md)를 따른다.
 - [현행] 과거 회고의 AGENTS 이관 제안은 당시 제안 기록이며 새 권한이 아니다. 현재 지침은 [AGENTS 단위 작업 회고](../../AGENTS.md#단위-작업-회고)와 이 가이드의 채택 결정을 따른다.
 - [현행] 현재 [AGENTS:112–118](../../AGENTS.md#검증-후-병합)은 모든 등급에서 사용자 명시 승인 대기와 exact-SHA gate를 요구한다. 과거 자동 병합 승인은 2026-10-13 승인으로 대체돼 D-F와 충돌하지 않는다. 이번 AGENTS 변경은 CI 문서 링크 한 곳뿐이다. [D-F](08-change-procedure.md#위험-등급과-공통-항목).
-- [현행] 이번 T0는 D-I 결정·05 교훈·CI 문서 이동·인용/라벨·체크리스트와 색인만 정리한다. AGENTS는 승인된 CI 링크 한 곳만 바꾸며 코드·테스트·tools·workflow·UPM과 기존 사용자 변경을 보존한다. 새 증거 요약은 [이번 회고](../retrospectives/2026-10-15-08-guidelines-decisions-i.md) 한 곳에 둔다.
+- [현행] 2026-10-15 T0는 D-I 결정·05 교훈·CI 문서 이동·인용/라벨·체크리스트와 색인만 정리한다. AGENTS는 승인된 CI 링크 한 곳만 바꾸며 코드·테스트·tools·workflow·UPM과 기존 사용자 변경을 보존한다. 새 증거 요약은 [이번 회고](../retrospectives/2026-10-15-08-guidelines-decisions-i.md) 한 곳에 둔다.
 
 
 ## 라벨 개수
@@ -85,10 +86,10 @@
 | [현행] | [02-public-api.md](02-public-api.md) | 12 | 7 | 0 |
 | [현행] | [03-async-lifecycle.md](03-async-lifecycle.md) | 14 | 7 | 0 |
 | [현행] | [04-allocation-gc.md](04-allocation-gc.md) | 14 | 4 | 0 |
-| [현행] | [05-testing.md](05-testing.md) | 19 | 4 | 1 |
+| [현행] | [05-testing.md](05-testing.md) | 21 | 4 | 0 |
 | [현행] | [06-documentation.md](06-documentation.md) | 13 | 23 | 0 |
 | [현행] | [07-validation-evidence.md](07-validation-evidence.md) | 12 | 15 | 0 |
 | [현행] | [08-change-procedure.md](08-change-procedure.md) | 8 | 28 | 0 |
 | [현행] | [CHECKLIST.md](CHECKLIST.md) | 4 | 10 | 0 |
-| [현행] | [README.md](README.md) | 25 | 28 | 1 |
+| [현행] | [README.md](README.md) | 27 | 28 | 0 |
 <!-- LABEL_COUNTS_END -->

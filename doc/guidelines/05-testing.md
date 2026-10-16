@@ -1,6 +1,8 @@
 # 05. 테스트 작성법 — 현행 관행과 결정
 
-[현행] SourceRevision: main `af084e0d0027c4098fad08c336ccb0753e1c7862`. 갱신일: 2026-10-15. 현재 지침·인용을 읽기/Git 조회로 대조했으며 Unity·테스트·Player 실행은 0회다. 기존 실행·집계 수치는 각 기록의 당시 source 기준이며 이번 재실행·재집계로 보지 않는다. 선언·행수 집계 기준은 `35508bc1fb8ed7749a292d1f9ae983b45387afd4`(2026-10-13)이다. [공통 근거와 검증 범위](README.md#근거와-검증-범위).
+[현행] SourceRevision: main `af084e0d0027c4098fad08c336ccb0753e1c7862`. 기존 근거 갱신일: 2026-10-15. 2026-10-15 당시 지침·인용을 읽기/Git 조회로 대조했으며 Unity·테스트·Player 실행은 0회다. 기존 실행·집계 수치는 각 기록의 당시 source 기준이며 이번 재실행·재집계로 보지 않는다. 선언·행수 집계 기준은 `35508bc1fb8ed7749a292d1f9ae983b45387afd4`(2026-10-13)이다. [공통 근거와 검증 범위](README.md#근거와-검증-범위).
+
+[현행] 2026-10-16 D-I2 후속: 기준 main `6ec859a2112a3cdffc238caf248235aeade3b2e9`에서 테스트 assembly 기본 30초를 적용했다. 기존 역사적 집계는 유지하고 이번 설정·실행 증거는 [적용 회고](../retrospectives/2026-10-16-07-imp-04b-timeout-default.md)에 둔다.
 
 ## mode와 시간 제한의 분모
 
@@ -14,7 +16,7 @@
 
 - [현행] Timeout **속성 선언 전체는62개**다: 위 테스트60개 외 `GameScenePollingTests.SetUp/TearDown`2개가 있으므로 “UnityTest343개 중 Timeout62개”로 나누지 않는다; UI를 포함한 현재 전체 분모는 원조사 표본의232/45와 다르다. 근거: [GameScenePollingTests.cs:33–35·50–52](../../Assets/TPLab/Tests/PlayMode/GameScenePollingTests.cs#L33), [0.5단계 조사](README.md#05단계-사실-확인).
 - [현행] AGENTS는 순수 계약을 EditMode, 실제 GameObject·씬·Addressables 수명을 필요한 PlayMode로 나누지만 EditMode에도 UnityTest가 있다; mode와 Test/UnityTest 속성은 같은 분류가 아니다. 근거: [AGENTS.md의 TDD와 완료 기준](../../AGENTS.md#tdd와-완료-기준), [SceneLoaderTests.cs](../../Assets/TPLab/Tests/EditMode/SceneLoaderTests.cs), 위 전체 선언 집계.
-- [현행] 설치 UTF1.6.0의 속성 미지정 기본180초는 과거 설치 소스 조사로 확인됐고, 제한250ms로 bounded IEnumerator를 멈춘 실험은 PlayMode cooperative coroutine에 한정됐다; **UniTask.ToCoroutine의 hang에 Timeout이 실제 적용되는지는 미검증(IMP-04b)**이며 blocking 강제 중단·underlying 작업 취소·teardown 완료를 보장하지 않는다. 근거: [IMP-04 조사 README:226·234–248](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-04-survey/README.md#2-대기-helper와-현재-보호), [IMP-04 적용 README:79–101](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-04-apply/README.md#timeout-시-기존-정리-경로--정적-검토), 테스트 `CoverAndAllPreparationAndScenePresentationAreAwaited`([AsyncSceneRootTests.cs:154](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L154)).
+- [현행] 설치 UTF 1.6.0의 무지정 fallback은 180,000ms이며 IMP-04b에서 실행 context 값과 method > fixture > assembly 우선순위를 확인했다. `UniTask.ToCoroutine`의 협조적 pending 열거도 Timeout으로 테스트 대기가 끝났지만 underlying 작업은 취소되지 않았고 명시 gate 해제 전 finally도 완료되지 않았다. 프레임 기반 검사이므로 정확한 시각의 강제 중단·CPU blocking/native yield·UnityTearDown 자체의 hang 중단을 보장하지 않는다. 기본 180초 실제 만료는 미실행이다. 근거: [IMP-04b 실험](https://github.com/KangSungKyu/TPLab/blob/23d042711299dc88d3e99f4653b3f1fc501d8cd9/doc/retrospectives/2026-10-16-06-imp-04b-timeout-experiment.md#실험-구성과-관찰-결과), [작업 수명 관찰](https://github.com/KangSungKyu/TPLab/blob/23d042711299dc88d3e99f4653b3f1fc501d8cd9/doc/retrospectives/2026-10-16-06-imp-04b-timeout-experiment.md#tocoroutine-timeout과-원-작업의-수명).
 
 ## 게이트와 실제 시간 관찰
 
@@ -34,8 +36,8 @@
 - [결정됨] **D-H8 — 위험이 확인된 오라클의 양성 대조.** 계측·순서 등 오라클 감도 위험이 확인된 테스트에만 양성 대조를 요구한다; GC는 현행 호출별 대조 helper를 유지하고 순서 테스트는 통제된 gate 해제 후 완료를 확인하는 방식 등으로 해당 위험을 검증한다. 기존 양성 대조 없는 모든 부정형 단언을 일괄 갱신하는 규칙으로 확대하지 않는다. 근거: **사용자 2026-10-13 일괄 승인**, [사용자 결정](README.md#사용자-결정), [IMP-14 README:23–42](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-14/README.md#교체-전--실제-red--교체-후), [AsyncSceneRootTests.cs:165–180](../../Assets/TPLab/Tests/PlayMode/AsyncSceneRootTests.cs#L165).
 - [결정됨] 검토했으나 채택하지 않은 대안: 모든 부정형 단언에 통제된 양성 경로를 일괄 요구하는 안. 근거: 사용자 2026-10-13 일괄 승인(D-H8).
 - [결정됨] **D-I1 — Red·특성화 테스트 동결.** 실패 수뿐 아니라 실패 이유와 SetUp/TearDown 구분을 검토한 뒤 동결한다. 오라클/fixture 변경은 구현 편의로 실패를 덮지 않고 별도 근거를 남긴다. 근거: 사용자 결정 2026-10-15(D-I1), [IMP-03 정정 기록](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-03/README.md#L9).
-- [결정됨] **D-I2 — Timeout 방침.** 기본값 + 메서드별 차등을 채택한다. 상태·순서는 gate/유한 조건 대기를 우선하고 시간 자체가 계약일 때만 경과를 관찰한다. 구체 기본값과 적용 범위(assembly/fixture/method)는 IMP-04b에서 기본값 적용 여부·메서드 값 우선 여부·UniTask.ToCoroutine hang 중단 여부를 실험한 뒤 정한다. 실험 전에는 미확인이다. 근거: 사용자 결정 2026-10-15(D-I2), [IMP-04 조사](https://github.com/KangSungKyu/TPLab/blob/af084e0d0027c4098fad08c336ccb0753e1c7862/doc/validation/imp-04-survey/README.md#L268).
-- [제안] Timeout의 구체 기본값·적용 범위는 IMP-04b 실험 후 사용자 결정 대상이다. 기본값/메서드 우선순위·ToCoroutine hang 중단은 미확인이며 이번 문서 작업에서 실험하지 않았다. 근거: 사용자 결정 2026-10-15(D-I2)의 유보 범위.
+- [결정됨] **D-I2 — Timeout 방침.** 테스트를 선언하는 assembly에 `[assembly: NUnit.Framework.Timeout(30000)]`으로 기본 30초를 적용하고, 실제로 더 긴 시간이 필요한 테스트만 메서드별 값으로 조정한다. 기존 취소·정리·유한 대기 상한과 명시 Timeout은 유지한다. 상태·순서는 gate/유한 조건 대기를 우선하며 시간 자체가 계약일 때만 경과를 관찰한다. 근거: 사용자 결정 2026-10-15(D-I2), IMP-04b 결과 확인 후 **사용자 결정 2026-10-16**, [적용 회고](../retrospectives/2026-10-16-07-imp-04b-timeout-default.md).
+- [현행] Core/Input/UI/UI InputSystem/Netcode/Netcode Samples의 테스트 assembly에 기본값을 적용했다. 테스트 선언이 없는 공유 TestFixtures assembly와 runtime·Editor 도구·UPM은 대상에서 제외한다. 이번 측정에서 더 긴 method 예외값이 필요한 근거는 없어 추가하지 않았다. 기본값은 개별 테스트의 제한이며 suite 전체 제한이나 소유 작업의 정리 정책이 아니다. 적용 목록·Red/Green·전체 회귀는 [적용 회고](../retrospectives/2026-10-16-07-imp-04b-timeout-default.md)를 따른다.
 
 ## 특성화 안전망과 fixture 정리의 현행 교훈
 
