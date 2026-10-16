@@ -188,3 +188,64 @@ GC 경로: editor authoring/초기 wiring은 P2, Start/Stop/Retry의 collection/
 | exact-SHA CI | 문서까지 포함한 최종 PR tip으로 조회한다. 성공 여부와 SHA는 PR Checks 및 완료 보고, 로컬 ci-final.json에서 대응한다. CI 미완료를 성공으로 쓰지 않음 |
 
 샘플 소스 commit과 문서 commit을 분리해 실제 검증 코드의 SHA를 문서에 명시했다. 로컬 브랜치 커밋·푸시·PR 생성까지 수행하며 main 병합·브랜치 삭제·PC 종료/절전은 수행하지 않는다.
+
+
+## 2026-10-16 사용자 수락과 PR 40 복원 종료 보완
+
+앞선 본문은 최초 P5 검증 당시 기록이다. 2026-10-16 사용자가 수락 목록을 확인하고 PR #40 병합을 승인했다. 병합 직전 새 리뷰에서 복원 실패 후 Stop이 복원 없이 로비 화면·새 시작을 허용하는 경로를 발견해 병합을 보류했다. 사용자는 **샘플 보완·재검증 후 병합**을 승인했다. 공용 wrapper와 D-N4의 안전 종료 계약은 유지한다. 병합 결과와 exact-SHA CI는 [PR #40](https://github.com/KangSungKyu/TPLab/pull/40)에 대응하며, 승인 전/후 기록을 혼동하지 않는다.
+
+- 보완 source: `89db30d297abc1443417d418745263eff14c7073`. 기존 main/wrapper `3a4216b90e6f6b21a26c186661bf3dbce4221e6e`와 최초 source `67b4612becaec08c91dfd541070b5ca4f7e039a1`은 역사적 실행 근거로 보존한다. T3 비동기 수명·실패 경로 수정이며 Core/Netcode runtime·UPM·Packages·도구·workflow·기존 테스트/assembly는 변경하지 않았다.
+- 수정은 Sample controller와 View, 신규 RecoveryExitTests/.meta에 한정한다. View Stop은 RecoveryFault에서 core Shutdown을 호출하지 않아 보호·원래 결과·Retry 가능성을 유지한다. public sample Shutdown/Quit은 실제 cleanup 뒤 Closed로 끝나더라도 보호·원인 진단·새 Start/Configure 차단을 유지한다. native 종료는 로비 복원 성공이 아니다. 정상 Running Stop의 로비 표시·새 Attempt는 유지한다. public 선언 diff0.
+- 내부 종료 전용 flag는 실제 Closed에 도달한 뒤에만 고정한다. 종료 관찰이 다시 RecoveryFault인 동안에는 가능한 명시적 복원 재시도를 막지 않는다. 이 늦은 완료 분기는 읽기 검토이며 비협조 sample hook 실행 증거로 확대하지 않는다.
+- 재사용한 sub-agent `/root/netcode_p2_review`(gpt-6.1-sol/high)는 수명 경계·작은 diff를 읽기 검토하고 지정된 현행 문서8개만 갱신했다. 부모가 테스트·Editor·Player·회고·Git을 담당했다. 같은 소스 동시 수정 없음. 기존 sample12개와 새2개 테스트 hash는 동결했다.
+
+### 보완 Red와 Green
+
+원문: `Temp/netcode-p5-20261016/review-fix/`와 같은 작업 루트의 `runs/`. 테스트는 기존 Editor PID3428, Unity6000.3.18f1, Windows Mono, NGO2.13.3/Transport2.7.3, CLI0.4.1에서 `tools/run_unity_tests.py`를 사용했다. 신규2개는 Timeout(30000), 7초 유한 조건 대기, core Shutdown 완료 후 객체 파괴, IEnumerator 마지막 LogAssert를 쓴다. Input/EventSystem을 생성하지 않으므로 InputTestFixture를 추가하지 않았다. 실제 uGUI/InputSystem 경로는 별도 Player로 검증한다.
+
+첫 짧은 fixture filter 호출은 total0/실행0이었다(`red-discovery-zero.txt`). 이를 Red 또는 성공으로 세지 않았다. 컴파일/타입 존재 확인 후 전체 namespace를 포함한 fixture filter로 실행했다. 테스트 본문2개가 아래 이유로 실패했고 SetUp/TearDown 실패0이다. 기대값/fixture 정정 없이 동결했다.
+
+| 신규 테스트 | Red 원문 핵심 | 최종 결과 |
+|---|---|---|
+| SafeExitAfterRestoreFailureKeepsProtectionAndDiagnostics | `Safe exit must not claim the failed lobby was restored. Expected: True But was: False` | 실제 Closed/native idle·같은 Failure/RecoveryError·Restore1·보호 유지·반복 종료 확인 |
+| SafelyClosedRecoveryCannotBeReconfiguredOrStartAnotherAttempt | `Expected: <System.InvalidOperationException> But was: null` | Configure/Host/Client/설정 변경 거부, 동일 Context·호출 수 보존 |
+
+실제 수정 전 Player도 `20261016T152946-recovery-stop-15f713d7`에서 18개 검사 중17통과/1실패했다. 원문 실패 `Stop retains recovery and retry`의 관찰값은 `state=Closed, isProtected=false, canRetry=false, restoreCalls=1, buttons.start=true`다. UI 가림막 alpha0/blocksRaycasts=false였다. 실패 원문·종료 결과는 지우지 않았으며 세 Player 모두 exit0이었다.
+
+| 실행 | 통과/실패/skip | 근거 |
+|---|---|---|
+| 신규 Red | 0/2/0 | red-tests.json; test body 실패, CLI PID53136 |
+| sample Green | 14/0/0 | green-sample.json; 기존12+신규2, PID51472 |
+| 전체 Edit 최초 | 534/0/0 | final-edit.json; 최종 private flag 보정 전 중간 결과 |
+| 전체 Edit 최종 source | 534/0/0 | final-edit-exact-source.json; PID43896 |
+| 전체 Play | 427/0/0 | final-play.json; PID45380 |
+| 전체 Play 반복 | 427/0/0 | repeat-play.json; PID38648 |
+
+기존 Edit534·Play425 이름 집합 소실0, 신규 Play2개만 증가했다. 현재 JSON의 execution과 이름 목록을 보존했으며 최종 전체 XML이 생성되지 않은 실행은 XML 보존으로 주장하지 않는다. 재현 명령(출력 파일은 매 실행 분리):
+
+```powershell
+python -B tools/run_unity_tests.py --project <absolute-TPLab> --mode PlayMode --filter TPLab.Samples.Netcode.Tests.NetcodeSessionSampleRecoveryExitTests --output Temp/<run>/red-tests.json
+python -B tools/run_unity_tests.py --project <absolute-TPLab> --mode PlayMode --filter TPLab.Samples.Netcode.Tests --output Temp/<run>/green-sample.json
+python -B tools/run_unity_tests.py --project <absolute-TPLab> --mode EditMode --output Temp/<run>/final-edit.json
+python -B tools/run_unity_tests.py --project <absolute-TPLab> --mode PlayMode --output Temp/<run>/final-play.json
+```
+
+### 실제 Player와 보존
+
+| 새 Player 실행 | 검사 | 시간 | 결과 |
+|---|---:|---:|---|
+| 153836-recovery-stop-aff44704 | 22 | 35.498초 | Stop 후 RecoveryFault/같은 실패/보호·Retry 유지, 명시 Retry에서만 Restore2/Lobby |
+| 153942-recovery-quit-c93ada29 | 20 | 7.264초 | Stop 후 상태 보존, Quit에서 Closed/native idle/보호·Start 차단/Restore1 |
+| 154020-restart-dbfc2ec8 | 57 | 11.194초 | 정상 Ready·입력·Stop·새 Attempt의 두 라운드 |
+
+합99/99, Host+2 Client ×3회, 총9프로세스 exit0. 기존 runner의 유한 대기·새 port·독립 프로세스 규칙을 유지했다. 실제 버튼 invoke/상태·raycast/종료 관찰이며 물리 입력 수락 재실행으로 주장하지 않는다. 사용자의 원래 수동 수락과 이번 보완 자동 검증·승인을 구분한다.
+
+observer 포함 Windows Mono build 82.555초, observer 없는 최종 수락용 build45.571초, 양쪽 error0·기존 UI CS4014 warning2. 최종 수락용 `Player-acceptance/TPLabP5.exe`는 갱신됐고 P5SampleProbe DLL이 없다. 임시 Assets probe 폴더와 .meta도 제거했다. 최종 Editor Console error0; compile 경고2 외 전체 Edit 실행의 기존 SceneRootEditorTests Undo dangling 경고가 있으므로 Console warning0을 주장하지 않는다.
+
+재개 당시 dirty는12개였다. 사용자는 직접 테스트용 빌드 설정을 조정했다고 확인했다. fullscreen/batching·Build Settings 등 사용자 설정은 보존한다. 검증 중 Input actions `preloadedAssets` 한 항목이 사라진 차이를 확인했다. 설치 Input System BuildProviderHelpers가 preload 목록을 넣고 빼는 경로를 가진다. 빌드 후12개가 원래 hash와 일치한 시점에 바이트 백업을 확보했고, 마지막 Edit 실행 후 동일한 preload 한 항목 차이만 확인해 Editor 값과 파일을 시작 시점으로 복원했다. 다른 설정 차이는 쓰지 않았다. `dirty-final.json`은 시작12개와 exact hash 동일하다. 이전 dirty8이라는 기록은 최초 실행 당시 분모이며 이번 분모를 대신하지 않는다.
+
+### 보완 완료 검사와 한계
+
+링크/anchor, 공백, PR 규칙, 역사적 verifier17건·보호836경로의 동일성은 최종 문서까지 반영해 재확인한다. 규칙의 LINQ2경고는 이전 builder P2/View wiring P2·Start P1이며 이번 보완에 새 LINQ 없음. exact-SHA gate에서 이전 e5a09d4의 Claude skipped 실행을 성공으로 간주하지 않았고, 최종 새 HEAD를 별도로 검사한다. CI/최종 통합은 PR Checks와 완료 보고에 남긴다.
+
+실행하지 않은 범위는 IL2CPP·다른 플랫폼·GC 계측·WAN/Relay·실제 인증·UPM 설치/배포다. 새 물리 입력 수락을 실행했다고 주장하지 않는다. 안전 종료가 지연되어 다시 RecoveryFault가 되는 sample 분기는 코드 리뷰 범위이며 공용 wrapper의 기존 수명 테스트와 구분한다. 이 회고 이후 병합은 사용자의 2026-10-16 명시 승인과 최종 gate에 따른다. PC 종료/절전은 이번 요청에 포함하지 않는다.
