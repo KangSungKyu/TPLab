@@ -1,0 +1,13 @@
+{
+    "name": "TPLab.Netcode.EditModeTests",
+    "rootNamespace": "TPLab.Netcode.Tests",
+    "references": [
+        "TPLab.Netcode"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ]
+}

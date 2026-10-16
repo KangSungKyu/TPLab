@@ -2,7 +2,7 @@
 유형: 레퍼런스
 현재 상태: 본문 참조
 기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0 (original seven modules); 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 UI runtime); 99df25dd6b89fd7f3e322c8033b61eb1364f495e (P7 regression snapshot)
-갱신일: 2026-10-08
+갱신일: 2026-10-16
 계약 링크: 본문 참조
 
 2026-10-07 이름 통일: namespace/assembly와 소스 경로는 `TPLab` / `Assets/TPLab`을 사용한다. [변경 안내](../TPLAB_NAMING.md)에서 현재 이름·경로 규칙과 검증 기록을 확인한다.
@@ -19,6 +19,7 @@ SourceRevision: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0 remains the reference f
 | [Input](Input.md) | layer·rebind·override | [Input/Runtime](../../Assets/TPLab/Input/Runtime) / [AI](../ai/api/Input.md) |
 | [Editor](Editor.md) | importer·설정·사전 gate | [Editor](../../Assets/TPLab/Editor) / [AI](../ai/api/Editor.md) |
 | [UIContext](UI.md) | P1-P6 HUD/Popup/Canvas, modal Input System adapter, fixed-height virtual list, settings/root installer (P6 Edit33/33, Play53/53) | [UI Runtime](../../Assets/TPLab/UI/Runtime) / [AI](../ai/api/UI.md) |
+| [Netcode (개발 중)](Netcode.md) | P2 internal 프로토콜; public wrapper 미제공 | [Runtime](../../Assets/TPLab/Netcode/Runtime) / [AI](../ai/api/Netcode.md) |
 
 설치와 선택 의존성은 [README](../../README.md)를 먼저 읽는다. 시스템 주입은 Lifecycle → 필요한 service → SceneManagement/Input 순서다. 프로젝트가 DTO/codec/validator, action asset/layer, 씬 root와 UI callback을 제공한다. runtime API와 Samples/테스트 fixture/Editor 도구를 구분한다.
 

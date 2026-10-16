@@ -1,13 +1,13 @@
 # Netcode 세션 wrapper P0 계약 초안
 유형: 레퍼런스
-현재 상태: true 기본 권장·false 프로젝트 선택; P1 native 씬 동기화 관찰 완료, wrapper 구현 없음
-기준 source: TPLab 개발 source a0497fb9e89f4f8068323ed4279e100dbf23dfef; NGO 2.13.3 / Unity Transport 2.7.3
+현재 상태: P2 내부 프로토콜 구현; NGO wrapper 미구현, true 기본 권장·false 프로젝트 선택
+기준 source: TPLab P2 source d374cb3fc88629b300245f959f07825558f7f355; NGO 2.13.3 / Unity Transport 2.7.3
 갱신일: 2026-10-16
 계약 링크: 본 문서
 
 ## 0. 사실 확인과 근거 범위
 
-[현행] PR #34의 P0 초안과 PR #35의 D-N1~D-N8 기록에 2026-10-16 사용자 결정 S1·S2·S4 및 S3 결정 시점, D-N8의 true 기본 권장·false 프로젝트 선택 방향을 반영했다. 사용자 승인 범위는 검토한 NGO/Transport 개발 의존성, P1 검증과 true 추가 검증까지이며 wrapper 구현(P2/P3)·UPM 배포 승인은 아니다. 아래 0절의 설치·dirty 조사는 PR #35 당시 기록이다. P1 실행 상태와 한계는 [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md)에 구분한다. 세부 public API·정책 값은 결정 표 범위 밖에서 [제안]/미확인으로 남긴다.
+[현행] PR #34의 P0 초안과 PR #35의 D-N1~D-N8 기록에 2026-10-16 사용자 결정 S1·S2·S4 및 S3 결정 시점, D-N8의 true 기본 권장·false 프로젝트 선택 방향을 반영했다. 2026-10-16에 PR #36 병합과 P2 프로토콜 구현, 개발 assembly2개 추가가 승인됐다. P3 NGO 어댑터·callback 구현과 UPM 배포는 후속이다. 아래 0절의 설치·dirty 조사는 PR #35 당시 기록이다. P1 실행 상태와 한계는 [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md)에 구분한다. 세부 public API·정책 값은 결정 표 범위 밖에서 [제안]/미확인으로 남긴다.
 
 | 상태 | 확인 대상 | 읽어서 확인한 사실·한계 |
 |---|---|---|
@@ -110,6 +110,25 @@
 [제안] D-N1로 A1 방향을 채택한 뒤의 구체화 후보: 명단·시도·준비 전이 한 단위만 internal 순수 로직으로 두고 어댑터는 start/승인/메시지/종료 관찰에 한정한다. A0는 비교용 대안으로 남기며 이번 채택안이 아니다. 일반 네트워크 framework, 모든 메서드의 interface, NGO package 내부 helper 복사·reflection·private API 의존은 만들지 않는다. package 테스트 helper를 TPLab의 public 지원 API로 간주하지 않는다.
 
 [현행] N6는 단일 프로세스에서 여러 NetworkManager를 생성·시작하는 소스 근거다. `NetworkManager.OnEnable`은 Singleton이 없을 때만 설정하며 인스턴스별 참조도 존재한다. 따라서 “NGO는 무조건 한 프로세스 한 instance”는 이 소스로 뒷받침되지 않는다. **미확인:** 향후 wrapper 테스트 fixture의 격리. P1에서는 일회성 하네스로 같은 프로세스의 여러 manager를 Editor/Windows Mono Player에서 관찰했다. 실패해도 임의 package helper/새 패키지를 가져오지 않는다. 그 경우 실제 승인/transport/종료의 peer 간 검증은 P4 다중 프로세스로 넘기고, P2 EditMode 프로토콜 검증을 그 대체물로 보고하지 않는다. 단일 프로세스가 가능해도 프로세스 종료·실제 단절·개별 로그/복원은 P4에서 별도 확인한다.
+
+### P2 내부 프로토콜 구현
+
+[현행] 2026-10-16 사용자 구현 승인과 별도 assembly 승인에 따라 [Runtime](../Assets/TPLab/Netcode/Runtime)에 내부 순수 상태기계를 구현했다. `TPLab.Netcode`는 Core·Unity.Netcode.Runtime을 참조하는 하나의 개발 assembly다. 순수 타입도 이 assembly 안에 있으며 NGO 미설치용 별도 assembly가 아니다. `TPLab.Netcode.EditModeTests`만 friend로 열었다. 모든 runtime 타입은 internal이고 소비 프로젝트용 public API는 아직 없다. 실제 검증은 [P2 회고](retrospectives/2026-10-16-02-netcode-p2-protocol.md), 외부 사용 상태는 [사람](api/Netcode.md)/[AI](ai/api/Netcode.md) 안내를 따른다.
+
+| 내부 구성 | 소유하는 상태·입력 | 책임의 끝 |
+|---|---|---|
+| `SessionProtocolContext` | SessionId·AttemptId·RosterRevision·ProtocolVersion·SceneKey 불변 값; 문자열 Ordinal 비교 | 인증 증명·wire 포맷·씬 로딩 아님 |
+| `ServerSessionProtocol` | 복사한 고정 명단, 검증된 참가자 ID와 실제 ClientId/ConnectionGeneration mapping, connected/Ready·서버 준비 | 승인된 값을 입력받는 순수 규칙; 검증기 실행·NGO 콜백 조작 없음 |
+| `ClientSessionProtocol` | 신뢰된 adapter가 지정한 서버 연결과 현재 맥락, 로컬 준비·단일 승인 수락 | sender 자체의 네트워크 진위 확인은 NGO adapter가 제공 |
+| `SessionAttemptState` | Preparing→StartAuthorized 또는 Aborted, 고정 deadline·최초 실패·승인 sequence | native 종료·로비 복원·실제 Running 관찰 아님 |
+
+[현행] 서버는 각 멤버의 인증 mapping, 실제 연결, Ready를 별도로 기록한다. Host의 ClientId0도 일반 멤버로 처리하고 서버 자신의 준비는 별도 사실이다. 명단 밖·중복 참가자/ClientId·옛 맥락·접속 세대0 요청은 현재 mapping/Ready를 바꾸지 않고 거부한다. 같은 attempt에서 승인된 멤버는 교체하지 않는다. 현재 연결 세대와 일치하는 승인 멤버의 이탈/준비 실패, 서버 로컬 실패·owner 취소·endpoint 실패·deadline만 attempt를 중단한다. 최초 실패 객체와 로컬 Exception 원인은 보존하며 원격 client에는 enum 코드만 수락한다.
+
+[현행] `TryAuthorizeStart`는 서버 로컬 준비와 명단 전원의 admitted/connected/Ready를 한 직렬화 지점에서 확인한 뒤 sequence1을 한 번 발행한다. Client는 지정 서버 ID+세대, 전체 맥락, localReady와 양수 sequence를 확인해 한 번 수락한다. 동일/다른 sequence의 후속 승인과 terminal 이후 늦은 입력은 모두 무효과다. 승인 뒤 이탈은 준비 실패로 되돌리지 않으며 이후 gameplay 정책은 후속이다. 준비 이전에 도착한 시작 신호는 보관하지 않는다. adapter는 localReady 기록 후 Ready를 송신해야 한다.
+
+[현행] `startedAt`, `budget`, `now`는 같은 로컬 단조 clock의 표본(초)이다. budget은 호출자가 반드시 지정하며 유한 양수·표현 가능한 미래 deadline만 허용한다. pending 입력에서 NaN/무한/역행 시각은 상태 변경 전에 거부하고, `now >= startedAt + budget`이면 그 입력보다 만료가 우선한다. 새 입장/부분 Ready로 budget을 늘리지 않는다. terminal 입력은 시각을 포함해 무시한다. 서버·클라이언트의 clock을 같은 원점으로 가정하지 않는다. server freeze부터의 전체 budget을 실제 client의 로컬 deadline에 전달하는 수단은 P3에서 연결하며 P2가 분산 clock 동기화를 구현하지 않는다.
+
+[현행] 역할별 호출은 adapter/소유자가 직렬화해야 한다. 순수 상태기계에 Unity 메인 스레드 검사·lock·callback·비동기 대기는 없다. caller의 대기 취소는 이 상태의 Cancel 입력으로 전달하지 않는다. 상태 Aborted는 무효화 결과이며 정리 완료가 아니다. 종료·복원 오류의 추가 집계와 안전한 재시도 출구는 D절의 P3 구현 항목이다. 재시도는 새로운 Attempt 맥락과 새 protocol 객체로 시작한다.
 
 ## B. 입장 검증 접점과 신뢰 경계
 
@@ -268,7 +287,7 @@
 | [현행] P0 계약 기록 | D-N1~D-N8 반영·검증기 주입 세부 후보 정리 | 방향·S1/S2/S4 반영. S3 값·public API·P1 미확인은 별도이며 wrapper 구현 승인은 아님 |
 | [현행] P1 기반 확인(사용자 실행 승인 2026-10-16) | 승인 의존성·컴파일, 명시 참조 Host/client·승인·Named message·종료·합성 payload·종전 false 후보·동일 프로세스 다중 instance 관찰 | Editor/Windows Mono Player 기본 경로 확인과 무효 Transport 시작 제한을 회고에 기록. false 관찰은 당시 빈 고정 씬 조건의 증거로 보존한다. 당시 미확인이던 별도 프로세스 native 관찰은 다음 행에서 보완한다. 실제 인증·IL2CPP·wrapper 구현과 S3 값은 여전히 미확인 |
 | [현행] P1 true 추가 검증(2026-10-16) | 별도 Windows Mono Player Host/client의 초기 Single/Additive 동기화·in-scene NetworkObject, Additive 로드/해제·Single 전환·client 권한 거부·정상 종료 | native 관찰 완료. 실행 수·객체 ID 대조·정리·한계는 [추가 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md#2026-10-16-후속--true-권장과-native-씬-검증)에 보존한다. GameSceneManager 통합·wrapper Ready/복원·P4 실패 시나리오 검증은 아님 |
-| [제안] P2 프로토콜 | 선택된 최소 상태기계, 명단·attempt·Ready·start/abort 경합·deadline/실패 결과 | NGO 객체 없는 EditMode Red→Green·민감도 확인, 잘못된 ID/중복/옛 세대/지연 응답을 검사 |
+| [현행] P2 프로토콜 | internal 순수 server/client 전이, 명단·attempt·Ready·단일 start/abort·deadline/최초 실패 | NGO 객체 없는 EditMode Red→Green; [P2 계약](#p2-내부-프로토콜-구현)과 회고의 검증/미실행 참조. wire encoding·실제 adapter/복원은 P3 |
 | [제안] P3 어댑터·callback | NetworkSessionContext/SessionStartCoordinator, NGO sender mapping·준비/복원 callback·owner 수명·stop 관찰 | 설치 소스와 실제 NGO 경로 targeted 테스트, 전체 회귀·정리 완료/로그 관찰, 정상 코드 실패 시 중단/원인 분리 |
 | [제안] P4 다중 peer | 별도 프로세스 Host+clients, 전원 준비, 위조·중복·중도 이탈·느린 peer·server 손실·복원 실패 | 각 프로세스 결과와 서버 승인 횟수/세대/실패 전달을 대조. 단일 프로세스 통과로 대체하지 않음 |
 | [제안] P5 예제·수락 | 고정 씬·프로젝트 로비/보호 화면 callback 예제, 사용자 검토, 사람/AI API·XML 확정 | 예제와 사용자 수락. 공유 씬 전환/Relay·인증 provider/팀 매칭은 별도 후속; UPM 패키지·배포는 P1~P5 뒤 UI와 함께 맨 마지막(D-N3) |
@@ -292,4 +311,4 @@
 | D-N7 [결정됨] 준비 메시지 방향 | Named message 후보로 진행 | 실제 sender 검증·등록/해지는 P1/P3 확인, public API 미확정. 근거: 사용자 결정 2026-10-15 |
 | D-N8 [결정됨] 초기 동기화 정책·검증 방향 | `EnableSceneManagement=true` 기본 권장, `false`는 프로젝트 선택과 씬 동기화 책임 아래 허용; true P1 추가 검증 | 2026-10-15의 false 후보 검증 방향을 2026-10-16 사용자 결정으로 갱신. 종전 false 관찰은 역사적 조건으로 보존한다. GameSceneManager 역할 분리·1차 미확장, 같은 씬 이중 소유 금지; inventory/소유권 이관과 공유 씬 통합은 후속. native true의 별도 Windows Mono Player 관찰 완료; 실제 프로젝트·wrapper 통합은 후속 |
 
-[현행] [하위 결정 S1~S4](#b8-p0-이후-하위-결정과-남은-값) 중 S1/S2/S4 방향과 S3 결정 시점을 반영했다. S3 값·public API·복원 멱등 key·시간 값은 미확정이다. 2026-10-16 승인에 따라 검토한 의존성 반영과 P1 검증까지 진행하며, P2 이후 구현과 마지막 UPM 배포는 별도 승인 범위다. 실행 결과와 미실행은 P1 회고 한 곳에 둔다.
+[현행] [하위 결정 S1~S4](#b8-p0-이후-하위-결정과-남은-값) 중 S1/S2/S4 방향과 S3 결정 시점을 반영했다. S3 값·public API·복원 멱등 key·시간 값은 미확정이다. 2026-10-16 승인 범위의 의존성 반영·P1 검증·P2 내부 구현을 진행했다. P3 이후 구현과 마지막 UPM 배포는 별도 승인 범위다. 단계별 실행 결과와 미실행은 각 P1/P2 회고에 둔다.
