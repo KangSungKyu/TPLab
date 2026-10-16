@@ -121,6 +121,16 @@ namespace TPLab.Netcode
             return _attempt.Abort(SessionFailureCode.ParticipantPreparationFailed, participant.Id, cause);
         }
 
+        internal bool ReceiveParticipantAbort(SessionProtocolContext context, SessionConnection connection,
+            SessionFailureCode code, double now)
+        {
+            if (!_attempt.TryContinue(now) || !Context.Matches(context)
+                || !TryFindParticipant(connection, out var participant) || !participant.Connected
+                || !Enum.IsDefined(typeof(SessionFailureCode), code))
+                return false;
+            return _attempt.Abort(code, participant.Id, remoteReasonObserved: true);
+        }
+
         internal bool ReportLocalFailure(Exception cause, double now)
         {
             return _attempt.TryContinue(now) && _attempt.Abort(SessionFailureCode.LocalPreparationFailed, cause: cause);

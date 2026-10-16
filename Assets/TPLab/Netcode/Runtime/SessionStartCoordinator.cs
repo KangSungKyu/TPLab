@@ -341,7 +341,7 @@ namespace TPLab.Netcode
                 {
                     if (!_connections.TryGetValue(sender, out var connection) || connection.Generation != message.Generation) return;
                     if (message.Kind == SessionControlKind.Ready) _server.ReceiveReady(message.Context, connection, Now);
-                    else if (message.Kind == SessionControlKind.Abort) _server.ReportParticipantFailure(message.Context, connection, null, Now);
+                    else if (message.Kind == SessionControlKind.Abort) _server.ReceiveParticipantAbort(message.Context, connection, message.FailureCode, Now);
                 }
                 else if (sender == NetworkManager.ServerClientId)
                 {

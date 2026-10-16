@@ -114,7 +114,7 @@ namespace TPLab.Netcode
     /// <summary>Project-supplied synchronous, nonblocking authentication and proof replay verification.</summary>
     public interface IAdmissionVerifier
     {
-        /// <summary>Returns an authenticated roster identity or a normalized rejection. Called on the Unity main thread; do not reenter session commands.</summary>
+        /// <summary>Returns an authenticated roster identity or a normalized rejection. Called on the Unity main thread; commands reentering the same context are rejected before effects.</summary>
         AdmissionDecision Verify(AdmissionRequest request);
     }
     /// <summary>Trusted server context and copied opaque proof for one actual native connection.</summary>
@@ -180,7 +180,7 @@ namespace TPLab.Netcode
         public Exception Cause { get; }
         /// <summary>Gets the affected authenticated participant ID when known.</summary>
         public string ParticipantId { get; }
-        /// <summary>Gets whether a normalized remote reason was received, rather than inferred from local disconnect or expiry.</summary>
+        /// <summary>Gets whether a normalized remote reason was received after sender, generation and attempt validation, rather than inferred from local disconnect or expiry.</summary>
         public bool RemoteReasonObserved { get; }
         internal NetworkSessionFailure(NetworkSessionFailureReason reason, Exception cause = null, string participantId = null, bool remoteReasonObserved = false)
         { Reason = reason; Cause = cause; ParticipantId = participantId; RemoteReasonObserved = remoteReasonObserved; }

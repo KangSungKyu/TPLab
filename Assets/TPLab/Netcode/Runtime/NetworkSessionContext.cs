@@ -67,7 +67,7 @@ namespace TPLab.Netcode
             _manager = manager != null ? manager : throw new ArgumentNullException(nameof(manager));
             _callbacks = callbacks ?? throw new ArgumentNullException(nameof(callbacks));
             _options = options ?? throw new ArgumentNullException(nameof(options));
-            _verifier = verifier;
+            _verifier = verifier == null ? null : new GuardedVerifier(this, verifier);
         }
 
         /// <summary>Starts this context's single attempt. Protect, native synchronization, local prepare and server authorization precede gameplay.</summary>
@@ -139,7 +139,8 @@ namespace TPLab.Netcode
                 catch (Exception error)
                 {
                     Fail(_endpoint.Failure ?? new NetworkSessionFailure(
-                        _endpoint.LastAdmissionRejection == null ? NetworkSessionFailureReason.EndpointFailed : NetworkSessionFailureReason.AdmissionRejected, error));
+                        _endpoint.LastAdmissionRejection == null ? NetworkSessionFailureReason.EndpointFailed : NetworkSessionFailureReason.AdmissionRejected,
+                        _endpoint.LastAdmissionRejection?.Cause ?? error));
                 }
             }
             while (_failure == null && !_endpoint.NativeReady)
@@ -391,6 +392,25 @@ namespace TPLab.Netcode
                 case NetworkSessionFailureReason.OwnerCancelled: return SessionFailureCode.OwnerCancelled;
                 case NetworkSessionFailureReason.DeadlineExceeded: return SessionFailureCode.DeadlineExceeded;
                 default: return SessionFailureCode.LocalPreparationFailed;
+            }
+        }
+        private sealed class GuardedVerifier : IAdmissionVerifier
+        {
+            private readonly NetworkSessionContext _owner;
+            private readonly IAdmissionVerifier _verifier;
+
+            internal GuardedVerifier(NetworkSessionContext owner, IAdmissionVerifier verifier)
+            { _owner = owner; _verifier = verifier; }
+
+            public AdmissionDecision Verify(AdmissionRequest request)
+            {
+                bool previous = _owner._insideCallback;
+                try
+                {
+                    _owner._insideCallback = true;
+                    return _verifier.Verify(request);
+                }
+                finally { _owner._insideCallback = previous; }
             }
         }
         private sealed class HookOperation

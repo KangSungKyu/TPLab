@@ -148,7 +148,7 @@
 | 복원 | 정리 성공 후 RestoreLobbyAsync. 최초 실패와 추가 복원/정리 오류를 분리. 동일 SessionId/AttemptId key로 명시 RetryLobbyRestoreAsync. 이전 hook이 남아 있으면 병렬 복원·새 owner 금지 |
 | 안전 종료 | Running의 정상 Shutdown은 자동 로비 복원 없이 Closed. pending restore는 RecoveryFault를 유지하고 실제 완료 뒤 Shutdown 재호출로 Closed 가능. lease는 Lobby/Closed에서만 반환 |
 | 시작 승인 이후 실패 | 일부 peer가 이미 시작했을 수 있으므로 송신/StartGameplay 실패는 자동 복원을 주장하지 않고 보호·정리 후 RecoveryFault. 프로젝트의 명시적 복원/안전 출구 필요 |
-| 스레드·재진입 | public Context는 Unity main thread. callback의 동기 실행 중 명령 재진입 거부. hook이 첫 await 뒤 자기 session 완료를 기다리는 순환은 지원하지 않음 |
+| 스레드·재진입 | public Context는 Unity main thread. hook과 Host/원격 입장 verifier의 동기 실행 중 명령 재진입 거부. hook이 첫 await 뒤 자기 session 완료를 기다리는 순환은 지원하지 않음 |
 
 [현행] `TPLab.Netcode.Session.v1` Named message 이름은 wrapper 전용으로 예약한다. NGO 공개 API에는 기존 이름 등록 조회가 없으므로 다른 소유자의 충돌을 모두 사전 검출한다고 보장하지 않는다. 사용하는 동안 승인 callback, connection data, wrapper channel과 native 세션 명령을 다른 코드가 교체하지 않아야 한다. 종료 후 자신의 handler/approval과 차용 connection data를 정리·복원한다. 프로젝트는 일반 gameplay RPC/NetworkVariable/NetworkObject를 직접 사용한다.
 

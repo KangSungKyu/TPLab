@@ -129,3 +129,38 @@ public API 추가에 맞춰 Runtime XML, 사람/AI Netcode API, 각 README/색�
 사용자가 요청한 최초 실패 보존과 PR 검토·P4 인계를 위해 원시 결과·정정 전 테스트·freeze·보존 검사·명령 기록을 `Temp/netcode-p3-20261016`에 유지한다. 영속 요약은 이 회고 한 곳이며 API는 Temp에 의존하지 않는다. 해당 원문 검토와 인계가 끝나면 작업 소유 목록만 정리한다. 다른 Temp/사용자 자산은 정리하지 않는다.
 
 미실행: P3 wrapper Player/IL2CPP, 별도 프로세스 P4 실패/이탈/위조·true Single 경로, 실제 인증/로비/Relay, GC/성능, 외부 소비 설치, P5 예제/UX 수락, UPM 재생성·배포. 이 단위는 P3 개발 소스 검증이며 Netcode 전체 또는 배포 완료가 아니다.
+
+## PR #38 병합 전 리뷰 보완 — 2026-10-16
+
+위 최초 P3 검증·중단·승인 기록은 당시 결과다. 이후 사용자는 PR #38 병합과 완료 후 P4를 승인했다. 병합 직전 tip `e7adb6b60564a420c496e92affdce6bf586589e1`에서 새 리뷰 3건과 Claude workflow skipped2/cancelled1을 확인해 병합을 보류했다. 규칙 run38849988483 성공만으로 전체 gate 성공으로 처리하지 않았다. 기존 PR #37의 skipped 예외는 재사용하지 않았다. 리뷰는 기존 public 계약의 결함임을 읽어 확인한 뒤 같은 PR에서 보완했다.
+
+원인: `SessionStartCoordinator.OnMessage`가 검증한 원격 Abort 코드를 버리고 `ReportParticipantFailure`를 호출했다. `VerifyAdmission`의 프로젝트 verifier는 Context의 동기 callback guard 밖에서 실행됐다. `NetworkSessionContext.RunStartAsync`는 Host verifier의 원본 예외를 감싼 native-start 거부 예외를 public Cause로 내보냈다.
+
+신규 [SessionReviewRegressionTests](../../Assets/TPLab/Netcode/Tests/PlayMode/SessionReviewRegressionTests.cs) 6건만 추가했고 기존 테스트는 수정하지 않았다. Red는 test body에서 아래 이유로 모두 실패했으며 SetUp/TearDown/Timeout 실패0이다. 원문 `review-red-play.json`을 작업 Temp에 보존하고 SHA256 `97cbc564fd6d5173ab856422e5df022326af3ce49bd5740dd503a556201bd2b1`로 동결했다. 동결 hash는 검증 기록에서 다시 대조한다.
+
+| 신규 테스트 | Red 원문 핵심 | 보완 |
+|---|---|---|
+| ClientDeadlineExceededAbortPreservesRemoteReasonOnHost | Expected: DeadlineExceeded / But was: ParticipantPreparationFailed | sender·generation·context·connected 확인 후 정규화 code와 원격 관측 여부 보존 |
+| ClientEndpointFailedAbortPreservesRemoteReasonOnHost | Expected: EndpointFailed / But was: ParticipantPreparationFailed | 위와 같음 |
+| ClientOwnerCancelledAbortPreservesRemoteReasonOnHost | Expected: OwnerCancelled / But was: ParticipantPreparationFailed | 위와 같음 |
+| HostVerifierCannotReenterOwnerShutdownAndAdmissionCanStillStart | Expected: System.InvalidOperationException / But was: null | private verifier adapter로 동기 재진입 guard 적용·finally에서 이전 값 복원 |
+| RemoteVerifierCannotReenterOwnerShutdownAndBothPeersCanStart | Expected: System.InvalidOperationException / But was: null | 원격 승인도 같은 guard 사용, 거부 후 정상 입장·시작 유지 |
+| HostVerifierExceptionPreservesOriginalResultAndAdmissionCause | Expected: same as InvalidOperationException: local admission regression sentinel / But was: InvalidOperationException: Host admission was rejected before native start. ---> local admission regression sentinel | LastAdmissionRejection.Cause 원본 우선; 없으면 기존 시작 오류 보존 |
+
+신규 internal `ReceiveParticipantAbort`는 기존 P2 `ReportParticipantFailure`의 의미를 바꾸지 않는다. public 시그니처·assembly·패키지 변경0이다. verifier guard는 생성 시 private adapter1개를 소유하며 매 검증마다 wrapper 할당을 추가하지 않는다. GC 계측은 미실행이다. XML·사람/AI API와 P3 계약 표에 같은 경계를 명시했다.
+
+신규 6건은 false 모드 실제 loopback으로 검증한다. 원격 Abort는 연결된 실제 sender가 raw named message를 보내고 Host가 수신할 때까지 연결을 유지해 단절과 경쟁하지 않게 했다. 모든 gate는 finally/teardown에서 해제하며 Timeout30000·8초 유한 관찰을 사용한다. 정상 임대/사용 유지와 원격 거부 뒤 정상 시작을 함께 확인한다. Input/EventSystem 비사용이다. 포트 예약을 해제한 뒤 native transport가 바인딩하기까지의 작은 경쟁 가능성은 남는다.
+
+부모가 테스트 검토·복사·Unity·수정·문서를 수행했다. boundary reviewer(gpt-6.1-sol/high)는 Temp 신규 후보와 최종 runtime3파일 읽기 검토를 담당했으며 추가 결함을 발견하지 못했다. 기존 테스트 파일·사용자 dirty8은 보존한다. P4용 Temp probe 준비는 병렬이지만 실제 P4 실행은 병합 뒤에 한다.
+
+| 병합 전 보완 실제 실행 | 통과/전체 | 실패/skip | 작업 Temp 결과 |
+|---|---:|---:|---|
+| 수정 전 전체 EditMode | 534/534 | 0/0 | review-baseline-edit.json |
+| 수정 전 전체 PlayMode | 407/407 | 0/0 | review-baseline-play.json |
+| 신규 Red | 0/6 | 6/0 | review-red-play.json |
+| 동결 후 Green | 6/6 | 0/0 | review-green-play.json |
+| 보완 후 전체 EditMode | 534/534 | 0/0 | review-final-edit.json |
+| 보완 후 전체 PlayMode | 413/413 | 0/0 | review-final-play.json |
+| 같은 source 전체 PlayMode 반복 | 413/413 | 0/0 | review-final-play-repeat.json |
+
+기존534/407 이름 집합 모두 유지, Play 신규6만 증가, 반복 이름·결과 동일. 실행 환경·명령 형식은 위와 같고 신규 filter는 `TPLab.Netcode.Tests.SessionReviewRegressionTests`다. Green targeted의 첫 CLI는 실행 전 discovery 거부였고 runner의 다음 fresh 실행에서6건이 통과했다(실제 실패 재시도로 감추지 않음). compile refresh 성공; runtime 실행문 수정 뒤 전체 회귀를 했으며 마지막 XML 주석 정정 뒤 refresh·Play 반복도 통과했다. 검증 source는 후속 metadata commit에서 적는다. 직접 보호836경로·역사적 verifier17원문·dirty8 hash·신규 동결hash 동일, 링크 오류0. 실제 GC/Player/다중 프로세스는 여전히 이 P3 증거 범위 밖이다.

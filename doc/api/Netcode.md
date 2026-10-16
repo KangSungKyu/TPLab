@@ -81,7 +81,7 @@ static AdmissionDecision Reject(AdmissionRejectionCode code)
 
 Protect는 표시·입력을 차단한다. Release는 진행 중이던 준비 hook이 실제로 끝난 뒤 프로젝트 자원을 정리한다. RestoreLobby는 native 종료와 필요한 hook 정리가 확인된 뒤 호출한다. 복원 입력의 SessionId/AttemptId 쌍은 멱등 key다. hook은 자기 늦은 작업·취소·자원 수명을 관리하고 같은 context의 명령으로 재진입하지 않는다.
 
-검증기는 Unity 메인 스레드에서 동기·비차단으로 끝나야 한다. 신뢰된 서버 identity, 불투명 proof, 실제 ClientId/ConnectionGeneration, 인증용 ServerUtcNow, 남은 준비 초를 받는다. UTC 인증 만료와 단조 시각의 세션 budget을 혼동하지 않는다. Host도 StartHost 전에 같은 검증기를 한 번 사용하고 해당 시작 시도의 결과를 재사용한다. 반환 ID는 명단·중복 mapping 검사까지 통과해야 입장한다. 검증 예외·잘못된 결과·중복 요청은 새 입장을 거부하며 기존 정상 멤버를 대체하지 않는다. 이미 소비된 proof의 재발급은 프로젝트 책임이다.
+검증기는 Unity 메인 스레드에서 동기·비차단으로 끝나야 한다. Host 사전 검증과 원격 승인 검증 모두 같은 context의 명령 재진입을 효과 전에 거부한다. 신뢰된 서버 identity, 불투명 proof, 실제 ClientId/ConnectionGeneration, 인증용 ServerUtcNow, 남은 준비 초를 받는다. UTC 인증 만료와 단조 시각의 세션 budget을 혼동하지 않는다. Host도 StartHost 전에 같은 검증기를 한 번 사용하고 해당 시작 시도의 결과를 재사용한다. 반환 ID는 명단·중복 mapping 검사까지 통과해야 입장한다. 검증 예외·잘못된 결과·중복 요청은 새 입장을 거부하며 기존 정상 멤버를 대체하지 않는다. 이미 소비된 proof의 재발급은 프로젝트 책임이다.
 
 ## 결과와 실패 복원
 
@@ -93,7 +93,7 @@ Protect는 표시·입력을 차단한다. Release는 진행 중이던 준비 ho
 | NetworkSessionAttempt | Identity, IsHost |
 | NetworkSessionRecovery | 원래 Attempt, 원래 Failure, 해당 시점 RecoveryErrors snapshot |
 
-사전 조건·잘못된 구성은 ArgumentException 계열 또는 InvalidOperationException으로 거부한다. hook/native 실행 실패는 결과의 Failure와 RecoveryErrors로 구분한다. 호출자 기다림 취소는 OperationCanceledException이다. 로컬 Cause에는 민감한 정보가 있을 수 있으므로 원격에 전달하지 않는다. 원격 실패는 정규화 코드만 수락하며 원격 사유를 못 받으면 로컬 단절·만료와 구분한다.
+사전 조건·잘못된 구성은 ArgumentException 계열 또는 InvalidOperationException으로 거부한다. hook/native 실행 실패는 결과의 Failure와 RecoveryErrors로 구분한다. 호출자 기다림 취소는 OperationCanceledException이다. 로컬 Cause에는 민감한 정보가 있을 수 있으므로 원격에 전달하지 않는다. Host 검증기가 던진 원본 예외 객체는 결과 Failure.Cause와 LastAdmissionRejection.Cause에 동일하게 보존한다. 원격 실패는 실제 sender·세대·attempt를 확인한 뒤 정규화 코드를 보존하고 RemoteReasonObserved=true로 표시한다. 원격 사유를 못 받으면 로컬 단절·만료와 구분한다.
 
 실패한 attempt는 먼저 무효화한다. 보호를 유지하고 준비 취소·실제 hook 완료·Release·native 종료를 관찰한 뒤 복원을 시도한다. 첫 실패를 정리/복원 오류로 덮지 않는다. 승인 후 송신 실패나 StartGameplay 실패는 일부 peer가 시작했을 수 있으므로 자동 로비 복원을 보장하지 않는다. 보호 실패도 자동 복원 성공으로 숨기지 않는다.
 
