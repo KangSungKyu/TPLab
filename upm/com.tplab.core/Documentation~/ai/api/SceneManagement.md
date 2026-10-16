@@ -1,15 +1,20 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # SceneManagement: AI API reference
+유형: 레퍼런스
+현재 상태: `Implemented` / `Partial`
+기준 source: 0cc919b6c497f348deae3e6ae4dffb33f21c8482
+갱신일: 2026-10-13
+계약 링크: [계약 원문](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/GAME_SCENE_MANAGER_DRAFT.md)
 
 | Field | Value |
 |---|---|
 | Module / Namespace / Assembly | `SceneManagement` / `TPLab.Core.SceneManagement` / `TPLab.Core` |
-| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0` |
+| SourceRevision | `0cc919b6c497f348deae3e6ae4dffb33f21c8482` |
 | SourcePath | [소스](../../../Runtime/SceneManagement), [asmdef](../../../Runtime/TPLab.Core.asmdef) |
-| HumanContract | [사람용 API](../../api/SceneManagement.md), [manager](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/BOOTSTRAP_SYSTEM.md), [로더](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
+| HumanContract | [사람용 API](../../api/SceneManagement.md), [manager](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/GAME_SCENE_MANAGER_DRAFT.md), [Bootstrap](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/BOOTSTRAP_SYSTEM.md), [로더](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/SCENE_LOADING.md), [Lifecycle](Lifecycle.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
-| Evidence | 현재 P4 전체 Edit271/271·Play253/253(실패0/skip0), Additive/Single Windows Mono build 및 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. [P4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-loading/p4/README.md). UserAcceptance: user PlayMode confirmation 2026-10-07; per-mode/device/resolution results unspecified. |
+| Evidence | 현재 P4 전체 Edit271/271·Play253/253(실패0/skip0), Additive/Single Windows Mono build 및 Player 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회. [P4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-loading/p4/README.md). UserAcceptance: user PlayMode confirmation 2026-10-07; per-mode/device/resolution results unspecified. |
 
 ## Symbol / Signature / Constraints
 
@@ -34,6 +39,9 @@ public Scene GameScene { get; private set; }
 public Scene LoadedScene { get; }
 public IReadOnlyList<Scene> OwnedScenes { get; }
 public IReadOnlyList<SceneRegistration> RegisteredScenes { get; }
+public int OwnedSceneCount { get; }
+public void GetOwnedScenes(List<Scene> buffer);
+public void GetRegisteredScenes(List<SceneRegistration> buffer);
 public bool IsGamePrepared { get; }
 public bool CanProceed { get; }
 public UniTask EnterFirstSceneAsync(string scenePath, LoadSceneMode mode = LoadSceneMode.Additive,
@@ -217,4 +225,35 @@ opt-in load에서 manager는 `UsesLoadingPresentation`을 한 번 평가한다. 
 
 ## ValidationStatus
 
-현재 P4 전체 Edit271/271·Play253/253, 실패0/skip0이며 Windows Mono Additive/Single builds와 Players는 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회가 성공했다([증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-loading/p4/README.md)). 이 smoke는 최종 사용자 화면 확인, 물리 장치 UX, 원격 Addressables content/download, IL2CPP 또는 다른 플랫폼을 검증하지 않는다. 과거 P2 targeted 결과는 현재 전체 회귀 대신 사용하지 않는다.
+현재 P4 전체 Edit271/271·Play253/253, 실패0/skip0이며 Windows Mono Additive/Single builds와 Players는 각12/12, Input 포함 consumer Editor build 1회와 Player run 1회가 성공했다([증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-loading/p4/README.md)). 이 smoke는 최종 사용자 화면 확인, 물리 장치 UX, 원격 Addressables content/download, IL2CPP 또는 다른 플랫폼을 검증하지 않는다. 과거 P2 targeted 결과는 현재 전체 회귀 대신 사용하지 않는다.
+
+## IMP-05: 폴링과 호출자 버퍼 snapshot
+
+**ImplementationStatus / ValidationStatus:** Implemented / Verified for Windows Mono Editor. source `0cc919b6c497f348deae3e6ae4dffb33f21c8482`, [검증·기여도·실제 Red/Green](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/imp-05/implementation/README.md). 전체 Edit359/359·Play332/332, fail/skip0. 이전 P4 Player/배포 증거는 역사적 자료이며 이번 변경의 Player/IL2CPP는 **NotRun**이다.
+
+| Symbol | 계약 |
+|---|---|
+| `int GameSceneManager.OwnedSceneCount { get; }` | main thread. 현재 `OwnedScenes.Count`와 같으며 배열을 만들지 않는다. valid&&loaded인 primary→derived→candidate를 센다. common/retained 제외, 외부 unload를 호출마다 반영한다. |
+| `void GameSceneManager.GetOwnedScenes(List<Scene> buffer)` | non-null caller buffer를 Clear 후 primary→derived 현재 등록 순서→candidate의 valid&&loaded Scene을 채운다. 기존 OwnedScenes와 같은 필터·순서. |
+| `void GameSceneManager.GetRegisteredScenes(List<SceneRegistration> buffer)` | Clear 후 primary→derived의 등록 metadata를 같은 순서로 채운다. candidate 제외, 추가 loaded 필터 없음. root 준비/종료·부모·role·priority를 해당 호출에서 복사한다. |
+
+**Inputs / Errors / FailureCleanup:** 두 메서드는 null을 먼저 검사하여 ArgumentNullException, 그 다음 main-thread 조건을 검사하여 InvalidOperationException을 던진다. thread 검증 실패는 기존 buffer 내용을 변경하지 않는다. 검증 후 Clear/fill에서 읽기·List.Add 등이 실패하면 부분 내용을 Clear하고 원래 예외를 전파한다. 실패 뒤 buffer 내용은 empty이고 capacity 확장은 되돌리지 않는다. capacity 부족은 List의 정상 확장/할당이며 오류나0events 보장이 아니다. OwnedSceneCount도 기존 main-thread guard를 사용한다.
+
+**Ownership / Lifecycle / Snapshot:** List는 caller 소유이며 manager가 보관·공유·반환받지 않는다. 결과는 호출 시점의 복사 값이다. 이후 등록/제거는 buffer membership이나 복사된 SceneRegistration flags를 자동 수정하지 않고 다음 호출만 갱신한다. Scene 값은 native instance handle이므로 `scene.isLoaded` 같은 native 조회 결과는 이후 변할 수 있다. Scene/load/root의 소유권은 옮기지 않으며 종료 후에도 남은 소유 진단을 읽을 수 있다. 동시 writer/reentrant root getter mutation은 이 snapshot 계약의 사용 전제가 아니다.
+
+**Allocation / RequiredSequence:** List를 충분한 capacity로 만들고 해당 경로를 warm-up한 뒤 반복 채움/Count 읽기는 manager bookkeeping을 할당하지 않는다. 실제 primary+derived+nested3개, buffer capacity8에서1000회 합산 workload가 유효 양성/음성 대조 아래0events였다. project root의 IsPrepared getter가 자체로 할당/예외를 내면 그 비용/오류는 별도이며 구현이 숨기지 않는다. 등록/소유 수가 capacity를 넘으면 caller가 미리 확장하거나 정상 List 확장을 허용한다.
+
+`OwnedScenes`와 `RegisteredScenes` 기존 속성은 계속 **할당하는 진단 snapshot**이다. 매 frame 속성을 읽지 않고 caller-owned buffer를 재사용한다. 기존 시그니처·본문·결과 의미는 유지했다. 이번 primary-only 실측에서 각각100회600/400events를 검출했다. 새 API는 추가 기능이며 기존 소비 코드를 강제로 바꾸지 않는다.
+
+`CanProceed`는 새 buffer API를 호출하지 않는다. 등록 root 준비 확인, 기대 union과 actual loaded scene의 양방향 membership을 직접 순회하여 LINQ iterator/메서드 그룹 delegate/기대 배열/HashSet을 없앴다. short-circuit 순서, Scene instance 비교, 중복 Set 의미, unloaded expected 거부, candidate/retained·ShutdownStarted 관련 기존 준비 조건은 유지한다. 관리 bookkeeping의100회2300events Red는0으로 전환됐다. 이중 membership 순회는 O(loaded×expected)이고 CPU 시간/다른 backend는 측정하지 않았다.
+
+**Example / Compatibility:** 다음은 설명용 **NotRun** 발췌다. 런타임 thread guard·null/실패 정책은 위 계약을 따른다.
+
+```csharp
+var ownedBuffer = new List<Scene>(8);
+var registrationBuffer = new List<SceneRegistration>(8);
+// Unity main thread; reuse both lists on later polling calls.
+scenes.GetOwnedScenes(ownedBuffer);
+scenes.GetRegisteredScenes(registrationBuffer);
+int count = scenes.OwnedSceneCount;
+```

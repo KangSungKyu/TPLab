@@ -1,15 +1,20 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Editor
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented; ValidationStatus: Partial.
+기준 source: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
+갱신일: 2026-10-08
+계약 링크: 본문 참조
 
 Editor 도구는 Bootstrap/씬 전환 설정을 사전 검사하고 CSV와 명시적 JSON schema로 프로젝트 DTO·테이블 C# 소스를 생성/검증한다. runtime 데이터를 Editor에서 자동 등록하거나 공개하지 않는다.
 
 - Assembly: `TPLab.Core.Editor` (Editor 전용); Namespace: `TPLab.Core.Editor.DataTables`, `TPLab.Core.Editor.Bootstrap`
 - SourceRevision: `32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed`; [소스](../../Editor)
-- ImplementationStatus: Implemented; ValidationStatus: Partial. [importer 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/data-table-importer/README.md), [씬 gate 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-transition-editor/README.md), [최종 회귀](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md). P2에서 실제 Git/tarball importer 소비 실행을 확인했다. 이번 Windows 교체 보정의 새 package 검증은 배포 후보 gate에서 별도로 기록한다.
+- ImplementationStatus: Implemented; ValidationStatus: Partial. [importer 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/data-table-importer/README.md), [씬 gate 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-transition-editor/README.md), [최종 회귀](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md). P2에서 실제 Git/tarball importer 소비 실행을 확인했다. 이번 Windows 교체 보정의 새 package 검증은 배포 후보 gate에서 별도로 기록한다.
 - 의존성: Core, UniTask, Addressables Editor 및 설치된 Unity Newtonsoft.Json **3.2.2**. runtime Player에 이 assembly를 포함하지 않는다.
 
-`Create > TPLab > Data Table Import Settings`로 설정을 만들고 자동 사용 시 `Assets/Editor/TPLab/setting.asset`에 저장한다. 없으면 자동화는 꺼져 있다. Inspector에서 명시적 검증/생성도 요청할 수 있다. [schema 및 설정 상세](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md)를 따른다.
+`Create > TPLab > Data Table Import Settings`로 설정을 만들고 자동 사용 시 `Assets/Editor/TPLab/setting.asset`에 저장한다. 없으면 자동화는 꺼져 있다. Inspector에서 명시적 검증/생성도 요청할 수 있다. [schema 및 설정 상세](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_IMPORTER_DRAFT.md)를 따른다.
 
 | DataTableImportSettings 항목 | 기본값·용도 |
 |---|---|
@@ -79,8 +84,8 @@ static IReadOnlyList<string> ValidateGameScene(Scene scene);
 static IReadOnlyList<string> ValidateEditorSetup(bool enteringPlay);
 ```
 
-빈 오류 목록은 해당 사전 검사 통과이며 씬 실행 완료 증거가 아니다. 저장된 씬은 격리 preview로 검사하고 사용자 씬을 저장/대체하지 않는다. 첫 build scene/root/installer/Single 유지 가능성/정의/condition metadata 및 명시적으로 선택한 BuildScene·Addressables 등록을 검사한다. Inspector·컴파일 후·Play 진입·build gate가 연결되어 있다. unsaved live root와 실제 Player build scene 목록도 검사한다. `SceneAsset`의 등록 여부로 backend를 자동 선택하지 않는다. [Bootstrap 사용](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/BOOTSTRAP_SYSTEM.md), [씬 API](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/api/SceneManagement.md)를 따른다.
+빈 오류 목록은 해당 사전 검사 통과이며 씬 실행 완료 증거가 아니다. 저장된 씬은 격리 preview로 검사하고 사용자 씬을 저장/대체하지 않는다. 첫 build scene/root/installer/Single 유지 가능성/정의/condition metadata 및 명시적으로 선택한 BuildScene·Addressables 등록을 검사한다. Inspector·컴파일 후·Play 진입·build gate가 연결되어 있다. unsaved live root와 실제 Player build scene 목록도 검사한다. `SceneAsset`의 등록 여부로 backend를 자동 선택하지 않는다. [Bootstrap 사용](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/BOOTSTRAP_SYSTEM.md), [씬 API](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/api/SceneManagement.md)를 따른다.
 
-최소 importer 예제는 [설정/profile 템플릿](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md)이다. 문서의 선언 블록은 발췌(NotRun); 설정을 만들고 profile 등록 → CSV/schema 사전검사 → 명시적 생성 → compile → typed 전체 검증의 순서를 지킨다. JSON 행·자동 타입 추론·자동 이름 변경·runtime 설정 UI는 제공하지 않는다.
+최소 importer 예제는 [설정/profile 템플릿](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_IMPORTER_DRAFT.md)이다. 문서의 선언 블록은 발췌(NotRun); 설정을 만들고 profile 등록 → CSV/schema 사전검사 → 명시적 생성 → compile → typed 전체 검증의 순서를 지킨다. JSON 행·자동 타입 추론·자동 이름 변경·runtime 설정 UI는 제공하지 않는다.
 
 StagingPath: 임시 파일은 출력 폴더 안의 GUID.tmp로 만들어 최종 파일명에 37자를 덧붙이지 않는다. 최종/임시 절대 경로에는 Unity·OS 파일시스템 제한이 여전히 적용되며 임의의 긴 경로 지원을 보장하지 않는다.

@@ -1,13 +1,18 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # DataTables
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented; ValidationStatus: Partial.
+기준 source: 3062716f2d494bc61bf515f3fa30b1ee8aada9f0
+갱신일: 2026-10-07
+계약 링크: [계약 원문](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_MANAGER.md)
 
-CSV를 프로젝트 DTO로 읽고 모든 테이블·FK 검증이 성공한 snapshot만 공개한다. 기본 경로는 `uint idx`이며, 별도 PK를 쓰는 수동 경로도 제공한다. Text/Resource는 코어 기본 테이블이 아닌 [프로젝트 템플릿](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/templates/data-tables/README.md)이다.
+CSV를 프로젝트 DTO로 읽고 모든 테이블·FK 검증이 성공한 snapshot만 공개한다. 기본 경로는 `uint idx`이며, 별도 PK를 쓰는 수동 경로도 제공한다. Text/Resource는 코어 기본 테이블이 아닌 [프로젝트 템플릿](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/templates/data-tables/README.md)이다.
 
 - Namespace: `TPLab.Core.DataTables`; Assembly: `TPLab.Core`
 - SourceRevision: `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; [소스](../../Runtime/DataTables)
-- ImplementationStatus: Implemented; ValidationStatus: Partial. Unity 6000.3.18f1 Windows Mono 소비 프로젝트와 전체 회귀는 [검증 자료](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md)에 있다. 다른 버전·IL2CPP는 미실행이다.
-- 의존성: CsvHelper 33.1.0, UniTask. 상세 계약: [기본 로딩](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_MANAGER.md), [idx](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IDX_DRAFT.md), [제네릭 조회](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_GENERIC_IMPLEMENTATION.md).
+- ImplementationStatus: Implemented; ValidationStatus: Partial. Unity 6000.3.18f1 Windows Mono 소비 프로젝트와 전체 회귀는 [검증 자료](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md)에 있다. 다른 버전·IL2CPP는 미실행이다.
+- 의존성: CsvHelper 33.1.0, UniTask. 상세 계약: [기본 로딩](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_MANAGER.md), [idx](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_IDX_DRAFT.md), [제네릭 조회](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_GENERIC_IMPLEMENTATION.md).
 
 `IDataRow.Id`는 getter이며 `DataRow.Id`는 `[Name("idx")] uint` getter/setter다. CSV의 idx는 이미 생성된 최종 PK다. 로드 시 생성하지 않는다. 공개 후 DTO를 읽기 전용으로 취급한다. `CsvDataTable<TRow>`의 제약은 `where TRow : class, IDataRow`; `IDataTable<TRow>`는 `Rows`, `Count`, `TryGet(uint key, out TRow row)`를 제공한다. 테이블 상속 시 `ConfigureMapping(CsvContext)`, `ValidateRow(TRow)`, `ValidateTable(IReadOnlyDictionary<uint, TRow>)`를 override할 수 있다. 외부 부작용 없이 검증하며 factory는 실패한 재시도에도 새 인스턴스를 반환해야 한다.
 
@@ -95,4 +100,4 @@ using (var tables = new DataTableManager())
 }
 ```
 
-실행 확인된 가져오기 예제는 [소비 프로젝트 smoke](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/tools/core-consumer/templates/ConsumerSmoke.cs)와 해당 [검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md)을 사용한다. dynamic 반환·자동 도메인 테이블·파일 저장·수정 가능한 공개 snapshot은 제공하지 않는다.
+실행 확인된 가져오기 예제는 [소비 프로젝트 smoke](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/tools/core-consumer/templates/ConsumerSmoke.cs)와 해당 [검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md)을 사용한다. dynamic 반환·자동 도메인 테이블·파일 저장·수정 가능한 공개 snapshot은 제공하지 않는다.
