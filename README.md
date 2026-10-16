@@ -93,7 +93,7 @@ P1/P2 및 P3 targeted UI 검증은 당시 단계별 결과로 보존되어 있�
 
 ## Netcode 개발 상태
 
-Netcode는 별도 [개발 source API](doc/api/Netcode.md)로 Host/client 세션·입장 검증기·전원 준비·종료/복원 callback을 제공한다. 프로젝트가 NetworkManager 설정과 증명·로비·UI를 소유하고 payload/시간 상한을 명시한다. P4 다중 프로세스 wrapper 검증과 P5 예제·수락, UPM 배포는 후속이며 0.0.1 패키지에는 포함되지 않는다.
+Netcode는 별도 [개발 source API](doc/api/Netcode.md)로 Host/client 세션·입장 검증기·전원 준비·종료/복원 callback을 제공한다. 프로젝트가 NetworkManager 설정과 증명·로비·UI를 소유하고 payload/시간 상한을 명시한다. [P4 다중 프로세스 검증](doc/retrospectives/2026-10-16-04-netcode-p4-multiprocess.md)은 Windows Mono loopback 범위에서 수행했다. P5 예제·수락과 UPM 배포는 후속이며 0.0.1 패키지에는 포함되지 않는다.
 
 ## 라이선스
 
