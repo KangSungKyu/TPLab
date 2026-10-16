@@ -103,3 +103,74 @@ python tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <exact40SHA
 실측 링크/anchor 검사는 Markdown259개·상대 링크2,117개·anchor492개·오류0이다(HTTP는 미조회). `check_pr_rules` 오류0·경고0, 공백 오류0이며 보호 파일 변경은 없다. 원래 verifier17건은17→17 실패로 exit/stdout/stderr 전체가 동일하고 보호836경로의 존재/해시가 같다. 허용7파일만 커밋했으며 제품 C#/기존 테스트/asmdef/tools/workflow/upm diff0이다. 원래 dirty10개의 bytes는 모두 유지됐고, 그중 승인된 package 입력2개만 커밋해 나머지8개는 그대로 남겼다.
 
 문서 줄바꿈 일괄 정규화 시도는 자동 승인 검토가 범위 밖 변경 위험으로 실행 전에 거부했다. 정규화는 생략하고 읽기 전용 감사를 수행했으며 Git의 CRLF→LF 안내를 검사 오류와 구분했다. 불필요한 정규화 승인을 새로 요구하거나 우회 실행하지 않았다.
+
+
+## 2026-10-16 후속 — true 권장과 native 씬 검증
+
+### 승인·변경 경계
+
+사용자는 `EnableSceneManagement=true`를 기본 권장으로, `false`를 프로젝트 선택으로 정하고 GameSceneManager 역할 분리와 true P1 실행을 승인했다. 같은 단위의 후속이므로 열린 PR #36과 `codex/netcode-p1-verification`을 재사용했다. 시작 local/remote branch HEAD는 `a0497fb9e89f4f8068323ed4279e100dbf23dfef`, local/remote main은 `0e2d3ce00928e033f121e6ed457a3528f690d874`로 일치했다. 이 추가 단위에서 병합·새 패키지·제품 wrapper·GSM·공개 API를 구현하지 않았다. PR 전체는 앞선 승인 의존성 단위와 같은 T2이며, 이번 영속 diff는 문서4개뿐이다.
+
+D-N8과 역할 표를 갱신했다. 프로젝트는 주입 NetworkManager 객체·설정 수명을, wrapper는 세션 제어·입장·Ready/시작 절차를, NGO는 native 공유 씬 동기화를 맡는 방향이다. 세부 독점 사용권 획득/충돌 검사·공개 API는 제안이다. true/false를 실행 중 묵시 전환하지 않으며, 초기 동기화 Single/Additive의 기본값도 새로 결정하지 않는다. 현행 GSM의 inventory/active-scene 검사와 NGO 변경 사이의 소유권 이관은 후속 통합으로 남긴다. 이전 절의 false 실험·미확인 문장은 당시 기록이며 아래 결과가 true 관찰 범위를 보완한다.
+
+하위 에이전트 `/root/netcode_boundary_review`(gpt-6.1-sol / high)는 비동기 수명·소유권 검토와 `NETCODE_SESSION_DRAFT.md`만 수정했다. 추가 하네스 검토는 읽기 전용이었다. 부모가 문서·native 결과·diff를 리뷰하고 모든 Unity/Git 작업을 수행했다. 동일 파일의 동시 수정과 Unity 병렬 조작은 없었다. 하네스 검토에서 지적한 callback 실패 row·잔존 manager·양쪽 객체 ID는 외부 판정기에 모두 포함해 exit0만으로 통과시키지 않았다.
+
+### 실행·관찰 범위
+
+Unity6000.3.18f1 / Windows / NGO2.13.3 / UTP2.7.3 / Mono / CLI0.4.1, 기존 Editor PID3428을 유지했다. 설치 package의 공개 API만 쓰는 자체 C# 하네스를 Temp에서 컴파일했다. NetworkBehaviour·private API·package 테스트 helper·새 assembly 정의는 사용하지 않았다. 씬에는 native NetworkObject만 배치했다. 최초 컴파일의 IsSceneObject obsolete 경고는 실행 전에 공개 InScenePlaced로 바꿔 제거했으며, 실행 단언이나 제품 코드는 변경하지 않았다.
+
+미저장 Editor 씬0을 확인한 뒤 작업 소유 폴더 `Assets/TPLabP1SceneProbe-20261016`에 DLL과 Bootstrap/Arena/Extra/Final 씬을 준비했다. BuildPlayerOptions.scenes로 해당4개만 전달했고 기존 dirty EditorBuildSettings는 바꾸지 않았다. 광역 SaveAssets는 호출하지 않았다. 빌드 명령은 CLI 전송 대기 중 `Error: timed out sending command to Unity: cannot connect to Unity`를 반환했지만 Editor의 빌드는 계속됐다. 중복 실행·강제 종료 없이 결과 파일과 Editor 복구를 확인했다. 실제 build는 Succeeded·오류0·경고2·137.792초·178,538,493bytes다. 경고2개는 앞선 P1과 같은 미수정 UIContextSampleController의 CS4014(85/168행)다.
+
+초기 동기화 모드마다 별도 Host/Client Player 프로세스2개를 loopback으로 실행했다(총2쌍/4프로세스). 각 실행은 Host가 Arena를 로드하고 장면 객체의 x를47로 바꾼 다음 Client가 접속한다. 초기 sync 뒤 Extra Additive 로드→해제→Final Single 전환→Host 종료와 Client 종료를 관찰했다. 이는 P1 native 연동의 작은 별도 프로세스 실험이며 P4의 실제 wrapper·전원 Ready·위조/이탈/서버 손실·로비 복원 시나리오 완료가 아니다.
+
+| 초기 동기화 모드 | Host 관찰 단언 | Client 관찰 단언 | 외부 보고서 판정 | 결과·잔존·오류 |
+|---|---:|---:|---:|---|
+| Single | 17/17 | 10/10 | 15/15 | 양쪽 exit0·error null·manager 잔존0·Error/Exception 로그0 |
+| Additive | 17/17 | 10/10 | 15/15 | 양쪽 exit0·error null·manager 잔존0·Error/Exception 로그0 |
+
+위 수치는 일회성 관찰 단언과 보고서 검사이며 NUnit case 수에 더하지 않는다. 각 모드1회 실행했다. 외부 판정은 모든 row.passed·error·오류 로그·종료 코드·잔존 manager·관찰 callback thread를 확인하며, Arena/Extra/Final의 NetworkObjectId·spawned·sceneObject·씬 이름을 양쪽 보고서에서 대조한다. 두 실행 모두 객체 ID는 각각1/2/3으로 일치했고 초기 server x47이 client에서도47이었다. callback에서 실패 row가 생기거나 남은 manager가 있어도 exit0을 근거로 통과시키지 않는다.
+
+| 관찰 | 확인한 경계 | 확대하지 않는 것 |
+|---|---|---|
+| 초기 Single/Additive | Single의 Client Bootstrap 미유지, Additive의 Bootstrap 유지; server 설정이 client에 반영 | 프로젝트 Bootstrap/root 수명·GSM inventory 수용 보장 아님 |
+| 초기 in-scene 객체 | 같은 Arena 객체 ID와 server에서 바꾼 초기 transform 동기화 | NetworkVariable/RPC/gameplay 준비 구현이나 지속 Transform 동기화 시험 아님 |
+| Additive 로드·해제 | Arena 유지, Extra 객체 생성/제거, 서버 완료 명단 [0,1], timeout 명단 비어 있음 | 다수 Client·WAN·실패 복구 시나리오 아님 |
+| Single 전환 | Arena/Bootstrap 제거, Final 객체 생성과 양쪽 ID 일치 | NGO/GSM 소유권 이관 구현 아님 |
+| Client 권한 | client LoadScene 요청이 ServerOnlyAction, 즉시 씬 수·이벤트 수 불변 | 다른 모든 명령의 권한 검증 아님 |
+| 정상 종료 | Host의 client/server stop 각1회, Client stop1회·server stop0, 각 프로세스 manager 제거 | 로비 callback·비협조 작업·모든 비정상 종료 보장 아님 |
+
+Client의 무권한 Load 실험에서 `[ServerOnlyAction][Load] Clients cannot invoke the LoadScene method!` 경고가 실행당1건 발생했다. 의도한 경고를 원문으로 보존하며 오류0과 구분한다. 실행 하네스 시간은 Single Host3.163초/Client0.309초, Additive Host1.524초/Client0.273초이며 프로세스·Mono assembly 초기 로드와 빌드 비용을 포함하지 않는다. 성능/GC 결과가 아니다.
+
+정상 상태 관찰 상한15초, peer 접속/초기 sync30초, finally 정리10초이며 매 frame 실제 상태/이벤트를 검사한다. 외부 실행기는 Host 준비 파일60초, 각 프로세스 종료100초 관찰 상한을 가지며 초과 시 프로세스/Editor를 강제로 끊지 않는다. 이 숫자는 실험 보호값이며 S3나 runtime deadline 정책을 결정하지 않는다. Input/EventSystem 구성 객체를 만들지 않았다.
+
+### 정리·회귀·정적 검증
+
+종료한 Player4개를 확인하고 원래 InitScene 구성·미저장 씬0·Play/컴파일 유휴를 확인했다. 소유 목록과 해시가 일치한 임시 Assets11개(DLL/meta·씬4쌍·폴더meta)만 제거했다. 빌드/Editor 후 시작 시 clean이던 PC_RPAsset·UniversalRenderPipelineGlobalSettings·ProjectSettings·UnityConnectSettings4개에 생긴 렌더링/배칭/preloadedAssets/Connect 차이는 Temp에 보존하고 이4개만 HEAD로 복원했다. 각 자동 기록 주체를 개별 추적한 것은 아니다. 원래 dirty8개와 package 입력은 수정하지 않았다.
+
+검증 source는 후속 시작 HEAD `a0497fb9e89f4f8068323ed4279e100dbf23dfef`이며 제품 source/의존성 bytes는 그 상태로 유지했다. 전체 테스트 결과는 다음과 같다. 기존 이름 집합이 전후 동일하고 신규 NUnit 테스트는 없다. 각 suite는 기존 Editor PID3428에서 전후 각1회 실행했으며 실패·skip은 모두0이다.
+
+| 기존 전체 회귀 | 실험 전 | 정리·복원 후 | 이름 집합 |
+|---|---:|---:|---|
+| EditMode | 398/398 | 398/398 | 동일 |
+| PlayMode | 379/379 | 379/379 | 동일 |
+
+읽기 전용 감사에서 원래 dirty8개 raw SHA256, 이 후속 단위의 허용 문서4개 이외 모든 추적 파일 bytes, 보호 선언836경로의 존재/해시가 모두 일치했다. 임시 Assets 폴더와 meta는 없다. 역사적 verifier17건은17→17 실패로 exit/stdout/stderr 전체가 동일했다. 새 실패0이라는 뜻이며 verifier 자체 통과로 표현하지 않는다. 제품 C#/기존 테스트/asmdef/tools/workflow/upm/package 입력의 이번 추가 diff는0이다.
+
+독립 문서 검토는 현재 문서4개와 native 보고서를 읽어서 확인했다(Git diff는 해당 하위 도구의 work-tree 오류로 조회하지 못함). 이전 P0의 “이 T0 문서 PR” 문장이 현재 T2/P1 관찰과 혼동될 수 있어 PR #34 당시 기록으로 명시했다. 부모가 실제 diff를 직접 확인했다. 최종 문서 tip의 규칙·링크·공백 검사와 exact-SHA Actions 결과는 PR 검사 및 최종 보고로 식별한다.
+
+```text
+python tools/run_unity_tests.py --project C:/Users/PC/Projects/TPLab --mode EditMode --output Temp/netcode-p1-scene-true-20261016/<baseline|final>-edit.json
+python tools/run_unity_tests.py --project C:/Users/PC/Projects/TPLab --mode PlayMode --output Temp/netcode-p1-scene-true-20261016/<baseline|final>-play.json
+python Temp/netcode-p1-scene-true-20261016/compile_probe.py
+Get-Content Temp/netcode-p1-scene-true-20261016/build-player.cs -Raw | unity-cli exec --project C:/Users/PC/Projects/TPLab
+python Temp/netcode-p1-scene-true-20261016/run_pair.py Single 27931
+python Temp/netcode-p1-scene-true-20261016/run_pair.py Additive 27932
+python tools/check_pr_rules.py --base 0e2d3ce00928e033f121e6ed457a3528f690d874 --head HEAD
+python tools/check_github_ci.py --repository KangSungKyu/TPLab --ref <exact40SHA> --output Temp/netcode-p1-scene-true-20261016/ci-final.json
+```
+
+Temp의 `P1SceneProbe.cs`/DLL·컴파일/build 명령·Player·single-a/additive-a JSON/로그·소유 목록·전후 검사 자료는 PR36 수락과 P3 연동 검토가 끝날 때까지 보존한 뒤 그 작업 소유 목록만 정리한다. Git에 원시 증거·validation README를 추가하지 않는다. 시작 해시 수집 스크립트에서 porcelain 행두 공백을 strip한 경로 해석 오류는 저장 전에 실패했고, rstrip으로 정정 후 원래 dirty 해시를 확인했다. 이는 Unity 실행/제품 실패가 아니다.
+
+미실행: 실제 프로젝트 검증기/인증·Ready/전원 시작·로비 복원, GameSceneManager 통합, Editor 내 true peer 실험(추가 native 실험은 별도 Mono Player), P4 실패 조합·WAN·다수 Client, IL2CPP/다른 플랫폼, GC/성능 계측, UPM 설치·배포. S3 payload 상한과 초기 Single/Additive 기본 모드는 여전히 선택 대상이며 true 권장 결정을 이 값의 결정으로 확대하지 않는다.
+
+후속 링크/anchor 검사는 Markdown259개·상대 링크2,118개·anchor493개·오류0이다(HTTP 미조회). 전체 working tree의 `git diff --check`는 원래 dirty `Assets/Scenes/InitScene.unity`의 trailing whitespace3곳(164/276/398행)을 보고했다. 그 파일은 시작 raw SHA256과 동일하며 사용자 변경이므로 수정하지 않았다. 이 후속 문서4개와 PR commit 범위의 공백 검사를 별도로 적용한다.
