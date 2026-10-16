@@ -361,5 +361,121 @@ class PackageConsumerPrefabEolTests(unittest.TestCase):
             with self.subTest(extension=extension):
                 self.assertTrue(c._equal_payload(binary, binary, "Cell" + extension, self.root, "git"))
 
+class PackageConsumerImportedInputActionsTests(unittest.TestCase):
+    setUp = PackageConsumerTests.setUp
+    repack = PackageConsumerTests.repack
+    write_manifest = PackageConsumerTests.write_manifest
+    plan = PackageConsumerTests.plan
+    install = PackageConsumerTests.install
+
+    def input_json(self):
+        return {"name": "InputSystem_Actions", "maps": [{"name": "Player", "id": "map-id", "actions": [{"name": "Move", "id": "action-id", "type": "Value"}], "bindings": [{"id": "binding-id", "path": "<Keyboard>/w", "action": "Move", "isComposite": False}]}], "controlSchemes": [{"name": "Keyboard", "devices": [{"devicePath": "<Keyboard>", "isOptional": False}]}]}
+
+    def observed_import(self, before):
+        after = json.loads(json.dumps(before))
+        after["name"] = "SampleInput"
+        after["version"] = 1
+        return after
+
+    def equal_import(self, before, after, version="1.19.0", relative="Settings/SampleInput.inputactions"):
+        expected = before if isinstance(before, bytes) else json.dumps(before).encode()
+        actual = after if isinstance(after, bytes) else json.dumps(after).encode()
+        return c._equal_imported_sample(expected, actual, relative, self.root, "tarball", version)
+
+    def installed_sample(self):
+        name = "com.tplab.input"
+        relative = "Samples~/Demo/Settings/SampleInput.inputactions"
+        data = json.loads(self.files[name]["package.json"])
+        data["samples"] = [{"displayName": "Demo", "description": "Import observer fixture", "path": "Samples~/Demo"}]
+        self.files[name]["package.json"] = json.dumps(data).encode()
+        self.files[name][relative] = json.dumps(self.input_json()).encode()
+        self.files[name][relative + ".meta"] = b"fileFormatVersion: 2\nguid: 0123456789abcdef0123456789abcdef\n"
+        self.repack(name)
+        self.write_manifest()
+        plan = self.plan(("input",), samples=("input",))
+        project, report = self.install(plan)
+        imported = project / "Assets/Samples/TPLab Input/0.0.2/Demo"
+        for path in plan["samples"][0]["files"]:
+            target = imported / path.removeprefix("Samples~/Demo/")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(self.files[name][path])
+        report["imports"] = [{"package": name, "importPath": str(imported), "imported": True}]
+        return project, plan, report, imported / "Settings/SampleInput.inputactions", relative
+
+    def test_observed_name_and_version_change_is_allowed_only_in_imported_sample(self):
+        project, plan, report, imported, relative = self.installed_sample()
+        imported.write_text(json.dumps(self.observed_import(self.input_json())))
+        self.assertEqual(2, len(c.verify_installation(project, plan, report)))
+
+    def test_same_json_rewrite_in_package_cache_is_still_rejected(self):
+        project, plan, report, imported, relative = self.installed_sample()
+        resolved = Path(next(item for item in report["installedPackages"] if item["name"] == "com.tplab.input")["resolvedPath"])
+        (resolved / relative).write_text(json.dumps(self.observed_import(self.input_json())))
+        with self.assertRaisesRegex(ValueError, "Installed payload differs"):
+            c.verify_installation(project, plan, report)
+
+    def test_imported_sample_guid_change_is_still_rejected(self):
+        project, plan, report, imported, relative = self.installed_sample()
+        meta = Path(str(imported) + ".meta")
+        meta.write_text(meta.read_text().replace("0123456789abcdef0123456789abcdef", "fedcba9876543210fedcba9876543210"))
+        with self.assertRaisesRegex(ValueError, "Imported sample bytes/GUID differ"):
+            c.verify_installation(project, plan, report)
+
+    def test_any_nested_action_binding_scheme_or_type_change_is_rejected(self):
+        before = self.input_json()
+        mutations = [lambda data: data["maps"][0]["actions"][0].update(id="changed"), lambda data: data["maps"][0]["bindings"][0].update(path="<Keyboard>/q"), lambda data: data["controlSchemes"][0].update(name="Changed"), lambda data: data["maps"][0]["bindings"][0].update(isComposite=0), lambda data: data["maps"][0]["bindings"][0].update(extra=True)]
+        for index, mutate in enumerate(mutations):
+            after = self.observed_import(before)
+            mutate(after)
+            with self.subTest(mutation=index):
+                self.assertFalse(self.equal_import(before, after))
+
+    def test_duplicate_json_keys_at_any_level_are_rejected(self):
+        before = self.input_json()
+        after = json.dumps(self.observed_import(before), separators=(",", ":")).encode()
+        variants = [after.replace(b'"version":1', b'"version":1,"version":1'), after.replace(b'"isComposite":false', b'"isComposite":false,"isComposite":false'), after.replace(b'"name":"SampleInput"', b'"name":"Other","name":"SampleInput"')]
+        for actual in variants:
+            with self.subTest(actual=actual):
+                self.assertFalse(self.equal_import(before, actual))
+                self.assertFalse(self.equal_import(actual, actual))
+        duplicate_source = json.dumps(before, separators=(",", ":")).encode().replace(b'"name":"InputSystem_Actions"', b'"name":"Other","name":"InputSystem_Actions"')
+        self.assertFalse(self.equal_import(duplicate_source, after))
+
+    def test_normalization_requires_exact_filename_name_and_integer_version_one(self):
+        before = self.input_json()
+        for version in (True, "1", 1.0, 0, 2, None):
+            after = self.observed_import(before)
+            after["version"] = version
+            with self.subTest(version=version):
+                self.assertFalse(self.equal_import(before, after))
+        for name in ("Other", "InputSystem_Actions", "", None, True):
+            after = self.observed_import(before)
+            after["name"] = name
+            with self.subTest(name=name):
+                self.assertFalse(self.equal_import(before, after))
+
+    def test_only_legacy_expected_asset_and_observed_input_system_are_eligible(self):
+        before = self.input_json()
+        for version in (0, 1, True):
+            original = {**before, "version": version}
+            self.assertFalse(self.equal_import(original, self.observed_import(original)))
+        original = {**before, "name": "SampleInput"}
+        self.assertFalse(self.equal_import(original, self.observed_import(original)))
+        self.assertFalse(self.equal_import(before, self.observed_import(before), version="1.18.0"))
+        self.assertFalse(self.equal_import(before, self.observed_import(before), version=None))
+        original = {**before, "unexpected": "field"}
+        self.assertFalse(self.equal_import(original, self.observed_import(original)))
+
+    def test_exact_normal_input_actions_bytes_remain_valid(self):
+        for data in (self.input_json(), self.observed_import(self.input_json())):
+            self.assertTrue(self.equal_import(data, data))
+
+    def test_other_json_extensions_and_invalid_input_json_are_not_normalized(self):
+        before = self.input_json()
+        self.assertFalse(self.equal_import(before, self.observed_import(before), relative="SampleInput.json"))
+        for invalid in (b"{", b"[]", b"null", b'{"name":NaN}', b"\xff"):
+            with self.subTest(invalid=invalid):
+                self.assertFalse(self.equal_import(before, invalid))
+
 if __name__ == "__main__":
     unittest.main()

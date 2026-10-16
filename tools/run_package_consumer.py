@@ -228,6 +228,41 @@ def _equal_payload(expected, actual, relative, resolved, mode):
     return expected == actual or git_eol_match or metadata_match
 
 
+
+def _equal_imported_sample(expected, actual, relative, resolved, mode, input_system_version):
+    if PurePosixPath(relative).suffix != ".inputactions":
+        return _equal_payload(expected, actual, relative, resolved, mode)
+
+    def unique_object(pairs):
+        value = {}
+        for key, item in pairs:
+            if key in value:
+                raise ValueError("Duplicate JSON key")
+            value[key] = item
+        return value
+
+    try:
+        before = json.loads(expected.decode("utf-8-sig"), object_pairs_hook=unique_object)
+        after = json.loads(actual.decode("utf-8-sig"), object_pairs_hook=unique_object)
+        # Canonical JSON retains bool/number distinctions and rejects NaN/Infinity.
+        json.dumps(before, allow_nan=False)
+        after_json = json.dumps(after, sort_keys=True, allow_nan=False)
+    except (ValueError, UnicodeError):
+        return False
+    if not isinstance(before, dict) or not isinstance(after, dict):
+        return False
+    if _equal_payload(expected, actual, relative, resolved, mode):
+        return True
+    stem = PurePosixPath(relative).stem
+    if (input_system_version != "1.19.0" or set(before) != {"name", "maps", "controlSchemes"}
+            or not isinstance(before["name"], str) or not before["name"] or before["name"] == stem
+            or after.get("name") != stem or type(after.get("version")) is not int or after["version"] != 1):
+        return False
+    # Input System 1.19 renames a mismatched legacy asset to its filename and writes version 1.
+    normalized = {**before, "name": stem, "version": 1}
+    return json.dumps(normalized, sort_keys=True, allow_nan=False) == after_json
+
+
 def verify_installation(project, plan, report):
     project = Path(project).absolute()
     if (report.get("success") is not True or report.get("phase") != "verify" or report.get("runId") != plan["runId"] or report.get("sourceRevision") != plan["sourceRevision"] or report.get("projectPath") != str(project)):
@@ -306,7 +341,7 @@ def verify_installation(project, plan, report):
         for relative in sample["files"]:
             imported = target / relative[len(prefix):]
             core.refuse_links(imported)
-            if not imported.is_file() or not _equal_payload(raw[relative], imported.read_bytes(), relative, target, plan["mode"]):
+            if not imported.is_file() or not _equal_imported_sample(raw[relative], imported.read_bytes(), relative, target, plan["mode"], plan["dependencies"].get("com.unity.inputsystem")):
                 raise ValueError("Imported sample bytes/GUID differ: " + relative)
     if standalone and any((project / "Library/PackageCache").rglob("CsvHelper.dll")):
         raise ValueError("Netcode-only unexpectedly contains CsvHelper.")

@@ -121,7 +121,7 @@ The [runner/harness guide](ui-consumer/README.md) describes absolute paths, requ
 
 ## 0.0.2 독립 package 소비 검증
 
-[run_package_consumer.py](run_package_consumer.py)는 6개 package의 선택 의존성만 설치하고 실제 설치 payload·Git SHA/tarball provider·assembly load·선택 Sample.Import를 확인한다. Core/Input/Editor/UI/UI.InputSystem/Netcode의 경계는 [배포 규격](../doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)을 따른다. 기존 `run_core_consumer.py`의 0.0.1 artifact 경로와 구분한다.
+[run_package_consumer.py](run_package_consumer.py)는 6개 package의 선택 의존성만 설치하고 실제 설치 payload·Git SHA/tarball provider·assembly load·선택 Sample.Import를 확인한다. Core/Input/Editor/UI/UI.InputSystem/Netcode의 경계는 [배포 규격](../doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)을 따른다. 기존 `run_core_consumer.py`의 0.0.1 artifact 경로와 구분한다. 설치 cache/tarball payload는 원본과 대조하고, Git 텍스트는 확인된 CRLF/LF 차이만 구분한다. import된 sample에는 Input System 1.19.0이 legacy `.inputactions`의 이름을 파일 stem으로 맞추고 `version: 1`을 추가하는 관찰된 변환만 허용한다. 액션·바인딩·나머지 JSON 타입/값과 GUID는 보존해야 하며 일반 재직렬화 예외는 없다.
 
 ```powershell
 python -B tools/test_build_distribution.py
