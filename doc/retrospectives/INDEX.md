@@ -202,3 +202,5 @@
 | 2026-10-16 | Netcode P5 고정 씬 예제·수락 | 사용자 수락 완료(2026-10-16)·검토 보완 재검증 후 PR #40 병합 승인 | [05-netcode-p5-sample](2026-10-16-05-netcode-p5-sample.md) |
 
 - 2026-10-16: [06 IMP-04b Timeout 실험](2026-10-16-06-imp-04b-timeout-experiment.md) — 기본값·scope 우선순위·ToCoroutine 중단/정리 관찰 완료; 값·적용 범위는 사용자 결정 대기.
+
+- 2026-10-16: [07 IMP-04b 기본 Timeout 적용](2026-10-16-07-imp-04b-timeout-default.md) — 테스트 assembly 기본 30초 적용·기존 대기 보존·자동 검증 완료; 병합 승인 대기.
