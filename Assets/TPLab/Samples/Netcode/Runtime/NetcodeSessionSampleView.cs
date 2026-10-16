@@ -93,6 +93,11 @@ namespace TPLab.Samples.Netcode
                     case "ready": _sample.CompletePreparation(); break;
                     case "fail": _sample.FailPreparation(); break;
                     case "stop":
+                        if (_sample.Context != null && _sample.Context.State == NetworkSessionState.RecoveryFault)
+                        {
+                            _notice = "Lobby restoration failed. Use Retry Restore, or Quit Safely to exit after cleanup.";
+                            break;
+                        }
                         _notice = "Waiting for owned cleanup.";
                         ApplyProtection(true);
                         await _sample.ShutdownAsync();
@@ -134,7 +139,7 @@ namespace TPLab.Samples.Netcode
         private bool CanStart()
         {
             var context = _sample.Context;
-            return context == null || context.State == NetworkSessionState.Lobby || context.State == NetworkSessionState.Closed;
+            return !_sample.IsProtected && (context == null || context.State == NetworkSessionState.Lobby || context.State == NetworkSessionState.Closed);
         }
 
         private void Refresh()
@@ -149,7 +154,9 @@ namespace TPLab.Samples.Netcode
             _coverText.text = _sample.IsPreparing ? "PREPARING\nSelect Ready when your local work is complete."
                 : context != null && context.State == NetworkSessionState.RecoveryFault
                     ? "RECOVERY REQUIRED\nKeep gameplay blocked. Retry restoration only when cleanup is complete."
-                    : "WAITING FOR THE SESSION\nGameplay stays blocked until everyone is ready.";
+                    : context != null && context.State == NetworkSessionState.Closed && _sample.IsProtected
+                        ? "SAFE TO EXIT\nLobby restoration did not succeed. Leave Play Mode or quit this window."
+                        : "WAITING FOR THE SESSION\nGameplay stays blocked until everyone is ready.";
             _status.text = _sample.StatusText + "\n\nLocal preparation: " + (_sample.IsPreparing ? "waiting for Ready" : "not waiting")
                 + "\nGameplay: " + (_sample.GameplayEnabled ? "enabled" : "blocked")
                 + "\nAccepted gameplay inputs: " + _sample.GameplayInputCount

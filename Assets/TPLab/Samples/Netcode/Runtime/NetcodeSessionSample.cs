@@ -29,6 +29,7 @@ namespace TPLab.Samples.Netcode
         private bool _starting;
         private bool _stopping;
         private bool _retrying;
+        private bool _closingAfterRecoveryFault;
         private bool _host;
         private int _participantCount;
         private UniTask<NetworkSessionResult> _ownedStart;
@@ -166,7 +167,7 @@ namespace TPLab.Samples.Netcode
         }
 
         /// <summary>Stops the owned attempt and awaits real wrapper cleanup. A normal Running close shows the sample lobby after Closed.</summary>
-        /// <remarks>Returns null before the first attempt. RecoveryFault keeps protection and does not claim safe completion. The borrowed manager is never destroyed.</remarks>
+        /// <remarks>Returns null before the first attempt. Safe exit from RecoveryFault keeps protection, diagnostics and the new-attempt gate closed even after native Closed; it does not restore the lobby. The borrowed manager is never destroyed.</remarks>
         /// <exception cref="InvalidOperationException">An explicit restoration retry is already running.</exception>
         public UniTask<NetworkSessionResult> ShutdownAsync(CancellationToken caller = default)
         {
@@ -293,11 +294,13 @@ namespace TPLab.Samples.Netcode
         private async UniTask StopOwnedAsync(NetworkSessionContext context,
             UniTaskCompletionSource<NetworkSessionResult> completion)
         {
+            bool recoveryExit = context.State == NetworkSessionState.RecoveryFault;
             NetworkSessionResult result = null;
             Exception failure = null;
             try
             {
                 result = await context.ShutdownAsync();
+                if (recoveryExit && result.State == NetworkSessionState.Closed) _closingAfterRecoveryFault = true;
                 ApplyResult(context, result);
             }
             catch (Exception error)
@@ -333,7 +336,13 @@ namespace TPLab.Samples.Netcode
                 StatusText = "Destroyed";
                 return;
             }
-            if (result.State == NetworkSessionState.Lobby || result.State == NetworkSessionState.Closed)
+            if (result.State == NetworkSessionState.Closed && _closingAfterRecoveryFault)
+            {
+                GameplayEnabled = false;
+                IsProtected = true;
+                StatusText = "Closed without lobby restoration: " + result.Failure?.Reason;
+            }
+            else if (result.State == NetworkSessionState.Lobby || result.State == NetworkSessionState.Closed)
             {
                 GameplayEnabled = false;
                 IsProtected = false;
@@ -383,7 +392,7 @@ namespace TPLab.Samples.Netcode
 
         private void EnsureIdle()
         {
-            if (_starting || _stopping || _retrying || Context != null
+            if (_closingAfterRecoveryFault || _starting || _stopping || _retrying || Context != null
                 && Context.State != NetworkSessionState.Lobby && Context.State != NetworkSessionState.Closed)
                 throw new InvalidOperationException("Stop or recover the current sample attempt first.");
         }
