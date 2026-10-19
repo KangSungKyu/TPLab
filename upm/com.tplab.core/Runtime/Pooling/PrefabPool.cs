@@ -23,13 +23,13 @@ namespace TPLab.Core.Pooling
         /// <summary>Maximum number of owned clones, both rented and inactive.</summary>
         public int Capacity => _pool.Capacity;
 
-        /// <summary>Number of clones currently owned by this pool.</summary>
+        /// <summary>Tracked owned clone count; external destruction remains counted until lazy rent checks.</summary>
         public int CountOwned => _pool.CountOwned;
 
-        /// <summary>Number of clones currently borrowed by consumers.</summary>
+        /// <summary>Tracked borrowed clone count; getter does not check Unity liveness or allocate. External destruction remains counted until lazy rent checks.</summary>
         public int CountRented => _pool.CountRented;
 
-        /// <summary>Number of clones available for reuse.</summary>
+        /// <summary>Tracked inactive clone count; getter does not check Unity liveness or allocate.</summary>
         public int CountInactive => _pool.CountInactive;
 
         /// <summary>Whether the pool has permanently ended its lifetime.</summary>
@@ -66,7 +66,7 @@ namespace TPLab.Core.Pooling
             _storageRoot = new GameObject("PrefabPool");
             _storageRoot.SetActive(false);
             _storageRoot.transform.SetParent(parent, false);
-            _pool = new ObjectPool<GameObject>(CreateInstance, capacity, RentInstance, ReturnInstance, DestroyInstance);
+            _pool = new ObjectPool<GameObject>(CreateInstance, capacity, RentInstance, ReturnInstance, DestroyInstance, instance => instance != null);
         }
 
         /// <summary>Reuses or creates a clone, configures it, then sets it active.</summary>
@@ -74,7 +74,7 @@ namespace TPLab.Core.Pooling
         /// <returns>False only when all owned slots are rented; otherwise true.</returns>
         /// <exception cref="ObjectDisposedException">The pool has been disposed.</exception>
         /// <exception cref="InvalidOperationException">Reentry, missing source/parent/root, or a destroyed clone.</exception>
-        /// <remarks>Callback exceptions propagate after the affected clone is discarded. An inactive parent stays inactive.</remarks>
+        /// <remarks>Dead inactive clones are skipped; when capacity is full without reusable clones, externally destroyed loans free their slots. Counts are lazy. Callback exceptions propagate after discard. An inactive parent stays inactive.</remarks>
         public bool TryRent(out GameObject instance)
         {
             instance = null;
@@ -97,6 +97,30 @@ namespace TPLab.Core.Pooling
                 throw new ArgumentNullException(nameof(instance));
             }
             _pool.Return(instance);
+        }
+
+        /// <summary>Returns a borrowed instance through Return, or ignores the request if the pool is already disposed.</summary>
+        /// <param name="instance">Live clone currently borrowed from this pool while open; ignored after disposal.</param>
+        /// <returns>True after successful Return; false only when already disposed, including during disposal cleanup.</returns>
+        /// <exception cref="ArgumentNullException">The open pool receives a null or destroyed clone.</exception>
+        /// <exception cref="ArgumentException">The open pool does not own the instance.</exception>
+        /// <exception cref="InvalidOperationException">Duplicate return, mutation reentry, lost context, or callback destruction while open.</exception>
+        /// <exception cref="AggregateException">Both reset and failed-instance cleanup throw while open.</exception>
+        /// <remarks>
+        /// Disposal takes precedence over input validation: false invokes no callbacks and changes no state.
+        /// Dispose owns cleanup of outstanding loans; this method does not retry that cleanup or destroy foreign instances.
+        /// While open, Return validation, callback errors, failure cleanup, and mutation reentry rules are preserved.
+        /// Calls are synchronous and restricted to the Unity main thread; there is no concurrent-disposal synchronization.
+        /// The wrapper adds no allocation; caller callbacks and cold inactive storage may allocate.
+        /// </remarks>
+        public bool TryReturn(GameObject instance)
+        {
+            if (IsDisposed)
+            {
+                return false;
+            }
+            Return(instance);
+            return true;
         }
 
         /// <summary>Destroys all owned clones and the storage root, permanently closing this pool.</summary>

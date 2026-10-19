@@ -117,3 +117,19 @@ Base TPLab.UI supports modal eligibility and explicit focus without an Input Sys
 [run_ui_source_consumer.py](run_ui_source_consumer.py) uses an exact current source SHA and allowlisted Core/UI sources in a fresh isolated consumer project. `--include-input` adds the optional native adapter; `--sample` and an explicit Bootstrap entry add the UI sample. It starts a separate batch build Editor, then bounded visible graphics Players without requesting focus. Positive fresh draw/marker coverage is required; a graphics-device label alone does not establish rendering. The original project Editor/settings are not modified.
 
 The [runner/harness guide](ui-consumer/README.md) describes absolute paths, required installed Unity executable, new output/evidence folders, build-only versus executed results, checked-in sample driver, and raw/validated profiler evidence. Use `python tools/test_ui_source_consumer_contract.py -v` for the five standard-library contract fixtures. Actual original regression, source/hash/license preservation, consumer smoke, benchmarks, automated sample and remaining human acceptance are separated in [P7 evidence](../doc/validation/ui-system/p7/README.md). Generated Players are retained only for review; UI packaging/Release/main approval is outside this source-consumer run.
+
+
+## 0.0.2 독립 package 소비 검증
+
+[run_package_consumer.py](run_package_consumer.py)는 6개 package의 선택 의존성만 설치하고 실제 설치 payload·Git SHA/tarball provider·assembly load·선택 Sample.Import를 확인한다. Core/Input/Editor/UI/UI.InputSystem/Netcode의 경계는 [배포 규격](../doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)을 따른다. 기존 `run_core_consumer.py`의 0.0.1 artifact 경로와 구분한다. 설치 cache/tarball payload는 원본과 대조하고, Git 텍스트는 확인된 CRLF/LF 차이만 구분한다. import된 sample에는 Input System 1.19.0이 legacy `.inputactions`의 이름을 파일 stem으로 맞추고 `version: 1`을 추가하는 관찰된 변환만 허용한다. 액션·바인딩·나머지 JSON 타입/값과 GUID는 보존해야 하며 일반 재직렬화 예외는 없다.
+
+```powershell
+python -B tools/test_build_distribution.py
+python -B tools/test_package_consumer.py
+python -B tools/build_distribution.py --source <clean-checkout> --revision <40-character-SHA> --version 0.0.2 --run-id candidate --output <clean-checkout>/tplab/candidate
+python -B tools/run_package_consumer.py --project <absolute-project> --unity <Unity.exe> --artifacts <candidate>/artifacts --revision <40-character-SHA> --installation tarball --modules netcode --output Temp/Consumer/netcode-tgz --evidence Temp/ConsumerEvidence/netcode-tgz
+```
+
+`--installation git`은 같은 후보의 exact SHA URL을 사용한다. `--modules`는 `core input editor ui ui.inputsystem netcode` 중 필요한 항목이며 TPLab 의존 provider도 명시적으로 구성한다. 예제는 `--samples core input ui.inputsystem netcode` 중 선택한다. 예제를 선택하면 import와 컴파일 확인을 별도 batch Editor로 실행한다. 예제에만 필요한 Input System/uGUI는 선택 시 공급한다. 출력과 증거 폴더는 사용하지 않은 프로젝트 Temp 하위여야 한다. 원본 Editor·사용자 설정은 변경하지 않는다.
+
+설치/컴파일/예제 import 성공은 Player 실행·시각 수락·전체 테스트 성공을 뜻하지 않는다. 해당 항목은 보고서에서 별도 NotRun 상태로 남으며 후속 실제 실행으로 검증한다.

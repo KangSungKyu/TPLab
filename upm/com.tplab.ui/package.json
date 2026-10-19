@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.tplab.core": "0.0.2",
+    "com.unity.ugui": "2.0.0"
+  },
+  "description": "UIContext runtime with uGUI.",
+  "displayName": "TPLab UI",
+  "license": "MIT",
+  "name": "com.tplab.ui",
+  "unity": "6000.3",
+  "unityRelease": "18f1",
+  "version": "0.0.2"
+}

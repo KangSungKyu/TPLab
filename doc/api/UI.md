@@ -2,7 +2,7 @@
 유형: 레퍼런스
 현재 상태: ImplementationStatus: Implemented through P6.
 기준 source: 99df25dd6b89fd7f3e322c8033b61eb1364f495e (final regression inputs); 21f89e2580f08be3903724efa0a42e5ad0567c83 (P6 runtime)
-갱신일: 2026-10-15
+갱신일: 2026-10-16
 계약 링크: [계약 원문](../GAME_UI_SYSTEM.md)
 
 TPLab.UI provides a root-owned lifecycle for HUD and Popup displays from direct or provider-keyed prefab sources. ImplementationStatus: Implemented through P6. ValidationStatus: The user confirmed full UI acceptance on 2026-10-12 for the sample behavior and visual checklist. Current source candidate Single/Additive consumer verification passed (2 build processes,4 artifacts,8 Players); main integration is complete. SourceRevision: `99df25dd6b89fd7f3e322c8033b61eb1364f495e` for final regression inputs; runtime UI implementation is unchanged from P6 source `21f89e2580f08be3903724efa0a42e5ad0567c83`.
@@ -227,3 +227,7 @@ Configure validates before replacing script configuration. Install snapshots the
 Order installers as required resource/input owners, project wiring, UI. Normal reverse Release awaits UI shutdown before earlier services terminate; Uninstall clears `Context` and provides idempotent destruction fallback. Release leaves the terminating context observable until Uninstall. Hosts, settings, prefab assets, provider, EventSystem, ResourceManager, and project hooks remain borrowed. Partial installation attempts cleanup and preserves both installation/cleanup failures. Neither UI installation nor a modal lease calls InputManagerInstaller.CompletePreparation: the project publishes input only after its complete root is prepared.
 
 The optional [project walkthrough](../../Assets/TPLab/Samples/UI/README.md) uses the existing Core Bootstrap/scene callbacks and optional Input System adapter. Scene ownership, visibility, gameplay permission, callback-owned loading UI, and retained clones remain separate lifetimes. Its import, Player, performance and user-acceptance evidence is recorded separately from installer unit tests.
+
+## 0.0.2 package boundary
+
+`com.tplab.ui` contains the existing `TPLab.UI` runtime and requires Core 0.0.2, UniTask 2.5.11 and uGUI 2.0.0. Input System is optional: `com.tplab.ui.inputsystem` contains the existing adapter and depends on UI/Input 0.0.2 plus UniTask/Input System/uGUI. The UI sample belongs to the adapter package because it uses native Input System. Namespace, assembly names, public contracts and GUIDs are preserved. Current packaging/install/release status is in the [distribution contract](../DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate); historical source validation above is not artifact validation.

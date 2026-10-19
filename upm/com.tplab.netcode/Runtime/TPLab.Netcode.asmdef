@@ -1,0 +1,9 @@
+{
+  "name": "TPLab.Netcode",
+  "rootNamespace": "TPLab.Netcode",
+  "references": [
+    "Unity.Netcode.Runtime",
+    "UniTask",
+    "Unity.Collections"
+  ]
+}

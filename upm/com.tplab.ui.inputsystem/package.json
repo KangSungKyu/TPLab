@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.11",
+    "com.tplab.input": "0.0.2",
+    "com.tplab.ui": "0.0.2",
+    "com.unity.inputsystem": "1.19.0",
+    "com.unity.ugui": "2.0.0"
+  },
+  "description": "Optional UI Input System adapter and UI sample.",
+  "displayName": "TPLab UI Input System Adapter",
+  "license": "MIT",
+  "name": "com.tplab.ui.inputsystem",
+  "samples": [
+    {
+      "description": "Project-owned HUD, popup, virtual list and input sample.",
+      "displayName": "UI Context",
+      "path": "Samples~/UI"
+    }
+  ],
+  "unity": "6000.3",
+  "unityRelease": "18f1",
+  "version": "0.0.2"
+}

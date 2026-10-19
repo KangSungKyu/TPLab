@@ -10,6 +10,7 @@ namespace TPLab.Core.Lifecycle
     {
         [SerializeField] private SceneRootInstaller[] _installers = Array.Empty<SceneRootInstaller>();
         [SerializeField] private bool _persistAcrossScenes;
+        [SerializeField] private float _shutdownTimeoutSeconds = 60f;
         [NonSerialized] private RootInstallation _installation;
         [NonSerialized] private bool _attempted;
         [NonSerialized] private bool _isQuitting;
@@ -38,15 +39,23 @@ namespace TPLab.Core.Lifecycle
         /// Copies installers in initialization order before activation. Null means an empty list.
         /// Persistent roots and their children survive scene unload. Throws for invalid ownership or late configuration.
         /// </summary>
-        public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes = false)
+        /// <param name="installers">Ordered owned installers, or null for none.</param>
+        /// <param name="persistAcrossScenes">Whether the root survives scene changes.</param>
+        /// <param name="shutdownTimeoutSeconds">Independent unscaled deadlines for preparation cancellation and each release; finite zero/negative values wait without a deadline.</param>
+        /// <exception cref="ArgumentOutOfRangeException">The timeout is non-finite or a positive value cannot be represented by TimeSpan. Configuration is unchanged.</exception>
+        public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes = false,
+            float shutdownTimeoutSeconds = 60f)
         {
             if (_attempted || (Application.isPlaying && gameObject.activeInHierarchy))
             {
                 throw new InvalidOperationException("Configure the root before activating it.");
             }
             RootInstallation.ValidateRoot(gameObject);
-            _installers = RootInstallation.CopyInstallers(gameObject, installers);
+            var copy = RootInstallation.CopyInstallers(gameObject, installers);
+            RootInstallation.ValidateShutdownTimeout(shutdownTimeoutSeconds);
+            _installers = copy;
             _persistAcrossScenes = persistAcrossScenes;
+            _shutdownTimeoutSeconds = shutdownTimeoutSeconds;
         }
 
         private void Awake() => InitializeIfNeeded();
@@ -69,7 +78,7 @@ namespace TPLab.Core.Lifecycle
             _attempted = true;
             try
             {
-                _installation = new RootInstallation(this, _installers);
+                _installation = new RootInstallation(this, _installers, _shutdownTimeoutSeconds);
                 _installation.Install();
                 if (_persistAcrossScenes)
                 {

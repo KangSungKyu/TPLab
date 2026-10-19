@@ -278,7 +278,7 @@
 
 ## C. 패키지·배포 연결과 의존성 반영
 
-[현행] [build_distribution.py::PACKAGES](../tools/build_distribution.py)는 `com.tplab.core/input/editor` 3개만 정의하며 `upm/`의 실제 디렉터리도 같다. UI source는 존재하지만 배포 패키지 경계는 아직 포함되지 않았다. [UI 소스 마감](retrospectives/2026-10-15-07-ui-source-close.md)은 배포를 후속으로 남겼다. 이 초안이 패키지/버전/CHANGELOG를 만들지 않는다.
+[현행] 0.0.1은 Core/Input/Editor 3개 package를 발행했다. 2026-10-16 사용자는 기존 구조 유지와 UI·Netcode 추가를 선택했고, 0.0.2는 UI 기본/선택 Input 연동/Netcode를 더한 6개 package를 준비한다. Netcode의 사용되지 않는 Core assembly 참조만 제거하며 public 계약은 유지한다. [배포 규격](DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)의 설치·Player·수락·발행 gate는 별도 확인 대상이다. [UI 소스 마감](retrospectives/2026-10-15-07-ui-source-close.md)의 과거 검증을 새 package 통과로 해석하지 않는다.
 
 - [현행] 개발 assembly는 `TPLab.Netcode`다. [제안] `com.tplab.netcode` UPM 분리는 후속 배포 후보다. 업무 모듈 의존은 Core와 NGO에 한정하고 UI/Input에 NGO 의존을 넣지 않는다. 프로젝트가 설정한 NetworkManager/NetworkTransport를 받아 UTP 설정을 공용 wrapper가 반드시 소유하도록 강제하지 않는다.
 - [현행] P3 Runtime asmdef는 TPLab.Core·Unity.Netcode.Runtime·UniTask·Unity.Collections를 직접 참조한다. UniTask/Collections와 PlayMode 테스트 assembly는 사용자 별도 승인 후 추가했다. UI/Input 역참조는 없다. UnityTransport 클래스 자체는 NGO Runtime 소속이며 Unity.Networking.Transport API 직접 참조와 구분한다. **미확인:** 최종 UPM 패키지 경계·배포 의존성 표. D-N3에 따라 P5 이후 결정한다.

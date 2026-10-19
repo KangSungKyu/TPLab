@@ -1,16 +1,21 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Editor
+유형: 레퍼런스
+현재 상태: ImplementationStatus: Implemented
+기준 source: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
+갱신일: 2026-10-08
+계약 링크: [계약 원문](../../api/Editor.md)
 
 Module: Editor
 Namespace: TPLab.Core.Editor.DataTables; TPLab.Core.Editor.Bootstrap
 Assembly: TPLab.Core.Editor (includePlatforms: Editor)
 SourceRevision: 32a74d5a5f201bd582a8cbe5ff9d4f40dc5298ed
 SourcePath: [Editor](../../../Editor)
-HumanContract: [Editor](../../api/Editor.md), [importer](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md), [Bootstrap](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/BOOTSTRAP_SYSTEM.md)
+HumanContract: [Editor](../../api/Editor.md), [importer](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_IMPORTER_DRAFT.md), [Bootstrap](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/BOOTSTRAP_SYSTEM.md)
 ImplementationStatus: Implemented
 ValidationStatus: Partial
-Evidence: [importer](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/data-table-importer/README.md), [scene gate](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/scene-transition-editor/README.md), [final regression](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md)
+Evidence: [importer](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/data-table-importer/README.md), [scene gate](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/scene-transition-editor/README.md), [final regression](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md)
 
 Symbol / Signature / Constraints:
 
@@ -78,7 +83,7 @@ Configuration: absent ActivePath asset disables automation; Disabled permits man
 ExtensionPoints: InitializeOnLoadMethod registers profile; context.RegisterTable exact DTO/table names/properties; context.Manager binds FK/interface/whole-validator identical project rules; generated partial files for custom rules.
 RequiredSequence: use human setup above; explicit backend scene target/root/actual build scenes must pass compile/Play/build gate before runtime use.
 ForbiddenUsage: JSON row loader; infer C# schema from CSV automatically; overwrite hand-edited .g.cs/unowned files; delete sources on input deletion; rename types automatically; publish validation context manager as runtime manager; include Editor assembly in Player; auto-select loader by scene registration.
-Example: [human declarations](../../api/Editor.md) are NotRun excerpts; [importer template](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/DATA_TABLE_IMPORTER_DRAFT.md) provides project configuration.
+Example: [human declarations](../../api/Editor.md) are NotRun excerpts; [importer template](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/DATA_TABLE_IMPORTER_DRAFT.md) provides project configuration.
 Compatibility: actual Unity scene properties/Inspector drawer types are Editor integration, not separate runtime consumers. project schema changes may need migration/manual apply.
 Limitations: minimal Git/tarball importer consumers passed in the P2 validation source; this does not validate project-specific DTO/profile rules. JSON rows/rename migration/generic PK generation not provided.
 

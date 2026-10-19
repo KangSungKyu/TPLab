@@ -1,15 +1,20 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Lifecycle: AI API reference
+유형: 레퍼런스
+현재 상태: `Implemented` / `Partial`
+기준 source: 5fe5bf5a41386409775d836e5b3a50a2f516a787
+갱신일: 2026-10-13
+계약 링크: [계약 원문](../../api/Lifecycle.md)
 
 | Field | Value |
 |---|---|
 | Module / Namespace / Assembly | `Lifecycle` / `TPLab.Core.Lifecycle` / `TPLab.Core` |
-| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0`; 배포 버전 미지정 |
+| SourceRevision | `5fe5bf5a41386409775d836e5b3a50a2f516a787`; 배포 버전 미지정 |
 | SourcePath | [Lifecycle 소스](../../../Runtime/Lifecycle), [assembly](../../../Runtime/TPLab.Core.asmdef) |
-| HumanContract | [사람용 API](../../api/Lifecycle.md), [root](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/SCENE_ROOT.md), [비동기 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/ASYNC_SCENE_LIFECYCLE.md), [singleton](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/SINGLETON.md) |
+| HumanContract | [사람용 API](../../api/Lifecycle.md), [root](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/SCENE_ROOT.md), [비동기 계약](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/ASYNC_SCENE_LIFECYCLE.md), [singleton](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/SINGLETON.md) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
-| Evidence | [p4](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md): 전체 Edit258/Play217 실패0·skip0, reload8/8, Windows Mono sample/Core consumer build·Player. 모듈 전용 건수가 아니다. 이 문서 작업 새 실행0. |
+| Evidence | [p4](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md): 전체 Edit258/Play217 실패0·skip0, reload8/8, Windows Mono sample/Core consumer build·Player. 모듈 전용 건수가 아니다. 당시 문서 실행0. 현재 [IMP-03](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/imp-03/README.md): root28/settings16, 전체Edit375/Play345 fail/skip0. |
 
 ## Symbol / Signature / Constraints
 
@@ -33,12 +38,14 @@ public bool IsReady { get; }
 public bool IsPrepared { get; }
 public UniTask PrepareAsync(CancellationToken cancellationToken = default);
 public UniTask ShutdownAsync();
-public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes = false);
+public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes = false,
+    float shutdownTimeoutSeconds = 60f);
 
 public enum SceneRootMode { SceneOwned, Singleton }
 public static class SceneRootSetup
 public static ISceneRoot Attach(GameObject root, SceneRootMode mode,
-    SceneRootInstaller[] installers = null, bool persistAcrossScenes = false);
+    SceneRootInstaller[] installers = null, bool persistAcrossScenes = false,
+    float shutdownTimeoutSeconds = 60f);
 
 public abstract class SceneRootInstaller : MonoBehaviour
 public abstract void Install(ISceneRoot root);
@@ -84,7 +91,7 @@ public UniTask ReleaseAndProceedAsync(Func<CancellationToken, UniTask> proceedAs
 
 ## Configuration / ExtensionPoints
 
-Inspector: Installers 순서, Persist Across Scenes. ID/GUID/JSON/CSV/event 없음. installer Install/Uninstall 및 async hooks는 프로젝트 구현. MonoSingleton의 아래 **protected** hooks만 override하며 public로 노출하지 않는다.
+Inspector: Installers 순서, Persist Across Scenes, Shutdown Timeout Seconds. ID/GUID/JSON/CSV/event 없음. installer Install/Uninstall 및 async hooks는 프로젝트 구현. MonoSingleton의 아래 **protected** hooks만 override하며 public로 노출하지 않는다.
 
 ```csharp
 protected virtual bool PersistAcrossScenes { get; } // false
@@ -110,3 +117,15 @@ async void Install, active root Configure, installer 선파괴, Release hook에�
 [사람용 설명 발췌](../../api/Lifecycle.md#사용-발췌)는 실제 선언과 대조했지만 문서 작업 중 compile/run하지 않았다. 정상·caller cancel·owner shutdown·Destroy 순서를 포함한다. 기존 동기 installer는 default async hooks로 호환된다. singleton과 persistence는 별도 선택이다.
 
 확인 환경 Unity6000.3.18f1/UniTask2.5.11/Addressables2.9.1, Windows Mono. 다른 Unity/IL2CPP/플랫폼, 임의 installer의 취소·종료, 모든 abrupt stop 조합은 미검증. Core asmdef 의존성은 [소스](../../../Runtime/TPLab.Core.asmdef)가 소유한다. 로딩 진행률·팁·버튼 대기는 이 모듈 기능이 아니다.
+
+## ShutdownTimeout / Compatibility
+
+- Host serialized `_shutdownTimeoutSeconds = 60f`; Configure/Attach optional float60f. finite<=0은 무제한, positive는 TimeSpan 표현 가능. NaN/±Infinity/양수 범위 초과→ArgumentOutOfRangeException(shutdownTimeoutSeconds), 설정 mutation/Attach host 추가 전. ISceneRoot signatures unchanged.
+- Prepare cancellation wait1회 + 각 reverse Release에 개별 unscaled deadline(60초는 total budget 아님). timeScale0에서도 진행. caller cancellation이 cleanup을 건너뛰지 않음.
+- 자체 deadline만 type+Prepare/Release 이름의 TimeoutException→failures→남은 reverse Release/Uninstall→AggregateException. 원래 preparation 오류는 awaiters 소유로 기존처럼 무시하고 원래 Release 예외 identity 유지. 이미 반환된 결과에 late 오류를 추가하지 않음.
+- Timer는 비협조 작업/동기 main-thread blocking을 중지하지 못함. project hook은 lifetime token/해제된 서비스 사용 방지를 소유. 실제 preparation 종료까지 CTS 유지, 늦은 준비로 다음 installer/IsPrepared가 진행하지 않음.
+- 기존 source calls optional 호환이지만 생략값은60초로 변경. 무제한은 명시적0f. compiled consumer assembly 재빌드·정확한 기존 reflection/delegate signature 재바인딩 필요. [현재 IMP-03 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/imp-03/README.md)와 과거 p4 결과를 구분. Sample external20초는 root timeout/cleanup 증거 아님.
+
+## IMP-03 Evidence
+
+[현재 결과](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/imp-03/README.md): source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, Unity6000.3.18f1/UniTask2.5.11/UTF1.6.0 Windows Mono Editor. root28/28·settings16/16·Edit375/375·Play345/345 fail/skip0. legacy missing→60/explicit0 유지8case. original/corrected Red와 두 승인 정정 분리. 과거 p4 Player와 현재 Editor 검증을 섞지 않음. Current Player/IL2CPP/외부 consumer/UX/CPU/GCbenchmark/late-exception-source추적 NotRun. 2026-10-13 [PR #11](https://github.com/KangSungKyu/TPLab/pull/11) 사용자 수락·병합 승인 완료, 실제 통합은 PR/Git 이력 참조.

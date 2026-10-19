@@ -19,7 +19,11 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 
 씬 전환 진행률, 선택적 로딩 callback과 자동·수동 진행 대기, 그리고 프로젝트 소유 bar·팁·버튼을 연결한 sample UI가 구현됐다. 2026-10-07 사용자가 로딩 UI를 PlayMode로 확인했다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
 
-## 배포 준비
+## 0.0.2 배포 준비
+
+0.0.2는 기존 Core/Input/Editor에 UI, 선택 UI Input System 연동, Netcode를 더한 6개 package 후보를 준비한다. 기존 namespace·assembly·API를 유지하며 Netcode의 사용하지 않는 Core 참조만 제거한다. UI 기본 설치는 Input/NGO를 요구하지 않고 Netcode 기본 설치는 Core/UI/Input을 요구하지 않는다. 의존성·예제 선택과 현재 검증 gate는 [0.0.2 배포 규격](doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate), 실제 실행 기록은 [준비 회고](doc/retrospectives/2026-10-16-08-distribution-002.md)를 따른다. 후보 준비와 정식 태그/Release 발행은 별도 단계다.
+
+## 0.0.1 배포와 검증 이력
 
 첫 [0.0.1 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.1)를 정식 공개했다. 검증한 source는 `de879b9396ddae0523bd3ab86939b679b383dd92`이며 `v0.0.1` 태그가 같은 source를 가리킨다. 패키지 3개, SHA256·설치/검증 안내·생성 기록을 제공한다. 사람/AI API는 각 패키지의 Documentation~에 포함된다. [발행 검증](doc/validation/distribution-release/README.md)에서 실제 태그 설치·공개 첨부물 다운로드와 최종 사용자 확인을 확인할 수 있다. TPLab 자체 구현은 MIT, 제3자는 원문 조건이다. [Core 의존성 분리와 UI 후속 계획](doc/CORE_PLAN.md#다음-버전-계획-2026-10-07) 중 Core 의존성 검토와 UI 배포는 후속 작업이다. UI 소스 개발은 2026-10-15 사용자 결정으로 마감했다. UI source는 `Assets/TPLab/UI`의 개발 범위이며 Core 0.0.1 release package/tag에는 포함되지 않고 별도 UI version도 없다.
 

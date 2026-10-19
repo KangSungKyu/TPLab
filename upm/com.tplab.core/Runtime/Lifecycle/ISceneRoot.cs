@@ -21,6 +21,10 @@ namespace TPLab.Core.Lifecycle
         /// <summary>
         /// Stops preparation, awaits its cooperative completion, releases installers in reverse order,
         /// then uninstalls. Shares shutdown completion and aggregates cleanup failures. This ends the root lifetime.
+        /// Scene-owned and singleton hosts apply their configured unscaled deadline independently to preparation
+        /// cancellation and each release (default 60 seconds; finite zero/negative values wait without a deadline).
+        /// Deadline failures aggregate TimeoutException with installer type and phase while remaining cleanup continues.
+        /// Deadlines cannot interrupt a blocking hook or stop non-cooperative work; late preparation cannot publish readiness.
         /// Call before destroying the root to permit asynchronous release.
         /// </summary>
         UniTask ShutdownAsync();

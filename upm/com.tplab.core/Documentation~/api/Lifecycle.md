@@ -1,6 +1,11 @@
-PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
+PackageVersion: 0.0.2. InstallationValidation: NotRun. Evidence below describes historical source checks, not this package installation.
 
 # Lifecycle API
+유형: 레퍼런스
+현재 상태: `Implemented` / `Partial`
+기준 source: 5fe5bf5a41386409775d836e5b3a50a2f516a787
+갱신일: 2026-10-13
+계약 링크: [계약 원문](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/SCENE_ROOT.md)
 
 씬의 서비스 생성·주입·비동기 준비·종료를 하나의 명시적 root 수명으로 묶는다. `SceneOwnedRoot`는 참조로 접근하고 `SingletonSceneRoot`는 같은 계약에 전역 접근을 추가한다. Singleton 선택과 씬 간 영속화는 독립적이다. 게임 진행·입력·씬 로드는 프로젝트 또는 [SceneManagement](SceneManagement.md)가 담당한다.
 
@@ -8,9 +13,9 @@ PackageVersion: 0.0.1. InstallationValidation: NotRun. Evidence below describes 
 |---|---|
 | Namespace / Assembly | `TPLab.Core.Lifecycle` / `TPLab.Core` |
 | 의존성 | Unity, UniTask 2.5.11. assembly 전체에는 Addressables 참조도 있으므로 [asmdef](../../Runtime/TPLab.Core.asmdef)를 함께 확인한다. |
-| SourceRevision | `3062716f2d494bc61bf515f3fa30b1ee8aada9f0` (별도 배포 버전 미지정) |
+| SourceRevision | `5fe5bf5a41386409775d836e5b3a50a2f516a787` (별도 배포 버전 미지정) |
 | ImplementationStatus / ValidationStatus | `Implemented` / `Partial` |
-| 계약 원문 | [Singleton](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/SINGLETON.md), [root](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/SCENE_ROOT.md), [비동기 준비·해제](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/ASYNC_SCENE_LIFECYCLE.md) |
+| 계약 원문 | [Singleton](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/SINGLETON.md), [root](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/SCENE_ROOT.md), [비동기 준비·해제](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/ASYNC_SCENE_LIFECYCLE.md) |
 | AI 참조 | [Lifecycle](../ai/api/Lifecycle.md) |
 
 이 문서는 현재 소스 선언·XML과 구현을 대조한 사용 안내다. 기존 명세의 과거 단계 표현보다 아래 현재 API 목록을 기준으로 사용한다.
@@ -53,10 +58,11 @@ public bool IsReady { get; }
 public bool IsPrepared { get; }
 public UniTask PrepareAsync(CancellationToken cancellationToken = default);
 public UniTask ShutdownAsync();
-public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes = false);
+public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes = false,
+    float shutdownTimeoutSeconds = 60f);
 ```
 
-`Configure`는 activation/설치 전에 호출한다. `installers=null`은 빈 목록이며 배열은 복사된다. 각 항목은 null이 아니고 중복 없이 해당 root 또는 자식에 속해야 한다. Inspector의 `Installers`와 `Persist Across Scenes`도 같은 구성 책임을 갖는다. 영속화하면 root와 자식이 `DontDestroyOnLoad`로 함께 유지된다. 일반 씬 별 root의 영속화는 사용하는 씬 관리 계약과 함께 결정한다.
+`Configure`는 activation/설치 전에 호출한다. `installers=null`은 빈 목록이며 배열은 복사된다. 각 항목은 null이 아니고 중복 없이 해당 root 또는 자식에 속해야 한다. Inspector의 `Installers`, `Persist Across Scenes`, `Shutdown Timeout Seconds`도 같은 구성 책임을 갖는다. 영속화하면 root와 자식이 `DontDestroyOnLoad`로 함께 유지된다. 일반 씬 별 root의 영속화는 사용하는 씬 관리 계약과 함께 결정한다.
 
 [SceneRootSetup](../../Runtime/Lifecycle/SceneRootSetup.cs)은 기존 GameObject에 host를 추가하며 GameObject를 생성하지 않는다.
 
@@ -64,7 +70,8 @@ public void Configure(SceneRootInstaller[] installers, bool persistAcrossScenes 
 public enum SceneRootMode { SceneOwned, Singleton }
 public static class SceneRootSetup
 public static ISceneRoot Attach(GameObject root, SceneRootMode mode,
-    SceneRootInstaller[] installers = null, bool persistAcrossScenes = false);
+    SceneRootInstaller[] installers = null, bool persistAcrossScenes = false,
+    float shutdownTimeoutSeconds = 60f);
 ```
 
 `root=null`은 `ArgumentNullException`, 씬에 속하지 않거나 parent가 있으면 `ArgumentException`, 잘못된 enum은 `ArgumentOutOfRangeException`이다. 활성 runtime root 또는 기존 host가 있으면 `InvalidOperationException`이며 Attach는 이 입력 검사를 host 추가 전에 수행한다. `Configure`의 늦은 호출도 `InvalidOperationException`이다. installer null/중복/외부 소속은 `ArgumentException`이다. 설치 실패는 Unity lifecycle에서 기록되며 host를 준비 완료로 공개하지 않는다. Singleton 중복은 host 컴포넌트만 제거하며 그 installer를 실행하지 않는다.
@@ -87,7 +94,17 @@ public virtual UniTask ReleaseAsync(ISceneRoot root);
 
 `PrepareAsync` 호출들은 한 시도를 공유하며 여러 대기자를 지원한다. 호출자 token은 그 대기만 취소하고 root의 준비를 취소하지 않는다. 실패 결과도 공유·보존되므로 새 시도로 재구성하려면 새 root를 만든다. 설치 전 준비는 `InvalidOperationException`, 종료 시작/완료 후 준비는 `ObjectDisposedException`, 호출자/준비 수명 취소는 `OperationCanceledException`이다. installer 오류는 준비 대기자에게 전달된다. 준비 실패를 직접 await한 소유자는 별도로 종료해야 한다. 아래 flow는 비취소 준비 실패에 대해 종료를 수행한다.
 
-`ShutdownAsync`는 호출자 token이 없는 공유 완료이며 반복 호출로 정리를 중복 수행하지 않는다. 준비 소유 token을 취소하고 협조적 종료를 기다린다. token을 무시하는 installer는 종료를 지연시킬 수 있다. Release/Uninstall이 실패해도 나머지 정리를 시도하고 `AggregateException`으로 보고한다. 준비 오류는 원래 준비 대기자에게 남으며 shutdown 자체가 그 오류를 재보고하는 계약은 아니다. 설치되지 않은 host의 ShutdownAsync는 즉시 완료다. 강제 파괴 시 늦은 준비가 IsPrepared를 다시 올리지는 않지만, installer 자신의 늦은 작업 보호도 필요하다.
+`ShutdownAsync`는 호출자 token이 없는 공유 완료이며 반복 호출로 정리를 중복 수행하지 않는다. 준비 소유 token을 취소하고 협조적 종료를 기다린다. 준비 취소 대기와 각 Release 대기는 아래 설정의 단계별 시간 제한을 사용한다. Release/Uninstall이 실패해도 나머지 정리를 시도하고 `AggregateException`으로 보고한다. 준비 오류는 원래 준비 대기자에게 남으며 shutdown 자체가 그 오류를 재보고하는 계약은 아니다. 설치되지 않은 host의 ShutdownAsync는 즉시 완료다. 강제 파괴 시 늦은 준비가 IsPrepared를 다시 올리지는 않지만, installer 자신의 늦은 작업 보호도 필요하다.
+
+## 종료 시간 제한
+
+두 host의 `_shutdownTimeoutSeconds` Inspector 초기값과 Configure/Attach의 생략값은 **60초**다. 양수는 TimeSpan으로 표현 가능한 초여야 하며, finite0이하는 이전의 무제한 대기다. NaN·Infinity·표현 불가능한 양수는 `ArgumentOutOfRangeException(shutdownTimeoutSeconds)`으로 설정 변경/host 추가 전에 거부한다. `ISceneRoot` 메서드 목록은 그대로다.
+
+제한은 Prepare 취소 대기와 각 역순 Release에 **따로** 적용한다. timeScale0에서도 흐르는 unscaled 시간을 사용한다. 전체 종료가60초 이내라는 보장은 없으며 동기 Install/Uninstall이나 main thread blocking을 강제 중단하지 않는다. 제한이 끝나도 비협조 hook 자체는 계속될 수 있으므로 installer가 취소 토큰과 해제된 서비스의 수명을 지켜야 한다.
+
+공용 제한 초과는 installer 타입과 Prepare/Release 단계를 포함한 TimeoutException으로 모아 남은 Release/Uninstall을 수행한 뒤 AggregateException으로 전달한다. installer가 원래 던진 preparation 예외는 기존처럼 준비 awaiter 소유이며 원래 Release 예외 identity도 유지한다. 이미 반환한 종료 결과에 이후 오류를 추가하지는 않는다. 늦은 준비는 다음 installer 진행이나 IsPrepared=true를 허용하지 않으며, 준비 owner가 실제로 종료할 때까지 cancellation source의 수명을 유지한다.
+
+이전 무제한 동작이 필요하면 `shutdownTimeoutSeconds: 0f`를 명시한다. 기존 소스 호출은 optional argument 덕분에 컴파일되지만 생략 시 새60초 정책을 사용한다. 정확한 기존 signature를 찾는 reflection/delegate와 미리 컴파일한 소비 어셈블리는 재바인딩·재빌드가 필요하다. 기존 씬/prefab의 누락 field와 명시적0은 [IMP-03 검증](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/imp-03/README.md)에서 구분한다. Sample smoke의 외부20초 한도는 root의60초 제한과 별개다.
 
 ## MonoSingleton 확장
 
@@ -148,7 +165,7 @@ var rootObject = new GameObject("SessionRoot");
 rootObject.SetActive(false);
 var installer = rootObject.AddComponent<MyProjectInstaller>();
 ISceneRoot root = SceneRootSetup.Attach(rootObject, SceneRootMode.SceneOwned,
-    new SceneRootInstaller[] { installer });
+    new SceneRootInstaller[] { installer }, shutdownTimeoutSeconds: 30f);
 rootObject.SetActive(true);
 try
 {
@@ -188,6 +205,10 @@ await flow.ReleaseAndProceedAsync(EnterNextContentAsync, callerToken);
 
 ## 검증과 호환성 한계
 
-[최종 p4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.1/doc/validation/input-system/p4/README.md)는 source `9305b5d...`를 포함한 전체 EditMode 258/258·PlayMode 217/217(실패0·skip0), reload 8/8, Additive/Single sample 및 별도 Core 소비 프로젝트 Windows Mono build/Player를 기록한다. 환경은 Unity 6000.3.18f1, UniTask 2.5.11, Addressables 2.9.1이며 문서 작성 중 새 실행은 0건이다. 전체 테스트 수는 Lifecycle 전용 테스트 수가 아니다.
+[최종 p4 증거](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/input-system/p4/README.md)는 source `9305b5d...`를 포함한 전체 EditMode 258/258·PlayMode 217/217(실패0·skip0), reload 8/8, Additive/Single sample 및 별도 Core 소비 프로젝트 Windows Mono build/Player를 기록한다. 환경은 Unity 6000.3.18f1, UniTask 2.5.11, Addressables 2.9.1이며 당시 문서 작성 중 새 실행은0건이었다. 이 과거 전체 수는 Lifecycle 전용 테스트 수가 아니며 현재 source의 결과는 아래 IMP-03 절을 따른다.
 
 다른 Unity 버전·IL2CPP·다른 플랫폼 및 임의 소비 프로젝트의 서비스 shutdown은 미검증이다. 자동 smoke는 최종 시각·사용성 검증을 대신하지 않는다. 현재 기본 false인 persistence, 동기 Install과 별도 Prepare, 호출자 대기 취소/소유자 종료 분리는 통합 시 유지해야 할 계약이다. 이벤트·JSON/CSV·ID 설정은 이 모듈에 없다.
+
+## IMP-03 현재 검증
+
+Source `5fe5bf5a41386409775d836e5b3a50a2f516a787`, Windows Mono Editor Unity6000.3.18f1/UniTask2.5.11/UTF1.6.0: root28/28·settings16/16, 전체Edit375/375·Play345/345 실패·skip0. 실제 legacy YAML 누락/명시0를 두 host와scene/prefab에서 확인했다. [원문 Red·승인 정정·Green·한계](https://github.com/KangSungKyu/TPLab/blob/v0.0.2/doc/validation/imp-03/README.md). 위 p4 Player는 과거 source의 증거이며 이번 Player/IL2CPP·다른 플랫폼·외부 소비·시각 UX·CPU/GC benchmark는 미검증이다. 문서 사용 발췌는 별도 compile/run하지 않았다. 사용자 수락은 자동 검증과 별도 gate이며 2026-10-13 [PR #11](https://github.com/KangSungKyu/TPLab/pull/11) 병합 승인으로 충족했다. 실제 통합은 PR/Git 이력을 따른다.
