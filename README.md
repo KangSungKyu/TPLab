@@ -15,13 +15,16 @@ Unity 프로젝트에서 재사용하는 공용 코어다. C# 객체·prefab poo
 | [SceneManagement](doc/api/SceneManagement.md) | Bootstrap·Single/Additive·주 씬 교체·중첩 구역·root 조건·진행 표시·선택적 로딩 화면/진행 대기 callback |
 | [Input](doc/api/Input.md) | Input System runtime clone·layer·리바인딩·override JSON |
 | [Editor](doc/api/Editor.md) | CSV/schema importer·설정 asset·씬/root 사전 검사 |
-| [UIContext](doc/api/UI.md) | Source development closed (2026-10-15): HUD/Popup/Canvas, modal input adapter, fixed-height virtual list, settings/root installer; distribution and optional improvements are follow-ups |
+| [UIContext](doc/api/UI.md) | HUD/Popup/Canvas, 선택 Input adapter, 고정 높이 virtual list, settings/root installer; 0.0.2 배포 완료 |
+| [Netcode](doc/api/Netcode.md) | NGO Host/client 세션, 프로젝트 입장 검증기, 전원 준비, 실패·복원·안전 종료 callback |
 
 씬 전환 진행률, 선택적 로딩 callback과 자동·수동 진행 대기, 그리고 프로젝트 소유 bar·팁·버튼을 연결한 sample UI가 구현됐다. 2026-10-07 사용자가 로딩 UI를 PlayMode로 확인했다. [현재 계약](doc/SCENE_LOADING_PRESENTATION_DRAFT.md)과 [API](doc/api/SceneManagement.md)를 따른다.
 
-## 0.0.2 배포 준비
+## 0.0.2 배포
 
-0.0.2는 기존 Core/Input/Editor에 UI, 선택 UI Input System 연동, Netcode를 더한 6개 package 후보를 준비한다. 기존 namespace·assembly·API를 유지하며 Netcode의 사용하지 않는 Core 참조만 제거한다. UI 기본 설치는 Input/NGO를 요구하지 않고 Netcode 기본 설치는 Core/UI/Input을 요구하지 않는다. 의존성·예제 선택과 현재 검증 gate는 [0.0.2 배포 규격](doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate), 실제 실행 기록은 [준비 회고](doc/retrospectives/2026-10-16-08-distribution-002.md)를 따른다. 후보 준비와 정식 태그/Release 발행은 별도 단계다.
+[0.0.2 정식 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.2)를 공개했다. Core/Input/Editor와 UI, 선택 UI Input System 연동, Netcode의 6개 package를 제공한다. 기존 namespace·assembly·API를 유지하며 Netcode의 사용하지 않는 Core 참조만 제거했다. UI 기본 설치는 Input/NGO를 요구하지 않고 Netcode 기본 설치는 Core/UI/Input을 요구하지 않는다.
+
+Git 설치는 `https://github.com/KangSungKyu/TPLab.git?path=/upm/<package-id>#v0.0.2`를 사용한다. 필요한 TPLab·UniTask 공급원을 함께 지정하는 [설치 안내](https://github.com/KangSungKyu/TPLab/releases/download/v0.0.2/INSTALL.md), [선택 의존성](doc/DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate), [발행 기록](doc/retrospectives/2026-10-19-01-distribution-release-002.md)을 따른다. 사람/AI API 문서는 package의 `Documentation~`에 포함된다. 아래 0.0.1 절은 당시 설치·검증 이력이다.
 
 ## 0.0.1 배포와 검증 이력
 
@@ -97,7 +100,7 @@ P1/P2 및 P3 targeted UI 검증은 당시 단계별 결과로 보존되어 있�
 
 ## Netcode 개발 상태
 
-Netcode는 별도 [개발 source API](doc/api/Netcode.md)로 Host/client 세션·입장 검증기·전원 준비·종료/복원 callback을 제공한다. 프로젝트가 NetworkManager 설정과 증명·로비·UI를 소유하고 payload/시간 상한을 명시한다. [P4 다중 프로세스 검증](doc/retrospectives/2026-10-16-04-netcode-p4-multiprocess.md)은 Windows Mono loopback 범위에서 수행했다. [P5 고정 씬 예제](Assets/TPLab/Samples/Netcode/README.md)는 최초 자동 검증과 2026-10-16 사용자 수락을 완료했다. 사용자는 검토 보완 재검증 후 PR #40 병합을 승인했으며 통합 결과는 PR #40에서 확인한다. 실행 조건·한계는 [P5 회고](doc/retrospectives/2026-10-16-05-netcode-p5-sample.md)를 따른다. UPM 배포는 후속이며 0.0.1 패키지에는 포함되지 않는다.
+Netcode는 별도 [개발 source API](doc/api/Netcode.md)로 Host/client 세션·입장 검증기·전원 준비·종료/복원 callback을 제공한다. 프로젝트가 NetworkManager 설정과 증명·로비·UI를 소유하고 payload/시간 상한을 명시한다. [P4 다중 프로세스 검증](doc/retrospectives/2026-10-16-04-netcode-p4-multiprocess.md)은 Windows Mono loopback 범위에서 수행했다. [P5 고정 씬 예제](Assets/TPLab/Samples/Netcode/README.md)는 최초 자동 검증과 2026-10-16 사용자 수락을 완료했다. 사용자는 검토 보완 재검증 후 PR #40 병합을 승인했으며 통합 결과는 PR #40에서 확인한다. 실행 조건·한계는 [P5 회고](doc/retrospectives/2026-10-16-05-netcode-p5-sample.md)를 따른다. 0.0.2에서 `com.tplab.netcode`로 배포했으며 0.0.1 패키지에는 포함되지 않는다.
 
 ## 라이선스
 

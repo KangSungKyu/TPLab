@@ -1,8 +1,8 @@
 # TPLab 배포 규격과 dev-build track
 유형: 가이드
-현재 상태: 0.0.2 자동 검증 완료·설치본 사용자 수락 대기; 0.0.1 발행 완료
-기준 source: 0.0.2 준비 기준 dee0b7dc677cf86bbdc8d9ddf4f6e880adcc9e64; 0.0.1 de879b9396ddae0523bd3ab86939b679b383dd92
-갱신일: 2026-10-16
+현재 상태: 0.0.2 설치본 사용자 수락·정식 발행 완료; 0.0.1 이력 보존
+기준 source: 0.0.2 bf2721ec50a1029531c4e17b2c307a483a5f6e30; 0.0.1 de879b9396ddae0523bd3ab86939b679b383dd92
+갱신일: 2026-10-19
 계약 링크: 본 문서
 
 ## 0.0.2 배포 범위와 gate
@@ -31,7 +31,7 @@ Git URL과 tarball은 같은 exact source에서 생성한다. 소비 프로젝�
 | 실행·수락 | 기존 Editor 전체 회귀, 실제 설치본의 필요한 Player/예제 실행·실패/정리 경로, 사용자 수락을 구분 |
 | 최종 발행 | 위 gate와 사용자 main 병합 승인 이후 검증 source의 v0.0.2 tag·Release·첨부물 검증; v0.0.1 변경 없음 |
 
-현재 작업의 실행 결과·실패·미실행·검토 상태는 [0.0.2 회고](retrospectives/2026-10-16-08-distribution-002.md)에만 모은다. 설치/컴파일 성공은 Player·샘플 실행이나 최종 발행 성공을 뜻하지 않는다.
+후보의 실행 결과·실패·미실행은 [준비 회고](retrospectives/2026-10-16-08-distribution-002.md), 이후 사용자 수락·태그 설치·공개 첨부물 검증은 [발행 회고](retrospectives/2026-10-19-01-distribution-release-002.md)에 둔다. [0.0.2 Release](https://github.com/KangSungKyu/TPLab/releases/tag/v0.0.2)는 2026-10-19 공개했다. 설치/컴파일, Player·샘플 실행, 사용자 수락과 발행 검증을 구분한다.
 
 ### 0.0.2 최종 사용자 확인
 
@@ -42,7 +42,7 @@ Git URL과 tarball은 같은 exact source에서 생성한다. 소비 프로젝�
 3. Netcode 예제는 실제 import된 `Scenes/NetcodeSessionSample.unity`를 사용한다. Host와 두 Client에서 전원 준비 전 gameplay 차단, 준비 실패/이탈 사유, 복원 실패의 보호 상태, Retry Restore, 안전 종료를 확인한다. 원격 인증이나 공유 씬 전환 지원을 뜻하지 않는다.
 4. 기존 Core pooling/Input 씬 전환 예제와 Editor importer는 선택 설치에 맞게 확인한다. 종료 뒤 본인 프로젝트의 씬/입력/Build Settings가 의도대로 남는지 확인한다.
 
-최종 확인과 명시적 병합 승인 뒤에만 main 통합·v0.0.2 태그·Release를 진행한다. 현재 source 수락 기록을 새로운 설치본의 사용자 확인으로 자동 승계하지 않는다.
+2026-10-19 사용자가 “설치본 확인 완료, 배포 진행”으로 최종 수락과 발행을 승인했다. PR #43 main 통합 후 검증 source의 v0.0.2 태그·Release 발행을 완료했다. 위 확인 항목은 향후 소비 프로젝트 확인에도 사용하며 과거 source 수락을 새 설치본 수락으로 자동 승계하지 않는다.
 
 ## 0.0.1 발행과 설계 이력
 

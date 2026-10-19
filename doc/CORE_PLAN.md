@@ -2,7 +2,7 @@
 유형: 결정 기록
 현재 상태: 사용자 지정 목표·작업 원칙은 확정이다.
 기준 source: 미표기(본문 근거 링크 참조)
-갱신일: 2026-10-15
+갱신일: 2026-10-19
 계약 링크: 본문 참조
 
 작성일: 2026-10-02. 사용자 지정 목표·작업 원칙은 확정이다. ObjectPool은 [제네릭 계약](GENERIC_POOL.md)과 [프리팹 어댑터 계약](OBJECT_POOL.md), Singleton은 [수명 계약](SINGLETON.md), 씬 루트의 소유 방식·참조 주입은 [SceneRoot 계약](SCENE_ROOT.md)으로 확정했다. 나머지 시스템의 구현·이식 방향은 검토 제안이다.
@@ -147,7 +147,7 @@ Text/Resource 구체 DTO·테이블은 [예시 템플릿](templates/data-tables/
 
 GameUISystem 검토에서 채택한 명칭은 `UIContext`이며 현재 `Assets/TPLab/UI`에 구현했다. root별 HUD·modal/modeless Popup·parent/depth·Canvas host·선택 native Input adapter·고정 높이 세로 Virtual ScrollRect·settings/installer를 제공한다. UI prefab·레이아웃·데이터 통신·게임 연출은 프로젝트 소유다. 기존 Core/Input/씬 callback과0.0.1 배포 사본은 보존했다.
 
-P7 자동 검증은 완료했다: 원본 source99df25d에서 Edit318/318·Play306/306, 최종 consumer source8310a94에서 Single/Additive 각4 graphics Players 통과. 두 source의 원본 Assets/Packages/ProjectVersion 테스트 입력은 같고 최종 Tools sample 종료 fixture만 다르다. 대규모 성능과 경계는 [P7 증거](validation/ui-system/p7/README.md)·[성능 보고서](UI_PERFORMANCE.md)를 따른다. 전체 [UI 사용자 수락](UI_ACCEPTANCE.md)과 main 통합은 2026-10-12 완료됐다([통합 기록](retrospectives/2026-10-12-03-ui-main-integration.md)). 위 수치는 당시 source의 기록이며 이후 소스 검증을 대신하지 않는다. UI 패키지 배포와 Core 외부 의존성 재편은 별도 후속이다. 아래는 단계별 당시 결정 기록이다.
+P7 자동 검증은 완료했다: 원본 source99df25d에서 Edit318/318·Play306/306, 최종 consumer source8310a94에서 Single/Additive 각4 graphics Players 통과. 두 source의 원본 Assets/Packages/ProjectVersion 테스트 입력은 같고 최종 Tools sample 종료 fixture만 다르다. 대규모 성능과 경계는 [P7 증거](validation/ui-system/p7/README.md)·[성능 보고서](UI_PERFORMANCE.md)를 따른다. 전체 [UI 사용자 수락](UI_ACCEPTANCE.md)과 main 통합은 2026-10-12 완료됐다([통합 기록](retrospectives/2026-10-12-03-ui-main-integration.md)). 위 수치는 당시 source의 기록이며 이후 소스 검증을 대신하지 않는다. 당시 UI 패키지 배포와 Core 외부 의존성 재편은 별도 후속이었다. UI 배포는 아래 후속 표의 0.0.2 기록을 따르고 Core 기능별 분리는 후속으로 유지한다. 아래는 단계별 당시 결정 기록이다.
 
 ### UI 소스 개발 마감과 후속 작업 (2026-10-15)
 
@@ -155,7 +155,7 @@ P7 자동 검증은 완료했다: 원본 source99df25d에서 Edit318/318·Play30
 
 | 후속 항목 | 상태와 시작 조건 |
 |---|---|
-| UI 정식 배포 | 나중에 진행한다. package 경계·버전, 배포 도구 매핑·검토 후 upm 재생성, 실제 Git URL/tarball 소비·Player 검증과 릴리스 기록은 별도 사용자 범위 결정 뒤 수행한다. 현재 0.0.1 UI 미포함 상태는 유지한다. |
+| UI 정식 배포 | 2026-10-19 완료. 사용자 선택에 따라 기존 Core 구조를 유지하고 UI 기본·선택 Input 연동·Netcode를 0.0.2에 추가했다. [발행 기록](retrospectives/2026-10-19-01-distribution-release-002.md) 참조. 0.0.1의 UI 미포함 이력과 아래 선택 개선 항목은 유지한다. |
 | 추가 안전망 | Input adapter의 Bind/재연결/정리, VirtualScroll 재설정/실패 정리, Presentation 부분 실패 등 기존 조사 후보는 선택 사항이다. 새 결함이 확인되거나 관련 변경이 필요할 때 별도 범위를 정한다. |
 | UI 할당 조사·최적화 | [IMP-13](IMPROVEMENT_BACKLOG.md#imp-13-ui-구조할당테스트-점검)은 제안 상태로 남긴다. 백로그의 IMP-12 선행 결정과 읽기 전용 조사 우선 절차를 유지하며 자동 실행하지 않는다. |
 | 플랫폼·성능 범위 확대 | Player/IL2CPP·다른 기기/해상도·장시간 안정성·overdraw/batch 원인 분석은 필요할 때 별도 검증한다. 기존 Windows Mono/source별 결과를 확장 보장으로 쓰지 않는다. |
