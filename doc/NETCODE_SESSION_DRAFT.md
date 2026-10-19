@@ -1,13 +1,13 @@
 # Netcode 세션 wrapper 계약과 개발 상태
 유형: 레퍼런스
-현재 상태: P5 사용자 수락 완료(2026-10-16); 검토 보완 재검증 후 PR #40 병합 승인; UPM 후속
-기준 source: wrapper main 3a4216b90e6f6b21a26c186661bf3dbce4221e6e; P5 최초 예제 검증 67b4612becaec08c91dfd541070b5ca4f7e039a1; 검토 보완 source는 P5 회고 참조; NGO 2.13.3 / Unity Transport 2.7.3
-갱신일: 2026-10-16
+현재 상태: P5 사용자 수락·main 통합 완료; UI·Netcode 0.0.2 정식 배포 완료(2026-10-19)
+기준 source: wrapper main 3a4216b90e6f6b21a26c186661bf3dbce4221e6e; P5 최초 예제 검증 67b4612becaec08c91dfd541070b5ca4f7e039a1; 검토 보완 source는 P5 회고 참조; NGO 2.13.3 / Unity Transport 2.7.3; 0.0.2 bf2721ec50a1029531c4e17b2c307a483a5f6e30
+갱신일: 2026-10-19
 계약 링크: 본 문서
 
 ## 0. 사실 확인과 근거 범위
 
-[현행] PR #34의 P0 초안과 PR #35의 D-N1~D-N8 기록에 2026-10-16 사용자 결정 S1·S2·S4 및 S3 결정 시점, D-N8의 true 기본 권장·false 프로젝트 선택 방향을 반영했다. 2026-10-16에 PR #36 병합과 P2 프로토콜 구현, 개발 assembly2개 추가가 승인됐다. 이후 PR #37 병합과 P3 NGO 어댑터·callback 구현이 승인됐다. 현재 구현은 아래 P3 절에 둔다. PR #38 병합 후 P4를 별도 Windows Mono Player에서 검증했다. P5 예제의 최초 자동 검증·사용자 수락 완료와 검토 보완 재검증은 아래 P5 절에 구분하며 UPM 배포는 후속이다. 아래 0절의 설치·dirty 조사는 PR #35 당시 기록이다. P1 실행 상태와 한계는 [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md)에 구분한다. P3에서 구현한 public API와 프로젝트 필수 입력은 [현행]으로 구분하고 미구현 대안·운영 값은 [제안]/미확인으로 남긴다.
+[현행] PR #34의 P0 초안과 PR #35의 D-N1~D-N8 기록에 2026-10-16 사용자 결정 S1·S2·S4 및 S3 결정 시점, D-N8의 true 기본 권장·false 프로젝트 선택 방향을 반영했다. 2026-10-16에 PR #36 병합과 P2 프로토콜 구현, 개발 assembly2개 추가가 승인됐다. 이후 PR #37 병합과 P3 NGO 어댑터·callback 구현이 승인됐다. 현재 구현은 아래 P3 절에 둔다. PR #38 병합 후 P4를 별도 Windows Mono Player에서 검증했다. P5 예제의 최초 자동 검증·사용자 수락 완료와 검토 보완 재검증은 아래 P5 절에 구분한다. PR #40 통합 이후 UPM 배포는 0.0.2로 완료했으며 C절을 따른다. 아래 0절의 설치·dirty 조사는 PR #35 당시 기록이다. P1 실행 상태와 한계는 [P1 회고](retrospectives/2026-10-16-01-netcode-p1-verification.md)에 구분한다. P3에서 구현한 public API와 프로젝트 필수 입력은 [현행]으로 구분하고 미구현 대안·운영 값은 [제안]/미확인으로 남긴다.
 
 | 상태 | 확인 대상 | 읽어서 확인한 사실·한계 |
 |---|---|---|
@@ -278,11 +278,11 @@
 
 ## C. 패키지·배포 연결과 의존성 반영
 
-[현행] 0.0.1은 Core/Input/Editor 3개 package를 발행했다. 2026-10-16 사용자는 기존 구조 유지와 UI·Netcode 추가를 선택했고, 0.0.2는 UI 기본/선택 Input 연동/Netcode를 더한 6개 package를 준비한다. Netcode의 사용되지 않는 Core assembly 참조만 제거하며 public 계약은 유지한다. [배포 규격](DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)의 설치·Player·수락·발행 gate는 별도 확인 대상이다. [UI 소스 마감](retrospectives/2026-10-15-07-ui-source-close.md)의 과거 검증을 새 package 통과로 해석하지 않는다.
+[현행] 0.0.1은 Core/Input/Editor 3개 package를 발행했다. 2026-10-16 사용자 선택에 따라 기존 구조를 유지하고 UI 기본/선택 Input 연동/Netcode를 더한 6개 package를 2026-10-19에 0.0.2로 발행했다. Netcode의 사용되지 않는 Core assembly 참조만 제거했고 public 계약은 유지했다. [배포 규격](DISTRIBUTION_PIPELINE.md#002-배포-범위와-gate)과 [발행 기록](retrospectives/2026-10-19-01-distribution-release-002.md)에서 설치·Player·수락·발행 검증을 구분한다.
 
-- [현행] 개발 assembly는 `TPLab.Netcode`다. [제안] `com.tplab.netcode` UPM 분리는 후속 배포 후보다. 업무 모듈 의존은 Core와 NGO에 한정하고 UI/Input에 NGO 의존을 넣지 않는다. 프로젝트가 설정한 NetworkManager/NetworkTransport를 받아 UTP 설정을 공용 wrapper가 반드시 소유하도록 강제하지 않는다.
-- [현행] P3 Runtime asmdef는 TPLab.Core·Unity.Netcode.Runtime·UniTask·Unity.Collections를 직접 참조한다. UniTask/Collections와 PlayMode 테스트 assembly는 사용자 별도 승인 후 추가했다. UI/Input 역참조는 없다. UnityTransport 클래스 자체는 NGO Runtime 소속이며 Unity.Networking.Transport API 직접 참조와 구분한다. **미확인:** 최종 UPM 패키지 경계·배포 의존성 표. D-N3에 따라 P5 이후 결정한다.
-- [제안] 릴리스 시 package.json의 Core·NGO·필요한 UniTask/직접 UTP 버전, 제3자 고지, 문서 projection, 소비 프로젝트 manifest와 lock을 확인해야 한다. 개발 package 설치 검증이 artifact 설치 검증을 대신하지 않는다.
+- [현행] 개발 assembly는 `TPLab.Netcode`, 0.0.2 배포 package는 `com.tplab.netcode`다. 필수 package 의존성은 NGO 2.13.3·UniTask 2.5.11·Collections 2.6.6이며 Core/UI/Input 의존은 없다. UI/Input에 NGO 의존을 넣지 않는다. 프로젝트가 설정한 NetworkManager/NetworkTransport를 받아 UTP 설정을 공용 wrapper가 반드시 소유하도록 강제하지 않는다.
+- [현행] P3 당시 Runtime asmdef는 TPLab.Core·Unity.Netcode.Runtime·UniTask·Unity.Collections를 직접 참조했다. 0.0.2에서는 미사용 TPLab.Core 참조만 제거했다. UniTask/Collections와 PlayMode 테스트 assembly는 사용자 별도 승인 후 추가한 이력을 유지한다. UI/Input 역참조는 없다. UnityTransport 클래스 자체는 NGO Runtime 소속이며 Unity.Networking.Transport API 직접 참조와 구분한다. Transport는 NGO의 간접 의존성이며 소비 lock에서 2.7.3을 확인했다.
+- [현행] 0.0.2 package.json 의존성·제3자 고지·사람/AI 문서 projection·소비 manifest/lock과 실제 Git/tarball 설치를 확인했다. 선택 Netcode 예제는 Input System·uGUI를 추가로 사용한다. 개발 package 설치 검증과 실제 artifact 설치 검증은 구분한다.
 - [제안] D-N3/D-N6을 적용한 진행 세부: **P0 결정 반영 → 검토한 NGO 개발 의존성 입력의 별도 승인·반영 → P1 → P2 → P3 → P4 → P5 → 맨 마지막에 UI와 함께 UPM 패키지·배포**다. 순서의 방향은 D-N3로 정해졌으며 세부 gate는 아래 표의 제안이다. P1~P5를 끝내기 전 TPLab 배포 패키지 구성·버전·packager 작업은 하지 않는다. 개발용 NGO 의존성 반영과 소스 assembly 검증을 UPM 배포물 구성으로 혼동하지 않는다. `build_distribution.py`/tests/upm 변경은 마지막 릴리스 작업의 별도 범위다.
 - [현행] D-N6의 개발 의존성 단위는 사용자 2026-10-16 승인에 따라 검토한 manifest/lock 항목만 반영한다. PR #35에서는 이 입력을 변경하지 않았다. 설치본의 transitive 선언·실제 해석 버전과 package 원문 고지는 P1 회고에서 구분하며, 나머지 dirty를 커밋하지 않는다.
 
@@ -330,13 +330,13 @@
 | [현행] P2 프로토콜 | internal 순수 server/client 전이, 명단·attempt·Ready·단일 start/abort·deadline/최초 실패 | NGO 객체 없는 EditMode Red→Green; [P2 계약](#p2-내부-프로토콜-구현)과 회고의 검증/미실행 참조. wire encoding·실제 adapter/복원은 P3 |
 | [현행] P3 어댑터·callback | NetworkSessionContext/SessionStartCoordinator, NGO sender mapping·준비/복원 callback·owner 수명·stop 관찰 | [P3 계약](#p3-ngo-어댑터와-callback-구현)·[회고](retrospectives/2026-10-16-03-netcode-p3-adapter.md)의 실행 범위 참조. 같은 Editor 관찰이며 P4 다중 프로세스 결과와 P5 예제 상태는 다음 행에서 구분 |
 | [현행] P4 다중 peer | 별도 Windows Mono Host+2 clients, true Single/Additive 및 false; 준비·입장 거부·잘못된 제어 메시지·이탈·손실·복원 실패 관찰 | [P4 실행 범위](#p4-다중-프로세스-검증)와 [회고](retrospectives/2026-10-16-04-netcode-p4-multiprocess.md). 각 peer 시작 적용 횟수·세대 거부·실패 전달을 확인; raw Start 송신 횟수는 직접 계측하지 않음. 실제 인증·모든 실패 조합·다른 플랫폼은 미검증 |
-| [현행] P5 사용자 수락 완료·검토 보완 재검증/통합 대기 | 고정 씬·프로젝트 로비/보호 화면 callback 예제, 사람/AI API·XML | [예제 사용법](../Assets/TPLab/Samples/Netcode/README.md)·[P5 검증/한계](retrospectives/2026-10-16-05-netcode-p5-sample.md). 2026-10-16 사용자 직접 확인 완료, 검토 보완 재검증 후 PR #40 병합 승인. 실제 통합은 대기. 공유 씬 전환/Relay·인증 provider/팀 매칭은 후속; UPM 패키지·배포는 P1~P5 뒤 UI와 함께 맨 마지막(D-N3) |
+| [현행] P5 사용자 수락·검토 보완 재검증·main 통합 완료 | 고정 씬·프로젝트 로비/보호 화면 callback 예제, 사람/AI API·XML | [예제 사용법](../Assets/TPLab/Samples/Netcode/README.md)·[P5 검증/한계](retrospectives/2026-10-16-05-netcode-p5-sample.md). 2026-10-16 사용자 직접 확인 완료, 검토 보완 재검증 후 PR #40 병합 승인. PR #40으로 main 통합 완료. 공유 씬 전환/Relay·인증 provider/팀 매칭은 후속; UPM은 P1~P5 뒤 UI와 함께 0.0.2로 발행(D-N3) |
 
 [현행] 테스트 실행·동결·fixture/SetUp/TearDown 실패 구분은 [05 테스트](guidelines/05-testing.md#특성화-안전망과-fixture-정리의-현행-교훈), API 변경/절차는 [08 위험 등급](guidelines/08-change-procedure.md#위험-등급과-공통-항목)을 따른다. PR #34의 P0 문서 작성 당시에는 P1–P5 테스트를 실행하지 않았으며, 이후 P1 실행 결과는 위 표와 P1 회고에 별도로 기록한다.
 
 ## 미확인 항목과 사용자 결정
 
-미확인 목록: (U1) IL2CPP·다른 플랫폼, (U2) P4 행렬 밖의 실패 조합·실제 sender ID 자체 위조·악의적 유효 참가자의 거짓 Ready·raw Start 송신 횟수, (U3) 프로젝트의 실제 검증기·발급/인증 기반·별도 사유 채널, (U4) 프로젝트별 실제 envelope 상한과 보안 구성(S3 필수 입력), (U5) 최종 UPM 경계·의존성·소비 설치, (U6) 실제 프로젝트 복원 callback의 멱등성/부분 실패, (U7) 프로젝트 준비/종료/복원 budget 값, (U8) 모든 비정상 native 시작/종료의 복구 범위, (U9) 실제 프로젝트 초기 Single/Additive 선택과 GameSceneManager inventory/소유권 통합이다. P1 native Player, P3 동일 Editor 개발 검증, P4 Windows Mono loopback wrapper 관찰은 서로 다른 증거다. public API와 SessionId/AttemptId 복원 key는 P3에 구현됐지만 프로젝트 동작까지 검증한 것은 아니다.
+미확인 목록: (U1) IL2CPP·다른 플랫폼, (U2) P4 행렬 밖의 실패 조합·실제 sender ID 자체 위조·악의적 유효 참가자의 거짓 Ready·raw Start 송신 횟수, (U3) 프로젝트의 실제 검증기·발급/인증 기반·별도 사유 채널, (U4) 프로젝트별 실제 envelope 상한과 보안 구성(S3 필수 입력), (U5) 당시 미확인이던 UPM 경계·의존성·소비 설치는 0.0.2에서 확인(C절), (U6) 실제 프로젝트 복원 callback의 멱등성/부분 실패, (U7) 프로젝트 준비/종료/복원 budget 값, (U8) 모든 비정상 native 시작/종료의 복구 범위, (U9) 실제 프로젝트 초기 Single/Additive 선택과 GameSceneManager inventory/소유권 통합이다. P1 native Player, P3 동일 Editor 개발 검증, P4 Windows Mono loopback wrapper 관찰은 서로 다른 증거다. public API와 SessionId/AttemptId 복원 key는 P3에 구현됐지만 프로젝트 동작까지 검증한 것은 아니다.
 
 ### 사용자 결정 D-N1~D-N8
 
@@ -351,4 +351,4 @@
 | D-N7 [결정됨] 준비 메시지 방향 | Named message 후보로 진행 | P3에서 실제 sender 검증·등록/해지와 public wrapper를 구현. 다중 프로세스 실패 전파의 실제 관찰 범위는 P4 회고. 근거: 사용자 결정 2026-10-15 |
 | D-N8 [결정됨] 초기 동기화 정책·검증 방향 | `EnableSceneManagement=true` 기본 권장, `false`는 프로젝트 선택과 씬 동기화 책임 아래 허용; true P1 추가 검증 | 2026-10-15의 false 후보 검증 방향을 2026-10-16 사용자 결정으로 갱신. 종전 false 관찰은 역사적 조건으로 보존한다. GameSceneManager 역할 분리·1차 미확장, 같은 씬 이중 소유 금지; inventory/소유권 이관과 공유 씬 통합은 후속. native true와 P4 wrapper의 별도 Windows Mono Player 관찰 완료; 실제 프로젝트 root·GameSceneManager 통합은 후속 |
 
-[현행] [S1~S4](#b8-p0-이후-하위-결정과-남은-값)를 반영한 P3 개발 API가 구현됐다. S3는 프로젝트 필수 입력/기본값 없음이며 준비·정리·복원 시간 값도 프로젝트가 명시한다. P4의 실행 범위와 한계는 P4 회고에 둔다. P5 예제의 최초 자동 검증·사용자 수락 완료와 검토 보완 재검증 상태는 [P5 회고](retrospectives/2026-10-16-05-netcode-p5-sample.md)를 따르며 마지막 UPM 배포는 후속이다. 단계별 실행 결과·중단/정정 이력·미실행은 각 단계 회고를 따른다.
+[현행] [S1~S4](#b8-p0-이후-하위-결정과-남은-값)를 반영한 P3 개발 API가 구현됐다. S3는 프로젝트 필수 입력/기본값 없음이며 준비·정리·복원 시간 값도 프로젝트가 명시한다. P4의 실행 범위와 한계는 P4 회고에 둔다. P5 예제의 최초 자동 검증·사용자 수락 완료와 검토 보완 재검증 상태는 [P5 회고](retrospectives/2026-10-16-05-netcode-p5-sample.md)를 따른다. 마지막 UPM 배포는 0.0.2로 완료했다(C절). 단계별 실행 결과·중단/정정 이력·미실행은 각 단계 회고를 따른다.
